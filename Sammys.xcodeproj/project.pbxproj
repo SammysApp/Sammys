@@ -12,6 +12,11 @@
 		5B6A06811FFD509A00BAC480 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* Main.storyboard */; };
 		5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06821FFD509A00BAC480 /* Assets.xcassets */; };
 		5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */; };
+		5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
+		5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068F1FFD534C00BAC480 /* Vegetable.swift */; };
+		5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06911FFD53C700BAC480 /* Extra.swift */; };
+		5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06931FFD543300BAC480 /* Lettuce.swift */; };
+		5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06951FFD54B500BAC480 /* Salad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		5B6A06821FFD509A00BAC480 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B6A06851FFD509A00BAC480 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B6A06871FFD509A00BAC480 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B6A068D1FFD52A000BAC480 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		5B6A068F1FFD534C00BAC480 /* Vegetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vegetable.swift; sourceTree = "<group>"; };
+		5B6A06911FFD53C700BAC480 /* Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extra.swift; sourceTree = "<group>"; };
+		5B6A06931FFD543300BAC480 /* Lettuce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lettuce.swift; sourceTree = "<group>"; };
+		5B6A06951FFD54B500BAC480 /* Salad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
+				5B6A06951FFD54B500BAC480 /* Salad.swift */,
+				5B6A068D1FFD52A000BAC480 /* Size.swift */,
+				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
+				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
+				5B6A06911FFD53C700BAC480 /* Extra.swift */,
 				5B6A067D1FFD509A00BAC480 /* ViewController.swift */,
 				5B6A067F1FFD509A00BAC480 /* Main.storyboard */,
 				5B6A06821FFD509A00BAC480 /* Assets.xcassets */,
@@ -136,7 +151,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
 				5B6A067E1FFD509A00BAC480 /* ViewController.swift in Sources */,
+				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
+				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
+				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
+				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
