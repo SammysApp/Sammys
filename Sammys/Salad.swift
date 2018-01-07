@@ -10,7 +10,7 @@ import Foundation
 
 class Salad {
     var size: Size?
-    var lettuce: Lettuce?
+    var lettuce: [Lettuce] = []
     var vegetables: [Vegetable] = []
     var extras: [Extra] = []
 }

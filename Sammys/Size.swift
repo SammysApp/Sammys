@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct Size: Decodable {
+struct Size: Decodable, Equatable {
     let name: String
     let price: Double
+    
+    static func ==(lhs: Size, rhs: Size) -> Bool {
+        return lhs.name == rhs.name
+    }
 }

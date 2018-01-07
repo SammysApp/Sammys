@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct Vegetable: Decodable {
+struct Vegetable: Decodable, Equatable {
     let name: String
     let description: String
+    
+    static func ==(lhs: Vegetable, rhs: Vegetable) -> Bool {
+        return lhs.name == rhs.name
+    }
 }

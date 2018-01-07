@@ -18,6 +18,7 @@ class ItemsViewController: UIViewController {
             setup(for: currentChoice)
         }
     }
+    var hasSelectedOnce = false
     
     var currentChoice: Choice {
         return choices[currentChoiceIndex]
@@ -32,7 +33,9 @@ class ItemsViewController: UIViewController {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
+    let green = UIColor(named: "Green")
     var tableViewIsShowing = false
     var tableViewConstraints: [NSLayoutConstraint] = []
     
@@ -74,10 +77,31 @@ class ItemsViewController: UIViewController {
             priceLabel.isHidden = true
             itemLabel.text = items.salad.vegetables[currentIndex].name
         }
+        
+        if choice == choices.first {
+            backButton.isHidden = true
+            if hasSelectedOnce {
+                nextButton.isHidden = false
+            }
+        } else if choice == choices.last {
+            backButton.isHidden = false
+            nextButton.isHidden = true
+        } else {
+            backButton.isHidden = false
+            nextButton.isHidden = false
+        }
     }
     
     func didSelect(at indexPath: IndexPath) {
-        nextButton.isHidden = false
+        hasSelectedOnce = true
+        setup(for: currentChoice)
+    }
+    
+    func handleNewChoice() {
+        setup(for: choices[currentChoiceIndex])
+        collectionView.reloadData()
+        tableView.reloadData()
+        collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
     }
     
     // MARK: IBActions
@@ -101,11 +125,18 @@ class ItemsViewController: UIViewController {
     }
     
     @IBAction func next(_ sender: UIButton) {
-        nextButton.isHidden = true
-        currentChoiceIndex += 1
-        setup(for: choices[currentChoiceIndex])
-        collectionView.reloadData()
-        tableView.reloadData()
+        if currentChoiceIndex < choices.count - 1 {
+            currentChoiceIndex += 1
+            nextButton.isHidden = true
+            handleNewChoice()
+        }
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        if currentChoiceIndex > 0 {
+            currentChoiceIndex -= 1
+            handleNewChoice()
+        }
     }
 }
 
@@ -131,7 +162,32 @@ extension ItemsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath)
+        
+        cell.backgroundColor = .green
+        cell.layer.borderColor = green?.cgColor
+        cell.layer.borderWidth = 0
         cell.layer.cornerRadius = 20
+        switch currentChoice {
+        case .size:
+            let size = items.salad.sizes[indexPath.row]
+            if size == salad.size {
+                cell.backgroundColor = .white
+                cell.layer.borderWidth = 5
+            }
+        case .lettuce:
+            let lettuce = items.salad.lettuce[indexPath.row]
+            if salad.lettuce.contains(lettuce) {
+                cell.backgroundColor = .white
+                cell.layer.borderWidth = 5
+            }
+        case .vegetables:
+            let vegetable = items.salad.vegetables[indexPath.row]
+            if salad.vegetables.contains(vegetable) {
+                cell.backgroundColor = .white
+                cell.layer.borderWidth = 5
+            }
+        }
+        
         return cell
     }
 }
@@ -142,7 +198,7 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfItems
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,12 +210,25 @@ extension ItemsViewController: UITableViewDataSource {
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didSelect(at: indexPath)
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            let borderColor = cell.backgroundColor!
-            cell.backgroundColor = .white
-            cell.layer.borderColor = borderColor.cgColor
-            cell.layer.borderWidth = 5
+        switch currentChoice {
+        case .size:
+            salad.size = items.salad.sizes[indexPath.row]
+        case .lettuce:
+            let lettuce = items.salad.lettuce[indexPath.row]
+            if salad.lettuce.contains(lettuce) {
+                salad.lettuce.remove(lettuce)
+            } else {
+                salad.lettuce.append(lettuce)
+            }
+        case .vegetables:
+            let vegetable = items.salad.vegetables[indexPath.row]
+            if salad.vegetables.contains(vegetable) {
+                salad.vegetables.remove(vegetable)
+            } else {
+                salad.vegetables.append(vegetable)
+            }
         }
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -181,5 +250,13 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let centerPoint = view.convert(view.center, to: collectionView)
         currentIndex = collectionView.indexPathForItem(at: centerPoint)!.row
+    }
+}
+
+// MARK: - Extensions
+
+extension Array where Element: Equatable {
+    mutating func remove(_ element: Element) {
+        self = self.filter { $0 != element }
     }
 }
