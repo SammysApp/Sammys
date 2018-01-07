@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vegetable {
+struct Vegetable: Decodable {
     let name: String
     let description: String
 }

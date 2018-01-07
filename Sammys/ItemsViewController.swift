@@ -9,23 +9,36 @@
 import UIKit
 
 class ItemsViewController: UIViewController {
+    let items: Items! = ItemsDataStore.shared.items
+    let salad = Salad()
+    let choices: [Choice] = [.size, .lettuce, .vegetables]
+    var currentChoiceIndex = 0
     var currentIndex = 0 {
         didSet {
-            itemLabel?.text = items[currentIndex]
+            setup(for: currentChoice)
         }
     }
-    let items = ["Avocado", "Beets", "Cucumber", "Eggs", "Garlic"]
     
-    // MARK: - IBOutlets & View Properties
+    var currentChoice: Choice {
+        return choices[currentChoiceIndex]
+    }
+    
+    // MARK: IBOutlets & View Properties
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var itemsLabel: UILabel!
     @IBOutlet weak var itemStackView: UIStackView!
     @IBOutlet weak var itemLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var nextButton: UIButton!
     
     var tableViewIsShowing = false
     var tableViewConstraints: [NSLayoutConstraint] = []
+    
+    enum Choice: String {
+        case size = "Size", lettuce = "Lettuce", vegetables = "Vegetables"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +57,30 @@ class ItemsViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ]
         
-        itemLabel.text = items[currentIndex]
+        setup(for: currentChoice)
     }
+    
+    func setup(for choice: Choice) {
+        itemsLabel.text = choice.rawValue
+        switch choice {
+        case .size:
+            priceLabel.isHidden = false
+            itemLabel.text = items.salad.sizes[currentIndex].name
+            priceLabel.text = String(items.salad.sizes[currentIndex].price)
+        case .lettuce:
+            priceLabel.isHidden = true
+            itemLabel.text = items.salad.lettuce[currentIndex].name
+        case .vegetables:
+            priceLabel.isHidden = true
+            itemLabel.text = items.salad.vegetables[currentIndex].name
+        }
+    }
+    
+    func didSelect(at indexPath: IndexPath) {
+        nextButton.isHidden = false
+    }
+    
+    // MARK: IBActions
     
     @IBAction func showTableView(_ sender: UIButton) {
         if tableViewIsShowing {
@@ -64,15 +99,34 @@ class ItemsViewController: UIViewController {
             tableViewIsShowing = true
         }
     }
+    
+    @IBAction func next(_ sender: UIButton) {
+        nextButton.isHidden = true
+        currentChoiceIndex += 1
+        setup(for: choices[currentChoiceIndex])
+        collectionView.reloadData()
+        tableView.reloadData()
+    }
 }
 
 extension ItemsViewController: UICollectionViewDataSource {
+    var numberOfItems: Int {
+        switch currentChoice {
+        case .size:
+            return items.salad.sizes.count
+        case .lettuce:
+            return items.salad.lettuce.count
+        case .vegetables:
+            return items.salad.vegetables.count
+        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -88,17 +142,26 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = items[indexPath.row]
         return cell
     }
 }
 
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        didSelect(at: indexPath)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            let borderColor = cell.backgroundColor!
+            cell.backgroundColor = .white
+            cell.layer.borderColor = borderColor.cgColor
+            cell.layer.borderWidth = 5
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/1.5)
     }

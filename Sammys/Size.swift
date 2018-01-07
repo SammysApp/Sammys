@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Size {
+struct Size: Decodable {
     let name: String
     let price: Double
 }

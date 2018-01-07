@@ -1,0 +1,74 @@
+{
+	"salad": {
+		"sizes": [
+			{
+				"name": "Junior",
+				"price": 6.95
+			},
+			{
+				"name": "Regular",
+				"price": 9.95
+			},
+			{
+				"name": "Large",
+				"price": 13.95
+			},
+			{
+				"name": "Family",
+				"price": 26.95
+			},
+			{
+				"name": "Party",
+				"price": 49.95
+			}
+		],
+		"lettuce": [
+			{
+				"name": "Romaine",
+				"description": ""
+			},
+			{
+				"name": "Arugala",
+				"description": ""
+			},
+			{
+				"name": "Baby Kale",
+				"description": ""
+			},
+			{
+				"name": "Baby Spinach",
+				"description": ""
+			},
+			{
+				"name": "Iceberg",
+				"description": ""
+			},
+			{
+				"name": "Mesculine",
+				"description": ""
+			}
+		],
+		"vegetables": [
+			{
+				"name": "Avocado",
+				"description": ""
+			},
+			{
+				"name": "Beets",
+				"description": ""
+			},
+			{
+				"name": "Chick Peas",
+				"description": ""
+			},
+			{
+				"name": "Corn",
+				"description": ""
+			},
+			{
+				"name": "Cucumber",
+				"description": ""
+			}
+		]
+	}
+}
