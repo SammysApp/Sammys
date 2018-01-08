@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1x3-yr-YVX">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Bag View Controller-->
+        <scene sceneID="qjs-2q-aeN">
+            <objects>
+                <viewController id="1x3-yr-YVX" customClass="BagViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7kB-gR-mHZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Bag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWi-Mv-JyH">
+                                <rect key="frame" x="0.0" y="40" width="375" height="38"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fPz-3p-alg">
+                                <rect key="frame" x="0.0" y="86" width="375" height="581"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1x3-yr-YVX" id="vgI-DF-kpV"/>
+                                    <outlet property="delegate" destination="1x3-yr-YVX" id="YpC-ur-OXe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fPz-3p-alg" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="7E7-PD-CyM"/>
+                            <constraint firstItem="YWi-Mv-JyH" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="PoZ-zh-pwM"/>
+                            <constraint firstItem="fPz-3p-alg" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="QPJ-F6-sUc"/>
+                            <constraint firstItem="YWi-Mv-JyH" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="TeU-dp-u1c"/>
+                            <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
+                            <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="YWi-Mv-JyH" secondAttribute="bottom" constant="8" symbolic="YES" id="fIF-UW-vhB"/>
+                            <constraint firstItem="YWi-Mv-JyH" firstAttribute="top" secondItem="jaS-95-GXp" secondAttribute="top" constant="20" id="lBe-I2-ZAR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jaS-95-GXp"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9t7-fX-QH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-212" y="139.880059970015"/>
+        </scene>
+    </scenes>
+</document>

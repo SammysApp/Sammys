@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ItemsViewController: UIViewController {
+class ItemsViewController: UIViewController, Storyboardable {
+    typealias ViewController = ItemsViewController
+    
     let items: Items! = ItemsDataStore.shared.items
     let salad = Salad()
     let choices: [Choice] = [.size, .lettuce, .vegetables]
@@ -122,6 +124,10 @@ class ItemsViewController: UIViewController {
             itemStackView.isHidden = true
             tableViewIsShowing = true
         }
+    }
+    
+    @IBAction func showBag(_ sender: UIButton) {
+        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
     }
     
     @IBAction func next(_ sender: UIButton) {
@@ -250,6 +256,20 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let centerPoint = view.convert(view.center, to: collectionView)
         currentIndex = collectionView.indexPathForItem(at: centerPoint)!.row
+    }
+}
+
+// MARK: - Protocols
+
+protocol Storyboardable {
+    associatedtype ViewController: UIViewController
+}
+
+extension Storyboardable where Self: UIViewController {
+    static func storyboardInstance() -> UIViewController {
+        let className = String(describing: ViewController.self)
+        let storyboard = UIStoryboard(name: className, bundle: nil)
+        return storyboard.instantiateInitialViewController()!
     }
 }
 

@@ -91,10 +91,20 @@
                                     <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NzQ-07-tXH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajg-b1-Dfg">
+                                <rect key="frame" x="361" y="42" width="33" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Bag"/>
+                                <connections>
+                                    <action selector="showBag:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ksn-X9-vhr"/>
+                                    <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BQx-5B-TYt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="1ch-aJ-ssY"/>
+                            <constraint firstItem="ajg-b1-Dfg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="1iy-Aa-3D2"/>
                             <constraint firstItem="PT0-d1-aFi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5Wt-g7-rGw"/>
                             <constraint firstItem="lSw-hC-DCp" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5he-pe-fea"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CoT-jF-u6a" secondAttribute="bottom" constant="20" id="8r3-4Z-clE"/>
@@ -111,6 +121,8 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="20" id="jDa-MM-Sbq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="20" symbolic="YES" id="jss-u7-Hx1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="16" id="mKt-LU-UZU"/>
+                            <constraint firstItem="ajg-b1-Dfg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="nrQ-Ug-DXI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ajg-b1-Dfg" secondAttribute="trailing" constant="20" id="uA8-ba-CzS"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PT0-d1-aFi" secondAttribute="trailing" constant="20" symbolic="YES" id="uQO-OF-TUL"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZa-iZ-c45"/>
                         </constraints>
