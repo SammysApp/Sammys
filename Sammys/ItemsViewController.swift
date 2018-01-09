@@ -12,8 +12,9 @@ class ItemsViewController: UIViewController, Storyboardable {
     typealias ViewController = ItemsViewController
     
     let items: Items! = ItemsDataStore.shared.items
-    let salad = Salad()
     let choices: [Choice] = [.size, .lettuce, .vegetables]
+    
+    var salad = Salad()
     var currentChoiceIndex = 0
     var currentIndex = 0 {
         didSet {
@@ -67,6 +68,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     func setup(for choice: Choice) {
         itemsLabel.text = choice.rawValue
+        nextButton.setTitle("Next", for: .normal)
+        
         switch choice {
         case .size:
             priceLabel.isHidden = false
@@ -87,7 +90,8 @@ class ItemsViewController: UIViewController, Storyboardable {
             }
         } else if choice == choices.last {
             backButton.isHidden = false
-            nextButton.isHidden = true
+            nextButton.isHidden = false
+            nextButton.setTitle("Add", for: .normal)
         } else {
             backButton.isHidden = false
             nextButton.isHidden = false
@@ -104,6 +108,11 @@ class ItemsViewController: UIViewController, Storyboardable {
         collectionView.reloadData()
         tableView.reloadData()
         collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
+        currentIndex = 0
+    }
+    
+    func addSalad() {
+        BagDataStore.shared.add(salad)
     }
     
     // MARK: IBActions
@@ -131,7 +140,9 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func next(_ sender: UIButton) {
-        if currentChoiceIndex < choices.count - 1 {
+        if currentChoice == choices.last {
+            addSalad()
+        } else {
             currentChoiceIndex += 1
             nextButton.isHidden = true
             handleNewChoice()
@@ -139,7 +150,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func back(_ sender: UIButton) {
-        if currentChoiceIndex > 0 {
+        if currentChoice != choices.first {
             currentChoiceIndex -= 1
             handleNewChoice()
         }

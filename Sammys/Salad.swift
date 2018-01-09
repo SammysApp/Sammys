@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Salad {
+class Salad: Food {
     var size: Size?
     var lettuce: [Lettuce] = []
     var vegetables: [Vegetable] = []
