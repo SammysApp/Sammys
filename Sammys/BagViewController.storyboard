@@ -25,7 +25,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fPz-3p-alg">
-                                <rect key="frame" x="0.0" y="86" width="375" height="581"/>
+                                <rect key="frame" x="0.0" y="98" width="375" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" id="sXJ-hh-3l4">
@@ -42,20 +42,48 @@
                                     <outlet property="delegate" destination="1x3-yr-YVX" id="YpC-ur-OXe"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb5-op-oDC">
+                                <rect key="frame" x="20" y="547" width="335" height="100"/>
+                                <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="G7p-Sr-9PJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                <state key="normal" title="Purchase">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchase:" destination="1x3-yr-YVX" eventType="touchUpInside" id="w7F-CH-VN1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgw-22-lK8">
+                                <rect key="frame" x="310" y="42" width="45" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Clear"/>
+                                <connections>
+                                    <action selector="clearBag:" destination="1x3-yr-YVX" eventType="touchUpInside" id="B69-ZV-Fky"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="7E7-PD-CyM"/>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="bottom" secondItem="lb5-op-oDC" secondAttribute="bottom" constant="20" id="ECp-ea-pV3"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="PoZ-zh-pwM"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="QPJ-F6-sUc"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="TeU-dp-u1c"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
-                            <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="YWi-Mv-JyH" secondAttribute="bottom" constant="8" symbolic="YES" id="fIF-UW-vhB"/>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="trailing" secondItem="Hgw-22-lK8" secondAttribute="trailing" constant="20" id="UA3-Lt-3sS"/>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="trailing" secondItem="lb5-op-oDC" secondAttribute="trailing" constant="20" id="b72-Es-Jgg"/>
+                            <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="YWi-Mv-JyH" secondAttribute="bottom" constant="20" id="fIF-UW-vhB"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="top" secondItem="jaS-95-GXp" secondAttribute="top" constant="20" id="lBe-I2-ZAR"/>
+                            <constraint firstItem="Hgw-22-lK8" firstAttribute="centerY" secondItem="YWi-Mv-JyH" secondAttribute="centerY" id="lfY-7Y-KvD"/>
+                            <constraint firstItem="lb5-op-oDC" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" constant="20" id="slx-L2-bnL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jaS-95-GXp"/>
                     </view>
                     <connections>
+                        <outlet property="purchaseButton" destination="lb5-op-oDC" id="RQY-EP-NBc"/>
                         <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>
                     </connections>
                 </viewController>

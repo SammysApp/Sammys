@@ -14,3 +14,11 @@ class Salad: Food {
     var vegetables: [Vegetable] = []
     var extras: [Extra] = []
 }
+
+extension Salad {
+    var price: Double {
+        get {
+            return size?.price ?? 0
+        } set {}
+    }
+}

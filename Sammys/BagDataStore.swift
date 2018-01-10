@@ -9,10 +9,31 @@
 import Foundation
 
 class BagDataStore {
-    static let shared = BagDataStore()
-    var items: [FoodKey : [Food]] = [:]
+    typealias Items = [FoodKey : [Food]]
     
-    private init() {}
+    static let shared = BagDataStore()
+    private var _items: Items = [:]
+    var items: Items {
+        return _items
+    }
+    
+    var itemsTotalPrice: Double? {
+        var totalPrice = 0.0
+        for (_, foods) in _items {
+            foods.forEach { totalPrice += $0.price }
+        }
+        return totalPrice > 0 ? totalPrice : nil
+    }
+    
+    private init() {
+//        if let itemsData = UserDefaults.standard.data(forKey: "items") {
+//            do {
+//                _items = try JSONDecoder().decode(Items.self, from: itemsData)
+//            } catch {
+//                print(error)
+//            }
+//        }
+    }
     
     func add(_ food: Food) {
         var foodKey: FoodKey?
@@ -21,11 +42,26 @@ class BagDataStore {
         }
         
         if let key = foodKey {
-            if items[key] == nil {
-                items[key] = [food]
+            if _items[key] == nil {
+                _items[key] = [food]
             } else {
-                items[key]!.append(food)
+                _items[key]!.append(food)
             }
         }
+        
+//        save()
+    }
+    
+    func save() {
+        do {
+            let itemsData = try JSONEncoder().encode(_items)
+            UserDefaults.standard.set(itemsData, forKey: "items")
+        } catch {
+            print(error)
+        }
+    }
+    
+    func clear() {
+        _items = [:]
     }
 }

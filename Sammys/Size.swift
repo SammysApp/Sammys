@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Size: Decodable, Equatable {
+struct Size: Codable, Equatable {
     let name: String
     let price: Double
     

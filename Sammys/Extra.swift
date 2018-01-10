@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Extra {
+struct Extra: Codable {
     let name: String
     let price: Double
     let description: String

@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol Food {}
-
-enum FoodKey: String {
-    case salad = "Salad"
+protocol Food: Codable {
+    var price: Double { get set }
 }
 
-
+enum FoodKey: String, Codable {
+    case salad = "Salad"
+}

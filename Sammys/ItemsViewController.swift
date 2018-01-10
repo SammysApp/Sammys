@@ -18,7 +18,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     var currentChoiceIndex = 0
     var currentIndex = 0 {
         didSet {
-            setup(for: currentChoice)
+            updateUI(for: currentChoice)
         }
     }
     var hasSelectedOnce = false
@@ -37,10 +37,12 @@ class ItemsViewController: UIViewController, Storyboardable {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet var animatedCollectionViewLayout: AnimatedCollectionViewLayout!
     
-    let green = UIColor(named: "Green")
+    let green = UIColor(named: "Flora")
     var tableViewIsShowing = false
     var tableViewConstraints: [NSLayoutConstraint] = []
+    let vegCollectionViewLayout = UICollectionViewFlowLayout()
     
     enum Choice: String {
         case size = "Size", lettuce = "Lettuce", vegetables = "Vegetables"
@@ -49,10 +51,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let layout = collectionView.collectionViewLayout as? AnimatedCollectionViewLayout {
-            let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
-            layout.animator = animator
-        }
+        let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
+        animatedCollectionViewLayout.animator = animator
         view.sendSubview(toBack: collectionView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,24 +63,26 @@ class ItemsViewController: UIViewController, Storyboardable {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ]
         
-        setup(for: currentChoice)
+        updateUI(for: currentChoice)
     }
     
-    func setup(for choice: Choice) {
+    func updateUI(for choice: Choice) {
         itemsLabel.text = choice.rawValue
         nextButton.setTitle("Next", for: .normal)
         
         switch choice {
         case .size:
             priceLabel.isHidden = false
+            itemLabel.isHidden = false
             itemLabel.text = items.salad.sizes[currentIndex].name
-            priceLabel.text = String(items.salad.sizes[currentIndex].price)
+            priceLabel.text = "$\(items.salad.sizes[currentIndex].price)"
         case .lettuce:
             priceLabel.isHidden = true
+            itemLabel.isHidden = false
             itemLabel.text = items.salad.lettuce[currentIndex].name
         case .vegetables:
             priceLabel.isHidden = true
-            itemLabel.text = items.salad.vegetables[currentIndex].name
+            itemLabel.isHidden = true
         }
         
         if choice == choices.first {
@@ -96,15 +98,32 @@ class ItemsViewController: UIViewController, Storyboardable {
             backButton.isHidden = false
             nextButton.isHidden = false
         }
+        
+        updateCollectionView()
+    }
+    
+    func updateCollectionView() {
+        switch currentChoice {
+        case .vegetables:
+            collectionView.alwaysBounceHorizontal = false
+            collectionView.alwaysBounceVertical = true
+            collectionView.isPagingEnabled = false
+            collectionView.collectionViewLayout = vegCollectionViewLayout
+        default:
+            collectionView.alwaysBounceHorizontal = true
+            collectionView.alwaysBounceVertical = false
+            collectionView.isPagingEnabled = true
+            collectionView.collectionViewLayout = animatedCollectionViewLayout
+        }
     }
     
     func didSelect(at indexPath: IndexPath) {
         hasSelectedOnce = true
-        setup(for: currentChoice)
+        updateUI(for: currentChoice)
     }
     
     func handleNewChoice() {
-        setup(for: choices[currentChoiceIndex])
+        updateUI(for: choices[currentChoiceIndex])
         collectionView.reloadData()
         tableView.reloadData()
         collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
@@ -249,7 +268,13 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/1.5)
+        switch currentChoice {
+        case .vegetables:
+            let size = collectionView.frame.width/2 - 10
+            return CGSize(width: size, height: size)
+        default:
+            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/1.5)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -261,12 +286,19 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return .greatestFiniteMagnitude
+        switch currentChoice {
+        case .vegetables:
+            return 10
+        default:
+            return .greatestFiniteMagnitude
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let centerPoint = view.convert(view.center, to: collectionView)
-        currentIndex = collectionView.indexPathForItem(at: centerPoint)!.row
+        if collectionView.collectionViewLayout == animatedCollectionViewLayout {
+            let centerPoint = view.convert(view.center, to: collectionView)
+            currentIndex = collectionView.indexPathForItem(at: centerPoint)!.row
+        }
     }
 }
 

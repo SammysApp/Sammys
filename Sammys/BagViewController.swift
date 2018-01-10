@@ -11,15 +11,39 @@ import UIKit
 class BagViewController: UIViewController, Storyboardable {
     typealias ViewController = BagViewController
     
-    let items = BagDataStore.shared.items
+    let data = BagDataStore.shared
+    var items: BagDataStore.Items {
+        return data.items
+    }
 
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var purchaseButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        purchaseButton.layer.cornerRadius = 20
+        updateUI()
+    }
+    
+    func updateUI() {
+        if let totalPrice = data.itemsTotalPrice {
+            purchaseButton.isHidden = false
+            purchaseButton.setTitle("$\(totalPrice)", for: .normal)
+        } else {
+            purchaseButton.isHidden = true
+        }
+    }
+    
+    @IBAction func purchase(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func clearBag(_ sender: UIButton) {
+        data.clear()
+        tableView.reloadData()
+        updateUI()
     }
 }
 

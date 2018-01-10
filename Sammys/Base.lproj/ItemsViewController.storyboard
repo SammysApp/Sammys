@@ -19,17 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lSw-hC-DCp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="98.333333333333314" width="414" height="637.66666666666674"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="02C-DL-x64" customClass="AnimatedCollectionViewLayout" customModule="Sammys" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="100" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemCell" id="2xs-3D-5cf">
-                                        <rect key="frame" x="0.0" y="100" width="300" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -117,11 +117,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CoT-jF-u6a" secondAttribute="trailing" id="ahN-HT-6z0"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bNd-uz-DVx"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="caT-7z-QFA"/>
-                            <constraint firstItem="lSw-hC-DCp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fGc-0B-AqI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="20" id="jDa-MM-Sbq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="20" symbolic="YES" id="jss-u7-Hx1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="16" id="mKt-LU-UZU"/>
                             <constraint firstItem="ajg-b1-Dfg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="nrQ-Ug-DXI"/>
+                            <constraint firstItem="lSw-hC-DCp" firstAttribute="top" secondItem="L0K-Q8-L7Q" secondAttribute="bottom" constant="20" id="rO2-hG-Rae"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ajg-b1-Dfg" secondAttribute="trailing" constant="20" id="uA8-ba-CzS"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PT0-d1-aFi" secondAttribute="trailing" constant="20" symbolic="YES" id="uQO-OF-TUL"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZa-iZ-c45"/>
@@ -129,6 +129,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="animatedCollectionViewLayout" destination="02C-DL-x64" id="hkp-ZT-sIj"/>
                         <outlet property="backButton" destination="tAz-oX-kCZ" id="eMq-Ua-dty"/>
                         <outlet property="collectionView" destination="lSw-hC-DCp" id="sfn-6G-PHm"/>
                         <outlet property="itemLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
