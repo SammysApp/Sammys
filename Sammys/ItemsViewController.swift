@@ -51,6 +51,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = true
+        
         let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
         animatedCollectionViewLayout.animator = animator
         view.sendSubview(toBack: collectionView)
@@ -270,7 +272,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch currentChoice {
         case .vegetables:
-            let size = collectionView.frame.width/2 - 10
+            let size = collectionView.frame.width/2 - 15
             return CGSize(width: size, height: size)
         default:
             return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/1.5)
@@ -278,11 +280,21 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        switch currentChoice {
+        case .vegetables:
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        default:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        switch currentChoice {
+        case .vegetables:
+            return 10
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

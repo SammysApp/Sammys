@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ayN-v0-2D5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="Q6g-Cw-nnP">
+            <objects>
+                <viewController id="shH-l6-kcQ" customClass="HomeViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f4R-3G-oUt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="L0z-ZL-j6i">
+                                <rect key="frame" x="0.0" y="140" width="375" height="527"/>
+                                <color key="backgroundColor" name="Snow"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QwR-HL-sRK">
+                                    <size key="itemSize" width="355" height="200"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemsCell" id="mmR-z0-gvn" customClass="ItemsCollectionViewCell" customModule="Sammys" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="355" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Salad.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="hqw-xN-C7G">
+                                                    <rect key="frame" x="0.0" y="0.0" width="355" height="200"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-7j-bpc">
+                                                    <rect key="frame" x="147" y="143" width="61" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="hqw-xN-C7G" firstAttribute="leading" secondItem="mmR-z0-gvn" secondAttribute="leading" id="7vL-fF-X6B"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="Nmp-7j-bpc" secondAttribute="bottom" constant="20" id="DbY-5e-mXB"/>
+                                            <constraint firstAttribute="trailing" secondItem="hqw-xN-C7G" secondAttribute="trailing" id="NWC-hd-2UW"/>
+                                            <constraint firstAttribute="bottom" secondItem="hqw-xN-C7G" secondAttribute="bottom" id="gfb-eV-qcP"/>
+                                            <constraint firstItem="hqw-xN-C7G" firstAttribute="top" secondItem="mmR-z0-gvn" secondAttribute="top" id="sZ2-6C-NNl"/>
+                                            <constraint firstItem="Nmp-7j-bpc" firstAttribute="centerX" secondItem="mmR-z0-gvn" secondAttribute="centerX" id="xqi-Sp-gRx"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="hqw-xN-C7G" id="Qo6-nb-6qe"/>
+                                            <outlet property="itemsLabel" destination="Nmp-7j-bpc" id="aBl-qF-2Db"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="shH-l6-kcQ" id="8s7-SI-fEy"/>
+                                    <outlet property="delegate" destination="shH-l6-kcQ" id="P28-H0-gQR"/>
+                                </connections>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Rff-e7-lRm">
+                                <rect key="frame" x="147" y="40" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="IQ5-w8-Lgk"/>
+                                    <constraint firstAttribute="width" constant="80" id="zue-8x-EKb"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flf-zX-Bc4">
+                                <rect key="frame" x="284" y="63" width="71" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Account">
+                                    <color key="titleColor" name="Mocha"/>
+                                </state>
+                                <connections>
+                                    <action selector="viewAccount:" destination="shH-l6-kcQ" eventType="touchUpInside" id="M3t-CE-wfM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="Snow"/>
+                        <constraints>
+                            <constraint firstItem="L0z-ZL-j6i" firstAttribute="bottom" secondItem="oHq-tB-OyO" secondAttribute="bottom" id="9vI-Tv-YHP"/>
+                            <constraint firstItem="L0z-ZL-j6i" firstAttribute="leading" secondItem="oHq-tB-OyO" secondAttribute="leading" id="KwP-Zd-MDn"/>
+                            <constraint firstItem="oHq-tB-OyO" firstAttribute="trailing" secondItem="flf-zX-Bc4" secondAttribute="trailing" constant="20" id="RMJ-vY-UlR"/>
+                            <constraint firstItem="flf-zX-Bc4" firstAttribute="centerY" secondItem="Rff-e7-lRm" secondAttribute="centerY" id="kCA-FN-Z0V"/>
+                            <constraint firstItem="L0z-ZL-j6i" firstAttribute="top" secondItem="Rff-e7-lRm" secondAttribute="bottom" constant="20" id="v6w-md-D6u"/>
+                            <constraint firstItem="Rff-e7-lRm" firstAttribute="top" secondItem="oHq-tB-OyO" secondAttribute="top" constant="20" id="wDl-29-ELP"/>
+                            <constraint firstItem="L0z-ZL-j6i" firstAttribute="trailing" secondItem="oHq-tB-OyO" secondAttribute="trailing" id="wqs-yj-k71"/>
+                            <constraint firstItem="Rff-e7-lRm" firstAttribute="centerX" secondItem="f4R-3G-oUt" secondAttribute="centerX" id="y5a-Pr-r6S"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oHq-tB-OyO"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="POb-bp-w3a"/>
+                    <connections>
+                        <outlet property="collectionView" destination="L0z-ZL-j6i" id="yyF-T3-cdM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yi9-c9-vB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2087.1999999999998" y="-202.84857571214394"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SIE-ZG-2IZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ayN-v0-2D5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="K2d-3k-qdH">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="shH-l6-kcQ" kind="relationship" relationship="rootViewController" id="4Tq-3F-Bgj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SGK-ua-Dzo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2884.8000000000002" y="-201.49925037481262"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Logo" width="80" height="80"/>
+        <image name="Salad.jpg" width="5503" height="3745"/>
+        <namedColor name="Mocha">
+            <color red="0.57899999618530273" green="0.32199999690055847" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

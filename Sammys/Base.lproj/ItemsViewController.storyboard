@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +21,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lSw-hC-DCp">
                                 <rect key="frame" x="0.0" y="98.333333333333314" width="414" height="637.66666666666674"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="Snow"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="02C-DL-x64" customClass="AnimatedCollectionViewLayout" customModule="Sammys" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,8 +35,18 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Lettuce.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="e9r-kF-LJN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="e9r-kF-LJN" secondAttribute="trailing" id="Ma6-hH-lBQ"/>
+                                            <constraint firstItem="e9r-kF-LJN" firstAttribute="top" secondItem="2xs-3D-5cf" secondAttribute="top" id="YPe-5k-Obi"/>
+                                            <constraint firstItem="e9r-kF-LJN" firstAttribute="leading" secondItem="2xs-3D-5cf" secondAttribute="leading" id="hJe-ee-och"/>
+                                            <constraint firstAttribute="bottom" secondItem="e9r-kF-LJN" secondAttribute="bottom" id="vBQ-aA-zzG"/>
+                                        </constraints>
                                         <size key="customSize" width="300" height="300"/>
                                     </collectionViewCell>
                                 </cells>
@@ -70,6 +81,7 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUb-Ux-Q8N">
                                 <rect key="frame" x="354" y="665" width="40" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Next"/>
                                 <connections>
                                     <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P7Q-AQ-b2l"/>
@@ -78,6 +90,7 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAz-oX-kCZ">
                                 <rect key="frame" x="20" y="666" width="42" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uk5-vC-Dp7"/>
@@ -86,6 +99,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PT0-d1-aFi">
                                 <rect key="frame" x="20" y="42.333333333333336" width="46" height="34.000000000000007"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Table"/>
                                 <connections>
                                     <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NzQ-07-tXH"/>
@@ -94,6 +108,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajg-b1-Dfg">
                                 <rect key="frame" x="361" y="42" width="33" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Bag"/>
                                 <connections>
                                     <action selector="showBag:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ksn-X9-vhr"/>
@@ -101,7 +116,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="Snow"/>
                         <constraints>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="1ch-aJ-ssY"/>
                             <constraint firstItem="ajg-b1-Dfg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="1iy-Aa-3D2"/>
@@ -164,4 +179,13 @@
             <point key="canvasLocation" x="139.13043478260872" y="132.88043478260872"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Lettuce.jpg" width="5333" height="4000"/>
+        <namedColor name="Mocha">
+            <color red="0.57899999618530273" green="0.32199999690055847" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
