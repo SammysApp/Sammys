@@ -10,6 +10,8 @@ import Foundation
 
 class UserDataStore {
     static let shared = UserDataStore()
+    var user: User?
     
     private init() {}
+    
 }

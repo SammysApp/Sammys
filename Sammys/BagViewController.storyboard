@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -59,9 +60,22 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgw-22-lK8">
                                 <rect key="frame" x="310" y="42" width="45" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <state key="normal" title="Clear"/>
+                                <state key="normal" title="Clear">
+                                    <color key="titleColor" name="Mocha"/>
+                                </state>
                                 <connections>
                                     <action selector="clearBag:" destination="1x3-yr-YVX" eventType="touchUpInside" id="B69-ZV-Fky"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kye-UE-iSA">
+                                <rect key="frame" x="20" y="42" width="45" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" name="Mocha"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearBag:" destination="1x3-yr-YVX" eventType="touchUpInside" id="4Uo-0v-TxA"/>
+                                    <action selector="dismiss:" destination="1x3-yr-YVX" eventType="touchUpInside" id="BH1-5R-WQI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -71,9 +85,11 @@
                             <constraint firstItem="jaS-95-GXp" firstAttribute="bottom" secondItem="lb5-op-oDC" secondAttribute="bottom" constant="20" id="ECp-ea-pV3"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="PoZ-zh-pwM"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="QPJ-F6-sUc"/>
+                            <constraint firstItem="kye-UE-iSA" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" constant="20" id="SA1-nv-b5V"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="TeU-dp-u1c"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
                             <constraint firstItem="jaS-95-GXp" firstAttribute="trailing" secondItem="Hgw-22-lK8" secondAttribute="trailing" constant="20" id="UA3-Lt-3sS"/>
+                            <constraint firstItem="kye-UE-iSA" firstAttribute="centerY" secondItem="YWi-Mv-JyH" secondAttribute="centerY" id="UQe-Md-cCq"/>
                             <constraint firstItem="jaS-95-GXp" firstAttribute="trailing" secondItem="lb5-op-oDC" secondAttribute="trailing" constant="20" id="b72-Es-Jgg"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="YWi-Mv-JyH" secondAttribute="bottom" constant="20" id="fIF-UW-vhB"/>
                             <constraint firstItem="YWi-Mv-JyH" firstAttribute="top" secondItem="jaS-95-GXp" secondAttribute="top" constant="20" id="lBe-I2-ZAR"/>
@@ -92,4 +108,12 @@
             <point key="canvasLocation" x="-212" y="139.880059970015"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="Mocha">
+            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Mocha">
+            <color red="0.57899999618530273" green="0.32199999690055847" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

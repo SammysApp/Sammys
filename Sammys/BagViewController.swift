@@ -15,6 +15,9 @@ class BagViewController: UIViewController, Storyboardable {
     var items: BagDataStore.Items {
         return data.items
     }
+    var user: User? {
+        return UserDataStore.shared.user
+    }
 
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -37,13 +40,19 @@ class BagViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func purchase(_ sender: UIButton) {
-        
+        if user == nil {
+            present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
+        }
     }
     
     @IBAction func clearBag(_ sender: UIButton) {
         data.clear()
         tableView.reloadData()
         updateUI()
+    }
+    
+    @IBAction func dismiss(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
