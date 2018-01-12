@@ -27,6 +27,10 @@
 		5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8242007ED9200898FF0 /* LoginViewController.swift */; };
 		5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */; };
 		5B44A8292007F7DB00898FF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8282007F7DB00898FF0 /* User.swift */; };
+		5B44A82B2009102F00898FF0 /* FoodCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82A2009102F00898FF0 /* FoodCollectionViewDataSource.swift */; };
+		5B44A82D2009292A00898FF0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
+		5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddViewController.swift */; };
+		5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddViewController.storyboard */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */; };
 		5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06821FFD509A00BAC480 /* Assets.xcassets */; };
@@ -66,6 +70,10 @@
 		5B44A8242007ED9200898FF0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8282007F7DB00898FF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5B44A82A2009102F00898FF0 /* FoodCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		5B44A82C2009292A00898FF0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		5B44A82E2009326000898FF0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		5B44A830200932A800898FF0 /* AddViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddViewController.storyboard; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6A06801FFD509A00BAC480 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ItemsViewController.storyboard; sourceTree = "<group>"; };
@@ -131,6 +139,7 @@
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B44A7C3200483E500898FF0 /* Food.swift */,
 				5B6A06951FFD54B500BAC480 /* Salad.swift */,
+				5B44A82C2009292A00898FF0 /* Item.swift */,
 				5B6A068D1FFD52A000BAC480 /* Size.swift */,
 				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
 				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
@@ -146,6 +155,8 @@
 				5B6A06971FFE8B1300BAC480 /* ItemsViewController.swift */,
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
+				5B44A82E2009326000898FF0 /* AddViewController.swift */,
+				5B44A82A2009102F00898FF0 /* FoodCollectionViewDataSource.swift */,
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
 				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
 				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
@@ -154,6 +165,7 @@
 				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
 				5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */,
 				5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */,
+				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
 				5B44A8102007003300898FF0 /* Avocados.jpg */,
 				5B44A8112007003300898FF0 /* Lettuce.jpg */,
@@ -242,6 +254,7 @@
 				5B44A8162007003400898FF0 /* Peppers.jpg in Resources */,
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
+				5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */,
 				5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */,
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
 				5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */,
@@ -322,10 +335,12 @@
 			files = (
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
+				5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
+				5B44A82D2009292A00898FF0 /* Item.swift in Sources */,
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
@@ -340,6 +355,7 @@
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */,
+				5B44A82B2009102F00898FF0 /* FoodCollectionViewDataSource.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

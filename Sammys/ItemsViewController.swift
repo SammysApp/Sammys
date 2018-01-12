@@ -88,14 +88,14 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
         
         if choice == choices.first {
-            backButton.isHidden = true
+            backButton.isHidden = false
             if hasSelectedOnce {
                 nextButton.isHidden = false
             }
         } else if choice == choices.last {
             backButton.isHidden = false
             nextButton.isHidden = false
-            nextButton.setTitle("Add", for: .normal)
+            nextButton.setTitle("Review", for: .normal)
         } else {
             backButton.isHidden = false
             nextButton.isHidden = false
@@ -132,10 +132,6 @@ class ItemsViewController: UIViewController, Storyboardable {
         currentIndex = 0
     }
     
-    func addSalad() {
-        BagDataStore.shared.add(salad)
-    }
-    
     // MARK: IBActions
     
     @IBAction func showTableView(_ sender: UIButton) {
@@ -156,13 +152,12 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
-    @IBAction func showBag(_ sender: UIButton) {
-        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
-    }
-    
     @IBAction func next(_ sender: UIButton) {
         if currentChoice == choices.last {
-            addSalad()
+            if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
+                addViewController.food = salad
+                present(addViewController, animated: true, completion: nil)
+            }
         } else {
             currentChoiceIndex += 1
             nextButton.isHidden = true
@@ -171,7 +166,9 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func back(_ sender: UIButton) {
-        if currentChoice != choices.first {
+        if currentChoice == choices.first {
+            navigationController?.popViewController(animated: true)
+        } else {
             currentChoiceIndex -= 1
             handleNewChoice()
         }

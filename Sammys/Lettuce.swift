@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Lettuce: Codable, Equatable {
+struct Lettuce: Item, Codable, Equatable {
     let name: String
     let description: String
     

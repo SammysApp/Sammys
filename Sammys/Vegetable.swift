@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vegetable: Codable, Equatable {
+struct Vegetable: Item, Codable, Equatable {
     let name: String
     let description: String
     
