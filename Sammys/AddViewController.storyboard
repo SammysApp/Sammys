@@ -25,16 +25,56 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJT-lW-SOL">
+                                <rect key="frame" x="20" y="547" width="335" height="100"/>
+                                <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="dMW-0n-5VR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                <state key="normal" title="Add to Bag">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addToBag:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="M0k-Jx-DUU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-nw-psB">
+                                <rect key="frame" x="316" y="42" width="39" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
+                                <state key="normal" title="Fave"/>
+                                <connections>
+                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Kec-JT-Tf9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Xy-FQ-nWv">
+                                <rect key="frame" x="20" y="42" width="45" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="done:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="COk-Bm-oSc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
                             <constraint firstItem="IvE-GJ-wyd" firstAttribute="top" secondItem="0jz-Vz-ra2" secondAttribute="top" constant="20" id="GUI-vR-zXO"/>
+                            <constraint firstItem="BJT-lW-SOL" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="LQc-zk-XsP"/>
                             <constraint firstItem="IvE-GJ-wyd" firstAttribute="trailing" secondItem="0jz-Vz-ra2" secondAttribute="trailing" id="TTN-mf-kRD"/>
+                            <constraint firstItem="I6l-nw-psB" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="YzQ-AX-mci"/>
+                            <constraint firstItem="3Xy-FQ-nWv" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="Z0v-Au-QuT"/>
+                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="bottom" secondItem="BJT-lW-SOL" secondAttribute="bottom" constant="20" id="dqb-Vv-M2R"/>
+                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="BJT-lW-SOL" secondAttribute="trailing" constant="20" id="frd-TM-UEg"/>
+                            <constraint firstItem="3Xy-FQ-nWv" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="kga-tU-f0C"/>
                             <constraint firstItem="IvE-GJ-wyd" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" id="lv8-b7-jaZ"/>
+                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="I6l-nw-psB" secondAttribute="trailing" constant="20" id="uOd-G1-SQg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0jz-Vz-ra2"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="BJT-lW-SOL" id="pQb-l3-NAx"/>
                         <outlet property="reviewLabel" destination="IvE-GJ-wyd" id="lgQ-2j-TLn"/>
                     </connections>
                 </viewController>
@@ -44,6 +84,12 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Mocha">
+            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Mocha">
+            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Snow">
             <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

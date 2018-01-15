@@ -11,26 +11,8 @@ import UIKit
 
 class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var food: Food
-    var data: [String : [Item]] {
-        var data: [String: [Item]] = [:]
-        switch food {
-        case let salad as Salad:
-            let mirroredSalad = Mirror(reflecting: salad)
-            for child in mirroredSalad.children {
-                if let propertyName = child.label {
-                    switch child.value {
-                    case let item as [Item]:
-                        data[propertyName] = item
-                    case let item as Item:
-                        data[propertyName] = [item]
-                    default: break
-                    }
-                }
-            }
-            fallthrough
-        default:
-            return data
-        }
+    var dictionary: Food.ItemsDictionary {
+        return food.itemDictionary
     }
     
     init(food: Food) {
@@ -38,20 +20,34 @@ class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIColl
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return data.count
+        return dictionary.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data[Array(data.keys)[section]]?.count ?? 0
+        return dictionary[section]?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .purple
+        cell.layer.cornerRadius = 20
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        let size = collectionView.frame.width/2 - 15
+        return CGSize(width: size, height: size)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
     }
 }

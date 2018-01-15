@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 class BagViewController: UIViewController, Storyboardable {
     typealias ViewController = BagViewController
@@ -42,6 +43,11 @@ class BagViewController: UIViewController, Storyboardable {
     @IBAction func purchase(_ sender: UIButton) {
         if user == nil {
             present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
+        } else {
+            let vc = STPAddCardViewController()
+            vc.delegate = self
+            let nvc = UINavigationController(rootViewController: vc)
+            present(nvc, animated: true, completion: nil)
         }
     }
     
@@ -72,5 +78,16 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
             cell.textLabel?.text = salad.size?.name
         }
         return cell
+    }
+}
+
+extension BagViewController: STPAddCardViewControllerDelegate {
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        PayAPIClient.chargeNewUser(with: token.tokenId, amount: 1000)
+        dismiss(animated: true, completion: nil)
     }
 }

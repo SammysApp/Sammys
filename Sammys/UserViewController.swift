@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 class UserViewController: UIViewController, Storyboardable {
     typealias ViewController = UserViewController
@@ -16,7 +17,6 @@ class UserViewController: UIViewController, Storyboardable {
     }
     
     // MARK: - IBOutlets & View Properties
-    @IBOutlet weak var accountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var info: [String : String]? {
@@ -45,18 +45,55 @@ class UserViewController: UIViewController, Storyboardable {
 
 extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return info?.count ?? 0
+        switch section {
+        case 0:
+            return info?.count ?? 0
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let key = Array(info!.keys)[indexPath.row]
-        cell.textLabel?.text = key
-        cell.detailTextLabel?.text = info![key]!
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            let key = Array(info!.keys)[indexPath.row]
+            cell.textLabel?.text = key
+            cell.detailTextLabel?.text = info![key]!
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
+            cell.textLabel?.text = "Add Credit Card"
+            return cell
+        default: return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            tableView.deselectRow(at: indexPath, animated: true)
+//            let theme = STPTheme()
+//            theme.accentColor = UIColor(named: "Mocha")
+            let vc = STPAddCardViewController()
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension UserViewController: STPAddCardViewControllerDelegate {
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        PayAPIClient.createNewCustomer(with: token.tokenId)
+        navigationController?.popToRootViewController(animated: true)
     }
 }

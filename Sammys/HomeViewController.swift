@@ -24,6 +24,10 @@ class HomeViewController: UIViewController, Storyboardable {
         let userViewController = UserViewController.storyboardInstance()
         present(userViewController, animated: true, completion: nil)
     }
+    
+    @IBAction func viewBag(_ sender: UIButton) {
+        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

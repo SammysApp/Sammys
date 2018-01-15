@@ -9,7 +9,10 @@
 import Foundation
 
 protocol Food: Codable {
+    typealias ItemsDictionary = [Int : (title: String, items: [Item])]
+    
     var price: Double { get set }
+    var itemDictionary: ItemsDictionary { get }
 }
 
 enum FoodKey: String, Codable {

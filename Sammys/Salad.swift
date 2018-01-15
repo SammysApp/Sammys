@@ -21,4 +21,18 @@ extension Salad {
             return size?.price ?? 0
         } set {}
     }
+    
+    var itemDictionary: ItemsDictionary {
+        var dictionary: ItemsDictionary = [:]
+        guard let size = size else {
+            return dictionary
+        }
+        dictionary[0] = ("Salad", [size])
+        dictionary[1] = ("Lettuce", lettuce)
+        dictionary[2] = ("Vegetables", vegetables)
+        if !extras.isEmpty {
+            dictionary[3] = ("Extras", extras)
+        }
+        return dictionary
+    }
 }

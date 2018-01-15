@@ -41,4 +41,18 @@ struct UserAPIClient {
             }
         }
     }
+    
+    static func set(_ favorites: [Salad], for user: User) {
+        do {
+            let jsonData = try JSONEncoder().encode(favorites)
+            let jsonString = String(data: jsonData, encoding: .utf8)
+            database.child("users").child(user.id).child("favorites").setValue(jsonString)
+        } catch {
+            
+        }
+    }
+    
+    static func set(_ customerID: String, for user: User) {
+        database.child("users").child(user.id).child("customerID").setValue(customerID)
+    }
 }

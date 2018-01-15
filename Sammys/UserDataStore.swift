@@ -13,5 +13,4 @@ class UserDataStore {
     var user: User?
     
     private init() {}
-    
 }

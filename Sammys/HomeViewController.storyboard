@@ -84,12 +84,24 @@
                                     <action selector="viewAccount:" destination="shH-l6-kcQ" eventType="touchUpInside" id="M3t-CE-wfM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToG-ZK-01q">
+                                <rect key="frame" x="171" y="613" width="33" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal" title="Bag">
+                                    <color key="titleColor" name="Mocha"/>
+                                </state>
+                                <connections>
+                                    <action selector="viewBag:" destination="shH-l6-kcQ" eventType="touchUpInside" id="v7o-HJ-jk0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
                             <constraint firstItem="L0z-ZL-j6i" firstAttribute="bottom" secondItem="oHq-tB-OyO" secondAttribute="bottom" id="9vI-Tv-YHP"/>
                             <constraint firstItem="L0z-ZL-j6i" firstAttribute="leading" secondItem="oHq-tB-OyO" secondAttribute="leading" id="KwP-Zd-MDn"/>
+                            <constraint firstItem="oHq-tB-OyO" firstAttribute="bottom" secondItem="ToG-ZK-01q" secondAttribute="bottom" constant="20" id="L7H-V4-2H5"/>
                             <constraint firstItem="oHq-tB-OyO" firstAttribute="trailing" secondItem="flf-zX-Bc4" secondAttribute="trailing" constant="20" id="RMJ-vY-UlR"/>
+                            <constraint firstItem="ToG-ZK-01q" firstAttribute="centerX" secondItem="f4R-3G-oUt" secondAttribute="centerX" id="aeq-xL-Ay3"/>
                             <constraint firstItem="flf-zX-Bc4" firstAttribute="centerY" secondItem="Rff-e7-lRm" secondAttribute="centerY" id="kCA-FN-Z0V"/>
                             <constraint firstItem="L0z-ZL-j6i" firstAttribute="top" secondItem="Rff-e7-lRm" secondAttribute="bottom" constant="20" id="v6w-md-D6u"/>
                             <constraint firstItem="Rff-e7-lRm" firstAttribute="top" secondItem="oHq-tB-OyO" secondAttribute="top" constant="20" id="wDl-29-ELP"/>
@@ -128,6 +140,9 @@
     <resources>
         <image name="Logo" width="80" height="80"/>
         <image name="Salad.jpg" width="5503" height="3745"/>
+        <namedColor name="Mocha">
+            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Mocha">
             <color red="0.57899999618530273" green="0.32199999690055847" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
