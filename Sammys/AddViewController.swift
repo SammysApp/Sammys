@@ -8,27 +8,26 @@
 
 import UIKit
 
+protocol AddDelegate {
+    func edit(for title: String)
+}
+
 class AddViewController: UIViewController, Storyboardable {
     typealias ViewController = AddViewController
     
     var food: Food!
+    var delegate: AddDelegate?
     
     // MARK: IBOutlets & View Properties
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    lazy var dataSource = FoodCollectionViewDataSource(food: food)
+    lazy var collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.backgroundColor = UIColor(named: "Snow")
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.alwaysBounceVertical = true
-        
-        collectionView.dataSource = dataSource
-        collectionView.delegate = dataSource
+        collectionView.foodDelegate = self
         
         view.insertSubview(collectionView, at: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +48,13 @@ class AddViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func done(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AddViewController: FoodCollectionViewDelegate {
+    func didTapEdit(for title: String) {
+        delegate?.edit(for: title)
         dismiss(animated: true, completion: nil)
     }
 }

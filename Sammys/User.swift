@@ -20,7 +20,9 @@ class User: CustomStringConvertible {
     }
     var customerID: String? {
         didSet {
-            saveCustomerID()
+            if customerID != nil {
+                saveCustomerID()
+            }
         }
     }
     
@@ -32,7 +34,7 @@ class User: CustomStringConvertible {
     }
     
     var description: String {
-        return "name: \(name), email: \(email)"
+        return "name: \(name), email: \(email)" + (customerID != nil ? ", customerID: \(customerID!)" : "")
     }
 }
 
@@ -42,8 +44,6 @@ extension User {
     }
     
     private func saveCustomerID() {
-        if let id = customerID {
-            UserAPIClient.set(id, for: self)
-        }
+        UserAPIClient.set(customerID!, for: self)
     }
 }

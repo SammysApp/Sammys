@@ -34,5 +34,7 @@ struct Items: Decodable {
         let sizes: [Size]
         let lettuce: [Lettuce]
         let vegetables: [Vegetable]
+        let toppings: [Topping]
+        let dressings: [Dressing]
     }
 }

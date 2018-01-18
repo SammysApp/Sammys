@@ -32,11 +32,15 @@ struct UserAPIClient {
                     print("not good")
                     return
                 }
-                UserDataStore.shared.user = User(id: user.uid, email: email, name: "Natanel", photoURL: user.photoURL)
-                print(UserDataStore.shared.user ?? "nothing")
-                self.database.child("users").child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                    
+                let newUser = User(id: user.uid, email: email, name: "Natanel", photoURL: user.photoURL)
+                self.database.child("users").child(user.uid).child("customerID").observeSingleEvent(of: .value, with: { (snapshot) in
+                    if let customerID = snapshot.value as? String {
+                        print(customerID)
+                        newUser.customerID = customerID
+                        print(newUser)
+                    }
                 })
+                UserDataStore.shared.user = newUser
                 completed?()
             }
         }

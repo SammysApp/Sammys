@@ -41,13 +41,20 @@ class BagViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func purchase(_ sender: UIButton) {
+        guard let amount = data.itemsTotalPrice else {
+            return
+        }
         if user == nil {
             present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
         } else {
-            let vc = STPAddCardViewController()
-            vc.delegate = self
-            let nvc = UINavigationController(rootViewController: vc)
-            present(nvc, animated: true, completion: nil)
+            if let id = user!.customerID {
+                PayAPIClient.charge(id, amount: amount.toCents())
+            } else {
+                let vc = STPAddCardViewController()
+                vc.delegate = self
+                let nvc = UINavigationController(rootViewController: vc)
+                present(nvc, animated: true, completion: nil)
+            }
         }
     }
     
