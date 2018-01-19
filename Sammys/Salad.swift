@@ -29,14 +29,25 @@ extension Salad {
         guard let size = size else {
             return dictionary
         }
-        dictionary[0] = ("Size", [size])
-        dictionary[1] = ("Lettuce", lettuce)
-        dictionary[2] = ("Vegetables", vegetables)
-        dictionary[3] = ("Toppings", toppings)
-        dictionary[4] = ("Dressings", dressings)
-        if !extras.isEmpty {
-            dictionary[5] = ("Extras", extras)
+        
+        var index = 0
+        /**
+         Returns index and then increments by 1. Use in order to get the next index to place property in in `dictionary`.
+         */
+        func getIndex() -> Int {
+            defer {
+                index += 1
+            }
+            return index
         }
+        
+        dictionary[getIndex()] = ("Size", [size])
+        dictionary[getIndex()] = ("Lettuce", lettuce)
+        if !vegetables.isEmpty { dictionary[getIndex()] = ("Vegetables", vegetables) }
+        if !toppings.isEmpty { dictionary[getIndex()] = ("Toppings", toppings) }
+        if !dressings.isEmpty { dictionary[getIndex()] = ("Dressings", dressings) }
+        if !extras.isEmpty { dictionary[getIndex()] = ("Extras", extras) }
+        
         return dictionary
     }
 }

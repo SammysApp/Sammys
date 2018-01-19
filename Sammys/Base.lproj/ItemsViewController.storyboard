@@ -106,6 +106,17 @@
                                     <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NzQ-07-tXH"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXz-KP-Ocg">
+                                <rect key="frame" x="351" y="42" width="43" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
+                                <state key="normal" title="Price">
+                                    <color key="titleColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showAdd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JE7-qX-ZCm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
@@ -120,15 +131,18 @@
                             <constraint firstItem="PBr-ep-ATo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Jwh-Z0-n4N"/>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="OU9-oL-lUJ"/>
                             <constraint firstItem="PBr-ep-ATo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Riv-o3-FfR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CoT-jF-u6a" secondAttribute="trailing" id="ahN-HT-6z0"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bNd-uz-DVx"/>
+                            <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="cVF-ii-KqY"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="caT-7z-QFA"/>
                             <constraint firstItem="PBr-ep-ATo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eI4-Q5-EXG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="20" id="jDa-MM-Sbq"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="20" symbolic="YES" id="jss-u7-Hx1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="16" id="mKt-LU-UZU"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qel-MI-6JP"/>
+                            <constraint firstItem="PXz-KP-Ocg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="tz4-Yr-ByX"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PT0-d1-aFi" secondAttribute="trailing" constant="20" symbolic="YES" id="uQO-OF-TUL"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZa-iZ-c45"/>
                         </constraints>
@@ -141,6 +155,7 @@
                         <outlet property="itemStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
                         <outlet property="itemsLabel" destination="L0K-Q8-L7Q" id="fLP-RX-fQZ"/>
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
+                        <outlet property="priceButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>
                         <outlet property="priceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
                         <outlet property="tableView" destination="mtk-C0-CGF" id="K5p-Xi-e2t"/>
                     </connections>
@@ -174,7 +189,7 @@
             <color red="0.44999998810000003" green="0.98100000620000005" blue="0.47400000689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Mocha">
-            <color red="0.57899999618530273" green="0.32199999690055847" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Snow">
             <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

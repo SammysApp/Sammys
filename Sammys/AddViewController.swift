@@ -22,11 +22,12 @@ class AddViewController: UIViewController, Storyboardable {
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     
-    lazy var collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
+    var collectionView: FoodCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
         collectionView.foodDelegate = self
         
         view.insertSubview(collectionView, at: 0)
