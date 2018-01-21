@@ -21,7 +21,11 @@ extension Salad {
     var price: Double {
         get {
             return size?.price ?? 0
-        } set {}
+        }
+    }
+    
+    var itemDescription: String {
+        return (lettuce as [Item] + vegetables as [Item] + toppings as [Item] + dressings as [Item]).commaString
     }
     
     var itemDictionary: ItemsDictionary {
@@ -49,5 +53,11 @@ extension Salad {
         if !extras.isEmpty { dictionary[getIndex()] = ("Extras", extras) }
         
         return dictionary
+    }
+}
+
+extension Array where Element == Item {
+    var commaString: String {
+        return self.map { $0.name }.joined(separator: ", ")
     }
 }

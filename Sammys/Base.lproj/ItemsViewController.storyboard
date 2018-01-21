@@ -111,7 +111,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Price">
-                                    <color key="titleColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.39623549541341724" green="0.85630155456852797" blue="0.2612544092305874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="showAdd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JE7-qX-ZCm"/>

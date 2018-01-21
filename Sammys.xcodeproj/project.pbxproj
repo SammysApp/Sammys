@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
+		5B1CB081201422470006235F /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB080201422470006235F /* ItemTableViewCell.swift */; };
 		5B44A7BA2002C17700898FF0 /* Items.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7B92002C17700898FF0 /* Items.json */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
+		5B1CB080201422470006235F /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		5B44A7B92002C17700898FF0 /* Items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Items.json; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
+				5B1CB080201422470006235F /* ItemTableViewCell.swift */,
 				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
 				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
@@ -374,6 +377,7 @@
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
 				5B6A06C52002AF9700BAC480 /* ItemsDataStore.swift in Sources */,
+				5B1CB081201422470006235F /* ItemTableViewCell.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,

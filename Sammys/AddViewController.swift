@@ -19,13 +19,15 @@ class AddViewController: UIViewController, Storyboardable {
     var delegate: AddDelegate?
     
     // MARK: IBOutlets & View Properties
-    @IBOutlet weak var reviewLabel: UILabel!
-    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet var reviewLabel: UILabel!
+    @IBOutlet var addButton: UIButton!
     
     var collectionView: FoodCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
         
         collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
         collectionView.foodDelegate = self
@@ -40,22 +42,23 @@ class AddViewController: UIViewController, Storyboardable {
         addButton.layer.cornerRadius = 20
     }
     
+    @IBAction func cancel(_ sender: UIButton) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
     @IBAction func addToBag(_ sender: UIButton) {
         BagDataStore.shared.add(food)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func fave(_ sender: UIButton) {
         UserDataStore.shared.user?.favorites.append(food as! Salad)
-    }
-    
-    @IBAction func done(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
     }
 }
 
 extension AddViewController: FoodCollectionViewDelegate {
     func didTapEdit(for title: String) {
         delegate?.edit(for: title)
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }

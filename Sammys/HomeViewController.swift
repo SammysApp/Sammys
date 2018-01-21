@@ -12,7 +12,7 @@ class HomeViewController: UIViewController, Storyboardable {
     typealias ViewController = HomeViewController
     
     // MARK: - IBOutlets
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,14 +17,6 @@ class BagDataStore {
         return _items
     }
     
-    var itemsTotalPrice: Double? {
-        var totalPrice = 0.0
-        for (_, foods) in _items {
-            foods.forEach { totalPrice += $0.price }
-        }
-        return totalPrice > 0 ? totalPrice : nil
-    }
-    
     private init() {
 //        if let itemsData = UserDefaults.standard.data(forKey: "items") {
 //            do {

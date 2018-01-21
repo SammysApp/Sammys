@@ -48,13 +48,14 @@
                                     <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Kec-JT-Tf9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Xy-FQ-nWv">
-                                <rect key="frame" x="20" y="42" width="45" height="34"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3e-Dj-ivb">
+                                <rect key="frame" x="20" y="42" width="60" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" name="Mocha"/>
-                                <state key="normal" title="Done"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="done:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="COk-Bm-oSc"/>
+                                    <action selector="cancel:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="gGO-IJ-3ao"/>
+                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Hh9-zb-huS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -64,11 +65,11 @@
                             <constraint firstItem="BJT-lW-SOL" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="LQc-zk-XsP"/>
                             <constraint firstItem="IvE-GJ-wyd" firstAttribute="trailing" secondItem="0jz-Vz-ra2" secondAttribute="trailing" id="TTN-mf-kRD"/>
                             <constraint firstItem="I6l-nw-psB" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="YzQ-AX-mci"/>
-                            <constraint firstItem="3Xy-FQ-nWv" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="Z0v-Au-QuT"/>
                             <constraint firstItem="0jz-Vz-ra2" firstAttribute="bottom" secondItem="BJT-lW-SOL" secondAttribute="bottom" constant="20" id="dqb-Vv-M2R"/>
+                            <constraint firstItem="F3e-Dj-ivb" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="f1i-iT-4wS"/>
                             <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="BJT-lW-SOL" secondAttribute="trailing" constant="20" id="frd-TM-UEg"/>
-                            <constraint firstItem="3Xy-FQ-nWv" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="kga-tU-f0C"/>
                             <constraint firstItem="IvE-GJ-wyd" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" id="lv8-b7-jaZ"/>
+                            <constraint firstItem="F3e-Dj-ivb" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="rFb-hL-UQc"/>
                             <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="I6l-nw-psB" secondAttribute="trailing" constant="20" id="uOd-G1-SQg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0jz-Vz-ra2"/>

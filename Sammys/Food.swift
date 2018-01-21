@@ -11,7 +11,8 @@ import Foundation
 protocol Food: Codable {
     typealias ItemsDictionary = [Int : (title: String, items: [Item])]
     
-    var price: Double { get set }
+    var price: Double { get }
+    var itemDescription: String { get }
     var itemDictionary: ItemsDictionary { get }
 }
 

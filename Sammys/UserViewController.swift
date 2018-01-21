@@ -17,7 +17,7 @@ class UserViewController: UIViewController, Storyboardable {
     }
     
     // MARK: - IBOutlets & View Properties
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     
     var info: [String : String]? {
         return user != nil ? ["Name": user!.name, "Email": user!.email] : nil

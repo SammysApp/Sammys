@@ -11,8 +11,8 @@ import UIKit
 class LoginViewController: UIViewController, Storyboardable {
     typealias ViewController = LoginViewController
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()

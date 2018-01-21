@@ -34,15 +34,15 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     // MARK: IBOutlets & View Properties
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet weak var itemsLabel: UILabel!
-    @IBOutlet weak var itemStackView: UIStackView!
-    @IBOutlet weak var itemLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var priceButton: UIButton!
+    @IBOutlet var itemsLabel: UILabel!
+    @IBOutlet var itemStackView: UIStackView!
+    @IBOutlet var itemLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var backButton: UIButton!
+    @IBOutlet var priceButton: UIButton!
     
     let green = UIColor(named: "Flora")
     var tableViewIsShowing = false
@@ -146,7 +146,7 @@ class ItemsViewController: UIViewController, Storyboardable {
         if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
             addViewController.food = salad
             addViewController.delegate = self
-            present(addViewController, animated: true, completion: nil)
+            navigationController?.pushViewController(addViewController, animated: true)
         }
     }
     
@@ -193,7 +193,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
 }
 
-extension ItemsViewController: UICollectionViewDataSource {
+// MARK: - Helpers for Collection and Table View
+extension ItemsViewController {
     var numberOfItems: Int {
         switch currentChoice {
         case .size:
@@ -208,7 +209,9 @@ extension ItemsViewController: UICollectionViewDataSource {
             return items.salad.dressings.count
         }
     }
-    
+}
+
+extension ItemsViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -272,11 +275,30 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
+        
+        switch currentChoice {
+        case .size:
+            let size = items.salad.sizes[indexPath.row]
+            cell.textLabel?.text = size.name
+        case .lettuce:
+            let lettuce = items.salad.lettuce[indexPath.row]
+            cell.textLabel?.text = lettuce.name
+        case .vegetables:
+            let vegetable = items.salad.vegetables[indexPath.row]
+            cell.textLabel?.text = vegetable.name
+        case .toppings:
+            let topping = items.salad.toppings[indexPath.row]
+            cell.textLabel?.text = topping.name
+        case .dressings:
+            let dressing = items.salad.dressings[indexPath.row]
+            cell.textLabel?.text = dressing.name
+        }
+        
         return cell
     }
 }
@@ -361,6 +383,12 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
             let centerPoint = view.convert(view.center, to: collectionView)
             currentItemIndex = collectionView.indexPathForItem(at: centerPoint)!.row
         }
+    }
+}
+
+extension ItemsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
