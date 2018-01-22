@@ -9,6 +9,9 @@
 import UIKit
 
 class ItemTableViewCell: UITableViewCell {
+    var edit: ((ItemTableViewCell) -> Void)?
+    var fave: ((ItemTableViewCell) -> Void)?
+    
     // MARK: IBOutlets
     @IBOutlet var itemImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
@@ -41,8 +44,10 @@ class ItemTableViewCell: UITableViewCell {
     
     // MARK: IBActions
     @IBAction func edit(_ sender: UIButton) {
+        edit?(self)
     }
     
     @IBAction func fave(_ sender: UIButton) {
+        fave?(self)
     }
 }

@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add View Controller-->
+        <!--Review-->
         <scene sceneID="p31-s7-NFC">
             <objects>
                 <viewController id="VAb-Jt-u9r" customClass="AddViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,12 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IvE-GJ-wyd">
-                                <rect key="frame" x="0.0" y="40" width="375" height="39"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJT-lW-SOL">
                                 <rect key="frame" x="20" y="547" width="335" height="100"/>
                                 <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -39,18 +33,21 @@
                                     <action selector="addToBag:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="M0k-Jx-DUU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-nw-psB">
-                                <rect key="frame" x="316" y="42" width="39" height="34"/>
+                        </subviews>
+                        <color key="backgroundColor" name="Snow"/>
+                        <constraints>
+                            <constraint firstItem="BJT-lW-SOL" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="LQc-zk-XsP"/>
+                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="bottom" secondItem="BJT-lW-SOL" secondAttribute="bottom" constant="20" id="dqb-Vv-M2R"/>
+                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="BJT-lW-SOL" secondAttribute="trailing" constant="20" id="frd-TM-UEg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0jz-Vz-ra2"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Review" id="3fb-Ur-dba">
+                        <barButtonItem key="leftBarButtonItem" id="69z-WE-apa">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="F3e-Dj-ivb">
+                                <rect key="frame" x="16" y="5" width="60" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <color key="tintColor" name="Mocha"/>
-                                <state key="normal" title="Fave"/>
-                                <connections>
-                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Kec-JT-Tf9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3e-Dj-ivb">
-                                <rect key="frame" x="20" y="42" width="60" height="34"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -58,36 +55,31 @@
                                     <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Hh9-zb-huS"/>
                                 </connections>
                             </button>
-                        </subviews>
-                        <color key="backgroundColor" name="Snow"/>
-                        <constraints>
-                            <constraint firstItem="IvE-GJ-wyd" firstAttribute="top" secondItem="0jz-Vz-ra2" secondAttribute="top" constant="20" id="GUI-vR-zXO"/>
-                            <constraint firstItem="BJT-lW-SOL" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="LQc-zk-XsP"/>
-                            <constraint firstItem="IvE-GJ-wyd" firstAttribute="trailing" secondItem="0jz-Vz-ra2" secondAttribute="trailing" id="TTN-mf-kRD"/>
-                            <constraint firstItem="I6l-nw-psB" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="YzQ-AX-mci"/>
-                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="bottom" secondItem="BJT-lW-SOL" secondAttribute="bottom" constant="20" id="dqb-Vv-M2R"/>
-                            <constraint firstItem="F3e-Dj-ivb" firstAttribute="centerY" secondItem="IvE-GJ-wyd" secondAttribute="centerY" id="f1i-iT-4wS"/>
-                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="BJT-lW-SOL" secondAttribute="trailing" constant="20" id="frd-TM-UEg"/>
-                            <constraint firstItem="IvE-GJ-wyd" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" id="lv8-b7-jaZ"/>
-                            <constraint firstItem="F3e-Dj-ivb" firstAttribute="leading" secondItem="0jz-Vz-ra2" secondAttribute="leading" constant="20" id="rFb-hL-UQc"/>
-                            <constraint firstItem="0jz-Vz-ra2" firstAttribute="trailing" secondItem="I6l-nw-psB" secondAttribute="trailing" constant="20" id="uOd-G1-SQg"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="0jz-Vz-ra2"/>
-                    </view>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="vzR-KR-BCT">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I6l-nw-psB">
+                                <rect key="frame" x="320" y="5" width="39" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="tintColor" name="Mocha"/>
+                                <state key="normal" title="Fave"/>
+                                <connections>
+                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Kec-JT-Tf9"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addButton" destination="BJT-lW-SOL" id="pQb-l3-NAx"/>
-                        <outlet property="reviewLabel" destination="IvE-GJ-wyd" id="lgQ-2j-TLn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRt-Z5-RJG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-154.40000000000001" y="147.97601199400302"/>
+            <point key="canvasLocation" x="606" y="147"/>
         </scene>
     </scenes>
     <resources>
-        <namedColor name="Mocha">
-            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Mocha">
             <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

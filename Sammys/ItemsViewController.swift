@@ -15,20 +15,25 @@ class ItemsViewController: UIViewController, Storyboardable {
     let choices: [Choice] = [.size, .lettuce, .vegetables, .toppings, .dressings]
     
     var salad = Salad()
-    var currentChoiceIndex = 0
+    var currentChoiceIndex = 0 {
+        didSet {
+            if isViewLoaded { handleNewChoice() }
+        }
+    }
     var currentItemIndex = 0 {
         didSet {
-            updateUI(for: currentChoice)
+            if isViewLoaded { updateUI(for: currentChoice) }
         }
     }
     var hasSelectedOnce = false
+    var isEditingFood = false
+    var finishEditing: (() -> Void)?
     
     var currentChoice: Choice {
         get {
             return choices[currentChoiceIndex]
         } set {
             currentChoiceIndex = choices.index(of: newValue)!
-            handleNewChoice()
         }
     }
     
@@ -57,7 +62,6 @@ class ItemsViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
         view.sendSubview(toBack: collectionView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableViewConstraints = [
@@ -71,7 +75,16 @@ class ItemsViewController: UIViewController, Storyboardable {
         layout.animator = animator
         layout.scrollDirection = .horizontal
         
+        // selected once is true if editing
+        hasSelectedOnce = isEditingFood
+        
         updateUI(for: currentChoice)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = true
     }
     
     func updateUI(for choice: Choice) {
@@ -101,7 +114,7 @@ class ItemsViewController: UIViewController, Storyboardable {
         } else if choice == choices.last {
             backButton.isHidden = false
             nextButton.isHidden = false
-            nextButton.setTitle("Review", for: .normal)
+            nextButton.setTitle(isEditingFood ? "Done" : "Review", for: .normal)
         } else {
             backButton.isHidden = false
             nextButton.isHidden = false
@@ -150,6 +163,14 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
+    /**
+     To be called when done editing.
+     */
+    func done() {
+        finishEditing?()
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: IBActions
     
     @IBAction func showTableView(_ sender: UIButton) {
@@ -171,12 +192,20 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func showAdd(_ sender: UIButton) {
-        showAddViewController()
+        if isEditingFood {
+            done()
+        } else {
+            showAddViewController()
+        }
     }
     
     @IBAction func next(_ sender: UIButton) {
         if currentChoice == choices.last {
-            showAddViewController()
+            if isEditingFood {
+                done()
+            } else {
+                showAddViewController()
+            }
         } else {
             currentChoiceIndex += 1
             handleNewChoice()
@@ -222,50 +251,66 @@ extension ItemsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
-        
-        cell.backgroundColor = green
-        cell.layer.borderColor = green?.cgColor
-        cell.layer.borderWidth = 0
-        cell.layer.cornerRadius = 20
-        cell.titleLabel.text = nil
-        
-        switch currentChoice {
-        case .size:
-            let size = items.salad.sizes[indexPath.row]
-            if size == salad.size {
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? ItemCollectionViewCell {
+            cell.layer.cornerRadius = 20
+            cell.titleLabel.text = nil
+            
+            func selected() {
                 cell.backgroundColor = .white
+                cell.layer.borderColor = green?.cgColor
                 cell.layer.borderWidth = 5
             }
-        case .lettuce:
-            let lettuce = items.salad.lettuce[indexPath.row]
-            if salad.lettuce.contains(lettuce) {
-                cell.backgroundColor = .white
-                cell.layer.borderWidth = 5
+            
+            func unselected() {
+                cell.backgroundColor = green
+                cell.layer.borderWidth = 0
             }
-        case .vegetables:
-            let vegetable = items.salad.vegetables[indexPath.row]
-            cell.titleLabel.text = vegetable.name
-            if salad.vegetables.contains(vegetable) {
-                cell.backgroundColor = .white
-                cell.layer.borderWidth = 5
-            }
-        case .toppings:
-            let topping = items.salad.toppings[indexPath.row]
-            cell.titleLabel.text = topping.name
-            if salad.toppings.contains(topping) {
-                cell.backgroundColor = .white
-                cell.layer.borderWidth = 5
-            }
-        case .dressings:
-            let dressing = items.salad.dressings[indexPath.row]
-            cell.titleLabel.text = dressing.name
-            if salad.dressings.contains(dressing) {
-                cell.backgroundColor = .white
-                cell.layer.borderWidth = 5
+            
+            switch currentChoice {
+            case .size:
+                let size = items.salad.sizes[indexPath.row]
+                if size == salad.size {
+                    selected()
+                } else {
+                    unselected()
+                }
+            case .lettuce:
+                let lettuce = items.salad.lettuce[indexPath.row]
+                if salad.lettuce.contains(lettuce) {
+                    selected()
+                } else {
+                    unselected()
+                }
+            case .vegetables:
+                let vegetable = items.salad.vegetables[indexPath.row]
+                cell.titleLabel.text = vegetable.name
+                if salad.vegetables.contains(vegetable) {
+                    selected()
+                } else {
+                    unselected()
+                }
+            case .toppings:
+                let topping = items.salad.toppings[indexPath.row]
+                cell.titleLabel.text = topping.name
+                if salad.toppings.contains(topping) {
+                    selected()
+                } else {
+                    unselected()
+                }
+            case .dressings:
+                let dressing = items.salad.dressings[indexPath.row]
+                cell.titleLabel.text = dressing.name
+                if salad.dressings.contains(dressing) {
+                    selected()
+                } else {
+                    unselected()
+                }
             }
         }
-        
-        return cell
     }
 }
 
@@ -392,7 +437,11 @@ extension ItemsViewController: UITableViewDelegate {
     }
 }
 
-extension ItemsViewController: AddDelegate {
+protocol Editable {
+    func edit(for title: String)
+}
+
+extension ItemsViewController: Editable {
     func edit(for title: String) {
         if let choice = Choice(rawValue: title) {
             currentChoice = choice

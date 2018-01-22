@@ -73,7 +73,11 @@ extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelega
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FoodHeaderView
             headerView.titleLabel.text = dictionary[indexPath.section]?.title ?? nil
-            headerView.delegate = self
+            headerView.didTapEdit = { headerView in
+                if let title = headerView.titleLabel.text {
+                    self.foodDelegate?.didTapEdit(for: title)
+                }
+            }
             return headerView
         default: return UICollectionReusableView()
         }
@@ -98,13 +102,5 @@ extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
-    }
-}
-
-extension FoodCollectionView: FoodHeaderViewDelegate {
-    func didTapEdit(in headerView: FoodHeaderView) {
-        if let title = headerView.titleLabel.text {
-            foodDelegate?.didTapEdit(for: title)
-        }
     }
 }

@@ -8,12 +8,8 @@
 
 import UIKit
 
-protocol FoodHeaderViewDelegate {
-    func didTapEdit(in headerView: FoodHeaderView)
-}
-
 class FoodHeaderView: UICollectionReusableView {
-    var delegate: FoodHeaderViewDelegate?
+    var didTapEdit: ((FoodHeaderView) -> Void)?
     
     private var _titleLabel = UILabel()
     private var _editButton = UIButton(type: .system)
@@ -39,7 +35,6 @@ class FoodHeaderView: UICollectionReusableView {
     func setup() {
         // setup titleLabel
         addSubview(_titleLabel)
-        //titleLabel.backgroundColor = .purple
         _titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         _titleLabel.textColor = .black
         _titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +44,6 @@ class FoodHeaderView: UICollectionReusableView {
         
         // setup editButton
         addSubview(_editButton)
-        //editButton.backgroundColor = .orange
         _editButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         _editButton.translatesAutoresizingMaskIntoConstraints = false
         _editButton.setTitle("Edit", for: .normal)
@@ -59,10 +53,10 @@ class FoodHeaderView: UICollectionReusableView {
         _editButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
         _editButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        _editButton.addTarget(self, action: #selector(FoodHeaderView.didTapEdit), for: .touchUpInside)
+        _editButton.addTarget(self, action: #selector(FoodHeaderView._didTapEdit), for: .touchUpInside)
     }
     
-    @objc func didTapEdit() {
-        delegate?.didTapEdit(in: self)
+    @objc func _didTapEdit() {
+        didTapEdit?(self)
     }
 }

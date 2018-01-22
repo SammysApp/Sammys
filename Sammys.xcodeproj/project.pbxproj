@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB081201422470006235F /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB080201422470006235F /* ItemTableViewCell.swift */; };
+		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
+		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
 		5B44A7BA2002C17700898FF0 /* Items.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7B92002C17700898FF0 /* Items.json */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
@@ -58,6 +60,8 @@
 		21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB080201422470006235F /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
+		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7B92002C17700898FF0 /* Items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Items.json; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
@@ -171,9 +175,10 @@
 				5B44A82E2009326000898FF0 /* AddViewController.swift */,
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */,
+				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
+				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
 				5B1CB080201422470006235F /* ItemTableViewCell.swift */,
-				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
 				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
 				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
@@ -185,6 +190,7 @@
 				5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */,
 				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
+				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
 				5B44A8102007003300898FF0 /* Avocados.jpg */,
 				5B44A8112007003300898FF0 /* Lettuce.jpg */,
 				5B44A8122007003400898FF0 /* Peppers.jpg */,
@@ -270,6 +276,7 @@
 				5B44A8152007003400898FF0 /* Lettuce.jpg in Resources */,
 				5B44A7BA2002C17700898FF0 /* Items.json in Resources */,
 				5B44A8162007003400898FF0 /* Peppers.jpg in Resources */,
+				5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */,
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
 				5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */,
@@ -355,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */,

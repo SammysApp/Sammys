@@ -1,27 +1,29 @@
 //
-//  AddViewController.swift
+//  FoodViewController.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 1/12/18.
+//  Created by Natanel Niazoff on 1/21/18.
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
 import UIKit
 
-class AddViewController: UIViewController, Storyboardable {
-    typealias ViewController = AddViewController
+class FoodViewController: UIViewController, Storyboardable {
+    typealias ViewController = FoodViewController
     
+    var navigationItemTitle: String?
     var food: Food!
-    var delegate: Editable?
+    var didGoBack: ((FoodViewController) -> Void)?
     
     // MARK: IBOutlets & View Properties
-    @IBOutlet var addButton: UIButton!
     
     var collectionView: FoodCollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = navigationItemTitle
+
         collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
         collectionView.foodDelegate = self
         
@@ -31,33 +33,32 @@ class AddViewController: UIViewController, Storyboardable {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
-        addButton.layer.cornerRadius = 20
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = false
     }
     
-    @IBAction func cancel(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func addToBag(_ sender: UIButton) {
-        BagDataStore.shared.add(food)
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func fave(_ sender: UIButton) {
-        UserDataStore.shared.user?.favorites.append(food as! Salad)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParentViewController {
+            didGoBack?(self)
+        }
     }
 }
 
-extension AddViewController: FoodCollectionViewDelegate {
+extension FoodViewController: FoodCollectionViewDelegate {
     func didTapEdit(for title: String) {
-        delegate?.edit(for: title)
-        navigationController?.popViewController(animated: true)
+        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+        itemsViewController.salad = food as! Salad
+        itemsViewController.edit(for: title)
+        itemsViewController.isEditingFood = true
+        itemsViewController.finishEditing = {
+            self.collectionView.reloadData()
+        }
+        navigationController?.pushViewController(itemsViewController, animated: true)
     }
 }

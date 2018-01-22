@@ -23,9 +23,7 @@ class BagViewController: UIViewController, Storyboardable {
     
     var subtotalPrice: Double {
         var totalPrice = 0.0
-        for (_, foods) in items {
-            foods.forEach { totalPrice += $0.price }
-        }
+        items.forEach { $1.forEach { totalPrice += $0.price } }
         return totalPrice.rounded(toPlaces: 2)
     }
     
@@ -50,6 +48,12 @@ class BagViewController: UIViewController, Storyboardable {
         updateUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     /**
      Updates to UI based on external factors
      */
@@ -57,6 +61,17 @@ class BagViewController: UIViewController, Storyboardable {
         subtotalLabel.text = subtotalPrice.priceString
         taxLabel.text = taxPrice.priceString
         purchaseButton.setTitle(finalPrice.priceString, for: .normal)
+    }
+    
+    func editItem(for food: Food) {
+        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+        itemsViewController.salad = food as! Salad
+        itemsViewController.isEditingFood = true
+        itemsViewController.finishEditing = {
+            self.tableView.reloadData()
+            self.updateUI()
+        }
+        navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
     @IBAction func purchase(_ sender: UIButton) {
@@ -109,11 +124,28 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         cell.descriptionLabel.text = food.itemDescription
         cell.priceLabel.text = food.price.priceString
         
+        cell.edit = { cell in
+            self.editItem(for: food)
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let key = sortedItemsKeys[indexPath.section]
+        let food = items[key]![indexPath.row]
+        let foodViewController = FoodViewController()
+        foodViewController.food = food
+        foodViewController.navigationItemTitle = key.rawValue
+        foodViewController.didGoBack = { foodViewController in
+            self.tableView.reloadData()
+            self.updateUI()
+        }
+        navigationController?.pushViewController(foodViewController, animated: true)
     }
 }
 
