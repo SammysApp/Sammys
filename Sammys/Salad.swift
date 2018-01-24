@@ -9,6 +9,8 @@
 import Foundation
 
 class Salad: Food {
+    static let type = FoodType.salad
+    
     var size: Size?
     var lettuce: [Lettuce] = []
     var vegetables: [Vegetable] = []

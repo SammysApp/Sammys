@@ -10,21 +10,29 @@ import Foundation
 
 class BagDataStore {
     typealias Items = [FoodKey : [Food]]
+    typealias SavedItems = [FoodKey : [AnyFood]]
     
     static let shared = BagDataStore()
     private var _items: Items = [:]
     var items: Items {
         return _items
     }
+    private var savedItems: SavedItems {
+        get {
+            return _items.mapValues { $0.map { AnyFood($0) } }
+        } set {
+            _items = newValue.mapValues { $0.map { $0.food } }
+        }
+    }
     
     private init() {
-//        if let itemsData = UserDefaults.standard.data(forKey: "items") {
-//            do {
-//                _items = try JSONDecoder().decode(Items.self, from: itemsData)
-//            } catch {
-//                print(error)
-//            }
-//        }
+        if let itemsData = UserDefaults.standard.data(forKey: "items") {
+            do {
+                savedItems = try JSONDecoder().decode(SavedItems.self, from: itemsData)
+            } catch {
+                print(error)
+            }
+        }
     }
     
     func add(_ food: Food) {
@@ -41,12 +49,12 @@ class BagDataStore {
             }
         }
         
-//        save()
+        save()
     }
     
     func save() {
         do {
-            let itemsData = try JSONEncoder().encode(_items)
+            let itemsData = try JSONEncoder().encode(savedItems)
             UserDefaults.standard.set(itemsData, forKey: "items")
         } catch {
             print(error)
