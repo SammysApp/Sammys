@@ -38,7 +38,6 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     // MARK: IBOutlets & View Properties
-    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var itemsLabel: UILabel!
@@ -54,6 +53,10 @@ class ItemsViewController: UIViewController, Storyboardable {
     var tableViewConstraints: [NSLayoutConstraint] = []
     let flowCollectionViewLayout = UICollectionViewFlowLayout()
     let layout = AnimatedCollectionViewLayout()
+    var isCollectionViewAnimating = false
+    var isLayoutAnimated: Bool {
+        return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
+    }
     
     enum Choice: String {
         case size = "Size", lettuce = "Lettuce", vegetables = "Vegetables", toppings = "Toppings", dressings = "Dressings"
@@ -143,9 +146,9 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
-    func didSelect(at indexPath: IndexPath) {
-        hasSelectedOnce = true
-        updateUI(for: currentChoice)
+    func updateCurrentItemIndex() {
+        let centerPoint = view.convert(view.center, to: collectionView)
+        currentItemIndex = collectionView.indexPathForItem(at: centerPoint)!.row
     }
     
     func handleNewChoice() {
@@ -164,7 +167,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     /**
-     To be called when done editing.
+     * To be called when done editing.
      */
     func done() {
         finishEditing?()
@@ -172,7 +175,6 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     // MARK: IBActions
-    
     @IBAction func showTableView(_ sender: UIButton) {
         if tableViewIsShowing {
             tableView.removeFromSuperview()
@@ -350,7 +352,6 @@ extension ItemsViewController: UITableViewDataSource {
 
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        didSelect(at: indexPath)
         switch currentChoice {
         case .size:
             salad.size = items.salad.sizes[indexPath.row]
@@ -382,6 +383,14 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
             } else {
                 salad.dressings.append(dressing)
             }
+        }
+        
+        hasSelectedOnce = true
+        currentItemIndex = indexPath.row
+        let currentItemIndexOffsetX = CGFloat(currentItemIndex) * collectionView.bounds.size.width
+        if collectionView.contentOffset.x != currentItemIndexOffsetX {
+            isCollectionViewAnimating = true
+            collectionView.setContentOffset(CGPoint(x: currentItemIndexOffsetX, y: collectionView.contentOffset.y), animated: true)
         }
         collectionView.reloadData()
     }
@@ -423,10 +432,13 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isCollectionViewAnimating = false
+    }
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self) {
-            let centerPoint = view.convert(view.center, to: collectionView)
-            currentItemIndex = collectionView.indexPathForItem(at: centerPoint)!.row
+        if isLayoutAnimated && !isCollectionViewAnimating {
+            updateCurrentItemIndex()
         }
     }
 }
@@ -450,7 +462,6 @@ extension ItemsViewController: Editable {
 }
 
 // MARK: - Protocols
-
 protocol Storyboardable {
     associatedtype ViewController: UIViewController
 }
@@ -464,7 +475,6 @@ extension Storyboardable where Self: UIViewController {
 }
 
 // MARK: - Extensions
-
 extension Array where Element: Equatable {
     mutating func remove(_ element: Element) {
         self = self.filter { $0 != element }
