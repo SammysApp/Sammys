@@ -17,12 +17,19 @@ class Salad: Food {
     var toppings: [Topping] = []
     var dressings: [Dressing] = []
     var extras: [Extra] = []
+    var quantity = 1
+}
+
+extension Salad: Equatable {
+    static func ==(lhs: Salad, rhs: Salad) -> Bool {
+        return lhs.size == rhs.size && lhs.lettuce == rhs.lettuce && lhs.vegetables == rhs.vegetables && lhs.toppings == rhs.toppings && lhs.dressings == rhs.dressings
+    }
 }
 
 extension Salad {
     var price: Double {
         get {
-            return size?.price ?? 0
+            return size?.price != nil ? size!.price * Double(quantity) : 0
         }
     }
     

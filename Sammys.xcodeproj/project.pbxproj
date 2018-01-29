@@ -53,6 +53,10 @@
 		5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */; };
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
 		5B6A06C52002AF9700BAC480 /* ItemsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */; };
+		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
+		5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */; };
+		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
+		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
 		77D5D07D6A0C8DBA5E68B9C8 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +110,10 @@
 		5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearCardAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsDataStore.swift; sourceTree = "<group>"; };
+		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
+		5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemQuantityTableViewCell.swift; sourceTree = "<group>"; };
+		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
+		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,12 +181,16 @@
 				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
 				5B6A06971FFE8B1300BAC480 /* ItemsViewController.swift */,
 				5B44A82E2009326000898FF0 /* AddViewController.swift */,
+				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */,
 				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
 				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
+				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
+				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
 				5B1CB080201422470006235F /* ItemTableViewCell.swift */,
+				5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */,
 				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
 				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
@@ -369,10 +381,12 @@
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
+				5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
 				5B44A82D2009292A00898FF0 /* Item.swift in Sources */,
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
+				5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */,
@@ -381,6 +395,7 @@
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* ItemsCollectionViewCell.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* ItemsViewController.swift in Sources */,
+				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
@@ -391,6 +406,7 @@
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */,
+				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
 			);

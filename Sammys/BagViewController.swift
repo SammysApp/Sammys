@@ -11,29 +11,7 @@ import Stripe
 
 class BagViewController: UIViewController, Storyboardable {
     typealias ViewController = BagViewController
-    
-    let data = BagDataStore.shared
-    var items: BagDataStore.Items {
-        return data.items
-    }
-    var user: User? {
-        return UserDataStore.shared.user
-    }
-    lazy var sortedItemsKeys = Array(items.keys).sorted { $0.rawValue < $1.rawValue }
-    
-    var subtotalPrice: Double {
-        var totalPrice = 0.0
-        items.forEach { $1.forEach { totalPrice += $0.price } }
-        return totalPrice.rounded(toPlaces: 2)
-    }
-    
-    var taxPrice: Double {
-        return (subtotalPrice * (6.88/100)).rounded(toPlaces: 2)
-    }
-    
-    var finalPrice: Double {
-        return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
-    }
+    let viewModel = BagViewModel()
 
     // MARK: IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -44,6 +22,7 @@ class BagViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.estimatedRowHeight = 100
         purchaseButton.layer.cornerRadius = 20
         updateUI()
     }
@@ -55,12 +34,12 @@ class BagViewController: UIViewController, Storyboardable {
     }
     
     /**
-     Updates to UI based on external factors
+     Updates UI based on external factors
      */
     func updateUI() {
-        subtotalLabel.text = subtotalPrice.priceString
-        taxLabel.text = taxPrice.priceString
-        purchaseButton.setTitle(finalPrice.priceString, for: .normal)
+        subtotalLabel.text = viewModel.subtotalPrice.priceString
+        taxLabel.text = viewModel.taxPrice.priceString
+        purchaseButton.setTitle(viewModel.finalPrice.priceString, for: .normal)
     }
     
     func editItem(for food: Food) {
@@ -70,27 +49,46 @@ class BagViewController: UIViewController, Storyboardable {
         itemsViewController.finishEditing = {
             self.tableView.reloadData()
             self.updateUI()
+            self.viewModel.finishEditing()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
-    @IBAction func purchase(_ sender: UIButton) {
-        if user == nil {
-            present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
-        } else {
-            if let id = user!.customerID {
-                PayAPIClient.charge(id, amount: finalPrice.toCents())
-            } else {
-                let vc = STPAddCardViewController()
-                vc.delegate = self
-                let nvc = UINavigationController(rootViewController: vc)
-                present(nvc, animated: true, completion: nil)
+    func delete(_ food: Food) {
+        if let indexPath = viewModel.indexPath(for: food) {
+            var indexPathsToDelete = [indexPath]
+            let nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+            if let nextKey = viewModel.item(for: nextIndexPath)?.key, case .quantity = nextKey {
+                indexPathsToDelete.append(nextIndexPath)
             }
+            viewModel.remove(food) { removedSection in
+                if removedSection {
+                    self.tableView.deleteSections([indexPath.section], with: .automatic)
+                }
+            }
+            tableView.deleteRows(at: indexPathsToDelete, with: .automatic)
+            updateUI()
         }
+    }
+
+    
+    @IBAction func purchase(_ sender: UIButton) {
+//        if user == nil {
+//            present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
+//        } else {
+//            if let id = user!.customerID {
+//                PayAPIClient.charge(id, amount: finalPrice.toCents())
+//            } else {
+//                let vc = STPAddCardViewController()
+//                vc.delegate = self
+//                let nvc = UINavigationController(rootViewController: vc)
+//                present(nvc, animated: true, completion: nil)
+//            }
+//        }
     }
     
     @IBAction func clearBag(_ sender: UIButton) {
-        data.clear()
+        viewModel.clearBag()
         tableView.reloadData()
         updateUI()
     }
@@ -102,50 +100,88 @@ class BagViewController: UIViewController, Storyboardable {
 
 extension BagViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return items.count
+        return viewModel.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let key = sortedItemsKeys[section]
-        return items[key]!.count
+        return viewModel.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let key = sortedItemsKeys[indexPath.section]
-        let food = items[key]![indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemTableViewCell
-        
-        switch food {
-        case let salad as Salad:
-            cell.titleLabel.text = "\(salad.size!.name) Salad"
-        default: break
+        let item = viewModel.item(for: indexPath)!
+        switch item.key {
+        case .food:
+            let foodItem = item as! FoodBagItem
+            let food = foodItem.food
+            let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemTableViewCell
+            
+            switch food {
+            case let salad as Salad:
+                cell.titleLabel.text = "\(salad.size!.name) Salad"
+            default: break
+            }
+            
+            cell.descriptionLabel.text = food.itemDescription
+            cell.priceLabel.text = food.price.priceString
+            
+            cell.edit = { cell in
+                self.editItem(for: food)
+            }
+            
+            return cell
+        case .quantity:
+            let quantityItem = item as! QuantityBagItem
+            var food = quantityItem.food
+            let cell = tableView.dequeueReusableCell(withIdentifier: "quantityCell", for: indexPath) as! ItemQuantityTableViewCell
+            cell.quantityCollectionView.didSelectQuantity = { quantity in
+                switch quantity {
+                case .none:
+                    self.delete(quantityItem.food)
+                case .some(let amount):
+                    food.quantity = amount
+                    self.tableView.reloadData()
+                    self.updateUI()
+                    self.viewModel.finishEditing()
+                }
+            }
+            return cell
         }
-        
-        cell.descriptionLabel.text = food.itemDescription
-        cell.priceLabel.text = food.price.priceString
-        
-        cell.edit = { cell in
-            self.editItem(for: food)
-        }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
+        let item = viewModel.item(for: indexPath)!
+        switch item.key {
+        case .food:
+            return UITableViewAutomaticDimension
+        case .quantity:
+            return 60
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = sortedItemsKeys[indexPath.section]
-        let food = items[key]![indexPath.row]
-        let foodViewController = FoodViewController()
-        foodViewController.food = food
-        foodViewController.navigationItemTitle = key.rawValue
-        foodViewController.didGoBack = { foodViewController in
-            self.tableView.reloadData()
-            self.updateUI()
+        let item = viewModel.item(for: indexPath)!
+        switch item.key {
+        case .food:
+            let foodItem = item as! FoodBagItem
+            let food = foodItem.food
+            let foodViewController = FoodViewController()
+            foodViewController.food = food
+            //foodViewController.navigationItemTitle = key.rawValue
+            foodViewController.didGoBack = { foodViewController in
+                self.tableView.reloadData()
+                self.updateUI()
+            }
+            navigationController?.pushViewController(foodViewController, animated: true)
+        default: break
         }
-        navigationController?.pushViewController(foodViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let foodItem = viewModel.item(for: indexPath) as? FoodBagItem {
+                delete(foodItem.food)
+            }
+        }
     }
 }
 

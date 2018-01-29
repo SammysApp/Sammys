@@ -12,17 +12,23 @@ protocol Food: Codable {
     typealias ItemsDictionary = [Int : (title: String, items: [Item])]
     
     static var type: FoodType { get }
+    var quantity: Int { get set }
     var price: Double { get }
     var itemDescription: String { get }
     var itemDictionary: ItemsDictionary { get }
 }
 
-enum FoodKey: String, Codable {
-    case salad = "Salad"
+extension Food {
+    func isEqual(_ food: Food) -> Bool {
+        if let selfSalad = self as? Salad, let foodSalad = food as? Salad {
+            return selfSalad == foodSalad
+        }
+        return false
+    }
 }
 
 enum FoodType: String, Codable {
-    case salad
+    case salad = "Salad"
     
     var metatype: Food.Type {
         switch self {

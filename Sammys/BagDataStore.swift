@@ -9,26 +9,26 @@
 import Foundation
 
 class BagDataStore {
-    typealias Items = [FoodKey : [Food]]
-    typealias SavedItems = [FoodKey : [AnyFood]]
+    typealias Foods = [FoodType: [Food]]
+    private typealias SavedFoods = [FoodType : [AnyFood]]
     
     static let shared = BagDataStore()
-    private var _items: Items = [:]
-    var items: Items {
-        return _items
+    private var _foods: Foods = [:]
+    var foods: Foods {
+        return _foods
     }
-    private var savedItems: SavedItems {
+    private var savedItems: SavedFoods {
         get {
-            return _items.mapValues { $0.map { AnyFood($0) } }
+            return _foods.mapValues { $0.map { AnyFood($0) } }
         } set {
-            _items = newValue.mapValues { $0.map { $0.food } }
+            _foods = newValue.mapValues { $0.map { $0.food } }
         }
     }
     
     private init() {
         if let itemsData = UserDefaults.standard.data(forKey: "items") {
             do {
-                savedItems = try JSONDecoder().decode(SavedItems.self, from: itemsData)
+                savedItems = try JSONDecoder().decode(SavedFoods.self, from: itemsData)
             } catch {
                 print(error)
             }
@@ -36,16 +36,34 @@ class BagDataStore {
     }
     
     func add(_ food: Food) {
-        var foodKey: FoodKey?
+        var foodKey: FoodType?
         if let _ = food as? Salad {
             foodKey = .salad
         }
         
         if let key = foodKey {
-            if _items[key] == nil {
-                _items[key] = [food]
+            if _foods[key] == nil {
+                _foods[key] = [food]
             } else {
-                _items[key]!.append(food)
+                _foods[key]!.append(food)
+            }
+        }
+        
+        save()
+    }
+    
+    func remove(_ food: Food, removedSection: ((Bool) -> Void)?) {
+        for (key, foods) in _foods {
+            for (index, foodInFoods) in foods.enumerated() {
+                if food.isEqual(foodInFoods) {
+                    _foods[key]!.remove(at: index)
+                    if _foods[key]!.isEmpty {
+                        _foods.removeValue(forKey: key)
+                        removedSection?(true)
+                    } else {
+                        removedSection?(false)
+                    }
+                }
             }
         }
         
@@ -62,6 +80,7 @@ class BagDataStore {
     }
     
     func clear() {
-        _items = [:]
+        _foods = [:]
+        save()
     }
 }
