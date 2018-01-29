@@ -45,7 +45,18 @@ class BagDataStore {
             if _foods[key] == nil {
                 _foods[key] = [food]
             } else {
-                _foods[key]!.append(food)
+                var added = false
+                for var foodInFoods in _foods[key]! {
+                    if foodInFoods.isEqual(food) {
+                        if !added {
+                            foodInFoods.quantity += 1
+                            added = true
+                        }
+                    }
+                }
+                if !added {
+                    _foods[key]!.append(food)
+                }
             }
         }
         

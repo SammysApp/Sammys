@@ -63,11 +63,12 @@ class BagViewController: UIViewController, Storyboardable {
             }
             viewModel.remove(food) { removedSection in
                 if removedSection {
-                    self.tableView.deleteSections([indexPath.section], with: .automatic)
+                    self.tableView.deleteSections([indexPath.section], with: .fade)
+                } else {
+                    self.tableView.deleteRows(at: indexPathsToDelete, with: .automatic)
                 }
+                self.updateUI()
             }
-            tableView.deleteRows(at: indexPathsToDelete, with: .automatic)
-            updateUI()
         }
     }
 
