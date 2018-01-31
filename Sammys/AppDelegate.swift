@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        UserDataStore.shared.setAsUserAPIObsever()
+        UserAPIClient.startStateDidChangeListener()
         STPPaymentConfiguration.shared().publishableKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
         return true
     }

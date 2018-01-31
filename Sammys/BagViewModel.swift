@@ -8,6 +8,14 @@
 
 import Foundation
 
+enum BagItemKey {
+    case food, quantity
+}
+
+protocol BagItem {
+    var key: BagItemKey { get }
+}
+
 class BagViewModel {
     var user: User? {
         return UserDataStore.shared.user
@@ -93,15 +101,6 @@ class BagViewModel {
     func clearBag() {
         data.clear()
     }
-}
-
-enum BagItemKey {
-    case food
-    case quantity
-}
-
-protocol BagItem {
-    var key: BagItemKey { get }
 }
 
 class FoodBagItem: BagItem {

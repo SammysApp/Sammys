@@ -12,16 +12,10 @@ import Stripe
 class UserViewController: UIViewController, Storyboardable {
     typealias ViewController = UserViewController
     
-    var user: User? {
-        return UserDataStore.shared.user
-    }
+    let viewModel = UserViewModel()
     
-    // MARK: - IBOutlets & View Properties
+    // MARK: IBOutlets & View Properties
     @IBOutlet var tableView: UITableView!
-    
-    var info: [String : String]? {
-        return user != nil ? ["Name": user!.name, "Email": user!.email] : nil
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +25,9 @@ class UserViewController: UIViewController, Storyboardable {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if user == nil {
-            present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
+        if viewModel.needsUser {
+            let loginPageViewController = LoginPageViewController.storyboardInstance()
+            present(loginPageViewController, animated: true, completion: nil)
         } else {
             tableView.reloadData()
         }
@@ -45,45 +40,51 @@ class UserViewController: UIViewController, Storyboardable {
 
 extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return viewModel.numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return info?.count ?? 0
-        case 1:
-            return 1
-        default:
-            return 0
-        }
+        return viewModel.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            let key = Array(info!.keys)[indexPath.row]
-            cell.textLabel?.text = key
-            cell.detailTextLabel?.text = info![key]!
+        let item = viewModel.item(for: indexPath)!
+        func cell(for item: UserItem) -> UITableViewCell? {
+            let cell = tableView.dequeueReusableCell(withIdentifier: item.cellIdentifier)
+            cell?.textLabel?.text = item.title
             return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
-            cell.textLabel?.text = "Add Credit Card"
-            return cell
-        default: return UITableViewCell()
+        }
+        
+        switch item.key {
+        case .name:
+            let nameItem = item as! NameUserItem
+            let nameCell = cell(for: nameItem)!
+            nameCell.detailTextLabel?.text = nameItem.name
+            return nameCell
+        case .email:
+            let emailItem = item as! EmailUserItem
+            let emailCell = cell(for: emailItem)!
+            emailCell.detailTextLabel?.text = emailItem.email
+            return emailCell
+        case .creditCard, .logOut:
+            return cell(for: item)!
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            tableView.deselectRow(at: indexPath, animated: true)
-//            let theme = STPTheme()
-//            theme.accentColor = UIColor(named: "Mocha")
-            let vc = STPAddCardViewController()
-            vc.delegate = self
-            navigationController?.pushViewController(vc, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = viewModel.item(for: indexPath)!
+        switch item.key {
+        case .logOut:
+            let logOutItem = item as! LogOutUserItem
+            logOutItem.didSelect()
+        default: break
         }
+//        let theme = STPTheme()
+//        theme.accentColor = UIColor(named: "Mocha")
+//        let vc = STPAddCardViewController()
+//        vc.delegate = self
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

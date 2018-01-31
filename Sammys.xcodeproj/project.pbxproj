@@ -57,6 +57,11 @@
 		5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
 		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
+		5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */; };
+		5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */; };
+		5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */; };
+		5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */; };
+		5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BD020217D36005C01BF /* UserViewModel.swift */; };
 		77D5D07D6A0C8DBA5E68B9C8 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +119,11 @@
 		5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemQuantityTableViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
+		5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
+		5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginPageViewController.storyboard; sourceTree = "<group>"; };
+		5BFD2BD020217D36005C01BF /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,8 +187,11 @@
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
 				5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */,
 				5B44A8012006CE7F00898FF0 /* HomeViewController.swift */,
+				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
 				5B44A81C2007BB7000898FF0 /* UserViewController.swift */,
+				5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */,
 				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
+				5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */,
 				5B6A06971FFE8B1300BAC480 /* ItemsViewController.swift */,
 				5B44A82E2009326000898FF0 /* AddViewController.swift */,
 				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
@@ -198,7 +211,9 @@
 				5B44A7B92002C17700898FF0 /* Items.json */,
 				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
 				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
+				5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */,
 				5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */,
+				5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */,
 				5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */,
 				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
@@ -292,10 +307,12 @@
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
 				5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */,
+				5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */,
 				5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */,
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
 				5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */,
 				5B44A8142007003400898FF0 /* Avocados.jpg in Resources */,
+				5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */,
 				5B44A8172007003400898FF0 /* Salad.jpg in Resources */,
 				5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */,
 				5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */,
@@ -387,6 +404,7 @@
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */,
+				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */,
@@ -395,6 +413,7 @@
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* ItemsCollectionViewCell.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* ItemsViewController.swift in Sources */,
+				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
@@ -409,6 +428,7 @@
 				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
+				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

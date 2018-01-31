@@ -26,7 +26,7 @@ class User: CustomStringConvertible {
         }
     }
     
-    init(id: String, email: String, name: String, photoURL: URL?) {
+    init(id: String, email: String, name: String, photoURL: URL? = nil) {
         self.id = id
         self.email = email
         self.name = name

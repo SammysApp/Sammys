@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ayd-1q-wQ4">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Sign Up View Controller-->
+        <scene sceneID="ppm-DA-TDS">
+            <objects>
+                <viewController id="Ayd-1q-wQ4" customClass="SignUpViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lat-bD-bgT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WfJ-gC-Ba4">
+                                <rect key="frame" x="20" y="300" width="335" height="68"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSX-cC-Bgx">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jne-Ln-Tpr">
+                                        <rect key="frame" x="0.0" y="39" width="335" height="29"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldEditingChanged:" destination="Ayd-1q-wQ4" eventType="editingChanged" id="Pz2-8u-Ere"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" name="Flora"/>
+                        <constraints>
+                            <constraint firstItem="WfJ-gC-Ba4" firstAttribute="centerY" secondItem="Lat-bD-bgT" secondAttribute="centerY" id="2MI-TI-nDS"/>
+                            <constraint firstItem="qis-QP-0O1" firstAttribute="trailing" secondItem="WfJ-gC-Ba4" secondAttribute="trailing" constant="20" id="B2f-Kv-Op8"/>
+                            <constraint firstItem="WfJ-gC-Ba4" firstAttribute="centerX" secondItem="Lat-bD-bgT" secondAttribute="centerX" id="Krh-m1-a3D"/>
+                            <constraint firstItem="WfJ-gC-Ba4" firstAttribute="leading" secondItem="qis-QP-0O1" secondAttribute="leading" constant="20" id="gM4-PI-t2T"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qis-QP-0O1"/>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="Jne-Ln-Tpr" id="bju-ZX-Jb9"/>
+                        <outlet property="titleLabel" destination="QSX-cC-Bgx" id="h7l-nD-bhR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xmq-Bb-Ep4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-108" y="114.69265367316342"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="Flora">
+            <color red="0.44999998807907104" green="0.98100000619888306" blue="0.47400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

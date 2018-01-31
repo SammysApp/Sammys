@@ -12,5 +12,23 @@ class UserDataStore {
     static let shared = UserDataStore()
     var user: User?
     
+    // id to identify as observer
+    var id = UUID().uuidString
+    // handles an update to current user
+    lazy var handleUserStateChange: ((UserState) -> Void) = { userState in
+        switch userState {
+        case .noUser:
+            self.user = nil
+        case .currentUser(let user):
+            self.user = user
+        }
+    }
+    
     private init() {}
+    
+    func setAsUserAPIObsever() {
+        UserAPIClient.addObserver(self)
+    }
 }
+
+extension UserDataStore: UserAPIObserver {}

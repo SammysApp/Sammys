@@ -11,6 +11,10 @@ import UIKit
 class LoginViewController: UIViewController, Storyboardable {
     typealias ViewController = LoginViewController
     
+    var loginPageViewController: LoginPageViewController? {
+        return parent?.parent as? LoginPageViewController
+    }
+    
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
@@ -21,7 +25,11 @@ class LoginViewController: UIViewController, Storyboardable {
     
     @IBAction func login(_ sender: UIButton) {
         UserAPIClient.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) {
-            self.dismiss(animated: true, completion: nil)
+            self.loginPageViewController?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func signUp(_ sender: UIButton) {
+        loginPageViewController?.scrollToNextViewController()
     }
 }
