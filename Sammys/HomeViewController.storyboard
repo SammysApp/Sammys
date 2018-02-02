@@ -90,6 +90,9 @@
                                 <state key="normal" title="Bag">
                                     <color key="titleColor" name="Mocha"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapBag:" destination="shH-l6-kcQ" eventType="touchUpInside" id="CuF-q1-Zac"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7aX-hi-8p9">
                                 <rect key="frame" x="20" y="63" width="49" height="34"/>

@@ -146,6 +146,9 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
+    /**
+     Updates `self.centerPoint` to the centermost cell's `indexPath.row` property.
+    */
     func updateCurrentItemIndex() {
         let centerPoint = view.convert(view.center, to: collectionView)
         currentItemIndex = collectionView.indexPathForItem(at: centerPoint)!.row
@@ -167,8 +170,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     
     /**
-     * To be called when done editing.
-     */
+     Called when done editing.
+    */
     func done() {
         finishEditing?()
         navigationController?.popViewController(animated: true)
@@ -387,11 +390,15 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
         
         hasSelectedOnce = true
         currentItemIndex = indexPath.row
-        let currentItemIndexOffsetX = CGFloat(currentItemIndex) * collectionView.bounds.size.width
-        if collectionView.contentOffset.x != currentItemIndexOffsetX {
-            isCollectionViewAnimating = true
-            collectionView.setContentOffset(CGPoint(x: currentItemIndexOffsetX, y: collectionView.contentOffset.y), animated: true)
+        
+        if currentChoice == .size || currentChoice == .lettuce {
+            let currentItemIndexOffsetX = CGFloat(currentItemIndex) * collectionView.bounds.size.width
+            if collectionView.contentOffset.x != currentItemIndexOffsetX {
+                isCollectionViewAnimating = true
+                collectionView.setContentOffset(CGPoint(x: currentItemIndexOffsetX, y: collectionView.contentOffset.y), animated: true)
+            }
         }
+        
         collectionView.reloadData()
     }
     
@@ -437,8 +444,10 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if isLayoutAnimated && !isCollectionViewAnimating {
-            updateCurrentItemIndex()
+        if currentChoice == .size || currentChoice == .lettuce {
+            if isLayoutAnimated && !isCollectionViewAnimating {
+                updateCurrentItemIndex()
+            }
         }
     }
 }
