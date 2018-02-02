@@ -13,6 +13,14 @@ class UserViewController: UIViewController, Storyboardable {
     typealias ViewController = UserViewController
     
     let viewModel = UserViewModel()
+    var didCancelLogin = false
+    
+    lazy var userDidChange: () -> Void = {
+        self.tableView.reloadData()
+        if self.viewModel.needsUser {
+            self.presentLoginPageViewController()
+        }
+    }
     
     // MARK: IBOutlets & View Properties
     @IBOutlet var tableView: UITableView!
@@ -20,19 +28,26 @@ class UserViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if viewModel.needsUser {
-            let loginPageViewController = LoginPageViewController.storyboardInstance()
-            present(loginPageViewController, animated: true, completion: nil)
-        } else {
-            tableView.reloadData()
+        if viewModel.needsUser && !didCancelLogin {
+            presentLoginPageViewController()
+        }
+        if didCancelLogin {
+            dismiss(animated: true, completion: nil)
         }
     }
+    
+    func presentLoginPageViewController() {
+        let loginPageViewController = LoginPageViewController.storyboardInstance()
+        present(loginPageViewController, animated: true, completion: nil)
+    }
 
+    // MARK: IBActions
     @IBAction func done(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -87,6 +102,8 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
 //        navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+extension UserViewController: UserViewModelDelegate {}
 
 extension UserViewController: STPAddCardViewControllerDelegate {
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {

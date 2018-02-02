@@ -10,7 +10,10 @@ import Foundation
 
 class Salad: Food {
     static let type = FoodType.salad
-    
+    let id = UUID().uuidString
+    var title: String {
+        return "\(size!.name) Salad"
+    }
     var size: Size?
     var lettuce: [Lettuce] = []
     var vegetables: [Vegetable] = []

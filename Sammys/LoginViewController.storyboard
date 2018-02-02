@@ -62,6 +62,13 @@
                                     <action selector="login:" destination="ags-wa-tBO" eventType="touchUpInside" id="49G-cW-0ND"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrV-h4-Go4">
+                                <rect key="frame" x="20" y="40" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="didTapCancel:" destination="ags-wa-tBO" eventType="touchUpInside" id="B0k-Gt-iDq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
@@ -71,7 +78,9 @@
                             <constraint firstItem="EA7-HY-zN5" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="Y3q-9E-PoF"/>
                             <constraint firstItem="Awp-4m-VKa" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" id="bJ5-DJ-N8Y"/>
                             <constraint firstItem="k4D-1n-Bme" firstAttribute="bottom" secondItem="EA7-HY-zN5" secondAttribute="bottom" constant="20" id="dXl-8K-mb3"/>
+                            <constraint firstItem="DrV-h4-Go4" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="mnX-Y5-DbH"/>
                             <constraint firstItem="M2k-Ig-3o0" firstAttribute="centerY" secondItem="Qzb-5X-yII" secondAttribute="centerY" id="rZV-d2-xqP"/>
+                            <constraint firstItem="DrV-h4-Go4" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="re9-nA-hHq"/>
                             <constraint firstItem="Awp-4m-VKa" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="xMR-nZ-Frw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="k4D-1n-Bme"/>

@@ -15,13 +15,16 @@ class UserDataStore {
     // id to identify as observer
     var id = UUID().uuidString
     // handles an update to current user
-    lazy var handleUserStateChange: ((UserState) -> Void) = { userState in
+    lazy var userStateDidChange: ((UserState) -> Void)? = { userState in
         switch userState {
         case .noUser:
             self.user = nil
         case .currentUser(let user):
             self.user = user
         }
+    }
+    lazy var favoritesValueDidChange: (([Salad]) -> Void)? = { favorites in
+        self.user?.favorites = favorites
     }
     
     private init() {}

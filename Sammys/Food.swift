@@ -12,6 +12,8 @@ protocol Food: Codable {
     typealias ItemsDictionary = [Int : (title: String, items: [Item])]
     
     static var type: FoodType { get }
+    var id: String { get }
+    var title: String { get }
     var quantity: Int { get set }
     var price: Double { get }
     var itemDescription: String { get }

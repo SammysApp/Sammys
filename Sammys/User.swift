@@ -13,11 +13,7 @@ class User: CustomStringConvertible {
     var email: String
     var name: String
     var photoURL: URL?
-    var favorites: [Salad] = [] {
-        didSet {
-            saveFavorites()
-        }
-    }
+    var favorites: [Salad]?
     var customerID: String? {
         didSet {
             if customerID != nil {
@@ -40,7 +36,9 @@ class User: CustomStringConvertible {
 
 extension User {
     private func saveFavorites() {
-        UserAPIClient.set(favorites, for: self)
+//        if let favorites = favorites {
+//            UserAPIClient.set(favorites, for: self)
+//        }
     }
     
     private func saveCustomerID() {

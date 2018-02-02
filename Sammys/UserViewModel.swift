@@ -18,7 +18,13 @@ protocol UserItem {
     var title: String { get }
 }
 
+protocol UserViewModelDelegate {
+    var userDidChange: () -> Void { get }
+}
+
 class UserViewModel {
+    var delegate: UserViewModelDelegate?
+    let id = UUID().uuidString
     private var user: User? {
         return UserDataStore.shared.user
     }
@@ -39,6 +45,14 @@ class UserViewModel {
         return items.count
     }
     
+    lazy var userStateDidChange: ((UserState) -> Void)? = { _ in
+        self.delegate?.userDidChange()
+    }
+    
+    init() {
+        UserAPIClient.addObserver(self)
+    }
+    
     func numberOfRows(in section: Int) -> Int {
         return items[section]?.count ?? 0
     }
@@ -47,6 +61,12 @@ class UserViewModel {
         if let userItems = items[indexPath.section] {
             return userItems[indexPath.row]
         }
+        return nil
+    }
+}
+
+extension UserViewModel: UserAPIObserver {
+    var favoritesValueDidChange: (([Salad]) -> Void)? {
         return nil
     }
 }

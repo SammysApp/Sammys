@@ -23,7 +23,18 @@ enum UserState {
 
 protocol UserAPIObserver {
     var id: String { get }
-    var handleUserStateChange: ((UserState) -> Void) { get }
+    var userStateDidChange: ((UserState) -> Void)? { get }
+    var favoritesValueDidChange: (([Salad]) -> Void)? { get }
+}
+
+extension UserAPIObserver {
+//    var userStateDidChange: ((UserState) -> Void)? {
+//        return nil
+//    }
+//
+//    var favoritesValueDidChange: (([Salad]) -> Void)? {
+//        return nil
+//    }
 }
 
 private class UserAPIObservers {
@@ -56,26 +67,46 @@ struct UserAPIClient {
             if let user = user {
                 setupCurrentUser(user)
             } else {
-                observers.forEach { $0.handleUserStateChange(.noUser) }
+                observers.forEach { $0.userStateDidChange?(.noUser) }
             }
         }
     }
+    
+//    static func startFavoritesValueChangeObserver() {
+//        database.observe(.value) { (snapshot) in
+//            if let jsonString = snapshot.value as? String, let jsonData = jsonString.data(using: .utf8) {
+//                do {
+//                    let favorites = try JSONDecoder().decode([Salad].self, from: jsonData)
+//                    observers.forEach { $0.favoritesValueDidChange?(favorites) }
+//                } catch {
+//                    print(error)
+//                }
+//            }
+//        }
+//    }
     
     static func setupCurrentUser(_ user: FirebaseUser) {
         guard let email = user.email, let name = user.displayName
             else { return }
         let currentUser = User(id: user.uid, email: email, name: name)
-        observers.forEach { $0.handleUserStateChange(.currentUser(currentUser)) }
+        observers.forEach { $0.userStateDidChange?(.currentUser(currentUser)) }
     }
     
-    static func createUser(withEmail email: String, password: String, completionHandler: ((APIResult) -> Void)?) {
+    static func createUser(withName name: String, email: String, password: String, completionHandler: ((APIResult) -> Void)?) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if let error = error {
                 print(error)
-            } else if let user = user {
-//                database.child("users").child(user.uid).setValue("")
-                setupCurrentUser(user)
-                completionHandler?(.success)
+            } else if let user = Auth.auth().currentUser {
+                let changeRequest = user.createProfileChangeRequest()
+                changeRequest.displayName = name
+                changeRequest.commitChanges { error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        setupCurrentUser(user)
+                        completionHandler?(.success)
+                    }
+                }
             }
         }
     }
@@ -94,23 +125,28 @@ struct UserAPIClient {
         }
     }
     
-    static func updateUser(withName name: String, completionHandler: ((APIResult) -> Void)? = nil) {
-        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = name
-        changeRequest?.commitChanges { error in
-            if let error = error {
-                print(error)
-            } else {
-                completionHandler?(.success)
+    static func fetchFavorites(for user: User, completed: (([Salad]) -> Void)? = nil) {
+        database.child("users").child(user.id).child("favorites").observeSingleEvent(of: .value) { (snapshot) in
+            var favorites = [Salad]()
+            for childSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
+                if let jsonString = childSnapshot.value as? String, let jsonData = jsonString.data(using: .utf8) {
+                    do {
+                        let favorite = try JSONDecoder().decode(Salad.self, from: jsonData)
+                        favorites.append(favorite)
+                    } catch {
+                        print(error)
+                    }
+                }
             }
+            completed?(favorites)
         }
     }
     
-    static func set(_ favorites: [Salad], for user: User) {
+    static func add(_ favorite: Salad, to user: User) {
         do {
-            let jsonData = try JSONEncoder().encode(favorites)
+            let jsonData = try JSONEncoder().encode(favorite)
             let jsonString = String(data: jsonData, encoding: .utf8)
-            database.child("users").child(user.id).child("favorites").setValue(jsonString)
+            database.child("users").child(user.id).child("favorites").child(favorite.id).setValue(jsonString)
         } catch {
             
         }

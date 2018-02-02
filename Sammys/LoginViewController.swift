@@ -32,4 +32,11 @@ class LoginViewController: UIViewController, Storyboardable {
     @IBAction func signUp(_ sender: UIButton) {
         loginPageViewController?.scrollToNextViewController()
     }
+    
+    @IBAction func didTapCancel(_ sender: UIButton) {
+        if let userViewController = (loginPageViewController?.presentingViewController as? UINavigationController)?.topViewController as? UserViewController {
+            userViewController.didCancelLogin = true
+        }
+        loginPageViewController?.dismiss(animated: true, completion: nil)
+    }
 }

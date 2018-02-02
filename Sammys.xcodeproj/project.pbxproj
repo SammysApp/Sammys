@@ -62,6 +62,7 @@
 		5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */; };
 		5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */; };
 		5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BD020217D36005C01BF /* UserViewModel.swift */; };
+		5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */; };
 		77D5D07D6A0C8DBA5E68B9C8 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +125,7 @@
 		5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
 		5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginPageViewController.storyboard; sourceTree = "<group>"; };
 		5BFD2BD020217D36005C01BF /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +188,7 @@
 				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
 				5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */,
+				5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */,
 				5B44A8012006CE7F00898FF0 /* HomeViewController.swift */,
 				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
 				5B44A81C2007BB7000898FF0 /* UserViewController.swift */,
@@ -208,7 +211,6 @@
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
 				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
 				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
-				5B44A7B92002C17700898FF0 /* Items.json */,
 				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
 				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
 				5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */,
@@ -218,6 +220,7 @@
 				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
 				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
+				5B44A7B92002C17700898FF0 /* Items.json */,
 				5B44A8102007003300898FF0 /* Avocados.jpg */,
 				5B44A8112007003300898FF0 /* Lettuce.jpg */,
 				5B44A8122007003400898FF0 /* Peppers.jpg */,
@@ -425,6 +428,7 @@
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */,
+				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
