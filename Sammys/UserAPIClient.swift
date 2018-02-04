@@ -259,11 +259,11 @@ struct UserAPIClient {
     }
     
     /**
-     Add a favorite to a user.
+     Sets a favorite value to a favorite key as a child of a user.
      - Parameter favorite: The favorite object to add.
      - Parameter user: The user to add the favorite object to.
     */
-    static func add(_ favorite: Salad, to user: User) {
+    static func set(_ favorite: Salad, for user: User) {
         do {
             // Attempt to encode the favorites object to JSON.
             let jsonData = try JSONEncoder().encode(favorite)

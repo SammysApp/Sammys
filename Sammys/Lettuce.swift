@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A type that represents a lettuce in a `Salad` instance.
+/// A type that represents a lettuce 🌱 in a `Salad` instance.
 struct Lettuce: Item, Codable, Equatable {
     let name: String
     let description: String

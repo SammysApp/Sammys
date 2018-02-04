@@ -51,7 +51,7 @@ class AddViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func fave(_ sender: UIButton) {
-        UserAPIClient.add(food as! Salad, to: UserDataStore.shared.user!)
+        UserAPIClient.set(food as! Salad, for: UserDataStore.shared.user!)
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A type that represents an extra in a `Salad` instance.
+/// A type that represents an extra 🧀 in a `Salad` instance.
 struct Extra: Item, Codable, Equatable {
     let name: String
     let description: String

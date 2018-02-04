@@ -46,6 +46,7 @@ class HomeViewModel {
         switch viewKey {
         case .foods:
             items = [FoodHomeItem(title: "Salad")]
+            completed?()
         case .faves:
             let didGetFavorites: ([Salad]) -> Void = { favorites in
                 var items = [HomeItem]()
@@ -71,6 +72,18 @@ class HomeViewModel {
     
     func item(for indexPath: IndexPath) -> HomeItem {
         return items[indexPath.row]
+    }
+    
+    func toggleFaves() {
+        if viewKey != .faves {
+            viewKey = .faves
+        } else {
+            viewKey = .foods
+        }
+    }
+    
+    func setFavorite(_ food: Food) {
+        UserAPIClient.set(food as! Salad, for: user!)
     }
 }
 

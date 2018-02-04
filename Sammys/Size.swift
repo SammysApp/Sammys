@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A type that represents the size for a `Salad` instance.
+/// A type that represents the size 🥣 for a `Salad` instance.
 struct Size: Item, Codable, Equatable {
     let name: String
     

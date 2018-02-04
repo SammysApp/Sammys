@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func didTapFaves(_ sender: UIButton) {
-        viewModel.viewKey = .faves
+        viewModel.toggleFaves()
         viewModel.getItems() {
             self.collectionView.reloadData()
         }
@@ -65,8 +65,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = viewModel.item(for: indexPath)
-        if case .food = item.key {
+        if item.key == .food {
             navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
+        } else if item.key == .fave {
+            let faveItem = item as! FaveHomeItem
+            let foodViewController = FoodViewController()
+            foodViewController.food = faveItem.food
+            foodViewController.didGoBack = { foodViewController in
+                self.viewModel.setFavorite(faveItem.food)
+                self.collectionView.reloadData()
+            }
+            navigationController?.pushViewController(foodViewController, animated: true)
         }
     }
     
