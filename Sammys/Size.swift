@@ -8,8 +8,11 @@
 
 import Foundation
 
+/// A type that represents the size for a `Salad` instance.
 struct Size: Item, Codable, Equatable {
     let name: String
+    
+    /// The price for the size.
     let price: Double
     
     static func ==(lhs: Size, rhs: Size) -> Bool {

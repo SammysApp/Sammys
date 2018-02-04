@@ -115,7 +115,7 @@ class LoginPageViewController: UIViewController, Storyboardable {
             let password = signUpInfo.password else {
             return
         }
-        UserAPIClient.createUser(withName: name, email: email, password: password) { result in
+        UserAPIClient.createUser(with: name, email: email, password: password) { result in
             switch result {
             case .success:
                 self.dismiss(animated: true, completion: nil)

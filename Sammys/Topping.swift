@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A type that represents a topping in a `Salad` instance.
 struct Topping: Item, Codable, Equatable {
     let name: String
     let description: String

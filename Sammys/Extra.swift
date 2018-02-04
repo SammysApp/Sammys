@@ -8,8 +8,15 @@
 
 import Foundation
 
-struct Extra: Item, Codable {
+/// A type that represents an extra in a `Salad` instance.
+struct Extra: Item, Codable, Equatable {
     let name: String
-    let price: Double
     let description: String
+    
+    /// The price for the extra.
+    let price: Double
+    
+    static func ==(lhs: Extra, rhs: Extra) -> Bool {
+        return lhs.name == rhs.name
+    }
 }

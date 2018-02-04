@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func login(_ sender: UIButton) {
-        UserAPIClient.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) {
+        UserAPIClient.signIn(with: emailTextField.text!, password: passwordTextField.text!) { result in
             self.loginPageViewController?.dismiss(animated: true, completion: nil)
         }
     }

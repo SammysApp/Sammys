@@ -16,10 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        // MARK: - Configurations
         FirebaseApp.configure()
-        UserDataStore.shared.setAsUserAPIObsever()
-        UserAPIClient.startStateDidChangeListener()
         STPPaymentConfiguration.shared().publishableKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
+        
+        UserDataStore.shared.setAsUserAPIObsever()
+        UserAPIClient.startUserStateDidChangeListener()
+        // MARK: -
+        
         return true
     }
 }

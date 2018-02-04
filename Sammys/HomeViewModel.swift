@@ -58,7 +58,7 @@ class HomeViewModel {
             if user?.favorites != nil {
                 didGetFavorites(user!.favorites!)
             } else {
-                UserAPIClient.fetchFavorites(for: user!) { favorites in
+                UserAPIClient.fetchFavorites(for: user!) { (result, favorites)  in
                     didGetFavorites(favorites)
                 }
             }
