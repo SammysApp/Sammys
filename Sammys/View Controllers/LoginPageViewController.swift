@@ -92,7 +92,6 @@ class LoginPageViewController: UIViewController, Storyboardable {
         nextButton.isHidden = true
         nextButton.setTitle("Next", for: .normal)
         switch currentViewControllerKey {
-        case .login: break
         case .name:
             if signUpInfo.name != nil && signUpInfo.name != "" {
                 nextButton.isHidden = false
@@ -103,9 +102,10 @@ class LoginPageViewController: UIViewController, Storyboardable {
             }
         case .password:
             if signUpInfo.password != nil && signUpInfo.password != "" {
-                nextButton.isHidden = false
                 nextButton.setTitle("Done", for: .normal)
+                nextButton.isHidden = false
             }
+        default: break
         }
     }
     

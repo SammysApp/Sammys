@@ -93,13 +93,14 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
         case .logOut:
             let logOutItem = item as! LogOutUserItem
             logOutItem.didSelect()
+        case .creditCard:
+            let theme = STPTheme()
+            theme.accentColor = UIColor(named: "Mocha")
+            let addCardViewController = STPAddCardViewController()
+            addCardViewController.delegate = self
+            navigationController?.pushViewController(addCardViewController, animated: true)
         default: break
         }
-//        let theme = STPTheme()
-//        theme.accentColor = UIColor(named: "Mocha")
-//        let vc = STPAddCardViewController()
-//        vc.delegate = self
-//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -107,11 +108,11 @@ extension UserViewController: UserViewModelDelegate {}
 
 extension UserViewController: STPAddCardViewControllerDelegate {
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         PayAPIClient.createNewCustomer(with: token.tokenId)
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }

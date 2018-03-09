@@ -30,7 +30,7 @@ class Salad: Food {
     
     // MARK: - Food
     static let type = FoodType.salad
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     
     /// The quantity of salads to buy. Determines `price` value. Default is `1`.
     var quantity = 1

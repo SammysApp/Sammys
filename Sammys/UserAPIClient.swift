@@ -55,7 +55,7 @@ private class UserAPIObservers {
     private init() {}
 }
 
-/// An client to make user calls to the API.
+/// A client to make user calls to the user API 🏭.
 struct UserAPIClient {
     /// The shared Firebase database reference.
     private static let database = Database.database().reference()
@@ -78,7 +78,7 @@ struct UserAPIClient {
         observers = observers.filter { $0.id != observer.id }
     }
     
-    // MARK: - User
+    // MARK: - User 💁🏻‍♀️
     /**
      Creates a new `User` object from a `FirebaseUser` one and sends object to observers.
      - Parameter user: A `FirebaseUser` object to be converted to a `User` one.
@@ -174,10 +174,10 @@ struct UserAPIClient {
         }
     }
     
-    // MARK: - Favorites
+    // MARK: - Favorites ❤️
     /// Returns the data favorites reference for the user.
     private static func favoritesReference(for userID: String) -> DatabaseReference {
-        return database.users.user(with: userID).favorites
+        return database.users.user(with: userID).favorites.salads
     }
     
     /**
@@ -275,18 +275,19 @@ struct UserAPIClient {
         }
     }
     
-    // MARK: - Payment
+    // MARK: - Payment 💰
+    /// Sets the Stripe customer ID for the given user.
     static func set(_ customerID: String, for user: User) {
         database.users.user(with: user.id).customerID.setValue(customerID)
     }
     
-    // MARK: - Print
+    // MARK: - Debug
     private static func printNoData(line: Int = #line, file: String = #file) {
-        print("no data. line \(line) in \(file).")
+        print("No data. Line \(line) in \(file).")
     }
     
     private static func printError(_ error: Error, line: Int = #line, file: String = #file) {
-        print("\(error). line \(line) in \(file).")
+        print("\(error). Line \(line) in \(file).")
     }
 }
 
@@ -298,6 +299,10 @@ private extension DatabaseReference {
     
     var favorites: DatabaseReference {
         return child("favorites")
+    }
+    
+    var salads: DatabaseReference {
+        return child("salads")
     }
     
     var customerID: DatabaseReference {

@@ -173,6 +173,28 @@
 			isa = PBXGroup;
 			children = (
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
+				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
+				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
+				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
+				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
+				5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */,
+				5B9CD59C204CCA0500F59E4C /* Models */,
+				5B9CD59D204CCA5500F59E4C /* View Controllers */,
+				5B9CD59E204CCA7F00F59E4C /* Cells */,
+				5B9CD59F204CCAA500F59E4C /* Views */,
+				5B9CD5A0204CCAEF00F59E4C /* Storyboards */,
+				5B9CD5A1204CCB0700F59E4C /* Data */,
+				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
+				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
+				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
+				5B9CD5A2204E1EB200F59E4C /* More */,
+			);
+			path = Sammys;
+			sourceTree = "<group>";
+		};
+		5B9CD59C204CCA0500F59E4C /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				5B44A7C3200483E500898FF0 /* Food.swift */,
 				5B6A06951FFD54B500BAC480 /* Salad.swift */,
 				5B44A82C2009292A00898FF0 /* Item.swift */,
@@ -183,34 +205,54 @@
 				5B44A836200EA4CA00898FF0 /* Dressing.swift */,
 				5B6A06911FFD53C700BAC480 /* Extra.swift */,
 				5B44A8282007F7DB00898FF0 /* User.swift */,
-				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
-				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
-				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
-				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
-				5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */,
-				5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5B9CD59D204CCA5500F59E4C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				5B44A8012006CE7F00898FF0 /* HomeViewController.swift */,
-				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
+				5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */,
 				5B44A81C2007BB7000898FF0 /* UserViewController.swift */,
+				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
 				5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */,
 				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
 				5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */,
 				5B6A06971FFE8B1300BAC480 /* ItemsViewController.swift */,
 				5B44A82E2009326000898FF0 /* AddViewController.swift */,
-				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
-				5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */,
+				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
 				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
-				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
-				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5B9CD59E204CCA7F00F59E4C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */,
 				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
 				5B1CB080201422470006235F /* ItemTableViewCell.swift */,
 				5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5B9CD59F204CCAA500F59E4C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
+				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
 				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
-				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
-				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
-				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5B9CD5A0204CCAEF00F59E4C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
 				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
 				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
 				5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */,
@@ -220,17 +262,31 @@
 				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
 				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
+				5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		5B9CD5A1204CCB0700F59E4C /* Data */ = {
+			isa = PBXGroup;
+			children = (
 				5B44A7B92002C17700898FF0 /* Items.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		5B9CD5A2204E1EB200F59E4C /* More */ = {
+			isa = PBXGroup;
+			children = (
 				5B44A8102007003300898FF0 /* Avocados.jpg */,
 				5B44A8112007003300898FF0 /* Lettuce.jpg */,
 				5B44A8122007003400898FF0 /* Peppers.jpg */,
 				5B44A8132007003400898FF0 /* Salad.jpg */,
 				5B6A06821FFD509A00BAC480 /* Assets.xcassets */,
-				5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */,
 				5B6A06871FFD509A00BAC480 /* Info.plist */,
 				5B44A8222007D58400898FF0 /* GoogleService-Info.plist */,
 			);
-			path = Sammys;
+			path = More;
 			sourceTree = "<group>";
 		};
 		94825A66B172021E2F0BA0A3 /* Frameworks */ = {
@@ -572,7 +628,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = Sammys/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -588,7 +644,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = Sammys/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME)";

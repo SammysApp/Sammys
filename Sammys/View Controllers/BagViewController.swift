@@ -192,7 +192,6 @@ extension BagViewController: STPAddCardViewControllerDelegate {
     }
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        PayAPIClient.chargeNewUser(with: token.tokenId, amount: 1000)
         dismiss(animated: true, completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A type that represents a user.
+/// A type that represents a user 👩🏻.
 class User {
     /// A unique id.
     var id: String

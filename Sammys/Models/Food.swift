@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// A type that represents a food item for sale.
+/// A type that represents a food 🍎 item for sale.
 protocol Food: Codable {
     typealias ItemsDictionary = [Int : (title: String, items: [Item])]
     
