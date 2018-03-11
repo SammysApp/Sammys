@@ -38,9 +38,9 @@ extension UserDataStore: UserAPIObserver {
         }
     }
     
-    var favoritesValueDidChange: (([Salad]) -> Void)? {
+    var favoritesValueDidChange: (([FavoriteGroup]) -> Void)? {
         return { favorites in
-            self.user?.favorites[Salad.type] = favorites
+            self.user?.favorites = favorites
         }
     }
 }

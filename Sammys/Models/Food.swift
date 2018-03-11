@@ -8,10 +8,17 @@
 
 import Foundation
 
+/// A type that represents a group of items.
+struct ItemGroup {
+    /// The title of the group.
+    let title: String
+    
+    /// The items in the group.
+    let items: [Item]
+}
+
 /// A type that represents a food 🍎 item for sale.
 protocol Food: Codable {
-    typealias ItemsDictionary = [Int : (title: String, items: [Item])]
-    
     /// The type of `Food` conforming type represented by `FoodType` keys.
     static var type: FoodType { get }
     
@@ -30,8 +37,8 @@ protocol Food: Codable {
     /// A description of the `Food` item.
     var itemDescription: String { get }
     
-    /// A dictionary that stores the confoming type's items in `[Int : (title: String, items: [Item])]` form. This form allows the dictionary to be sorted into order.
-    var itemDictionary: ItemsDictionary { get }
+    /// An array of item groups belonging to the `Food`.
+    var itemGroups: [ItemGroup] { get }
 }
 
 extension Food {
@@ -53,13 +60,19 @@ extension Food {
  - `salad`: identifies `Salad` type.
  */
 enum FoodType: String, Codable {
-   case salad = "Salad"
+   case salad
     
     /// A reference to the type identified by `self`'s value.
     var metatype: Food.Type {
         switch self {
         case .salad:
             return Salad.self
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .salad: return "Salad"
         }
     }
 }

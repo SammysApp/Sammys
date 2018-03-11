@@ -20,8 +20,8 @@ class FoodCollectionView: UICollectionView {
     var foodDelegate: FoodCollectionViewDelegate?
     
     private var food: Food!
-    var dictionary: Food.ItemsDictionary {
-        return food.itemDictionary
+    var sections: [ItemGroup] {
+        return food.itemGroups
     }
     
     convenience init(frame: CGRect, food: Food) {
@@ -53,18 +53,18 @@ class FoodCollectionView: UICollectionView {
 
 extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dictionary.count
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dictionary[section]?.items.count ?? 0
+        return sections[section].items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
         cell.backgroundColor = UIColor(named: "Flora")
         cell.layer.cornerRadius = 20
-        cell.titleLabel.text = dictionary[indexPath.section]?.items[indexPath.row].name ?? nil
+        cell.titleLabel.text = sections[indexPath.section].items[indexPath.row].name
         return cell
     }
     
@@ -72,7 +72,7 @@ extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelega
         switch kind {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FoodHeaderView
-            headerView.titleLabel.text = dictionary[indexPath.section]?.title ?? nil
+            headerView.titleLabel.text = sections[indexPath.section].title
             headerView.didTapEdit = { headerView in
                 if let title = headerView.titleLabel.text {
                     self.foodDelegate?.didTapEdit(for: title)

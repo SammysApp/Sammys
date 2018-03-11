@@ -8,8 +8,9 @@
 
 import Foundation
 
-/// A type that represents a vegetable or fruit 🥑🍓 in a `Salad` instance.
+/// A type that represents a vegetable 🥦 or fruit 🥑 in a `Salad` instance.
 struct Vegetable: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.vegetable
     let name: String
     let description: String
     

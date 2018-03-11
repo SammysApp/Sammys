@@ -10,6 +10,7 @@ import Foundation
 
 /// A type that represents a topping 🥜 in a `Salad` instance.
 struct Topping: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.topping
     let name: String
     let description: String
     

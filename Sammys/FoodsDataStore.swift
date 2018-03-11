@@ -16,9 +16,14 @@ class FoodsDataStore {
     /// The available foods represented as a `Foods struct`.
     var foods: Foods?
     
+    private struct Constants {
+        static let foodsFileName = "Foods"
+        static let foodsFileType = "json"
+    }
+    
     private init() {
         // Set `foods` from Foods.json file.
-        if let path = Bundle.main.path(forResource: "Foods", ofType: "json") {
+        if let path = Bundle.main.path(forResource: Constants.foodsFileName, ofType: Constants.foodsFileType) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))
                 let foods = try JSONDecoder().decode(Foods.self, from: data)

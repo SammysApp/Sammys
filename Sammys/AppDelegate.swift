@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Start listening for changes to user.
         UserAPIClient.startUserStateDidChangeListener()
         
+        // Start listening for changes to favorites.
+        UserAPIClient.startFavoritesValueChangeObserver()
+        
         // Set as user API observer.
         UserDataStore.shared.setAsUserAPIObsever()
         

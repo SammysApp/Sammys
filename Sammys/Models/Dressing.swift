@@ -10,6 +10,7 @@ import Foundation
 
 /// A type that represents a dressing 🍶 in a `Salad` instance.
 struct Dressing: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.dressing
     let name: String
     let description: String
     

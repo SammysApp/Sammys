@@ -77,11 +77,7 @@ class UserViewModel {
     }
 }
 
-extension UserViewModel: UserAPIObserver {
-    var favoritesValueDidChange: (([Salad]) -> Void)? {
-        return nil
-    }
-}
+extension UserViewModel: UserAPIObserver {}
 
 struct NameUserItem: UserItem {
     let key: UserItemKey = .name

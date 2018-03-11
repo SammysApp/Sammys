@@ -22,6 +22,10 @@ enum HomeCellIdentifier: String {
     case itemsCell
 }
 
+protocol HomeViewModelDelegate {
+    var favoritesDidChange: () -> Void { get }
+}
+
 /// A type that represents a home cell item.
 protocol HomeItem {
     var key: HomeItemKey { get }
@@ -29,60 +33,84 @@ protocol HomeItem {
     var title: String { get }
 }
 
+struct HomeSection {
+    let title: String?
+    let items: [HomeItem]
+}
+
 class HomeViewModel {
+    var delegate: HomeViewModelDelegate?
+    
     /// The current view state key.
     var viewKey: HomeViewKey = .foods
     
-    /// The items to populate home with based on the view state.
-    private var items = [HomeItem]()
+    /// The sections to populate home with based on the view state.
+    private var sections = [HomeSection]()
     
-    /// The current user signed in.
     var user: User? {
         return UserDataStore.shared.user
     }
     
     let id = UUID().uuidString
     
-    init() {
-        getItems(for: viewKey)
+    var numberOfSections: Int {
+        return sections.count
     }
     
-    /**
-     Gets the appropriate items for the given view key. Calls `completed` closure upon finishing.
-    */
-    func getItems(for viewKey: HomeViewKey, completed: (() -> Void)? = nil) {
+    init(_ delegate: HomeViewModelDelegate? = nil) {
+        getItems()
+        UserAPIClient.addObserver(self)
+    }
+    
+    /// Gets the items for the current view state and calls `completed` closure upon finishing.
+    func getItems(completed: (() -> Void)? = nil) {
+        getItems(for: viewKey, completed: completed)
+    }
+    
+    /// Gets the appropriate items for the given view key. Calls `completed` closure upon finishing.
+    private func getItems(for viewKey: HomeViewKey, completed: (() -> Void)? = nil) {
         switch viewKey {
         case .foods:
-            items = [FoodHomeItem(title: FoodType.salad.rawValue)]
+            let section = HomeSection(title: nil, items: [FoodHomeItem(title: FoodType.salad.rawValue)])
+            sections = [section]
             completed?()
         case .faves:
             // Only allow to display faves if there's a signed in user.
             guard let user = user else { return }
-            /// Gets called after user favorites fetched.
-            let didGetFavorites: ([Salad]) -> Void = { favorites in
-                var items = [HomeItem]()
-                for food in favorites {
-                    items.append(FaveHomeItem(food: food))
-                }
-                self.items = items
-                completed?()
-            }
             if !user.favorites.isEmpty {
-                didGetFavorites(user.favorites)
+                setSections(for: user.favorites)
+                completed?()
             } else {
                 UserAPIClient.fetchFavorites(for: user) { (result, favorites)  in
-                    didGetFavorites(favorites)
+                    self.setSections(for: favorites)
+                    completed?()
                 }
             }
         }
     }
     
+    private func setSections(for favorites: [FavoriteGroup]) {
+        var sections = [HomeSection]()
+        for favoriteGroup in favorites {
+            var items = [HomeItem]()
+            for food in favoriteGroup.favorites {
+                items.append(FaveHomeItem(food: food))
+            }
+            sections.append(HomeSection(title: favoriteGroup.foodType.title, items: items))
+        }
+        self.sections = sections
+    }
+    
     func numberOfItems(in section: Int) -> Int {
-        return items.count
+        return sections[section].items.count
     }
     
     func item(for indexPath: IndexPath) -> HomeItem {
-        return items[indexPath.row]
+        return sections[indexPath.section].items[indexPath.row]
+    }
+    
+    func title(for section: Int) -> String? {
+        return sections[section].title
     }
     
     func toggleFaves() {
@@ -99,14 +127,13 @@ class HomeViewModel {
 }
 
 extension HomeViewModel: UserAPIObserver {
-    var favoritesValueDidChange: (([Salad]) -> Void)? {
+    var favoritesValueDidChange: (([FavoriteGroup]) -> Void)? {
         return { favorites in
-        
+            if self.viewKey == .faves {
+                self.setSections(for: favorites)
+                self.delegate?.favoritesDidChange()
+            }
         }
-    }
-    
-    var userStateDidChange: ((UserState) -> Void)? {
-        return nil
     }
 }
 

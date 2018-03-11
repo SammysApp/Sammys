@@ -1,6 +1,3 @@
-//
-//  AnimatedCollectionViewLayout.swift
-//
 
 import Foundation
 import UIKit

@@ -1,6 +1,3 @@
-//
-//  LinearCardAttributesAnimator.swift
-//
 
 import UIKit
 

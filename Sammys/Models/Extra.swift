@@ -10,6 +10,7 @@ import Foundation
 
 /// A type that represents an extra 🧀 in a `Salad` instance.
 struct Extra: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.extra
     let name: String
     let description: String
     

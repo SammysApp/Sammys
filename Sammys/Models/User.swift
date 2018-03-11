@@ -23,7 +23,7 @@ class User {
     var photoURL: URL?
     
     /// A cache for a user's favorites.
-    var favorites = [FoodType: [Food]]()
+    var favorites = [FavoriteGroup]()
     
     /**
      Initializes a new user with the given information.

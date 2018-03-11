@@ -10,6 +10,7 @@ import Foundation
 
 /// A type that represents the size 🥣 for a `Salad` instance.
 struct Size: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.size
     let name: String
     
     /// The price for the size.

@@ -10,6 +10,7 @@ import Foundation
 
 /// A type that represents a lettuce 🌱 in a `Salad` instance.
 struct Lettuce: Item, Codable, Equatable {
+    static let type: ItemType = SaladItemType.lettuce
     let name: String
     let description: String
     

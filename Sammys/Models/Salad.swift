@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum SaladItemType {
+    case size, lettuce, vegetable, topping, dressing, extra
+}
+
 /// A type that represents a salad 🥗 `Food` type.
 class Salad: Food {
     /// The size of the salad. Default is `nil`.
@@ -53,31 +57,22 @@ extension Salad {
         return (lettuce as [Item] + vegetables as [Item] + toppings as [Item] + dressings as [Item]).commaString
     }
     
-    var itemDictionary: ItemsDictionary {
-        var dictionary: ItemsDictionary = [:]
+    var itemGroups: [ItemGroup] {
+        var itemGroups = [ItemGroup]()
+        
         guard let size = size else {
-            return dictionary
+            return itemGroups
         }
+        itemGroups.append(ItemGroup(title: SaladItemType.size.title, items: [size]))
         
-        var index = 0
-        /**
-         Returns index and then increments by 1. Used in order to get the proper index key to set the value to in `dictionary`.
-         */
-        func getIndex() -> Int {
-            defer {
-                index += 1
+        let saladItems: [[Item]] = [lettuce, vegetables, toppings, dressings, extras]
+        saladItems.forEach { items in
+            if !items.isEmpty, let firstItem = items.first {
+                let item = Swift.type(of: firstItem)
+                itemGroups.append(ItemGroup(title: item.type.title, items: items))
             }
-            return index
         }
-        
-        dictionary[getIndex()] = ("Size", [size])
-        dictionary[getIndex()] = ("Lettuce", lettuce)
-        if !vegetables.isEmpty { dictionary[getIndex()] = ("Vegetables", vegetables) }
-        if !toppings.isEmpty { dictionary[getIndex()] = ("Toppings", toppings) }
-        if !dressings.isEmpty { dictionary[getIndex()] = ("Dressings", dressings) }
-        if !extras.isEmpty { dictionary[getIndex()] = ("Extras", extras) }
-        
-        return dictionary
+        return itemGroups
     }
 }
 
@@ -85,5 +80,18 @@ extension Salad {
 extension Salad: Equatable {
     static func ==(lhs: Salad, rhs: Salad) -> Bool {
         return lhs.size == rhs.size && lhs.lettuce == rhs.lettuce && lhs.vegetables == rhs.vegetables && lhs.toppings == rhs.toppings && lhs.dressings == rhs.dressings
+    }
+}
+
+extension SaladItemType: ItemType {
+    var title: String {
+        switch self {
+        case .size: return "Size"
+        case .lettuce: return "Lettuce"
+        case .vegetable: return "Vegetables"
+        case .topping: return "Toppings"
+        case .dressing: return "Dressings"
+        case .extra: return "Extras"
+        }
     }
 }

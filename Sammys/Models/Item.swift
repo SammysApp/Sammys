@@ -8,8 +8,15 @@
 
 import Foundation
 
-/// A type that represents an item ✅ in a particular `Food` type.
+/// A protocol that represents an item ✅ in a particular `Food` type.
 protocol Item {
+    /// The type of item.
+    static var type: ItemType { get }
     /// The name of the item.
     var name: String { get }
+}
+
+/// A protocol that represents an `Item` type.
+protocol ItemType {
+    var title: String { get }
 }

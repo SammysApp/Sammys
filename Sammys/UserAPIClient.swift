@@ -33,7 +33,7 @@ protocol UserAPIObserver {
     var userStateDidChange: ((UserState) -> Void)? { get }
     
     /// A closure property that's called upon a change to the user's favorites.
-    var favoritesValueDidChange: (([Salad]) -> Void)? { get }
+    var favoritesValueDidChange: (([FavoriteGroup]) -> Void)? { get }
 }
 
 /// A singleton class that stores observers to `UserAPIClient`.
@@ -45,6 +45,15 @@ private class UserAPIObservers {
     var observers = [UserAPIObserver]()
     
     private init() {}
+}
+
+/// A type that represents a user's favorites ❤️ categorized by food type.
+struct FavoriteGroup {
+    /// The food type category for the favorites.
+    let foodType: FoodType
+    
+    /// The user's favorite foods.
+    var favorites: [Food]
 }
 
 /// A client to make user calls to the user 👩🏻 API 🏭.
@@ -186,29 +195,39 @@ struct UserAPIClient {
      - Parameter completed: A closure that's called once favorites array is done being setup.
      - Parameter favorites: An array of user's favorites.
      */
-    private static func setupFavorites(with snapshot: DataSnapshot, completed: (_ favorites: [Salad]) -> Void) {
+    private static func setupFavorites(with snapshot: DataSnapshot, completed: (_ favorites: [FavoriteGroup]) -> Void) {
         // Make sure snapshot has data.
         guard snapshot.exists() else {
             printNoData()
             return
         }
-        // Init favorites array to empty.
-        var favorites = [Salad]()
-        // For every child snapshot in the snapshot...
-        for childSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
-            if let jsonString = childSnapshot.value as? String, let jsonData = jsonString.data(using: .utf8) {
-                do {
-                    // Attempt to decode the JSON...
-                    let favorite = try JSONDecoder().decode(Salad.self, from: jsonData)
-                    // ...and append the new object to the favorites array.
-                    favorites.append(favorite)
-                } catch {
-                    printError(error)
+        // Init favorites to empty.
+        var favoriteGroups = [FavoriteGroup]()
+        // For every food type snapshot in the snapshot...
+        for foodTypeSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
+            if let foodType = FoodType(rawValue: foodTypeSnapshot.key) {
+                // ...create a food group for the food type.
+                var favoriteGroup = FavoriteGroup(foodType: foodType, favorites: [])
+                // For every favorite value in the snapshot...
+                for favoriteSnapshot in foodTypeSnapshot.children.allObjects as! [DataSnapshot] {
+                    if let jsonString = favoriteSnapshot.value as? String,
+                        let jsonData = jsonString.data(using: .utf8) {
+                        do {
+                            // ...attempt to decode the JSON...
+                            let favorite = try JSONDecoder().decode(AnyFood.self, from: jsonData)
+                            // ...and append the new object to the favorite group's array.
+                            favoriteGroup.favorites.append(favorite.food)
+                        } catch {
+                            printError(error)
+                        }
+                    }
                 }
+                // Append the new group to the favorite groups.
+                favoriteGroups.append(favoriteGroup)
             }
         }
         // Once favorites array is ready, send to closure.
-        completed(favorites)
+        completed(favoriteGroups)
     }
     
     /// Starts the observer for changes to favorites in the database.
@@ -240,7 +259,7 @@ struct UserAPIClient {
      - Parameter result: The `APIResult` value the API completed with.
      - Parameter favorites: The user's favorites.
     */
-    static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult, _ favorites: [Salad]) -> Void) {
+    static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult, _ favorites: [FavoriteGroup]) -> Void) {
         // Commence single observation of the given user's favorites.
         favoritesReference(for: user.id).observeSingleEvent(of: .value) { (snapshot) in
             // If there's no data...
@@ -251,6 +270,8 @@ struct UserAPIClient {
             else {
                 // ...setup favorites...
                 setupFavorites(with: snapshot) { favorites in
+                    // ...send to observers...
+                    observers.forEach { $0.favoritesValueDidChange?(favorites) }
                     // ...and send to closure with `success`.
                     completed(.success, favorites)
                 }
@@ -266,10 +287,11 @@ struct UserAPIClient {
     static func set(_ favorite: Food, for user: User) {
         do {
             // Attempt to encode the favorites object to JSON.
-            let jsonData = try JSONEncoder().encode(favorite)
+            let jsonData = try JSONEncoder().encode(AnyFood(favorite))
             let jsonString = String(data: jsonData, encoding: .utf8)
             // Set the JSON string as the value of the new favorite child.
-            favoritesReference(for: user.id).child(<#T##FoodType#>).child(favorite.id).setValue(jsonString)
+            // favorites -> { food type } -> [favorite id : value]
+            favoritesReference(for: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
         } catch {
             printError(error)
         }
@@ -301,8 +323,8 @@ private extension DatabaseReference {
         return child("favorites")
     }
     
-    var salads: DatabaseReference {
-        return child("salads")
+    var salad: DatabaseReference {
+        return child(FoodType.salad.rawValue)
     }
     
     var customerID: DatabaseReference {
@@ -316,7 +338,18 @@ private extension DatabaseReference {
     func child(_ foodType: FoodType) -> DatabaseReference {
         switch foodType {
         case .salad:
-            return self.salads
+            return salad
         }
+    }
+}
+
+// Default values for `UserAPIObsever` protocol methods.
+extension UserAPIObserver {
+    var userStateDidChange: ((UserState) -> Void)? {
+        return nil
+    }
+    
+    var favoritesValueDidChange: (([FavoriteGroup]) -> Void)? {
+        return nil
     }
 }

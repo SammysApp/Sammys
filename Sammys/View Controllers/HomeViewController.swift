@@ -19,6 +19,7 @@ class HomeViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +47,7 @@ class HomeViewController: UIViewController, Storyboardable {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return viewModel.numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,5 +89,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let size = (collectionView.frame.width / 2) - 15
             return CGSize(width: size, height: size)
         }
+    }
+}
+
+extension HomeViewController: HomeViewModelDelegate {
+    var favoritesDidChange: () -> Void {
+        return { self.collectionView.reloadData() }
     }
 }

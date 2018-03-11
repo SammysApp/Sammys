@@ -183,13 +183,32 @@
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5B9CD59F204CCAA500F59E4C /* Views */,
 				5B9CD5A0204CCAEF00F59E4C /* Storyboards */,
+				5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */,
 				5B9CD5A1204CCB0700F59E4C /* Data */,
-				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
-				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
-				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
 				5B9CD5A2204E1EB200F59E4C /* More */,
 			);
 			path = Sammys;
+			sourceTree = "<group>";
+		};
+		5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
+				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
+				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
+			);
+			path = AnimatedCollectionViewLayout;
+			sourceTree = "<group>";
+		};
+		5B7B14C220558D4300BFE0C8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A8102007003300898FF0 /* Avocados.jpg */,
+				5B44A8112007003300898FF0 /* Lettuce.jpg */,
+				5B44A8122007003400898FF0 /* Peppers.jpg */,
+				5B44A8132007003400898FF0 /* Salad.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		5B9CD59C204CCA0500F59E4C /* Models */ = {
@@ -278,10 +297,7 @@
 		5B9CD5A2204E1EB200F59E4C /* More */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A8102007003300898FF0 /* Avocados.jpg */,
-				5B44A8112007003300898FF0 /* Lettuce.jpg */,
-				5B44A8122007003400898FF0 /* Peppers.jpg */,
-				5B44A8132007003400898FF0 /* Salad.jpg */,
+				5B7B14C220558D4300BFE0C8 /* Images */,
 				5B6A06821FFD509A00BAC480 /* Assets.xcassets */,
 				5B6A06871FFD509A00BAC480 /* Info.plist */,
 				5B44A8222007D58400898FF0 /* GoogleService-Info.plist */,

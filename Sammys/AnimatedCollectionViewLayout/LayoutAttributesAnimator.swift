@@ -1,6 +1,3 @@
-//
-//  LayoutAttributesAnimator.swift
-//
 
 import UIKit
 
