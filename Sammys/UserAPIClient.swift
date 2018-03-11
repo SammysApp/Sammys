@@ -13,14 +13,6 @@ import FirebaseDatabase
 private typealias FirebaseUser = Firebase.User
 
 /**
- A type returned by API.
- - `success`: ended with success.
- */
-enum APIResult {
-    case success
-}
-
-/**
  A type returned by the API connoting the user state.
  - `noUser`: no user logged in.
  - `currentUser`: current user logged in.
@@ -55,7 +47,7 @@ private class UserAPIObservers {
     private init() {}
 }
 
-/// A client to make user calls to the user API 🏭.
+/// A client to make user calls to the user 👩🏻 API 🏭.
 struct UserAPIClient {
     /// The shared Firebase database reference.
     private static let database = Database.database().reference()
@@ -67,6 +59,14 @@ struct UserAPIClient {
         } set {
             UserAPIObservers.shared.observers = newValue
         }
+    }
+    
+    /**
+     A type returned by API.
+     - `success`: ended with success.
+     */
+    enum APIResult {
+        case success
     }
     
     static func addObserver(_ observer: UserAPIObserver) {
@@ -177,7 +177,7 @@ struct UserAPIClient {
     // MARK: - Favorites ❤️
     /// Returns the data favorites reference for the user.
     private static func favoritesReference(for userID: String) -> DatabaseReference {
-        return database.users.user(with: userID).favorites.salads
+        return database.users.user(with: userID).favorites
     }
     
     /**
@@ -263,13 +263,13 @@ struct UserAPIClient {
      - Parameter favorite: The favorite object to add.
      - Parameter user: The user to add the favorite object to.
     */
-    static func set(_ favorite: Salad, for user: User) {
+    static func set(_ favorite: Food, for user: User) {
         do {
             // Attempt to encode the favorites object to JSON.
             let jsonData = try JSONEncoder().encode(favorite)
             let jsonString = String(data: jsonData, encoding: .utf8)
             // Set the JSON string as the value of the new favorite child.
-            favoritesReference(for: user.id).child(favorite.id).setValue(jsonString)
+            favoritesReference(for: user.id).child(<#T##FoodType#>).child(favorite.id).setValue(jsonString)
         } catch {
             printError(error)
         }
@@ -311,5 +311,12 @@ private extension DatabaseReference {
     
     func user(with id: String) -> DatabaseReference {
         return child(id)
+    }
+    
+    func child(_ foodType: FoodType) -> DatabaseReference {
+        switch foodType {
+        case .salad:
+            return self.salads
+        }
     }
 }

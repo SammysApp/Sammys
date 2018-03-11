@@ -11,7 +11,7 @@ import UIKit
 class ItemsViewController: UIViewController, Storyboardable {
     typealias ViewController = ItemsViewController
     
-    let items: Items! = ItemsDataStore.shared.items
+    let items: Foods! = FoodsDataStore.shared.foods
     let choices: [Choice] = [.size, .lettuce, .vegetables, .toppings, .dressings]
     
     var salad = Salad()

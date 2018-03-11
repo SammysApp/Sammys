@@ -112,7 +112,7 @@ extension UserViewController: STPAddCardViewControllerDelegate {
     }
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        PayAPIClient.createNewCustomer(with: token.tokenId)
+        
         navigationController?.popViewController(animated: true)
     }
 }

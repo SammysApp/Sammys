@@ -8,28 +8,39 @@
 
 import Foundation
 
+/// A singleton type that stores 📦 user 👩🏻 data.
 class UserDataStore {
+    /// The shared single instance.
     static let shared = UserDataStore()
+    
+    /// The currently signed in user.
     var user: User?
     
-    var id = UUID().uuidString
-    lazy var userStateDidChange: ((UserState) -> Void)? = { userState in
-        switch userState {
-        case .noUser:
-            self.user = nil
-        case .currentUser(let user):
-            self.user = user
-        }
-    }
-    lazy var favoritesValueDidChange: (([Salad]) -> Void)? = { favorites in
-        self.user?.favorites = favorites
-    }
+    let id = UUID().uuidString
     
     private init() {}
     
+    /// Sets self to be observer of `UserAPIClient` to listen to things like changes in user state.
     func setAsUserAPIObsever() {
         UserAPIClient.addObserver(self)
     }
 }
 
-extension UserDataStore: UserAPIObserver {}
+extension UserDataStore: UserAPIObserver {
+    var userStateDidChange: ((UserState) -> Void)? {
+        return { userState in
+            switch userState {
+            case .noUser:
+                self.user = nil
+            case .currentUser(let user):
+                self.user = user
+            }
+        }
+    }
+    
+    var favoritesValueDidChange: (([Salad]) -> Void)? {
+        return { favorites in
+            self.user?.favorites[Salad.type] = favorites
+        }
+    }
+}

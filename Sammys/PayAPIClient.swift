@@ -9,10 +9,39 @@
 import Foundation
 import Alamofire
 
-/// A client to make calls to the payment API 🏭.
+/// A type that represents a Stripe customer.
+struct Customer: Decodable {
+    let id: String
+    let email: String
+}
+
+/// A client to make calls to the payment 💰 API 🏭.
 struct PayAPIClient {
+    typealias JSON = [String : Any]
+    
     static let baseURL = "https://sammysapp.herokuapp.com"
     
+    /**
+     A type returned by the charge API call.
+     - `success`: ended with success.
+     - `error`
+     */
+    enum ChargeAPIResult {
+        case success
+        case failure(message: String)
+    }
+    
+    /**
+     A type returned by the create customer API call.
+     - `success`: ended with success.
+     - `error`
+     */
+    enum CreateCustomerAPIResult {
+        case success(Customer)
+        case failure(message: String)
+    }
+    
+    /// A collection of parameter symbols to send the API.
     struct Symbols {
         static let email = "email"
         static let customerID = "customer_id"
@@ -21,38 +50,67 @@ struct PayAPIClient {
     }
     
     /**
-     Charges the given customer ID for a given amount.
-     - Parameter customer: The customer ID to charge.
+     Charges the given customer ID for the given amount.
+     - Parameter customerID: The customer ID to charge.
      - Parameter amount: The amount to charge the customer. Represented in cents.
+     - Parameter completed: The closure to call upon completion.
      */
-    static func charge(_ customerID: String, amount: Int) {
-        let params: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount, Symbols.email: UserDataStore.shared.user!.email]
-        Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: params).responseJSON { response in
-            if let json = response.result.value {
-                print(json)
-            } else {
-                print(response.error.debugDescription)
+    static func charge(_ customerID: String, amount: Int, completed: ((ChargeAPIResult) -> Void)? = nil) {
+        let params: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+            if response.result.value != nil {
+                completed?(.success)
+            } else if let error = response.error {
+                completed?(.failure(message: error.localizedDescription))
             }
         }
     }
     
-    static func createNewCustomer(with tokenID: String) {
-        let params: Parameters = [Symbols.tokenID: tokenID, Symbols.email: UserDataStore.shared.user!.email]
-        Alamofire.request(baseURL.newCustomer, method: .post, parameters: params).responseJSON { response in
-            if let value = response.result.value {
-                if let json = value as? [String : Any] {
-                    if let id = json["id"] as? String {
-                        UserDataStore.shared.user?.customerID = id
-                        print(id)
-                    }
+    /**
+     Charges the a guest customer with the given token ID for the given amount.
+     - Parameter tokenID: The token ID to charge.
+     - Parameter amount: The amount to charge the customer. Represented in cents.
+     - Parameter completed: The closure to call upon completion.
+     */
+    static func chargeGuest(_ tokenID: String, amount: Int, completed: ((ChargeAPIResult) -> Void)? = nil) {
+        let params: Parameters = [Symbols.tokenID: tokenID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeGuestCustomer, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if response.result.value != nil {
+                    completed?(.success)
+                } else if let error = response.error {
+                    completed?(.failure(message: error.localizedDescription))
                 }
-            } else {
-                print(response.error.debugDescription)
+        }
+    }
+    
+    /**
+     Creates a new customer with the given token ID by the Stripe SDK.
+     - Parameter tokenID: The token ID to associate with the customer.
+     - Parameter email: The email to associate with the customer.
+     - Parameter completed: The closure to call upon completion.
+     */
+    static func createNewCustomer(with tokenID: String, email: String, completed: ((CreateCustomerAPIResult) -> Void)? = nil) {
+        let params: Parameters = [Symbols.tokenID: tokenID, Symbols.email: email]
+        Alamofire.request(baseURL.newCustomer, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+            if let jsonData = response.data {
+                let decoder = JSONDecoder()
+                if let customer = try? decoder.decode(Customer.self, from: jsonData) {
+                    completed?(.success(customer))
+                }
+            } else if let error = response.error {
+                completed?(.failure(message: error.localizedDescription))
             }
         }
     }
 }
 
+/// A collection of endpoints to append to the base url.
 private extension String {
     var newCustomer: String {
         return self + "/create-customer"
@@ -61,9 +119,14 @@ private extension String {
     var chargeCustomer: String {
         return self + "/charge-customer"
     }
+    
+    var chargeGuestCustomer: String {
+        return self + "/charge-guest-customer"
+    }
 }
 
 extension Double {
+    /// Transfers a `Double` decimal dollar amount to cents as an `Int`.
     func toCents() -> Int {
         return Int(self * 100)
     }

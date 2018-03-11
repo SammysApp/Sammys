@@ -23,15 +23,7 @@ class User {
     var photoURL: URL?
     
     /// A cache for a user's favorites.
-    var favorites: [Salad]?
-    
-    var customerID: String? {
-        didSet {
-            if customerID != nil {
-                saveCustomerID()
-            }
-        }
-    }
+    var favorites = [FoodType: [Food]]()
     
     /**
      Initializes a new user with the given information.
@@ -50,16 +42,10 @@ class User {
     }
 }
 
-extension User {
-    private func saveCustomerID() {
-        UserAPIClient.set(customerID!, for: self)
-    }
-}
-
 // MARK: - CustomStringConvertible
 extension User: CustomStringConvertible {
     var description: String {
-        return "name: \(name), email: \(email)" + (customerID != nil ? ", customerID: \(customerID!)" : "")
+        return "name: \(name), email: \(email)"
     }
 }
 // MARK: -

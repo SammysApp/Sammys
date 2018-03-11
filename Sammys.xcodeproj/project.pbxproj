@@ -11,7 +11,7 @@
 		5B1CB081201422470006235F /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB080201422470006235F /* ItemTableViewCell.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
-		5B44A7BA2002C17700898FF0 /* Items.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7B92002C17700898FF0 /* Items.json */; };
+		5B44A7BA2002C17700898FF0 /* Foods.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7B92002C17700898FF0 /* Foods.json */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BF20044E3800898FF0 /* UserDataStore.swift */; };
@@ -52,7 +52,7 @@
 		5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */; };
 		5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */; };
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
-		5B6A06C52002AF9700BAC480 /* ItemsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */; };
+		5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */; };
 		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
 		5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
@@ -72,7 +72,7 @@
 		5B1CB080201422470006235F /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
-		5B44A7B92002C17700898FF0 /* Items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Items.json; sourceTree = "<group>"; };
+		5B44A7B92002C17700898FF0 /* Foods.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Foods.json; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		5B44A7BF20044E3800898FF0 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearCardAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
-		5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsDataStore.swift; sourceTree = "<group>"; };
+		5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsDataStore.swift; sourceTree = "<group>"; };
 		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
 		5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemQuantityTableViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
 				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
-				5B6A06C42002AF9700BAC480 /* ItemsDataStore.swift */,
+				5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
 				5B9CD59D204CCA5500F59E4C /* View Controllers */,
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
@@ -195,16 +195,16 @@
 		5B9CD59C204CCA0500F59E4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5B44A7C3200483E500898FF0 /* Food.swift */,
-				5B6A06951FFD54B500BAC480 /* Salad.swift */,
 				5B44A82C2009292A00898FF0 /* Item.swift */,
+				5B6A06951FFD54B500BAC480 /* Salad.swift */,
 				5B6A068D1FFD52A000BAC480 /* Size.swift */,
 				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
 				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
 				5B44A834200EA4BE00898FF0 /* Topping.swift */,
 				5B44A836200EA4CA00898FF0 /* Dressing.swift */,
 				5B6A06911FFD53C700BAC480 /* Extra.swift */,
-				5B44A8282007F7DB00898FF0 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,7 +270,7 @@
 		5B9CD5A1204CCB0700F59E4C /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A7B92002C17700898FF0 /* Items.json */,
+				5B44A7B92002C17700898FF0 /* Foods.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -360,7 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B44A8152007003400898FF0 /* Lettuce.jpg in Resources */,
-				5B44A7BA2002C17700898FF0 /* Items.json in Resources */,
+				5B44A7BA2002C17700898FF0 /* Foods.json in Resources */,
 				5B44A8162007003400898FF0 /* Peppers.jpg in Resources */,
 				5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */,
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
@@ -477,7 +477,7 @@
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
-				5B6A06C52002AF9700BAC480 /* ItemsDataStore.swift in Sources */,
+				5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */,
 				5B1CB081201422470006235F /* ItemTableViewCell.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,

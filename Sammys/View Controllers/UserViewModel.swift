@@ -25,6 +25,7 @@ protocol UserViewModelDelegate {
 class UserViewModel {
     var delegate: UserViewModelDelegate?
     let id = UUID().uuidString
+    
     private var user: User? {
         return UserDataStore.shared.user
     }
@@ -62,6 +63,17 @@ class UserViewModel {
             return userItems[indexPath.row]
         }
         return nil
+    }
+    
+    func createCustomer(with tokenID: String) {
+        PayAPIClient.createNewCustomer(with: tokenID, email: UserDataStore.shared.user!.email) { result in
+//            switch result {
+//            case .success(let customer):
+//
+//            case .failure(let message):
+//
+//            }
+        }
     }
 }
 
