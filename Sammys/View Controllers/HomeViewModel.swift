@@ -71,7 +71,7 @@ class HomeViewModel {
     private func getItems(for viewKey: HomeViewKey, completed: (() -> Void)? = nil) {
         switch viewKey {
         case .foods:
-            let section = HomeSection(title: nil, items: [FoodHomeItem(title: FoodType.salad.rawValue)])
+            let section = HomeSection(title: nil, items: [FoodHomeItem(title: FoodType.salad.title)])
             sections = [section]
             completed?()
         case .faves:

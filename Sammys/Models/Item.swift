@@ -12,6 +12,7 @@ import Foundation
 protocol Item {
     /// The type of item.
     static var type: ItemType { get }
+    
     /// The name of the item.
     var name: String { get }
 }

@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-/**
- Implement this protocol to handle changes and updates to a FoodCollectionView.
-*/
+/// Implement this protocol to handle changes and updates to a FoodCollectionView.
 protocol FoodCollectionViewDelegate {
     func didTapEdit(for title: String)
 }

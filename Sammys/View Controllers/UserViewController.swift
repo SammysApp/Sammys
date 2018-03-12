@@ -112,7 +112,6 @@ extension UserViewController: STPAddCardViewControllerDelegate {
     }
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        
         navigationController?.popViewController(animated: true)
     }
 }

@@ -84,14 +84,34 @@ extension Salad: Equatable {
 }
 
 extension SaladItemType: ItemType {
+    enum SaladItemName: String {
+        case Size, Lettuce, Vegetables, Toppings, Dressings, Extras
+    }
+    
     var title: String {
         switch self {
-        case .size: return "Size"
-        case .lettuce: return "Lettuce"
-        case .vegetable: return "Vegetables"
-        case .topping: return "Toppings"
-        case .dressing: return "Dressings"
-        case .extra: return "Extras"
+        case .size: return SaladItemName.Size.rawValue
+        case .lettuce: return SaladItemName.Lettuce.rawValue
+        case .vegetable: return SaladItemName.Vegetables.rawValue
+        case .topping: return SaladItemName.Toppings.rawValue
+        case .dressing: return SaladItemName.Dressings.rawValue
+        case .extra: return SaladItemName.Extras.rawValue
         }
+    }
+    
+    static func type(for title: String) -> SaladItemType? {
+        switch title {
+        case SaladItemName.Size.rawValue: return SaladItemType.size
+        case SaladItemName.Lettuce.rawValue: return SaladItemType.lettuce
+        case SaladItemName.Vegetables.rawValue: return SaladItemType.vegetable
+        case SaladItemName.Toppings.rawValue: return SaladItemType.topping
+        case SaladItemName.Dressings.rawValue: return SaladItemType.dressing
+        case SaladItemName.Extras.rawValue: return SaladItemType.extra
+        default: return nil
+        }
+    }
+    
+    static var all: [SaladItemType] {
+        return [.size, .lettuce, .vegetable, .topping, .dressing, .extra]
     }
 }

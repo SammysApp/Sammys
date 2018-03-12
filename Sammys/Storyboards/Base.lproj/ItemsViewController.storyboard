@@ -99,15 +99,6 @@
                                     <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uk5-vC-Dp7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PT0-d1-aFi">
-                                <rect key="frame" x="20" y="42.333333333333336" width="46" height="34.000000000000007"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <color key="tintColor" name="Mocha"/>
-                                <state key="normal" title="Table"/>
-                                <connections>
-                                    <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NzQ-07-tXH"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXz-KP-Ocg">
                                 <rect key="frame" x="351" y="42" width="43" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -116,7 +107,7 @@
                                     <color key="titleColor" red="0.39623549541341724" green="0.85630155456852797" blue="0.2612544092305874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <action selector="showAdd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JE7-qX-ZCm"/>
+                                    <action selector="didTapPrice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3UW-Ys-SZL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,9 +115,7 @@
                         <constraints>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="1ch-aJ-ssY"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3yJ-ub-iJu"/>
-                            <constraint firstItem="PT0-d1-aFi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5Wt-g7-rGw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CoT-jF-u6a" secondAttribute="bottom" constant="20" id="8r3-4Z-clE"/>
-                            <constraint firstItem="PT0-d1-aFi" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="8zN-1O-MfA"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="9EE-wK-fEv"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GCm-mh-Til"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="J98-k0-b3M"/>
@@ -145,7 +134,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="16" id="mKt-LU-UZU"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qel-MI-6JP"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="tz4-Yr-ByX"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PT0-d1-aFi" secondAttribute="trailing" constant="20" symbolic="YES" id="uQO-OF-TUL"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZa-iZ-c45"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -159,29 +147,9 @@
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
                         <outlet property="priceButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>
                         <outlet property="priceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
-                        <outlet property="tableView" destination="mtk-C0-CGF" id="K5p-Xi-e2t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mtk-C0-CGF">
-                    <rect key="frame" x="0.0" y="0.0" width="285" height="182"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <prototypes>
-                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" rowHeight="40" id="0IN-NA-LTj">
-                            <rect key="frame" x="0.0" y="28" width="285" height="40"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0IN-NA-LTj" id="ayq-UH-kiF">
-                                <rect key="frame" x="0.0" y="0.0" width="285" height="39.666666666666664"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </tableViewCellContentView>
-                        </tableViewCell>
-                    </prototypes>
-                    <connections>
-                        <outlet property="dataSource" destination="BYZ-38-t0r" id="GLx-jf-OqB"/>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="Feh-ga-jZv"/>
-                    </connections>
-                </tableView>
             </objects>
             <point key="canvasLocation" x="139.13043478260872" y="132.88043478260872"/>
         </scene>
