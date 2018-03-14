@@ -33,9 +33,6 @@ class BagViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = false
     }
     
-    /**
-     Updates UI based on external factors
-     */
     func updateUI() {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
@@ -74,18 +71,7 @@ class BagViewController: UIViewController, Storyboardable {
 
     
     @IBAction func purchase(_ sender: UIButton) {
-//        if user == nil {
-//            present(LoginViewController.storyboardInstance(), animated: true, completion: nil)
-//        } else {
-//            if let id = user!.customerID {
-//                PayAPIClient.charge(id, amount: finalPrice.toCents())
-//            } else {
-//                let vc = STPAddCardViewController()
-//                vc.delegate = self
-//                let nvc = UINavigationController(rootViewController: vc)
-//                present(nvc, animated: true, completion: nil)
-//            }
-//        }
+        
     }
     
     @IBAction func clearBag(_ sender: UIButton) {

@@ -89,7 +89,7 @@
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <action selector="done:" destination="O62-2J-jhw" eventType="touchUpInside" id="oPW-SM-Jje"/>
+                                    <action selector="didTapDone:" destination="O62-2J-jhw" eventType="touchUpInside" id="eno-6M-MFG"/>
                                 </connections>
                             </button>
                         </barButtonItem>

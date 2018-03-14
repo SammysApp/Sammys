@@ -26,15 +26,19 @@ protocol HomeViewModelDelegate {
     var favoritesDidChange: () -> Void { get }
 }
 
-/// A type that represents a home cell item.
+/// A home cell item.
 protocol HomeItem {
     var key: HomeItemKey { get }
     var cellIdentifier: HomeCellIdentifier { get }
     var title: String { get }
 }
 
+/// A home section in the home view.
 struct HomeSection {
+    /// The tile of the section.
     let title: String?
+    
+    /// The items in the section.
     let items: [HomeItem]
 }
 

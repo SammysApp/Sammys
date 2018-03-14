@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Stripe
 
 /// A type that represents a Stripe customer.
 struct Customer: Decodable {
@@ -24,7 +25,7 @@ struct PayAPIClient {
     /**
      A type returned by the charge API call.
      - `success`: ended with success.
-     - `error`
+     - `failure`
      */
     enum ChargeAPIResult {
         case success
@@ -32,7 +33,7 @@ struct PayAPIClient {
     }
     
     /**
-     A type returned by the create customer API call.
+     A type returned by the create ephemeral key API call.
      - `success`: ended with success.
      - `error`
      */
@@ -41,12 +42,23 @@ struct PayAPIClient {
         case failure(message: String)
     }
     
+    /**
+     A type returned by the create customer API call.
+     - `success`: ended with success.
+     - `failure`
+     */
+    enum CreateEphemeralKeyAPIResult {
+        case success(JSON)
+        case failure(Error)
+    }
+    
     /// A collection of parameter symbols to send the API.
     struct Symbols {
         static let email = "email"
         static let customerID = "customer_id"
         static let tokenID = "token_id"
         static let amount = "amount"
+        static let apiVersion = "api_version"
     }
     
     /**
@@ -55,12 +67,12 @@ struct PayAPIClient {
      - Parameter amount: The amount to charge the customer. Represented in cents.
      - Parameter completed: The closure to call upon completion.
      */
-    static func charge(_ customerID: String, amount: Int, completed: ((ChargeAPIResult) -> Void)? = nil) {
+    static func charge(_ customerID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
         let params: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount]
         Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
-            if response.result.value != nil {
+            if response.value != nil {
                 completed?(.success)
             } else if let error = response.error {
                 completed?(.failure(message: error.localizedDescription))
@@ -74,12 +86,12 @@ struct PayAPIClient {
      - Parameter amount: The amount to charge the customer. Represented in cents.
      - Parameter completed: The closure to call upon completion.
      */
-    static func chargeGuest(_ tokenID: String, amount: Int, completed: ((ChargeAPIResult) -> Void)? = nil) {
+    static func chargeGuest(_ tokenID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
         let params: Parameters = [Symbols.tokenID: tokenID, Symbols.amount: amount]
         Alamofire.request(baseURL.chargeGuestCustomer, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
-                if response.result.value != nil {
+                if response.value != nil {
                     completed?(.success)
                 } else if let error = response.error {
                     completed?(.failure(message: error.localizedDescription))
@@ -93,7 +105,7 @@ struct PayAPIClient {
      - Parameter email: The email to associate with the customer.
      - Parameter completed: The closure to call upon completion.
      */
-    static func createNewCustomer(with tokenID: String, email: String, completed: ((CreateCustomerAPIResult) -> Void)? = nil) {
+    static func createNewCustomer(with tokenID: String, email: String, completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
         let params: Parameters = [Symbols.tokenID: tokenID, Symbols.email: email]
         Alamofire.request(baseURL.newCustomer, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
@@ -105,6 +117,43 @@ struct PayAPIClient {
                 }
             } else if let error = response.error {
                 completed?(.failure(message: error.localizedDescription))
+            }
+        }
+    }
+    
+    /**
+     Creates an ephemeral key from the given customer ID and the Stripe API version.
+     - Parameter customerID: The customer ID to create from.
+     - Parameter apiVersion: The Stripe API version.
+     - Parameter completed: The closure to call upon completion.
+     */
+    static func createEphemeralKey(with customerID: String, apiVersion: String, completed: @escaping (_ result: CreateEphemeralKeyAPIResult) -> Void) {
+        let params: Parameters = [Symbols.apiVersion: apiVersion, Symbols.customerID: customerID]
+        Alamofire.request(baseURL.createEphemeralKey, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if let json = response.value as? JSON {
+                    completed(.success(json))
+                } else if let error = response.error {
+                    completed(.failure(error))
+                }
+        }
+    }
+}
+
+// MARK: - Stripe Ephemeral Key Provider
+class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
+    static let shared = EphemeralKeyProvider()
+    
+    private override init() {}
+    
+    func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
+        PayAPIClient.createEphemeralKey(with: "cus_CSXmXhUTXRmOYX", apiVersion: apiVersion) { result in
+            switch result {
+            case .success(let json):
+                completion(json, nil)
+            case .failure(let error):
+                completion(nil, error)
             }
         }
     }
@@ -122,6 +171,10 @@ private extension String {
     
     var chargeGuestCustomer: String {
         return self + "/charge-guest-customer"
+    }
+    
+    var createEphemeralKey: String {
+        return self + "/create-ephemeral-key"
     }
 }
 

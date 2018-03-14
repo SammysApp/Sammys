@@ -16,6 +16,11 @@ class HomeViewController: UIViewController, Storyboardable {
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     
+    private struct Constants {
+        static let cellCornerRadius: CGFloat = 20
+    }
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +33,7 @@ class HomeViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = true
     }
     
+    // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
         let userViewController = UserViewController.storyboardInstance()
         present(userViewController, animated: true, completion: nil)
@@ -45,6 +51,7 @@ class HomeViewController: UIViewController, Storyboardable {
     }
 }
 
+// MARK: - Collection View Data Source & Delegate
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.numberOfSections
@@ -59,7 +66,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellIdentifier.rawValue, for: indexPath) as! ItemsCollectionViewCell
         cell.itemsLabel.text = item.title
-        cell.layer.cornerRadius = 20
+        cell.layer.cornerRadius = Constants.cellCornerRadius
         
         return cell
     }
@@ -92,6 +99,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
+// MARK: - View Model Delegate
 extension HomeViewController: HomeViewModelDelegate {
     var favoritesDidChange: () -> Void {
         return { self.collectionView.reloadData() }

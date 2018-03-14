@@ -78,6 +78,15 @@ struct UserAPIClient {
         case success
     }
     
+    /**
+     A type returned by API for customer ID.
+     - `success`: ended with success.
+     */
+    enum CustomerIDAPIResult {
+        case success(id: String)
+        case failure
+    }
+    
     static func addObserver(_ observer: UserAPIObserver) {
         observers.append(observer)
     }
@@ -301,6 +310,24 @@ struct UserAPIClient {
     /// Sets the Stripe customer ID for the given user.
     static func set(_ customerID: String, for user: User) {
         database.users.user(with: user.id).customerID.setValue(customerID)
+    }
+    
+    /// Gets the Stripe customer ID for the given user.
+    static func getCustomerID(for user: User, completed: @escaping (_ result: CustomerIDAPIResult) -> Void) {
+        database.users.user(with: user.id).customerID.observeSingleEvent(of: .value) { snapshot in
+            // If there's no data...
+            if !snapshot.exists() {
+                completed(.failure)
+                printNoData()
+            }
+            // If returned data...
+            else {
+                // ...send customer id to closure.
+                if let customerID = snapshot.value as? String {
+                    completed(.success(id: customerID))
+                }
+            }
+        }
     }
     
     // MARK: - Debug
