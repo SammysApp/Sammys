@@ -121,6 +121,7 @@ class LoginPageViewController: UIViewController, Storyboardable {
                 self.dismiss(animated: true, completion: nil)
             }
         }
+        PayAPIClient.createNewCustomer(parameters: [PayAPIClient.Symbols.email: email])
     }
     
     // MARK: IBActions

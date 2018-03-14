@@ -46,21 +46,6 @@ class UserViewController: UIViewController, Storyboardable {
         let loginPageViewController = LoginPageViewController.storyboardInstance()
         present(loginPageViewController, animated: true, completion: nil)
     }
-    
-    func pushAddCardViewController() {
-        let theme = STPTheme()
-        theme.accentColor = .mocha
-        let addCardViewController = STPAddCardViewController(configuration: STPPaymentConfiguration.shared(), theme: theme)
-        addCardViewController.delegate = self
-        navigationController?.pushViewController(addCardViewController, animated: true)
-    }
-    
-    func pushPaymentMethodsViewController() {
-        let theme = STPTheme()
-        theme.accentColor = .mocha
-        let paymentMethodsViewController = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: theme, customerContext: viewModel.stripeCustomerContext, delegate: self)
-        navigationController?.pushViewController(paymentMethodsViewController, animated: true)
-    }
 
     // MARK: - IBActions
     @IBAction func didTapDone(_ sender: UIButton) {
@@ -101,10 +86,6 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
         let item = viewModel.item(for: indexPath)!
         
         switch item.key {
-        case .creditCard:
-            pushAddCardViewController()
-        case .paymentMethods:
-            pushPaymentMethodsViewController()
         case .logOut:
             let logOutItem = item as! LogOutUserItem
             logOutItem.didSelect()
@@ -128,32 +109,5 @@ extension UserViewController: UserViewModelDelegate {
                 self.presentLoginPageViewController()
             }
         }
-    }
-}
-
-// MARK: - Stripe Add Card View Controller Delegate
-extension UserViewController: STPAddCardViewControllerDelegate {
-    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        navigationController?.popViewController(animated: true)
-        viewModel.setUserAsCustomer(with: token.tokenId)
-    }
-}
-
-extension UserViewController: STPPaymentMethodsViewControllerDelegate {
-    func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didFailToLoadWithError error: Error) {
-        print(error.localizedDescription)
-        paymentMethodsViewController.dismiss()
-    }
-    
-    func paymentMethodsViewControllerDidFinish(_ paymentMethodsViewController: STPPaymentMethodsViewController) {
-        paymentMethodsViewController.dismiss()
-    }
-    
-    func paymentMethodsViewControllerDidCancel(_ paymentMethodsViewController: STPPaymentMethodsViewController) {
-        paymentMethodsViewController.dismiss()
     }
 }

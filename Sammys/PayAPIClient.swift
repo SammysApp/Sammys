@@ -68,8 +68,8 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func charge(_ customerID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let params: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount]
-        Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: params)
+        let parameters: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
             if response.value != nil {
@@ -87,8 +87,8 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func chargeGuest(_ tokenID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let params: Parameters = [Symbols.tokenID: tokenID, Symbols.amount: amount]
-        Alamofire.request(baseURL.chargeGuestCustomer, method: .post, parameters: params)
+        let parameters: Parameters = [Symbols.tokenID: tokenID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeGuestCustomer, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 if response.value != nil {
@@ -100,14 +100,12 @@ struct PayAPIClient {
     }
     
     /**
-     Creates a new customer with the given token ID by the Stripe SDK.
-     - Parameter tokenID: The token ID to associate with the customer.
-     - Parameter email: The email to associate with the customer.
+     Creates a new customer with the given parameter data by the Stripe SDK.
+     - Parameter parameters: The parameter data to associate with the customer. Use `Symbol` type properties for parameter names.
      - Parameter completed: The closure to call upon completion.
      */
-    static func createNewCustomer(with tokenID: String, email: String, completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
-        let params: Parameters = [Symbols.tokenID: tokenID, Symbols.email: email]
-        Alamofire.request(baseURL.newCustomer, method: .post, parameters: params)
+    static func createNewCustomer(parameters: Parameters = [:], completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
+        Alamofire.request(baseURL.newCustomer, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
             if let jsonData = response.data {

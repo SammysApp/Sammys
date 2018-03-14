@@ -61,8 +61,6 @@ class UserViewModel {
             EmailUserItem(email: user.email)
         ]))
         items.append(UserSection(items: [
-            CreditCardUserItem(),
-            PaymentMethodsUserItem(),
             LogOutUserItem()
         ]))
         return items
@@ -76,11 +74,6 @@ class UserViewModel {
         return sections.count
     }
     
-    // A Stripe customer context created with a fetched ephemeral key.
-    var stripeCustomerContext: STPCustomerContext {
-        return STPCustomerContext(keyProvider: EphemeralKeyProvider.shared)
-    }
-    
     init() {
         UserAPIClient.addObserver(self)
     }
@@ -92,17 +85,6 @@ class UserViewModel {
     func item(for indexPath: IndexPath) -> UserItem? {
         let userItems = sections[indexPath.section].items
         return userItems[indexPath.row]
-    }
-    
-    func setUserAsCustomer(with tokenID: String) {
-        guard let user = self.user else { return }
-        PayAPIClient.createNewCustomer(with: tokenID, email: user.email) { result in
-            switch result {
-            case .success(let customer):
-                UserAPIClient.set(customer.id, for: user)
-            case .failure(let message): print(message)
-            }
-        }
     }
 }
 
@@ -124,18 +106,6 @@ struct EmailUserItem: UserItem {
     let cellIdentifier = UserItemCellIdentifier.cell.rawValue
     let title = "Email"
     let email: String
-}
-
-struct CreditCardUserItem: UserItem {
-    let key: UserItemKey = .creditCard
-    let cellIdentifier = UserItemCellIdentifier.buttonCell.rawValue
-    let title = "Add Credit Card"
-}
-
-struct PaymentMethodsUserItem: UserItem {
-    let key: UserItemKey = .paymentMethods
-    let cellIdentifier = UserItemCellIdentifier.buttonCell.rawValue
-    let title = "Payment Methods"
 }
 
 struct LogOutUserItem: UserItem {
