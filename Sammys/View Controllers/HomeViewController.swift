@@ -27,6 +27,8 @@ class HomeViewController: UIViewController, Storyboardable {
         super.viewDidLoad()
         
         viewModel.delegate = self
+        addNoFavesView()
+        noFavesView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +37,7 @@ class HomeViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = true
     }
     
-    func showNoFavesView() {
+    func addNoFavesView() {
         view.addSubview(noFavesView)
         noFavesView.backgroundColor = .snow
         noFavesView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +59,10 @@ class HomeViewController: UIViewController, Storyboardable {
         viewModel.toggleFaves()
         viewModel.getItems() {
             self.collectionView.reloadData()
-            if self.viewModel.isItemsEmpty {
-                self.showNoFavesView()
+            if self.viewModel.viewKey == .faves && self.viewModel.isItemsEmpty {
+                self.noFavesView.isHidden = false
+            } else {
+                self.noFavesView.isHidden = true
             }
         }
     }
