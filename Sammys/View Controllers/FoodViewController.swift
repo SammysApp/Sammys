@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View food details and edit if neccesarry.
 class FoodViewController: UIViewController, Storyboardable {
     typealias ViewController = FoodViewController
     
@@ -15,10 +16,11 @@ class FoodViewController: UIViewController, Storyboardable {
     var food: Food!
     var didGoBack: ((FoodViewController) -> Void)?
     
-    // MARK: IBOutlets & View Properties
-    
+    // MARK: - IBOutlets & View Properties
     var collectionView: FoodCollectionView!
 
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +60,7 @@ extension FoodViewController: FoodCollectionViewDelegate {
         itemsViewController.salad = food as! Salad
         itemsViewController.edit(for: title)
         itemsViewController.isEditingFood = true
-        itemsViewController.finishEditing = {
+        itemsViewController.didFinishEditing = {
             self.collectionView.reloadData()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)

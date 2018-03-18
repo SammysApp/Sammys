@@ -44,7 +44,7 @@
                                         <rect key="frame" x="0.0" y="180" width="335" height="30"/>
                                         <state key="normal" title="Sign Up"/>
                                         <connections>
-                                            <action selector="signUp:" destination="ags-wa-tBO" eventType="touchUpInside" id="MEY-N0-vVG"/>
+                                            <action selector="didSignUp:" destination="ags-wa-tBO" eventType="touchUpInside" id="knD-Sr-NeS"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -59,7 +59,7 @@
                                 <rect key="frame" x="166" y="617" width="42" height="30"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <action selector="login:" destination="ags-wa-tBO" eventType="touchUpInside" id="49G-cW-0ND"/>
+                                    <action selector="didTapLogin:" destination="ags-wa-tBO" eventType="touchUpInside" id="NuM-eT-1XE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrV-h4-Go4">

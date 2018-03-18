@@ -43,7 +43,7 @@ class BagViewController: UIViewController, Storyboardable {
         let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
         itemsViewController.salad = food as! Salad
         itemsViewController.isEditingFood = true
-        itemsViewController.finishEditing = {
+        itemsViewController.didFinishEditing = {
             self.tableView.reloadData()
             self.updateUI()
             self.viewModel.finishEditing()
@@ -100,7 +100,7 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         case .food:
             let foodItem = item as! FoodBagItem
             let food = foodItem.food
-            let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "foodCell", for: indexPath) as! FoodTableViewCell
             
             switch food {
             case let salad as Salad:
@@ -111,7 +111,7 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
             cell.descriptionLabel.text = food.itemDescription
             cell.priceLabel.text = food.price.priceString
             
-            cell.edit = { cell in
+            cell.didEdit = { cell in
                 self.editItem(for: food)
             }
             

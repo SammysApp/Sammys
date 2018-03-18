@@ -125,9 +125,28 @@
                     <navigationItem key="navigationItem" id="POb-bp-w3a"/>
                     <connections>
                         <outlet property="collectionView" destination="L0z-ZL-j6i" id="yyF-T3-cdM"/>
+                        <outlet property="noFavesView" destination="98U-Yx-Z12" id="HWE-uL-g0p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yi9-c9-vB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="98U-Yx-Z12">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a favorite! ❤️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykq-gi-ldk">
+                            <rect key="frame" x="51" y="54" width="138" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ykq-gi-ldk" firstAttribute="centerY" secondItem="98U-Yx-Z12" secondAttribute="centerY" id="FB0-o2-1jT"/>
+                        <constraint firstItem="Ykq-gi-ldk" firstAttribute="centerX" secondItem="98U-Yx-Z12" secondAttribute="centerX" id="mB8-Le-oBq"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="l88-Mg-RiE"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="-2087.1999999999998" y="-202.84857571214394"/>
         </scene>

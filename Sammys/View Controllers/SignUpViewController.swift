@@ -8,48 +8,49 @@
 
 import UIKit
 
-enum SignUpViewKey: String {
-    case name = "Name", email = "Email", password = "Password"
-}
-
+// The sign up page for a user 📝.
 class SignUpViewController: UIViewController, Storyboardable {
     typealias ViewController = SignUpViewController
     
-    var viewKey = SignUpViewKey.name {
+    var viewKey = LoginPageViewControllerKey.name {
         didSet {
             if isViewLoaded {
                 updateUI(with: viewKey)
             }
         }
     }
-    var loginPageViewController: LoginPageViewController? {
-        return parent?.parent as? LoginPageViewController
-    }
     
-    // MARK: IBOutlets
+    // MARK: - IBOutlets & View Properties
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textField: UITextField!
     
+    /// Called when text field for sign up info edited.
+    var didChangeInfo: ((_ key: LoginPageViewControllerKey, _ text: String?) -> Void)?
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateUI(with: viewKey)
     }
     
-    func updateUI(with key: SignUpViewKey) {
-        titleLabel.text = key.rawValue
+    func updateUI(with key: LoginPageViewControllerKey) {
+        titleLabel.text = key.title
     }
     
-    // MARK: IBActions
+    // MARK: - IBActions
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-        switch viewKey {
-        case .name:
-            loginPageViewController?.signUpInfo.name = textField.text
-        case .email:
-            loginPageViewController?.signUpInfo.email = textField.text
-        case .password:
-            loginPageViewController?.signUpInfo.password = textField.text
+        didChangeInfo?(viewKey, textField.text)
+    }
+}
+
+extension LoginPageViewControllerKey {
+    var title: String? {
+        switch self {
+        case .name: return "Name"
+        case .email: return "Email"
+        case .password: return "Password"
+        default: return nil
         }
-        
     }
 }

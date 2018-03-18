@@ -14,6 +14,11 @@ protocol FoodCollectionViewDelegate {
     func didTapEdit(for title: String)
 }
 
+enum FoodReuseIdentifier: String {
+    case itemCell, header
+}
+
+/// A collection view displaying food details.
 class FoodCollectionView: UICollectionView {
     var foodDelegate: FoodCollectionViewDelegate?
     
@@ -38,17 +43,18 @@ class FoodCollectionView: UICollectionView {
     }
     
     private func setup() {
-        backgroundColor = UIColor(named: "Snow")
+        backgroundColor = .snow
         alwaysBounceVertical = true
         
-        register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: "itemCell")
-        register(FoodHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
+        register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue)
+        register(FoodHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FoodReuseIdentifier.header.rawValue)
         
         dataSource = self
         delegate = self
     }
 }
 
+// MARK: - Collection View Data Source & Delegate
 extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
@@ -59,8 +65,8 @@ extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
-        cell.backgroundColor = UIColor(named: "Flora")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue, for: indexPath) as! ItemCollectionViewCell
+        cell.backgroundColor = .flora
         cell.layer.cornerRadius = 20
         cell.titleLabel.text = sections[indexPath.section].items[indexPath.row].name
         return cell
@@ -69,7 +75,7 @@ extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FoodHeaderView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FoodReuseIdentifier.header.rawValue, for: indexPath) as! FoodHeaderView
             headerView.titleLabel.text = sections[indexPath.section].title
             headerView.didTapEdit = { headerView in
                 if let title = headerView.titleLabel.text {

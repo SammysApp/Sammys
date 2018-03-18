@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemCell" rowHeight="130" id="sXJ-hh-3l4" customClass="ItemTableViewCell" customModule="Sammys" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" rowHeight="130" id="sXJ-hh-3l4" customClass="FoodTableViewCell" customModule="Sammys" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sXJ-hh-3l4" id="Gm4-4L-j07">
@@ -50,7 +50,7 @@
                                                                 <color key="titleColor" name="Mocha"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="edit:" destination="sXJ-hh-3l4" eventType="touchUpInside" id="KtG-wy-iJc"/>
+                                                                <action selector="didTapEdit:" destination="sXJ-hh-3l4" eventType="touchUpInside" id="u0x-4i-kuN"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEf-05-bcO">
@@ -60,7 +60,7 @@
                                                                 <color key="titleColor" name="Mocha"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="fave:" destination="sXJ-hh-3l4" eventType="touchUpInside" id="ocB-Ot-gEw"/>
+                                                                <action selector="didTapFave:" destination="sXJ-hh-3l4" eventType="touchUpInside" id="irW-at-5bT"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>

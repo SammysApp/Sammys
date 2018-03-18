@@ -30,7 +30,7 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="addToBag:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="M0k-Jx-DUU"/>
+                                    <action selector="didTapAdd:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="czo-Np-Xul"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -51,8 +51,7 @@
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="cancel:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="gGO-IJ-3ao"/>
-                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Hh9-zb-huS"/>
+                                    <action selector="didTapCancel:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="eSV-xX-LAo"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -64,7 +63,7 @@
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Fave"/>
                                 <connections>
-                                    <action selector="fave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="Kec-JT-Tf9"/>
+                                    <action selector="didTapFave:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="AhQ-I1-vWj"/>
                                 </connections>
                             </button>
                         </barButtonItem>

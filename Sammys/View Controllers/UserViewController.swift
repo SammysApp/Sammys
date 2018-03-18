@@ -9,6 +9,7 @@
 import UIKit
 import Stripe
 
+/// The user's 👩🏻 information and settings.
 class UserViewController: UIViewController, Storyboardable {
     typealias ViewController = UserViewController
     

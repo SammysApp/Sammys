@@ -57,6 +57,10 @@ class HomeViewModel {
     
     let id = UUID().uuidString
     
+    var isItemsEmpty: Bool {
+        return sections.isEmpty
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -85,8 +89,13 @@ class HomeViewModel {
                 setSections(for: user.favorites)
                 completed?()
             } else {
-                UserAPIClient.fetchFavorites(for: user) { (result, favorites)  in
-                    self.setSections(for: favorites)
+                UserAPIClient.fetchFavorites(for: user) { result in
+                    switch result {
+                    case .success(let favorites):
+                        self.setSections(for: favorites)
+                    case .failure:
+                        self.sections = []
+                    }
                     completed?()
                 }
             }

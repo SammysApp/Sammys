@@ -79,6 +79,23 @@ struct UserAPIClient {
     }
     
     /**
+     A type returned by API for user related tasks.
+     - `success`: ended with success.
+     */
+    enum UserAPIResult {
+        case success(user: User)
+    }
+    
+    /**
+     A type returned by API for user favorites.
+     - `success`: ended with success.
+     */
+    enum FavoritesAPIResult {
+        case success([FavoriteGroup])
+        case failure
+    }
+    
+    /**
      A type returned by API for customer ID.
      - `success`: ended with success.
      */
@@ -101,11 +118,12 @@ struct UserAPIClient {
      Creates a new `User` object from a `FirebaseUser` one and sends object to observers.
      - Parameter user: A `FirebaseUser` object to be converted to a `User` one.
      */
-    private static func setupCurrentUser(_ user: FirebaseUser) {
+    private static func setupCurrentUser(_ user: FirebaseUser, completed: ((User) -> Void)? = nil) {
         guard let email = user.email, let name = user.displayName
             else { return }
         let currentUser = User(id: user.uid, email: email, name: name)
         observers.forEach { $0.userStateDidChange?(.currentUser(currentUser)) }
+        completed?(currentUser)
     }
     
     /// Starts the listener for changes in user state.
@@ -132,7 +150,7 @@ struct UserAPIClient {
      - Parameter completed: A closure called once API completed attempting to create user. Default is `nil`.
      - Parameter result: The `APIResult` value the API completed with.
     */
-    static func createUser(with name: String, email: String, password: String, completed: ((_ result: APIResult) -> Void)? = nil) {
+    static func createUser(with name: String, email: String, password: String, completed: ((_ result: UserAPIResult) -> Void)? = nil) {
         // Create a user with `email` and `password`.
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             // If there was an error...
@@ -152,9 +170,10 @@ struct UserAPIClient {
                     // If successfully added the name...
                     else {
                         // setup the user...
-                        setupCurrentUser(user)
-                        // ...and call closure with `success`.
-                        completed?(.success)
+                        setupCurrentUser(user) { currentUser in
+                            // ...and call closure with `success`.
+                            completed?(.success(user: currentUser))
+                        }
                     }
                 }
             }
@@ -247,7 +266,7 @@ struct UserAPIClient {
             favoritesReference(for: user.uid).observe(.value) { (snapshot) in
                 // ...if there's no data...
                 if !snapshot.exists() {
-                    printNoData()
+                    observers.forEach { $0.favoritesValueDidChange?([]) }
                 }
                 // ...if there's data...
                 else {
@@ -266,14 +285,14 @@ struct UserAPIClient {
      - Parameter user: The user to fetch favorites for.
      - Parameter completed: A closure to call once completed fetching favorites.
      - Parameter result: The `APIResult` value the API completed with.
-     - Parameter favorites: The user's favorites.
     */
-    static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult, _ favorites: [FavoriteGroup]) -> Void) {
+    static func fetchFavorites(for user: User, completed: @escaping (_ result: FavoritesAPIResult) -> Void) {
         // Commence single observation of the given user's favorites.
         favoritesReference(for: user.id).observeSingleEvent(of: .value) { (snapshot) in
             // If there's no data...
             if !snapshot.exists() {
-                printNoData()
+                completed(.failure)
+                observers.forEach { $0.favoritesValueDidChange?([]) }
             }
             // If returned data...
             else {
@@ -282,7 +301,7 @@ struct UserAPIClient {
                     // ...send to observers...
                     observers.forEach { $0.favoritesValueDidChange?(favorites) }
                     // ...and send to closure with `success`.
-                    completed(.success, favorites)
+                    completed(.success(favorites))
                 }
             }
         }

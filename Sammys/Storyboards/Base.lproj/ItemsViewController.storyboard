@@ -87,7 +87,7 @@
                                     <color key="titleColor" name="Mocha"/>
                                 </state>
                                 <connections>
-                                    <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P7Q-AQ-b2l"/>
+                                    <action selector="didTapNext:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rhG-wZ-DpH"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAz-oX-kCZ">
@@ -96,7 +96,7 @@
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uk5-vC-Dp7"/>
+                                    <action selector="didTapBack:" destination="BYZ-38-t0r" eventType="touchUpInside" id="URF-Ul-gru"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXz-KP-Ocg">

@@ -13,6 +13,11 @@ enum Quantity {
     case some(Int)
 }
 
+enum QuantityCellIdentifier: String {
+    case quantityCell
+}
+
+/// A collection view displaying quantities for an item.
 class QuantityCollectionView: UICollectionView {
     var didSelectQuantity: ((Quantity) -> Void)?
     
@@ -40,8 +45,6 @@ class QuantityCollectionView: UICollectionView {
         backgroundColor = .white
         alwaysBounceHorizontal = true
         
-        register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        
         dataSource = self
         delegate = self
     }
@@ -57,10 +60,10 @@ extension QuantityCollectionView: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "quantityCell", for: indexPath) as! QuantityCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QuantityCellIdentifier.quantityCell.rawValue, for: indexPath) as! QuantityCollectionViewCell
         cell.numberLabel.text = "\(indexPath.row)"
         cell.numberLabel.textColor = .white
-        cell.backgroundColor = UIColor(named: "Flora")
+        cell.backgroundColor = .flora
         cell.layer.cornerRadius = 10
         return cell
     }

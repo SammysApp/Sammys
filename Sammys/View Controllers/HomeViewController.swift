@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// The homepage 🏠 of the app. Includes foods and user's favorites.
 class HomeViewController: UIViewController, Storyboardable {
     typealias ViewController = HomeViewController
     
@@ -15,6 +16,7 @@ class HomeViewController: UIViewController, Storyboardable {
     
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var noFavesView: UIView!
     
     private struct Constants {
         static let cellCornerRadius: CGFloat = 20
@@ -33,6 +35,18 @@ class HomeViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = true
     }
     
+    func showNoFavesView() {
+        view.addSubview(noFavesView)
+        noFavesView.backgroundColor = .snow
+        noFavesView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            noFavesView.leftAnchor.constraint(equalTo: collectionView.leftAnchor),
+            noFavesView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
+            noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        ])
+    }
+    
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
         let userViewController = UserViewController.storyboardInstance()
@@ -43,6 +57,9 @@ class HomeViewController: UIViewController, Storyboardable {
         viewModel.toggleFaves()
         viewModel.getItems() {
             self.collectionView.reloadData()
+            if self.viewModel.isItemsEmpty {
+                self.showNoFavesView()
+            }
         }
     }
     

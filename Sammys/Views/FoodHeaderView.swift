@@ -20,6 +20,10 @@ class FoodHeaderView: UICollectionReusableView {
         return _editButton
     }
     
+    struct Constants {
+        static let edit = "Edit"
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -46,7 +50,7 @@ class FoodHeaderView: UICollectionReusableView {
         addSubview(_editButton)
         _editButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         _editButton.translatesAutoresizingMaskIntoConstraints = false
-        _editButton.setTitle("Edit", for: .normal)
+        _editButton.setTitle(Constants.edit, for: .normal)
         _editButton.leftAnchor.constraint(equalTo: _titleLabel.rightAnchor).isActive = true
         _titleLabel.rightAnchor.constraint(equalTo: _editButton.leftAnchor).isActive = true
         _editButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true

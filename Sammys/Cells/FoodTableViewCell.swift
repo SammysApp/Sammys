@@ -1,5 +1,5 @@
 //
-//  ItemTableViewCell.swift
+//  FoodTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/20/18.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ItemTableViewCell: UITableViewCell {
-    var edit: ((ItemTableViewCell) -> Void)?
-    var fave: ((ItemTableViewCell) -> Void)?
+class FoodTableViewCell: UITableViewCell {
+    var didEdit: ((FoodTableViewCell) -> Void)?
+    var didFave: ((FoodTableViewCell) -> Void)?
     
     // MARK: IBOutlets
     @IBOutlet var itemImageView: UIImageView!
@@ -43,11 +43,11 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     // MARK: IBActions
-    @IBAction func edit(_ sender: UIButton) {
-        edit?(self)
+    @IBAction func didTapEdit(_ sender: UIButton) {
+        didEdit?(self)
     }
     
-    @IBAction func fave(_ sender: UIButton) {
-        fave?(self)
+    @IBAction func didTapFave(_ sender: UIButton) {
+        didFave?(self)
     }
 }

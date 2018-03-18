@@ -15,25 +15,15 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     let foods: Foods! = FoodsDataStore.shared.foods
     
-    let choices = Choice.all
-    
     var salad = Salad()
+    
+    let choices = Choice.all
     
     var currentChoiceIndex = 0 {
         didSet {
             if isViewLoaded { handleNewChoice() }
         }
     }
-    var currentItemIndex = 0 {
-        didSet {
-            if isViewLoaded { updateUI(for: currentChoice) }
-        }
-    }
-    var hasSelectedOnce = false
-    var isEditingFood = false
-    
-    /// Closure called once done editing.
-    var finishEditing: (() -> Void)?
     
     var currentChoice: Choice {
         get {
@@ -42,6 +32,18 @@ class ItemsViewController: UIViewController, Storyboardable {
             currentChoiceIndex = choices.index(of: newValue)!
         }
     }
+    
+    var currentItemIndex = 0 {
+        didSet {
+            if isViewLoaded { updateUI() }
+        }
+    }
+    
+    var hasSelectedOnce = false
+    var isEditingFood = false
+    
+    /// Closure called once done editing.
+    var didFinishEditing: (() -> Void)?
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var collectionView: UICollectionView!
@@ -53,8 +55,6 @@ class ItemsViewController: UIViewController, Storyboardable {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var priceButton: UIButton!
     
-    let green = UIColor(named: "Flora")
-    
     let flowCollectionViewLayout = UICollectionViewFlowLayout()
     let layout = AnimatedCollectionViewLayout()
     var isCollectionViewAnimating = false
@@ -64,6 +64,12 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     enum CellIdentifier: String {
         case itemCell
+    }
+    
+    struct Constants {
+        static let next = "Next"
+        static let done = "Done"
+        static let review = "Review"
     }
     
     // MARK: - Lifecycle
@@ -80,7 +86,7 @@ class ItemsViewController: UIViewController, Storyboardable {
         // Set selected to true if editing (otherwise can't go back).
         hasSelectedOnce = isEditingFood
         
-        updateUI(for: currentChoice)
+        updateUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,11 +96,10 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
     // MARK: -
     
-    func updateUI(for choice: Choice) {
-        itemsLabel.text = choice.title
-        nextButton.setTitle("Next", for: .normal)
+    func updateUI() {
+        itemsLabel.text = currentChoice.title
         
-        switch choice {
+        switch currentChoice {
         case .size:
             priceLabel.isHidden = false
             itemLabel.isHidden = false
@@ -110,25 +115,7 @@ class ItemsViewController: UIViewController, Storyboardable {
         case .extra: break
         }
         
-        if choice == choices.first {
-            backButton.isHidden = false
-            if hasSelectedOnce {
-                nextButton.isHidden = false
-            }
-        } else if choice == choices.last {
-            backButton.isHidden = false
-            nextButton.isHidden = false
-            nextButton.setTitle(isEditingFood ? "Done" : "Review", for: .normal)
-        } else {
-            backButton.isHidden = false
-            nextButton.isHidden = false
-        }
-        
-        if hasSelectedOnce {
-            priceButton.isHidden = false
-            priceButton.setTitle("$\(salad.price)", for: .normal)
-        }
-        
+        updateNextAndBackButtons()
         updateCollectionView()
     }
     
@@ -147,6 +134,29 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
+    func updateNextAndBackButtons() {
+        nextButton.setTitle(Constants.next, for: .normal)
+        
+        if currentChoice == choices.first {
+            backButton.isHidden = false
+            if hasSelectedOnce {
+                nextButton.isHidden = false
+            }
+        } else if currentChoice == choices.last {
+            backButton.isHidden = false
+            nextButton.isHidden = false
+            nextButton.setTitle(isEditingFood ? Constants.done : Constants.review, for: .normal)
+        } else {
+            backButton.isHidden = false
+            nextButton.isHidden = false
+        }
+        
+        if hasSelectedOnce {
+            priceButton.isHidden = false
+            priceButton.setTitle("$\(salad.price)", for: .normal)
+        }
+    }
+    
     /// Updates `self.centerPoint` to the centermost cell's `indexPath.row` property.
     func updateCurrentItemIndex() {
         let centerPoint = view.convert(view.center, to: collectionView)
@@ -162,14 +172,6 @@ class ItemsViewController: UIViewController, Storyboardable {
         currentItemIndex = 0
     }
     
-    func showAddViewController() {
-        if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
-            addViewController.food = salad
-            addViewController.delegate = self
-            navigationController?.pushViewController(addViewController, animated: true)
-        }
-    }
-    
     /// Sets to proper x content offset for item index.
     func setContentOffset(for itemIndex: Int) {
         if currentChoice == .size || currentChoice == .lettuce {
@@ -181,17 +183,25 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
-    /// Call once done editing.
-    func done() {
-        finishEditing?()
+    func showAddViewController() {
+        if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
+            addViewController.food = salad
+            addViewController.editDelegate = self
+            navigationController?.pushViewController(addViewController, animated: true)
+        }
+    }
+    
+    /// Called once done editing.
+    func finishEditing() {
+        didFinishEditing?()
         navigationController?.popViewController(animated: true)
     }
     
     // MARK: - IBActions
-    @IBAction func next(_ sender: UIButton) {
+    @IBAction func didTapNext(_ sender: UIButton) {
         if currentChoice == choices.last {
             if isEditingFood {
-                done()
+                finishEditing()
             } else {
                 showAddViewController()
             }
@@ -201,7 +211,7 @@ class ItemsViewController: UIViewController, Storyboardable {
         }
     }
     
-    @IBAction func back(_ sender: UIButton) {
+    @IBAction func didTapBack(_ sender: UIButton) {
         if currentChoice == choices.first {
             navigationController?.popViewController(animated: true)
         } else {
@@ -212,7 +222,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     @IBAction func didTapPrice(_ sender: UIButton) {
         if isEditingFood {
-            done()
+            finishEditing()
         } else {
             showAddViewController()
         }
@@ -239,12 +249,12 @@ extension ItemsViewController {
     
     func select(_ cell: UICollectionViewCell) {
         cell.backgroundColor = .white
-        cell.layer.borderColor = green?.cgColor
+        cell.layer.borderColor = UIColor.flora.cgColor
         cell.layer.borderWidth = 5
     }
     
     func deselect(_ cell: UICollectionViewCell) {
-        cell.backgroundColor = green
+        cell.backgroundColor = .flora
         cell.layer.borderWidth = 0
     }
 }

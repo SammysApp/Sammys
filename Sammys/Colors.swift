@@ -11,13 +11,23 @@ import Foundation
 import UIKit
 
 enum ColorName: String {
+    case snow = "Snow"
     case mocha = "Mocha"
+    case flora = "Flora"
 }
 
 extension UIColor {
+    static var snow: UIColor {
+        return ColorFactory.create(.snow)
+    }
+    
     /// A warm coffee-ish brown. (R: 148, G: 82, B: 0).
     static var mocha: UIColor {
         return ColorFactory.create(.mocha)
+    }
+    
+    static var flora: UIColor {
+        return ColorFactory.create(.flora)
     }
 }
 

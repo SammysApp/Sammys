@@ -11,5 +11,4 @@ import UIKit
 class ItemsCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var itemsLabel: UILabel!
-    
 }

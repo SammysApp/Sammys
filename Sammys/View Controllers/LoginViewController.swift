@@ -8,35 +8,39 @@
 
 import UIKit
 
+/// The login page for a user to login 🔑.
 class LoginViewController: UIViewController, Storyboardable {
     typealias ViewController = LoginViewController
     
-    var loginPageViewController: LoginPageViewController? {
-        return parent?.parent as? LoginPageViewController
-    }
+    /// Called once finished logging in.
+    var didLogin: (() -> Void)?
     
+    /// Called if sign up tapped.
+    var didSignUp: (() -> Void)?
+    
+    /// Called if cancel tapped.
+    var didCancel: (() -> Void)?
+    
+    // MARK: - IBOutlets & View Properties
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
-    @IBAction func login(_ sender: UIButton) {
-        UserAPIClient.signIn(with: emailTextField.text!, password: passwordTextField.text!) { result in
-            self.loginPageViewController?.dismiss(animated: true, completion: nil)
+    // MARK: - IBActions
+    @IBAction func didTapLogin(_ sender: UIButton) {
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text else {
+            return
+        }
+        UserAPIClient.signIn(with: email, password: password) { result in
+            self.didLogin?()
         }
     }
     
-    @IBAction func signUp(_ sender: UIButton) {
-        loginPageViewController?.scrollToNextViewController()
+    @IBAction func didSignUp(_ sender: UIButton) {
+        didSignUp?()
     }
     
     @IBAction func didTapCancel(_ sender: UIButton) {
-        if let userViewController = (loginPageViewController?.presentingViewController as? UINavigationController)?.topViewController as? UserViewController {
-            userViewController.didCancelLogin = true
-        }
-        loginPageViewController?.dismiss(animated: true, completion: nil)
+        didCancel?()
     }
 }
