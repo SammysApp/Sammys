@@ -247,14 +247,14 @@ extension ItemsViewController {
         }
     }
     
-    func select(_ cell: UICollectionViewCell) {
+    func select(_ cell: UICollectionViewCell, item: Item) {
         cell.backgroundColor = .white
-        cell.layer.borderColor = UIColor.flora.cgColor
+        cell.layer.borderColor = item.color.cgColor
         cell.layer.borderWidth = 5
     }
     
-    func deselect(_ cell: UICollectionViewCell) {
-        cell.backgroundColor = .flora
+    func deselect(_ cell: UICollectionViewCell, item: Item) {
+        cell.backgroundColor = item.color
         cell.layer.borderWidth = 0
     }
 }
@@ -282,40 +282,48 @@ extension ItemsViewController: UICollectionViewDataSource {
             case .size:
                 let size = foods.salad.sizes[indexPath.row]
                 if size == salad.size {
-                    select(cell)
+                    select(cell, item: size)
                 } else {
-                    deselect(cell)
+                    deselect(cell, item: size)
+                }
+                StorageAPIClient.getItemImage(for: size) { result in
+                    switch result {
+                    case .success(let image):
+                        cell.imageView.image = image
+                    case .failure(_): break
+                    }
                 }
             case .lettuce:
                 let lettuce = foods.salad.lettuce[indexPath.row]
                 if salad.lettuce.contains(lettuce) {
-                    select(cell)
+                    select(cell, item: lettuce)
                 } else {
-                    deselect(cell)
+                    deselect(cell, item: lettuce)
                 }
             case .vegetable:
                 let vegetable = foods.salad.vegetables[indexPath.row]
                 cell.titleLabel.text = vegetable.name
+                cell.backgroundColor = vegetable.color
                 if salad.vegetables.contains(vegetable) {
-                    select(cell)
+                    select(cell, item: vegetable)
                 } else {
-                    deselect(cell)
+                    deselect(cell, item: vegetable)
                 }
             case .topping:
                 let topping = foods.salad.toppings[indexPath.row]
                 cell.titleLabel.text = topping.name
                 if salad.toppings.contains(topping) {
-                    select(cell)
+                    select(cell, item: topping)
                 } else {
-                    deselect(cell)
+                    deselect(cell, item: topping)
                 }
             case .dressing:
                 let dressing = foods.salad.dressings[indexPath.row]
                 cell.titleLabel.text = dressing.name
                 if salad.dressings.contains(dressing) {
-                    select(cell)
+                    select(cell, item: dressing)
                 } else {
-                    deselect(cell)
+                    deselect(cell, item: dressing)
                 }
             case .extra: break
             }

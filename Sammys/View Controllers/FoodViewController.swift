@@ -12,7 +12,6 @@ import UIKit
 class FoodViewController: UIViewController, Storyboardable {
     typealias ViewController = FoodViewController
     
-    var navigationItemTitle: String?
     var food: Food!
     var didGoBack: ((FoodViewController) -> Void)?
     
@@ -24,8 +23,6 @@ class FoodViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = navigationItemTitle
-
         collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
         collectionView.foodDelegate = self
         
@@ -37,6 +34,8 @@ class FoodViewController: UIViewController, Storyboardable {
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+        
+        updateUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +51,10 @@ class FoodViewController: UIViewController, Storyboardable {
             didGoBack?(self)
         }
     }
+    
+    func updateUI() {
+        navigationItem.title = food.title
+    }
 }
 
 extension FoodViewController: FoodCollectionViewDelegate {
@@ -62,6 +65,7 @@ extension FoodViewController: FoodCollectionViewDelegate {
         itemsViewController.isEditingFood = true
         itemsViewController.didFinishEditing = {
             self.collectionView.reloadData()
+            self.updateUI()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
     }

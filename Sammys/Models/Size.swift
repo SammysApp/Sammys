@@ -12,6 +12,7 @@ import Foundation
 struct Size: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.size
     let name: String
+    let hex: String
     
     /// The price for the size.
     let price: Double

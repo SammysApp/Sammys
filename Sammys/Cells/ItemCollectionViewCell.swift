@@ -11,6 +11,9 @@ import UIKit
 class ItemCollectionViewCell: UICollectionViewCell {
     var titleLabel = UILabel()
     
+    // MARK: - IBOutlets
+    @IBOutlet var imageView: UIImageView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -54,6 +54,7 @@
 		5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */; };
 		5BD274C3205822AC00618128 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C2205822AC00618128 /* Colors.swift */; };
 		5BD274C5205EBDA500618128 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* FoodTableViewCell.swift */; };
+		5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E620631C9900618128 /* StorageAPIClient.swift */; };
 		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
 		5BFD2BC3201B920B005C01BF /* ItemQuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
@@ -118,6 +119,7 @@
 		5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsDataStore.swift; sourceTree = "<group>"; };
 		5BD274C2205822AC00618128 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5BD274C4205EBDA500618128 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
+		5BD274E620631C9900618128 /* StorageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPIClient.swift; sourceTree = "<group>"; };
 		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
 		5BFD2BC2201B920B005C01BF /* ItemQuantityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemQuantityTableViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
 				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
+				5BD274E620631C9900618128 /* StorageAPIClient.swift */,
 				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
 				5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */,
@@ -498,6 +501,7 @@
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
+				5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */,
 				5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,

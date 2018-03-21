@@ -173,6 +173,13 @@
                                     <outlet property="delegate" destination="1x3-yr-YVX" id="YpC-ur-OXe"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ial-Xm-Hqu">
+                                <rect key="frame" x="164" y="437" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="test:" destination="1x3-yr-YVX" eventType="touchUpInside" id="Aae-Vq-JS8"/>
+                                </connections>
+                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-Ha-3Fn">
                                 <rect key="frame" x="0.0" y="467" width="375" height="200"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="97i-YM-JPR">
@@ -240,7 +247,7 @@
                                                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="purchase:" destination="1x3-yr-YVX" eventType="touchUpInside" id="w7F-CH-VN1"/>
+                                                        <action selector="didTapPurchase:" destination="1x3-yr-YVX" eventType="touchUpInside" id="pgO-IT-Lk8"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -273,8 +280,10 @@
                         <constraints>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="7E7-PD-CyM"/>
                             <constraint firstItem="Ruc-Ha-3Fn" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Hb2-SP-FaK"/>
+                            <constraint firstItem="ial-Xm-Hqu" firstAttribute="bottom" secondItem="Ruc-Ha-3Fn" secondAttribute="top" id="O2J-GP-VUb"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="QPJ-F6-sUc"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
+                            <constraint firstItem="ial-Xm-Hqu" firstAttribute="centerX" secondItem="7kB-gR-mHZ" secondAttribute="centerX" id="alf-7o-eCt"/>
                             <constraint firstItem="Ruc-Ha-3Fn" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="roh-ar-kgZ"/>
                             <constraint firstItem="Ruc-Ha-3Fn" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="uTO-WN-mib"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="7kB-gR-mHZ" secondAttribute="top" id="yC6-6h-WNW"/>
@@ -291,7 +300,7 @@
                                     <color key="titleColor" name="Mocha"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismiss:" destination="1x3-yr-YVX" eventType="touchUpInside" id="BH1-5R-WQI"/>
+                                    <action selector="didTapDone:" destination="1x3-yr-YVX" eventType="touchUpInside" id="WU8-7b-zdn"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -304,12 +313,13 @@
                                     <color key="titleColor" name="Mocha"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearBag:" destination="1x3-yr-YVX" eventType="touchUpInside" id="B69-ZV-Fky"/>
+                                    <action selector="didTapClear:" destination="1x3-yr-YVX" eventType="touchUpInside" id="fqd-G8-P6x"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="creditCardButton" destination="ial-Xm-Hqu" id="xyL-oh-I4Q"/>
                         <outlet property="purchaseButton" destination="lb5-op-oDC" id="RQY-EP-NBc"/>
                         <outlet property="subtotalLabel" destination="G4d-KX-MzX" id="Ysh-7N-PXs"/>
                         <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>

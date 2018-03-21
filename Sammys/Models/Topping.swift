@@ -13,6 +13,7 @@ struct Topping: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.topping
     let name: String
     let description: String
+    let hex: String
     
     static func ==(lhs: Topping, rhs: Topping) -> Bool {
         return lhs.name == rhs.name

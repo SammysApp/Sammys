@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// The homepage 🏠 of the app. Includes foods and user's favorites.
+/// The home 🏠 of the app. Includes foods and user's favorites.
 class HomeViewController: UIViewController, Storyboardable {
     typealias ViewController = HomeViewController
     

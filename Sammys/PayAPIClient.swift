@@ -29,7 +29,7 @@ struct PayAPIClient {
      */
     enum ChargeAPIResult {
         case success
-        case failure(message: String)
+        case failure(Error)
     }
     
     /**
@@ -39,7 +39,7 @@ struct PayAPIClient {
      */
     enum CreateCustomerAPIResult {
         case success(Customer)
-        case failure(message: String)
+        case failure(Error)
     }
     
     /**
@@ -56,7 +56,7 @@ struct PayAPIClient {
     struct Symbols {
         static let email = "email"
         static let customerID = "customer_id"
-        static let tokenID = "token_id"
+        static let sourceID = "source_id"
         static let amount = "amount"
         static let apiVersion = "api_version"
     }
@@ -75,26 +75,27 @@ struct PayAPIClient {
             if response.value != nil {
                 completed?(.success)
             } else if let error = response.error {
-                completed?(.failure(message: error.localizedDescription))
+                completed?(.failure(error))
             }
         }
     }
     
     /**
-     Charges the a guest customer with the given token ID for the given amount.
-     - Parameter tokenID: The token ID to charge.
+     Charges the given source id for the given amount.
+     - Parameter sourceID: The source ID to charge.
      - Parameter amount: The amount to charge the customer. Represented in cents.
+     - Parameter customerID: The customer who owns the given card.
      - Parameter completed: The closure to call upon completion.
      */
-    static func chargeGuest(_ tokenID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let parameters: Parameters = [Symbols.tokenID: tokenID, Symbols.amount: amount]
-        Alamofire.request(baseURL.chargeGuestCustomer, method: .post, parameters: parameters)
+    static func chargeSource(_ sourceID: String, amount: Int, customerID: String, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
+        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.amount: amount, Symbols.customerID: customerID]
+        Alamofire.request(baseURL.chargeSource, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 if response.value != nil {
                     completed?(.success)
                 } else if let error = response.error {
-                    completed?(.failure(message: error.localizedDescription))
+                    completed?(.failure(error))
                 }
         }
     }
@@ -114,7 +115,7 @@ struct PayAPIClient {
                     completed?(.success(customer))
                 }
             } else if let error = response.error {
-                completed?(.failure(message: error.localizedDescription))
+                completed?(.failure(error))
             }
         }
     }
@@ -146,7 +147,7 @@ class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
     private override init() {}
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
-        PayAPIClient.createEphemeralKey(with: "cus_CSXmXhUTXRmOYX", apiVersion: apiVersion) { result in
+        PayAPIClient.createEphemeralKey(with: "cus_CW6A6im6Ef3GCz", apiVersion: apiVersion) { result in
             switch result {
             case .success(let json):
                 completion(json, nil)
@@ -167,8 +168,8 @@ private extension String {
         return self + "/charge-customer"
     }
     
-    var chargeGuestCustomer: String {
-        return self + "/charge-guest-customer"
+    var chargeSource: String {
+        return self + "/charge-source"
     }
     
     var createEphemeralKey: String {

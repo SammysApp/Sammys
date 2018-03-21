@@ -13,6 +13,7 @@ struct Lettuce: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.lettuce
     let name: String
     let description: String
+    let hex: String
     
     static func ==(lhs: Lettuce, rhs: Lettuce) -> Bool {
         return lhs.name == rhs.name

@@ -14,6 +14,11 @@ enum BagItemKey {
 
 protocol BagItem {
     var key: BagItemKey { get }
+    var cellIdenitifier: BagCellIdentifier { get }
+}
+
+enum BagCellIdentifier: String {
+    case foodCell, quantityCell
 }
 
 class BagViewModel {
@@ -51,9 +56,11 @@ class BagViewModel {
         foods.forEach { $1.forEach { totalPrice += $0.price } }
         return totalPrice.rounded(toPlaces: 2)
     }
+    
     var taxPrice: Double {
         return (subtotalPrice * (6.88/100)).rounded(toPlaces: 2)
     }
+    
     var finalPrice: Double {
         return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
     }
@@ -105,6 +112,7 @@ class BagViewModel {
 
 class FoodBagItem: BagItem {
     let key: BagItemKey = .food
+    let cellIdenitifier: BagCellIdentifier = .foodCell
     let food: Food
     
     init(food: Food) {
@@ -114,6 +122,7 @@ class FoodBagItem: BagItem {
 
 class QuantityBagItem: BagItem {
     let key: BagItemKey = .quantity
+    let cellIdenitifier: BagCellIdentifier = .quantityCell
     let food: Food
     
     init(food: Food) {
