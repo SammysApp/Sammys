@@ -286,13 +286,6 @@ extension ItemsViewController: UICollectionViewDataSource {
                 } else {
                     deselect(cell, item: size)
                 }
-                StorageAPIClient.getItemImage(for: size) { result in
-                    switch result {
-                    case .success(let image):
-                        cell.imageView.image = image
-                    case .failure(_): break
-                    }
-                }
             case .lettuce:
                 let lettuce = foods.salad.lettuce[indexPath.row]
                 if salad.lettuce.contains(lettuce) {
