@@ -1,3 +1,3 @@
-[submodule "Sammys/EasyExtensions"]
-	path = Sammys/EasyExtensions
+[submodule "Sammys/Extensions"]
+	path = Sammys/Extensions
 	url = https://github.com/niazoff/EasyExtensions.git
