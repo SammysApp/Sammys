@@ -53,6 +53,8 @@
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
 		5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */; };
 		5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */; };
+		5BB60EF02069EA4400105E72 /* Editable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* Editable.swift */; };
+		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
 		5BD274C3205822AC00618128 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C2205822AC00618128 /* Colors.swift */; };
 		5BD274C5205EBDA500618128 /* FoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* FoodTableViewCell.swift */; };
 		5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E620631C9900618128 /* StorageAPIClient.swift */; };
@@ -125,6 +127,8 @@
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsDataStore.swift; sourceTree = "<group>"; };
 		5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
+		5BB60EEF2069EA4400105E72 /* Editable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editable.swift; sourceTree = "<group>"; };
+		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		5BD274C2205822AC00618128 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5BD274C4205EBDA500618128 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		5BD274E620631C9900618128 /* StorageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPIClient.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5BD274F02063FAA900618128 /* Helpers */,
+				5BB60EEE2069EA1400105E72 /* Protocols */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
 				5B9CD59D204CCA5500F59E4C /* View Controllers and Models */,
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
@@ -317,6 +322,15 @@
 				5B44A8222007D58400898FF0 /* GoogleService-Info.plist */,
 			);
 			path = More;
+			sourceTree = "<group>";
+		};
+		5BB60EEE2069EA1400105E72 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5BB60EEF2069EA4400105E72 /* Editable.swift */,
+				5BB60EF12069EA5200105E72 /* Storyboardable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		5BD274EE2063FA8F00618128 /* API Clients */ = {
@@ -573,6 +587,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BB60EF02069EA4400105E72 /* Editable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
 				5BD274C3205822AC00618128 /* Colors.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
@@ -610,6 +625,7 @@
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
 				5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */,
 				5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */,
+				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CellCommand.swift in Sources */,

@@ -140,17 +140,27 @@ struct PayAPIClient {
     }
 }
 
-// MARK: - Stripe Ephemeral Key Provider
+// MARK: - STPEphemeralKeyProvider
 class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
     static let shared = EphemeralKeyProvider()
     
     private override init() {}
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
-        PayAPIClient.createEphemeralKey(with: "cus_CW6A6im6Ef3GCz", apiVersion: apiVersion) { result in
-            switch result {
-            case .success(let json):
-                completion(json, nil)
+        guard let user = UserDataStore.shared.user else {
+            return
+        }
+        UserAPIClient.getCustomerID(for: user) { customerIDResult in
+            switch customerIDResult {
+            case .success(id: let customerID):
+                PayAPIClient.createEphemeralKey(with: customerID, apiVersion: apiVersion) { result in
+                    switch result {
+                    case .success(let json):
+                        completion(json, nil)
+                    case .failure(let error):
+                        completion(nil, error)
+                    }
+                }
             case .failure(let error):
                 completion(nil, error)
             }
@@ -158,7 +168,8 @@ class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
     }
 }
 
-/// A collection of endpoints to append to the base url.
+// MARK: - Endpoints
+// A collection of endpoints to append to the base url.
 private extension String {
     var newCustomer: String {
         return self + "/create-customer"
@@ -177,6 +188,7 @@ private extension String {
     }
 }
 
+// MARK: - Double
 extension Double {
     /// Transfers a `Double` decimal dollar amount to cents as an `Int`.
     func toCents() -> Int {

@@ -96,18 +96,23 @@ class ItemsViewController: UIViewController, Storyboardable {
     // MARK: -
     
     func updateUI() {
+        guard let item = item(for: currentChoice, at: currentItemIndex) else {
+            return
+        }
         itemsLabel.text = currentChoice.title
         
         switch currentChoice {
         case .size:
             priceLabel.isHidden = false
             itemLabel.isHidden = false
-//            itemLabel.text = foods.salad.sizes[currentItemIndex].name
-//            priceLabel.text = "$\(foods.salad.sizes[currentItemIndex].price)"
+            itemLabel.text = item.name
+            if let size = item as? Size {
+                priceLabel.text = "$\(size.price)"
+            }
         case .lettuce:
             priceLabel.isHidden = true
             itemLabel.isHidden = false
-//            itemLabel.text = foods.salad.lettuce[currentItemIndex].name
+            itemLabel.text = item.name
         case .vegetable, .topping, .dressing:
             priceLabel.isHidden = true
             itemLabel.isHidden = true
@@ -196,6 +201,12 @@ class ItemsViewController: UIViewController, Storyboardable {
         navigationController?.popViewController(animated: true)
     }
     
+    /// Gets the item for the the item type and index from the view model.
+    func item(for itemType: SaladItemType, at index: Int) -> Item? {
+        return viewModel.items(for: itemType)?[index]
+    }
+    
+    /// Gets the cell view model for the index path from the view model.
     func cellViewModel(for indexPath: IndexPath) -> CellViewModel {
         return viewModel.cellViewModels(for: currentChoice, contextBounds: collectionView.bounds)[indexPath.item]
     }
@@ -232,6 +243,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ItemsViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.numberOfSections
@@ -253,6 +265,7 @@ extension ItemsViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = cellViewModel(for: indexPath)
@@ -270,31 +283,17 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        switch currentChoice {
-        case .vegetable, .topping, .dressing:
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        default:
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
+        return viewModel.collectionViewInsets(for: currentChoice)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        switch currentChoice {
-        case .vegetable, .topping, .dressing:
-            return 10
-        default:
-            return 0
-        }
+        return viewModel.collectionViewMinimumLineSpacing(for: currentChoice)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        switch currentChoice {
-        case .vegetable, .topping, .dressing:
-            return 10
-        default:
-            return .greatestFiniteMagnitude
-        }
+        return viewModel.collectionViewMinimumInteritemSpacing(for: currentChoice)
     }
+    
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         isCollectionViewAnimating = false
@@ -309,14 +308,6 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-protocol Editable {
-    func edit(for title: String)
-}
-
-protocol Storyboardable {
-    associatedtype ViewController: UIViewController
-}
-
 extension Choice {
     init?(_ title: String) {
         if let choice = SaladItemType.type(for: title) {
@@ -326,19 +317,12 @@ extension Choice {
     }
 }
 
+// MARK: - Editable
 extension ItemsViewController: Editable {
     func edit(for title: String) {
         if let choice = Choice(title) {
             currentChoice = choice
         }
-    }
-}
-
-extension Storyboardable where Self: UIViewController {
-    static func storyboardInstance() -> UIViewController {
-        let className = String(describing: ViewController.self)
-        let storyboard = UIStoryboard(name: className, bundle: nil)
-        return storyboard.instantiateInitialViewController()!
     }
 }
 

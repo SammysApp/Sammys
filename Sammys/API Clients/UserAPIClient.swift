@@ -101,7 +101,11 @@ struct UserAPIClient {
      */
     enum CustomerIDAPIResult {
         case success(id: String)
-        case failure
+        case failure(Error)
+    }
+    
+    enum UserAPIError: Error {
+        case doesNotExist
     }
     
     static func addObserver(_ observer: UserAPIObserver) {
@@ -336,7 +340,7 @@ struct UserAPIClient {
         database.users.user(with: user.id).customerID.observeSingleEvent(of: .value) { snapshot in
             // If there's no data...
             if !snapshot.exists() {
-                completed(.failure)
+                completed(.failure(UserAPIError.doesNotExist))
                 printNoData()
             }
             // If returned data...
