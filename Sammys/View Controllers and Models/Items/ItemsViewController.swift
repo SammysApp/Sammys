@@ -13,8 +13,7 @@ typealias Choice = SaladItemType
 class ItemsViewController: UIViewController, Storyboardable {
     typealias ViewController = ItemsViewController
     
-    let foods: Foods! = FoodsDataStore.shared.foods
-    
+    let viewModel = ItemsViewModel()
     var salad = Salad()
     
     let choices = Choice.all
@@ -103,12 +102,12 @@ class ItemsViewController: UIViewController, Storyboardable {
         case .size:
             priceLabel.isHidden = false
             itemLabel.isHidden = false
-            itemLabel.text = foods.salad.sizes[currentItemIndex].name
-            priceLabel.text = "$\(foods.salad.sizes[currentItemIndex].price)"
+//            itemLabel.text = foods.salad.sizes[currentItemIndex].name
+//            priceLabel.text = "$\(foods.salad.sizes[currentItemIndex].price)"
         case .lettuce:
             priceLabel.isHidden = true
             itemLabel.isHidden = false
-            itemLabel.text = foods.salad.lettuce[currentItemIndex].name
+//            itemLabel.text = foods.salad.lettuce[currentItemIndex].name
         case .vegetable, .topping, .dressing:
             priceLabel.isHidden = true
             itemLabel.isHidden = true
@@ -197,6 +196,10 @@ class ItemsViewController: UIViewController, Storyboardable {
         navigationController?.popViewController(animated: true)
     }
     
+    func cellViewModel(for indexPath: IndexPath) -> CellViewModel {
+        return viewModel.cellViewModels(for: currentChoice, contextBounds: collectionView.bounds)[indexPath.item]
+    }
+    
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
         if currentChoice == choices.last {
@@ -229,151 +232,41 @@ class ItemsViewController: UIViewController, Storyboardable {
     }
 }
 
-// MARK: - Helpers for Collection View
-extension ItemsViewController {
-    var numberOfItems: Int {
-        switch currentChoice {
-        case .size:
-            return foods.salad.sizes.count
-        case .lettuce:
-            return foods.salad.lettuce.count
-        case .vegetable:
-            return foods.salad.vegetables.count
-        case .topping:
-            return foods.salad.toppings.count
-        case .dressing:
-            return foods.salad.dressings.count
-        case .extra: return 0
-        }
-    }
-    
-    func select(_ cell: UICollectionViewCell, item: Item) {
-        cell.backgroundColor = .white
-        cell.layer.borderColor = item.color.cgColor
-        cell.layer.borderWidth = 5
-    }
-    
-    func deselect(_ cell: UICollectionViewCell, item: Item) {
-        cell.backgroundColor = item.color
-        cell.layer.borderWidth = 0
-    }
-}
-
 extension ItemsViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return viewModel.numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfItems
+        return viewModel.numberOfItems(for: currentChoice)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.itemCell.rawValue, for: indexPath) as! ItemCollectionViewCell
+        let model = cellViewModel(for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.identifier, for: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ItemCollectionViewCell {
-            cell.layer.cornerRadius = 20
-            cell.titleLabel.text = nil
-            
-            switch currentChoice {
-            case .size:
-                let size = foods.salad.sizes[indexPath.row]
-                if size == salad.size {
-                    select(cell, item: size)
-                } else {
-                    deselect(cell, item: size)
-                }
-            case .lettuce:
-                let lettuce = foods.salad.lettuce[indexPath.row]
-                if salad.lettuce.contains(lettuce) {
-                    select(cell, item: lettuce)
-                } else {
-                    deselect(cell, item: lettuce)
-                }
-            case .vegetable:
-                let vegetable = foods.salad.vegetables[indexPath.row]
-                cell.titleLabel.text = vegetable.name
-                cell.backgroundColor = vegetable.color
-                if salad.vegetables.contains(vegetable) {
-                    select(cell, item: vegetable)
-                } else {
-                    deselect(cell, item: vegetable)
-                }
-            case .topping:
-                let topping = foods.salad.toppings[indexPath.row]
-                cell.titleLabel.text = topping.name
-                if salad.toppings.contains(topping) {
-                    select(cell, item: topping)
-                } else {
-                    deselect(cell, item: topping)
-                }
-            case .dressing:
-                let dressing = foods.salad.dressings[indexPath.row]
-                cell.titleLabel.text = dressing.name
-                if salad.dressings.contains(dressing) {
-                    select(cell, item: dressing)
-                } else {
-                    deselect(cell, item: dressing)
-                }
-            case .extra: break
-            }
-        }
+        let model = cellViewModel(for: indexPath)
+        model.commands[.configuration]?.perform(cell: cell)
     }
 }
 
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch currentChoice {
-        case .size:
-            salad.size = foods.salad.sizes[indexPath.row]
-        case .lettuce:
-            let lettuce = foods.salad.lettuce[indexPath.row]
-            if salad.lettuce.contains(lettuce) {
-                salad.lettuce.remove(lettuce)
-            } else {
-                salad.lettuce.append(lettuce)
-            }
-        case .vegetable:
-            let vegetable = foods.salad.vegetables[indexPath.row]
-            if salad.vegetables.contains(vegetable) {
-                salad.vegetables.remove(vegetable)
-            } else {
-                salad.vegetables.append(vegetable)
-            }
-        case .topping:
-            let topping = foods.salad.toppings[indexPath.row]
-            if salad.toppings.contains(topping) {
-                salad.toppings.remove(topping)
-            } else {
-                salad.toppings.append(topping)
-            }
-        case .dressing:
-            let dressing = foods.salad.dressings[indexPath.row]
-            if salad.dressings.contains(dressing) {
-                salad.dressings.remove(dressing)
-            } else {
-                salad.dressings.append(dressing)
-            }
-        case .extra: break
+        let model = cellViewModel(for: indexPath)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            model.commands[.selection]?.perform(cell: cell)
         }
-        
         hasSelectedOnce = true
         currentItemIndex = indexPath.row
         setContentOffset(for: currentItemIndex)
-        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch currentChoice {
-        case .vegetable, .topping, .dressing:
-            let size = (collectionView.frame.width/2) - 15
-            return CGSize(width: size, height: size)
-        default:
-            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height/1.5)
-        }
+        let model = cellViewModel(for: indexPath)
+        return model.size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

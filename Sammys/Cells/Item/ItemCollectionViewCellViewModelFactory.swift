@@ -23,6 +23,7 @@ struct ItemCollectionViewCellViewModelFactory: CellViewModelFactory {
     
     func create() -> CellViewModel {
         let configurationCommand = ItemCollectionViewCellConfigurationCommand(item: item)
-        return CellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration : configurationCommand])
+        let selectionCommand = ItemCollectionViewCellSelectionCommand(item: item)
+        return CellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration : configurationCommand, .selection: selectionCommand])
     }
 }

@@ -9,11 +9,7 @@
 import UIKit
 
 protocol CellCommand {
-    func perform(parameters: [CommandParameterKey: Any]?)
-}
-
-enum CommandParameterKey {
-    case cell
+    func perform(cell: UICollectionViewCell?)
 }
 
 enum CommandActionKey {

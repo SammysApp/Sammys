@@ -8,21 +8,32 @@
 
 import UIKit
 
-class ItemCollectionViewCellConfigurationCommand: CellCommand {
+struct ItemCollectionViewCellConfigurationCommand: CellCommand {
     private let item: Item
+    
+    private struct Constants {
+        static let cornerRadius: CGFloat = 20
+    }
     
     init(item: Item) {
         self.item = item
     }
     
-    func perform(parameters: [CommandParameterKey : Any]?) {
-        guard let cell = parameters?[.cell] as? ItemCollectionViewCell else {
+    func perform(cell: UICollectionViewCell?) {
+        guard let cell = cell as? ItemCollectionViewCell else {
             return
         }
         
-        cell.titleLabel.text = item.name
+        cell.layer.cornerRadius = Constants.cornerRadius
         cell.backgroundColor = item.color
         
+        cell.titleLabel.text = item.name
+        if let saladItemType = type(of: item).type as? SaladItemType,
+            saladItemType == .size || saladItemType == .lettuce {
+            cell.titleLabel.text = nil
+        }
+        
+        cell.imageView.image = nil
         StorageAPIClient.getItemImage(for: item) { result in
             switch result {
             case .success(let image):
