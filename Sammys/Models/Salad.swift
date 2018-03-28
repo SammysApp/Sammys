@@ -76,6 +76,39 @@ extension Salad {
     }
 }
 
+// MARK: Helpers
+extension Salad {
+    func toggle(_ item: Item) {
+        switch item {
+        case let lettuce as Lettuce:
+            if self.lettuce.contains(lettuce) {
+                self.lettuce.remove(lettuce)
+            } else {
+                self.lettuce.append(lettuce)
+            }
+        case let vegetable as Vegetable:
+            if vegetables.contains(vegetable) {
+                vegetables.remove(vegetable)
+            } else {
+                vegetables.append(vegetable)
+            }
+        case let topping as Topping:
+            if toppings.contains(topping) {
+                toppings.remove(topping)
+            } else {
+                toppings.append(topping)
+            }
+        case let dressing as Dressing:
+            if dressings.contains(dressing) {
+                dressings.remove(dressing)
+            } else {
+                dressings.append(dressing)
+            }
+        default: break
+        }
+    }
+}
+
 // MARK: - Equatable
 extension Salad: Equatable {
     static func ==(lhs: Salad, rhs: Salad) -> Bool {

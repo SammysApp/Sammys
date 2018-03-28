@@ -59,14 +59,14 @@ class FoodViewController: UIViewController, Storyboardable {
 
 extension FoodViewController: FoodCollectionViewDelegate {
     func didTapEdit(for title: String) {
-        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
-        itemsViewController.salad = food as! Salad
-        itemsViewController.edit(for: title)
-        itemsViewController.isEditingFood = true
-        itemsViewController.didFinishEditing = {
-            self.collectionView.reloadData()
-            self.updateUI()
-        }
-        navigationController?.pushViewController(itemsViewController, animated: true)
+//        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+//        itemsViewController.salad = food as! Salad
+//        itemsViewController.edit(for: title)
+//        itemsViewController.isEditingFood = true
+//        itemsViewController.didFinishEditing = {
+//            self.collectionView.reloadData()
+//            self.updateUI()
+//        }
+//        navigationController?.pushViewController(itemsViewController, animated: true)
     }
 }

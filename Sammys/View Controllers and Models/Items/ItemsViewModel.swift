@@ -8,19 +8,66 @@
 
 import UIKit
 
+enum ItemsViewLayoutState {
+    case horizontal, vertical
+}
+
 class ItemsViewModel {
-    let data = FoodsDataStore.shared.foodsData!
+    typealias Choice = SaladItemType
+    
+    private let data = FoodsDataStore.shared.foodsData!
+    
+    private let choices = Choice.all
+    
+    private var salad = Salad()
+    
+    private var currentChoiceIndex = 0
+    
+    var currentChoice: Choice {
+        return choices[currentChoiceIndex]
+    }
+    
+    var atFirstChoice: Bool {
+        return currentChoiceIndex == 0
+    }
+    
+    var atLastChoice: Bool {
+        return currentChoiceIndex == choices.endIndex - 1
+    }
+    
+    var items: [Item] {
+        return data.salad.allItems[currentChoice] ?? []
+    }
+    
+    var currentViewLayoutState: ItemsViewLayoutState {
+        if currentChoice == .size || currentChoice == .lettuce {
+            return .horizontal
+        }
+        return .vertical
+    }
+    
+    var priceButtonTitle: String {
+        return "$\(salad.price)"
+    }
+    
+    var shouldHideItemLabel: Bool {
+        return currentViewLayoutState == .vertical
+    }
+    
+    var shouldHidePriceLabel: Bool {
+        return currentViewLayoutState == .vertical || currentChoice == .lettuce
+    }
     
     var numberOfSections: Int {
         return 1
     }
     
-    func numberOfItems(for itemType: SaladItemType) -> Int {
-        return items(for: itemType)?.count ?? 0
+    var numberOfItems: Int {
+        return items.count
     }
     
-    func collectionViewInsets(for itemType: SaladItemType) -> UIEdgeInsets {
-        switch itemType {
+    var collectionViewInsets: UIEdgeInsets {
+        switch currentChoice {
         case .vegetable, .topping, .dressing:
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         default:
@@ -28,8 +75,8 @@ class ItemsViewModel {
         }
     }
     
-    func collectionViewMinimumLineSpacing(for itemType: SaladItemType) -> CGFloat {
-        switch itemType {
+    var collectionViewMinimumLineSpacing: CGFloat {
+        switch currentChoice {
         case .vegetable, .topping, .dressing:
             return 10
         default:
@@ -37,8 +84,8 @@ class ItemsViewModel {
         }
     }
     
-    func collectionViewMinimumInteritemSpacing(for itemType: SaladItemType) -> CGFloat {
-        switch itemType {
+    var collectionViewMinimumInteritemSpacing: CGFloat {
+        switch currentChoice {
         case .vegetable, .topping, .dressing:
             return 10
         default:
@@ -46,19 +93,20 @@ class ItemsViewModel {
         }
     }
     
-    func items(for itemType: SaladItemType) -> [Item]? {
-        return data.salad.allItems[itemType]
-    }
-    
-    func cellViewModels(for itemType: SaladItemType, contextBounds: CGRect) -> [CellViewModel] {
-        if let items = items(for: itemType) {
-            let size = cellSize(for: itemType, contextBounds: contextBounds)
-            return items.map { ItemCollectionViewCellViewModelFactory(item: $0, size: size).create() }
+    func priceLabelText(at index: Int) -> String? {
+        if currentChoice == .size,
+            let size = items[index] as? Size {
+            return "$\(size.price)"
         }
-        return []
+        return nil
     }
     
-    func cellSize(for itemType: SaladItemType, contextBounds: CGRect) -> CGSize {
+    func cellViewModels(for contextBounds: CGRect) -> [CellViewModel] {
+        let size = cellSize(for: currentChoice, contextBounds: contextBounds)
+        return items.map { ItemCollectionViewCellViewModelFactory(item: $0, size: size).create() }
+    }
+    
+    private func cellSize(for itemType: SaladItemType, contextBounds: CGRect) -> CGSize {
         switch itemType {
         case .vegetable, .topping, .dressing:
             let size = (contextBounds.width/2) - 15
@@ -66,5 +114,34 @@ class ItemsViewModel {
         default:
             return CGSize(width: contextBounds.width, height: contextBounds.height/1.5)
         }
+    }
+    
+    func goToNextChoice() {
+        guard currentChoiceIndex + 1 < choices.endIndex else { return }
+        currentChoiceIndex += 1
+    }
+    
+    func goToPreviousChoice() {
+        guard currentChoiceIndex - 1 >= 0 else { return }
+        currentChoiceIndex -= 1
+    }
+    
+    func toggleItem(at index: Int) {
+        let item = items[index]
+        if let size = item as? Size {
+            salad.size = size
+        } else {
+            salad.toggle(item)
+        }
+    }
+}
+
+// MARK: - Choice
+private extension ItemsViewModel.Choice {
+    init?(_ title: String) {
+        if let choice = SaladItemType.type(for: title) {
+            self = choice
+        }
+        return nil
     }
 }

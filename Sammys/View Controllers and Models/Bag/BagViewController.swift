@@ -49,15 +49,15 @@ class BagViewController: UIViewController, Storyboardable {
     }
     
     func editItem(for food: Food) {
-        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
-        itemsViewController.salad = food as! Salad
-        itemsViewController.isEditingFood = true
-        itemsViewController.didFinishEditing = {
-            self.tableView.reloadData()
-            self.updateUI()
-            self.viewModel.finishEditing()
-        }
-        navigationController?.pushViewController(itemsViewController, animated: true)
+//        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+//        itemsViewController.salad = food as! Salad
+//        itemsViewController.isEditingFood = true
+//        itemsViewController.didFinishEditing = {
+//            self.tableView.reloadData()
+//            self.updateUI()
+//            self.viewModel.finishEditing()
+//        }
+//        navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
     func delete(_ food: Food) {

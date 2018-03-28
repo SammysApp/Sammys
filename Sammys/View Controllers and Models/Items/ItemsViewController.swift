@@ -8,30 +8,11 @@
 
 import UIKit
 
-typealias Choice = SaladItemType
-
 class ItemsViewController: UIViewController, Storyboardable {
     typealias ViewController = ItemsViewController
     
     let viewModel = ItemsViewModel()
-    var salad = Salad()
-    
-    let choices = Choice.all
-    
-    var currentChoiceIndex = 0 {
-        didSet {
-            if isViewLoaded { handleNewChoice() }
-        }
-    }
-    
-    var currentChoice: Choice {
-        get {
-            return choices[currentChoiceIndex]
-        } set {
-            currentChoiceIndex = choices.index(of: newValue)!
-        }
-    }
-    
+
     var currentItemIndex = 0 {
         didSet {
             if isViewLoaded { updateUI() }
@@ -59,10 +40,6 @@ class ItemsViewController: UIViewController, Storyboardable {
     var isCollectionViewAnimating = false
     var isLayoutAnimated: Bool {
         return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
-    }
-    
-    enum CellIdentifier: String {
-        case itemCell
     }
     
     struct Constants {
@@ -96,68 +73,49 @@ class ItemsViewController: UIViewController, Storyboardable {
     // MARK: -
     
     func updateUI() {
-        guard let item = item(for: currentChoice, at: currentItemIndex) else {
-            return
-        }
-        itemsLabel.text = currentChoice.title
+        let item = viewModel.items[currentItemIndex]
+        itemsLabel.text = viewModel.currentChoice.title
+        itemLabel.text = item.name
+        priceLabel.text = viewModel.priceLabelText(at: currentItemIndex)
+        itemLabel.isHidden = viewModel.shouldHideItemLabel
+        priceLabel.isHidden = viewModel.shouldHidePriceLabel
         
-        switch currentChoice {
-        case .size:
-            priceLabel.isHidden = false
-            itemLabel.isHidden = false
-            itemLabel.text = item.name
-            if let size = item as? Size {
-                priceLabel.text = "$\(size.price)"
-            }
-        case .lettuce:
-            priceLabel.isHidden = true
-            itemLabel.isHidden = false
-            itemLabel.text = item.name
-        case .vegetable, .topping, .dressing:
-            priceLabel.isHidden = true
-            itemLabel.isHidden = true
-        case .extra: break
-        }
-        
-        updateNextAndBackButtons()
+        updateNextButton()
+        updatePriceButton()
         updateCollectionView()
     }
     
     func updateCollectionView() {
-        switch currentChoice {
-        case .vegetable, .topping, .dressing:
-            collectionView.alwaysBounceHorizontal = false
-            collectionView.alwaysBounceVertical = true
-            collectionView.isPagingEnabled = false
-            collectionView.collectionViewLayout = flowCollectionViewLayout
-        default:
+        switch viewModel.currentViewLayoutState {
+        case .horizontal:
             collectionView.alwaysBounceHorizontal = true
             collectionView.alwaysBounceVertical = false
             collectionView.isPagingEnabled = true
             collectionView.collectionViewLayout = layout
+        case .vertical:
+            collectionView.alwaysBounceHorizontal = false
+            collectionView.alwaysBounceVertical = true
+            collectionView.isPagingEnabled = false
+            collectionView.collectionViewLayout = flowCollectionViewLayout
         }
     }
     
-    func updateNextAndBackButtons() {
+    func updateNextButton() {
         nextButton.setTitle(Constants.next, for: .normal)
-        
-        if currentChoice == choices.first {
-            backButton.isHidden = false
-            if hasSelectedOnce {
-                nextButton.isHidden = false
-            }
-        } else if currentChoice == choices.last {
-            backButton.isHidden = false
-            nextButton.isHidden = false
-            nextButton.setTitle(isEditingFood ? Constants.done : Constants.review, for: .normal)
+        if viewModel.atFirstChoice && !hasSelectedOnce {
+            nextButton.isHidden = true
         } else {
-            backButton.isHidden = false
             nextButton.isHidden = false
+            if viewModel.atLastChoice {
+                nextButton.setTitle(isEditingFood ? Constants.done : Constants.review, for: .normal)
+            }
         }
-        
+    }
+    
+    func updatePriceButton() {
         if hasSelectedOnce {
             priceButton.isHidden = false
-            priceButton.setTitle("$\(salad.price)", for: .normal)
+            priceButton.setTitle(viewModel.priceButtonTitle, for: .normal)
         }
     }
     
@@ -178,7 +136,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     /// Sets to proper x content offset for item index.
     func setContentOffset(for itemIndex: Int) {
-        if currentChoice == .size || currentChoice == .lettuce {
+        if viewModel.currentViewLayoutState == .horizontal {
             let itemIndexOffsetX = CGFloat(itemIndex) * collectionView.bounds.size.width
             if collectionView.contentOffset.x != itemIndexOffsetX {
                 isCollectionViewAnimating = true
@@ -189,10 +147,17 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     func showAddViewController() {
         if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
-            addViewController.food = salad
+            //addViewController.food = salad
             addViewController.editDelegate = self
             navigationController?.pushViewController(addViewController, animated: true)
         }
+    }
+    
+    func didSelectItem(at index: Int) {
+        viewModel.toggleItem(at: index)
+        currentItemIndex = index
+        setContentOffset(for: currentItemIndex)
+        hasSelectedOnce = true
     }
     
     /// Called once done editing.
@@ -201,35 +166,30 @@ class ItemsViewController: UIViewController, Storyboardable {
         navigationController?.popViewController(animated: true)
     }
     
-    /// Gets the item for the the item type and index from the view model.
-    func item(for itemType: SaladItemType, at index: Int) -> Item? {
-        return viewModel.items(for: itemType)?[index]
-    }
-    
     /// Gets the cell view model for the index path from the view model.
     func cellViewModel(for indexPath: IndexPath) -> CellViewModel {
-        return viewModel.cellViewModels(for: currentChoice, contextBounds: collectionView.bounds)[indexPath.item]
+        return viewModel.cellViewModels(for: collectionView.bounds)[indexPath.item]
     }
     
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
-        if currentChoice == choices.last {
+        if viewModel.atLastChoice {
             if isEditingFood {
                 finishEditing()
             } else {
                 showAddViewController()
             }
         } else {
-            currentChoiceIndex += 1
+            viewModel.goToNextChoice()
             handleNewChoice()
         }
     }
     
     @IBAction func didTapBack(_ sender: UIButton) {
-        if currentChoice == choices.first {
+        if viewModel.atFirstChoice {
             navigationController?.popViewController(animated: true)
         } else {
-            currentChoiceIndex -= 1
+            viewModel.goToPreviousChoice()
             handleNewChoice()
         }
     }
@@ -250,7 +210,7 @@ extension ItemsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems(for: currentChoice)
+        return viewModel.numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -272,9 +232,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
         if let cell = collectionView.cellForItem(at: indexPath) {
             model.commands[.selection]?.perform(cell: cell)
         }
-        hasSelectedOnce = true
-        currentItemIndex = indexPath.row
-        setContentOffset(for: currentItemIndex)
+        didSelectItem(at: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -283,15 +241,15 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return viewModel.collectionViewInsets(for: currentChoice)
+        return viewModel.collectionViewInsets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return viewModel.collectionViewMinimumLineSpacing(for: currentChoice)
+        return viewModel.collectionViewMinimumLineSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return viewModel.collectionViewMinimumInteritemSpacing(for: currentChoice)
+        return viewModel.collectionViewMinimumInteritemSpacing
     }
     
     
@@ -300,7 +258,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if currentChoice == .size || currentChoice == .lettuce {
+        if viewModel.currentViewLayoutState == .horizontal {
             if isLayoutAnimated && !isCollectionViewAnimating {
                 updateCurrentItemIndex()
             }
@@ -308,26 +266,9 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension Choice {
-    init?(_ title: String) {
-        if let choice = SaladItemType.type(for: title) {
-            self = choice
-        }
-        return nil
-    }
-}
-
 // MARK: - Editable
 extension ItemsViewController: Editable {
     func edit(for title: String) {
-        if let choice = Choice(title) {
-            currentChoice = choice
-        }
-    }
-}
-
-extension Array where Element: Equatable {
-    mutating func remove(_ element: Element) {
-        self = self.filter { $0 != element }
+        
     }
 }
