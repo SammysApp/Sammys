@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Food View Controller-->
         <scene sceneID="WWP-IX-F3q">
             <objects>
-                <viewController id="nI2-Gg-QuO" sceneMemberID="viewController">
+                <viewController id="nI2-Gg-QuO" customClass="FoodViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Af-h6-0Tu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
     </scenes>
     <resources>
         <namedColor name="Mocha">
-            <color red="0.57899999619999998" green="0.32199999689999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.58039215686274515" green="0.32156862745098042" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

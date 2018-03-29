@@ -169,13 +169,14 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         case .food:
             let foodItem = item as! FoodBagItem
             let food = foodItem.food
-            let foodViewController = FoodViewController()
-            foodViewController.food = food
-            foodViewController.didGoBack = { foodViewController in
-                self.tableView.reloadData()
-                self.updateUI()
+            if let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController {
+                foodViewController.viewModel = FoodViewModel(food: food)
+                foodViewController.didGoBack = { foodViewController in
+                    self.tableView.reloadData()
+                    self.updateUI()
+                }
+                navigationController?.pushViewController(foodViewController, animated: true)
             }
-            navigationController?.pushViewController(foodViewController, animated: true)
         default: break
         }
     }

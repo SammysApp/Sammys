@@ -111,6 +111,11 @@ class ItemsViewModel {
         }
     }
     
+    func resetFood(to food: Food) {
+        guard let salad = food as? Salad else { return }
+        self.salad = salad
+    }
+    
     func priceLabelText(at index: Int) -> String? {
         if currentChoice == .size,
             let size = items[index] as? Size {

@@ -98,13 +98,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
         } else if item.key == .fave {
             let faveItem = item as! FaveHomeItem
-            let foodViewController = FoodViewController()
-            foodViewController.food = faveItem.food
-            foodViewController.didGoBack = { foodViewController in
-                self.viewModel.setFavorite(faveItem.food)
-                self.collectionView.reloadData()
+            if let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController {
+                foodViewController.viewModel = FoodViewModel(food: faveItem.food)
+                foodViewController.didGoBack = { foodViewController in
+                    self.viewModel.setFavorite(faveItem.food)
+                    self.collectionView.reloadData()
+                }
+                navigationController?.pushViewController(foodViewController, animated: true)
             }
-            navigationController?.pushViewController(foodViewController, animated: true)
         }
     }
     

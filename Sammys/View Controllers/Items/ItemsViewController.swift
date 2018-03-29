@@ -11,7 +11,7 @@ import UIKit
 class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboardable {
     typealias ViewController = ItemsViewController
     
-    let viewModel = ItemsViewModel()
+    private let viewModel = ItemsViewModel()
 
     var currentItemIndex = 0 {
         didSet {
@@ -176,6 +176,14 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
     /// Gets the cell view model for the index path from the view model.
     func cellViewModel(for indexPath: IndexPath) -> CellViewModel {
         return viewModel.cellViewModels(for: collectionView.bounds)[indexPath.item]
+    }
+    
+    func resetFood(to food: Food) {
+        viewModel.resetFood(to: food)
+    }
+    
+    func edit(for itemType: ItemType) {
+        viewModel.edit(for: itemType)
     }
     
     // MARK: - IBActions

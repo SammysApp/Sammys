@@ -38,6 +38,7 @@
 		5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A834200EA4BE00898FF0 /* Topping.swift */; };
 		5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
 		5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */; };
+		5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* FoodViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */; };
 		5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06821FFD509A00BAC480 /* Assets.xcassets */; };
@@ -126,6 +127,7 @@
 		5B44A834200EA4BE00898FF0 /* Topping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topping.swift; sourceTree = "<group>"; };
 		5B44A836200EA4CA00898FF0 /* Dressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dressing.swift; sourceTree = "<group>"; };
 		5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B553A64206C774F00DD9689 /* FoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6A06801FFD509A00BAC480 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ItemsViewController.storyboard; sourceTree = "<group>"; };
@@ -203,6 +205,15 @@
 				BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5B553A66206C9BED00DD9689 /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
+				5B553A64206C774F00DD9689 /* FoodViewModel.swift */,
+			);
+			path = Food;
 			sourceTree = "<group>";
 		};
 		5B6A066F1FFD509A00BAC480 = {
@@ -291,7 +302,7 @@
 				5BD274F42063FAE300618128 /* Items */,
 				5BD274F52063FAEE00618128 /* Bag */,
 				5BEED53F206C72DD002240EB /* Add */,
-				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
+				5B553A66206C9BED00DD9689 /* Food */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -651,6 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */,
 				5BEED53E206C6F70002240EB /* AddViewModel.swift in Sources */,
 				5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
