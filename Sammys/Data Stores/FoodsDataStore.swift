@@ -34,14 +34,15 @@ class FoodsDataStore {
 
 /// A type representing all available foods.
 struct FoodsData: Decodable {
-    let salad: Salad
+    let salad: SaladData
     
-    struct Salad: Decodable {
+    struct SaladData: Decodable {
         let sizes: [Size]
         let lettuce: [Lettuce]
         let vegetables: [Vegetable]
         let toppings: [Topping]
         let dressings: [Dressing]
+        let extras: [Extra]
         
         var allItems: [SaladItemType : [Item]] {
             return [
@@ -50,22 +51,8 @@ struct FoodsData: Decodable {
                 .vegetable: vegetables,
                 .topping: toppings,
                 .dressing: dressings,
+                .extra: extras
             ]
         }
-    }
-}
-
-enum FixtureError: Error {
-    case fileNotFound
-}
-
-extension JSONDecoder {
-    func decodeFixture<T>(name: String, bundle: Bundle = .main) throws -> T where T: Decodable {
-        guard let url = bundle.url(forResource: name, withExtension: "json") else {
-            throw FixtureError.fileNotFound
-        }
-        
-        let data = try Data(contentsOf: url)
-        return try decode(T.self, from: data)
     }
 }

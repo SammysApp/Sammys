@@ -1,5 +1,5 @@
 //
-//  Editable.swift
+//  ItemEditable.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/26/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol Editable {
-    func edit(for title: String)
+protocol ItemEditable {
+    func edit(for itemType: ItemType)
 }

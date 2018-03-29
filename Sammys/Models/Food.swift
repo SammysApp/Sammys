@@ -13,6 +13,9 @@ struct ItemGroup {
     /// The title of the group.
     let title: String
     
+    /// The type of the group.
+    let type: ItemType
+    
     /// The items in the group.
     let items: [Item]
 }

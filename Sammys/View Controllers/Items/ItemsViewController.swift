@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemsViewController: UIViewController, Storyboardable {
+class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboardable {
     typealias ViewController = ItemsViewController
     
     let viewModel = ItemsViewModel()
@@ -25,9 +25,13 @@ class ItemsViewController: UIViewController, Storyboardable {
     /// Closure called once done editing.
     var didFinishEditing: (() -> Void)?
     
+    lazy var choiceDidChange: () -> () = {
+        self.handleNewChoice()
+    }
+    
     // MARK: - IBOutlets & View Properties
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var itemsLabel: UILabel!
+    @IBOutlet var itemTypeLabel: UILabel!
     @IBOutlet var itemStackView: UIStackView!
     @IBOutlet var itemLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -52,6 +56,8 @@ class ItemsViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
+        
         view.sendSubview(toBack: collectionView)
         
         // Set up layout for collection view.
@@ -73,9 +79,11 @@ class ItemsViewController: UIViewController, Storyboardable {
     // MARK: -
     
     func updateUI() {
-        let item = viewModel.items[currentItemIndex]
-        itemsLabel.text = viewModel.currentChoice.title
-        itemLabel.text = item.name
+        if let item = viewModel.items[safe: currentItemIndex] {
+            itemLabel.text = item.name
+        }
+        
+        itemTypeLabel.text = viewModel.itemTypeLabelText
         priceLabel.text = viewModel.priceLabelText(at: currentItemIndex)
         itemLabel.isHidden = viewModel.shouldHideItemLabel
         priceLabel.isHidden = viewModel.shouldHidePriceLabel
@@ -147,8 +155,7 @@ class ItemsViewController: UIViewController, Storyboardable {
     
     func showAddViewController() {
         if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
-            //addViewController.food = salad
-            addViewController.editDelegate = self
+            addViewController.viewModel = AddViewModel(food: viewModel.food, editDelegate: viewModel)
             navigationController?.pushViewController(addViewController, animated: true)
         }
     }
@@ -181,7 +188,6 @@ class ItemsViewController: UIViewController, Storyboardable {
             }
         } else {
             viewModel.goToNextChoice()
-            handleNewChoice()
         }
     }
     
@@ -190,7 +196,6 @@ class ItemsViewController: UIViewController, Storyboardable {
             navigationController?.popViewController(animated: true)
         } else {
             viewModel.goToPreviousChoice()
-            handleNewChoice()
         }
     }
     
@@ -263,12 +268,5 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
                 updateCurrentItemIndex()
             }
         }
-    }
-}
-
-// MARK: - Editable
-extension ItemsViewController: Editable {
-    func edit(for title: String) {
-        
     }
 }

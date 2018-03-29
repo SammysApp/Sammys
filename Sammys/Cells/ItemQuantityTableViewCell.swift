@@ -10,20 +10,4 @@ import UIKit
 
 class ItemQuantityTableViewCell: UITableViewCell {
     @IBOutlet var quantityCollectionView: QuantityCollectionView!
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        setup()
-    }
-    
-    func setup() {
-        
-    }
 }

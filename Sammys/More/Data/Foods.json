@@ -26,49 +26,49 @@
 				"price": 49.95,
 				"hex": "474747"
 			}
-		],
-		"lettuce": [
+            ],
+        "lettuce": [
 			{
 				"name": "Romaine",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Arugala",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Baby Kale",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Baby Spinach",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Iceberg",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Mesculine",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			}
-		],
-		"vegetables": [
+            ],
+         "vegetables": [
 			{
 				"name": "Avocado",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Beets",
 				"description": "",
-        "hex": ""
+                "hex": ""
 			},
 			{
 				"name": "Butternut Squash (Roasted)",
@@ -79,7 +79,7 @@
 				"name": "Celery",
 				"description": "",
 				"hex": ""
-      },
+            },
 			{
 				"name": "Chick Peas",
 				"description": "",
@@ -270,7 +270,7 @@
 				"description": "",
 				"hex": ""
 			}
-		],
+            ],
 		"toppings": [
 			{
 				"name": "Almonds (Caramelized)",
@@ -422,7 +422,7 @@
 				"description": "",
 				"hex": ""
 			}
-		],
+            ],
 		"dressings": [
 			{
 				"name": "Balsamic Vinaigrette",
@@ -554,6 +554,7 @@
 				"description": "",
 				"hex": ""
 			}
-		]
+            ],
+        "extras": []
 	}
 }

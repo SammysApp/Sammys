@@ -12,8 +12,18 @@ enum ItemsViewLayoutState {
     case horizontal, vertical
 }
 
+protocol ItemsViewModelDelegate {
+    var choiceDidChange: () -> () { get }
+}
+
 class ItemsViewModel {
-    typealias Choice = SaladItemType
+    private typealias Choice = SaladItemType
+    
+    var delegate: ItemsViewModelDelegate?
+    
+    var food: Food {
+        return salad
+    }
     
     private let data = FoodsDataStore.shared.foodsData!
     
@@ -21,9 +31,13 @@ class ItemsViewModel {
     
     private var salad = Salad()
     
-    private var currentChoiceIndex = 0
+    private var currentChoiceIndex = 0 {
+        didSet {
+            delegate?.choiceDidChange()
+        }
+    }
     
-    var currentChoice: Choice {
+    private var currentChoice: Choice {
         return choices[currentChoiceIndex]
     }
     
@@ -44,6 +58,10 @@ class ItemsViewModel {
             return .horizontal
         }
         return .vertical
+    }
+    
+    var itemTypeLabelText: String {
+        return currentChoice.title
     }
     
     var priceButtonTitle: String {
@@ -136,12 +154,12 @@ class ItemsViewModel {
     }
 }
 
-// MARK: - Choice
-private extension ItemsViewModel.Choice {
-    init?(_ title: String) {
-        if let choice = SaladItemType.type(for: title) {
-            self = choice
+// MARK: - ItemEditable
+extension ItemsViewModel: ItemEditable {
+    func edit(for itemType: ItemType) {
+        guard let choice = itemType as? Choice else { return }
+        if let choiceIndex = choices.index(of: choice) {
+            currentChoiceIndex = choiceIndex
         }
-        return nil
     }
 }

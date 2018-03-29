@@ -9,27 +9,21 @@
 import Foundation
 import UIKit
 
-/// Implement this protocol to handle changes and updates to a FoodCollectionView.
-protocol FoodCollectionViewDelegate {
-    func didTapEdit(for title: String)
-}
-
 enum FoodReuseIdentifier: String {
     case itemCell, header
 }
 
 /// A collection view displaying food details.
 class FoodCollectionView: UICollectionView {
-    var foodDelegate: FoodCollectionViewDelegate?
+    private var foodDataSource: FoodCollectionViewDataSource!
+    private var foodDelegate: FoodCollectionViewDelegate!
     
-    private var food: Food!
-    var sections: [ItemGroup] {
-        return food.itemGroups
-    }
-    
-    convenience init(frame: CGRect, food: Food) {
+    convenience init(frame: CGRect, viewModel: FoodCollectionViewModel) {
         self.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.food = food
+        self.foodDataSource = FoodCollectionViewDataSource(viewModel: viewModel)
+        self.foodDelegate = FoodCollectionViewDelegate(viewModel: viewModel)
+        self.dataSource = foodDataSource
+        self.delegate = foodDelegate
     }
     
     private override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -48,43 +42,54 @@ class FoodCollectionView: UICollectionView {
         
         register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue)
         register(FoodHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FoodReuseIdentifier.header.rawValue)
-        
-        dataSource = self
-        delegate = self
     }
 }
 
-// MARK: - Collection View Data Source & Delegate
-extension FoodCollectionView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    var viewModel: FoodCollectionViewModel!
+    
+    convenience init(viewModel: FoodCollectionViewModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
+        return viewModel.sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[section].items.count
+        return viewModel.sections[section].items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue, for: indexPath) as! ItemCollectionViewCell
         cell.backgroundColor = .flora
         cell.layer.cornerRadius = 20
-        cell.titleLabel.text = sections[indexPath.section].items[indexPath.row].name
+        cell.titleLabel.text = viewModel.sections[indexPath.section].items[indexPath.row].name
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
+            let section = viewModel.sections[indexPath.section]
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FoodReuseIdentifier.header.rawValue, for: indexPath) as! FoodHeaderView
-            headerView.titleLabel.text = sections[indexPath.section].title
+            headerView.titleLabel.text = section.title
             headerView.didTapEdit = { headerView in
-                if let title = headerView.titleLabel.text {
-                    self.foodDelegate?.didTapEdit(for: title)
-                }
+                self.viewModel.didTapEdit?(section.type)
             }
             return headerView
         default: return UICollectionReusableView()
         }
+    }
+}
+
+class FoodCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+    var viewModel: FoodCollectionViewModel!
+    
+    convenience init(viewModel: FoodCollectionViewModel) {
+        self.init()
+        self.viewModel = viewModel
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

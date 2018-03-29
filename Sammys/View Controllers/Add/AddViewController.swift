@@ -9,12 +9,10 @@
 import UIKit
 
 /// View food details and add to bag.
-class AddViewController: UIViewController, Storyboardable {
+class AddViewController: UIViewController, AddViewModelDelegate, Storyboardable {
     typealias ViewController = AddViewController
     
-    var food: Food!
-    
-    var editDelegate: Editable?
+    var viewModel: AddViewModel!
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var addButton: UIButton!
@@ -25,8 +23,9 @@ class AddViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
-        collectionView.foodDelegate = self
+        viewModel.delegate = self
+        
+        collectionView = FoodCollectionView(frame: CGRect.zero, viewModel: viewModel.collectionViewModel)
         
         view.insertSubview(collectionView, at: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,23 +45,20 @@ class AddViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = false
     }
     
+    func didTapEdit() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func didTapCancel(_ sender: UIButton) {
         navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func didTapAdd(_ sender: UIButton) {
-        BagDataStore.shared.add(food)
+        viewModel.addFoodToBag()
         navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func didTapFave(_ sender: UIButton) {
-        UserAPIClient.set(food as! Salad, for: UserDataStore.shared.user!)
-    }
-}
-
-extension AddViewController: FoodCollectionViewDelegate {
-    func didTapEdit(for title: String) {
-        editDelegate?.edit(for: title)
-        navigationController?.popViewController(animated: true)
+        viewModel.addFoodAsFave()
     }
 }

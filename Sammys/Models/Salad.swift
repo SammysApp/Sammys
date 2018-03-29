@@ -63,13 +63,13 @@ extension Salad {
         guard let size = size else {
             return itemGroups
         }
-        itemGroups.append(ItemGroup(title: SaladItemType.size.title, items: [size]))
+        itemGroups.append(ItemGroup(title: SaladItemType.size.title, type: SaladItemType.size, items: [size]))
         
         let saladItems: [[Item]] = [lettuce, vegetables, toppings, dressings, extras]
         saladItems.forEach { items in
             if !items.isEmpty, let firstItem = items.first {
                 let item = Swift.type(of: firstItem)
-                itemGroups.append(ItemGroup(title: item.type.title, items: items))
+                itemGroups.append(ItemGroup(title: item.type.title, type: item.type, items: items))
             }
         }
         return itemGroups

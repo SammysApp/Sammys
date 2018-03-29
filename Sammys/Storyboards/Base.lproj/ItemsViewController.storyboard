@@ -159,7 +159,7 @@
                         <outlet property="collectionView" destination="SoD-Da-FXx" id="v3K-8j-Wkb"/>
                         <outlet property="itemLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
                         <outlet property="itemStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
-                        <outlet property="itemsLabel" destination="L0K-Q8-L7Q" id="fLP-RX-fQZ"/>
+                        <outlet property="itemTypeLabel" destination="L0K-Q8-L7Q" id="xB1-ea-uaj"/>
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
                         <outlet property="priceButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>
                         <outlet property="priceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>

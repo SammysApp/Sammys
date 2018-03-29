@@ -23,8 +23,8 @@ class FoodViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
-        collectionView.foodDelegate = self
+//        collectionView = FoodCollectionView(frame: CGRect.zero, food: food)
+//        collectionView.foodDelegate = self
         
         view.insertSubview(collectionView, at: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +57,8 @@ class FoodViewController: UIViewController, Storyboardable {
     }
 }
 
-extension FoodViewController: FoodCollectionViewDelegate {
-    func didTapEdit(for title: String) {
+//extension FoodViewController: FoodCollectionViewDelegate {
+//    func didTapEdit(for title: String) {
 //        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
 //        itemsViewController.salad = food as! Salad
 //        itemsViewController.edit(for: title)
@@ -68,5 +68,6 @@ extension FoodViewController: FoodCollectionViewDelegate {
 //            self.updateUI()
 //        }
 //        navigationController?.pushViewController(itemsViewController, animated: true)
-    }
-}
+//    }
+//}
+
