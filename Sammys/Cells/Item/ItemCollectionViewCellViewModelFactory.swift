@@ -12,7 +12,7 @@ enum ItemCellIdentifier: String {
     case itemCell
 }
 
-struct ItemCollectionViewCellViewModelFactory: CellViewModelFactory {
+struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
     private let item: Item
     private let size: CGSize
     
@@ -21,9 +21,9 @@ struct ItemCollectionViewCellViewModelFactory: CellViewModelFactory {
         self.size = size
     }
     
-    func create() -> CellViewModel {
+    func create() -> CollectionViewCellViewModel {
         let configurationCommand = ItemCollectionViewCellConfigurationCommand(item: item)
         let selectionCommand = ItemCollectionViewCellSelectionCommand(item: item)
-        return CellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration : configurationCommand, .selection: selectionCommand])
+        return CollectionViewCellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration : configurationCommand, .selection: selectionCommand])
     }
 }

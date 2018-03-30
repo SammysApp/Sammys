@@ -21,35 +21,59 @@ enum BagCellIdentifier: String {
     case foodCell, quantityCell
 }
 
+struct BagItemGroup {
+    let items: [BagItem]
+}
+
+struct BagSection {
+    let title: String?
+    let itemGroups: [BagItemGroup]
+    
+    var allItems: [BagItem] {
+        return itemGroups.flatMap { $0.items }
+    }
+    
+    init(title: String? = nil, itemGroups: [BagItemGroup]) {
+        self.title = title
+        self.itemGroups = itemGroups
+    }
+}
+
 class BagViewModel {
     var user: User? {
         return UserDataStore.shared.user
     }
-    var items: [FoodType : [BagItem]] {
-        var items = [FoodType : [BagItem]]()
-        for key in sortedItemsKeys {
-            if let keyFoods = foods[key] {
-                for food in keyFoods {
-                    if items[key] == nil {
-                        items[key] = []
-                    }
-                    let foodItem = FoodBagItem(food: food)
-                    items[key]!.append(foodItem)
-                    let quantityItem = QuantityBagItem(food: food)
-                    items[key]!.append(quantityItem)
-                }
-            }
-        }
-        return items
-    }
     
     private let data = BagDataStore.shared
+    
     private var foods: BagDataStore.Foods {
         return data.foods
     }
-    private var sortedItemsKeys: [FoodType] {
+    
+    private var sortedFoodTypes: [FoodType] {
         return Array(foods.keys).sorted { $0.rawValue < $1.rawValue }
     }
+    
+    private var sections: [BagSection] {
+        var sections = [BagSection]()
+        for foodType in sortedFoodTypes {
+            if let foods = foods[foodType] {
+                var itemGroups = [BagItemGroup]()
+                for food in foods {
+                    var items = [BagItem]()
+                    items.append(FoodBagItem(food: food))
+                    if let quantityItem = quantityItem(for: food) {
+                        items.append(quantityItem)
+                    }
+                    itemGroups.append(BagItemGroup(items: items))
+                }
+                sections.append(BagSection(itemGroups: itemGroups))
+            }
+        }
+        return sections
+    }
+    
+    private var quantityItems = [QuantityBagItem]()
     
     var subtotalPrice: Double {
         var totalPrice = 0.0
@@ -66,39 +90,32 @@ class BagViewModel {
     }
     
     var numberOfSections: Int {
-        return items.count
+        return sections.count
     }
     
     func numberOfRows(in section: Int) -> Int {
-        let key = sortedItemsKeys[section]
-        return items[key]?.count ?? 0
+        return sections[section].allItems.count
     }
     
     func item(for indexPath: IndexPath) -> BagItem? {
-        let key = sortedItemsKeys[indexPath.section]
-        if let items = items[key] {
-            return items[indexPath.row]
-        }
-        return nil
+        return sections[indexPath.section].allItems[indexPath.row]
     }
     
-    func indexPath(for food: Food) -> IndexPath? {
-        for (section, key) in sortedItemsKeys.enumerated() {
-            if let items = items[key] {
-                for (row, item) in items.enumerated() {
-                    if let foodItem = item as? FoodBagItem {
-                        if foodItem.food.isEqual(food) {
-                            return IndexPath(row: row, section: section)
-                        }
-                    }
-                }
-            }
-        }
-        return nil
+    func remove(at indexPath: IndexPath, didRemoveSection: ((Bool) -> Void)?) {
+        guard let food = (item(for: indexPath) as? FoodBagItem)?.food else { return }
+        data.remove(food, didRemoveSection: didRemoveSection)
     }
     
-    func remove(_ food: Food, removedSection: ((Bool) -> Void)?) {
-        data.remove(food, removedSection: removedSection)
+    func quantityItem(for food: Food) -> QuantityBagItem? {
+        return quantityItems.first { $0.food.isEqual(food) }
+    }
+    
+    func showQuantity(for food: Food) {
+        quantityItems.append(QuantityBagItem(food: food))
+    }
+    
+    func hideQuantity(for food: Food) {
+        quantityItems = quantityItems.filter { !$0.food.isEqual(food) }
     }
     
     func finishEditing() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ItemCollectionViewCellSelectionCommand: CellCommand {
+struct ItemCollectionViewCellSelectionCommand: CollectionViewCellCommand {
     private let item: Item
     
     init(item: Item) {

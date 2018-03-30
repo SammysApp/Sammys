@@ -124,7 +124,7 @@ class ItemsViewModel {
         return nil
     }
     
-    func cellViewModels(for contextBounds: CGRect) -> [CellViewModel] {
+    func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         let size = cellSize(for: currentChoice, contextBounds: contextBounds)
         return items.map { ItemCollectionViewCellViewModelFactory(item: $0, size: size).create() }
     }

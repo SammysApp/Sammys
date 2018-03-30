@@ -1,5 +1,5 @@
 //
-//  CellViewModel.swift
+//  CollectionViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/22/18.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct CellViewModel {
+struct CollectionViewCellViewModel {
     let identifier: String
     let size: CGSize
-    let commands: [CommandActionKey: CellCommand]
+    let commands: [CollectionViewCommandActionKey: CollectionViewCellCommand]
 }

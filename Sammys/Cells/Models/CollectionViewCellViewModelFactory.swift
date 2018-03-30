@@ -1,5 +1,5 @@
 //
-//  CellViewModelFactory.swift
+//  CollectionViewCellViewModelFactory.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/22/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CellViewModelFactory {
-    func create() -> CellViewModel
+protocol CollectionViewCellViewModelFactory {
+    func create() -> CollectionViewCellViewModel
 }

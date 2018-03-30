@@ -174,7 +174,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
     }
     
     /// Gets the cell view model for the index path from the view model.
-    func cellViewModel(for indexPath: IndexPath) -> CellViewModel {
+    func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
         return viewModel.cellViewModels(for: collectionView.bounds)[indexPath.item]
     }
     

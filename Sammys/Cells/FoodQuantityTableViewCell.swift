@@ -1,5 +1,5 @@
 //
-//  ItemQuantityTableViewCell.swift
+//  FoodQuantityTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/26/18.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class ItemQuantityTableViewCell: UITableViewCell {
+class FoodQuantityTableViewCell: UITableViewCell {
     @IBOutlet var quantityCollectionView: QuantityCollectionView!
 }

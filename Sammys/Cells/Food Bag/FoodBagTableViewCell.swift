@@ -1,5 +1,5 @@
 //
-//  FoodTableViewCell.swift
+//  FoodBagTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/20/18.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FoodTableViewCell: UITableViewCell {
-    var didEdit: ((FoodTableViewCell) -> Void)?
-    var didFave: ((FoodTableViewCell) -> Void)?
+class FoodBagTableViewCell: UITableViewCell {
+    var didEdit: ((FoodBagTableViewCell) -> Void)?
+    var didFave: ((FoodBagTableViewCell) -> Void)?
     
     // MARK: IBOutlets
     @IBOutlet var itemImageView: UIImageView!

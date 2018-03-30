@@ -53,6 +53,7 @@ class BagDataStore {
     */
     func add(_ food: Food) {
         let key = type(of: food).type
+        // FIXME: Can't add more than one, not ref.
         if var foodsForKey = _foods[key] {
             var added = false
             for var foodInFoods in foodsForKey {
@@ -77,7 +78,7 @@ class BagDataStore {
      - Parameter food: The food to remove.
      - Parameter removedSection: A closure that gets sent `true` if removed the section containing the food removed.
      */
-    func remove(_ food: Food, removedSection: ((Bool) -> Void)? = nil) {
+    func remove(_ food: Food, didRemoveSection: ((Bool) -> Void)? = nil) {
         for (key, foods) in _foods {
             for (index, foodInFoods) in foods.enumerated() {
                 if food.isEqual(foodInFoods) {
@@ -85,9 +86,9 @@ class BagDataStore {
                         foodsForKey.remove(at: index)
                         if foodsForKey.isEmpty {
                             _foods.removeValue(forKey: key)
-                            removedSection?(true)
+                            didRemoveSection?(true)
                         } else {
-                            removedSection?(false)
+                            didRemoveSection?(false)
                         }
                     }
                 }

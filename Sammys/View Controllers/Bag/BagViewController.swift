@@ -49,33 +49,25 @@ class BagViewController: UIViewController, Storyboardable {
     }
     
     func editItem(for food: Food) {
-//        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
-//        itemsViewController.salad = food as! Salad
-//        itemsViewController.isEditingFood = true
-//        itemsViewController.didFinishEditing = {
-//            self.tableView.reloadData()
-//            self.updateUI()
-//            self.viewModel.finishEditing()
-//        }
-//        navigationController?.pushViewController(itemsViewController, animated: true)
+        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+        itemsViewController.resetFood(to: food)
+        itemsViewController.isEditingFood = true
+        itemsViewController.didFinishEditing = {
+            self.tableView.reloadData()
+            self.updateUI()
+            self.viewModel.finishEditing()
+        }
+        navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
-    func delete(_ food: Food) {
-        if let indexPath = viewModel.indexPath(for: food) {
-            var indexPathsToDelete = [indexPath]
-            let nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
-            // Append quantity cell to delete.
-            if let nextKey = viewModel.item(for: nextIndexPath)?.key, nextKey == .quantity {
-                indexPathsToDelete.append(nextIndexPath)
+    func delete(at indexPath: IndexPath) {
+        viewModel.remove(at: indexPath) { didRemoveSection in
+            if didRemoveSection {
+                self.tableView.deleteSections([indexPath.section], with: .fade)
+            } else {
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
             }
-            viewModel.remove(food) { didRemoveSection in
-                if didRemoveSection {
-                    self.tableView.deleteSections([indexPath.section], with: .fade)
-                } else {
-                    self.tableView.deleteRows(at: indexPathsToDelete, with: .automatic)
-                }
-                self.updateUI()
-            }
+            self.updateUI()
         }
     }
     
@@ -118,7 +110,7 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         case .food:
             let foodItem = item as! FoodBagItem
             let food = foodItem.food
-            let cell = tableView.dequeueReusableCell(withIdentifier: foodItem.cellIdenitifier.rawValue, for: indexPath) as! FoodTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: foodItem.cellIdenitifier.rawValue, for: indexPath) as! FoodBagTableViewCell
             
             switch food {
             case let salad as Salad:
@@ -137,11 +129,11 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         case .quantity:
             let quantityItem = item as! QuantityBagItem
             var food = quantityItem.food
-            let cell = tableView.dequeueReusableCell(withIdentifier: quantityItem.cellIdenitifier.rawValue, for: indexPath) as! ItemQuantityTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: quantityItem.cellIdenitifier.rawValue, for: indexPath) as! FoodQuantityTableViewCell
             cell.quantityCollectionView.didSelectQuantity = { quantity in
                 switch quantity {
                 case .none:
-                    self.delete(quantityItem.food)
+                    self.delete(at: indexPath)
                 case .some(let amount):
                     food.quantity = amount
                     self.tableView.reloadData()
@@ -183,9 +175,7 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let foodItem = viewModel.item(for: indexPath) as? FoodBagItem {
-                delete(foodItem.food)
-            }
+            delete(at: indexPath)
         }
     }
 }
@@ -221,18 +211,5 @@ extension BagViewController: STPPaymentContextDelegate {
         if let errorMessage = error?.localizedDescription {
             print(errorMessage)
         }
-    }
-}
-
-extension Double {
-    var priceString: String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        return numberFormatter.string(from: NSNumber(value: self))!
-    }
-    
-    func rounded(toPlaces places:Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded()/divisor
     }
 }

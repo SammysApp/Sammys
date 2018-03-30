@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ItemCollectionViewCellConfigurationCommand: CellCommand {
+struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
     private let item: Item
     
     private struct Constants {

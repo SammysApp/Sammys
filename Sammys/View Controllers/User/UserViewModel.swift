@@ -54,16 +54,16 @@ class UserViewModel {
     
     /// The sections to populate the user view with.
     var sections: [UserSection] {
-        var items = [UserSection]()
-        guard let user = user else { return items }
-        items.append(UserSection(items: [
+        var sections = [UserSection]()
+        guard let user = user else { return sections }
+        sections.append(UserSection(items: [
             NameUserItem(name: user.name),
             EmailUserItem(email: user.email)
         ]))
-        items.append(UserSection(items: [
+        sections.append(UserSection(items: [
             LogOutUserItem()
         ]))
-        return items
+        return sections
     }
     
     var needsUser: Bool {

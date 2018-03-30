@@ -1,5 +1,5 @@
 //
-//  CellCommand.swift
+//  CollectionViewCellCommand.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/22/18.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol CellCommand {
+protocol CollectionViewCellCommand {
     func perform(cell: UICollectionViewCell?)
 }
 
-enum CommandActionKey {
+enum CollectionViewCommandActionKey {
     case configuration
     case selection
 }
