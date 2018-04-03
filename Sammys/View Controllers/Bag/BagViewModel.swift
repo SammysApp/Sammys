@@ -14,11 +14,6 @@ enum BagItemKey {
 
 protocol BagItem {
     var key: BagItemKey { get }
-    var cellIdenitifier: BagCellIdentifier { get }
-}
-
-enum BagCellIdentifier: String {
-    case foodCell, quantityCell
 }
 
 struct BagItemGroup {
@@ -101,6 +96,19 @@ class BagViewModel {
         return sections[indexPath.section].allItems[indexPath.row]
     }
     
+    func cellViewModels(in section: Int) -> [TableViewCellViewModel] {
+        let section = sections[section]
+        var cellViewModels = [TableViewCellViewModel]()
+        section.allItems.forEach {
+            switch $0 {
+            case let foodBagItem as FoodBagItem:
+                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food).create())
+            default: break
+            }
+        }
+        return cellViewModels
+    }
+    
     func remove(at indexPath: IndexPath, didRemoveSection: ((Bool) -> Void)?) {
         guard let food = (item(for: indexPath) as? FoodBagItem)?.food else { return }
         data.remove(food, didRemoveSection: didRemoveSection)
@@ -129,7 +137,6 @@ class BagViewModel {
 
 class FoodBagItem: BagItem {
     let key: BagItemKey = .food
-    let cellIdenitifier: BagCellIdentifier = .foodCell
     let food: Food
     
     init(food: Food) {
@@ -139,7 +146,6 @@ class FoodBagItem: BagItem {
 
 class QuantityBagItem: BagItem {
     let key: BagItemKey = .quantity
-    let cellIdenitifier: BagCellIdentifier = .quantityCell
     let food: Food
     
     init(food: Food) {

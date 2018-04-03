@@ -76,6 +76,10 @@ class BagViewController: UIViewController, Storyboardable {
         tableView.reloadData()
         updateUI()
     }
+    
+    func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
+        return viewModel.cellViewModels(in: indexPath.section)[indexPath.row]
+    }
 
     // MARK: - IBActions
     @IBAction func didTapPurchase(_ sender: UIButton) {
@@ -105,44 +109,10 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.item(for: indexPath)!
-        switch item.key {
-        case .food:
-            let foodItem = item as! FoodBagItem
-            let food = foodItem.food
-            let cell = tableView.dequeueReusableCell(withIdentifier: foodItem.cellIdenitifier.rawValue, for: indexPath) as! FoodBagTableViewCell
-            
-            switch food {
-            case let salad as Salad:
-                cell.titleLabel.text = "\(salad.size!.name) Salad"
-            default: break
-            }
-            
-            cell.descriptionLabel.text = food.itemDescription
-            cell.priceLabel.text = food.price.priceString
-            
-            cell.didEdit = { cell in
-                self.editItem(for: food)
-            }
-            
-            return cell
-        case .quantity:
-            let quantityItem = item as! QuantityBagItem
-            var food = quantityItem.food
-            let cell = tableView.dequeueReusableCell(withIdentifier: quantityItem.cellIdenitifier.rawValue, for: indexPath) as! FoodQuantityTableViewCell
-            cell.quantityCollectionView.didSelectQuantity = { quantity in
-                switch quantity {
-                case .none:
-                    self.delete(at: indexPath)
-                case .some(let amount):
-                    food.quantity = amount
-                    self.tableView.reloadData()
-                    self.updateUI()
-                    self.viewModel.finishEditing()
-                }
-            }
-            return cell
-        }
+        let model = cellViewModel(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: model.identifier)!
+        model.commands[.configuration]?.perform(cell: cell)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
