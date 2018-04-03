@@ -34,10 +34,16 @@ struct BagSection {
     }
 }
 
+protocol BagViewModelDelegate {
+    func didEdit(_ food: Food)
+}
+
 class BagViewModel {
     var user: User? {
         return UserDataStore.shared.user
     }
+    
+    var delegate: BagViewModelDelegate?
     
     private let data = BagDataStore.shared
     
@@ -102,7 +108,9 @@ class BagViewModel {
         section.allItems.forEach {
             switch $0 {
             case let foodBagItem as FoodBagItem:
-                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food).create())
+                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food, didEdit: { cell in
+                    self.delegate?.didEdit(foodBagItem.food) })
+                    .create())
             default: break
             }
         }

@@ -14,13 +14,15 @@ enum FoodBagTableViewCellIdentifier: String {
 
 struct FoodBagTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     private let food: Food
+    private let didEdit: ((FoodBagTableViewCell) -> Void)?
     
-    init(food: Food) {
+    init(food: Food, didEdit: ((FoodBagTableViewCell) -> Void)? = nil) {
         self.food = food
+        self.didEdit = didEdit
     }
     
     func create() -> TableViewCellViewModel {
-        let configurationCommand = FoodBagTableViewCellConfigurationCommand(food: food)
+        let configurationCommand = FoodBagTableViewCellConfigurationCommand(food: food, didEdit: didEdit)
         return TableViewCellViewModel(identifier: FoodBagTableViewCellIdentifier.foodCell.rawValue, commands: [.configuration : configurationCommand])
     }
 }

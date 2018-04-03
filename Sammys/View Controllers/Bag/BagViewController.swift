@@ -9,7 +9,7 @@
 import UIKit
 import Stripe
 
-class BagViewController: UIViewController, Storyboardable {
+class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable {
     typealias ViewController = BagViewController
     
     let viewModel = BagViewModel()
@@ -25,6 +25,8 @@ class BagViewController: UIViewController, Storyboardable {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
         
         tableView.estimatedRowHeight = 100
         purchaseButton.layer.cornerRadius = 20
@@ -48,7 +50,7 @@ class BagViewController: UIViewController, Storyboardable {
         purchaseButton.setTitle(viewModel.finalPrice.priceString, for: .normal)
     }
     
-    func editItem(for food: Food) {
+    func didEdit(_ food: Food) {
         let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
         itemsViewController.resetFood(to: food)
         itemsViewController.isEditingFood = true
