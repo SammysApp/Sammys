@@ -57,8 +57,48 @@ struct PayAPIClient {
         static let email = "email"
         static let customerID = "customer_id"
         static let sourceID = "source_id"
+        static let tokenID = "token_id"
         static let amount = "amount"
         static let apiVersion = "api_version"
+    }
+    
+    /**
+     Creates a new customer with the given parameter data by the Stripe SDK.
+     - Parameter parameters: The parameter data to associate with the customer. Use `Symbol` type properties for parameter names.
+     - Parameter completed: The closure to call upon completion.
+     */
+    static func createNewCustomer(parameters: Parameters = [:], completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
+        Alamofire.request(baseURL.newCustomer, method: .post, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if let jsonData = response.data {
+                    let decoder = JSONDecoder()
+                    if let customer = try? decoder.decode(Customer.self, from: jsonData) {
+                        completed?(.success(customer))
+                    }
+                } else if let error = response.error {
+                    completed?(.failure(error))
+                }
+        }
+    }
+    
+    /**
+     Charges the given source id for the given amount.
+     - Parameter sourceID: The source ID to charge.
+     - Parameter amount: The amount to charge the customer. Represented in cents.
+     - Parameter completed: The closure to call upon completion.
+     */
+    static func chargeSource(_ sourceID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
+        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeSource, method: .post, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if response.value != nil {
+                    completed?(.success)
+                } else if let error = response.error {
+                    completed?(.failure(error))
+                }
+        }
     }
     
     /**
@@ -83,13 +123,13 @@ struct PayAPIClient {
     /**
      Charges the given source id for the given amount.
      - Parameter sourceID: The source ID to charge.
-     - Parameter amount: The amount to charge the customer. Represented in cents.
      - Parameter customerID: The customer who owns the given card.
+     - Parameter amount: The amount to charge the customer. Represented in cents.
      - Parameter completed: The closure to call upon completion.
      */
-    static func chargeSource(_ sourceID: String, amount: Int, customerID: String, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.amount: amount, Symbols.customerID: customerID]
-        Alamofire.request(baseURL.chargeSource, method: .post, parameters: parameters)
+    static func chargeSource(_ sourceID: String, customerID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
+        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.customerID: customerID, Symbols.amount: amount]
+        Alamofire.request(baseURL.chargeCard, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 if response.value != nil {
@@ -97,26 +137,6 @@ struct PayAPIClient {
                 } else if let error = response.error {
                     completed?(.failure(error))
                 }
-        }
-    }
-    
-    /**
-     Creates a new customer with the given parameter data by the Stripe SDK.
-     - Parameter parameters: The parameter data to associate with the customer. Use `Symbol` type properties for parameter names.
-     - Parameter completed: The closure to call upon completion.
-     */
-    static func createNewCustomer(parameters: Parameters = [:], completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
-        Alamofire.request(baseURL.newCustomer, method: .post, parameters: parameters)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-            if let jsonData = response.data {
-                let decoder = JSONDecoder()
-                if let customer = try? decoder.decode(Customer.self, from: jsonData) {
-                    completed?(.success(customer))
-                }
-            } else if let error = response.error {
-                completed?(.failure(error))
-            }
         }
     }
     
@@ -144,10 +164,15 @@ struct PayAPIClient {
 class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
     static let shared = EphemeralKeyProvider()
     
+    enum CustomerKeyError: Error {
+        case noUser
+    }
+    
     private override init() {}
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
         guard let user = UserDataStore.shared.user else {
+            completion(nil, CustomerKeyError.noUser)
             return
         }
         UserAPIClient.getCustomerID(for: user) { customerIDResult in
@@ -175,12 +200,16 @@ private extension String {
         return self + "/create-customer"
     }
     
+    var chargeSource: String {
+        return self + "/charge-source"
+    }
+    
     var chargeCustomer: String {
         return self + "/charge-customer"
     }
     
-    var chargeSource: String {
-        return self + "/charge-source"
+    var chargeCard: String {
+        return self + "/charge-card"
     }
     
     var createEphemeralKey: String {

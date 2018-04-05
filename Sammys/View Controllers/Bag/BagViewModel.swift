@@ -106,6 +106,7 @@ class BagViewModel {
         let section = sections[section]
         var cellViewModels = [TableViewCellViewModel]()
         section.allItems.forEach {
+            // FIXME: Missing quantity item
             switch $0 {
             case let foodBagItem as FoodBagItem:
                 cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food, didEdit: { cell in

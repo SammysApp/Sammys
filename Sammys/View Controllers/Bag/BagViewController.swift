@@ -79,13 +79,23 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         updateUI()
     }
     
+    func attemptPurchase() {
+        if viewModel.user != nil {
+            paymentContext.requestPayment()
+        } else {
+            let vc = STPAddCardViewController()
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
         return viewModel.cellViewModels(in: indexPath.section)[indexPath.row]
     }
 
     // MARK: - IBActions
     @IBAction func didTapPurchase(_ sender: UIButton) {
-        paymentContext.requestPayment()
+        attemptPurchase()
     }
     
     @IBAction func didTapClear(_ sender: UIButton) {
@@ -101,7 +111,8 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     }
 }
 
-extension BagViewController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - UITableViewDataSource
+extension BagViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSections
     }
@@ -116,7 +127,10 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
         model.commands[.configuration]?.perform(cell: cell)
         return cell
     }
-    
+}
+
+// MARK: - UITableViewDelegate
+extension BagViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = viewModel.item(for: indexPath)!
         switch item.key {
@@ -152,6 +166,7 @@ extension BagViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - STPPaymentContextDelegate
 extension BagViewController: STPPaymentContextDelegate {
     func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
         
@@ -166,7 +181,7 @@ extension BagViewController: STPPaymentContextDelegate {
         UserAPIClient.getCustomerID(for: UserDataStore.shared.user!) { result in
             switch result {
             case .success(let customerID):
-                PayAPIClient.chargeSource(paymentResult.source.stripeID, amount: paymentContext.paymentAmount, customerID: customerID) { result in
+                PayAPIClient.chargeSource(paymentResult.source.stripeID, customerID: customerID, amount: paymentContext.paymentAmount) { result in
                     switch result {
                     case .success:
                         completion(nil)
@@ -183,5 +198,23 @@ extension BagViewController: STPPaymentContextDelegate {
         if let errorMessage = error?.localizedDescription {
             print(errorMessage)
         }
+    }
+}
+
+extension BagViewController: STPAddCardViewControllerDelegate {
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateSource source: STPSource, completion: @escaping STPErrorBlock) {
+        PayAPIClient.chargeSource(source.stripeID, amount: viewModel.finalPrice.toCents()) { result in
+            self.navigationController?.popViewController(animated: true)
+            switch result {
+            case .success:
+                completion(nil)
+            case .failure(let error):
+                completion(error)
+            }
+        }
+    }
+    
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        navigationController?.popViewController(animated: true)
     }
 }
