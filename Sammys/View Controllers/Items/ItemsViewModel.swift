@@ -25,7 +25,7 @@ class ItemsViewModel {
         return salad
     }
     
-    private let data = FoodsDataStore.shared.foodsData!
+    private var data: FoodsData?
     
     private let choices = Choice.all
     
@@ -50,7 +50,7 @@ class ItemsViewModel {
     }
     
     var items: [Item] {
-        return data.salad.allItems[currentChoice] ?? []
+        return data?.salad.allItems[currentChoice] ?? []
     }
     
     var currentViewLayoutState: ItemsViewLayoutState {
@@ -111,20 +111,28 @@ class ItemsViewModel {
         }
     }
     
+    func setData(completed: (() -> Void)? = nil) {
+        FoodsDataStore.shared.setFoods { data in
+            self.data = data
+            completed?()
+        }
+    }
+    
     func resetFood(to food: Food) {
         guard let salad = food as? Salad else { return }
         self.salad = salad
     }
     
     func priceLabelText(at index: Int) -> String? {
-        if currentChoice == .size,
-            let size = items[index] as? Size {
-            return "$\(size.price)"
-        }
-        return nil
+        guard !items.isEmpty,
+            currentChoice == .size,
+            let size = items[index] as? Size
+            else { return nil }
+        return "$\(size.price)"
     }
     
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
+        guard !items.isEmpty else { return [] }
         let size = cellSize(for: currentChoice, contextBounds: contextBounds)
         return items.map { ItemCollectionViewCellViewModelFactory(item: $0, size: size).create() }
     }
@@ -150,6 +158,7 @@ class ItemsViewModel {
     }
     
     func toggleItem(at index: Int) {
+        guard !items.isEmpty else { return }
         let item = items[index]
         if let size = item as? Size {
             salad.size = size

@@ -13,7 +13,6 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     typealias ViewController = BagViewController
     
     let viewModel = BagViewModel()
-    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
 
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -31,11 +30,9 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         tableView.estimatedRowHeight = 100
         purchaseButton.layer.cornerRadius = 20
         updateUI()
+        updatePaymentPrice()
         
-        paymentContext.paymentAmount = viewModel.finalPrice.toCents()
-        paymentContext.delegate = self
-        paymentContext.hostViewController = self
-        paymentContext.configuration.createCardSources = true
+        viewModel.paymentContext.hostViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +47,10 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         purchaseButton.setTitle(viewModel.finalPrice.priceString, for: .normal)
     }
     
+    func updatePaymentPrice() {
+        viewModel.paymentContext.paymentAmount = viewModel.finalPrice.toCents()
+    }
+    
     func didEdit(_ food: Food) {
         let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
         itemsViewController.resetFood(to: food)
@@ -57,6 +58,7 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         itemsViewController.didFinishEditing = {
             self.tableView.reloadData()
             self.updateUI()
+            self.updatePaymentPrice()
             self.viewModel.finishEditing()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
@@ -70,6 +72,7 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             }
             self.updateUI()
+            self.updatePaymentPrice()
         }
     }
     
@@ -77,11 +80,12 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         viewModel.clearBag()
         tableView.reloadData()
         updateUI()
+        updatePaymentPrice()
     }
     
     func attemptPurchase() {
         if viewModel.user != nil {
-            paymentContext.requestPayment()
+            viewModel.paymentContext.requestPayment()
         } else {
             let vc = STPAddCardViewController()
             vc.delegate = self
@@ -89,8 +93,19 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         }
     }
     
+    func paymentDidComplete(with paymentResult: PaymentResult) {
+        switch paymentResult {
+        case .success: presentConfirmationViewController()
+        case .failure(let message): print(message)
+        }
+    }
+    
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
         return viewModel.cellViewModels(in: indexPath.section)[indexPath.row]
+    }
+    
+    func presentConfirmationViewController() {
+        present(ConfirmationViewController.storyboardInstance(), animated: true, completion: nil)
     }
 
     // MARK: - IBActions
@@ -107,7 +122,7 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     }
     
     @IBAction func test(_ sender: UIButton) {
-        paymentContext.pushPaymentMethodsViewController()
+        viewModel.paymentContext.pushPaymentMethodsViewController()
     }
 }
 
@@ -152,6 +167,7 @@ extension BagViewController: UITableViewDelegate {
                 foodViewController.didGoBack = { foodViewController in
                     self.tableView.reloadData()
                     self.updateUI()
+                    self.updatePaymentPrice()
                 }
                 navigationController?.pushViewController(foodViewController, animated: true)
             }
@@ -166,52 +182,9 @@ extension BagViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - STPPaymentContextDelegate
-extension BagViewController: STPPaymentContextDelegate {
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
-        
-    }
-    
-    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        guard let label = paymentContext.selectedPaymentMethod?.label else { return }
-        creditCardButton.setTitle(label, for: .normal)
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-        UserAPIClient.getCustomerID(for: UserDataStore.shared.user!) { result in
-            switch result {
-            case .success(let customerID):
-                PayAPIClient.chargeSource(paymentResult.source.stripeID, customerID: customerID, amount: paymentContext.paymentAmount) { result in
-                    switch result {
-                    case .success:
-                        completion(nil)
-                    case .failure(let error):
-                        completion(error)
-                    }
-                }
-            case .failure: break
-            }
-        }
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        if let errorMessage = error?.localizedDescription {
-            print(errorMessage)
-        }
-    }
-}
-
 extension BagViewController: STPAddCardViewControllerDelegate {
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateSource source: STPSource, completion: @escaping STPErrorBlock) {
-        PayAPIClient.chargeSource(source.stripeID, amount: viewModel.finalPrice.toCents()) { result in
-            self.navigationController?.popViewController(animated: true)
-            switch result {
-            case .success:
-                completion(nil)
-            case .failure(let error):
-                completion(error)
-            }
-        }
+        viewModel.chargeSource(with: source.stripeID, completed: completion)
     }
     
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {

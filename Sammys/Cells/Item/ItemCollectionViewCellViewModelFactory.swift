@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ItemCellIdentifier: String {
+private enum ItemCellIdentifier: String {
     case itemCell
 }
 

@@ -11,7 +11,7 @@ import UIKit
 class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboardable {
     typealias ViewController = ItemsViewController
     
-    private let viewModel = ItemsViewModel()
+    private var viewModel = ItemsViewModel()
 
     var currentItemIndex = 0 {
         didSet {
@@ -57,6 +57,10 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
         super.viewDidLoad()
         
         viewModel.delegate = self
+        viewModel.setData {
+            self.collectionView.reloadData()
+            self.updateUI()
+        }
         
         view.sendSubview(toBack: collectionView)
         

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Stripe
 
 enum BagItemKey {
     case food, quantity
@@ -36,14 +37,22 @@ struct BagSection {
 
 protocol BagViewModelDelegate {
     func didEdit(_ food: Food)
+    func paymentDidComplete(with paymentResult: PaymentResult)
 }
 
-class BagViewModel {
+enum PaymentResult {
+    case success
+    case failure(String)
+}
+
+class BagViewModel: NSObject {
     var user: User? {
         return UserDataStore.shared.user
     }
     
     var delegate: BagViewModelDelegate?
+    
+    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
     
     private let data = BagDataStore.shared
     
@@ -94,6 +103,12 @@ class BagViewModel {
         return sections.count
     }
     
+    override init() {
+        super.init()
+        paymentContext.delegate = self
+        paymentContext.configuration.createCardSources = true
+    }
+    
     func numberOfRows(in section: Int) -> Int {
         return sections[section].allItems.count
     }
@@ -141,6 +156,54 @@ class BagViewModel {
     
     func clearBag() {
         data.clear()
+    }
+    
+    func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {
+        PayAPIClient.chargeSource(id, amount: finalPrice.toCents()) { result in
+            switch result {
+            case .success: completed?(nil)
+            case .failure(let error): completed?(error)
+            }
+        }
+    }
+    
+    func chargeCard(with id: String, completed: ((Error?) -> Void)? = nil) {
+        guard let user = user else { return }
+        UserAPIClient.getCustomerID(for: user) { result in
+            switch result {
+            case .success(let customerID):
+                PayAPIClient.chargeSource(id, customerID: customerID, amount: self.paymentContext.paymentAmount) { result in
+                    switch result {
+                    case .success: completed?(nil)
+                    case .failure(let error): completed?(error)
+                    }
+                }
+            case .failure: break
+            }
+        }
+    }
+}
+
+// MARK: - STPPaymentContextDelegate
+extension BagViewModel: STPPaymentContextDelegate {
+    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
+        
+    }
+    
+    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+//        guard let label = paymentContext.selectedPaymentMethod?.label else { return }
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+        chargeCard(with: paymentResult.source.stripeID, completed: completion)
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+        if let errorMessage = error?.localizedDescription {
+            delegate?.paymentDidComplete(with: .failure(errorMessage))
+        } else {
+            delegate?.paymentDidComplete(with: .success)
+        }
     }
 }
 
