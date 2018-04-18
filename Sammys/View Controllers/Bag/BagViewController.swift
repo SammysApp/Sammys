@@ -84,13 +84,14 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     }
     
     func attemptPurchase() {
-        if viewModel.user != nil {
-            viewModel.paymentContext.requestPayment()
-        } else {
-            let vc = STPAddCardViewController()
-            vc.delegate = self
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        presentConfirmationViewController()
+//        if viewModel.user != nil {
+//            viewModel.paymentContext.requestPayment()
+//        } else {
+//            let vc = STPAddCardViewController()
+//            vc.delegate = self
+//            navigationController?.pushViewController(vc, animated: true)
+//        }
     }
     
     func paymentDidComplete(with paymentResult: PaymentResult) {

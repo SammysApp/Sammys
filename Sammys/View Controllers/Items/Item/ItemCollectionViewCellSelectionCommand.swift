@@ -15,7 +15,7 @@ struct ItemCollectionViewCellSelectionCommand: CollectionViewCellCommand {
         self.item = item
     }
     
-    func perform(cell: UICollectionViewCell?) {
+    func perform(parameters: CommandParameters) {
 //        guard let cell = cell as? ItemCollectionViewCell else {
 //            return
 //        }

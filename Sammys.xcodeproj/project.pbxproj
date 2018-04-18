@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C70A20852992006D19A5 /* MessageCollectionViewCell.swift */; };
+		5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C70C20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift */; };
+		5B02C70F20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */; };
+		5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */; };
+		5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */; };
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
@@ -107,6 +112,11 @@
 
 /* Begin PBXFileReference section */
 		21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
+		5B02C70A20852992006D19A5 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B02C70C20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
+		5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
@@ -229,14 +239,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		5B3176CF206D3D8300D83D12 /* Food Bag */ = {
+		5B02C7102085804C006D19A5 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				5B02C70A20852992006D19A5 /* MessageCollectionViewCell.swift */,
+				5B02C70C20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift */,
+				5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */,
+				5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		5B3176CF206D3D8300D83D12 /* Food */ = {
 			isa = PBXGroup;
 			children = (
 				5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */,
 				5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */,
 				5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */,
 			);
-			path = "Food Bag";
+			path = Food;
 			sourceTree = "<group>";
 		};
 		5B553A66206C9BED00DD9689 /* Food */ = {
@@ -347,9 +368,6 @@
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
 				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
 				5BFD2BC2201B920B005C01BF /* FoodQuantityTableViewCell.swift */,
-				5B3176CF206D3D8300D83D12 /* Food Bag */,
-				5BD274F72063FBEA00618128 /* Item */,
-				5BD6B3D020812486000114F5 /* Map */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -477,6 +495,7 @@
 			children = (
 				5B6A06971FFE8B1300BAC480 /* ItemsViewController.swift */,
 				5BD274E82063F74600618128 /* ItemsViewModel.swift */,
+				5BD274F72063FBEA00618128 /* Item */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -486,6 +505,7 @@
 			children = (
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
+				5B3176CF206D3D8300D83D12 /* Food */,
 			);
 			path = Bag;
 			sourceTree = "<group>";
@@ -514,6 +534,7 @@
 			children = (
 				5BD6B3CA20812439000114F5 /* MapCollectionViewCell.swift */,
 				5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */,
+				5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */,
 				5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */,
 			);
 			path = Map;
@@ -524,6 +545,8 @@
 			children = (
 				5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */,
 				5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */,
+				5B02C7102085804C006D19A5 /* Message */,
+				5BD6B3D020812486000114F5 /* Map */,
 			);
 			path = Confirmation;
 			sourceTree = "<group>";
@@ -588,7 +611,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Natanel Niazoff";
 				TargetAttributes = {
 					5B6A06771FFD509A00BAC480 = {
@@ -717,8 +740,10 @@
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
 				5BD274C3205822AC00618128 /* Colors.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
+				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */,
+				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
 				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
@@ -727,9 +752,11 @@
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
+				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB60F432069F5B100105E72 /* Date.swift in Sources */,
 				5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */,
 				5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */,
+				5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
 				5BD274E92063F74600618128 /* ItemsViewModel.swift in Sources */,
 				5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */,
@@ -777,6 +804,7 @@
 				5BB60F4F2069F5B100105E72 /* Double.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */,
+				5B02C70F20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift in Sources */,
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */,
@@ -828,6 +856,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -835,6 +864,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -885,6 +915,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -892,6 +923,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

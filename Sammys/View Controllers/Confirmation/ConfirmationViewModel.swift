@@ -14,12 +14,17 @@ class ConfirmationViewModel {
     }
     
     var numberOfRows: Int {
-        return 1
+        return cellViewModels(for: .zero).count
     }
     
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         return [
-            MapCollectionViewCellViewModelFactory(size: CGSize(width: contextBounds.width - 20, height: 180)).create()
+            MessageCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create(),
+            MapCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create()
         ]
+    }
+    
+    func cellSize(for contextBounds: CGRect) -> CGSize {
+        return CGSize(width: contextBounds.width - 20, height: 180)
     }
 }

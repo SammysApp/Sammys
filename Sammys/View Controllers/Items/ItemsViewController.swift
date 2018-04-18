@@ -238,7 +238,7 @@ extension ItemsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let model = cellViewModel(for: indexPath)
-        model.commands[.configuration]?.perform(cell: cell)
+        model.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
     }
 }
 
@@ -247,7 +247,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = cellViewModel(for: indexPath)
         if let cell = collectionView.cellForItem(at: indexPath) {
-            model.commands[.selection]?.perform(cell: cell)
+            model.commands[.selection]?.perform(parameters: CommandParameters(cell: cell))
         }
         didSelectItem(at: indexPath.row)
     }

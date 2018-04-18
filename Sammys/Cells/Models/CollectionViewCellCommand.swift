@@ -8,8 +8,18 @@
 
 import UIKit
 
+struct CommandParameters {
+    let cell: UICollectionViewCell?
+    let viewController: UIViewController?
+    
+    init(cell: UICollectionViewCell? = nil, viewController: UIViewController? = nil) {
+        self.cell = cell
+        self.viewController = viewController
+    }
+}
+
 protocol CollectionViewCellCommand {
-    func perform(cell: UICollectionViewCell?)
+    func perform(parameters: CommandParameters)
 }
 
 enum CollectionViewCommandActionKey {

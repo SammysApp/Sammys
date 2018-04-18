@@ -21,6 +21,7 @@ struct MapCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory
     
     func create() -> CollectionViewCellViewModel {
         let configurationCommand = MapCollectionViewCellConfigurationCommand()
-        return CollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand])
+        let selectionCommand = MapCollectionViewCellSelectionCommand()
+        return CollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
     }
 }

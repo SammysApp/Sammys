@@ -19,8 +19,8 @@ struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         self.item = item
     }
     
-    func perform(cell: UICollectionViewCell?) {
-        guard let cell = cell as? ItemCollectionViewCell else {
+    func perform(parameters: CommandParameters) {
+        guard let cell = parameters.cell as? ItemCollectionViewCell else {
             return
         }
         

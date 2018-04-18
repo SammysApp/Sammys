@@ -13,7 +13,7 @@ public class AnimatedCollectionViewLayout: UICollectionViewFlowLayout {
     
     public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let attributes = super.layoutAttributesForElements(in: rect) else { return nil }
-        return attributes.flatMap { $0.copy() as? AnimatedCollectionViewLayoutAttributes }.map { self.transformLayoutAttributes($0) }
+        return attributes.compactMap { $0.copy() as? AnimatedCollectionViewLayoutAttributes }.map { self.transformLayoutAttributes($0) }
     }
     
     public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
