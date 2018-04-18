@@ -12,13 +12,11 @@ import CoreLocation
 
 struct MapCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
     private struct Constants {
-        static let CornerRadius: CGFloat = 20
-        static let BorderWidth: CGFloat = 1
-        static let ShadowOpacity: Float = 0.2
-        static let LocationLatitude = 40.902340
-        static let LocationLongitude = -74.004410
-        static let LatitudinalMeters = 125.0
-        static let LongitudinalMeters = 125.0
+        static let cornerRadius: CGFloat = 20
+        static let borderWidth: CGFloat = 1
+        static let shadowOpacity: Float = 0.2
+        static let latitudinalMeters = 125.0
+        static let longitudinalMeters = 125.0
     }
     
     func perform(parameters: CommandParameters) {
@@ -26,15 +24,14 @@ struct MapCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         // Configure cell UI.
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .clear
-        cell.contentView.layer.cornerRadius = Constants.CornerRadius
-        cell.contentView.layer.borderWidth = Constants.BorderWidth
+        cell.contentView.layer.cornerRadius = Constants.cornerRadius
+        cell.contentView.layer.borderWidth = Constants.borderWidth
         cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.masksToBounds = false
-        cell.add(UIView.Shadow(path: UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath, opacity: Constants.ShadowOpacity))
+        cell.add(UIView.Shadow(path: UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath, opacity: Constants.shadowOpacity))
         
         // Configure map details.
-        let center = CLLocationCoordinate2D(latitude: Constants.LocationLatitude, longitude: Constants.LocationLongitude)
-        let region =  MKCoordinateRegionMakeWithDistance(center, Constants.LatitudinalMeters, Constants.LongitudinalMeters)
+        let region =  MKCoordinateRegionMakeWithDistance(ConfirmationViewController.Constants.sammysCoordinates, Constants.latitudinalMeters, Constants.longitudinalMeters)
         cell.mapView.region = region
     }
 }
