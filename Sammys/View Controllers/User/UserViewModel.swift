@@ -11,7 +11,7 @@ import Stripe
 
 /// A type that represents the type of user cell item.
 enum UserItemKey {
-    case name, email, creditCard, paymentMethods, logOut
+    case name, email, orders, logOut
 }
 
 /// A user cell item.
@@ -61,6 +61,9 @@ class UserViewModel {
             EmailUserItem(email: user.email)
         ]))
         sections.append(UserSection(items: [
+            OrdersUserItem()
+        ]))
+        sections.append(UserSection(items: [
             LogOutUserItem()
         ]))
         return sections
@@ -106,6 +109,12 @@ struct EmailUserItem: UserItem {
     let cellIdentifier = UserItemCellIdentifier.cell.rawValue
     let title = "Email"
     let email: String
+}
+
+struct OrdersUserItem: UserItem {
+    let key: UserItemKey = .orders
+    let cellIdentifier = UserItemCellIdentifier.buttonCell.rawValue
+    let title = "My Orders"
 }
 
 struct LogOutUserItem: UserItem {

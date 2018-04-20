@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TQc-da-FKI">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Orders View Controller-->
+        <scene sceneID="OKF-Nj-dlb">
+            <objects>
+                <viewController id="TQc-da-FKI" customClass="OrdersViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W4r-KX-du5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUR-Gg-qcK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tFs-ug-yeO">
+                                    <size key="itemSize" width="355" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="orderCell" id="Or3-ez-5cX" customClass="OrderCollectionViewCell" customModule="Sammys" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="355" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="B6w-TG-app">
+                                                    <rect key="frame" x="151" y="26" width="52.666666666666657" height="48"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zb-jE-Imz">
+                                                            <rect key="frame" x="0.0" y="0.0" width="52.666666666666664" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cns-5A-fTG">
+                                                            <rect key="frame" x="0.0" y="34" width="52.666666666666664" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="B6w-TG-app" firstAttribute="centerY" secondItem="Or3-ez-5cX" secondAttribute="centerY" id="Fpp-75-zao"/>
+                                            <constraint firstItem="B6w-TG-app" firstAttribute="centerX" secondItem="Or3-ez-5cX" secondAttribute="centerX" id="ldF-gv-QAZ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="8zb-jE-Imz" id="5EI-NE-4ri"/>
+                                            <outlet property="orderLabel" destination="cns-5A-fTG" id="01i-Q6-gwm"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="TQc-da-FKI" id="QzN-Q5-oUf"/>
+                                    <outlet property="delegate" destination="TQc-da-FKI" id="XdC-Xs-MAt"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gUR-Gg-qcK" secondAttribute="bottom" id="Vy8-2C-Nbd"/>
+                            <constraint firstItem="gUR-Gg-qcK" firstAttribute="top" secondItem="W4r-KX-du5" secondAttribute="top" id="hXZ-F0-Lys"/>
+                            <constraint firstItem="gUR-Gg-qcK" firstAttribute="leading" secondItem="W4r-KX-du5" secondAttribute="leading" id="mct-Gt-RmQ"/>
+                            <constraint firstAttribute="trailing" secondItem="gUR-Gg-qcK" secondAttribute="trailing" id="pJa-Cu-QLM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9gH-B0-be5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MEF-vi-te0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-71.200000000000003" y="136.69950738916256"/>
+        </scene>
+    </scenes>
+</document>

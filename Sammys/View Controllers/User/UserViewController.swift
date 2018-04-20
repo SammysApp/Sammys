@@ -87,6 +87,9 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
         let item = viewModel.item(for: indexPath)!
         
         switch item.key {
+        case .orders:
+            let ordersViewController = OrdersViewController.storyboardInstance()
+            navigationController?.pushViewController(ordersViewController, animated: true)
         case .logOut:
             let logOutItem = item as! LogOutUserItem
             logOutItem.didSelect()
