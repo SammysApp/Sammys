@@ -322,8 +322,23 @@ struct UserAPIClient {
             let jsonData = try JSONEncoder().encode(AnyFood(favorite))
             let jsonString = String(data: jsonData, encoding: .utf8)
             // Set the JSON string as the value of the new favorite child.
-            // favorites -> { food type } -> [favorite id : value]
+            // favorites -> <food type> -> [favorite id : value]
             favoritesReference(for: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
+        } catch {
+            printError(error)
+        }
+    }
+    
+    // MARK: - Orders 📝
+    private static func ordersReference(for userID: String) -> DatabaseReference {
+        return database.users.user(with: userID).orders
+    }
+    
+    static func add(_ order: Order, for user: User) {
+        do {
+            let jsonData = try JSONEncoder().encode(order)
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
+            ordersReference(for: user.id).child(order.id).setValue(jsonString)
         } catch {
             printError(error)
         }
@@ -371,6 +386,10 @@ private extension DatabaseReference {
     
     var favorites: DatabaseReference {
         return child("favorites")
+    }
+    
+    var orders: DatabaseReference {
+        return child("orders")
     }
     
     var salad: DatabaseReference {
