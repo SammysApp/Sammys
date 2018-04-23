@@ -13,6 +13,17 @@ class OrdersViewController: UIViewController, Storyboardable {
     
     let viewModel = OrdersViewModel()
     
+    // MARK: - IBOutlets
+    @IBOutlet var collectionView: UICollectionView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        viewModel.setData {
+            self.collectionView.reloadData()
+        }
+    }
+    
     func cellViewModel(for row: Int) -> CollectionViewCellViewModel {
         return viewModel.cellViewModels(for: view.bounds)[row]
     }

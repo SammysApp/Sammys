@@ -76,6 +76,7 @@ struct UserAPIClient {
      */
     enum APIResult {
         case success
+        case failure
     }
     
     /**
@@ -101,6 +102,11 @@ struct UserAPIClient {
      */
     enum CustomerIDAPIResult {
         case success(id: String)
+        case failure(Error)
+    }
+    
+    enum OrdersAPIResult {
+        case success(orders: [Order])
         case failure(Error)
     }
     
@@ -320,7 +326,7 @@ struct UserAPIClient {
         do {
             // Attempt to encode the favorites object to JSON.
             let jsonData = try JSONEncoder().encode(AnyFood(favorite))
-            let jsonString = String(data: jsonData, encoding: .utf8)
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
             // Set the JSON string as the value of the new favorite child.
             // favorites -> <food type> -> [favorite id : value]
             favoritesReference(for: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
@@ -341,6 +347,24 @@ struct UserAPIClient {
             ordersReference(for: user.id).child(order.id).setValue(jsonString)
         } catch {
             printError(error)
+        }
+    }
+    
+    static func fetchOrders(for user: User, completed: @escaping (_ result: OrdersAPIResult) -> Void) {
+        ordersReference(for: user.id).observeSingleEvent(of: .value) { snapshot in
+            var orders = [Order]()
+            for snapshot in snapshot.children.allObjects as! [DataSnapshot] {
+                guard let jsonString = snapshot.value as? String,
+                    let data = jsonString.data(using: .utf8) else { return }
+                do {
+                    let order = try JSONDecoder().decode(Order.self, from: data)
+                    orders.append(order)
+                } catch {
+                    completed(.failure(error))
+                    return
+                }
+            }
+            completed(.success(orders: orders))
         }
     }
     

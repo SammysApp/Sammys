@@ -84,6 +84,7 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     }
     
     func attemptPurchase() {
+        viewModel.addToUserOrders()
         presentConfirmationViewController()
 //        if viewModel.user != nil {
 //            viewModel.paymentContext.requestPayment()

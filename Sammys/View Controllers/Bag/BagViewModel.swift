@@ -182,6 +182,12 @@ class BagViewModel: NSObject {
             }
         }
     }
+    
+    func addToUserOrders() {
+        guard let user = user else { return }
+        let order = Order(number: "123", date: Date(), foods: foods)
+        UserAPIClient.add(order, for: user)
+    }
 }
 
 // MARK: - STPPaymentContextDelegate

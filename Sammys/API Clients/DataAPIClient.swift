@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 struct DataAPIClient {
-    static let baseURL = "http://localhost:4567" //"https://sammysapp.herokuapp.com"
+    static let baseURL = "https://sammysapp.herokuapp.com"
     
     enum FoodsAPIResult {
         case success(FoodsData)

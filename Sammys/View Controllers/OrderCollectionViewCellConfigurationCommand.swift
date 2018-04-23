@@ -9,8 +9,11 @@
 import UIKit
 
 struct OrderCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
+    let order: Order
+    
     func perform(parameters: CommandParameters) {
-        //guard let cell = parameters.cell as? OrderCollectionViewCell else { return }
-        
+        guard let cell = parameters.cell as? OrderCollectionViewCell else { return }
+        cell.orderLabel.text = order.number
+        cell.dateLabel.text = order.date.description
     }
 }

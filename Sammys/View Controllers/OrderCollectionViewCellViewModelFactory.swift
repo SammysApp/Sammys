@@ -13,13 +13,10 @@ enum OrderCellIdentifier: String {
 }
 
 struct OrderCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
+    let order: Order
     let size: CGSize
     
-    init(size: CGSize) {
-        self.size = size
-    }
-    
     func create() -> CollectionViewCellViewModel {
-        return CollectionViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, size: size, commands: [.configuration: OrderCollectionViewCellConfigurationCommand()])
+        return CollectionViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, size: size, commands: [.configuration: OrderCollectionViewCellConfigurationCommand(order: order)])
     }
 }
