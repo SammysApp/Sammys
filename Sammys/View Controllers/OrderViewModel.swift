@@ -25,9 +25,14 @@ class OrderViewModel {
     
     var cellViewModels: [TableViewCellViewModel] {
         var models = [TableViewCellViewModel]()
-        order.foods.forEach { pair in
-            pair.value.forEach { models.append(FoodOrderTableViewCellViewModelFactory(food: $0).create()) }
+        // Add foods.
+        order.foods.forEach {
+            $1.forEach {
+                models.append(FoodOrderTableViewCellViewModelFactory(food: $0, height: 100).create())
+            }
         }
+        // Add total information.
+        models.append(TotalPriceTableViewCellViewModelFactory(order: order, height: 120).create())
         return models
     }
 }

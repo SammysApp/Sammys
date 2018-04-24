@@ -15,6 +15,6 @@ struct FoodOrderTableViewCellConfigurationCommand: TableViewCellCommand {
         guard let cell = cell as? FoodOrderTableViewCell else { return }
         cell.quantityLabel.text = "\(food.quantity)"
         cell.nameLabel.text = food.title
-        cell.priceLabel.text = "$\(food.price)"
+        cell.priceLabel.text = food.price.priceString
     }
 }

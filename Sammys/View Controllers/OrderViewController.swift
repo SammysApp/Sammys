@@ -35,6 +35,11 @@ extension OrderViewController: UITableViewDataSource {
         model.commands[.configuration]?.perform(cell: cell)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let model = viewModel.cellViewModels[indexPath.row]
+        return model.height
+    }
 }
 
 extension OrderViewController: UITableViewDelegate {

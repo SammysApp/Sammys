@@ -44,11 +44,11 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     func updateUI() {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
-        purchaseButton.setTitle(viewModel.finalPrice.priceString, for: .normal)
+        purchaseButton.setTitle(viewModel.totalPrice.priceString, for: .normal)
     }
     
     func updatePaymentPrice() {
-        viewModel.paymentContext.paymentAmount = viewModel.finalPrice.toCents()
+        viewModel.paymentContext.paymentAmount = viewModel.totalPrice.toCents()
     }
     
     func didEdit(_ food: Food) {

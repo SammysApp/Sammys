@@ -10,5 +10,6 @@ import UIKit
 
 struct TableViewCellViewModel {
     let identifier: String
+    let height: CGFloat
     let commands: [TableViewCommandActionKey: TableViewCellCommand]
 }

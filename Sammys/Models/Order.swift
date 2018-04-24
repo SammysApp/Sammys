@@ -46,6 +46,22 @@ struct Order: Codable {
     }
 }
 
+extension Order {
+    var subtotalPrice: Double {
+        var totalPrice = 0.0
+        foods.forEach { $1.forEach { totalPrice += $0.price } }
+        return totalPrice.rounded(toPlaces: 2)
+    }
+    
+    var taxPrice: Double {
+        return (subtotalPrice * (6.88/100)).rounded(toPlaces: 2)
+    }
+    
+    var totalPrice: Double {
+        return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
+    }
+}
+
 private extension Dictionary where Key == FoodType, Value == [Food] {
     func toEncodable() -> SavedFoods {
         return self.mapValues { $0.map { AnyFood($0) } }

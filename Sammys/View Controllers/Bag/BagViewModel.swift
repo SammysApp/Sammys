@@ -95,7 +95,7 @@ class BagViewModel: NSObject {
         return (subtotalPrice * (6.88/100)).rounded(toPlaces: 2)
     }
     
-    var finalPrice: Double {
+    var totalPrice: Double {
         return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
     }
     
@@ -124,7 +124,7 @@ class BagViewModel: NSObject {
             // FIXME: Missing quantity item
             switch $0 {
             case let foodBagItem as FoodBagItem:
-                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food, didEdit: { cell in
+                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food, height: UITableViewAutomaticDimension, didEdit: { cell in
                     self.delegate?.didEdit(foodBagItem.food) })
                     .create())
             default: break
@@ -159,7 +159,7 @@ class BagViewModel: NSObject {
     }
     
     func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {
-        PayAPIClient.chargeSource(id, amount: finalPrice.toCents()) { result in
+        PayAPIClient.chargeSource(id, amount: totalPrice.toCents()) { result in
             switch result {
             case .success: completed?(nil)
             case .failure(let error): completed?(error)

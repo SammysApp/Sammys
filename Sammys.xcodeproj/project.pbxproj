@@ -81,6 +81,8 @@
 		5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29694208F8A6200520683 /* FoodOrderTableViewCell.swift */; };
 		5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29696208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift */; };
 		5BB29699208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29698208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift */; };
+		5BB2969B208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */; };
+		5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */; };
 		5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */; };
 		5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* ItemEditable.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
@@ -203,6 +205,8 @@
 		5BB29694208F8A6200520683 /* FoodOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodOrderTableViewCell.swift; sourceTree = "<group>"; };
 		5BB29696208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodOrderTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB29698208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodOrderTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5BB60EEF2069EA4400105E72 /* ItemEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditable.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 				5BB2968C208F794B00520683 /* OrderViewController.swift */,
 				5BB2968E208F7BA600520683 /* OrderViewModel.swift */,
 				5BB29692208F8A4F00520683 /* TotalPriceTableViewCell.swift */,
+				5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */,
+				5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */,
 				5BB29694208F8A6200520683 /* FoodOrderTableViewCell.swift */,
 				5BB29696208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift */,
 				5BB29698208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift */,
@@ -805,6 +811,7 @@
 				5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
+				5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */,
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
@@ -859,6 +866,7 @@
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* ItemsViewController.swift in Sources */,
 				5BD6B3CB20812439000114F5 /* MapCollectionViewCell.swift in Sources */,
+				5BB2969B208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift in Sources */,
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,

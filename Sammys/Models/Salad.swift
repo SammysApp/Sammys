@@ -49,7 +49,7 @@ extension Salad {
     /// Returns product of the salad's base price and `quantity`. If `size` is `nil` returns `0`.
     var price: Double {
         get {
-            return size?.price != nil ? size!.price * Double(quantity) : 0
+            return size?.price != nil ? (size!.price * Double(quantity)).rounded(toPlaces: 2) : 0
         }
     }
     
