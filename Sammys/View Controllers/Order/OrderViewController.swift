@@ -26,18 +26,18 @@ extension OrderViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
+        return viewModel.numberOfRows(forSection: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = viewModel.cellViewModels[indexPath.row]
+        let model = viewModel.cellViewModel(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: model.identifier)!
         model.commands[.configuration]?.perform(cell: cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = viewModel.cellViewModels[indexPath.row]
+        let model = viewModel.cellViewModel(for: indexPath)
         return model.height
     }
 }

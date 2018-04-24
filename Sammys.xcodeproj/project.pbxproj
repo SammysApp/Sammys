@@ -384,14 +384,6 @@
 		5B9CD59D204CCA5500F59E4C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5BB2968C208F794B00520683 /* OrderViewController.swift */,
-				5BB2968E208F7BA600520683 /* OrderViewModel.swift */,
-				5BB29692208F8A4F00520683 /* TotalPriceTableViewCell.swift */,
-				5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */,
-				5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */,
-				5BB29694208F8A6200520683 /* FoodOrderTableViewCell.swift */,
-				5BB29696208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift */,
-				5BB29698208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift */,
 				5BD274F12063FABF00618128 /* Home */,
 				5BD274F22063FAC900618128 /* User */,
 				5BD274F32063FAD800618128 /* Login */,
@@ -401,6 +393,7 @@
 				5B553A66206C9BED00DD9689 /* Food */,
 				5BD6B3D120812F62000114F5 /* Confirmation */,
 				5BB2968A208E5AD500520683 /* Orders */,
+				5BB296A0208FD42E00520683 /* Order */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -474,6 +467,38 @@
 				5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */,
 				5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */,
 				5BB29656208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		5BB2969E208FD3F500520683 /* Total */ = {
+			isa = PBXGroup;
+			children = (
+				5BB29692208F8A4F00520683 /* TotalPriceTableViewCell.swift */,
+				5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */,
+				5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */,
+			);
+			path = Total;
+			sourceTree = "<group>";
+		};
+		5BB2969F208FD41000520683 /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				5BB29694208F8A6200520683 /* FoodOrderTableViewCell.swift */,
+				5BB29696208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift */,
+				5BB29698208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift */,
+			);
+			name = Food;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		5BB296A0208FD42E00520683 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				5BB2968C208F794B00520683 /* OrderViewController.swift */,
+				5BB2968E208F7BA600520683 /* OrderViewModel.swift */,
+				5BB2969E208FD3F500520683 /* Total */,
+				5BB2969F208FD41000520683 /* Food */,
 			);
 			path = Order;
 			sourceTree = "<group>";

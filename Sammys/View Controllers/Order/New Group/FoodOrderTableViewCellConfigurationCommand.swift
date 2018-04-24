@@ -13,6 +13,7 @@ struct FoodOrderTableViewCellConfigurationCommand: TableViewCellCommand {
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? FoodOrderTableViewCell else { return }
+        // Set labels.
         cell.quantityLabel.text = "\(food.quantity)"
         cell.nameLabel.text = food.title
         cell.priceLabel.text = food.price.priceString
