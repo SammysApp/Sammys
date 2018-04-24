@@ -40,12 +40,15 @@ extension OrdersViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = cellViewModel(for: indexPath.row)
-        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: model.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.identifier, for: indexPath)
         model.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
         return cell
     }
 }
 
 extension OrdersViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let orderViewController = viewModel.orderViewController(for: indexPath)
+        navigationController?.pushViewController(orderViewController, animated: true)
+    }
 }

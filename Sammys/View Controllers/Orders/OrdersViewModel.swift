@@ -40,4 +40,10 @@ class OrdersViewModel {
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 100)).create() }
     }
+    
+    func orderViewController(for indexPath: IndexPath) -> OrderViewController {
+        let orderViewController = OrderViewController.storyboardInstance() as! OrderViewController
+        orderViewController.viewModel = OrderViewModel(order: orders[indexPath.row])
+        return orderViewController
+    }
 }
