@@ -8,49 +8,30 @@
 
 import UIKit
 
-// The sign up page for a user 📝.
-class SignUpViewController: UIViewController, Storyboardable {
-    typealias ViewController = SignUpViewController
-    
-    var viewKey = LoginPageViewControllerKey.name {
-        didSet {
-            if isViewLoaded {
-                updateUI(with: viewKey)
-            }
-        }
-    }
+/// The sign up page for a user 📝.
+class SignUpViewController: UIViewController {
+    var titleText: String?
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textField: UITextField!
     
     /// Called when text field for sign up info edited.
-    var didChangeInfo: ((_ key: LoginPageViewControllerKey, _ text: String?) -> Void)?
+    var didUpdateText: ((String?) -> Void)?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateUI(with: viewKey)
-    }
-    
-    func updateUI(with key: LoginPageViewControllerKey) {
-        titleLabel.text = key.title
+        titleLabel.text = titleText
     }
     
     // MARK: - IBActions
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-        didChangeInfo?(viewKey, textField.text)
+        didUpdateText?(textField.text)
     }
 }
 
-extension LoginPageViewControllerKey {
-    var title: String? {
-        switch self {
-        case .name: return "Name"
-        case .email: return "Email"
-        case .password: return "Password"
-        default: return nil
-        }
-    }
+extension SignUpViewController: Storyboardable {
+    typealias ViewController = SignUpViewController
 }

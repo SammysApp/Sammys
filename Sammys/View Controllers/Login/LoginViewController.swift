@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, Storyboardable {
     var didLogin: (() -> Void)?
     
     /// Called if sign up tapped.
-    var didSignUp: (() -> Void)?
+    var didTapSignUp: (() -> Void)?
     
     /// Called if cancel tapped.
     var didCancel: (() -> Void)?
@@ -28,16 +28,14 @@ class LoginViewController: UIViewController, Storyboardable {
     // MARK: - IBActions
     @IBAction func didTapLogin(_ sender: UIButton) {
         guard let email = emailTextField.text,
-            let password = passwordTextField.text else {
-            return
-        }
+            let password = passwordTextField.text else { return }
         UserAPIClient.signIn(with: email, password: password) { result in
             self.didLogin?()
         }
     }
     
-    @IBAction func didSignUp(_ sender: UIButton) {
-        didSignUp?()
+    @IBAction func didTapSignUp(_ sender: UIButton) {
+        didTapSignUp?()
     }
     
     @IBAction func didTapCancel(_ sender: UIButton) {

@@ -20,7 +20,7 @@ struct Customer: Decodable {
 struct PayAPIClient {
     typealias JSON = [String : Any]
     
-    static let baseURL = "http://localhost:4567" //"https://sammysapp.herokuapp.com"
+    static let baseURL = "https://sammysapp.herokuapp.com"
     
     /**
      A type returned by the charge API call.
