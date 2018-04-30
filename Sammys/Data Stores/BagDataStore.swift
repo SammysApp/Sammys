@@ -56,7 +56,7 @@ class BagDataStore {
         // FIXME: Can't add more than one, not ref.
         if var foodsForKey = _foods[key] {
             var added = false
-            for var foodInFoods in foodsForKey {
+            for foodInFoods in foodsForKey {
                 if foodInFoods.isEqual(food) {
                     foodInFoods.quantity += 1
                     added = true

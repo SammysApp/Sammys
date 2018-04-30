@@ -21,7 +21,7 @@ struct ItemGroup {
 }
 
 /// A type that represents a food 🍎 item for sale.
-protocol Food: Codable {
+protocol Food: class, Codable {
     /// The type of `Food` conforming type represented by `FoodType` keys.
     static var type: FoodType { get }
     

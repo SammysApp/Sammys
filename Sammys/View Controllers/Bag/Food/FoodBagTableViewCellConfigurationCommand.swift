@@ -9,13 +9,8 @@
 import UIKit
 
 struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
-    private let food: Food
-    private let didEdit: ((FoodBagTableViewCell) -> Void)?
-    
-    init(food: Food, didEdit: ((FoodBagTableViewCell) -> Void)? = nil) {
-        self.food = food
-        self.didEdit = didEdit
-    }
+    let food: Food
+    let didEdit: ((FoodBagTableViewCell) -> Void)?
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? FoodBagTableViewCell else { return }

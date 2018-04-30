@@ -15,16 +15,19 @@ enum FoodBagTableViewCellIdentifier: String {
 struct FoodBagTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     private let food: Food
     private let height: CGFloat
+    private let didSelect: ((Food) -> Void)?
     private let didEdit: ((FoodBagTableViewCell) -> Void)?
     
-    init(food: Food, height: CGFloat, didEdit: ((FoodBagTableViewCell) -> Void)? = nil) {
+    init(food: Food, height: CGFloat, didSelect: ((Food) -> Void)? = nil, didEdit: ((FoodBagTableViewCell) -> Void)? = nil) {
         self.food = food
         self.height = height
+        self.didSelect = didSelect
         self.didEdit = didEdit
     }
     
     func create() -> TableViewCellViewModel {
         let configurationCommand = FoodBagTableViewCellConfigurationCommand(food: food, didEdit: didEdit)
-        return TableViewCellViewModel(identifier: FoodBagTableViewCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration : configurationCommand])
+        let selectionCommand = FoodBagTableViewCellSelectionCommand(food: food, didSelect: didSelect)
+        return TableViewCellViewModel(identifier: FoodBagTableViewCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration : configurationCommand, .selection: selectionCommand])
     }
 }

@@ -84,6 +84,9 @@
 		5BB2969B208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */; };
 		5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */; };
 		5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A12093891100520683 /* LoginPageViewModel.swift */; };
+		5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */; };
+		5BB296A72096AF5100520683 /* FoodQuantityTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A62096AF5100520683 /* FoodQuantityTableViewCellConfigurationCommand.swift */; };
+		5BB296A92096AF6B00520683 /* FoodQuantityTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A82096AF6B00520683 /* FoodQuantityTableViewCellViewModelFactory.swift */; };
 		5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */; };
 		5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* ItemEditable.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
@@ -209,6 +212,9 @@
 		5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296A12093891100520683 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
+		5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
+		5BB296A62096AF5100520683 /* FoodQuantityTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodQuantityTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5BB296A82096AF6B00520683 /* FoodQuantityTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodQuantityTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5BB60EEF2069EA4400105E72 /* ItemEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditable.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
@@ -291,6 +297,7 @@
 			children = (
 				5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */,
 				5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */,
+				5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */,
 				5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */,
 			);
 			path = Food;
@@ -405,8 +412,6 @@
 			children = (
 				5BEED540206C7330002240EB /* Models */,
 				5B44A8062006D35600898FF0 /* ItemsCollectionViewCell.swift */,
-				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
-				5BFD2BC2201B920B005C01BF /* FoodQuantityTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -505,6 +510,17 @@
 			path = Order;
 			sourceTree = "<group>";
 		};
+		5BB296A52096AEA800520683 /* Quantity */ = {
+			isa = PBXGroup;
+			children = (
+				5BFD2BC2201B920B005C01BF /* FoodQuantityTableViewCell.swift */,
+				5BB296A62096AF5100520683 /* FoodQuantityTableViewCellConfigurationCommand.swift */,
+				5BB296A82096AF6B00520683 /* FoodQuantityTableViewCellViewModelFactory.swift */,
+				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
+			);
+			path = Quantity;
+			sourceTree = "<group>";
+		};
 		5BB60F332069F5B100105E72 /* EasyExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +617,7 @@
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
 				5B3176CF206D3D8300D83D12 /* Food */,
+				5BB296A52096AEA800520683 /* Quantity */,
 			);
 			path = Bag;
 			sourceTree = "<group>";
@@ -845,6 +862,7 @@
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
 				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
+				5BB296A92096AF6B00520683 /* FoodQuantityTableViewCellViewModelFactory.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
@@ -874,6 +892,7 @@
 				5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */,
 				5BB60F492069F5B100105E72 /* Int.swift in Sources */,
 				5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
+				5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
 				5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */,
 				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
@@ -881,6 +900,7 @@
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
+				5BB296A72096AF5100520683 /* FoodQuantityTableViewCellConfigurationCommand.swift in Sources */,
 				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */,

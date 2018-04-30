@@ -9,9 +9,7 @@
 import UIKit
 import Stripe
 
-class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable {
-    typealias ViewController = BagViewController
-    
+class BagViewController: UIViewController, BagViewModelDelegate {
     let viewModel = BagViewModel()
 
     // MARK: - IBOutlets
@@ -47,11 +45,20 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         purchaseButton.setTitle(viewModel.totalPrice.priceString, for: .normal)
     }
     
+    func bagDataDidChange() {
+        tableView.reloadData()
+        updateUI()
+    }
+    
     func updatePaymentPrice() {
         viewModel.paymentContext.paymentAmount = viewModel.totalPrice.toCents()
     }
     
-    func didEdit(_ food: Food) {
+    func didSelect(food: Food) {
+        pushFoodViewController(for: food)
+    }
+    
+    func didEdit(food: Food) {
         let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
         itemsViewController.resetFood(to: food)
         itemsViewController.isEditingFood = true
@@ -59,21 +66,25 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
             self.tableView.reloadData()
             self.updateUI()
             self.updatePaymentPrice()
-            self.viewModel.finishEditing()
+            self.viewModel.saveBag()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
+    func delete(sections: IndexSet) {
+        tableView.deleteSections(sections, with: .fade)
+        updateUI()
+        updatePaymentPrice()
+    }
+    
+    func delete(indexPaths: [IndexPath]) {
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        updateUI()
+        updatePaymentPrice()
+    }
+    
     func delete(at indexPath: IndexPath) {
-        viewModel.remove(at: indexPath) { didRemoveSection in
-            if didRemoveSection {
-                self.tableView.deleteSections([indexPath.section], with: .fade)
-            } else {
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-            self.updateUI()
-            self.updatePaymentPrice()
-        }
+        viewModel.removeFood(at: indexPath)
     }
     
     func clearBag() {
@@ -102,12 +113,19 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
         }
     }
     
-    func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
-        return viewModel.cellViewModels(in: indexPath.section)[indexPath.row]
-    }
-    
     func presentConfirmationViewController() {
         present(ConfirmationViewController.storyboardInstance(), animated: true, completion: nil)
+    }
+    
+    func pushFoodViewController(for food: Food) {
+        guard let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController else { return }
+        foodViewController.viewModel = FoodViewModel(food: food)
+        foodViewController.didGoBack = { foodViewController in
+            self.tableView.reloadData()
+            self.updateUI()
+            self.updatePaymentPrice()
+        }
+        navigationController?.pushViewController(foodViewController, animated: true)
     }
 
     // MARK: - IBActions
@@ -128,6 +146,10 @@ class BagViewController: UIViewController, BagViewModelDelegate, Storyboardable 
     }
 }
 
+extension BagViewController: Storyboardable {
+    typealias ViewController = BagViewController
+}
+
 // MARK: - UITableViewDataSource
 extension BagViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,9 +161,9 @@ extension BagViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = cellViewModel(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: model.identifier)!
-        model.commands[.configuration]?.perform(cell: cell)
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier)!
+        cellViewModel.commands[.configuration]?.perform(cell: cell)
         return cell
     }
 }
@@ -149,32 +171,14 @@ extension BagViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension BagViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = viewModel.item(for: indexPath)!
-        switch item.key {
-        case .food:
-            return UITableViewAutomaticDimension
-        case .quantity:
-            return 60
-        }
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        return cellViewModel.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = viewModel.item(for: indexPath)!
-        switch item.key {
-        case .food:
-            let foodItem = item as! FoodBagItem
-            let food = foodItem.food
-            if let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController {
-                foodViewController.viewModel = FoodViewModel(food: food)
-                foodViewController.didGoBack = { foodViewController in
-                    self.tableView.reloadData()
-                    self.updateUI()
-                    self.updatePaymentPrice()
-                }
-                navigationController?.pushViewController(foodViewController, animated: true)
-            }
-        default: break
-        }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        cellViewModel.commands[.selection]?.perform(cell: cell)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

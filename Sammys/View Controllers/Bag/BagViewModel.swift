@@ -9,34 +9,31 @@
 import Foundation
 import Stripe
 
-enum BagItemKey {
-    case food, quantity
-}
-
-protocol BagItem {
-    var key: BagItemKey { get }
-}
-
-struct BagItemGroup {
-    let items: [BagItem]
+struct CellViewModelFoodGroup {
+    let food: Food
+    let cellViewModels: [TableViewCellViewModel]
 }
 
 struct BagSection {
     let title: String?
-    let itemGroups: [BagItemGroup]
+    let cellViewModelFoodGroups: [CellViewModelFoodGroup]
     
-    var allItems: [BagItem] {
-        return itemGroups.flatMap { $0.items }
+    var allCellViewModels: [TableViewCellViewModel] {
+        return cellViewModelFoodGroups.flatMap { $0.cellViewModels }
     }
     
-    init(title: String? = nil, itemGroups: [BagItemGroup]) {
+    init(title: String? = nil, cellViewModelFoodGroups: [CellViewModelFoodGroup]) {
         self.title = title
-        self.itemGroups = itemGroups
+        self.cellViewModelFoodGroups = cellViewModelFoodGroups
     }
 }
 
 protocol BagViewModelDelegate {
-    func didEdit(_ food: Food)
+    func bagDataDidChange()
+    func didEdit(food: Food)
+    func didSelect(food: Food)
+    func delete(indexPaths: [IndexPath])
+    func delete(sections: IndexSet)
     func paymentDidComplete(with paymentResult: PaymentResult)
 }
 
@@ -46,6 +43,10 @@ enum PaymentResult {
 }
 
 class BagViewModel: NSObject {
+    private struct Constants {
+        
+    }
+    
     var user: User? {
         return UserDataStore.shared.user
     }
@@ -68,22 +69,27 @@ class BagViewModel: NSObject {
         var sections = [BagSection]()
         for foodType in sortedFoodTypes {
             if let foods = foods[foodType] {
-                var itemGroups = [BagItemGroup]()
+                var cellViewModelFoodGroups = [CellViewModelFoodGroup]()
                 for food in foods {
-                    var items = [BagItem]()
-                    items.append(FoodBagItem(food: food))
-                    if let quantityItem = quantityItem(for: food) {
-                        items.append(quantityItem)
-                    }
-                    itemGroups.append(BagItemGroup(items: items))
+                    let cellViewModels = [
+                        FoodBagTableViewCellViewModelFactory(
+                            food: food,
+                            height: UITableViewAutomaticDimension,
+                            didSelect: { self.delegate?.didSelect(food: $0) },
+                            didEdit: { cell in self.delegate?.didEdit(food: food) })
+                            .create(),
+                        FoodQuantityTableViewCellViewModelFactory(
+                            food: food,
+                            height: 80,
+                            didSelectQuantity: { self.changeQuantity($1, for: $0) }).create()
+                    ]
+                    cellViewModelFoodGroups.append(CellViewModelFoodGroup(food: food, cellViewModels: cellViewModels))
                 }
-                sections.append(BagSection(itemGroups: itemGroups))
+                sections.append(BagSection(cellViewModelFoodGroups: cellViewModelFoodGroups))
             }
         }
         return sections
     }
-    
-    private var quantityItems = [QuantityBagItem]()
     
     var subtotalPrice: Double {
         var totalPrice = 0.0
@@ -110,47 +116,53 @@ class BagViewModel: NSObject {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return sections[section].allItems.count
-    }
-    
-    func item(for indexPath: IndexPath) -> BagItem? {
-        return sections[indexPath.section].allItems[indexPath.row]
+        return sections[section].allCellViewModels.count
     }
     
     func cellViewModels(in section: Int) -> [TableViewCellViewModel] {
-        let section = sections[section]
-        var cellViewModels = [TableViewCellViewModel]()
-        section.allItems.forEach {
-            // FIXME: Missing quantity item
-            switch $0 {
-            case let foodBagItem as FoodBagItem:
-                cellViewModels.append(FoodBagTableViewCellViewModelFactory(food: foodBagItem.food, height: UITableViewAutomaticDimension, didEdit: { cell in
-                    self.delegate?.didEdit(foodBagItem.food) })
-                    .create())
-            default: break
+        return sections[section].allCellViewModels
+    }
+    
+    func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
+        return cellViewModels(in: indexPath.section)[indexPath.row]
+    }
+    
+    func indexPath(for food: Food) -> IndexPath? {
+        var indexPath: IndexPath?
+        sections.enumerated().forEach { sectionIndex, section in
+            section.cellViewModelFoodGroups.enumerated().forEach { rowIndex, group in
+                if group.food.isEqual(food) {
+                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+                }
             }
         }
-        return cellViewModels
+        return indexPath
     }
     
-    func remove(at indexPath: IndexPath, didRemoveSection: ((Bool) -> Void)?) {
-        guard let food = (item(for: indexPath) as? FoodBagItem)?.food else { return }
-        data.remove(food, didRemoveSection: didRemoveSection)
+    func remove(_ food: Food) {
+        guard let indexPath = self.indexPath(for: food) else { return }
+        data.remove(food) { didRemoveSection in
+            if didRemoveSection { self.delegate?.delete(sections: [indexPath.section]) }
+            else { self.delegate?.delete(indexPaths: [indexPath]) }
+        }
     }
     
-    func quantityItem(for food: Food) -> QuantityBagItem? {
-        return quantityItems.first { $0.food.isEqual(food) }
+    func removeFood(at indexPath: IndexPath) {
+        remove(sections[indexPath.section].cellViewModelFoodGroups[indexPath.row].food)
     }
     
-    func showQuantity(for food: Food) {
-        quantityItems.append(QuantityBagItem(food: food))
+    func changeQuantity(_ quantity: Quantity, for food: Food) {
+        switch quantity {
+        case .none:
+            remove(food)
+        case .some(let amount):
+            food.quantity = amount
+            saveBag()
+            delegate?.bagDataDidChange()
+        }
     }
     
-    func hideQuantity(for food: Food) {
-        quantityItems = quantityItems.filter { !$0.food.isEqual(food) }
-    }
-    
-    func finishEditing() {
+    func saveBag() {
         data.save()
     }
     
@@ -210,23 +222,5 @@ extension BagViewModel: STPPaymentContextDelegate {
         } else {
             delegate?.paymentDidComplete(with: .success)
         }
-    }
-}
-
-class FoodBagItem: BagItem {
-    let key: BagItemKey = .food
-    let food: Food
-    
-    init(food: Food) {
-        self.food = food
-    }
-}
-
-class QuantityBagItem: BagItem {
-    let key: BagItemKey = .quantity
-    let food: Food
-    
-    init(food: Food) {
-        self.food = food
     }
 }
