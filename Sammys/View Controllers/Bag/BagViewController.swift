@@ -19,6 +19,10 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     @IBOutlet var purchaseButton: UIButton!
     @IBOutlet var creditCardButton: UIButton!
     
+    private struct Constants {
+        static let checkoutAlertMessage = "Choose the way you would like to checkout."
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +32,9 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         tableView.estimatedRowHeight = 100
         purchaseButton.layer.cornerRadius = 20
         updateUI()
-        updatePaymentPrice()
         
-        viewModel.paymentContext.hostViewController = self
+        viewModel.updatePaymentPrice()
+        viewModel.paymentContextHostViewController = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,10 +54,6 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         updateUI()
     }
     
-    func updatePaymentPrice() {
-        viewModel.paymentContext.paymentAmount = viewModel.totalPrice.toCents()
-    }
-    
     func didSelect(food: Food) {
         pushFoodViewController(for: food)
     }
@@ -65,7 +65,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         itemsViewController.didFinishEditing = {
             self.tableView.reloadData()
             self.updateUI()
-            self.updatePaymentPrice()
+            self.viewModel.updatePaymentPrice()
             self.viewModel.saveBag()
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
@@ -74,13 +74,13 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func delete(sections: IndexSet) {
         tableView.deleteSections(sections, with: .fade)
         updateUI()
-        updatePaymentPrice()
+        viewModel.updatePaymentPrice()
     }
     
     func delete(indexPaths: [IndexPath]) {
         tableView.deleteRows(at: indexPaths, with: .automatic)
         updateUI()
-        updatePaymentPrice()
+        viewModel.updatePaymentPrice()
     }
     
     func delete(at indexPath: IndexPath) {
@@ -91,24 +91,25 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         viewModel.clearBag()
         tableView.reloadData()
         updateUI()
-        updatePaymentPrice()
+        viewModel.updatePaymentPrice()
     }
     
     func attemptPurchase() {
-        viewModel.addToUserOrders()
-        presentConfirmationViewController()
-//        if viewModel.user != nil {
-//            viewModel.paymentContext.requestPayment()
-//        } else {
-//            let vc = STPAddCardViewController()
-//            vc.delegate = self
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
+        if viewModel.user == nil {
+            presentCheckoutAlertController(
+                didChooseGuest: pushAddCardViewController,
+                didChooseCustomer: presentLoginPageViewController
+            )
+        } else {
+            viewModel.requestPayment()
+        }
     }
     
     func paymentDidComplete(with paymentResult: PaymentResult) {
         switch paymentResult {
-        case .success: presentConfirmationViewController()
+        case .success:
+            presentConfirmationViewController()
+            viewModel.addToUserOrders()
         case .failure(let message): print(message)
         }
     }
@@ -123,9 +124,35 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         foodViewController.didGoBack = { foodViewController in
             self.tableView.reloadData()
             self.updateUI()
-            self.updatePaymentPrice()
+            self.viewModel.updatePaymentPrice()
         }
         navigationController?.pushViewController(foodViewController, animated: true)
+    }
+    
+    func presentCheckoutAlertController(didChooseGuest: @escaping () -> Void, didChooseCustomer: @escaping () -> Void) {
+        let checkoutAlertController = UIAlertController(title: nil, message: Constants.checkoutAlertMessage, preferredStyle: .alert)
+        [UIAlertAction(title: "Guest", style: .default, handler: { action in
+            didChooseGuest()
+        }),
+        UIAlertAction(title: "Customer", style: .default, handler: { action in
+            didChooseCustomer()
+        }),
+        UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            checkoutAlertController.dismiss(animated: true, completion: nil)
+        })].forEach { checkoutAlertController.addAction($0) }
+        present(checkoutAlertController, animated: true, completion: nil)
+    }
+    
+    func presentLoginPageViewController() {
+        let loginPageViewController = LoginPageViewController.storyboardInstance() as! LoginPageViewController
+        loginPageViewController.delegate = self
+        present(loginPageViewController, animated: true, completion: nil)
+    }
+    
+    func pushAddCardViewController() {
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        self.navigationController?.pushViewController(addCardViewController, animated: true)
     }
 
     // MARK: - IBActions
@@ -142,7 +169,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     @IBAction func test(_ sender: UIButton) {
-        viewModel.paymentContext.pushPaymentMethodsViewController()
+        viewModel.pushPaymentMethodsViewController()
     }
 }
 
@@ -188,6 +215,16 @@ extension BagViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - LoginPageViewControllerDelegate
+extension BagViewController: LoginPageViewControllerDelegate {
+    func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
+        viewModel.setupPaymentContext()
+    }
+    
+    func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController) {}
+}
+
+// MARK: - STPAddCardViewControllerDelegate
 extension BagViewController: STPAddCardViewControllerDelegate {
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateSource source: STPSource, completion: @escaping STPErrorBlock) {
         viewModel.chargeSource(with: source.stripeID, completed: completion)

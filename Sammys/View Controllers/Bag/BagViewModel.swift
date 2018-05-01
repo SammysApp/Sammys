@@ -53,7 +53,15 @@ class BagViewModel: NSObject {
     
     var delegate: BagViewModelDelegate?
     
-    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
+    var paymentContextHostViewController: UIViewController? {
+        didSet {
+            if paymentContextHostViewController != nil {
+                paymentContext.hostViewController = paymentContextHostViewController
+            }
+        }
+    }
+    
+    private var paymentContext: STPPaymentContext!
     
     private let data = BagDataStore.shared
     
@@ -111,8 +119,18 @@ class BagViewModel: NSObject {
     
     override init() {
         super.init()
+        
+        setupPaymentContext()
+    }
+    
+    func setupPaymentContext() {
+        paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
         paymentContext.delegate = self
         paymentContext.configuration.createCardSources = true
+        if paymentContextHostViewController != nil {
+            paymentContext.hostViewController = paymentContextHostViewController
+        }
+        updatePaymentPrice()
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -168,6 +186,18 @@ class BagViewModel: NSObject {
     
     func clearBag() {
         data.clear()
+    }
+    
+    func pushPaymentMethodsViewController() {
+        paymentContext.pushPaymentMethodsViewController()
+    }
+    
+    func updatePaymentPrice() {
+        paymentContext.paymentAmount = totalPrice.toCents()
+    }
+    
+    func requestPayment() {
+        paymentContext.requestPayment()
     }
     
     func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {

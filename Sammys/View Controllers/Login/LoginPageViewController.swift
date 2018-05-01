@@ -8,16 +8,29 @@
 
 import UIKit
 
+protocol LoginPageViewControllerDelegate {
+    func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController)
+    func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController)
+}
+
 /// Presents the login option together with the sign up form if neccessary.
 class LoginPageViewController: UIViewController {
     private let viewModel = LoginPageViewModel()
+    
+    var delegate: LoginPageViewControllerDelegate?
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
     var loginViewController: LoginViewController {
         let loginViewController = LoginViewController.storyboardInstance() as! LoginViewController
-        loginViewController.didCancel = { self.dismiss(animated: true, completion: nil) }
-        loginViewController.didLogin = { self.dismiss(animated: true, completion: nil) }
+        loginViewController.didCancel = {
+            self.delegate?.loginPageViewControllerDidCancel(self)
+            self.dismiss(animated: true, completion: nil)
+        }
+        loginViewController.didLogin = {
+            self.delegate?.loginPageViewControllerDidLogin(self)
+            self.dismiss(animated: true, completion: nil)
+        }
         loginViewController.didTapSignUp = { self.goToNextViewController() }
         return loginViewController
     }
