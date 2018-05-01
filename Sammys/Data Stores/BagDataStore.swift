@@ -20,19 +20,14 @@ class BagDataStore {
     static let shared = BagDataStore()
     
     /// The private mutable foods in the bag.
-    private var _foods: Foods = [:]
-    
-    /// The foods in the bag.
-    var foods: Foods {
-        return _foods
-    }
+    private(set) var foods: Foods = [:]
     
     /// The foods mapped to `AnyFood` and able to save to disk.
     private var savedFoods: SavedFoods {
         get {
-            return _foods.mapValues { $0.map { AnyFood($0) } }
+            return foods.mapValues { $0.map { AnyFood($0) } }
         } set {
-            _foods = newValue.mapValues { $0.map { $0.food } }
+            foods = newValue.mapValues { $0.map { $0.food } }
         }
     }
     
@@ -53,8 +48,7 @@ class BagDataStore {
     */
     func add(_ food: Food) {
         let key = type(of: food).type
-        // FIXME: Can't add more than one, not ref.
-        if var foodsForKey = _foods[key] {
+        if let foodsForKey = foods[key] {
             var added = false
             for foodInFoods in foodsForKey {
                 if foodInFoods.isEqual(food) {
@@ -64,10 +58,10 @@ class BagDataStore {
                 }
             }
             if !added {
-                foodsForKey.append(food)
+                foods[key]?.append(food)
             }
         } else {
-            _foods[key] = [food]
+            foods[key] = [food]
         }
         
         save()
@@ -79,13 +73,13 @@ class BagDataStore {
      - Parameter removedSection: A closure that gets sent `true` if removed the section containing the food removed.
      */
     func remove(_ food: Food, didRemoveSection: ((Bool) -> Void)? = nil) {
-        for (key, foods) in _foods {
+        for (key, foods) in foods {
             for (index, foodInFoods) in foods.enumerated() {
                 if food.isEqual(foodInFoods) {
-                    if var foodsForKey = _foods[key] {
+                    if var foodsForKey = self.foods[key] {
                         foodsForKey.remove(at: index)
                         if foodsForKey.isEmpty {
-                            _foods.removeValue(forKey: key)
+                            self.foods.removeValue(forKey: key)
                             didRemoveSection?(true)
                         } else {
                             didRemoveSection?(false)
@@ -110,7 +104,7 @@ class BagDataStore {
     
     /// Clears the stored foods.
     func clear() {
-        _foods = [:]
+        foods = [:]
         save()
     }
 }
