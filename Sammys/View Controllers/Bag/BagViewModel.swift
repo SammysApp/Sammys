@@ -9,22 +9,13 @@
 import Foundation
 import Stripe
 
-struct CellViewModelFoodGroup {
-    let food: Food
-    let cellViewModels: [TableViewCellViewModel]
-}
-
 struct BagSection {
     let title: String?
-    let cellViewModelFoodGroups: [CellViewModelFoodGroup]
+    let cellViewModels: [TableViewCellViewModel]
     
-    var allCellViewModels: [TableViewCellViewModel] {
-        return cellViewModelFoodGroups.flatMap { $0.cellViewModels }
-    }
-    
-    init(title: String? = nil, cellViewModelFoodGroups: [CellViewModelFoodGroup]) {
+    init(title: String? = nil, cellViewModels: [TableViewCellViewModel]) {
         self.title = title
-        self.cellViewModelFoodGroups = cellViewModelFoodGroups
+        self.cellViewModels = cellViewModels
     }
 }
 
@@ -76,23 +67,19 @@ class BagViewModel: NSObject {
         var sections = [BagSection]()
         for foodType in sortedFoodTypes {
             if let foods = foods[foodType] {
-                var cellViewModelFoodGroups = [CellViewModelFoodGroup]()
+                var cellViewModels = [TableViewCellViewModel]()
                 for food in foods {
-                    let cellViewModels = [
+                    cellViewModels.append(
                         FoodBagTableViewCellViewModelFactory(
                             food: food,
                             height: UITableViewAutomaticDimension,
                             didSelect: { self.delegate?.didSelect(food: $0) },
-                            didEdit: { cell in self.delegate?.didEdit(food: food) })
-                            .create(),
-                        FoodQuantityTableViewCellViewModelFactory(
-                            food: food,
-                            height: 80,
-                            didSelectQuantity: { self.changeQuantity($1, for: $0) }).create()
-                    ]
-                    cellViewModelFoodGroups.append(CellViewModelFoodGroup(food: food, cellViewModels: cellViewModels))
+                            didEdit: { cell in self.delegate?.didEdit(food: food) },
+                            didSelectQuantity: { self.changeQuantity($1, for: $0) })
+                            .create()
+                    )
                 }
-                sections.append(BagSection(cellViewModelFoodGroups: cellViewModelFoodGroups))
+                sections.append(BagSection(cellViewModels: cellViewModels))
             }
         }
         return sections
@@ -133,43 +120,50 @@ class BagViewModel: NSObject {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return sections[section].allCellViewModels.count
+        return sections[section].cellViewModels.count
     }
     
     func cellViewModels(in section: Int) -> [TableViewCellViewModel] {
-        return sections[section].allCellViewModels
+        return sections[section].cellViewModels
     }
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
         return cellViewModels(in: indexPath.section)[indexPath.row]
     }
     
-    private var indexPathGroups: [(section: Int, cellViewModelFoodGroup: CellViewModelFoodGroup, indexPaths: [IndexPath])] {
-        var indexPathGroups = [(Int, CellViewModelFoodGroup, [IndexPath])]()
-        sections.enumerated().forEach { sectionIndex, section in
-            section.cellViewModelFoodGroups.enumerated().forEach { groupIndex, group in
-                let indexPaths = group.cellViewModels.enumerated().map { IndexPath(row: groupIndex + $0.offset, section: sectionIndex) }
-                indexPathGroups.append((sectionIndex, group, indexPaths))
-            }
-        }
-        return indexPathGroups
+    private func food(at indexPath: IndexPath) -> Food? {
+        guard let foodBagTableViewCellViewModel = sections[indexPath.section].cellViewModels[indexPath.row] as? FoodBagTableViewCellViewModel else { return nil }
+        return foodBagTableViewCellViewModel.food
     }
     
-    func food(for indexPath: IndexPath) -> Food? {
-        return indexPathGroups.first(where: { $0.indexPaths.contains(indexPath) })?.cellViewModelFoodGroup.food
+    private func indexPath(for food: Food) -> IndexPath? {
+        var indexPath: IndexPath?
+        sections.enumerated().forEach { sectionIndex, section in
+            section.cellViewModels.enumerated().forEach { rowIndex, cellViewModel in
+                guard let foodBagTableViewCellViewModel = cellViewModel as? FoodBagTableViewCellViewModel else { return }
+                if foodBagTableViewCellViewModel.food.isEqual(food) {
+                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+                }
+            }
+        }
+        return indexPath
+    }
+    
+    private func remove(_ food: Food, indexPath: IndexPath) {
+        data.remove(food) { didRemoveSection in
+            if didRemoveSection { self.delegate?.delete(sections: [indexPath.section]) }
+            else { self.delegate?.delete(indexPaths: [indexPath]) }
+        }
     }
     
     func remove(_ food: Food) {
-        guard let indexPathGroup = self.indexPathGroups.first(where: { $0.cellViewModelFoodGroup.food.isEqual(food) }) else { return }
-        data.remove(food) { didRemoveSection in
-            if didRemoveSection { self.delegate?.delete(sections: [indexPathGroup.section]) }
-            else { self.delegate?.delete(indexPaths: indexPathGroup.indexPaths) }
-        }
+        guard let indexPath = indexPath(for: food) else { return }
+        remove(food, indexPath: indexPath)
     }
     
-    func removeFood(at indexPath: IndexPath) {
-        guard let food = food(for: indexPath) else { return }
-        remove(food)
+    func remove(at indexPath: IndexPath) {
+        guard let food = food(at: indexPath) else { return }
+        remove(food, indexPath: indexPath)
     }
     
     func changeQuantity(_ quantity: Quantity, for food: Food) {
