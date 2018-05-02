@@ -76,8 +76,8 @@ class BagDataStore {
         for (key, foods) in foods {
             for (index, foodInFoods) in foods.enumerated() {
                 if food.isEqual(foodInFoods) {
-                    if var foodsForKey = self.foods[key] {
-                        foodsForKey.remove(at: index)
+                    if let foodsForKey = self.foods[key] {
+                        self.foods[key]?.remove(at: index)
                         if foodsForKey.isEmpty {
                             self.foods.removeValue(forKey: key)
                             didRemoveSection?(true)

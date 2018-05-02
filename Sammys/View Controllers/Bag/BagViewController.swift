@@ -105,6 +105,10 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         }
     }
     
+    func paymentMethodDidChange(_ paymentMethod: STPPaymentMethod) {
+        creditCardButton.setTitle(paymentMethod.label, for: .normal)
+    }
+    
     func paymentDidComplete(with paymentResult: PaymentResult) {
         switch paymentResult {
         case .success:
@@ -168,7 +172,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func test(_ sender: UIButton) {
+    @IBAction func didTapCreditCard(_ sender: UIButton) {
         viewModel.pushPaymentMethodsViewController()
     }
 }

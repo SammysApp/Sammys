@@ -34,6 +34,7 @@ protocol BagViewModelDelegate {
     func didSelect(food: Food)
     func delete(indexPaths: [IndexPath])
     func delete(sections: IndexSet)
+    func paymentMethodDidChange(_ paymentMethod: STPPaymentMethod)
     func paymentDidComplete(with paymentResult: PaymentResult)
 }
 
@@ -43,9 +44,7 @@ enum PaymentResult {
 }
 
 class BagViewModel: NSObject {
-    private struct Constants {
-        
-    }
+    private struct Constants { }
     
     var user: User? {
         return UserDataStore.shared.user
@@ -145,28 +144,32 @@ class BagViewModel: NSObject {
         return cellViewModels(in: indexPath.section)[indexPath.row]
     }
     
-    func indexPath(for food: Food) -> IndexPath? {
-        var indexPath: IndexPath?
+    private var indexPathGroups: [(section: Int, cellViewModelFoodGroup: CellViewModelFoodGroup, indexPaths: [IndexPath])] {
+        var indexPathGroups = [(Int, CellViewModelFoodGroup, [IndexPath])]()
         sections.enumerated().forEach { sectionIndex, section in
-            section.cellViewModelFoodGroups.enumerated().forEach { rowIndex, group in
-                if group.food.isEqual(food) {
-                    indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-                }
+            section.cellViewModelFoodGroups.enumerated().forEach { groupIndex, group in
+                let indexPaths = group.cellViewModels.enumerated().map { IndexPath(row: groupIndex + $0.offset, section: sectionIndex) }
+                indexPathGroups.append((sectionIndex, group, indexPaths))
             }
         }
-        return indexPath
+        return indexPathGroups
+    }
+    
+    func food(for indexPath: IndexPath) -> Food? {
+        return indexPathGroups.first(where: { $0.indexPaths.contains(indexPath) })?.cellViewModelFoodGroup.food
     }
     
     func remove(_ food: Food) {
-        guard let indexPath = self.indexPath(for: food) else { return }
+        guard let indexPathGroup = self.indexPathGroups.first(where: { $0.cellViewModelFoodGroup.food.isEqual(food) }) else { return }
         data.remove(food) { didRemoveSection in
-            if didRemoveSection { self.delegate?.delete(sections: [indexPath.section]) }
-            else { self.delegate?.delete(indexPaths: [indexPath]) }
+            if didRemoveSection { self.delegate?.delete(sections: [indexPathGroup.section]) }
+            else { self.delegate?.delete(indexPaths: indexPathGroup.indexPaths) }
         }
     }
     
     func removeFood(at indexPath: IndexPath) {
-        remove(sections[indexPath.section].cellViewModelFoodGroups[indexPath.row].food)
+        guard let food = food(for: indexPath) else { return }
+        remove(food)
     }
     
     func changeQuantity(_ quantity: Quantity, for food: Food) {
@@ -239,7 +242,8 @@ extension BagViewModel: STPPaymentContextDelegate {
     }
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-//        guard let label = paymentContext.selectedPaymentMethod?.label else { return }
+        guard let paymentMethod = paymentContext.selectedPaymentMethod else { return }
+        delegate?.paymentMethodDidChange(paymentMethod)
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
