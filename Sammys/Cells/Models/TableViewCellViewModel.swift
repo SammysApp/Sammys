@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct TableViewCellViewModel {
-    let identifier: String
-    let height: CGFloat
-    let commands: [TableViewCommandActionKey: TableViewCellCommand]
+protocol TableViewCellViewModel {
+    var identifier: String { get }
+    var height: CGFloat { get }
+    var commands: [TableViewCommandActionKey: TableViewCellCommand] { get }
 }

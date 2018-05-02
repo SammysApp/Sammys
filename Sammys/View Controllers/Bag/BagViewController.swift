@@ -84,7 +84,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func delete(at indexPath: IndexPath) {
-        viewModel.removeFood(at: indexPath)
+        viewModel.remove(at: indexPath)
     }
     
     func clearBag() {

@@ -8,6 +8,13 @@
 
 import UIKit
 
+struct FoodOrderTableViewCellViewModel: TableViewCellViewModel {
+    let food: Food
+    let identifier: String
+    let height: CGFloat
+    let commands: [TableViewCommandActionKey : TableViewCellCommand]
+}
+
 enum FoodOrderCellIdentifier: String {
     case foodCell
 }
@@ -17,6 +24,6 @@ struct FoodOrderTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     let height: CGFloat
     
     func create() -> TableViewCellViewModel {
-        return TableViewCellViewModel(identifier: FoodOrderCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration: FoodOrderTableViewCellConfigurationCommand(food: food)])
+        return FoodOrderTableViewCellViewModel(food: food, identifier: FoodOrderCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration: FoodOrderTableViewCellConfigurationCommand(food: food)])
     }
 }
