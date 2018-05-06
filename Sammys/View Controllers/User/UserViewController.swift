@@ -7,16 +7,12 @@
 //
 
 import UIKit
-import Stripe
 
 /// The user's 👩🏻 information and settings.
 class UserViewController: UIViewController, Storyboardable {
     typealias ViewController = UserViewController
     
     let viewModel = UserViewModel()
-    
-    /// Indicates whether the user canceled logging in.
-    var didCancelLogin = false
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var tableView: UITableView!
@@ -32,23 +28,21 @@ class UserViewController: UIViewController, Storyboardable {
         super.viewDidAppear(animated)
         
         // Prompt to login if needed.
-        if viewModel.needsUser && !didCancelLogin {
+        if viewModel.needsUser {
             presentLoginPageViewController()
-        }
-        
-        // Dismiss if returning from canceled login.
-        if didCancelLogin {
-            dismiss(animated: true, completion: nil)
         }
     }
     // MARK: -
     
     func presentLoginPageViewController() {
-        let loginPageViewController = LoginPageViewController.storyboardInstance()
-        present(loginPageViewController, animated: true, completion: nil)
+        present(LoginPageViewController.storyboardInstance(), animated: true, completion: nil)
     }
 
     // MARK: - IBActions
+    @IBAction func didTapSettings(_ sender: UIBarButtonItem) {
+        navigationController?.pushViewController(UserSettingsViewController.storyboardInstance(), animated: true)
+    }
+    
     @IBAction func didTapDone(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -65,42 +59,24 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.item(for: indexPath)!
-        
-        switch item.key {
-        case .name:
-            let nameItem = item as! NameUserItem
-            let nameCell = cell(for: nameItem)!
-            nameCell.detailTextLabel?.text = nameItem.name
-            return nameCell
-        case .email:
-            let emailItem = item as! EmailUserItem
-            let emailCell = cell(for: emailItem)!
-            emailCell.detailTextLabel?.text = emailItem.email
-            return emailCell
-        default: return cell(for: item)!
-        }
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier) else { fatalError() }
+        cellViewModel.commands[.configuration]?.perform(cell: cell)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.sectionTitle(for: section)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = viewModel.item(for: indexPath)!
-        
-        switch item.key {
-        case .orders:
-            let ordersViewController = OrdersViewController.storyboardInstance()
-            navigationController?.pushViewController(ordersViewController, animated: true)
-        case .logOut:
-            let logOutItem = item as! LogOutUserItem
-            logOutItem.didSelect()
-        default: break
-        }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(cell: cell)
     }
     
-    func cell(for item: UserItem) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: item.cellIdentifier)
-        cell?.textLabel?.text = item.title
-        return cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return viewModel.cellViewModel(for: indexPath).height
     }
 }
 
@@ -113,5 +89,13 @@ extension UserViewController: UserViewModelDelegate {
                 self.presentLoginPageViewController()
             }
         }
+    }
+    
+    var didSelectOrders: () -> Void {
+        return { self.navigationController?.pushViewController(OrdersViewController.storyboardInstance(), animated: true) }
+    }
+    
+    var didSelectLogOut: () -> Void {
+        return { UserAPIClient.signOut() }
     }
 }

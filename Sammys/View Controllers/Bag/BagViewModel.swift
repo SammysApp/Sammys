@@ -9,7 +9,7 @@
 import Foundation
 import Stripe
 
-struct BagSection {
+private struct BagSection {
     let title: String?
     let cellViewModels: [TableViewCellViewModel]
     

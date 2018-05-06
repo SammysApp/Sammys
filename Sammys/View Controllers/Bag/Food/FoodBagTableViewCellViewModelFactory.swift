@@ -15,7 +15,7 @@ struct FoodBagTableViewCellViewModel: TableViewCellViewModel {
     let commands: [TableViewCommandActionKey : TableViewCellCommand]
 }
 
-enum FoodBagTableViewCellIdentifier: String {
+enum FoodBagCellIdentifier: String {
     case foodCell
 }
 
@@ -37,6 +37,6 @@ struct FoodBagTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     func create() -> TableViewCellViewModel {
         let configurationCommand = FoodBagTableViewCellConfigurationCommand(food: food, didEdit: didEdit, didSelectQuantity: didSelectQuantity)
         let selectionCommand = FoodBagTableViewCellSelectionCommand(food: food, didSelect: didSelect)
-        return FoodBagTableViewCellViewModel(food: food, identifier: FoodBagTableViewCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration : configurationCommand, .selection: selectionCommand])
+        return FoodBagTableViewCellViewModel(food: food, identifier: FoodBagCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration : configurationCommand, .selection: selectionCommand])
     }
 }

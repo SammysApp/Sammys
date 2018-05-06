@@ -12,22 +12,18 @@ import UIKit
 class HomeViewController: UIViewController, Storyboardable {
     typealias ViewController = HomeViewController
     
-    let viewModel = HomeViewModel()
+    var viewModel: HomeViewModel!
     
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var noFavesView: UIView!
     
-    private struct Constants {
-        static let cellCornerRadius: CGFloat = 20
-    }
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.delegate = self
-        addNoFavesView()
+        viewModel = HomeViewModel(contextBounds: view.bounds, self)
+        setupNoFavesView()
         noFavesView.isHidden = true
     }
     
@@ -37,7 +33,7 @@ class HomeViewController: UIViewController, Storyboardable {
         navigationController?.isNavigationBarHidden = true
     }
     
-    func addNoFavesView() {
+    func setupNoFavesView() {
         view.addSubview(noFavesView)
         noFavesView.backgroundColor = .snow
         noFavesView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,22 +45,32 @@ class HomeViewController: UIViewController, Storyboardable {
         ])
     }
     
+    func updateNoFavesViewIsHidden() {
+        if viewModel.viewKey == .faves && viewModel.isNoItems {
+            noFavesView.isHidden = false
+        } else {
+            noFavesView.isHidden = true
+        }
+    }
+    
+    func pushFoodViewController(with food: Food) {
+        guard let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController else { return }
+        foodViewController.viewModel = FoodViewModel(food: food)
+        foodViewController.didGoBack = { foodViewController in
+            // Override favorite with any new additions to the food.
+            self.viewModel.setFavorite(food)
+            self.collectionView.reloadData()
+        }
+        navigationController?.pushViewController(foodViewController, animated: true)
+    }
+    
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
-        let userViewController = UserViewController.storyboardInstance()
-        present(userViewController, animated: true, completion: nil)
+        present(UserViewController.storyboardInstance(), animated: true, completion: nil)
     }
     
     @IBAction func didTapFaves(_ sender: UIButton) {
-        viewModel.toggleFaves()
-        viewModel.getItems() {
-            self.collectionView.reloadData()
-            if self.viewModel.viewKey == .faves && self.viewModel.isItemsEmpty {
-                self.noFavesView.isHidden = false
-            } else {
-                self.noFavesView.isHidden = true
-            }
-        }
+        viewModel.toggleFavesView()
     }
     
     @IBAction func didTapBag(_ sender: UIButton) {
@@ -83,47 +89,39 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = viewModel.item(for: indexPath)
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.cellIdentifier.rawValue, for: indexPath) as! ItemsCollectionViewCell
-        cell.itemsLabel.text = item.title
-        cell.layer.cornerRadius = Constants.cellCornerRadius
-        
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
+        cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = viewModel.item(for: indexPath)
-        if item.key == .food {
-            navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
-        } else if item.key == .fave {
-            let faveItem = item as! FaveHomeItem
-            if let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController {
-                foodViewController.viewModel = FoodViewModel(food: faveItem.food)
-                foodViewController.didGoBack = { foodViewController in
-                    self.viewModel.setFavorite(faveItem.food)
-                    self.collectionView.reloadData()
-                }
-                navigationController?.pushViewController(foodViewController, animated: true)
-            }
-        }
+        viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CommandParameters())
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = viewModel.item(for: indexPath)
-        switch item.key {
-        case .food:
-            return CGSize(width: collectionView.frame.width - 20, height: 200)
-        case .fave:
-            let size = (collectionView.frame.width / 2) - 15
-            return CGSize(width: size, height: size)
-        }
+        return viewModel.cellViewModel(for: indexPath).size
     }
 }
 
 // MARK: - View Model Delegate
 extension HomeViewController: HomeViewModelDelegate {
-    var favoritesDidChange: () -> Void {
-        return { self.collectionView.reloadData() }
+    var collectionViewDataDidChange: () -> Void {
+        return {
+            self.collectionView.reloadData()
+            self.updateNoFavesViewIsHidden()
+        }
+    }
+    
+    var didSelectFood: () -> Void {
+        return {
+            self.navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
+        }
+    }
+    
+    var didSelectFavorite: (Food) -> Void {
+        return {
+            self.pushFoodViewController(with: $0)
+        }
     }
 }

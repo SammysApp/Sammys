@@ -6,31 +6,17 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// A type that represents the state of the home view.
 enum HomeViewKey {
     case foods, faves
 }
 
-/// A type the represents the type of home cell item.
-enum HomeItemKey {
-    case food, fave
-}
-
-enum HomeCellIdentifier: String {
-    case itemsCell
-}
-
 protocol HomeViewModelDelegate {
-    var favoritesDidChange: () -> Void { get }
-}
-
-/// A home cell item.
-protocol HomeItem {
-    var key: HomeItemKey { get }
-    var cellIdentifier: HomeCellIdentifier { get }
-    var title: String { get }
+    var collectionViewDataDidChange: () -> Void { get }
+    var didSelectFood: () -> Void { get }
+    var didSelectFavorite: (Food) -> Void { get }
 }
 
 /// A home section in the home view.
@@ -38,8 +24,13 @@ struct HomeSection {
     /// The tile of the section.
     let title: String?
     
-    /// The items in the section.
-    let items: [HomeItem]
+    /// The cell view models in the section.
+    let cellViewModels: [CollectionViewCellViewModel]
+    
+    init(title: String? = nil, cellViewModels: [CollectionViewCellViewModel]) {
+        self.title = title
+        self.cellViewModels = cellViewModels
+    }
 }
 
 class HomeViewModel {
@@ -57,85 +48,108 @@ class HomeViewModel {
     
     let id = UUID().uuidString
     
-    var isItemsEmpty: Bool {
-        return sections.isEmpty
-    }
+    let contextBounds: CGRect
     
     var numberOfSections: Int {
         return sections.count
     }
     
-    init(_ delegate: HomeViewModelDelegate? = nil) {
-        getItems()
+    var isNoItems: Bool {
+        return sections.isEmpty
+    }
+    
+    init(contextBounds: CGRect, _ delegate: HomeViewModelDelegate? = nil) {
+        self.contextBounds = contextBounds
+        self.delegate = delegate
         UserAPIClient.addObserver(self)
+        setSectionsWithFood()
     }
     
-    /// Gets the items for the current view state and calls `completed` closure upon finishing.
-    func getItems(completed: (() -> Void)? = nil) {
-        getItems(for: viewKey, completed: completed)
-    }
-    
-    /// Gets the appropriate items for the given view key. Calls `completed` closure upon finishing.
-    private func getItems(for viewKey: HomeViewKey, completed: (() -> Void)? = nil) {
-        switch viewKey {
-        case .foods:
-            let section = HomeSection(title: nil, items: [FoodHomeItem(title: FoodType.salad.title)])
-            sections = [section]
-            completed?()
-        case .faves:
-            // Only allow to display faves if there's a signed in user.
-            guard let user = user else { return }
-            if !user.favorites.isEmpty {
-                setSections(for: user.favorites)
-                completed?()
-            } else {
-                UserAPIClient.fetchFavorites(for: user) { result in
-                    switch result {
-                    case .success(let favorites):
-                        self.setSections(for: favorites)
-                    case .failure:
-                        self.sections = []
-                    }
-                    completed?()
-                }
-            }
-        }
+    private func setSectionsWithFood() {
+        sections = [
+            HomeSection(cellViewModels: [
+                FoodHomeCollectionViewCellViewModelFactory(
+                    size: cellSize(for: .foods),
+                    titleText: FoodType.salad.title,
+                    selectionCommand: FoodHomeCollectionViewCellSelectionCommand(didSelect: { self.delegate?.didSelectFood() })).create()
+            ])
+        ]
     }
     
     private func setSections(for favorites: [FavoriteGroup]) {
         var sections = [HomeSection]()
         for favoriteGroup in favorites {
-            var items = [HomeItem]()
-            for food in favoriteGroup.favorites {
-                items.append(FaveHomeItem(food: food))
-            }
-            sections.append(HomeSection(title: favoriteGroup.foodType.title, items: items))
+            sections.append(HomeSection(
+                title: favoriteGroup.foodType.title,
+                cellViewModels: favoriteGroup.favorites.map { food in FoodHomeCollectionViewCellViewModelFactory(
+                    size: cellSize(for: .faves),
+                    titleText: food.title,
+                    selectionCommand: FoodHomeCollectionViewCellSelectionCommand(didSelect: { self.delegate?.didSelectFavorite(food) })).create() }))
         }
         self.sections = sections
     }
     
-    func numberOfItems(in section: Int) -> Int {
-        return sections[section].items.count
+    private func setupFaves() {
+        // Only allow to display faves if there's a signed in user.
+        guard let user = user else { return }
+        if !user.favorites.isEmpty {
+            setSections(for: user.favorites)
+            delegate?.collectionViewDataDidChange()
+        } else {
+            UserAPIClient.fetchFavorites(for: user) { result in
+                switch result {
+                case .success(let favorites):
+                    self.setSections(for: favorites)
+                case .failure:
+                    self.sections = []
+                }
+                self.delegate?.collectionViewDataDidChange()
+            }
+        }
     }
     
-    func item(for indexPath: IndexPath) -> HomeItem {
-        return sections[indexPath.section].items[indexPath.row]
+    func numberOfItems(in section: Int) -> Int {
+        return sections[section].cellViewModels.count
+    }
+    
+    func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
+        return sections[indexPath.section].cellViewModels[indexPath.row]
     }
     
     func title(for section: Int) -> String? {
         return sections[section].title
     }
     
-    func toggleFaves() {
-        if viewKey != .faves {
-            viewKey = .faves
+    private func cellSize(for viewKey: HomeViewKey) -> CGSize {
+        switch viewKey {
+        case .foods: return CGSize(width: contextBounds.width - 20, height: 200)
+        case .faves:
+            let size = (contextBounds.width / 2) - 15
+            return CGSize(width: size, height: size)
+        }
+    }
+    
+    func setupView(for viewKey: HomeViewKey) {
+        self.viewKey = viewKey
+        switch viewKey {
+        case .foods:
+            setSectionsWithFood()
+            delegate?.collectionViewDataDidChange()
+        case .faves: setupFaves()
+        }
+    }
+    
+    func toggleFavesView() {
+        if viewKey == .faves {
+            setupView(for: .foods)
         } else {
-            viewKey = .foods
+            setupView(for: .faves)
         }
     }
     
     func setFavorite(_ food: Food) {
-        UserAPIClient.set(food as! Salad, for: user!)
+        guard let user = user else { return }
+        UserAPIClient.set(food as! Salad, for: user)
     }
 }
 
@@ -144,23 +158,8 @@ extension HomeViewModel: UserAPIObserver {
         return { favorites in
             if self.viewKey == .faves {
                 self.setSections(for: favorites)
-                self.delegate?.favoritesDidChange()
+                self.delegate?.collectionViewDataDidChange()
             }
         }
     }
-}
-
-struct FoodHomeItem: HomeItem {
-    let key: HomeItemKey = .food
-    let cellIdentifier: HomeCellIdentifier = .itemsCell
-    let title: String
-}
-
-struct FaveHomeItem: HomeItem {
-    let key: HomeItemKey = .fave
-    let cellIdentifier: HomeCellIdentifier = .itemsCell
-    var title: String {
-        return food.title
-    }
-    let food: Food
 }

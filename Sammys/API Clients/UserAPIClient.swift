@@ -190,6 +190,32 @@ struct UserAPIClient {
         }
     }
     
+    static func updateCurrentUserName(_ name: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let profileChangeRequest = currentUser.createProfileChangeRequest()
+        profileChangeRequest.displayName = name
+        profileChangeRequest.commitChanges { error in
+            self.setupCurrentUser(currentUser)
+            completed?(error)
+        }
+    }
+    
+    static func updateCurrentUserEmail(_ email: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        currentUser.updateEmail(to: email) { error in
+            self.setupCurrentUser(currentUser)
+            completed?(error)
+        }
+    }
+    
+    static func updateCurrentUserPassword(_ password: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        currentUser.updatePassword(to: password) { error in
+            self.setupCurrentUser(currentUser)
+            completed?(error)
+        }
+    }
+    
     /**
      Signs in user with the provided information and calls `completed` upon completion.
      - Parameter email: The user's email.

@@ -15,10 +15,12 @@ struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? FoodBagTableViewCell else { return }
-        switch food {
-        case let salad as Salad:
+        let foodType = type(of: food).type
+        
+        switch foodType {
+        case .salad:
+            let salad = food as! Salad
             cell.titleLabel.text = "\(salad.size!.name) Salad"
-        default: break
         }
         
         cell.descriptionLabel.text = food.itemDescription

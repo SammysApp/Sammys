@@ -72,7 +72,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func delete(sections: IndexSet) {
-        tableView.deleteSections(sections, with: .fade)
+        tableView.deleteSections(sections, with: .automatic)
         updateUI()
         viewModel.updatePaymentPrice()
     }

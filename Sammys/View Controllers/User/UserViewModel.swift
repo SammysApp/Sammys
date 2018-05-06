@@ -9,38 +9,24 @@
 import Foundation
 import Stripe
 
-/// A type that represents the type of user cell item.
-enum UserItemKey {
-    case name, email, orders, logOut
-}
-
-/// A user cell item.
-protocol UserItem {
-    var key: UserItemKey { get }
-    var cellIdentifier: String { get }
-    var title: String { get }
-}
-
-enum UserItemCellIdentifier: String {
-    case cell, buttonCell
-}
-
 protocol UserViewModelDelegate {
     /// Called by delegate if user changed.
     var userDidChange: () -> Void { get }
+    var didSelectOrders: () -> Void { get }
+    var didSelectLogOut: () -> Void { get }
 }
 
 /// A section in the user view.
-struct UserSection {
+private struct UserSection {
     /// The tile of the section.
     let title: String?
     
-    /// The items in the section.
-    let items: [UserItem]
+    /// The cell view models in the section.
+    let cellViewModels: [TableViewCellViewModel]
     
-    init(title: String? = nil, items: [UserItem]) {
+    init(title: String? = nil, cellViewModels: [TableViewCellViewModel]) {
         self.title = title
-        self.items = items
+        self.cellViewModels = cellViewModels
     }
 }
 
@@ -53,20 +39,18 @@ class UserViewModel {
     }
     
     /// The sections to populate the user view with.
-    var sections: [UserSection] {
-        var sections = [UserSection]()
-        guard let user = user else { return sections }
-        sections.append(UserSection(items: [
-            NameUserItem(name: user.name),
-            EmailUserItem(email: user.email)
-        ]))
-        sections.append(UserSection(items: [
-            OrdersUserItem()
-        ]))
-        sections.append(UserSection(items: [
-            LogOutUserItem()
-        ]))
-        return sections
+    private var sections: [UserSection] {
+        guard let user = user else { return [] }
+        return [
+            UserSection(title: "My Info", cellViewModels: [
+                DetailTableViewCellViewModelFactory(height: 60, titleText: "Name", detailText: user.name).create(),
+                DetailTableViewCellViewModelFactory(height: 60, titleText: "Email", detailText: user.email).create()
+            ]),
+            UserSection(cellViewModels: [
+                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "My Orders", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectOrders() })).create(),
+                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "Log Out", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectLogOut() })).create()
+            ])
+        ]
     }
     
     var needsUser: Bool {
@@ -82,12 +66,15 @@ class UserViewModel {
     }
     
     func numberOfRows(in section: Int) -> Int {
-        return sections[section].items.count
+        return sections[section].cellViewModels.count
     }
     
-    func item(for indexPath: IndexPath) -> UserItem? {
-        let userItems = sections[indexPath.section].items
-        return userItems[indexPath.row]
+    func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
+        return sections[indexPath.section].cellViewModels[indexPath.row]
+    }
+    
+    func sectionTitle(for section: Int) -> String? {
+        return sections[section].title
     }
 }
 
@@ -95,33 +82,4 @@ extension UserViewModel: UserAPIObserver {
     var userStateDidChange: ((UserState) -> Void)? { return { _ in
         self.delegate?.userDidChange()
     }}
-}
-
-struct NameUserItem: UserItem {
-    let key: UserItemKey = .name
-    let cellIdentifier = UserItemCellIdentifier.cell.rawValue
-    let title = "Name"
-    let name: String
-}
-
-struct EmailUserItem: UserItem {
-    let key: UserItemKey = .email
-    let cellIdentifier = UserItemCellIdentifier.cell.rawValue
-    let title = "Email"
-    let email: String
-}
-
-struct OrdersUserItem: UserItem {
-    let key: UserItemKey = .orders
-    let cellIdentifier = UserItemCellIdentifier.buttonCell.rawValue
-    let title = "My Orders"
-}
-
-struct LogOutUserItem: UserItem {
-    let key: UserItemKey = .logOut
-    let cellIdentifier = UserItemCellIdentifier.buttonCell.rawValue
-    let title = "Log Out"
-    let didSelect: () -> Void = {
-        UserAPIClient.signOut()
-    }
 }

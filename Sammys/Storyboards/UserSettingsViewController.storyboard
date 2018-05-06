@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Nd-SU-r91">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--User Settings View Controller-->
+        <scene sceneID="uOb-ZK-ERA">
+            <objects>
+                <viewController id="8Nd-SU-r91" customClass="UserSettingsViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zsH-JO-lGD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rF7-ai-tOf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="textFieldCell" id="eFh-Kx-6HK" customClass="TextFieldTableViewCell" customModule="Sammys" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eFh-Kx-6HK" id="EHV-HT-gdz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbM-Ug-7Fo">
+                                                    <rect key="frame" x="15" y="0.0" width="360" height="44"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingDidChange:" destination="eFh-Kx-6HK" eventType="editingChanged" id="AwP-TG-lNC"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xbM-Ug-7Fo" firstAttribute="top" secondItem="EHV-HT-gdz" secondAttribute="top" id="TjI-ta-n0m"/>
+                                                <constraint firstAttribute="trailing" secondItem="xbM-Ug-7Fo" secondAttribute="trailing" id="ZZF-eP-igt"/>
+                                                <constraint firstItem="xbM-Ug-7Fo" firstAttribute="leading" secondItem="EHV-HT-gdz" secondAttribute="leading" constant="15" id="g0F-hG-aVu"/>
+                                                <constraint firstAttribute="bottom" secondItem="xbM-Ug-7Fo" secondAttribute="bottom" id="wDQ-d5-QUj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="xbM-Ug-7Fo" id="0Lv-C8-QcX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8Nd-SU-r91" id="cRo-X6-BNl"/>
+                                    <outlet property="delegate" destination="8Nd-SU-r91" id="FZS-JT-uKR"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rF7-ai-tOf" firstAttribute="top" secondItem="zsH-JO-lGD" secondAttribute="top" id="8Ts-QA-cz2"/>
+                            <constraint firstItem="rF7-ai-tOf" firstAttribute="bottom" secondItem="BtM-KY-UcF" secondAttribute="bottom" id="nE1-i6-ma2"/>
+                            <constraint firstItem="rF7-ai-tOf" firstAttribute="leading" secondItem="zsH-JO-lGD" secondAttribute="leading" id="rgG-Bl-CpI"/>
+                            <constraint firstAttribute="trailing" secondItem="rF7-ai-tOf" secondAttribute="trailing" id="y09-4f-SrA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BtM-KY-UcF"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="rF7-ai-tOf" id="Mej-b8-Ng8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Qp-Ai-lVe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="151.57421289355324"/>
+        </scene>
+    </scenes>
+</document>
