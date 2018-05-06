@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -126,6 +126,19 @@
                                     <action selector="didTapPrice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3UW-Ys-SZL"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2q-fC-6Lk" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="157" y="318" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1kA-mo-BXM"/>
+                                    <constraint firstAttribute="width" constant="100" id="XaZ-Hu-Ed9"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScaleMultiple"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
@@ -140,6 +153,7 @@
                             <constraint firstItem="PBr-ep-ATo" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Riv-o3-FfR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
+                            <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="VZb-FJ-ygy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CoT-jF-u6a" secondAttribute="trailing" id="ahN-HT-6z0"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bNd-uz-DVx"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="cVF-ii-KqY"/>
@@ -150,11 +164,13 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="16" id="mKt-LU-UZU"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="qel-MI-6JP"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="tz4-Yr-ByX"/>
+                            <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wn0-wd-v6Q"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZa-iZ-c45"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="a2q-fC-6Lk" id="47O-4X-0gc"/>
                         <outlet property="backButton" destination="tAz-oX-kCZ" id="eMq-Ua-dty"/>
                         <outlet property="collectionView" destination="SoD-Da-FXx" id="v3K-8j-Wkb"/>
                         <outlet property="itemLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>

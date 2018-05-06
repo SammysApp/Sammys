@@ -50,6 +50,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
   - Stripe (12.1.2)
 
 DEPENDENCIES:
@@ -58,6 +61,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - NVActivityIndicatorView
   - Stripe
 
 SPEC CHECKSUMS:
@@ -73,8 +77,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
 
-PODFILE CHECKSUM: 87a00236b1155b3618b02b95e467bf846706f4ec
+PODFILE CHECKSUM: 1f17fd9f663a25a510458218c0ed1c2c327f9698
 
 COCOAPODS: 1.4.0

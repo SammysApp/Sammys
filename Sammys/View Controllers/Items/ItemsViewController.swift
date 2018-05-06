@@ -7,10 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboardable {
-    typealias ViewController = ItemsViewController
-    
+class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     private var viewModel = ItemsViewModel()
 
     var currentItemIndex = 0 {
@@ -38,6 +37,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var priceButton: UIButton!
+    @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
     
     let flowCollectionViewLayout = UICollectionViewFlowLayout()
     let layout = AnimatedCollectionViewLayout()
@@ -50,14 +50,25 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
         static let next = "Next"
         static let done = "Done"
         static let review = "Review"
+        static let backAlertTitle = "You sure? 🤨"
+        static let backAlertMessage = "Going back now will disregard any of your hard work!"
     }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up for loading food data.
+        activityIndicatorView.color = UIColor(named: "Mocha")!
+        activityIndicatorView.startAnimating()
+        itemStackView.isHidden = true
+        itemTypeLabel.isHidden = true
+        
         viewModel.delegate = self
         viewModel.setData {
+            self.activityIndicatorView.stopAnimating()
+            self.itemStackView.isHidden = false
+            self.itemTypeLabel.isHidden = false
             self.collectionView.reloadData()
             self.updateUI()
         }
@@ -69,7 +80,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
         layout.animator = animator
         layout.scrollDirection = .horizontal
         
-        // Set selected to true if editing (otherwise can't go back).
+        // Set selected to true if editing (otherwise can't tap next).
         hasSelectedOnce = isEditingFood
         
         updateUI()
@@ -164,6 +175,17 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
         }
     }
     
+    func presentBackAlertController(didChooseBack: @escaping () -> Void) {
+        let checkoutAlertController = UIAlertController(title: Constants.backAlertTitle, message: Constants.backAlertMessage, preferredStyle: .alert)
+        [UIAlertAction(title: "All Good", style: .default, handler: { action in
+            didChooseBack()
+        }),
+        UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            checkoutAlertController.dismiss(animated: true, completion: nil)
+        })].forEach { checkoutAlertController.addAction($0) }
+        present(checkoutAlertController, animated: true, completion: nil)
+    }
+    
     func didSelectItem(at index: Int) {
         viewModel.toggleItem(at: index)
         currentItemIndex = index
@@ -205,7 +227,13 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate, Storyboarda
     
     @IBAction func didTapBack(_ sender: UIButton) {
         if viewModel.atFirstChoice {
-            navigationController?.popViewController(animated: true)
+            if hasSelectedOnce {
+                presentBackAlertController {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
+                navigationController?.popViewController(animated: true)
+            }
         } else {
             viewModel.goToPreviousChoice()
         }
@@ -281,4 +309,8 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
             }
         }
     }
+}
+
+extension ItemsViewController: Storyboardable {
+    typealias ViewController = ItemsViewController
 }

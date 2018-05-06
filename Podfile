@@ -12,4 +12,6 @@ target 'Sammys' do
   pod 'Firebase/Storage'
   pod 'Alamofire'
   pod 'Stripe'
+  
+  pod 'NVActivityIndicatorView'
 end
