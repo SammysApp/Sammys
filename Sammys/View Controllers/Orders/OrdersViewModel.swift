@@ -9,7 +9,13 @@
 import UIKit
 
 class OrdersViewModel {
-    var orders = [Order]()
+    let contextBounds: CGRect
+    
+    private var orders = [Order]()
+    
+    private var cellViewModels: [CollectionViewCellViewModel] {
+        return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 100)).create() }
+    }
     
     var user: User? {
         return UserDataStore.shared.user
@@ -21,6 +27,10 @@ class OrdersViewModel {
     
     var numberOfRows: Int {
         return orders.count
+    }
+    
+    init(contextBounds: CGRect) {
+        self.contextBounds = contextBounds
     }
     
     func setData(completed: (() -> Void)? = nil) {
@@ -37,8 +47,8 @@ class OrdersViewModel {
         }
     }
     
-    func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
-        return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 100)).create() }
+    func cellViewModel(forRow row: Int) -> CollectionViewCellViewModel {
+        return cellViewModels[row]
     }
     
     func orderViewController(for indexPath: IndexPath) -> OrderViewController {

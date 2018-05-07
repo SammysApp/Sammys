@@ -190,6 +190,12 @@ struct UserAPIClient {
         }
     }
     
+    static func reauthenticate(withEmail email: String, password: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        currentUser.reauthenticate(with: credential, completion: completed)
+    }
+    
     static func updateCurrentUserName(_ name: String, completed: ((Error?) -> Void)? = nil) {
         guard let currentUser = Auth.auth().currentUser else { return }
         let profileChangeRequest = currentUser.createProfileChangeRequest()

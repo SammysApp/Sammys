@@ -69,17 +69,33 @@
                                     <outlet property="delegate" destination="TQc-da-FKI" id="XdC-Xs-MAt"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DyQ-me-9dK" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="137" y="356" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Ixg-L3-6lp"/>
+                                    <constraint firstAttribute="height" constant="100" id="RSk-mh-Der"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScaleMultiple"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="DyQ-me-9dK" firstAttribute="centerY" secondItem="W4r-KX-du5" secondAttribute="centerY" id="T4s-3I-Bj2"/>
                             <constraint firstAttribute="bottom" secondItem="gUR-Gg-qcK" secondAttribute="bottom" id="Vy8-2C-Nbd"/>
                             <constraint firstItem="gUR-Gg-qcK" firstAttribute="top" secondItem="W4r-KX-du5" secondAttribute="top" id="hXZ-F0-Lys"/>
+                            <constraint firstItem="DyQ-me-9dK" firstAttribute="centerX" secondItem="W4r-KX-du5" secondAttribute="centerX" id="hjR-qO-y7I"/>
                             <constraint firstItem="gUR-Gg-qcK" firstAttribute="leading" secondItem="W4r-KX-du5" secondAttribute="leading" id="mct-Gt-RmQ"/>
                             <constraint firstAttribute="trailing" secondItem="gUR-Gg-qcK" secondAttribute="trailing" id="pJa-Cu-QLM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9gH-B0-be5"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="DyQ-me-9dK" id="fsA-PS-d4T"/>
                         <outlet property="collectionView" destination="gUR-Gg-qcK" id="8jA-MB-QfT"/>
                     </connections>
                 </viewController>

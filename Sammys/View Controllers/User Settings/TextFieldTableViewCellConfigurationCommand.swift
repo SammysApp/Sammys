@@ -11,7 +11,7 @@ import UIKit
 struct TextFieldTableViewCellConfigurationCommand: TableViewCellCommand {
     let text: String
     let placeholder: String
-    let textDidChange: ((String) -> Void)
+    let textDidChange: ((String, UIActivityIndicatorView) -> Void)
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? TextFieldTableViewCell else { return }
@@ -19,7 +19,7 @@ struct TextFieldTableViewCellConfigurationCommand: TableViewCellCommand {
         cell.textField.placeholder = placeholder
         cell.textFieldTextDidChange = { text in
             cell.textField.text = text
-            self.textDidChange(text ?? "")
+            self.textDidChange(text ?? "", cell.activityIndicatorView)
         }
     }
 }

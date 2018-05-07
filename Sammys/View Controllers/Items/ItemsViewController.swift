@@ -37,7 +37,11 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var priceButton: UIButton!
-    @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
+    @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
+        didSet {
+            activityIndicatorView.color = UIColor(named: "Mocha")!
+        }
+    }
     
     let flowCollectionViewLayout = UICollectionViewFlowLayout()
     let layout = AnimatedCollectionViewLayout()
@@ -59,7 +63,6 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         super.viewDidLoad()
         
         // Set up for loading food data.
-        activityIndicatorView.color = UIColor(named: "Mocha")!
         activityIndicatorView.startAnimating()
         itemStackView.isHidden = true
         itemTypeLabel.isHidden = true

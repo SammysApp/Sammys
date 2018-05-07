@@ -18,6 +18,30 @@ class UserSettingsViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        presentReauthenticateAlertController()
+    }
+    
+    func presentReauthenticateAlertController(isAfterError: Bool = false) {
+        let reauthenticateAlertController = UIAlertController(title: isAfterError ? "Oops! Try Again" : nil, message: "Please login again to edit your information.", preferredStyle: .alert)
+        reauthenticateAlertController.addTextField { $0.placeholder = "Email" }
+        reauthenticateAlertController.addTextField { $0.placeholder = "Password" }
+        [UIAlertAction(title: "Login", style: .default) { action in
+            guard let email = reauthenticateAlertController.textFields?[0].text,
+                let password = reauthenticateAlertController.textFields?[1].text else { return }
+            self.viewModel.reauthenticate(withEmail: email, password: password) {
+                if $0 != nil { self.presentReauthenticateAlertController(isAfterError: true) }
+                else { reauthenticateAlertController.dismiss(animated: true, completion: nil) }
+            }
+        },
+        UIAlertAction(title: "Cancel", style: .cancel) { action in
+            self.navigationController?.popViewController(animated: true)
+        }].forEach { reauthenticateAlertController.addAction($0) }
+        present(reauthenticateAlertController, animated: true, completion: nil)
+    }
 }
 
 extension UserSettingsViewController: UITableViewDataSource, UITableViewDelegate {

@@ -12,6 +12,7 @@ class TextFieldTableViewCell: UITableViewCell {
     var textFieldTextDidChange: ((String?) -> Void)?
     
     @IBOutlet var textField: UITextField!
+    @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     
     @IBAction func textFieldEditingDidChange(_ sender: UITextField) {
         textFieldTextDidChange?(sender.text)

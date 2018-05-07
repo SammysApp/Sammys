@@ -30,8 +30,15 @@ class UserSettingsViewModel {
         guard let user = user else { return [] }
         return [
             UserSettingsSection(cellViewModels: [
-                TextFieldTableViewCellViewModelFactory(height: 60, text: user.name, placeholder: "Name") { UserAPIClient.updateCurrentUserName($0) }.create(),
-                TextFieldTableViewCellViewModelFactory(height: 60, text: user.email, placeholder: "Email") { UserAPIClient.updateCurrentUserEmail($0) }.create()
+                TextFieldTableViewCellViewModelFactory(height: 60, text: user.name, placeholder: "Name") { name, activityIndicatorView in
+                        // FIXME: Shouldn't be in view model
+                        activityIndicatorView.startAnimating()
+                        UserAPIClient.updateCurrentUserName(name) { error in activityIndicatorView.stopAnimating() }
+                    }.create(),
+                TextFieldTableViewCellViewModelFactory(height: 60, text: user.email, placeholder: "Email") { email, activityIndicatorView in
+                        activityIndicatorView.startAnimating()
+                        UserAPIClient.updateCurrentUserEmail(email) { error in activityIndicatorView.stopAnimating() }
+                    }.create()
             ])
         ]
     }
@@ -46,5 +53,9 @@ class UserSettingsViewModel {
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
         return sections[indexPath.section].cellViewModels[indexPath.row]
+    }
+    
+    func reauthenticate(withEmail email: String, password: String, completed: ((Error?) -> Void)? = nil) {
+        UserAPIClient.reauthenticate(withEmail: email, password: password, completed: completed)
     }
 }

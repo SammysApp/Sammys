@@ -65,7 +65,7 @@ class ItemsViewModel {
     }
     
     var priceButtonTitle: String {
-        return "$\(salad.price)"
+        return salad.price.priceString
     }
     
     var shouldHideItemLabel: Bool {

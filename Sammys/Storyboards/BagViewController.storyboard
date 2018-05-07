@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -32,7 +33,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Bl0-W7-oxS">
-                                                    <rect key="frame" x="103" y="11" width="83" height="100.5"/>
+                                                    <rect key="frame" x="103.5" y="21" width="205.5" height="90.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGS-5y-QFx">
                                                             <rect key="frame" x="0.0" y="0.0" width="46.5" height="29"/>
@@ -47,10 +48,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="nnX-7q-dLo">
-                                                            <rect key="frame" x="0.0" y="52.5" width="70" height="48"/>
+                                                            <rect key="frame" x="0.0" y="52.5" width="70" height="38"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Uv-EZ-ITm">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="48"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <state key="normal" title="Edit">
                                                                         <color key="titleColor" name="Mocha"/>
@@ -60,7 +61,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEf-05-bcO">
-                                                                    <rect key="frame" x="35" y="0.0" width="35" height="48"/>
+                                                                    <rect key="frame" x="35" y="0.0" width="35" height="38"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <state key="normal" title="Fave">
                                                                         <color key="titleColor" name="Mocha"/>
@@ -74,17 +75,18 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7W-Y9-Lcd">
-                                                    <rect key="frame" x="317" y="50" width="42.5" height="21.5"/>
+                                                    <rect key="frame" x="317" y="55" width="42.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3th-XY-wtv">
-                                                    <rect key="frame" x="15" y="21" width="80" height="80"/>
+                                                    <rect key="frame" x="15" y="26" width="80.5" height="80.5"/>
                                                     <color key="backgroundColor" name="Flora"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="80" id="HIE-Zi-UJq"/>
-                                                        <constraint firstAttribute="width" constant="80" id="lHL-L4-ZUU"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="3aP-7Y-LUw"/>
+                                                        <constraint firstAttribute="width" secondItem="3th-XY-wtv" secondAttribute="height" multiplier="1:1" id="5r7-Fy-gb7"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="Egc-Y6-eE3"/>
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aam-Xa-DFr">
@@ -138,16 +140,19 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Bl0-W7-oxS" firstAttribute="top" secondItem="Gm4-4L-j07" secondAttribute="topMargin" constant="10" id="A58-iV-jem"/>
                                                 <constraint firstItem="Bl0-W7-oxS" firstAttribute="centerY" secondItem="3th-XY-wtv" secondAttribute="centerY" id="EOK-D1-2FH"/>
                                                 <constraint firstItem="P7W-Y9-Lcd" firstAttribute="centerY" secondItem="Bl0-W7-oxS" secondAttribute="centerY" id="Eaz-1g-LiA"/>
+                                                <constraint firstItem="3th-XY-wtv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Bl0-W7-oxS" secondAttribute="top" constant="5" id="JiJ-Aw-pHI"/>
                                                 <constraint firstItem="Aam-Xa-DFr" firstAttribute="top" secondItem="Bl0-W7-oxS" secondAttribute="bottom" constant="8" symbolic="YES" id="L2J-GX-zsj"/>
-                                                <constraint firstItem="3th-XY-wtv" firstAttribute="top" secondItem="Gm4-4L-j07" secondAttribute="topMargin" constant="10" id="MuK-yY-GuW"/>
+                                                <constraint firstItem="3th-XY-wtv" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Bl0-W7-oxS" secondAttribute="bottom" constant="-5" id="Ldc-7u-XKV"/>
                                                 <constraint firstItem="Bl0-W7-oxS" firstAttribute="leading" secondItem="3th-XY-wtv" secondAttribute="trailing" constant="8" symbolic="YES" id="NCa-rD-6oY"/>
                                                 <constraint firstAttribute="trailing" secondItem="Aam-Xa-DFr" secondAttribute="trailing" id="PJ7-A3-v2o"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="P7W-Y9-Lcd" secondAttribute="trailing" id="VHR-rK-Q6k"/>
                                                 <constraint firstAttribute="bottom" secondItem="Aam-Xa-DFr" secondAttribute="bottom" id="aN9-GW-qQI"/>
                                                 <constraint firstItem="Aam-Xa-DFr" firstAttribute="leading" secondItem="Gm4-4L-j07" secondAttribute="leading" id="fO2-SP-RGy"/>
                                                 <constraint firstItem="3th-XY-wtv" firstAttribute="leading" secondItem="Gm4-4L-j07" secondAttribute="leadingMargin" id="nhs-Du-773"/>
+                                                <constraint firstItem="P7W-Y9-Lcd" firstAttribute="leading" secondItem="Bl0-W7-oxS" secondAttribute="trailing" constant="8" symbolic="YES" id="yzD-yL-lrj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
