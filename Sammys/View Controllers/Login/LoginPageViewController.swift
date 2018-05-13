@@ -23,15 +23,15 @@ class LoginPageViewController: UIViewController {
     
     var loginViewController: LoginViewController {
         let loginViewController = LoginViewController.storyboardInstance() as! LoginViewController
-        loginViewController.didCancel = {
+        loginViewController.viewModel.didCancel = {
             self.delegate?.loginPageViewControllerDidCancel(self)
             self.dismiss(animated: true, completion: nil)
         }
-        loginViewController.didLogin = {
+        loginViewController.viewModel.didLogin = {
             self.delegate?.loginPageViewControllerDidLogin(self)
             self.dismiss(animated: true, completion: nil)
         }
-        loginViewController.didTapSignUp = { self.goToNextViewController() }
+        loginViewController.viewModel.didTapSignUp = { self.goToNextViewController() }
         return loginViewController
     }
     

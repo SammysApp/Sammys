@@ -69,16 +69,25 @@
                                     <action selector="didTapCancel:" destination="ags-wa-tBO" eventType="touchUpInside" id="B0k-Gt-iDq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pq7-Dr-cOR">
+                                <rect key="frame" x="154" y="579" width="67" height="30"/>
+                                <state key="normal" title="Facebook"/>
+                                <connections>
+                                    <action selector="didTapFacebook:" destination="ags-wa-tBO" eventType="touchUpInside" id="cIc-0F-KaL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
                             <constraint firstItem="k4D-1n-Bme" firstAttribute="trailing" secondItem="M2k-Ig-3o0" secondAttribute="trailing" constant="20" id="5lS-7E-G0g"/>
+                            <constraint firstItem="Pq7-Dr-cOR" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="DeY-bk-eRD"/>
                             <constraint firstItem="Awp-4m-VKa" firstAttribute="trailing" secondItem="k4D-1n-Bme" secondAttribute="trailing" id="P39-NM-Arj"/>
                             <constraint firstItem="M2k-Ig-3o0" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="SFW-U1-xAr"/>
                             <constraint firstItem="EA7-HY-zN5" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="Y3q-9E-PoF"/>
                             <constraint firstItem="Awp-4m-VKa" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" id="bJ5-DJ-N8Y"/>
                             <constraint firstItem="k4D-1n-Bme" firstAttribute="bottom" secondItem="EA7-HY-zN5" secondAttribute="bottom" constant="20" id="dXl-8K-mb3"/>
                             <constraint firstItem="DrV-h4-Go4" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="mnX-Y5-DbH"/>
+                            <constraint firstItem="EA7-HY-zN5" firstAttribute="top" secondItem="Pq7-Dr-cOR" secondAttribute="bottom" constant="8" symbolic="YES" id="qFm-Su-QNE"/>
                             <constraint firstItem="M2k-Ig-3o0" firstAttribute="centerY" secondItem="Qzb-5X-yII" secondAttribute="centerY" id="rZV-d2-xqP"/>
                             <constraint firstItem="DrV-h4-Go4" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="re9-nA-hHq"/>
                             <constraint firstItem="Awp-4m-VKa" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="xMR-nZ-Frw"/>
@@ -88,6 +97,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="fxu-MA-ezH" id="Xbq-bk-kYo"/>
                         <outlet property="passwordTextField" destination="vfO-aK-GEE" id="9rF-eL-Ppz"/>
+                        <outlet property="signUpButton" destination="Vw0-KM-doR" id="B5Y-3Z-KnW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSN-sf-jzH" userLabel="First Responder" sceneMemberID="firstResponder"/>

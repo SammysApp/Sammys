@@ -10,6 +10,7 @@ import UIKit
 
 class UserSettingsViewController: UIViewController {
     let viewModel = UserSettingsViewModel()
+    var needsReauthentication = true
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -22,25 +23,20 @@ class UserSettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        presentReauthenticateAlertController()
+        if needsReauthentication {
+            presentLoginViewController()
+        }
     }
     
-    func presentReauthenticateAlertController(isAfterError: Bool = false) {
-        let reauthenticateAlertController = UIAlertController(title: isAfterError ? "Oops! Try Again" : nil, message: "Please login again to edit your information.", preferredStyle: .alert)
-        reauthenticateAlertController.addTextField { $0.placeholder = "Email" }
-        reauthenticateAlertController.addTextField { $0.placeholder = "Password" }
-        [UIAlertAction(title: "Login", style: .default) { action in
-            guard let email = reauthenticateAlertController.textFields?[0].text,
-                let password = reauthenticateAlertController.textFields?[1].text else { return }
-            self.viewModel.reauthenticate(withEmail: email, password: password) {
-                if $0 != nil { self.presentReauthenticateAlertController(isAfterError: true) }
-                else { reauthenticateAlertController.dismiss(animated: true, completion: nil) }
-            }
-        },
-        UIAlertAction(title: "Cancel", style: .cancel) { action in
-            self.navigationController?.popViewController(animated: true)
-        }].forEach { reauthenticateAlertController.addAction($0) }
-        present(reauthenticateAlertController, animated: true, completion: nil)
+    func presentLoginViewController() {
+        let loginViewController = LoginViewController.storyboardInstance() as! LoginViewController
+        loginViewController.viewModel.signUpIsHidden = true
+        loginViewController.viewModel.loginMethod = .reauthenticate
+        loginViewController.viewModel.didLogin = {
+            loginViewController.dismiss(animated: true, completion: nil)
+            self.needsReauthentication = false
+        }
+        present(loginViewController, animated: true, completion: nil)
     }
 }
 

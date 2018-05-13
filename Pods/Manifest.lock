@@ -1,5 +1,15 @@
 PODS:
   - Alamofire (4.7.1)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.31.1):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.31.1):
+    - FBSDKCoreKit
   - Firebase/Auth (4.11.0):
     - Firebase/Core
     - FirebaseAuth (= 4.5.0)
@@ -57,6 +67,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -66,6 +77,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
+  FBSDKLoginKit: 99797ac39252fef6f72600b886f6ee60b4b29cab
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseAuth: 147bf340a0706b44ca1753d6b41ebafd9687cfe6
@@ -80,6 +94,6 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
 
-PODFILE CHECKSUM: 1f17fd9f663a25a510458218c0ed1c2c327f9698
+PODFILE CHECKSUM: 77b6a2e129d3ab0f212acb72d683faef5a015b46
 
 COCOAPODS: 1.4.0

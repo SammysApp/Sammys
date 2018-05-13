@@ -71,46 +71,16 @@ struct UserAPIClient {
     }
     
     /**
-     A type returned by API.
-     - `success`: ended with success.
+     A type returned by the API.
+     - `success`: ended with success
+     - `failure`: ended with failure
      */
-    enum APIResult {
-        case success
-        case failure
-    }
-    
-    /**
-     A type returned by API for user related tasks.
-     - `success`: ended with success.
-     */
-    enum UserAPIResult {
-        case success(user: User)
-    }
-    
-    /**
-     A type returned by API for user favorites.
-     - `success`: ended with success.
-     */
-    enum FavoritesAPIResult {
-        case success([FavoriteGroup])
-        case failure
-    }
-    
-    /**
-     A type returned by API for customer ID.
-     - `success`: ended with success.
-     */
-    enum CustomerIDAPIResult {
-        case success(id: String)
+    enum APIResult<T> {
+        case success(T)
         case failure(Error)
     }
     
-    enum OrdersAPIResult {
-        case success(orders: [Order])
-        case failure(Error)
-    }
-    
-    enum UserAPIError: Error {
+    enum UserAPIClientError: Error {
         case doesNotExist
     }
     
@@ -124,14 +94,18 @@ struct UserAPIClient {
     }
     
     // MARK: - User 💁🏻‍♀️
+    private static func createUser(from user: FirebaseUser) -> User? {
+        guard let email = user.email, let name = user.displayName
+            else { return nil }
+        return User(id: user.uid, email: email, name: name)
+    }
+    
     /**
      Creates a new `User` object from a `FirebaseUser` one and sends object to observers.
      - Parameter user: A `FirebaseUser` object to be converted to a `User` one.
      */
     private static func setupCurrentUser(_ user: FirebaseUser, completed: ((User) -> Void)? = nil) {
-        guard let email = user.email, let name = user.displayName
-            else { return }
-        let currentUser = User(id: user.uid, email: email, name: name)
+        guard let currentUser = createUser(from: user) else { return }
         observers.forEach { $0.userStateDidChange?(.currentUser(currentUser)) }
         completed?(currentUser)
     }
@@ -160,7 +134,7 @@ struct UserAPIClient {
      - Parameter completed: A closure called once API completed attempting to create user. Default is `nil`.
      - Parameter result: The `APIResult` value the API completed with.
     */
-    static func createUser(with name: String, email: String, password: String, completed: ((_ result: UserAPIResult) -> Void)? = nil) {
+    static func createUser(with name: String, email: String, password: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
         // Create a user with `email` and `password`.
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             // If there was an error...
@@ -182,7 +156,7 @@ struct UserAPIClient {
                         // setup the user...
                         setupCurrentUser(user) { currentUser in
                             // ...and call closure with `success`.
-                            completed?(.success(user: currentUser))
+                            completed?(.success(currentUser))
                         }
                     }
                 }
@@ -190,9 +164,53 @@ struct UserAPIClient {
         }
     }
     
+    /**
+     Signs in user with the provided information and calls `completed` upon completion.
+     - Parameter email: The user's email.
+     - Parameter password: The user's password.
+     - Parameter completed: A closure called once API completed attempting to sign in user. Default is `nil`.
+     - Parameter result: The `APIResult` value the API completed with.
+    */
+    static func signIn(withEmail email: String, password: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
+        // Sign in user with `email` and `password`.
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            // If there was an error...
+            if let error = error {
+                printError(error)
+            }
+            // If successfully signed in user...
+            else {
+                guard let user = user,
+                    let currentUser = createUser(from: user) else { return }
+                // call closure with `success`.
+                completed?(.success(currentUser))
+            }
+        }
+    }
+    
+    static func signIn(withFacebookAccessToken accessToken: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+        Auth.auth().signIn(with: credential) { user, error in
+            if let error = error {
+                printError(error)
+            }
+            else {
+                guard let user = user,
+                    let currentUser = createUser(from: user) else { return }
+                completed?(.success(currentUser))
+            }
+        }
+    }
+    
     static func reauthenticate(withEmail email: String, password: String, completed: ((Error?) -> Void)? = nil) {
         guard let currentUser = Auth.auth().currentUser else { return }
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        currentUser.reauthenticate(with: credential, completion: completed)
+    }
+    
+    static func reauthenticate(withFacebookAccessToken accessToken: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
         currentUser.reauthenticate(with: credential, completion: completed)
     }
     
@@ -219,28 +237,6 @@ struct UserAPIClient {
         currentUser.updatePassword(to: password) { error in
             self.setupCurrentUser(currentUser)
             completed?(error)
-        }
-    }
-    
-    /**
-     Signs in user with the provided information and calls `completed` upon completion.
-     - Parameter email: The user's email.
-     - Parameter password: The user's password.
-     - Parameter completed: A closure called once API completed attempting to sign in user. Default is `nil`.
-     - Parameter result: The `APIResult` value the API completed with.
-    */
-    static func signIn(with email: String, password: String, completed: ((_ result: APIResult) -> Void)? = nil) {
-        // Sign in user with `email` and `password`.
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            // If there was an error...
-            if let error = error {
-                printError(error)
-            }
-            // If successfully signed in user...
-            else {
-                // call closure with `success`.
-                completed?(.success)
-            }
         }
     }
     
@@ -328,12 +324,12 @@ struct UserAPIClient {
      - Parameter completed: A closure to call once completed fetching favorites.
      - Parameter result: The `APIResult` value the API completed with.
     */
-    static func fetchFavorites(for user: User, completed: @escaping (_ result: FavoritesAPIResult) -> Void) {
+    static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult<[FavoriteGroup]>) -> Void) {
         // Commence single observation of the given user's favorites.
         favoritesReference(for: user.id).observeSingleEvent(of: .value) { (snapshot) in
             // If there's no data...
             if !snapshot.exists() {
-                completed(.failure)
+                completed(.failure(UserAPIClientError.doesNotExist))
                 observers.forEach { $0.favoritesValueDidChange?([]) }
             }
             // If returned data...
@@ -382,7 +378,7 @@ struct UserAPIClient {
         }
     }
     
-    static func fetchOrders(for user: User, completed: @escaping (_ result: OrdersAPIResult) -> Void) {
+    static func fetchOrders(for user: User, completed: @escaping (_ result: APIResult<[Order]>) -> Void) {
         ordersReference(for: user.id).observeSingleEvent(of: .value) { snapshot in
             var orders = [Order]()
             for snapshot in snapshot.children.allObjects as! [DataSnapshot] {
@@ -396,7 +392,7 @@ struct UserAPIClient {
                     return
                 }
             }
-            completed(.success(orders: orders))
+            completed(.success(orders))
         }
     }
     
@@ -407,18 +403,18 @@ struct UserAPIClient {
     }
     
     /// Gets the Stripe customer ID for the given user.
-    static func getCustomerID(for user: User, completed: @escaping (_ result: CustomerIDAPIResult) -> Void) {
+    static func getCustomerID(for user: User, completed: @escaping (_ result: APIResult<String>) -> Void) {
         database.users.user(with: user.id).customerID.observeSingleEvent(of: .value) { snapshot in
             // If there's no data...
             if !snapshot.exists() {
-                completed(.failure(UserAPIError.doesNotExist))
+                completed(.failure(UserAPIClientError.doesNotExist))
                 printNoData()
             }
             // If returned data...
             else {
                 // ...send customer id to closure.
                 if let customerID = snapshot.value as? String {
-                    completed(.success(id: customerID))
+                    completed(.success(customerID))
                 }
             }
         }

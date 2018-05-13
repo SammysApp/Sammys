@@ -110,6 +110,8 @@ class LoginPageViewModel {
                     case .failure(_): completed(false)
                     }
                 }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

@@ -101,6 +101,7 @@
 		5BB296CD209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296CC209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift */; };
 		5BB296D1209F71CC00520683 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296CF209F71CB00520683 /* UserSettingsViewController.swift */; };
 		5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */; };
+		5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D320A1F13C00520683 /* LoginViewModel.swift */; };
 		5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */; };
 		5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* ItemEditable.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
@@ -242,6 +243,7 @@
 		5BB296CC209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296CF209F71CB00520683 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		5BB296D320A1F13C00520683 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		5BB60EEC206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5BB60EEF2069EA4400105E72 /* ItemEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditable.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */,
 				5BB296A12093891100520683 /* LoginPageViewModel.swift */,
 				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
+				5BB296D320A1F13C00520683 /* LoginViewModel.swift */,
 				5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */,
 			);
 			path = Login;
@@ -859,6 +862,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -869,6 +875,9 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
@@ -929,6 +938,7 @@
 				5BB2968F208F7BA600520683 /* OrderViewModel.swift in Sources */,
 				5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */,
 				5BB29699208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift in Sources */,
+				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
