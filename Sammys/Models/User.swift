@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum UserProvider: String {
+    case email, facebook
+}
+
 /// A type that represents a user 👩🏻.
 class User {
     /// A unique id.

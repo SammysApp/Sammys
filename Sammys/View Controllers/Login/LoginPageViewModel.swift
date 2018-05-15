@@ -110,6 +110,7 @@ class LoginPageViewModel {
                     case .failure(_): completed(false)
                     }
                 }
+                UserAPIClient.set(.email, for: user)
             case .failure(let error):
                 print(error.localizedDescription)
             }

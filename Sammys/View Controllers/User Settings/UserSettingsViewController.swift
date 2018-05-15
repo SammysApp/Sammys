@@ -18,6 +18,7 @@ class UserSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,6 +38,47 @@ class UserSettingsViewController: UIViewController {
             self.needsReauthentication = false
         }
         present(loginViewController, animated: true, completion: nil)
+    }
+    
+    func presentPasswordAlert() {
+        let alertController = UIAlertController(
+            title: viewModel.userHasEmailAuthenticationProvider ? "Update Password" : "Add Password",
+            message: nil,
+            preferredStyle: .alert)
+        alertController.addTextField { $0.placeholder = self.viewModel.userHasEmailAuthenticationProvider ? "New Password" : "Password" }
+        [UIAlertAction(title: "Done", style: .default) { action in
+            guard let password = alertController.textFields?[0].text else { return }
+            if self.viewModel.userHasEmailAuthenticationProvider {
+                self.viewModel.updatePassword(password) { completedSuccessfully in }
+            } else {
+                self.viewModel.linkPassword(password) { completedSuccessfully in }
+            }
+        },
+         UIAlertAction(title: "Cancel", style: .cancel, handler: { action in alertController.dismiss(animated: true, completion: nil)})
+        ].forEach { alertController.addAction($0) }
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension UserSettingsViewController: UserSettingsViewModelDelegate {
+    func didStartUpdatingName(in cell: TextFieldTableViewCell) {
+        cell.activityIndicatorView.startAnimating()
+    }
+    
+    func didStartUpdatingEmail(in cell: TextFieldTableViewCell) {
+        cell.activityIndicatorView.startAnimating()
+    }
+    
+    func didFinishUpdatingName(in cell: TextFieldTableViewCell) {
+        cell.activityIndicatorView.stopAnimating()
+    }
+    
+    func didFinishUpdatingEmail(in cell: TextFieldTableViewCell) {
+        cell.activityIndicatorView.stopAnimating()
+    }
+    
+    func didTapPassword() {
+        presentPasswordAlert()
     }
 }
 
@@ -58,6 +100,11 @@ extension UserSettingsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.cellViewModel(for: indexPath).height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(cell: cell)
     }
 }
 

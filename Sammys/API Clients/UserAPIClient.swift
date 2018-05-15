@@ -249,9 +249,48 @@ struct UserAPIClient {
         }
     }
     
+    private static func providersReference(forUserID userID: String) -> DatabaseReference {
+        return database.users.user(with: userID).providers
+    }
+    
+    static func set(_ provider: UserProvider, for user: User) {
+        providersReference(forUserID: user.id).child(provider.rawValue).setValue(provider.rawValue)
+    }
+    
+    static func linkEmailAuthProviderToCurrentUser(withPassword password: String, completed: ((Error?) -> Void)? = nil) {
+        guard let currentFirebaseUser = Auth.auth().currentUser,
+            let currentUser = UserDataStore.shared.user else { return }
+        let credential = EmailAuthProvider.credential(withEmail: currentUser.email, password: password)
+        currentFirebaseUser.link(with: credential) { user, error in
+            completed?(error)
+        }
+    }
+    
+    static func getProviders(for user: User, completed: @escaping (_ result: APIResult<[UserProvider]>) -> Void) {
+        providersReference(forUserID: user.id).observeSingleEvent(of: .value) { snapshot in
+            guard snapshot.exists(), let children = snapshot.children.allObjects as? [DataSnapshot] else {
+                completed(.failure(UserAPIClientError.doesNotExist))
+                return
+            }
+            completed(.success(children.compactMap { provider(from: $0) }))
+        }
+    }
+    
+    static func userHasEmailAuthenticationProvider(_ user: User, completed: @escaping (Bool) -> Void) {
+        UserAPIClient.getProviders(for: user) { result in
+            guard case .success(let providers) = result else { return }
+            completed(providers.contains(.email))
+        }
+    }
+    
+    private static func provider(from snapshot: DataSnapshot) -> UserProvider? {
+        guard let providerString = snapshot.value as? String else { return nil }
+        return UserProvider(rawValue: providerString)
+    }
+    
     // MARK: - Favorites ❤️
     /// Returns the data favorites reference for the user.
-    private static func favoritesReference(for userID: String) -> DatabaseReference {
+    private static func favoritesReference(forUserID userID: String) -> DatabaseReference {
         return database.users.user(with: userID).favorites
     }
     
@@ -301,7 +340,7 @@ struct UserAPIClient {
         // If there's a user signed in...
         if let user = Auth.auth().currentUser {
             // ...when a change is detected to the user's favorites...
-            favoritesReference(for: user.uid).observe(.value) { (snapshot) in
+            favoritesReference(forUserID: user.uid).observe(.value) { (snapshot) in
                 // ...if there's no data...
                 if !snapshot.exists() {
                     observers.forEach { $0.favoritesValueDidChange?([]) }
@@ -326,7 +365,7 @@ struct UserAPIClient {
     */
     static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult<[FavoriteGroup]>) -> Void) {
         // Commence single observation of the given user's favorites.
-        favoritesReference(for: user.id).observeSingleEvent(of: .value) { (snapshot) in
+        favoritesReference(forUserID: user.id).observeSingleEvent(of: .value) { (snapshot) in
             // If there's no data...
             if !snapshot.exists() {
                 completed(.failure(UserAPIClientError.doesNotExist))
@@ -357,14 +396,14 @@ struct UserAPIClient {
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
             // Set the JSON string as the value of the new favorite child.
             // favorites -> <food type> -> [favorite id : value]
-            favoritesReference(for: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
+            favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
         } catch {
             printError(error)
         }
     }
     
     // MARK: - Orders 📝
-    private static func ordersReference(for userID: String) -> DatabaseReference {
+    private static func ordersReference(forUserID userID: String) -> DatabaseReference {
         return database.users.user(with: userID).orders
     }
     
@@ -372,14 +411,14 @@ struct UserAPIClient {
         do {
             let jsonData = try JSONEncoder().encode(order)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-            ordersReference(for: user.id).child(order.id).setValue(jsonString)
+            ordersReference(forUserID: user.id).child(order.id).setValue(jsonString)
         } catch {
             printError(error)
         }
     }
     
     static func fetchOrders(for user: User, completed: @escaping (_ result: APIResult<[Order]>) -> Void) {
-        ordersReference(for: user.id).observeSingleEvent(of: .value) { snapshot in
+        ordersReference(forUserID: user.id).observeSingleEvent(of: .value) { snapshot in
             var orders = [Order]()
             for snapshot in snapshot.children.allObjects as! [DataSnapshot] {
                 guard let jsonString = snapshot.value as? String,
@@ -450,6 +489,10 @@ private extension DatabaseReference {
     
     var customerID: DatabaseReference {
         return child("customerID")
+    }
+    
+    var providers: DatabaseReference {
+        return child("providers")
     }
     
     func user(with id: String) -> DatabaseReference {

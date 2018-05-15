@@ -16,7 +16,7 @@ struct TextFieldTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     let height: CGFloat
     let text: String
     let placeholder: String
-    let textDidChange: ((String, UIActivityIndicatorView) -> Void)
+    let textDidChange: ((String, TextFieldTableViewCell) -> Void)
     
     func create() -> TableViewCellViewModel {
         let configurationCommand = TextFieldTableViewCellConfigurationCommand(text: text, placeholder: placeholder, textDidChange: textDidChange)

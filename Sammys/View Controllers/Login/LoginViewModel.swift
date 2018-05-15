@@ -66,6 +66,10 @@ class LoginViewModel {
                 case .login:
                     UserAPIClient.signIn(withFacebookAccessToken: accessTokenString) { result in
                         self.didLogin?()
+                        switch result {
+                        case .success(let user): UserAPIClient.set(.facebook, for: user)
+                        case .failure(let error): print(error)
+                        }
                     }
                 case .reauthenticate:
                     UserAPIClient.reauthenticate(withFacebookAccessToken: accessTokenString) { result in

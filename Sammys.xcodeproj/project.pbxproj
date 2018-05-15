@@ -51,6 +51,10 @@
 		5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A834200EA4BE00898FF0 /* Topping.swift */; };
 		5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
 		5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */; };
+		5B44F1B520AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B420AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift */; };
+		5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */; };
+		5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */; };
+		5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */; };
 		5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* FoodViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */; };
@@ -191,6 +195,10 @@
 		5B44A834200EA4BE00898FF0 /* Topping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topping.swift; sourceTree = "<group>"; };
 		5B44A836200EA4CA00898FF0 /* Dressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dressing.swift; sourceTree = "<group>"; };
 		5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B44F1B420AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
+		5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCell.swift; sourceTree = "<group>"; };
+		5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B553A64206C774F00DD9689 /* FoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -569,6 +577,10 @@
 				5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */,
 				5BB296CA209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift */,
 				5BB296CC209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift */,
+				5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */,
+				5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */,
+				5B44F1B420AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift */,
+				5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */,
 			);
 			path = "User Settings";
 			sourceTree = "<group>";
@@ -931,6 +943,7 @@
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
+				5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
 				5BB296C9209F4EA100520683 /* UserSettingsViewModel.swift in Sources */,
@@ -938,9 +951,11 @@
 				5BB2968F208F7BA600520683 /* OrderViewModel.swift in Sources */,
 				5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */,
 				5BB29699208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift in Sources */,
+				5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */,
 				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
+				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
@@ -1003,6 +1018,7 @@
 				5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,
 				5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */,
+				5B44F1B520AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift in Sources */,
 				5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */,
 				5BB296C1209F448F00520683 /* FoodHomeFaveCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
