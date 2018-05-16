@@ -129,6 +129,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
             self.tableView.reloadData()
             self.updateUI()
             self.viewModel.updatePaymentPrice()
+            self.viewModel.saveBag()
         }
         navigationController?.pushViewController(foodViewController, animated: true)
     }
