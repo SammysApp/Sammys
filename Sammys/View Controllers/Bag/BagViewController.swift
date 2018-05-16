@@ -113,7 +113,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         switch paymentResult {
         case .success:
             presentConfirmationViewController()
-            viewModel.addToUserOrders()
+            viewModel.addToOrders()
         case .failure(let message): print(message)
         }
     }

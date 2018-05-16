@@ -55,6 +55,7 @@
 		5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */; };
 		5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */; };
 		5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */; };
+		5B44F1BF20AB918C00B3E0A5 /* OrdersAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1BE20AB918C00B3E0A5 /* OrdersAPIClient.swift */; };
 		5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* FoodViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */; };
@@ -199,6 +200,7 @@
 		5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCell.swift; sourceTree = "<group>"; };
 		5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B44F1BE20AB918C00B3E0A5 /* OrdersAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAPIClient.swift; sourceTree = "<group>"; };
 		5B553A64206C774F00DD9689 /* FoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -337,6 +339,27 @@
 				5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */,
 			);
 			path = Food;
+			sourceTree = "<group>";
+		};
+		5B44F1BC20AB557100B3E0A5 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */,
+				5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */,
+				5B44F1B420AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift */,
+				5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		5B44F1BD20AB558000B3E0A5 /* Text Field */ = {
+			isa = PBXGroup;
+			children = (
+				5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */,
+				5BB296CA209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift */,
+				5BB296CC209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift */,
+			);
+			path = "Text Field";
 			sourceTree = "<group>";
 		};
 		5B553A66206C9BED00DD9689 /* Food */ = {
@@ -574,13 +597,8 @@
 			children = (
 				5BB296CF209F71CB00520683 /* UserSettingsViewController.swift */,
 				5BB296C8209F4EA100520683 /* UserSettingsViewModel.swift */,
-				5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */,
-				5BB296CA209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift */,
-				5BB296CC209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift */,
-				5B44F1B620AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift */,
-				5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */,
-				5B44F1B420AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift */,
-				5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */,
+				5B44F1BD20AB558000B3E0A5 /* Text Field */,
+				5B44F1BC20AB557100B3E0A5 /* Button */,
 			);
 			path = "User Settings";
 			sourceTree = "<group>";
@@ -611,6 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
+				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIClient.swift */,
 				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
 				5BAE181B207D1F28009BCE65 /* DataAPIClient.swift */,
 				5BD274E620631C9900618128 /* StorageAPIClient.swift */,
@@ -959,6 +978,7 @@
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
+				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIClient.swift in Sources */,
 				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296BD209D009900520683 /* FoodHomeCollectionViewCellViewModelFactory.swift in Sources */,
 				5BB60F432069F5B100105E72 /* Date.swift in Sources */,

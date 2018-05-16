@@ -110,6 +110,16 @@ struct UserAPIClient {
         completed?(currentUser)
     }
     
+    private static func addUserToDatabase(_ user: User, completed: ((_ doesExistAlready: Bool) -> Void)? = nil) {
+        let userReference = database.users.user(with: user.id)
+        userReference.observeSingleEvent(of: .value) { snapshot in
+            guard !snapshot.exists() else { completed?(true); return }
+            userReference.name.setValue(user.name)
+            userReference.email.setValue(user.email)
+            completed?(false)
+        }
+    }
+    
     /// Starts the listener for changes in user state.
     static func startUserStateDidChangeListener() {
         Auth.auth().addStateDidChangeListener { (auth, user) in
@@ -155,8 +165,11 @@ struct UserAPIClient {
                     else {
                         // setup the user...
                         setupCurrentUser(user) { currentUser in
-                            // ...and call closure with `success`.
-                            completed?(.success(currentUser))
+                            addUserToDatabase(currentUser) { _ in
+                                set(.email, for: currentUser)
+                                // ...and call closure with `success`.
+                                completed?(.success(currentUser))
+                            }
                         }
                     }
                 }
@@ -182,13 +195,13 @@ struct UserAPIClient {
             else {
                 guard let user = user,
                     let currentUser = createUser(from: user) else { return }
-                // call closure with `success`.
+                // ...call closure with `success`.
                 completed?(.success(currentUser))
             }
         }
     }
     
-    static func signIn(withFacebookAccessToken accessToken: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
+    static func signIn(withFacebookAccessToken accessToken: String, completed: ((_ result: APIResult<(user: User, firstTimeSignIn: Bool)>) -> Void)? = nil) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
         Auth.auth().signIn(with: credential) { user, error in
             if let error = error {
@@ -197,7 +210,10 @@ struct UserAPIClient {
             else {
                 guard let user = user,
                     let currentUser = createUser(from: user) else { return }
-                completed?(.success(currentUser))
+                addUserToDatabase(currentUser) { doesExistAlready in
+                    // Send if first time signing in to closure.
+                    completed?(.success((currentUser, !doesExistAlready)))
+                }
             }
         }
     }
@@ -493,6 +509,14 @@ private extension DatabaseReference {
     
     var providers: DatabaseReference {
         return child("providers")
+    }
+    
+    var name: DatabaseReference {
+        return child("name")
+    }
+    
+    var email: DatabaseReference {
+        return child("email")
     }
     
     func user(with id: String) -> DatabaseReference {

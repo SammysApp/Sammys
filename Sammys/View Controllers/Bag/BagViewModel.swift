@@ -222,10 +222,14 @@ class BagViewModel: NSObject {
         }
     }
     
-    func addToUserOrders() {
+    func addToOrders() {
         guard let user = user else { return }
-        let order = Order(number: "123", date: Date(), foods: foods)
-        UserAPIClient.add(order, for: user)
+        let date = Date()
+        OrdersAPIClient.fetchNewOrderNumber(for: date) { number in
+            let order = Order(number: "\(number)", userName: user.name, userID: user.id, date: date, foods: self.foods)
+            OrdersAPIClient.add(order, to: date, withNumber: number)
+            UserAPIClient.add(order, for: user)
+        }
     }
 }
 
@@ -245,10 +249,13 @@ extension BagViewModel: STPPaymentContextDelegate {
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        if let errorMessage = error?.localizedDescription {
-            delegate?.paymentDidComplete(with: .failure(errorMessage))
-        } else {
-            delegate?.paymentDidComplete(with: .success)
+        switch status {
+        case .success: delegate?.paymentDidComplete(with: .success)
+        case .error:
+            if let errorMessage = error?.localizedDescription {
+                delegate?.paymentDidComplete(with: .failure(errorMessage))
+            }
+        case .userCancellation: break
         }
     }
 }

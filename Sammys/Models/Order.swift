@@ -13,16 +13,20 @@ private typealias SavedFoods = [FoodType : [AnyFood]]
 
 struct Order: Codable {
     let id: String
+    let userName: String
+    let userID: String
     let number: String
     let date: Date
     let foods: Foods
     
     enum CodingKeys: CodingKey {
-        case id, number, date, foods
+        case id, userName, userID, number, date, foods
     }
     
-    init(number: String, date: Date, foods: [FoodType : [Food]]) {
+    init(number: String, userName: String, userID: String, date: Date, foods: [FoodType : [Food]]) {
         self.id = UUID().uuidString
+        self.userName = userName
+        self.userID = userID
         self.number = number
         self.date = date
         self.foods = foods
@@ -31,6 +35,8 @@ struct Order: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
+        self.userName = try container.decode(String.self, forKey: .userName)
+        self.userID = try container.decode(String.self, forKey: .userID)
         self.number = try container.decode(String.self, forKey: .number)
         self.date = try container.decode(Date.self, forKey: .date)
         let savedFoods = try container.decode(SavedFoods.self, forKey: .foods)
@@ -40,6 +46,8 @@ struct Order: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(id, forKey: .userName)
+        try container.encode(id, forKey: .userID)
         try container.encode(number, forKey: .number)
         try container.encode(date, forKey: .date)
         try container.encode(foods.toEncodable(), forKey: .foods)

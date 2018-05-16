@@ -67,7 +67,17 @@ class LoginViewModel {
                     UserAPIClient.signIn(withFacebookAccessToken: accessTokenString) { result in
                         self.didLogin?()
                         switch result {
-                        case .success(let user): UserAPIClient.set(.facebook, for: user)
+                        case .success(let info):
+                            if info.firstTimeSignIn {
+                                PayAPIClient.createNewCustomer(parameters: [PayAPIClient.Symbols.email: info.user.email]) { result in
+                                    switch result {
+                                    case .success(let customer):
+                                        UserAPIClient.set(customer.id, for: info.user)
+                                        UserAPIClient.set(.facebook, for: info.user)
+                                    case .failure(let error): print(error)
+                                    }
+                                }
+                            }
                         case .failure(let error): print(error)
                         }
                     }
