@@ -18,6 +18,12 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     @IBOutlet var taxLabel: UILabel!
     @IBOutlet var purchaseButton: UIButton!
     @IBOutlet var creditCardButton: UIButton!
+    @IBOutlet var totalVisualEffectView: UIVisualEffectView!
+    @IBOutlet var totalVisualEffectViewContainerView: UIView!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     private struct Constants {
         static let checkoutAlertMessage = "Choose the way you would like to checkout."
@@ -30,11 +36,22 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         viewModel.delegate = self
         
         tableView.estimatedRowHeight = 100
+        tableView.contentInset.bottom = totalVisualEffectView.frame.height
+        tableView.separatorInset.bottom = totalVisualEffectView.frame.height
         purchaseButton.layer.cornerRadius = 20
         updateUI()
         
         viewModel.updatePaymentPrice()
         viewModel.paymentContextHostViewController = self
+        
+        let maskShape = CAShapeLayer()
+        maskShape.bounds = totalVisualEffectView.frame
+        maskShape.position = totalVisualEffectView.center
+        maskShape.path = UIBezierPath(roundedRect: totalVisualEffectView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 40, height: 40)).cgPath
+        totalVisualEffectView.layer.mask = maskShape
+        
+        totalVisualEffectViewContainerView.layer.masksToBounds = false
+        totalVisualEffectViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: totalVisualEffectViewContainerView.bounds, cornerRadius: 40).cgPath, radius: 10, opacity: 0.1))
     }
     
     override func viewWillAppear(_ animated: Bool) {

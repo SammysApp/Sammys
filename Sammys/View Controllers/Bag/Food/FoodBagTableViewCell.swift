@@ -19,30 +19,6 @@ class FoodBagTableViewCell: UITableViewCell {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var quantityCollectionView: QuantityCollectionView!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        setup()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        setup()
-    }
-    
-    func setup() {
-        if itemImageView != nil {
-            itemImageView.layer.cornerRadius = itemImageView!.frame.width/2
-        }
-    }
-    
     // MARK: IBActions
     @IBAction func didTapEdit(_ sender: UIButton) {
         didEdit?(self)

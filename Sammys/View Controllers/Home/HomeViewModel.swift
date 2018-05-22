@@ -58,6 +58,19 @@ class HomeViewModel {
         return sections.isEmpty
     }
     
+    var bagQuantityLabelText: String {
+        let quantity = BagDataStore.shared.quantity
+        // Save quantity last used to check later for update.
+        currentBagQuantity = quantity
+        return quantity > 0 ? "\(quantity)" : ""
+    }
+    
+    var currentBagQuantity = 0
+    
+    var needsBagQuantityUpdate: Bool {
+        return currentBagQuantity != BagDataStore.shared.quantity
+    }
+    
     init(contextBounds: CGRect, _ delegate: HomeViewModelDelegate? = nil) {
         self.contextBounds = contextBounds
         self.delegate = delegate

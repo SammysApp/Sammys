@@ -31,6 +31,10 @@ class BagDataStore {
         }
     }
     
+    var quantity: Int {
+        return foods.reduce(0) { $0 + $1.value.count }
+    }
+    
     private init() {
         // Attempt to decode food data from disk.
         if let foodData = UserDefaults.standard.data(forKey: "foods") {

@@ -32,10 +32,6 @@
 		5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8012006CE7F00898FF0 /* HomeViewController.swift */; };
 		5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */; };
 		5B44A8072006D35600898FF0 /* FoodHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */; };
-		5B44A8142007003400898FF0 /* Avocados.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8102007003300898FF0 /* Avocados.jpg */; };
-		5B44A8152007003400898FF0 /* Lettuce.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8112007003300898FF0 /* Lettuce.jpg */; };
-		5B44A8162007003400898FF0 /* Peppers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8122007003400898FF0 /* Peppers.jpg */; };
-		5B44A8172007003400898FF0 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8132007003400898FF0 /* Salad.jpg */; };
 		5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A81C2007BB7000898FF0 /* UserViewController.swift */; };
 		5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */; };
 		5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8202007D31C00898FF0 /* UserAPIClient.swift */; };
@@ -71,6 +67,7 @@
 		5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */; };
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
 		5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */; };
+		5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8A3D0320AF157800790AF5 /* Salad.jpg */; };
 		5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B942D912087E98F00BF991A /* OrdersViewController.swift */; };
 		5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B942D932087EA0600BF991A /* OrdersViewController.storyboard */; };
 		5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* DataAPIClient.swift */; };
@@ -134,6 +131,8 @@
 		5BD6B3CB20812439000114F5 /* MapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CA20812439000114F5 /* MapCollectionViewCell.swift */; };
 		5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */; };
 		5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */; };
+		5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
+		5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */; };
 		5BEED538206BEED2002240EB /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED537206BEED2002240EB /* JSONDecoder.swift */; };
 		5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */; };
 		5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53B206C6CE9002240EB /* UIColor.swift */; };
@@ -177,10 +176,6 @@
 		5B44A8012006CE7F00898FF0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHomeCollectionViewCell.swift; sourceTree = "<group>"; };
-		5B44A8102007003300898FF0 /* Avocados.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Avocados.jpg; sourceTree = "<group>"; };
-		5B44A8112007003300898FF0 /* Lettuce.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lettuce.jpg; sourceTree = "<group>"; };
-		5B44A8122007003400898FF0 /* Peppers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Peppers.jpg; sourceTree = "<group>"; };
-		5B44A8132007003400898FF0 /* Salad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Salad.jpg; sourceTree = "<group>"; };
 		5B44A81C2007BB7000898FF0 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8202007D31C00898FF0 /* UserAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIClient.swift; sourceTree = "<group>"; };
@@ -218,6 +213,7 @@
 		5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearCardAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsDataStore.swift; sourceTree = "<group>"; };
+		5B8A3D0320AF157800790AF5 /* Salad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Salad.jpg; sourceTree = "<group>"; };
 		5B942D912087E98F00BF991A /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		5B942D932087EA0600BF991A /* OrdersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersViewController.storyboard; sourceTree = "<group>"; };
 		5BAE181B207D1F28009BCE65 /* DataAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAPIClient.swift; sourceTree = "<group>"; };
@@ -281,6 +277,8 @@
 		5BD6B3CA20812439000114F5 /* MapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5BED77AA20B479A000232DD2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BEED537206BEED2002240EB /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BEED53B206C6CE9002240EB /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -401,6 +399,7 @@
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5B9CD59F204CCAA500F59E4C /* Views */,
 				5BD274F62063FBAD00618128 /* Classes */,
+				5BED77A920B4798100232DD2 /* Extensions */,
 				5BB60F332069F5B100105E72 /* EasyExtensions */,
 				5B9CD5A0204CCAEF00F59E4C /* Storyboards */,
 				5B9CD5A2204E1EB200F59E4C /* More */,
@@ -421,12 +420,21 @@
 		5B7B14C220558D4300BFE0C8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A8102007003300898FF0 /* Avocados.jpg */,
-				5B44A8112007003300898FF0 /* Lettuce.jpg */,
-				5B44A8122007003400898FF0 /* Peppers.jpg */,
-				5B44A8132007003400898FF0 /* Salad.jpg */,
+				5B8A3D0320AF157800790AF5 /* Salad.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		5B8A3D0220ADC4F800790AF5 /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */,
+				5BB296BA209CFF8D00520683 /* FoodHomeCollectionViewCellCofigurationCommand.swift */,
+				5BB296BE209EACA800520683 /* FoodHomeCollectionViewCellSelectionCommand.swift */,
+				5BB296C0209F448F00520683 /* FoodHomeFaveCollectionViewCellSelectionCommand.swift */,
+				5BB296BC209D009900520683 /* FoodHomeCollectionViewCellViewModelFactory.swift */,
+			);
+			path = Food;
 			sourceTree = "<group>";
 		};
 		5B9CD59C204CCA0500F59E4C /* Models */ = {
@@ -482,10 +490,8 @@
 		5B9CD59F204CCAA500F59E4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
-				5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */,
-				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
-				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
+				5BED77AC20B47DC200232DD2 /* FoodCollectionView */,
+				5BED77AF20B4848700232DD2 /* QuantityCollectionView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -660,11 +666,7 @@
 			children = (
 				5B44A8012006CE7F00898FF0 /* HomeViewController.swift */,
 				5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */,
-				5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */,
-				5BB296BA209CFF8D00520683 /* FoodHomeCollectionViewCellCofigurationCommand.swift */,
-				5BB296BE209EACA800520683 /* FoodHomeCollectionViewCellSelectionCommand.swift */,
-				5BB296C0209F448F00520683 /* FoodHomeFaveCollectionViewCellSelectionCommand.swift */,
-				5BB296BC209D009900520683 /* FoodHomeCollectionViewCellViewModelFactory.swift */,
+				5B8A3D0220ADC4F800790AF5 /* Food */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -750,6 +752,33 @@
 				5BD6B3D020812486000114F5 /* Map */,
 			);
 			path = Confirmation;
+			sourceTree = "<group>";
+		};
+		5BED77A920B4798100232DD2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5BED77AA20B479A000232DD2 /* UINavigationController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5BED77AC20B47DC200232DD2 /* FoodCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
+				5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */,
+				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
+			);
+			path = FoodCollectionView;
+			sourceTree = "<group>";
+		};
+		5BED77AF20B4848700232DD2 /* QuantityCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
+				5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */,
+			);
+			path = QuantityCollectionView;
 			sourceTree = "<group>";
 		};
 		5BEED53F206C72DD002240EB /* Add */ = {
@@ -844,8 +873,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B44A8152007003400898FF0 /* Lettuce.jpg in Resources */,
-				5B44A8162007003400898FF0 /* Peppers.jpg in Resources */,
 				5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */,
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
@@ -854,12 +881,11 @@
 				5BB29691208F7C3400520683 /* OrderViewController.storyboard in Resources */,
 				5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */,
 				5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */,
+				5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */,
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
 				5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */,
-				5B44A8142007003400898FF0 /* Avocados.jpg in Resources */,
 				5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */,
 				5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */,
-				5B44A8172007003400898FF0 /* Salad.jpg in Resources */,
 				5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */,
 				5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */,
 				5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */,
@@ -1025,11 +1051,13 @@
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
+				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
 				5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
+				5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */,
 				5B02C7162087CA30006D19A5 /* URL.swift in Sources */,
 				5BB296BF209EACA800520683 /* FoodHomeCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */,

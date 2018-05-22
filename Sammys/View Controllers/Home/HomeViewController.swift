@@ -16,21 +16,46 @@ class HomeViewController: UIViewController, Storyboardable {
     
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var collectionViewContainerView: UIView!
+    @IBOutlet var bagButton: UIButton!
+    @IBOutlet var bagButtonContainerView: UIView!
+    @IBOutlet var bagQuantityLabel: UILabel!
     @IBOutlet var noFavesView: UIView!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    struct Constants {
+        static var collectionViewCornerRadius: CGFloat = 20
+        static var collectionViewShadowOpacity: Float = 0.4
+        static var bagButtonShadowOpacity: Float = 0.2
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = HomeViewModel(contextBounds: view.bounds, self)
+        viewModel = HomeViewModel(contextBounds: collectionView.bounds, self)
         setupNoFavesView()
         noFavesView.isHidden = true
+        
+        collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
+        collectionViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: collectionView.bounds, cornerRadius: collectionView.layer.cornerRadius).cgPath, opacity: Constants.collectionViewShadowOpacity))
+        
+        bagButton.layer.masksToBounds = true
+        bagButton.layer.cornerRadius = bagButton.bounds.width / 2
+        bagButtonContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath, opacity: Constants.bagButtonShadowOpacity))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = true
+        
+        if viewModel.needsBagQuantityUpdate {
+            bagQuantityLabel.text = viewModel.bagQuantityLabelText
+        }
     }
     
     func setupNoFavesView() {

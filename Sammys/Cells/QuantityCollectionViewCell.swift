@@ -10,4 +10,5 @@ import UIKit
 
 class QuantityCollectionViewCell: UICollectionViewCell {
     @IBOutlet var numberLabel: UILabel!
+    @IBOutlet var deleteImage: UIImageView!
 }
