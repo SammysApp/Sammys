@@ -11,9 +11,14 @@ import UIKit
 class UserSettingsViewController: UIViewController {
     let viewModel = UserSettingsViewModel()
     var needsReauthentication = true
+    var shouldPop = false
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,7 @@ class UserSettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        guard !shouldPop else { navigationController?.popViewController(animated: true); return }
         if needsReauthentication {
             presentLoginViewController()
         }
@@ -36,6 +42,10 @@ class UserSettingsViewController: UIViewController {
         loginViewController.viewModel.didLogin = {
             loginViewController.dismiss(animated: true, completion: nil)
             self.needsReauthentication = false
+        }
+        loginViewController.viewModel.didCancel = {
+            loginViewController.dismiss(animated: true, completion: nil)
+            self.shouldPop = true
         }
         present(loginViewController, animated: true, completion: nil)
     }
