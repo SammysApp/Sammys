@@ -20,8 +20,14 @@ class OrdersViewController: UIViewController {
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "My Orders"
         
         viewModel = OrdersViewModel(contextBounds: view.bounds)
         activityIndicatorView.startAnimating()
@@ -49,7 +55,11 @@ extension OrdersViewController: UICollectionViewDataSource {
     }
 }
 
-extension OrdersViewController: UICollectionViewDelegate {
+extension OrdersViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return viewModel.cellViewModel(forRow: indexPath.row).size
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.pushViewController(viewModel.orderViewController(for: indexPath), animated: true)
     }

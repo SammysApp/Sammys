@@ -68,6 +68,12 @@ extension Order {
     var totalPrice: Double {
         return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
     }
+    
+    var itemsDescription: String {
+        guard let food = foods.randomFood else { fatalError() }
+        let moreQuantity = food.quantity - 1
+        return moreQuantity > 0 ? "\(food.title) & \(moreQuantity) more" : food.title
+    }
 }
 
 private extension Dictionary where Key == FoodType, Value == [Food] {

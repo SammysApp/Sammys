@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ayN-v0-2D5">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -17,14 +17,14 @@
             <objects>
                 <viewController id="shH-l6-kcQ" customClass="HomeViewController" customModule="Sammys" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f4R-3G-oUt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHU-pB-VxL">
-                                <rect key="frame" x="5" y="140" width="365" height="522"/>
+                                <rect key="frame" x="5" y="164" width="365" height="648"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="L0z-ZL-j6i">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="522"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="606"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QwR-HL-sRK">
                                             <size key="itemSize" width="325" height="200"/>
@@ -44,7 +44,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="325" height="200"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-7j-bpc">
-                                                            <rect key="frame" x="138.5" y="143" width="48" height="29"/>
+                                                            <rect key="frame" x="139" y="143" width="48" height="29"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -72,21 +72,21 @@
                                     </collectionView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="L0z-ZL-j6i" secondAttribute="bottom" id="DxM-Ud-99Y"/>
+                                    <constraint firstItem="L0z-ZL-j6i" firstAttribute="bottom" secondItem="kHU-pB-VxL" secondAttribute="bottomMargin" id="LOY-4T-JmG"/>
                                     <constraint firstItem="L0z-ZL-j6i" firstAttribute="leading" secondItem="kHU-pB-VxL" secondAttribute="leading" id="TVJ-rK-X1Y"/>
                                     <constraint firstAttribute="trailing" secondItem="L0z-ZL-j6i" secondAttribute="trailing" id="gSQ-EH-UaU"/>
                                     <constraint firstItem="L0z-ZL-j6i" firstAttribute="top" secondItem="kHU-pB-VxL" secondAttribute="top" id="mGd-Xk-yVd"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Rff-e7-lRm">
-                                <rect key="frame" x="147" y="40" width="80" height="80"/>
+                                <rect key="frame" x="147" y="64" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="IQ5-w8-Lgk"/>
                                     <constraint firstAttribute="width" constant="80" id="zue-8x-EKb"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flf-zX-Bc4">
-                                <rect key="frame" x="326" y="64" width="29" height="32"/>
+                                <rect key="frame" x="326" y="88" width="29" height="32"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <state key="normal" backgroundImage="User">
                                     <color key="titleColor" name="Mocha"/>
@@ -96,7 +96,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7aX-hi-8p9">
-                                <rect key="frame" x="20" y="66" width="32" height="28"/>
+                                <rect key="frame" x="20" y="90" width="32" height="28"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <state key="normal" backgroundImage="Heart">
                                     <color key="titleColor" name="Mocha"/>
@@ -106,7 +106,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKi-iL-h80">
-                                <rect key="frame" x="275" y="567" width="80" height="80"/>
+                                <rect key="frame" x="275" y="678" width="80" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ToG-ZK-01q">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -148,13 +148,13 @@
                         </subviews>
                         <color key="backgroundColor" name="Espresso"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="kHU-pB-VxL" secondAttribute="bottom" id="189-7t-Opw"/>
                             <constraint firstItem="oHq-tB-OyO" firstAttribute="trailing" secondItem="KKi-iL-h80" secondAttribute="trailing" constant="20" id="7Qk-zy-CAn"/>
                             <constraint firstItem="7aX-hi-8p9" firstAttribute="centerY" secondItem="Rff-e7-lRm" secondAttribute="centerY" id="FmK-rG-eTs"/>
                             <constraint firstItem="oHq-tB-OyO" firstAttribute="trailing" secondItem="flf-zX-Bc4" secondAttribute="trailing" constant="20" id="RMJ-vY-UlR"/>
                             <constraint firstItem="7aX-hi-8p9" firstAttribute="leading" secondItem="oHq-tB-OyO" secondAttribute="leading" constant="20" id="Y3f-pZ-XCM"/>
                             <constraint firstItem="kHU-pB-VxL" firstAttribute="leading" secondItem="oHq-tB-OyO" secondAttribute="leading" constant="5" id="aOs-Ja-ATY"/>
                             <constraint firstItem="oHq-tB-OyO" firstAttribute="bottom" secondItem="KKi-iL-h80" secondAttribute="bottom" constant="20" id="cFL-iB-Vcx"/>
-                            <constraint firstItem="kHU-pB-VxL" firstAttribute="bottom" secondItem="oHq-tB-OyO" secondAttribute="bottom" constant="-5" id="cSP-hb-AcM"/>
                             <constraint firstItem="kHU-pB-VxL" firstAttribute="trailing" secondItem="oHq-tB-OyO" secondAttribute="trailing" constant="-5" id="hFs-PX-k0Y"/>
                             <constraint firstItem="kHU-pB-VxL" firstAttribute="top" secondItem="Rff-e7-lRm" secondAttribute="bottom" constant="20" id="jVS-16-sof"/>
                             <constraint firstItem="flf-zX-Bc4" firstAttribute="centerY" secondItem="Rff-e7-lRm" secondAttribute="centerY" id="kCA-FN-Z0V"/>
@@ -193,7 +193,7 @@
                     <viewLayoutGuide key="safeArea" id="l88-Mg-RiE"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-2111.1999999999998" y="-202.84857571214394"/>
+            <point key="canvasLocation" x="-2111.1999999999998" y="-203.20197044334975"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SIE-ZG-2IZ">

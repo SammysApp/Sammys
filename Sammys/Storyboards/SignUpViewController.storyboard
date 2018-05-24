@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ayd-1q-wQ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ayd-1q-wQ4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,27 +20,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WfJ-gC-Ba4">
-                                <rect key="frame" x="20" y="300" width="335" height="68"/>
+                                <rect key="frame" x="20" y="306" width="335" height="56"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSX-cC-Bgx">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSX-cC-Bgx">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" name="Snow"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jne-Ln-Tpr">
-                                        <rect key="frame" x="0.0" y="39" width="335" height="29"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jne-Ln-Tpr">
+                                        <rect key="frame" x="0.0" y="27" width="335" height="29"/>
+                                        <color key="tintColor" name="Snow"/>
+                                        <color key="textColor" name="Snow"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         <connections>
                                             <action selector="textFieldEditingChanged:" destination="Ayd-1q-wQ4" eventType="editingChanged" id="Pz2-8u-Ere"/>
+                                            <outlet property="delegate" destination="Ayd-1q-wQ4" id="mkx-4Z-Z8a"/>
                                         </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="Flora"/>
+                        <color key="backgroundColor" name="Coffee"/>
                         <constraints>
                             <constraint firstItem="WfJ-gC-Ba4" firstAttribute="centerY" secondItem="Lat-bD-bgT" secondAttribute="centerY" id="2MI-TI-nDS"/>
                             <constraint firstItem="qis-QP-0O1" firstAttribute="trailing" secondItem="WfJ-gC-Ba4" secondAttribute="trailing" constant="20" id="B2f-Kv-Op8"/>
@@ -60,8 +62,11 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="Flora">
-            <color red="0.44999998807907104" green="0.98100000619888306" blue="0.47400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Coffee">
+            <color red="0.25098039215686274" green="0.20000000000000001" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

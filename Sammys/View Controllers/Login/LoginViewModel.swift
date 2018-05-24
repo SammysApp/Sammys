@@ -77,7 +77,7 @@ class LoginViewModel {
                                     case .failure(let error): print(error)
                                     }
                                 }
-                            }
+                            } else { self.didLogin?() }
                         case .failure(let error):
                             self.didLogin?()
                             print(error)

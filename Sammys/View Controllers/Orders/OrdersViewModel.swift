@@ -14,7 +14,7 @@ class OrdersViewModel {
     private var orders = [Order]()
     
     private var cellViewModels: [CollectionViewCellViewModel] {
-        return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 100)).create() }
+        return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 140)).create() }
     }
     
     var user: User? {
@@ -52,8 +52,10 @@ class OrdersViewModel {
     }
     
     func orderViewController(for indexPath: IndexPath) -> OrderViewController {
+        let order = orders[indexPath.row]
         let orderViewController = OrderViewController.storyboardInstance() as! OrderViewController
-        orderViewController.viewModel = OrderViewModel(order: orders[indexPath.row])
+        orderViewController.viewModel = OrderViewModel(order: order)
+        orderViewController.title = "Order #\(order.number)"
         return orderViewController
     }
 }

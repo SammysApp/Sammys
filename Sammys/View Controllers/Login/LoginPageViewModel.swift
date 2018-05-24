@@ -30,6 +30,12 @@ struct SignUpInfo {
     var allFieldsFilled: Bool {
         return name != nil && email != nil && password != nil
     }
+    
+    mutating func clear() {
+        name = nil
+        email = nil
+        password = nil
+    }
 }
 
 class LoginPageViewModel {
@@ -51,7 +57,7 @@ class LoginPageViewModel {
         return LoginPageViewControllerKey(rawValue: currentPageIndex)!
     }
     
-    var signUpInfo = SignUpInfo()
+    private var signUpInfo = SignUpInfo()
     
     // MARK: - Next Button
     var nextButtonShouldHide: Bool {
@@ -73,6 +79,10 @@ class LoginPageViewModel {
         return true
     }
     
+    var backButtonShouldHide: Bool {
+        return currentViewControllerKey == .login
+    }
+    
     var nextButtonTitle: String {
         if currentViewControllerKey == .password && signUpInfo.password != nil && signUpInfo.password != "" {
             return Constants.done
@@ -80,8 +90,17 @@ class LoginPageViewModel {
         return Constants.next
     }
     
+    var allFieldsFilled: Bool {
+        return signUpInfo.allFieldsFilled
+    }
+    
     func incrementViewControllerKey() {
         currentPageIndex += 1
+    }
+    
+    func decrementViewControllerKey() {
+        guard currentPageIndex != 0 else { return }
+        currentPageIndex -= 1
     }
     
     func setSignUpInfo(for key: LoginPageViewControllerKey, withString string: String) {
@@ -91,6 +110,23 @@ class LoginPageViewModel {
         case .password: signUpInfo.password = string
         default: break
         }
+    }
+    
+    func signUpInfoText(for key: LoginPageViewControllerKey) -> String? {
+        switch key {
+        case .name: return signUpInfo.name
+        case .email: return signUpInfo.email
+        case .password: return signUpInfo.password
+        default: return nil
+        }
+    }
+    
+    func clearSignUpInfo() {
+        signUpInfo.clear()
+    }
+    
+    func updateSignUpInfo() {
+        if currentViewControllerKey == .login { clearSignUpInfo() }
     }
     
     func createUser(completed: @escaping (Bool) -> Void) {
@@ -121,9 +157,9 @@ class LoginPageViewModel {
 extension LoginPageViewControllerKey {
     var title: String? {
         switch self {
-        case .name: return "Name"
-        case .email: return "Email"
-        case .password: return "Password"
+        case .name: return "NAME"
+        case .email: return "EMAIL"
+        case .password: return "PASSWORD"
         default: return nil
         }
     }

@@ -20,94 +20,135 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M2k-Ig-3o0">
-                                <rect key="frame" x="20" y="228" width="335" height="210"/>
+                                <rect key="frame" x="20" y="278" width="335" height="110"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-MA-ezH">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="80"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxu-MA-ezH">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                        <color key="tintColor" name="Snow"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="zC5-SD-ND9"/>
+                                            <constraint firstAttribute="height" constant="50" id="zC5-SD-ND9"/>
                                         </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vfO-aK-GEE">
-                                        <rect key="frame" x="0.0" y="90" width="335" height="80"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="Ori-PB-ljL"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vw0-KM-doR">
-                                        <rect key="frame" x="0.0" y="180" width="335" height="30"/>
-                                        <state key="normal" title="Sign Up"/>
+                                        <color key="textColor" name="Snow"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="didTapSignUp:" destination="ags-wa-tBO" eventType="touchUpInside" id="EUD-b9-3uX"/>
+                                            <outlet property="delegate" destination="ags-wa-tBO" id="4EN-oc-lx9"/>
                                         </connections>
-                                    </button>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vfO-aK-GEE">
+                                        <rect key="frame" x="0.0" y="60" width="335" height="50"/>
+                                        <color key="tintColor" name="Snow"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ori-PB-ljL"/>
+                                        </constraints>
+                                        <color key="textColor" name="Snow"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ags-wa-tBO" id="lTI-5o-qxo"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awp-4m-VKa">
-                                <rect key="frame" x="0.0" y="40" width="375" height="38.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EA7-HY-zN5">
-                                <rect key="frame" x="166" y="617" width="42" height="30"/>
-                                <state key="normal" title="Log In"/>
-                                <connections>
-                                    <action selector="didTapLogin:" destination="ags-wa-tBO" eventType="touchUpInside" id="NuM-eT-1XE"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrV-h4-Go4">
-                                <rect key="frame" x="20" y="40" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
+                                <rect key="frame" x="20" y="63" width="57" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" name="Snow"/>
+                                </state>
                                 <connections>
                                     <action selector="didTapCancel:" destination="ags-wa-tBO" eventType="touchUpInside" id="B0k-Gt-iDq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pq7-Dr-cOR">
-                                <rect key="frame" x="154" y="579" width="67" height="30"/>
-                                <state key="normal" title="Facebook"/>
-                                <connections>
-                                    <action selector="didTapFacebook:" destination="ags-wa-tBO" eventType="touchUpInside" id="cIc-0F-KaL"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="VNz-4x-SU0">
+                                <rect key="frame" x="147" y="40" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="0AI-pz-Y9C"/>
+                                    <constraint firstAttribute="width" constant="80" id="kee-qs-25i"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fdu-vV-bdE">
+                                <rect key="frame" x="20" y="433" width="335" height="214"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vw0-KM-doR">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <state key="normal" title="Sign Up">
+                                            <color key="titleColor" name="Snow"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapSignUp:" destination="ags-wa-tBO" eventType="touchUpInside" id="EUD-b9-3uX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pq7-Dr-cOR">
+                                        <rect key="frame" x="0.0" y="54" width="335" height="70"/>
+                                        <color key="backgroundColor" name="Facebook Blue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="FcT-MS-zUa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <state key="normal" title="Continue with Facebook">
+                                            <color key="titleColor" name="Snow"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapFacebook:" destination="ags-wa-tBO" eventType="touchUpInside" id="cIc-0F-KaL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EA7-HY-zN5">
+                                        <rect key="frame" x="0.0" y="144" width="335" height="70"/>
+                                        <color key="backgroundColor" name="Snow"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="m94-du-VMQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
+                                        <state key="normal" title="Log In">
+                                            <color key="titleColor" name="Coffee"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapLogin:" destination="ags-wa-tBO" eventType="touchUpInside" id="NuM-eT-1XE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="Snow"/>
+                        <color key="backgroundColor" name="Coffee"/>
                         <constraints>
+                            <constraint firstItem="fdu-vV-bdE" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="0Gu-0o-q3V"/>
                             <constraint firstItem="k4D-1n-Bme" firstAttribute="trailing" secondItem="M2k-Ig-3o0" secondAttribute="trailing" constant="20" id="5lS-7E-G0g"/>
-                            <constraint firstItem="Pq7-Dr-cOR" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="DeY-bk-eRD"/>
-                            <constraint firstItem="Awp-4m-VKa" firstAttribute="trailing" secondItem="k4D-1n-Bme" secondAttribute="trailing" id="P39-NM-Arj"/>
                             <constraint firstItem="M2k-Ig-3o0" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="SFW-U1-xAr"/>
-                            <constraint firstItem="EA7-HY-zN5" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="Y3q-9E-PoF"/>
-                            <constraint firstItem="Awp-4m-VKa" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" id="bJ5-DJ-N8Y"/>
-                            <constraint firstItem="k4D-1n-Bme" firstAttribute="bottom" secondItem="EA7-HY-zN5" secondAttribute="bottom" constant="20" id="dXl-8K-mb3"/>
-                            <constraint firstItem="DrV-h4-Go4" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="mnX-Y5-DbH"/>
-                            <constraint firstItem="EA7-HY-zN5" firstAttribute="top" secondItem="Pq7-Dr-cOR" secondAttribute="bottom" constant="8" symbolic="YES" id="qFm-Su-QNE"/>
+                            <constraint firstItem="DrV-h4-Go4" firstAttribute="centerY" secondItem="VNz-4x-SU0" secondAttribute="centerY" id="Vxw-wJ-hk9"/>
+                            <constraint firstItem="VNz-4x-SU0" firstAttribute="centerX" secondItem="Qzb-5X-yII" secondAttribute="centerX" id="e8B-0p-C4h"/>
+                            <constraint firstItem="k4D-1n-Bme" firstAttribute="bottom" secondItem="fdu-vV-bdE" secondAttribute="bottom" constant="20" id="kjC-Pl-Mag"/>
                             <constraint firstItem="M2k-Ig-3o0" firstAttribute="centerY" secondItem="Qzb-5X-yII" secondAttribute="centerY" id="rZV-d2-xqP"/>
                             <constraint firstItem="DrV-h4-Go4" firstAttribute="leading" secondItem="k4D-1n-Bme" secondAttribute="leading" constant="20" id="re9-nA-hHq"/>
-                            <constraint firstItem="Awp-4m-VKa" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="xMR-nZ-Frw"/>
+                            <constraint firstItem="k4D-1n-Bme" firstAttribute="trailing" secondItem="fdu-vV-bdE" secondAttribute="trailing" constant="20" id="vRC-nQ-3je"/>
+                            <constraint firstItem="VNz-4x-SU0" firstAttribute="top" secondItem="k4D-1n-Bme" secondAttribute="top" constant="20" id="xsh-xU-gwe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="k4D-1n-Bme"/>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="fxu-MA-ezH" id="Xbq-bk-kYo"/>
+                        <outlet property="facebookButton" destination="Pq7-Dr-cOR" id="FRV-7O-dtZ"/>
+                        <outlet property="loginButton" destination="EA7-HY-zN5" id="mwi-dP-guo"/>
                         <outlet property="passwordTextField" destination="vfO-aK-GEE" id="9rF-eL-Ppz"/>
                         <outlet property="signUpButton" destination="Vw0-KM-doR" id="B5Y-3Z-KnW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSN-sf-jzH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-92" y="151"/>
+            <point key="canvasLocation" x="-92" y="150.67466266866569"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Logo" width="80" height="80"/>
+        <namedColor name="Coffee">
+            <color red="0.25098039215686274" green="0.20000000000000001" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Facebook Blue">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Snow">
-            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

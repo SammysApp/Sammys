@@ -49,9 +49,15 @@ class UserSettingsViewController: UIViewController {
         [UIAlertAction(title: "Done", style: .default) { action in
             guard let password = alertController.textFields?[0].text else { return }
             if self.viewModel.userHasEmailAuthenticationProvider {
-                self.viewModel.updatePassword(password) { completedSuccessfully in }
+                self.viewModel.updatePassword(password) { completedSuccessfully in
+                    self.tableView.deselectSelectedRow()
+                    self.tableView.reloadData()
+                }
             } else {
-                self.viewModel.linkPassword(password) { completedSuccessfully in }
+                self.viewModel.linkPassword(password) { completedSuccessfully in
+                    self.tableView.deselectSelectedRow()
+                    self.tableView.reloadData()
+                }
             }
         },
          UIAlertAction(title: "Cancel", style: .cancel, handler: { action in alertController.dismiss(animated: true, completion: nil)})

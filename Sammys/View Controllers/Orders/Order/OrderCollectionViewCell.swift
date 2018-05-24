@@ -11,4 +11,5 @@ import UIKit
 class OrderCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var orderLabel: UILabel!
+    @IBOutlet var itemsLabel: UILabel!
 }

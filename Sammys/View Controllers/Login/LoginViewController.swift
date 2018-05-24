@@ -15,6 +15,8 @@ class LoginViewController: UIViewController {
     // MARK: - IBOutlets & View Properties
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var facebookButton: UIButton!
+    @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton! {
         didSet {
             updateUI()
@@ -26,6 +28,9 @@ class LoginViewController: UIViewController {
         
         viewModel.contextViewController = self
         viewModel.delegate = self
+        
+        facebookButton.layer.cornerRadius = 20
+        loginButton.layer.cornerRadius = 20
     }
     
     func updateUI() {
@@ -53,6 +58,13 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginViewModelDelegate {}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+}
 
 extension LoginViewController: Storyboardable {
     typealias ViewController = LoginViewController

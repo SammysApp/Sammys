@@ -14,8 +14,14 @@ class UserViewController: UIViewController, Storyboardable {
     
     let viewModel = UserViewModel()
     
+    var shouldDismiss = false
+    
     // MARK: - IBOutlets & View Properties
     @IBOutlet var tableView: UITableView!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -27,6 +33,7 @@ class UserViewController: UIViewController, Storyboardable {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        guard !shouldDismiss else { dismiss(animated: true, completion: nil); return }
         // Prompt to login if needed.
         if viewModel.needsUser {
             presentLoginPageViewController()
@@ -35,7 +42,9 @@ class UserViewController: UIViewController, Storyboardable {
     // MARK: -
     
     func presentLoginPageViewController() {
-        present(LoginPageViewController.storyboardInstance(), animated: true, completion: nil)
+        let loginPageViewController = LoginPageViewController.storyboardInstance() as! LoginPageViewController
+        loginPageViewController.delegate = self
+        present(loginPageViewController, animated: true, completion: nil)
     }
 
     // MARK: - IBActions
@@ -48,7 +57,7 @@ class UserViewController: UIViewController, Storyboardable {
     }
 }
 
-// MARK: - Table View Data Source & Delegate
+// MARK: - TableViewDataSource & UITableViewDelegate
 extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSections
@@ -80,7 +89,7 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK: - View Model Delegate
+// MARK: - UserViewModelDelegate
 extension UserViewController: UserViewModelDelegate {
     var userDidChange: () -> Void {
         return {
@@ -97,5 +106,15 @@ extension UserViewController: UserViewModelDelegate {
     
     var didSelectLogOut: () -> Void {
         return { UserAPIClient.signOut() }
+    }
+}
+
+extension UserViewController: LoginPageViewControllerDelegate {
+    func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController) {
+        shouldDismiss = true
+    }
+    
+    func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
+        
     }
 }

@@ -41,6 +41,11 @@ class LoginPageViewController: UIViewController {
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var nextButton: UIButton!
+    @IBOutlet var backButton: UIButton!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -48,6 +53,7 @@ class LoginPageViewController: UIViewController {
         
         setViewController(for: viewModel.currentViewControllerKey, direction: .forward, animated: false)
         updateNextButton()
+        updateBackButton()
         
         // Set up page view controller.
         addChildViewController(pageViewController)
@@ -65,6 +71,15 @@ class LoginPageViewController: UIViewController {
     func goToNextViewController() {
         viewModel.incrementViewControllerKey()
         setViewController(for: viewModel.currentViewControllerKey, direction: .forward, animated: true)
+        updateBackButton()
+    }
+    
+    func goToPreviousViewController() {
+        viewModel.decrementViewControllerKey()
+        setViewController(for: viewModel.currentViewControllerKey, direction: .reverse, animated: true)
+        updateNextButton()
+        updateBackButton()
+        viewModel.updateSignUpInfo()
     }
     
     private func setViewController(for key: LoginPageViewControllerKey, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
@@ -77,9 +92,14 @@ class LoginPageViewController: UIViewController {
         nextButton.setTitle(viewModel.nextButtonTitle, for: .normal)
     }
     
+    func updateBackButton() {
+        backButton.isHidden = viewModel.backButtonShouldHide
+    }
+    
     func signUpViewController(for key: LoginPageViewControllerKey) -> SignUpViewController {
         let signUpViewController = self.signUpViewController
         signUpViewController.titleText = key.title
+        signUpViewController.prefilledText = viewModel.signUpInfoText(for: key)
         signUpViewController.didUpdateText = { text in
             guard let text = text else { return }
             self.viewModel.setSignUpInfo(for: key, withString: text)
@@ -90,7 +110,7 @@ class LoginPageViewController: UIViewController {
     
     // MARK: IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
-        if viewModel.signUpInfo.allFieldsFilled {
+        if viewModel.allFieldsFilled {
             viewModel.createUser { didSucceed in
                 if didSucceed {
                     self.dismiss(animated: true, completion: nil)
@@ -99,6 +119,10 @@ class LoginPageViewController: UIViewController {
         } else {
             goToNextViewController()
         }
+    }
+    
+    @IBAction func didTapBack(_ sender: UIButton) {
+        goToPreviousViewController()
     }
 }
 

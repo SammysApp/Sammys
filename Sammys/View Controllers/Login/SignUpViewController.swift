@@ -11,6 +11,7 @@ import UIKit
 /// The sign up page for a user 📝.
 class SignUpViewController: UIViewController {
     var titleText: String?
+    var prefilledText: String?
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var titleLabel: UILabel!
@@ -24,11 +25,19 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         titleLabel.text = titleText
+        textField.text = prefilledText
     }
     
     // MARK: - IBActions
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         didUpdateText?(textField.text)
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
 }
 
