@@ -76,6 +76,7 @@ extension Salad {
     }
 }
 
+// MARK: - Item Handling
 extension Salad {
     func toggle(_ item: Item) {
         if contains(item) {
@@ -86,11 +87,18 @@ extension Salad {
     }
     
     func toggle(_ modifier: Modifier, for item: Item) {
-        if contains(modifier, for: item) {
+        // If salad doesn't have the modifier for the item...
+        if !contains(modifier, for: item) {
+            // ...first add the item if doesn't have...
             if !contains(item) { add(item) }
+            // ...and add modifier.
             add(modifier, for: item)
-        } else {
+        }
+        // If salad has modifier...
+        else {
+            // ...remove the modifier.
             remove(modifier, for: item)
+            // If the item's modifiers are empty, remove the item from salad.
             if item.modifiers?.isEmpty ?? false { remove(item) }
         }
     }
@@ -110,6 +118,8 @@ extension Salad {
     }
     
     func add(_ item: Item) {
+        var item = item
+        item.clearModifiers()
         guard let itemType = Swift.type(of: item).type as? SaladItemType else { return }
         switch itemType {
         case .lettuce: self.lettuce.append(item as! Lettuce)

@@ -14,11 +14,15 @@ protocol ModifierCollectionViewModelDelegate {
 
 class ModifierCollectionViewModel {
     var delegate: ModifierCollectionViewModelDelegate?
-    var modifiers: [Modifier]? {
+    var item: Item? {
         didSet {
             delegate?.needsUpdate()
         }
     }
+    var modifiers: [Modifier]? {
+        return item?.modifiers
+    }
+    var didSelect: ((Modifier, Item) -> Void)?
     
     private struct Constants {
         static let cellSize = 140
@@ -49,5 +53,10 @@ class ModifierCollectionViewModel {
         let totalSum = CGFloat(totalCellWidth + totalSpacingWidth)
         let sidesInset = totalSum < contextBounds.width ? ((contextBounds.width - totalSum) / 2) : 10
         return UIEdgeInsets(top: 0, left: sidesInset, bottom: 0, right: sidesInset)
+    }
+    
+    func selectItem(at indexPath: IndexPath) {
+        guard let modifiers = modifiers, let item = item else { return }
+        didSelect?(modifiers[indexPath.row], item)
     }
 }

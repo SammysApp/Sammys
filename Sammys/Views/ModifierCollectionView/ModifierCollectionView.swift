@@ -11,8 +11,8 @@ import UIKit
 class ModifierCollectionView: UICollectionView, ModifierCollectionViewModelDelegate {
     let viewModel = ModifierCollectionViewModel()
     
-    private lazy var modifierDataSource = ModifierCollectionViewDataSource(viewModel: viewModel)
-    private lazy var modifierDelegate = ModifierCollectionViewDelegate(viewModel: viewModel)
+    private var modifierDataSource: ModifierCollectionViewDataSource!
+    private var modifierDelegate: ModifierCollectionViewDelegate!
     
     convenience init(frame: CGRect) {
         self.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
@@ -29,6 +29,8 @@ class ModifierCollectionView: UICollectionView, ModifierCollectionViewModelDeleg
     }
     
     func setup() {
+        modifierDataSource = ModifierCollectionViewDataSource(viewModel: viewModel)
+        modifierDelegate = ModifierCollectionViewDelegate(viewModel: viewModel)
         dataSource = modifierDataSource
         delegate = modifierDelegate
         viewModel.delegate = self
@@ -84,5 +86,9 @@ class ModifierCollectionViewDelegate: NSObject, UICollectionViewDelegateFlowLayo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return viewModel.insetForSection(at: section, withContextBounds: collectionView.bounds)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.selectItem(at: indexPath)
     }
 }

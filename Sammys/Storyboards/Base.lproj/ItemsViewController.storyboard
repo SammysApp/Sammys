@@ -174,23 +174,16 @@
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTp-Lv-08V">
-                                            <rect key="frame" x="159.66666666666666" y="705.33333333333337" width="57" height="41"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
-                                            <state key="normal" title="Done">
-                                                <color key="titleColor" name="Snow"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="didTapDone:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d4i-Tr-VV4"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstItem="gGX-jw-Tmj" firstAttribute="leading" secondItem="dqG-S4-dgl" secondAttribute="leading" id="5EP-fx-fXC"/>
                                         <constraint firstItem="gGX-jw-Tmj" firstAttribute="centerY" secondItem="dqG-S4-dgl" secondAttribute="centerY" id="7y7-df-nds"/>
                                         <constraint firstAttribute="trailing" secondItem="gGX-jw-Tmj" secondAttribute="trailing" id="pJW-TD-M8S"/>
-                                        <constraint firstItem="MTp-Lv-08V" firstAttribute="centerX" secondItem="dqG-S4-dgl" secondAttribute="centerX" id="zt4-1d-DCw"/>
                                     </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="mzT-aI-KFd" appends="YES" id="QmH-fN-DC0"/>
+                                    </connections>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -205,7 +198,6 @@
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GCm-mh-Til"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="J98-k0-b3M"/>
                             <constraint firstItem="G32-jb-Vzc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JXl-gn-w7l"/>
-                            <constraint firstItem="MTp-Lv-08V" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="KQ6-BC-IOK"/>
                             <constraint firstItem="G32-jb-Vzc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="MIX-z3-D1a"/>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="OU9-oL-lUJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
@@ -239,6 +231,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="mzT-aI-KFd">
+                    <connections>
+                        <action selector="didTapView:" destination="BYZ-38-t0r" id="UEd-hx-3JA"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="9sd-7x-qO8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="138.40000000000001" y="132.26600985221674"/>
         </scene>

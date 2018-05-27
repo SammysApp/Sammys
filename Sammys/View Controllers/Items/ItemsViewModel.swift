@@ -83,7 +83,7 @@ class ItemsViewModel {
     
     var collectionViewInsets: UIEdgeInsets {
         switch currentChoice {
-        case .vegetable, .topping, .dressing:
+        case .vegetable, .topping, .dressing, .extra:
             return UIEdgeInsets(top: 80, left: 10, bottom: 60, right: 10)
         default:
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -92,7 +92,7 @@ class ItemsViewModel {
     
     var collectionViewMinimumLineSpacing: CGFloat {
         switch currentChoice {
-        case .vegetable, .topping, .dressing:
+        case .vegetable, .topping, .dressing, .extra:
             return 10
         default:
             return 0
@@ -101,7 +101,7 @@ class ItemsViewModel {
     
     var collectionViewMinimumInteritemSpacing: CGFloat {
         switch currentChoice {
-        case .vegetable, .topping, .dressing:
+        case .vegetable, .topping, .dressing, .extra:
             return 10
         default:
             return .greatestFiniteMagnitude
@@ -143,7 +143,7 @@ class ItemsViewModel {
     
     private func cellSize(for itemType: SaladItemType, contextBounds: CGRect) -> CGSize {
         switch itemType {
-        case .vegetable, .topping, .dressing:
+        case .vegetable, .topping, .dressing, .extra:
             let size = (contextBounds.width/2) - 15
             return CGSize(width: size, height: size)
         default:
@@ -171,16 +171,16 @@ class ItemsViewModel {
         }
     }
     
-    func toggleModifier(_ modifier: Modifier, for item: Item) {
-        salad.toggle(modifier, for: item)
-    }
-    
     func toggle(item: Item) {
         if let size = item as? Size {
             salad.size = size
         } else {
             salad.toggle(item)
         }
+    }
+    
+    func toggleModifier(_ modifier: Modifier, for item: Item) {
+        salad.toggle(modifier, for: item)
     }
 }
 

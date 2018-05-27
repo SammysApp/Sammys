@@ -34,11 +34,8 @@ extension Item {
         return hex.isEmpty ? .flora : UIColor(hex: hex)
     }
     
-//    mutating func toggle(_ modifier: Modifier) {
-//        if modifiers?.contains(modifier) ?? false {
-//            modifiers?.remove(modifier)
-//        } else {
-//            modifiers?.append(modifier)
-//        }
-//    }
+    mutating func clearModifiers() {
+        guard modifiers != nil else { return }
+        modifiers = []
+    }
 }

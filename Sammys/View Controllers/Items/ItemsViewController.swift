@@ -96,6 +96,8 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         nextButton.layer.cornerRadius = 10
         backButton.layer.cornerRadius = 10
         
+        modifierCollectionView.viewModel.didSelect = { self.didSelect($0, for: $1) }
+        
         updateUI()
     }
     
@@ -197,7 +199,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func showModifiers(for item: Item) {
-        modifierCollectionView.viewModel.modifiers = item.modifiers
+        modifierCollectionView.viewModel.item = item
         // Set up for animation.
         modifierView.effect = nil
         modifierView.isHidden = false
@@ -236,6 +238,10 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         currentItemIndex = index
         setContentOffset(for: currentItemIndex)
         hasSelectedOnce = true
+    }
+    
+    func didSelect(_ modifier: Modifier, for item: Item) {
+        viewModel.toggleModifier(modifier, for: item)
     }
     
     /// Called once done editing.
@@ -292,8 +298,11 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
     }
     
-    @IBAction func didTapDone(_ sender: UIButton) {
-        hideModifiers()
+    
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        if !modifierView.contentView.isHidden {
+            hideModifiers()
+        }
     }
 }
 
@@ -361,6 +370,13 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
                 updateCurrentItemIndex()
             }
         }
+    }
+}
+
+extension ItemsViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let touchLocation = touch.location(in: self.view)
+        return !modifierCollectionView.frame.contains(touchLocation)
     }
 }
 
