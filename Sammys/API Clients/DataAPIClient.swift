@@ -12,12 +12,12 @@ import Alamofire
 struct DataAPIClient {
     static let baseURL = "https://sammysapp.herokuapp.com"
     
-    enum FoodsAPIResult {
+    enum APIResult {
         case success(FoodsData)
         case failure(Error)
     }
     
-    static func getFoods(completed: @escaping ((_ result: FoodsAPIResult) -> Void)) {
+    static func getFoods(completed: @escaping ((_ result: APIResult) -> Void)) {
         Alamofire.request(baseURL.foods)
         .validate(statusCode: 200..<300)
         .responseJSON { response in
@@ -28,31 +28,6 @@ struct DataAPIClient {
             } else if let error = response.error {
                 completed(.failure(error))
             }
-        }
-    }
-}
-
-/// A type representing all available foods.
-struct FoodsData: Decodable {
-    let salad: SaladData
-    
-    struct SaladData: Decodable {
-        let sizes: [Size]
-        let lettuce: [Lettuce]
-        let vegetables: [Vegetable]
-        let toppings: [Topping]
-        let dressings: [Dressing]
-        let extras: [Extra]
-        
-        var allItems: [SaladItemType : [Item]] {
-            return [
-                .size: sizes,
-                .lettuce: lettuce,
-                .vegetable: vegetables,
-                .topping: toppings,
-                .dressing: dressings,
-                .extra: extras
-            ]
         }
     }
 }

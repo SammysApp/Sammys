@@ -13,6 +13,7 @@ struct Dressing: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.dressing
     let name: String
     let description: String
+    var modifiers: [Modifier]?
     let hex: String
     
     static func ==(lhs: Dressing, rhs: Dressing) -> Bool {

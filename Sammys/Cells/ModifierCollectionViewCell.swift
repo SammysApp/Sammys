@@ -1,16 +1,15 @@
 //
-//  QuantityCollectionViewCell.swift
+//  ModifierCollectionViewCell.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 1/27/18.
+//  Created by Natanel Niazoff on 5/25/18.
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
 import UIKit
 
-class QuantityCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var numberLabel: UILabel!
-    @IBOutlet var deleteImage: UIImageView!
+class ModifierCollectionViewCell: UICollectionViewCell {
+    @IBOutlet var titleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +24,7 @@ class QuantityCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI() {
+        contentView.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 10
     }

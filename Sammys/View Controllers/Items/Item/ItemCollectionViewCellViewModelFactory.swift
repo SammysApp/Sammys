@@ -15,14 +15,16 @@ private enum ItemCellIdentifier: String {
 struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
     private let item: Item
     private let size: CGSize
+    private let shouldHideItemLabel: Bool
     
-    init(item: Item, size: CGSize) {
+    init(item: Item, size: CGSize, shouldHideItemLabel: Bool = false) {
         self.item = item
         self.size = size
+        self.shouldHideItemLabel = shouldHideItemLabel
     }
     
     func create() -> CollectionViewCellViewModel {
-        let configurationCommand = ItemCollectionViewCellConfigurationCommand(item: item)
+        let configurationCommand = ItemCollectionViewCellConfigurationCommand(item: item, shouldHideItemLabel: shouldHideItemLabel)
         let selectionCommand = ItemCollectionViewCellSelectionCommand(item: item)
         return CollectionViewCellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration : configurationCommand, .selection: selectionCommand])
     }

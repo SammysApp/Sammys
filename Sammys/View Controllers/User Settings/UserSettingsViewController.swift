@@ -23,6 +23,7 @@ class UserSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Edit"
         viewModel.delegate = self
     }
     

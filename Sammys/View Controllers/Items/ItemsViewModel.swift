@@ -14,6 +14,7 @@ enum ItemsViewLayoutState {
 
 protocol ItemsViewModelDelegate {
     var choiceDidChange: () -> () { get }
+    func showModifiers(for item: Item)
 }
 
 class ItemsViewModel {
@@ -64,10 +65,6 @@ class ItemsViewModel {
         return currentChoice.title
     }
     
-    var priceButtonTitle: String {
-        return salad.price.priceString
-    }
-    
     var shouldHideItemLabel: Bool {
         return currentViewLayoutState == .vertical
     }
@@ -87,7 +84,7 @@ class ItemsViewModel {
     var collectionViewInsets: UIEdgeInsets {
         switch currentChoice {
         case .vegetable, .topping, .dressing:
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: 80, left: 10, bottom: 60, right: 10)
         default:
             return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
@@ -134,7 +131,14 @@ class ItemsViewModel {
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         guard !items.isEmpty else { return [] }
         let size = cellSize(for: currentChoice, contextBounds: contextBounds)
-        return items.map { ItemCollectionViewCellViewModelFactory(item: $0, size: size).create() }
+        return items.map {
+            var shouldHideItemLabel = false
+            if let saladItemType = type(of: $0).type as? SaladItemType,
+                saladItemType == .size || saladItemType == .lettuce {
+                shouldHideItemLabel = true
+            }
+            return ItemCollectionViewCellViewModelFactory(item: $0, size: size, shouldHideItemLabel: shouldHideItemLabel).create()
+        }
     }
     
     private func cellSize(for itemType: SaladItemType, contextBounds: CGRect) -> CGSize {
@@ -157,9 +161,21 @@ class ItemsViewModel {
         currentChoiceIndex -= 1
     }
     
-    func toggleItem(at index: Int) {
+    func handleItemSelection(at index: Int) {
         guard !items.isEmpty else { return }
         let item = items[index]
+        if item.modifiers != nil {
+            delegate?.showModifiers(for: item)
+        } else {
+            toggle(item: item)
+        }
+    }
+    
+    func toggleModifier(_ modifier: Modifier, for item: Item) {
+        salad.toggle(modifier, for: item)
+    }
+    
+    func toggle(item: Item) {
         if let size = item as? Size {
             salad.size = size
         } else {

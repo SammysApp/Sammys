@@ -39,17 +39,3 @@ struct StorageAPIClient {
         }
     }
 }
-
-// MARK: - Helpers
-extension StorageAPIClient {
-    static func getItemImage(for item: Item, completed: @escaping (ImageAPIResult) -> ()) {
-        getImage(storage.items.child("/\(item.name).png"), maxSize: Constants.oneMB, completed: completed)
-    }
-}
-
-// MARK: - References
-extension StorageReference {
-    var items: StorageReference {
-        return child("/Items")
-    }
-}

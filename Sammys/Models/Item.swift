@@ -16,6 +16,8 @@ protocol Item {
     /// The name of the item.
     var name: String { get }
     
+    var modifiers: [Modifier]? { get set }
+    
     /// The hex color value of the item. Used for UI features.
     var hex: String { get }
 }
@@ -23,6 +25,7 @@ protocol Item {
 /// A protocol that represents an `Item` type.
 protocol ItemType {
     var title: String { get }
+    func item(_ item1: Item, isEqualTo item2: Item) -> Bool
 }
 
 extension Item {
@@ -30,4 +33,12 @@ extension Item {
     var color: UIColor {
         return hex.isEmpty ? .flora : UIColor(hex: hex)
     }
+    
+//    mutating func toggle(_ modifier: Modifier) {
+//        if modifiers?.contains(modifier) ?? false {
+//            modifiers?.remove(modifier)
+//        } else {
+//            modifiers?.append(modifier)
+//        }
+//    }
 }

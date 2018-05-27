@@ -36,26 +36,33 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var backButton: UIButton!
-    @IBOutlet var priceButton: UIButton!
+    @IBOutlet var finishButton: UIButton!
+    @IBOutlet var modifierView: UIVisualEffectView!
+    @IBOutlet var modifierCollectionView: ModifierCollectionView!
     @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
         didSet {
-            activityIndicatorView.color = UIColor(named: "Mocha")!
+            activityIndicatorView.color = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         }
     }
     
     let flowCollectionViewLayout = UICollectionViewFlowLayout()
     let layout = AnimatedCollectionViewLayout()
+    let modifierViewEffect = UIBlurEffect(style: .dark)
     var isCollectionViewAnimating = false
     var isLayoutAnimated: Bool {
         return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     struct Constants {
         static let next = "Next"
         static let done = "Done"
-        static let review = "Review"
-        static let backAlertTitle = "You sure? 🤨"
-        static let backAlertMessage = "Going back now will disregard any of your hard work!"
+        static let finish = "Finish"
+        static let backAlertTitle = "You sure?"
+        static let backAlertMessage = "This will disregard any of your work."
     }
     
     // MARK: - Lifecycle
@@ -86,6 +93,9 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         // Set selected to true if editing (otherwise can't tap next).
         hasSelectedOnce = isEditingFood
         
+        nextButton.layer.cornerRadius = 10
+        backButton.layer.cornerRadius = 10
+        
         updateUI()
     }
     
@@ -107,7 +117,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         priceLabel.isHidden = viewModel.shouldHidePriceLabel
         
         updateNextButton()
-        updatePriceButton()
+        updateFinishButton()
         updateCollectionView()
     }
     
@@ -133,15 +143,23 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         } else {
             nextButton.isHidden = false
             if viewModel.atLastChoice {
-                nextButton.setTitle(isEditingFood ? Constants.done : Constants.review, for: .normal)
+                nextButton.setTitle(isEditingFood ? Constants.done : Constants.finish, for: .normal)
             }
         }
     }
     
-    func updatePriceButton() {
+    func updateFinishButton() {
         if hasSelectedOnce {
-            priceButton.isHidden = false
-            priceButton.setTitle(viewModel.priceButtonTitle, for: .normal)
+            if !viewModel.atLastChoice { finishButton.isHidden = false }
+            else { finishButton.isHidden = true }
+        } else { finishButton.isHidden = true }
+    }
+    
+    func updateTopView(for contentOffsetY: CGFloat) {
+        if contentOffsetY > 0 {
+            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.finishButton].forEach { $0.alpha = 0 } })
+        } else {
+            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.finishButton].forEach { $0.alpha = 1 } })
         }
     }
     
@@ -178,6 +196,30 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
     }
     
+    func showModifiers(for item: Item) {
+        modifierCollectionView.viewModel.modifiers = item.modifiers
+        // Set up for animation.
+        modifierView.effect = nil
+        modifierView.isHidden = false
+        modifierView.contentView.isHidden = false
+        modifierView.contentView.alpha = 0
+        UIView.animate(withDuration: 0.25) {
+            self.modifierView.effect = self.modifierViewEffect
+            self.modifierView.contentView.alpha = 1
+        }
+    }
+    
+    func hideModifiers() {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.modifierView.effect = nil
+            self.modifierView.contentView.alpha = 0
+        }) {
+            guard $0 else { return }
+            self.modifierView.isHidden = true
+            self.modifierView.contentView.isHidden = true
+        }
+    }
+    
     func presentBackAlertController(didChooseBack: @escaping () -> Void) {
         let checkoutAlertController = UIAlertController(title: Constants.backAlertTitle, message: Constants.backAlertMessage, preferredStyle: .alert)
         [UIAlertAction(title: "All Good", style: .default, handler: { action in
@@ -190,7 +232,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func didSelectItem(at index: Int) {
-        viewModel.toggleItem(at: index)
+        viewModel.handleItemSelection(at: index)
         currentItemIndex = index
         setContentOffset(for: currentItemIndex)
         hasSelectedOnce = true
@@ -242,12 +284,16 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
     }
     
-    @IBAction func didTapPrice(_ sender: UIButton) {
+    @IBAction func didTapFinish(_ sender: UIButton) {
         if isEditingFood {
             finishEditing()
         } else {
             showAddViewController()
         }
+    }
+    
+    @IBAction func didTapDone(_ sender: UIButton) {
+        hideModifiers()
     }
 }
 
@@ -300,6 +346,10 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
         return viewModel.collectionViewMinimumInteritemSpacing
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y + view.safeAreaInsets.top
+        updateTopView(for: contentOffsetY)
+    }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         isCollectionViewAnimating = false

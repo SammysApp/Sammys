@@ -13,6 +13,7 @@ struct Extra: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.extra
     let name: String
     let description: String
+    var modifiers: [Modifier]?
     let hex: String
     
     /// The price for the extra.

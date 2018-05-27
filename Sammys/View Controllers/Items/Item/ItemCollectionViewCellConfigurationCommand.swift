@@ -10,13 +10,15 @@ import UIKit
 
 struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
     private let item: Item
+    private let shouldHideItemLabel: Bool
     
     private struct Constants {
         static let cornerRadius: CGFloat = 20
     }
     
-    init(item: Item) {
+    init(item: Item, shouldHideItemLabel: Bool) {
         self.item = item
+        self.shouldHideItemLabel = shouldHideItemLabel
     }
     
     func perform(parameters: CommandParameters) {
@@ -26,20 +28,7 @@ struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         
         cell.layer.cornerRadius = Constants.cornerRadius
         cell.backgroundColor = item.color
-        
         cell.titleLabel.text = item.name
-        if let saladItemType = type(of: item).type as? SaladItemType,
-            saladItemType == .size || saladItemType == .lettuce {
-            cell.titleLabel.text = nil
-        }
-        
-        cell.imageView.image = nil
-        StorageAPIClient.getItemImage(for: item) { result in
-            switch result {
-            case .success(let image):
-                cell.imageView.image = image
-            case .failure(_): break
-            }
-        }
+        cell.titleLabel.isHidden = shouldHideItemLabel
     }
 }

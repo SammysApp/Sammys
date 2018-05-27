@@ -13,7 +13,12 @@ struct Vegetable: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.vegetable
     let name: String
     let description: String
+    var modifiers: [Modifier]? = nil
     let hex: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description, hex
+    }
     
     static func ==(lhs: Vegetable, rhs: Vegetable) -> Bool {
         return lhs.name == rhs.name

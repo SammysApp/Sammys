@@ -78,8 +78,6 @@ class QuantityCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QuantityCellIdentifier.quantityCell.rawValue, for: indexPath) as! QuantityCollectionViewCell
         cell.numberLabel.text = "\(indexPath.row)"
         cell.numberLabel.textColor = viewModel.textColor
-        cell.contentView.layer.masksToBounds = true
-        cell.contentView.layer.cornerRadius = 10
         if viewModel.indexPathShouldShowDelete(indexPath) {
             cell.numberLabel.isHidden = true
             cell.deleteImage.isHidden = false
