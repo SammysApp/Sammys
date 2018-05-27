@@ -131,13 +131,13 @@ class ItemsViewModel {
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         guard !items.isEmpty else { return [] }
         let size = cellSize(for: currentChoice, contextBounds: contextBounds)
-        return items.map {
+        return items.map { item in
             var shouldHideItemLabel = false
-            if let saladItemType = type(of: $0).type as? SaladItemType,
+            if let saladItemType = type(of: item).type as? SaladItemType,
                 saladItemType == .size || saladItemType == .lettuce {
                 shouldHideItemLabel = true
             }
-            return ItemCollectionViewCellViewModelFactory(item: $0, size: size, shouldHideItemLabel: shouldHideItemLabel).create()
+            return ItemCollectionViewCellViewModelFactory(item: item, size: size, shouldHideItemLabel: shouldHideItemLabel, shouldShowSelected: salad.contains(item)).create()
         }
     }
     

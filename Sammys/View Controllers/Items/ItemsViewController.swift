@@ -62,7 +62,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         static let done = "Done"
         static let finish = "Finish"
         static let backAlertTitle = "You sure?"
-        static let backAlertMessage = "This will disregard any of your work."
+        static let backAlertMessage = "This will disregard all of your work."
     }
     
     // MARK: - Lifecycle
@@ -224,7 +224,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func presentBackAlertController(didChooseBack: @escaping () -> Void) {
         let checkoutAlertController = UIAlertController(title: Constants.backAlertTitle, message: Constants.backAlertMessage, preferredStyle: .alert)
-        [UIAlertAction(title: "All Good", style: .default, handler: { action in
+        [UIAlertAction(title: "Go Back", style: .default, handler: { action in
             didChooseBack()
         }),
         UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
@@ -238,10 +238,12 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         currentItemIndex = index
         setContentOffset(for: currentItemIndex)
         hasSelectedOnce = true
+        collectionView.reloadData()
     }
     
     func didSelect(_ modifier: Modifier, for item: Item) {
         viewModel.toggleModifier(modifier, for: item)
+        collectionView.reloadData()
     }
     
     /// Called once done editing.

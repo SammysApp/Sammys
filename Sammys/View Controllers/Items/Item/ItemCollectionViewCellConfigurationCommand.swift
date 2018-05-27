@@ -11,14 +11,16 @@ import UIKit
 struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
     private let item: Item
     private let shouldHideItemLabel: Bool
+    private let shouldShowSelected: Bool
     
     private struct Constants {
         static let cornerRadius: CGFloat = 20
     }
     
-    init(item: Item, shouldHideItemLabel: Bool) {
+    init(item: Item, shouldHideItemLabel: Bool, shouldShowSelected: Bool) {
         self.item = item
         self.shouldHideItemLabel = shouldHideItemLabel
+        self.shouldShowSelected = shouldShowSelected
     }
     
     func perform(parameters: CommandParameters) {
@@ -27,7 +29,7 @@ struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         }
         
         cell.layer.cornerRadius = Constants.cornerRadius
-        cell.backgroundColor = item.color
+        cell.backgroundColor = shouldShowSelected ? .white : item.color
         cell.titleLabel.text = item.name
         cell.titleLabel.isHidden = shouldHideItemLabel
     }

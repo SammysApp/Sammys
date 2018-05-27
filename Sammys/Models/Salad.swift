@@ -99,11 +99,15 @@ extension Salad {
             // ...remove the modifier.
             remove(modifier, for: item)
             // If the item's modifiers are empty, remove the item from salad.
-            if item.modifiers?.isEmpty ?? false { remove(item) }
+            if itemModifiersIsEmpty(item) {
+                remove(item)
+            }
         }
     }
     
     func contains(_ item: Item) -> Bool {
+        guard let itemType = Swift.type(of: item).type as? SaladItemType else { return false }
+        if itemType == .size { return size == (item as! Size) }
         return ([lettuce, vegetables, toppings, dressings] as [[Item]])
         .contains  {
             $0.contains { item2 in
@@ -132,20 +136,12 @@ extension Salad {
     }
     
     func add(_ modifier: Modifier, for item: Item) {
-        guard let itemType = Swift.type(of: item).type as? SaladItemType else { return }
+        guard let itemType = Swift.type(of: item).type as? SaladItemType,
+            let index = index(for: item) else { return }
         switch itemType {
-        case .lettuce:
-            if let index = index(for: item) {
-                self.lettuce[index].modifiers?.append(modifier)
-            }
-        case .dressing:
-            if let index = index(for: item) {
-                self.dressings[index].modifiers?.append(modifier)
-            }
-        case .extra:
-            if let index = index(for: item) {
-                self.extras[index].modifiers?.append(modifier)
-            }
+        case .lettuce: self.lettuce[index].modifiers?.append(modifier)
+        case .dressing: dressings[index].modifiers?.append(modifier)
+        case .extra: extras[index].modifiers?.append(modifier)
         default: break
         }
     }
@@ -163,20 +159,12 @@ extension Salad {
     }
     
     func remove(_ modifier: Modifier, for item: Item) {
-        guard let itemType = Swift.type(of: item).type as? SaladItemType else { return }
+        guard let itemType = Swift.type(of: item).type as? SaladItemType,
+            let index = index(for: item) else { return }
         switch itemType {
-        case .lettuce:
-            if let index = index(for: item) {
-                self.lettuce[index].modifiers?.remove(modifier)
-            }
-        case .dressing:
-            if let index = index(for: item) {
-                self.dressings[index].modifiers?.remove(modifier)
-            }
-        case .extra:
-            if let index = index(for: item) {
-                self.extras[index].modifiers?.remove(modifier)
-            }
+        case .lettuce: self.lettuce[index].modifiers?.remove(modifier)
+        case .dressing: dressings[index].modifiers?.remove(modifier)
+        case .extra: extras[index].modifiers?.remove(modifier)
         default: break
         }
     }
@@ -190,6 +178,17 @@ extension Salad {
         case .dressing: return dressings.index { itemType.item($0, isEqualTo: item) }
         case .extra: return extras.index { itemType.item($0, isEqualTo: item) }
         default: return nil
+        }
+    }
+    
+    func itemModifiersIsEmpty(_ item: Item) -> Bool {
+        guard let itemType = Swift.type(of: item).type as? SaladItemType,
+            let index = index(for: item) else { return false }
+        switch itemType {
+        case .lettuce: return self.lettuce[index].modifiers?.isEmpty ?? true
+        case .dressing: return dressings[index].modifiers?.isEmpty ?? true
+        case .extra: return extras[index].modifiers?.isEmpty ?? true
+        default: return false
         }
     }
 }
