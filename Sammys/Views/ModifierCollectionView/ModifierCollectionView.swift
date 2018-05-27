@@ -64,6 +64,7 @@ class ModifierCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "modifierCell", for: indexPath) as! ModifierCollectionViewCell
         cell.titleLabel.text = viewModel.titleText(for: indexPath)
+        cell.contentView.backgroundColor = viewModel.backgroundColor(for: indexPath)
         return cell
     }
 }

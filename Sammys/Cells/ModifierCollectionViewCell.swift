@@ -24,7 +24,6 @@ class ModifierCollectionViewCell: UICollectionViewCell {
     }
     
     func updateUI() {
-        contentView.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         contentView.layer.masksToBounds = true
         contentView.layer.cornerRadius = 10
     }

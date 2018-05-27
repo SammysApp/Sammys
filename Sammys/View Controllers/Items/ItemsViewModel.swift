@@ -182,6 +182,10 @@ class ItemsViewModel {
     func toggleModifier(_ modifier: Modifier, for item: Item) {
         salad.toggle(modifier, for: item)
     }
+    
+    func modifierIsSelected(_ modifier: Modifier, for item: Item) -> Bool {
+        return salad.contains(modifier, for: item)
+    }
 }
 
 // MARK: - ItemEditable

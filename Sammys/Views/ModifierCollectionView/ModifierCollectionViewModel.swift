@@ -23,6 +23,7 @@ class ModifierCollectionViewModel {
         return item?.modifiers
     }
     var didSelect: ((Modifier, Item) -> Void)?
+    var shouldShowSelected: ((Modifier, Item) -> Bool)?
     
     private struct Constants {
         static let cellSize = 140
@@ -40,6 +41,11 @@ class ModifierCollectionViewModel {
     func titleText(for indexPath: IndexPath) -> String {
         guard let modifiers = modifiers else { fatalError() }
         return modifiers[indexPath.row].title
+    }
+    
+    func backgroundColor(for indexPath: IndexPath) -> UIColor {
+        guard let item = item, let modifiers = modifiers else { fatalError() }
+        return (shouldShowSelected?(modifiers[indexPath.row], item) ?? false) ? .white : #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
     }
     
     func sizeForItem(at indexPath: IndexPath) -> CGSize {

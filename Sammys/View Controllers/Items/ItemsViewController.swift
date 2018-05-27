@@ -97,6 +97,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         backButton.layer.cornerRadius = 10
         
         modifierCollectionView.viewModel.didSelect = { self.didSelect($0, for: $1) }
+        modifierCollectionView.viewModel.shouldShowSelected = viewModel.modifierIsSelected
         
         updateUI()
     }
@@ -176,7 +177,12 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     /// Call when new choice selected.
     func handleNewChoice() {
         collectionView.reloadData()
-        collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
+        switch viewModel.currentViewLayoutState {
+        case .horizontal:
+            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
+        case .vertical:
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        }
         currentItemIndex = 0
     }
     
@@ -200,6 +206,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func showModifiers(for item: Item) {
         modifierCollectionView.viewModel.item = item
+        modifierCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         // Set up for animation.
         modifierView.effect = nil
         modifierView.isHidden = false
@@ -243,6 +250,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func didSelect(_ modifier: Modifier, for item: Item) {
         viewModel.toggleModifier(modifier, for: item)
+        modifierCollectionView.reloadData()
         collectionView.reloadData()
     }
     

@@ -108,7 +108,7 @@ extension Salad {
     func contains(_ item: Item) -> Bool {
         guard let itemType = Swift.type(of: item).type as? SaladItemType else { return false }
         if itemType == .size { return size == (item as! Size) }
-        return ([lettuce, vegetables, toppings, dressings] as [[Item]])
+        return ([lettuce, vegetables, toppings, dressings, extras] as [[Item]])
         .contains  {
             $0.contains { item2 in
                 Swift.type(of: item2).type.item(item2, isEqualTo: item)
@@ -117,7 +117,7 @@ extension Salad {
     }
     
     func contains(_ modifier: Modifier, for item: Item) -> Bool {
-        return ([lettuce, vegetables, toppings, dressings] as [[Item]])
+        return ([lettuce, vegetables, toppings, dressings, extras] as [[Item]])
             .contains { items in items.contains { item2 in Swift.type(of: item2).type.item(item2, isEqualTo: item) && (item2.modifiers?.contains(modifier) ?? false) } }
     }
     
@@ -226,6 +226,8 @@ extension SaladItemType: ItemType {
             return topping1 == topping2
         case (let dressing1 as Dressing, let dressing2 as Dressing):
             return dressing1 == dressing2
+        case (let extra1 as Extra, let extra2 as Extra):
+            return extra1 == extra2
         default: return false
         }
     }
