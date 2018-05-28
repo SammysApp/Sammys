@@ -13,6 +13,7 @@ struct Vegetable: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.vegetable
     let name: String
     let description: String
+    let price: Double? = nil
     var modifiers: [Modifier]? = nil
     let hex: String
     

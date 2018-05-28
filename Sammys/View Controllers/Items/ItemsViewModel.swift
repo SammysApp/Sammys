@@ -15,6 +15,7 @@ enum ItemsViewLayoutState {
 protocol ItemsViewModelDelegate {
     var choiceDidChange: () -> () { get }
     func showModifiers(for item: Item)
+    func priceDidChange()
 }
 
 class ItemsViewModel {
@@ -31,6 +32,8 @@ class ItemsViewModel {
     private let choices = Choice.all
     
     private var salad = Salad()
+    
+    private var currentSaladPrice = 0.0
     
     private var currentChoiceIndex = 0 {
         didSet {
@@ -71,6 +74,10 @@ class ItemsViewModel {
     
     var shouldHidePriceLabel: Bool {
         return currentViewLayoutState == .vertical || currentChoice == .lettuce
+    }
+    
+    var totalPriceLabelText: String {
+        return currentSaladPrice.priceString
     }
     
     var numberOfSections: Int {
@@ -123,9 +130,10 @@ class ItemsViewModel {
     func priceLabelText(at index: Int) -> String? {
         guard !items.isEmpty,
             currentChoice == .size,
-            let size = items[index] as? Size
+            let size = items[index] as? Size,
+            let price = size.price
             else { return nil }
-        return "$\(size.price)"
+        return "$\(price)"
     }
     
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
@@ -161,6 +169,13 @@ class ItemsViewModel {
         currentChoiceIndex -= 1
     }
     
+    func handlePriceChange() {
+        if salad.price != currentSaladPrice {
+            currentSaladPrice = salad.price
+            delegate?.priceDidChange()
+        }
+    }
+    
     func handleItemSelection(at index: Int) {
         guard !items.isEmpty else { return }
         let item = items[index]
@@ -168,6 +183,7 @@ class ItemsViewModel {
             delegate?.showModifiers(for: item)
         } else {
             toggle(item: item)
+            handlePriceChange()
         }
     }
     
@@ -181,6 +197,7 @@ class ItemsViewModel {
     
     func toggleModifier(_ modifier: Modifier, for item: Item) {
         salad.toggle(modifier, for: item)
+        handlePriceChange()
     }
     
     func modifierIsSelected(_ modifier: Modifier, for item: Item) -> Bool {

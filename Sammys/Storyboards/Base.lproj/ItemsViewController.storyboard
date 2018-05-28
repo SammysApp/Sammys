@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,33 +28,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="100" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemCell" id="Smw-Qj-g36" customClass="ItemCollectionViewCell" customModule="Sammys" customModuleProvider="target">
-                                        <rect key="frame" x="37.666666666666664" y="100" width="300" height="300"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q8T-zB-GaQ">
-                                                    <rect key="frame" x="28" y="72" width="244" height="200"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </imageView>
-                                            </subviews>
-                                        </view>
-                                        <color key="backgroundColor" name="Flora"/>
-                                        <constraints>
-                                            <constraint firstItem="Q8T-zB-GaQ" firstAttribute="bottom" secondItem="Smw-Qj-g36" secondAttribute="bottomMargin" constant="-20" id="LTr-5e-qu4"/>
-                                            <constraint firstItem="Q8T-zB-GaQ" firstAttribute="top" secondItem="Smw-Qj-g36" secondAttribute="topMargin" constant="20" id="Mqf-dT-dTH"/>
-                                            <constraint firstItem="Q8T-zB-GaQ" firstAttribute="leading" secondItem="Smw-Qj-g36" secondAttribute="leadingMargin" constant="20" id="OzL-m5-adJ"/>
-                                            <constraint firstItem="Q8T-zB-GaQ" firstAttribute="trailing" secondItem="Smw-Qj-g36" secondAttribute="trailingMargin" constant="-20" id="TeF-jY-MZf"/>
-                                        </constraints>
-                                        <size key="customSize" width="300" height="300"/>
-                                        <connections>
-                                            <outlet property="imageView" destination="Q8T-zB-GaQ" id="u1B-QC-Hdt"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Q6K-5G-4Id"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Zh2-QQ-JR0"/>
@@ -70,7 +43,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CoT-jF-u6a">
                                 <rect key="frame" x="160.33333333333334" y="691.66666666666663" width="54.666666666666657" height="66.333333333333371"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTc-Pw-RbG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="wTc-Pw-RbG">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="33.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
                                         <color key="textColor" name="Snow"/>
@@ -155,20 +128,32 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhb-PO-eDJ">
-                                                                <rect key="frame" x="51.666666666666657" y="59" width="37" height="22"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                                <color key="textColor" name="Snow"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RDQ-5g-jhq">
+                                                                <rect key="frame" x="52" y="59.333333333333343" width="36.333333333333343" height="21.666666666666657"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhb-PO-eDJ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="21.666666666666668"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                        <color key="textColor" name="Snow"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78d-sC-8xz">
+                                                                        <rect key="frame" x="0.0" y="21.666666666666671" width="36.333333333333336" height="17"/>
+                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                                        <color key="textColor" name="Snow"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstItem="mhb-PO-eDJ" firstAttribute="centerX" secondItem="vMB-Fq-DTx" secondAttribute="centerX" id="1ef-RT-KgQ"/>
-                                                        <constraint firstItem="mhb-PO-eDJ" firstAttribute="centerY" secondItem="vMB-Fq-DTx" secondAttribute="centerY" id="F0J-Ve-1Df"/>
+                                                        <constraint firstItem="RDQ-5g-jhq" firstAttribute="centerY" secondItem="vMB-Fq-DTx" secondAttribute="centerY" id="V5D-a9-KYg"/>
+                                                        <constraint firstItem="RDQ-5g-jhq" firstAttribute="centerX" secondItem="vMB-Fq-DTx" secondAttribute="centerX" id="xQy-vU-71m"/>
                                                     </constraints>
                                                     <size key="customSize" width="140" height="140"/>
                                                     <connections>
+                                                        <outlet property="priceLabel" destination="78d-sC-8xz" id="LLO-Qt-Ru0"/>
                                                         <outlet property="titleLabel" destination="mhb-PO-eDJ" id="RzK-se-WIV"/>
                                                     </connections>
                                                 </collectionViewCell>
@@ -187,6 +172,12 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYP-bL-OLD">
+                                <rect key="frame" x="160.33333333333334" y="69.333333333333329" width="55.666666666666657" height="28.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <color key="textColor" name="Snow"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
@@ -207,8 +198,10 @@
                             <constraint firstAttribute="bottom" secondItem="SoD-Da-FXx" secondAttribute="bottom" id="Wnh-kG-ijK"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAC-WD-Mh4"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="bNd-uz-DVx"/>
+                            <constraint firstItem="HYP-bL-OLD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bkz-JA-6m4"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="caT-7z-QFA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="30" id="jDa-MM-Sbq"/>
+                            <constraint firstItem="HYP-bL-OLD" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="jKb-v5-Dmz"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="10" id="rMq-dW-mE1"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uUX-uu-a8u"/>
                             <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wn0-wd-v6Q"/>
@@ -228,6 +221,7 @@
                         <outlet property="modifierView" destination="G32-jb-Vzc" id="DSS-1E-rUp"/>
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
                         <outlet property="priceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
+                        <outlet property="totalPriceLabel" destination="HYP-bL-OLD" id="2nU-QF-J0e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -245,14 +239,17 @@
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Flora">
-            <color red="0.44999998810000003" green="0.98100000620000005" blue="0.47400000689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Mocha">
             <color red="0.32941176470588235" green="0.19215686274509805" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Snow">
             <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

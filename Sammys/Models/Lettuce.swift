@@ -13,8 +13,13 @@ struct Lettuce: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.lettuce
     let name: String
     let description: String
+    let price: Double? = nil
     var modifiers: [Modifier]?
     let hex: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description, modifiers, hex
+    }
     
     static func ==(lhs: Lettuce, rhs: Lettuce) -> Bool {
         return lhs.name == rhs.name

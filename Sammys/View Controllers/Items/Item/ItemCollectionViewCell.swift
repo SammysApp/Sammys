@@ -9,9 +9,9 @@
 import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
-    var titleLabel = UILabel()
-    
     // MARK: - IBOutlets
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     
     override init(frame: CGRect) {
@@ -31,17 +31,5 @@ class ItemCollectionViewCell: UICollectionViewCell {
         
     }
     
-    func setupUI() {
-        addSubview(titleLabel)
-        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        titleLabel.textColor = .white
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.minimumScaleFactor = 0.8
-        titleLabel.numberOfLines = 2
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        titleLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
-    }
+    func setupUI() { }
 }

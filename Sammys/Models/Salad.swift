@@ -49,8 +49,14 @@ extension Salad {
     /// Returns product of the salad's base price and `quantity`. If `size` is `nil` returns `0`.
     var price: Double {
         get {
-            return size?.price != nil ? (size!.price * Double(quantity)).rounded(toPlaces: 2) : 0
+            return basePrice * Double(quantity).rounded(toPlaces: 2)
         }
+    }
+    
+    private var basePrice: Double {
+        guard var price = size?.price else { return 0 }
+        if let choppedPrice = choppedPrice { price += choppedPrice }
+        return price + itemsPrice
     }
     
     var itemDescription: String {
@@ -121,7 +127,7 @@ extension Salad {
             .contains { items in items.contains { item2 in Swift.type(of: item2).type.item(item2, isEqualTo: item) && (item2.modifiers?.contains(modifier) ?? false) } }
     }
     
-    func add(_ item: Item) {
+    private func add(_ item: Item) {
         var item = item
         item.clearModifiers()
         guard let itemType = Swift.type(of: item).type as? SaladItemType else { return }
@@ -135,7 +141,7 @@ extension Salad {
         }
     }
     
-    func add(_ modifier: Modifier, for item: Item) {
+    private func add(_ modifier: Modifier, for item: Item) {
         guard let itemType = Swift.type(of: item).type as? SaladItemType,
             let index = index(for: item) else { return }
         switch itemType {
@@ -146,7 +152,7 @@ extension Salad {
         }
     }
     
-    func remove(_ item: Item) {
+    private func remove(_ item: Item) {
         guard let itemType = Swift.type(of: item).type as? SaladItemType else { return }
         switch itemType {
         case .lettuce: self.lettuce.remove(item as! Lettuce)
@@ -158,7 +164,7 @@ extension Salad {
         }
     }
     
-    func remove(_ modifier: Modifier, for item: Item) {
+    private func remove(_ modifier: Modifier, for item: Item) {
         guard let itemType = Swift.type(of: item).type as? SaladItemType,
             let index = index(for: item) else { return }
         switch itemType {
@@ -169,7 +175,7 @@ extension Salad {
         }
     }
     
-    func index(for item: Item) -> Int? {
+    private func index(for item: Item) -> Int? {
         guard let itemType = Swift.type(of: item).type as? SaladItemType else { return nil }
         switch itemType {
         case .lettuce: return lettuce.index { itemType.item($0, isEqualTo: item) }
@@ -181,7 +187,7 @@ extension Salad {
         }
     }
     
-    func itemModifiersIsEmpty(_ item: Item) -> Bool {
+    private func itemModifiersIsEmpty(_ item: Item) -> Bool {
         guard let itemType = Swift.type(of: item).type as? SaladItemType,
             let index = index(for: item) else { return false }
         switch itemType {
@@ -190,6 +196,29 @@ extension Salad {
         case .extra: return extras[index].modifiers?.isEmpty ?? true
         default: return false
         }
+    }
+    
+    /// One time charge for chopped lettuce.
+    private var choppedPrice: Double? {
+        for lettuce in lettuce {
+            if let price = lettuce.modifiers?.first(where: { $0.title == "Chopped" })?.price {
+                return price
+            }
+        }
+        return nil
+    }
+    
+    private var itemsPrice: Double {
+        return ([lettuce, vegetables, toppings, dressings, extras] as [[Item]])
+            .reduce(0) { itemsSum, items in
+                itemsSum + items.reduce(0) { itemSum, item in
+                    itemSum + (item.price ?? 0) + modifiersPrice(for: item)
+                }
+            }
+    }
+    
+    private func modifiersPrice(for item: Item) -> Double {
+        return item.modifiers?.reduce(0) { $0 + ($1.title != "Chopped" ? ($1.price ?? 0) : 0) } ?? 0
     }
 }
 

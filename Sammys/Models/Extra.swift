@@ -13,11 +13,9 @@ struct Extra: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.extra
     let name: String
     let description: String
+    let price: Double?
     var modifiers: [Modifier]?
     let hex: String
-    
-    /// The price for the extra.
-    let price: Double
     
     static func ==(lhs: Extra, rhs: Extra) -> Bool {
         return lhs.name == rhs.name

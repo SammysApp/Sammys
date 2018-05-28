@@ -13,11 +13,12 @@ struct Topping: Item, Codable, Equatable {
     static let type: ItemType = SaladItemType.topping
     let name: String
     let description: String
+    let price: Double?
     var modifiers: [Modifier]? = nil
     let hex: String
     
     enum CodingKeys: String, CodingKey {
-        case name, description, hex
+        case name, description, price, hex
     }
     
     static func ==(lhs: Topping, rhs: Topping) -> Bool {

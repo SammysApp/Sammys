@@ -10,6 +10,7 @@ import UIKit
 
 class ModifierCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var priceLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

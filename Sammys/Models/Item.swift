@@ -16,6 +16,10 @@ protocol Item {
     /// The name of the item.
     var name: String { get }
     
+    var description: String { get }
+    
+    var price: Double? { get }
+    
     var modifiers: [Modifier]? { get set }
     
     /// The hex color value of the item. Used for UI features.

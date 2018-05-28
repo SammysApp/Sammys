@@ -43,6 +43,16 @@ class ModifierCollectionViewModel {
         return modifiers[indexPath.row].title
     }
     
+    func shouldHidePriceLabel(for indexPath: IndexPath) -> Bool {
+        guard let modifiers = modifiers else { fatalError() }
+        return modifiers[indexPath.row].price == nil
+    }
+    
+    func priceLabelText(for indexPath: IndexPath) -> String? {
+        guard let modifiers = modifiers else { fatalError() }
+        return modifiers[indexPath.row].price?.priceString
+    }
+    
     func backgroundColor(for indexPath: IndexPath) -> UIColor {
         guard let item = item, let modifiers = modifiers else { fatalError() }
         return (shouldShowSelected?(modifiers[indexPath.row], item) ?? false) ? .white : #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)

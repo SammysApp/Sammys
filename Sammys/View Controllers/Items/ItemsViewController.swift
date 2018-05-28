@@ -32,6 +32,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var itemTypeLabel: UILabel!
     @IBOutlet var itemStackView: UIStackView!
+    @IBOutlet var totalPriceLabel: UILabel!
     @IBOutlet var itemLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
@@ -49,6 +50,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     let layout = AnimatedCollectionViewLayout()
     let modifierViewEffect = UIBlurEffect(style: .dark)
     var isCollectionViewAnimating = false
+    var topViewShouldBeHidden = false
     var isLayoutAnimated: Bool {
         return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
     }
@@ -84,6 +86,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
         
         view.sendSubview(toBack: collectionView)
+        collectionView.register(UINib(nibName: "ItemCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: ItemCellIdentifier.itemCell.rawValue)
         
         // Set up layout for collection view.
         let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
@@ -160,9 +163,11 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func updateTopView(for contentOffsetY: CGFloat) {
         if contentOffsetY > 0 {
-            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.finishButton].forEach { $0.alpha = 0 } })
+            topViewShouldBeHidden = true
+            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 0 } })
         } else {
-            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.finishButton].forEach { $0.alpha = 1 } })
+            topViewShouldBeHidden = false
+            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 1 } })
         }
     }
     
@@ -240,6 +245,31 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         present(checkoutAlertController, animated: true, completion: nil)
     }
     
+    func flashTotalPrice() {
+        totalPriceLabel.alpha = 0
+        totalPriceLabel.isHidden = false
+        UIView.animate(withDuration: 0.25, animations: {
+            self.itemTypeLabel.alpha = 0
+            self.totalPriceLabel.alpha = 1
+        }) { completed in
+            guard completed else { return }
+            UIView.animate(withDuration: 0.25, delay: 1.5, options: [], animations: {
+                self.itemTypeLabel.alpha = 1
+                self.totalPriceLabel.alpha = 0
+            }) { completed in
+                guard completed else { return }
+                self.totalPriceLabel.isHidden = true
+            }
+        }
+    }
+    
+    func priceDidChange() {
+        totalPriceLabel.text = viewModel.totalPriceLabelText
+        if !topViewShouldBeHidden {
+            flashTotalPrice()
+        }
+    }
+    
     func didSelectItem(at index: Int) {
         viewModel.handleItemSelection(at: index)
         currentItemIndex = index
@@ -249,6 +279,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func didSelect(_ modifier: Modifier, for item: Item) {
+        hideModifiers()
         viewModel.toggleModifier(modifier, for: item)
         modifierCollectionView.reloadData()
         collectionView.reloadData()

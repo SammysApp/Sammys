@@ -32,5 +32,12 @@ struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         cell.backgroundColor = shouldShowSelected ? .white : item.color
         cell.titleLabel.text = item.name
         cell.titleLabel.isHidden = shouldHideItemLabel
+        
+        if let price = item.price, !shouldHideItemLabel {
+            cell.priceLabel.isHidden = false
+            cell.priceLabel.text = price.priceString
+        } else {
+            cell.priceLabel.isHidden = true
+        }
     }
 }
