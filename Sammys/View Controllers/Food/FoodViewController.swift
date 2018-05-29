@@ -19,6 +19,10 @@ class FoodViewController: UIViewController, FoodViewModelDelegate, Storyboardabl
     // MARK: - IBOutlets & View Properties
     var collectionView: FoodCollectionView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

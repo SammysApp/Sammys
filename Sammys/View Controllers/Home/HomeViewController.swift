@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 /// The home 🏠 of the app. Includes foods and user's favorites.
 class HomeViewController: UIViewController, Storyboardable {
@@ -17,10 +18,16 @@ class HomeViewController: UIViewController, Storyboardable {
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionViewContainerView: UIView!
+    @IBOutlet var favesButton: UIButton!
     @IBOutlet var bagButton: UIButton!
     @IBOutlet var bagButtonContainerView: UIView!
     @IBOutlet var bagQuantityLabel: UILabel!
     @IBOutlet var noFavesView: UIView!
+    @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
+        didSet {
+            activityIndicatorView.color = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        }
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -59,8 +66,9 @@ class HomeViewController: UIViewController, Storyboardable {
     }
     
     func setupNoFavesView() {
-        view.addSubview(noFavesView)
-        noFavesView.backgroundColor = .snow
+        view.insertSubview(noFavesView, belowSubview: bagButtonContainerView)
+        noFavesView.layer.cornerRadius = Constants.collectionViewCornerRadius
+        noFavesView.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         noFavesView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             noFavesView.leftAnchor.constraint(equalTo: collectionView.leftAnchor),
@@ -68,6 +76,10 @@ class HomeViewController: UIViewController, Storyboardable {
             noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
             noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         ])
+    }
+    
+    func updateFavesButton() {
+        favesButton.setBackgroundImage(viewModel.favesButtonImage, for: .normal)
     }
     
     func updateNoFavesViewIsHidden() {
@@ -87,6 +99,12 @@ class HomeViewController: UIViewController, Storyboardable {
             self.collectionView.reloadData()
         }
         navigationController?.pushViewController(foodViewController, animated: true)
+    }
+    
+    func presentLoginPageViewController() {
+        let loginPageViewController = LoginPageViewController.storyboardInstance() as! LoginPageViewController
+        loginPageViewController.delegate = self
+        present(loginPageViewController, animated: true, completion: nil)
     }
     
     // MARK: - IBActions
@@ -135,6 +153,7 @@ extension HomeViewController: HomeViewModelDelegate {
         return {
             self.collectionView.reloadData()
             self.updateNoFavesViewIsHidden()
+            self.updateFavesButton()
         }
     }
     
@@ -148,5 +167,27 @@ extension HomeViewController: HomeViewModelDelegate {
         return {
             self.pushFoodViewController(with: $0)
         }
+    }
+    
+    func didStartLoading() {
+        activityIndicatorView.startAnimating()
+    }
+    
+    func didStopLoading() {
+        activityIndicatorView.stopAnimating()
+    }
+    
+    func showLogin() {
+        presentLoginPageViewController()
+    }
+}
+
+extension HomeViewController: LoginPageViewControllerDelegate {
+    func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController) {
+        
+    }
+    
+    func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
+        viewModel.toggleFavesView()
     }
 }

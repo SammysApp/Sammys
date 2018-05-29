@@ -31,6 +31,8 @@ protocol Food: class, Codable {
     /// A short title.
     var title: String { get }
     
+    var userTitle: String? { get set }
+    
     /// A quantity of the `Food` item to buy.
     var quantity: Int { get set }
     

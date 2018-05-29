@@ -38,7 +38,6 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" name="Flora"/>
             <constraints>
                 <constraint firstItem="45y-qE-hvH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Nnt-5i-YbZ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="k6t-IY-mVz" secondAttribute="trailing" constant="10" id="V0V-7X-cX1"/>
@@ -58,9 +57,6 @@
         </view>
     </objects>
     <resources>
-        <namedColor name="Flora">
-            <color red="0.44999998807907104" green="0.98100000619888306" blue="0.47400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Snow">
             <color red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

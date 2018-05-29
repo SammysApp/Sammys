@@ -36,6 +36,7 @@ class AddViewModel {
         BagDataStore.shared.add(food)
     }
     
+    // FIXME: check user
     func addFoodAsFave() {
         UserAPIClient.set(food as! Salad, for: UserDataStore.shared.user!)
     }

@@ -64,7 +64,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         static let done = "Done"
         static let finish = "Finish"
         static let backAlertTitle = "You sure?"
-        static let backAlertMessage = "This will disregard all of your work."
+        static let backAlertMessage = "This will disregard your work."
     }
     
     // MARK: - Lifecycle
@@ -108,7 +108,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     // MARK: -
     
@@ -202,10 +202,13 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
     }
     
-    func showAddViewController() {
+    func presentAddViewController() {
         if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
+            let navigationController = UINavigationController(rootViewController: addViewController)
+            addViewController.title = viewModel.totalPriceString
             addViewController.viewModel = AddViewModel(food: viewModel.food, editDelegate: viewModel)
-            navigationController?.pushViewController(addViewController, animated: true)
+            addViewController.delegate = self
+            present(navigationController, animated: true, completion: nil)
         }
     }
     
@@ -245,29 +248,9 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         present(checkoutAlertController, animated: true, completion: nil)
     }
     
-    func flashTotalPrice() {
-        totalPriceLabel.alpha = 0
-        totalPriceLabel.isHidden = false
-        UIView.animate(withDuration: 0.25, animations: {
-            self.itemTypeLabel.alpha = 0
-            self.totalPriceLabel.alpha = 1
-        }) { completed in
-            guard completed else { return }
-            UIView.animate(withDuration: 0.25, delay: 1.5, options: [], animations: {
-                self.itemTypeLabel.alpha = 1
-                self.totalPriceLabel.alpha = 0
-            }) { completed in
-                guard completed else { return }
-                self.totalPriceLabel.isHidden = true
-            }
-        }
-    }
-    
     func priceDidChange() {
-        totalPriceLabel.text = viewModel.totalPriceLabelText
-        if !topViewShouldBeHidden {
-            flashTotalPrice()
-        }
+        totalPriceLabel.isHidden = false
+        totalPriceLabel.text = viewModel.totalPriceString
     }
     
     func didSelectItem(at index: Int) {
@@ -310,7 +293,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
             if isEditingFood {
                 finishEditing()
             } else {
-                showAddViewController()
+                presentAddViewController()
             }
         } else {
             viewModel.goToNextChoice()
@@ -335,7 +318,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         if isEditingFood {
             finishEditing()
         } else {
-            showAddViewController()
+            presentAddViewController()
         }
     }
     
@@ -418,6 +401,16 @@ extension ItemsViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchLocation = touch.location(in: self.view)
         return !modifierCollectionView.frame.contains(touchLocation)
+    }
+}
+
+extension ItemsViewController: AddViewControllerDelegate {
+    func addViewControllerDidComplete(_ addViewController: AddViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addViewControllerDidCancel(_ addViewController: AddViewController) {
+        navigationController?.popViewController(animated: true)
     }
 }
 

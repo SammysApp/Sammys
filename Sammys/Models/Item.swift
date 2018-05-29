@@ -35,7 +35,7 @@ protocol ItemType {
 extension Item {
     /// The color created using the item's hex value.
     var color: UIColor {
-        return hex.isEmpty ? .flora : UIColor(hex: hex)
+        return hex.isEmpty ? #colorLiteral(red: 0.4499999881, green: 0.9810000062, blue: 0.4740000069, alpha: 1) : UIColor(hex: hex)
     }
     
     mutating func clearModifiers() {

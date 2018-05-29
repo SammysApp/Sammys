@@ -17,6 +17,9 @@ protocol HomeViewModelDelegate {
     var collectionViewDataDidChange: () -> Void { get }
     var didSelectFood: () -> Void { get }
     var didSelectFavorite: (Food) -> Void { get }
+    func didStartLoading()
+    func didStopLoading()
+    func showLogin()
 }
 
 /// A home section in the home view.
@@ -71,6 +74,10 @@ class HomeViewModel {
         return currentBagQuantity != BagDataStore.shared.quantity
     }
     
+    var favesButtonImage: UIImage {
+        return viewKey == .faves ? #imageLiteral(resourceName: "Home.pdf") : #imageLiteral(resourceName: "Heart.pdf")
+    }
+    
     init(contextBounds: CGRect, _ delegate: HomeViewModelDelegate? = nil) {
         self.contextBounds = contextBounds
         self.delegate = delegate
@@ -104,11 +111,13 @@ class HomeViewModel {
     
     private func setupFaves() {
         // Only allow to display faves if there's a signed in user.
-        guard let user = user else { return }
+        guard let user = user else { delegate?.showLogin(); return }
+        viewKey = .faves
         if !user.favorites.isEmpty {
             setSections(for: user.favorites)
             delegate?.collectionViewDataDidChange()
         } else {
+            delegate?.didStartLoading()
             UserAPIClient.fetchFavorites(for: user) { result in
                 switch result {
                 case .success(let favorites):
@@ -116,6 +125,7 @@ class HomeViewModel {
                 case .failure:
                     self.sections = []
                 }
+                self.delegate?.didStopLoading()
                 self.delegate?.collectionViewDataDidChange()
             }
         }
@@ -143,9 +153,9 @@ class HomeViewModel {
     }
     
     func setupView(for viewKey: HomeViewKey) {
-        self.viewKey = viewKey
         switch viewKey {
         case .foods:
+            self.viewKey = viewKey
             setSectionsWithFood()
             delegate?.collectionViewDataDidChange()
         case .faves: setupFaves()

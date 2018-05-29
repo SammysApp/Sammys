@@ -39,9 +39,11 @@ class Salad: Food {
     /// The quantity of salads to buy. Determines `price` value. Default is `1`.
     var quantity = 1
     
+    var userTitle: String?
+    
     /// Returns title for salad.
     var title: String {
-        return "\(size!.name) Salad"
+        return userTitle ?? "\(size!.name) Salad"
     }
 }
 

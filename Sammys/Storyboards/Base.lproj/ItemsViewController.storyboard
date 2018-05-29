@@ -92,6 +92,12 @@
                                     <action selector="didTapFinish:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3UW-Ys-SZL"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYP-bL-OLD">
+                                <rect key="frame" x="20.000000000000004" y="73" width="43.333333333333343" height="21.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="textColor" name="Snow"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2q-fC-6Lk" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="137.66666666666666" y="356" width="100" height="100"/>
                                 <constraints>
@@ -172,16 +178,12 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYP-bL-OLD">
-                                <rect key="frame" x="160.33333333333334" y="69.333333333333329" width="55.666666666666657" height="28.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                <color key="textColor" name="Snow"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
+                            <constraint firstItem="HYP-bL-OLD" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="3e7-NM-8EV"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3yJ-ub-iJu"/>
+                            <constraint firstItem="HYP-bL-OLD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8Eh-8i-p6h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CoT-jF-u6a" secondAttribute="bottom" constant="20" id="8r3-4Z-clE"/>
                             <constraint firstItem="G32-jb-Vzc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A84-1D-cYH"/>
                             <constraint firstAttribute="bottom" secondItem="G32-jb-Vzc" secondAttribute="bottom" id="D5g-R5-fry"/>
@@ -194,14 +196,13 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="15" id="TQ3-aD-Zrv"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
+                            <constraint firstItem="L0K-Q8-L7Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HYP-bL-OLD" secondAttribute="trailing" constant="10" id="V7f-8N-ITs"/>
                             <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="VZb-FJ-ygy"/>
                             <constraint firstAttribute="bottom" secondItem="SoD-Da-FXx" secondAttribute="bottom" id="Wnh-kG-ijK"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAC-WD-Mh4"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="bNd-uz-DVx"/>
-                            <constraint firstItem="HYP-bL-OLD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bkz-JA-6m4"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="caT-7z-QFA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="30" id="jDa-MM-Sbq"/>
-                            <constraint firstItem="HYP-bL-OLD" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="jKb-v5-Dmz"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="10" id="rMq-dW-mE1"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uUX-uu-a8u"/>
                             <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wn0-wd-v6Q"/>

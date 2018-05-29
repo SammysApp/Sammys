@@ -76,7 +76,7 @@ class ItemsViewModel {
         return currentViewLayoutState == .vertical || currentChoice == .lettuce
     }
     
-    var totalPriceLabelText: String {
+    var totalPriceString: String {
         return currentSaladPrice.priceString
     }
     

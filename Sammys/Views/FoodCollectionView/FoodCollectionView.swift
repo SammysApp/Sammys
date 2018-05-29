@@ -37,10 +37,10 @@ class FoodCollectionView: UICollectionView {
     }
     
     private func setup() {
-        backgroundColor = .snow
+        backgroundColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.9411764706, alpha: 1)
         alwaysBounceVertical = true
         
-        register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue)
+        register(UINib(nibName: "ItemCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: ItemCellIdentifier.itemCell.rawValue)
         register(FoodHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FoodReuseIdentifier.header.rawValue)
     }
 }
@@ -63,9 +63,17 @@ class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodReuseIdentifier.itemCell.rawValue, for: indexPath) as! ItemCollectionViewCell
-        cell.backgroundColor = .flora
+        cell.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         cell.layer.cornerRadius = 20
-        cell.titleLabel.text = viewModel.sections[indexPath.section].items[indexPath.row].name
+        
+        let item = viewModel.sections[indexPath.section].items[indexPath.row]
+        cell.titleLabel.text = item.name
+        if let price = item.price {
+            cell.priceLabel.isHidden = false
+            cell.priceLabel.text = price.priceString
+        } else {
+            cell.priceLabel.isHidden = true
+        }
         return cell
     }
     
