@@ -10,6 +10,10 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol ConfirmationViewControllerDelegate {
+    func confirmationViewControllerDidDismiss(_ confirmationViewController: ConfirmationViewController)
+}
+
 class ConfirmationViewController: UIViewController, Storyboardable {
     typealias ViewController = ConfirmationViewController
     
@@ -18,6 +22,14 @@ class ConfirmationViewController: UIViewController, Storyboardable {
         didSet {
             collectionView.reloadData()
         }
+    }
+    var delegate: ConfirmationViewControllerDelegate?
+    
+    // MARK: - IBOutlets
+    @IBOutlet var collectionView: UICollectionView!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     struct Constants {
@@ -29,9 +41,6 @@ class ConfirmationViewController: UIViewController, Storyboardable {
         static let wazeBaseURL = "waze://"
         static let googleMapsBaseURL = "comgooglemaps://"
     }
-    
-    // MARK: - IBOutlets
-    @IBOutlet var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +79,11 @@ class ConfirmationViewController: UIViewController, Storyboardable {
     func cellViewModel(at row: Int) -> CollectionViewCellViewModel? {
         guard !cellViewModels.isEmpty && row < cellViewModels.count else { return nil }
         return cellViewModels[row]
+    }
+    
+    // MARK: - IBActions
+    @IBAction func didTapDone(_ sender: UIBarButtonItem) {
+        dismiss(animated: true) { self.delegate?.confirmationViewControllerDidDismiss(self) }
     }
 }
 

@@ -102,6 +102,14 @@ class BagViewModel: NSObject {
         return (subtotalPrice + taxPrice).rounded(toPlaces: 2)
     }
     
+    var shouldHideCreditCardButton: Bool {
+        return user == nil
+    }
+    
+    var paymentStackViewSpacing: CGFloat {
+        return shouldHideCreditCardButton ? 20 : 10
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -115,6 +123,9 @@ class BagViewModel: NSObject {
     func setupPaymentContext() {
         paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
         paymentContext.delegate = self
+        paymentContext.largeTitleDisplayMode = .never
+        paymentContext.theme.accentColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        paymentContext.theme.primaryBackgroundColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.9411764706, alpha: 1)
         paymentContext.configuration.createCardSources = true
         if paymentContextHostViewController != nil {
             paymentContext.hostViewController = paymentContextHostViewController
@@ -196,8 +207,8 @@ class BagViewModel: NSObject {
         data.clear()
     }
     
-    func pushPaymentMethodsViewController() {
-        paymentContext.pushPaymentMethodsViewController()
+    func presentPaymentMethodsViewController() {
+        paymentContext.presentPaymentMethodsViewController()
     }
     
     func updatePaymentPrice() {
@@ -268,5 +279,31 @@ extension BagViewModel: STPPaymentContextDelegate {
             }
         case .userCancellation: break
         }
+    }
+}
+
+extension STPAddCardViewController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    open override var navigationController: UINavigationController? {
+        super.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        super.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        super.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)]
+        return super.navigationController
+    }
+}
+
+extension STPPaymentMethodsViewController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    open override var navigationController: UINavigationController? {
+        super.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        super.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+        super.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)]
+        return super.navigationController
     }
 }

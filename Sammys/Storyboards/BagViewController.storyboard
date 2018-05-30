@@ -173,16 +173,16 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DoF-ZV-1Xt">
-                                <rect key="frame" x="0.0" y="483.33333333333343" width="375" height="240.66666666666669"/>
+                                <rect key="frame" x="0.0" y="481.33333333333343" width="375" height="242.66666666666669"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-Ha-3Fn">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="240.66666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="242.66666666666666"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="97i-YM-JPR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="240.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wSd-GW-GYh">
-                                                    <rect key="frame" x="20" y="40" width="335" height="160.66666666666666"/>
+                                                    <rect key="frame" x="20" y="40" width="335" height="162.66666666666666"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yLn-8k-I1c">
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="40.666666666666664"/>
@@ -224,11 +224,17 @@
                                                             </subviews>
                                                         </stackView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZm-5M-VcU">
-                                                            <rect key="frame" x="0.0" y="50.666666666666629" width="335" height="30"/>
-                                                            <state key="normal" title="Card"/>
+                                                            <rect key="frame" x="0.0" y="50.666666666666629" width="335" height="32"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                            <state key="normal">
+                                                                <color key="titleColor" name="Espresso"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="didTapCreditCard:" destination="1x3-yr-YVX" eventType="touchUpInside" id="PNV-ka-yBD"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAL-yv-ykH">
-                                                            <rect key="frame" x="0.0" y="90.666666666666629" width="335" height="70"/>
+                                                            <rect key="frame" x="0.0" y="92.666666666666629" width="335" height="70"/>
                                                             <color key="backgroundColor" name="Flora"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="70" id="SKu-63-bLD"/>
@@ -237,6 +243,9 @@
                                                             <state key="normal" title="$0.00">
                                                                 <color key="titleColor" name="Snow"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="didTapPurchase:" destination="1x3-yr-YVX" eventType="touchUpInside" id="MtD-A9-YaE"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -303,6 +312,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="creditCardButton" destination="AZm-5M-VcU" id="1z1-Ba-kUr"/>
+                        <outlet property="paymentStackView" destination="wSd-GW-GYh" id="oSe-mM-6Tu"/>
                         <outlet property="purchaseButton" destination="vAL-yv-ykH" id="ytU-6Q-AYi"/>
                         <outlet property="subtotalLabel" destination="VLr-dh-Nj8" id="omP-Uc-hxw"/>
                         <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>
@@ -344,6 +354,9 @@
         <image name="Trash" width="17" height="24"/>
         <namedColor name="Almond">
             <color red="1" green="0.96862745098039216" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Espresso">
+            <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

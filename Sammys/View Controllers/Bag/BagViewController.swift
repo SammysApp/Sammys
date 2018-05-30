@@ -14,6 +14,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
 
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var paymentStackView: UIStackView!
     @IBOutlet var subtotalLabel: UILabel!
     @IBOutlet var taxLabel: UILabel!
     @IBOutlet var purchaseButton: UIButton!
@@ -64,6 +65,12 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
         purchaseButton.setTitle(viewModel.totalPrice.priceString, for: .normal)
+        updatePaymentUI()
+    }
+    
+    func updatePaymentUI() {
+        creditCardButton.isHidden = viewModel.shouldHideCreditCardButton
+        paymentStackView.spacing = viewModel.paymentStackViewSpacing
     }
     
     func bagDataDidChange() {
@@ -118,7 +125,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func attemptPurchase() {
         if viewModel.user == nil {
             presentCheckoutAlertController(
-                didChooseGuest: pushAddCardViewController,
+                didChooseGuest: presentAddCardViewController,
                 didChooseCustomer: presentLoginPageViewController
             )
         } else {
@@ -135,12 +142,16 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         case .success:
             presentConfirmationViewController()
             viewModel.addToOrders()
+            clearBag()
         case .failure(let message): print(message)
         }
     }
     
     func presentConfirmationViewController() {
-        present(ConfirmationViewController.storyboardInstance(), animated: true, completion: nil)
+        let confirmationViewController = ConfirmationViewController.storyboardInstance() as! ConfirmationViewController
+        let navigationViewController = UINavigationController(rootViewController: confirmationViewController)
+        confirmationViewController.delegate = self
+        present(navigationViewController, animated: true, completion: nil)
     }
     
     func pushFoodViewController(for food: Food) {
@@ -175,10 +186,15 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         present(loginPageViewController, animated: true, completion: nil)
     }
     
-    func pushAddCardViewController() {
-        let addCardViewController = STPAddCardViewController()
+    func presentAddCardViewController() {
+        let theme = STPTheme()
+        theme.accentColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        theme.primaryBackgroundColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.9411764706, alpha: 1)
+        let configuration = STPPaymentConfiguration()
+        let addCardViewController = STPAddCardViewController(configuration: configuration, theme: theme)
         addCardViewController.delegate = self
-        self.navigationController?.pushViewController(addCardViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        present(navigationController, animated: true, completion: nil)
     }
 
     // MARK: - IBActions
@@ -195,7 +211,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     @IBAction func didTapCreditCard(_ sender: UIButton) {
-        viewModel.pushPaymentMethodsViewController()
+        viewModel.presentPaymentMethodsViewController()
     }
 }
 
@@ -245,9 +261,16 @@ extension BagViewController: UITableViewDelegate {
 extension BagViewController: LoginPageViewControllerDelegate {
     func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
         viewModel.setupPaymentContext()
+        updateUI()
     }
     
     func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController) {}
+}
+
+extension BagViewController: ConfirmationViewControllerDelegate {
+    func confirmationViewControllerDidDismiss(_ confirmationViewController: ConfirmationViewController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - STPAddCardViewControllerDelegate
