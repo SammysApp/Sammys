@@ -22,6 +22,7 @@ private struct BagSection {
 protocol BagViewModelDelegate {
     func bagDataDidChange()
     func didEdit(food: Food)
+    func didFave(food: Food)
     func didSelect(food: Food)
     func delete(indexPaths: [IndexPath])
     func delete(sections: IndexSet)
@@ -73,8 +74,10 @@ class BagViewModel: NSObject {
                         FoodBagTableViewCellViewModelFactory(
                             food: food,
                             height: UITableViewAutomaticDimension,
+                            selectedQuantity: { food.quantity },
                             didSelect: { self.delegate?.didSelect(food: $0) },
                             didEdit: { cell in self.delegate?.didEdit(food: food) },
+                            didFave: { cell in self.delegate?.didFave(food: food) },
                             didSelectQuantity: { self.changeQuantity($1, for: $0) })
                             .create()
                     )
@@ -164,6 +167,14 @@ class BagViewModel: NSObject {
     func remove(at indexPath: IndexPath) {
         guard let food = food(at: indexPath) else { return }
         remove(food, indexPath: indexPath)
+    }
+    
+    func fave(_ food: Food) {
+        guard let user = user else { return }
+        let originalQuantity = food.quantity
+        food.quantity = 1
+        UserAPIClient.set(food, for: user)
+        food.quantity = originalQuantity
     }
     
     func changeQuantity(_ quantity: Quantity, for food: Food) {

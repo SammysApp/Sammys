@@ -85,7 +85,7 @@ class QuantityCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         } else {
             cell.numberLabel.isHidden = false
             cell.deleteImage.isHidden = true
-            cell.contentView.backgroundColor = viewModel.backgroundColor
+            cell.contentView.backgroundColor = viewModel.backgroundColor(for: indexPath)
         }
         return cell
     }

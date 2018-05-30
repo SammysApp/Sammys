@@ -418,6 +418,12 @@ struct UserAPIClient {
         }
     }
     
+    static func remove(_ favorite: Food, for user: User, completed: ((Error?) -> Void)? = nil) {
+        favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).removeValue { error, reference in
+            completed?(error)
+        }
+    }
+    
     // MARK: - Orders 📝
     private static func ordersReference(forUserID userID: String) -> DatabaseReference {
         return database.users.user(with: userID).orders

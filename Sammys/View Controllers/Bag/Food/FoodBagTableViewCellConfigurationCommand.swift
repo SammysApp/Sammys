@@ -10,7 +10,9 @@ import UIKit
 
 struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
     let food: Food
+    let selectedQuantity: () -> Int
     let didEdit: ((FoodBagTableViewCell) -> Void)?
+    let didFave: ((FoodBagTableViewCell) -> Void)?
     let didSelectQuantity: ((Food, Quantity) -> Void)
     
     func perform(cell: UITableViewCell?) {
@@ -26,8 +28,10 @@ struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
         cell.descriptionLabel.text = food.itemDescription
         cell.priceLabel.text = food.price.priceString
         cell.didEdit = didEdit
+        cell.didFave = didFave
         
-        cell.quantityCollectionView.viewModel = QuantityCollectionViewModel(textColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1), backgroundColor: #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1), deleteBackgroundColor: #colorLiteral(red: 0.9490196078, green: 0.2705882353, blue: 0.3215686275, alpha: 1)) { quantity in
+        cell.quantityCollectionView.viewModel = QuantityCollectionViewModel(textColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1), backgroundColor: #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1), deleteBackgroundColor: #colorLiteral(red: 0.9490196078, green: 0.2705882353, blue: 0.3215686275, alpha: 1), selectedQuantity: selectedQuantity()) { quantity in
+            cell.quantityCollectionView.reloadData()
             self.didSelectQuantity(self.food, quantity)
         }
         

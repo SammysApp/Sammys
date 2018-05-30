@@ -46,18 +46,19 @@
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="urd-AR-9sn">
                             <color key="tintColor" name="Snow"/>
                             <connections>
-                                <action selector="didTapCancel:" destination="VAb-Jt-u9r" id="SNh-zv-xuE"/>
+                                <action selector="didTapCancel:" destination="VAb-Jt-u9r" id="TiG-JN-kOe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Fave" image="Heart Bar" id="XUF-ks-en8">
                             <color key="tintColor" name="Snow"/>
                             <connections>
-                                <action selector="didTapFave:" destination="VAb-Jt-u9r" id="Arl-M1-Kky"/>
+                                <action selector="didTapFave:" destination="VAb-Jt-u9r" id="j9S-NA-A8j"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="BJT-lW-SOL" id="pQb-l3-NAx"/>
+                        <outlet property="faveButton" destination="XUF-ks-en8" id="dNQ-ZQ-yAn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRt-Z5-RJG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -67,7 +68,6 @@
         <!--Navigation Controller-->
         <scene sceneID="3u4-C1-grP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tRX-Gz-JM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="navigationController" automaticallyAdjustsScrollViewInsets="NO" id="Xz6-G5-Mvd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="5Da-RL-CBY">
@@ -80,6 +80,7 @@
                         <segue destination="VAb-Jt-u9r" kind="relationship" relationship="rootViewController" id="zIO-LJ-42q"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tRX-Gz-JM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="556" y="146"/>
         </scene>
@@ -88,9 +89,6 @@
         <image name="Heart Bar" width="22" height="19"/>
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Snow">
-            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Snow">
             <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

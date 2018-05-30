@@ -239,9 +239,6 @@
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Espresso">
-            <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Mocha">
             <color red="0.32941176470588235" green="0.19215686274509805" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

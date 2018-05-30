@@ -21,11 +21,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="tet-Lr-gGG"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CW5-An-vjl">
-                        <barButtonItem key="rightBarButtonItem" title="Fave" image="Heart Bar" id="9Jr-Wp-SHB">
-                            <color key="tintColor" name="Snow"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="CW5-An-vjl"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGY-ci-JF8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -52,12 +48,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Heart Bar" width="22" height="19"/>
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Snow">
-            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

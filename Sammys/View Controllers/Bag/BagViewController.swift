@@ -88,6 +88,10 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
+    func didFave(food: Food) {
+        viewModel.fave(food)
+    }
+    
     func delete(sections: IndexSet) {
         tableView.deleteSections(sections, with: .automatic)
         updateUI()

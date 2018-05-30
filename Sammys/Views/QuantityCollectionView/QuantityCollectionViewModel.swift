@@ -15,14 +15,16 @@ enum Quantity {
 
 class QuantityCollectionViewModel {
     let textColor: UIColor
-    let backgroundColor: UIColor
+    private let _backgroundColor: UIColor
     let deleteBackgroundColor: UIColor
+    let selectedQuantity: Int
     private let didSelectQuantity: ((Quantity) -> Void)?
     
-    init(textColor: UIColor = .black, backgroundColor: UIColor = .white, deleteBackgroundColor: UIColor = .red, deleteImage: UIImage? = nil, didSelectQuantity: ((Quantity) -> Void)? = nil) {
+    init(textColor: UIColor = .black, backgroundColor: UIColor = .white, deleteBackgroundColor: UIColor = .red, deleteImage: UIImage? = nil, selectedQuantity: Int = 1, didSelectQuantity: ((Quantity) -> Void)? = nil) {
         self.didSelectQuantity = didSelectQuantity
         self.textColor = textColor
-        self.backgroundColor = backgroundColor
+        self._backgroundColor = backgroundColor
+        self.selectedQuantity = selectedQuantity
         self.deleteBackgroundColor = deleteBackgroundColor
     }
     
@@ -32,6 +34,14 @@ class QuantityCollectionViewModel {
     
     func numberOfItems(inSection section: Int) -> Int {
         return 10
+    }
+    
+    func backgroundColor(for indexPath: IndexPath) -> UIColor {
+        return indexPathShouldShowSelected(indexPath) ? .white : _backgroundColor
+    }
+    
+    func indexPathShouldShowSelected(_ indexPath: IndexPath) -> Bool {
+        return indexPath.row == selectedQuantity
     }
     
     func indexPathShouldShowDelete(_ indexPath: IndexPath) -> Bool {

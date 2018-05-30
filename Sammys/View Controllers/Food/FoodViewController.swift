@@ -29,6 +29,8 @@ class FoodViewController: UIViewController, FoodViewModelDelegate, Storyboardabl
         
         viewModel.delegate = self
         
+        navigationController?.navigationBar.isTranslucent = false
+        
         collectionView = FoodCollectionView(frame: CGRect.zero, viewModel: viewModel.collectionViewModel)
         
         view.insertSubview(collectionView, at: 0)
@@ -46,7 +48,7 @@ class FoodViewController: UIViewController, FoodViewModelDelegate, Storyboardabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

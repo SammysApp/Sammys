@@ -22,6 +22,7 @@ class AddViewController: UIViewController, AddViewModelDelegate, Storyboardable 
     
     // MARK: - IBOutlets & View Properties
     @IBOutlet var addButton: UIButton!
+    @IBOutlet var faveButton: UIBarButtonItem!
     
     var collectionView: FoodCollectionView!
     
@@ -41,6 +42,11 @@ class AddViewController: UIViewController, AddViewModelDelegate, Storyboardable 
         viewModel.delegate = self
         
         navigationController?.navigationBar.isTranslucent = false
+        if navigationController?.viewControllers[0] != self {
+            navigationItem.leftBarButtonItems = nil
+        }
+        
+        updateUI()
         
         collectionView = FoodCollectionView(frame: CGRect.zero, viewModel: viewModel.collectionViewModel)
         
@@ -55,11 +61,29 @@ class AddViewController: UIViewController, AddViewModelDelegate, Storyboardable 
         collectionView.contentInset.bottom = addButton.frame.height + 40
         
         addButton.layer.cornerRadius = 20
+        updateFaveButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParentViewController {
+            viewModel.handleMovingFromParentViewController(self)
+        }
+    }
+    
+    func updateUI() {
+        title = viewModel.title
+    }
+    
+    func updateFaveButton() {
+        faveButton.image = viewModel.faveButtonImage
     }
     
     func presentCancelAlertController() {
@@ -73,20 +97,36 @@ class AddViewController: UIViewController, AddViewModelDelegate, Storyboardable 
         present(checkoutAlertController, animated: true, completion: nil)
     }
     
+    func didUpdateFave() {
+        updateFaveButton()
+    }
+    
     func didTapEdit() {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didTapCancel(_ sender: UIButton) {
+    func edit(for itemType: ItemType, with food: Food) {
+        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
+        itemsViewController.resetFood(to: food)
+        itemsViewController.edit(for: itemType)
+        itemsViewController.isEditingFood = true
+        itemsViewController.didFinishEditing = {
+            self.collectionView.reloadData()
+            self.updateUI()
+        }
+        navigationController?.pushViewController(itemsViewController, animated: true)
+    }
+    
+    @IBAction func didTapCancel(_ sender: UIBarButtonItem) {
         presentCancelAlertController()
+    }
+    
+    @IBAction func didTapFave(_ sender: UIBarButtonItem) {
+        viewModel.handleDidTapFave()
     }
     
     @IBAction func didTapAdd(_ sender: UIButton) {
         viewModel.addFoodToBag()
         dismiss(animated: true) { self.delegate?.addViewControllerDidComplete(self) }
-    }
-    
-    @IBAction func didTapFave(_ sender: UIButton) {
-        viewModel.addFoodAsFave()
     }
 }

@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, Storyboardable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
         
         if viewModel.needsBagQuantityUpdate {
             bagQuantityLabel.text = viewModel.bagQuantityLabelText
@@ -90,15 +90,16 @@ class HomeViewController: UIViewController, Storyboardable {
         }
     }
     
-    func pushFoodViewController(with food: Food) {
-        guard let foodViewController = FoodViewController.storyboardInstance() as? FoodViewController else { return }
-        foodViewController.viewModel = FoodViewModel(food: food)
-        foodViewController.didGoBack = { foodViewController in
+    func pushAddViewController(with food: Food) {
+        guard let addViewController = AddViewController.storyboardInstance() as? AddViewController else { return }
+        addViewController.viewModel = AddViewModel(food: food)
+        addViewController.viewModel.shouldUnfave = true
+        addViewController.viewModel.didGoBack = { addViewController, food in
             // Override favorite with any new additions to the food.
-            self.viewModel.setFavorite(food)
+            if let food = food { self.viewModel.setFavorite(food) }
             self.collectionView.reloadData()
         }
-        navigationController?.pushViewController(foodViewController, animated: true)
+        navigationController?.pushViewController(addViewController, animated: true)
     }
     
     func presentLoginPageViewController() {
@@ -165,7 +166,7 @@ extension HomeViewController: HomeViewModelDelegate {
     
     var didSelectFavorite: (Food) -> Void {
         return {
-            self.pushFoodViewController(with: $0)
+            self.pushAddViewController(with: $0)
         }
     }
     

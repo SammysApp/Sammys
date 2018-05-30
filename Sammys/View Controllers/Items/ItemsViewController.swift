@@ -205,7 +205,6 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     func presentAddViewController() {
         if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
             let navigationController = UINavigationController(rootViewController: addViewController)
-            addViewController.title = viewModel.totalPriceString
             addViewController.viewModel = AddViewModel(food: viewModel.food, editDelegate: viewModel)
             addViewController.delegate = self
             present(navigationController, animated: true, completion: nil)
