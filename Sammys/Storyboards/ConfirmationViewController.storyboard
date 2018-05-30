@@ -22,7 +22,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mPt-UT-oSE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="Almond"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XZS-N4-faA">
                                     <size key="itemSize" width="355" height="180"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -45,7 +45,6 @@
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Message" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfL-z6-oir">
                                                     <rect key="frame" x="20" y="60" width="315" height="100"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -138,6 +137,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Almond">
+            <color red="1" green="0.96862745098039216" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -178,7 +178,7 @@
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-Ha-3Fn">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="242.66666666666666"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="97i-YM-JPR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="243"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="242.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wSd-GW-GYh">
@@ -354,9 +354,6 @@
         <image name="Trash" width="17" height="24"/>
         <namedColor name="Almond">
             <color red="1" green="0.96862745098039216" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Espresso">
-            <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Espresso">
             <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
