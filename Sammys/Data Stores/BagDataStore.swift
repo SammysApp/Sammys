@@ -112,14 +112,3 @@ class BagDataStore {
         save()
     }
 }
-
-extension Dictionary where Key == FoodType, Value == [Food] {
-    var quantity: Int {
-        return reduce(0) { $0 + $1.value.count }
-    }
-    
-    var randomFood: Food? {
-        let foods = Array(values)[Int(arc4random_uniform(UInt32(count)))]
-        return foods[Int(arc4random_uniform(UInt32(foods.count)))]
-    }
-}

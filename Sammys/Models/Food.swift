@@ -107,9 +107,13 @@ struct AnyFood: Codable {
     }
 }
 
-extension Array where Element == Item {
-    /// Returns a string consisting of the `name`s of `Item`s seperated by commas.
-    var commaString: String {
-        return self.map { $0.name }.joined(separator: ", ")
+extension Dictionary where Key == FoodType, Value == [Food] {
+    var quantity: Int {
+        return reduce(0) { $0 + $1.value.count }
+    }
+    
+    var randomFood: Food? {
+        let foods = Array(values)[Int(arc4random_uniform(UInt32(count)))]
+        return foods[Int(arc4random_uniform(UInt32(foods.count)))]
     }
 }

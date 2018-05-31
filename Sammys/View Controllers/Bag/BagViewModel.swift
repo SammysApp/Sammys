@@ -251,6 +251,7 @@ class BagViewModel: NSObject {
             let order = Order(number: "\(number)", userName: user.name, userID: user.id, date: date, foods: self.foods)
             OrdersAPIClient.add(order, to: date, withNumber: number)
             UserAPIClient.add(order, for: user)
+            self.clearBag()
         }
     }
 }

@@ -46,8 +46,8 @@ struct Order: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(id, forKey: .userName)
-        try container.encode(id, forKey: .userID)
+        try container.encode(userName, forKey: .userName)
+        try container.encode(userID, forKey: .userID)
         try container.encode(number, forKey: .number)
         try container.encode(date, forKey: .date)
         try container.encode(foods.toEncodable(), forKey: .foods)

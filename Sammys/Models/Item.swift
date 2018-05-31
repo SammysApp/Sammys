@@ -43,3 +43,10 @@ extension Item {
         modifiers = []
     }
 }
+
+extension Array where Element == Item {
+    /// Returns a string consisting of the `name`s of `Item`s seperated by commas.
+    var commaString: String {
+        return self.map { $0.name }.joined(separator: ", ")
+    }
+}

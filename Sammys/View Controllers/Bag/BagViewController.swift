@@ -142,7 +142,6 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         case .success:
             presentConfirmationViewController()
             viewModel.addToOrders()
-            clearBag()
         case .failure(let message): print(message)
         }
     }

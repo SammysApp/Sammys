@@ -13,6 +13,54 @@
 		5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */; };
 		5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */; };
 		5B02C7162087CA30006D19A5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
+		5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58920C035F000BF05B2 /* AppDelegate.swift */; };
+		5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */; };
+		5B10D58E20C035F000BF05B2 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58D20C035F000BF05B2 /* OrderViewController.swift */; };
+		5B10D59120C035F000BF05B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D58F20C035F000BF05B2 /* Main.storyboard */; };
+		5B10D59320C035F400BF05B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D59220C035F400BF05B2 /* Assets.xcassets */; };
+		5B10D59620C035F400BF05B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D59420C035F400BF05B2 /* LaunchScreen.storyboard */; };
+		5B10D59B20C042D200BF05B2 /* OrdersAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1BE20AB918C00B3E0A5 /* OrdersAPIClient.swift */; };
+		5B10D59C20C044A900BF05B2 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29688208E2D3500520683 /* Order.swift */; };
+		5B10D59D20C044C200BF05B2 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* Food.swift */; };
+		5B10D59E20C044D000BF05B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
+		5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06951FFD54B500BAC480 /* Salad.swift */; };
+		5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
+		5B10D5A120C044DE00BF05B2 /* Lettuce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06931FFD543300BAC480 /* Lettuce.swift */; };
+		5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068F1FFD534C00BAC480 /* Vegetable.swift */; };
+		5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A834200EA4BE00898FF0 /* Topping.swift */; };
+		5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
+		5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06911FFD53C700BAC480 /* Extra.swift */; };
+		5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
+		5B10D5A720C0467400BF05B2 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array.swift */; };
+		5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */; };
+		5B10D5A920C0467400BF05B2 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F382069F5B100105E72 /* Collection.swift */; };
+		5B10D5AA20C0467400BF05B2 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F352069F5B100105E72 /* Date.swift */; };
+		5B10D5AB20C0467400BF05B2 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F412069F5B100105E72 /* Double.swift */; };
+		5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3B2069F5B100105E72 /* Int.swift */; };
+		5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED537206BEED2002240EB /* JSONDecoder.swift */; };
+		5B10D5AE20C0467400BF05B2 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F372069F5B100105E72 /* MKMapView.swift */; };
+		5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3F2069F5B100105E72 /* UIButton.swift */; };
+		5B10D5B020C0467400BF05B2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53B206C6CE9002240EB /* UIColor.swift */; };
+		5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F402069F5B100105E72 /* UIImage.swift */; };
+		5B10D5B220C0467400BF05B2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F342069F5B100105E72 /* UIScrollView.swift */; };
+		5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3D2069F5B100105E72 /* UITableView.swift */; };
+		5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F362069F5B100105E72 /* UIView.swift */; };
+		5B10D5B520C0467400BF05B2 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
+		5B10D5B720C05B8E00BF05B2 /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
+		5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
+		5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */; };
+		5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */; };
+		5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */; };
+		5B10D5BD20C0805500BF05B2 /* CollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274FA2064031400618128 /* CollectionViewCellViewModelFactory.swift */; };
+		5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
+		5B10D5BF20C0805500BF05B2 /* TableViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */; };
+		5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
+		5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C120C081B900BF05B2 /* OrderTableViewCell.swift */; };
+		5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */; };
+		5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */; };
+		5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
+		5B10D5C820C0886B00BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8222007D58400898FF0 /* GoogleService-Info.plist */; };
+		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
@@ -152,16 +200,32 @@
 		5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BD020217D36005C01BF /* UserViewModel.swift */; };
 		5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */; };
 		77D5D07D6A0C8DBA5E68B9C8 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */; };
+		A50668C9BD111B7B10F02969 /* Pods_Sammys_Kitchen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494BDE28465FF5670B5D65A /* Pods_Sammys_Kitchen.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
+		5494BDE28465FF5670B5D65A /* Pods_Sammys_Kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys_Kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B02C70A20852992006D19A5 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B02C70C20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B02C7152087CA30006D19A5 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sammys Kitchen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B10D58920C035F000BF05B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		5B10D58D20C035F000BF05B2 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		5B10D59020C035F000BF05B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5B10D59220C035F400BF05B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B10D59520C035F400BF05B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5B10D59720C035F400BF05B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitchenOrder.swift; sourceTree = "<group>"; };
+		5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
+		5B10D5C120C081B900BF05B2 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
@@ -243,7 +307,7 @@
 		5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296A12093891100520683 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
-		5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DefaultTableViewCellViewModel.swift; path = Sammys/Cells/DefaultTableViewCellViewModel.swift; sourceTree = SOURCE_ROOT; };
+		5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DefaultTableViewCellViewModel.swift; path = Sammys/Cells/Models/DefaultTableViewCellViewModel.swift; sourceTree = SOURCE_ROOT; };
 		5BB296AC209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -303,10 +367,20 @@
 		5BFD2BD020217D36005C01BF /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.release.xcconfig"; sourceTree = "<group>"; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
+		E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B10D58420C035EF00BF05B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50668C9BD111B7B10F02969 /* Pods_Sammys_Kitchen.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B6A06751FFD509A00BAC480 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +397,8 @@
 			children = (
 				21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */,
 				BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */,
+				E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */,
+				8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -336,6 +412,25 @@
 				5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */,
 			);
 			path = Message;
+			sourceTree = "<group>";
+		};
+		5B10D58820C035F000BF05B2 /* Sammys Kitchen */ = {
+			isa = PBXGroup;
+			children = (
+				5B10D58920C035F000BF05B2 /* AppDelegate.swift */,
+				5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */,
+				5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */,
+				5B10D5C120C081B900BF05B2 /* OrderTableViewCell.swift */,
+				5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */,
+				5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */,
+				5B10D58D20C035F000BF05B2 /* OrderViewController.swift */,
+				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
+				5B10D59420C035F400BF05B2 /* LaunchScreen.storyboard */,
+				5B10D59220C035F400BF05B2 /* Assets.xcassets */,
+				5B10D59720C035F400BF05B2 /* Info.plist */,
+				5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */,
+			);
+			path = "Sammys Kitchen";
 			sourceTree = "<group>";
 		};
 		5B3176CF206D3D8300D83D12 /* Food */ = {
@@ -383,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6A067A1FFD509A00BAC480 /* Sammys */,
+				5B10D58820C035F000BF05B2 /* Sammys Kitchen */,
 				5B6A06791FFD509A00BAC480 /* Products */,
 				121183D2095EEA5493A89E13 /* Pods */,
 				94825A66B172021E2F0BA0A3 /* Frameworks */,
@@ -393,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6A06781FFD509A00BAC480 /* Sammys.app */,
+				5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +559,7 @@
 				5B6A06911FFD53C700BAC480 /* Extra.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
+				5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */,
 				5BAD4D1F20B87C91009201A4 /* FoodsData.swift */,
 				5BB60EEF2069EA4400105E72 /* ItemEditable.swift */,
 				5BB60EF12069EA5200105E72 /* Storyboardable.swift */,
@@ -491,9 +589,6 @@
 			isa = PBXGroup;
 			children = (
 				5BEED540206C7330002240EB /* Models */,
-				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
-				5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */,
-				5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */,
 				5BB296B5209CEA0F00520683 /* Button */,
 				5BB296B0209CE57B00520683 /* Detail */,
 				5BD274F72063FBEA00618128 /* Item */,
@@ -549,6 +644,7 @@
 			children = (
 				5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */,
 				5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */,
+				5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */,
 			);
 			path = ModifierCollectionView;
 			sourceTree = "<group>";
@@ -800,6 +896,7 @@
 			children = (
 				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
 				5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */,
+				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
 			);
 			path = QuantityCollectionView;
 			sourceTree = "<group>";
@@ -822,6 +919,7 @@
 				5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */,
 				5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */,
 				5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */,
+				5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -830,6 +928,7 @@
 			isa = PBXGroup;
 			children = (
 				60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */,
+				5494BDE28465FF5670B5D65A /* Pods_Sammys_Kitchen.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -837,6 +936,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B10D58620C035EF00BF05B2 /* Sammys Kitchen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B10D59A20C035F400BF05B2 /* Build configuration list for PBXNativeTarget "Sammys Kitchen" */;
+			buildPhases = (
+				076840F4E1047A9B384C3361 /* [CP] Check Pods Manifest.lock */,
+				5B10D58320C035EF00BF05B2 /* Sources */,
+				5B10D58420C035EF00BF05B2 /* Frameworks */,
+				5B10D58520C035EF00BF05B2 /* Resources */,
+				3415A929B3DF9F62C313284E /* [CP] Embed Pods Frameworks */,
+				53D31B1014485B0E5437C16E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sammys Kitchen";
+			productName = "Sammys Kitchen";
+			productReference = 5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5B6A06771FFD509A00BAC480 /* Sammys */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B6A068A1FFD509A00BAC480 /* Build configuration list for PBXNativeTarget "Sammys" */;
@@ -863,10 +982,14 @@
 		5B6A06701FFD509A00BAC480 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Natanel Niazoff";
 				TargetAttributes = {
+					5B10D58620C035EF00BF05B2 = {
+						CreatedOnToolsVersion = 9.3.1;
+						ProvisioningStyle = Automatic;
+					};
 					5B6A06771FFD509A00BAC480 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -887,11 +1010,24 @@
 			projectRoot = "";
 			targets = (
 				5B6A06771FFD509A00BAC480 /* Sammys */,
+				5B10D58620C035EF00BF05B2 /* Sammys Kitchen */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B10D58520C035EF00BF05B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B10D59620C035F400BF05B2 /* LaunchScreen.storyboard in Resources */,
+				5B10D5C820C0886B00BF05B2 /* GoogleService-Info.plist in Resources */,
+				5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */,
+				5B10D59320C035F400BF05B2 /* Assets.xcassets in Resources */,
+				5B10D59120C035F000BF05B2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B6A06761FFD509A00BAC480 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -920,6 +1056,65 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		076840F4E1047A9B384C3361 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sammys Kitchen-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3415A929B3DF9F62C313284E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53D31B1014485B0E5437C16E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		70C517DC9EF75C2F0908C51D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -942,16 +1137,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.2/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.2/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.2/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb-iOS11.2/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -992,6 +1187,55 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B10D58320C035EF00BF05B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */,
+				5B10D59B20C042D200BF05B2 /* OrdersAPIClient.swift in Sources */,
+				5B10D58E20C035F000BF05B2 /* OrderViewController.swift in Sources */,
+				5B10D59C20C044A900BF05B2 /* Order.swift in Sources */,
+				5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */,
+				5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */,
+				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
+				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
+				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
+				5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */,
+				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
+				5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */,
+				5B10D5A720C0467400BF05B2 /* Array.swift in Sources */,
+				5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */,
+				5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */,
+				5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */,
+				5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */,
+				5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */,
+				5B10D5A120C044DE00BF05B2 /* Lettuce.swift in Sources */,
+				5B10D5A920C0467400BF05B2 /* Collection.swift in Sources */,
+				5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */,
+				5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */,
+				5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
+				5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */,
+				5B10D59E20C044D000BF05B2 /* Item.swift in Sources */,
+				5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */,
+				5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */,
+				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
+				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
+				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
+				5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */,
+				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,
+				5B10D5B020C0467400BF05B2 /* UIColor.swift in Sources */,
+				5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */,
+				5B10D5B220C0467400BF05B2 /* UIScrollView.swift in Sources */,
+				5B10D5AE20C0467400BF05B2 /* MKMapView.swift in Sources */,
+				5B10D5BD20C0805500BF05B2 /* CollectionViewCellViewModelFactory.swift in Sources */,
+				5B10D5BF20C0805500BF05B2 /* TableViewCellCommand.swift in Sources */,
+				5B10D5AA20C0467400BF05B2 /* Date.swift in Sources */,
+				5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */,
+				5B10D5AB20C0467400BF05B2 /* Double.swift in Sources */,
+				5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B6A06741FFD509A00BAC480 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1067,6 +1311,7 @@
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* FoodHomeCollectionViewCell.swift in Sources */,
 				5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */,
+				5B10D5B720C05B8E00BF05B2 /* KitchenOrder.swift in Sources */,
 				5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296CB209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift in Sources */,
@@ -1128,6 +1373,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5B10D58F20C035F000BF05B2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B10D59020C035F000BF05B2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5B10D59420C035F400BF05B2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B10D59520C035F400BF05B2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1147,6 +1408,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B10D59820C035F400BF05B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "Sammys Kitchen/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		5B10D59920C035F400BF05B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "Sammys Kitchen/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
 		5B6A06881FFD509A00BAC480 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1270,7 +1567,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1286,13 +1583,22 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B10D59A20C035F400BF05B2 /* Build configuration list for PBXNativeTarget "Sammys Kitchen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B10D59820C035F400BF05B2 /* Debug */,
+				5B10D59920C035F400BF05B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5B6A06731FFD509A00BAC480 /* Build configuration list for PBXProject "Sammys" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
