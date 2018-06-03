@@ -110,6 +110,12 @@ class BagViewModel: NSObject {
         return shouldHideCreditCardButton ? 20 : 10
     }
     
+    var userName: String?
+    
+    var orderUserName: String? {
+        return user?.name ?? userName
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -124,8 +130,6 @@ class BagViewModel: NSObject {
         paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
         paymentContext.delegate = self
         paymentContext.largeTitleDisplayMode = .never
-        paymentContext.theme.accentColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        paymentContext.theme.primaryBackgroundColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.9411764706, alpha: 1)
         paymentContext.configuration.createCardSources = true
         if paymentContextHostViewController != nil {
             paymentContext.hostViewController = paymentContextHostViewController
@@ -222,8 +226,12 @@ class BagViewModel: NSObject {
     func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {
         PayAPIClient.chargeSource(id, amount: totalPrice.toCents()) { result in
             switch result {
-            case .success: completed?(nil)
-            case .failure(let error): completed?(error)
+            case .success:
+                self.delegate?.paymentDidComplete(with: .success)
+                completed?(nil)
+            case .failure(let error):
+                self.delegate?.paymentDidComplete(with: .failure(error.localizedDescription))
+                completed?(error)
             }
         }
     }
@@ -245,12 +253,12 @@ class BagViewModel: NSObject {
     }
     
     func addToOrders() {
-        guard let user = user else { return }
+        guard let userName = userName else { fatalError() }
         let date = Date()
         OrdersAPIClient.fetchNewOrderNumber(for: date) { number in
-            let order = Order(number: "\(number)", userName: user.name, userID: user.id, date: date, foods: self.foods)
+            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, foods: self.foods)
             OrdersAPIClient.add(order, to: date, withNumber: number)
-            UserAPIClient.add(order, for: user)
+            if let user = self.user { UserAPIClient.add(order, for: user) }
             self.clearBag()
         }
     }
@@ -287,24 +295,10 @@ extension STPAddCardViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    open override var navigationController: UINavigationController? {
-        super.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        super.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        super.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)]
-        return super.navigationController
-    }
 }
 
 extension STPPaymentMethodsViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    open override var navigationController: UINavigationController? {
-        super.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        super.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        super.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)]
-        return super.navigationController
     }
 }

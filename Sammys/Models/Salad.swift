@@ -43,7 +43,7 @@ class Salad: Food {
     
     /// Returns title for salad.
     var title: String {
-        return userTitle ?? "\(size!.name) Salad"
+        return "\(size!.name) Salad"
     }
 }
 

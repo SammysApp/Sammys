@@ -14,7 +14,7 @@ private typealias SavedFoods = [FoodType : [AnyFood]]
 struct Order: Codable {
     let id: String
     let userName: String
-    let userID: String
+    let userID: String?
     let number: String
     let date: Date
     let foods: Foods
@@ -23,7 +23,7 @@ struct Order: Codable {
         case id, userName, userID, number, date, foods
     }
     
-    init(number: String, userName: String, userID: String, date: Date, foods: [FoodType : [Food]]) {
+    init(number: String, userName: String, userID: String?, date: Date, foods: [FoodType : [Food]]) {
         self.id = UUID().uuidString
         self.userName = userName
         self.userID = userID
@@ -73,6 +73,12 @@ extension Order {
         guard let food = foods.randomFood else { fatalError() }
         let moreQuantity = food.quantity - 1
         return moreQuantity > 0 ? "\(food.title) & \(moreQuantity) more" : food.title
+    }
+    
+    func itemDescription(for foodType: FoodType) -> String? {
+        guard let foods = foods[foodType], let firstFood = foods.first else { return nil }
+        let moreQuantity = foods.count - 1
+        return moreQuantity > 0 ? "\(firstFood.title) & \(moreQuantity) more" : firstFood.title
     }
 }
 

@@ -28,6 +28,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     
     private struct Constants {
         static let checkoutAlertMessage = "Choose the way you would like to checkout."
+        static let userNameAlertMessage = "Please enter your name."
     }
     
     // MARK: - Lifecycle
@@ -179,6 +180,20 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         present(checkoutAlertController, animated: true, completion: nil)
     }
     
+    func presentUserNameAlertController(didFinish: @escaping (String) -> Void) {
+        let checkoutAlertController = UIAlertController(title: nil, message: Constants.userNameAlertMessage, preferredStyle: .alert)
+        checkoutAlertController.addTextField { $0.placeholder = "Name" }
+        [UIAlertAction(title: "Done", style: .default, handler: { action in
+            guard let name = checkoutAlertController.textFields?.first?.text,
+                !name.isEmpty else { return }
+            didFinish(name)
+        }),
+         UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            checkoutAlertController.dismiss(animated: true, completion: nil)
+         })].forEach { checkoutAlertController.addAction($0) }
+        present(checkoutAlertController, animated: true, completion: nil)
+    }
+    
     func presentLoginPageViewController() {
         let loginPageViewController = LoginPageViewController.storyboardInstance() as! LoginPageViewController
         loginPageViewController.delegate = self
@@ -186,11 +201,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func presentAddCardViewController() {
-        let theme = STPTheme()
-        theme.accentColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        theme.primaryBackgroundColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.9411764706, alpha: 1)
-        let configuration = STPPaymentConfiguration()
-        let addCardViewController = STPAddCardViewController(configuration: configuration, theme: theme)
+        let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: addCardViewController)
         present(navigationController, animated: true, completion: nil)
@@ -275,10 +286,15 @@ extension BagViewController: ConfirmationViewControllerDelegate {
 // MARK: - STPAddCardViewControllerDelegate
 extension BagViewController: STPAddCardViewControllerDelegate {
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateSource source: STPSource, completion: @escaping STPErrorBlock) {
-        viewModel.chargeSource(with: source.stripeID, completed: completion)
+        dismiss(animated: true) {
+            self.presentUserNameAlertController {
+                self.viewModel.userName = $0
+                self.viewModel.chargeSource(with: source.stripeID, completed: completion)
+            }
+        }
     }
     
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

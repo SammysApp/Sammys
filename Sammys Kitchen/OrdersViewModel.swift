@@ -23,7 +23,8 @@ class OrdersViewModel {
     }
     
     private var cellViewModels: [TableViewCellViewModel]? {
-        return kitchenOrders?.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
+        // Result of sorting kitchen orders by date and mapping to models.
+        return kitchenOrders?.sorted { $0.order.date.compare($1.order.date) == .orderedDescending }.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
     }
     
     var numberOfSections: Int {

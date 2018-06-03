@@ -67,23 +67,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="orderCell" rowHeight="80" id="WCw-Qf-5nD" customClass="OrderTableViewCell" customModule="Sammys_Kitchen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="80"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="orderCell" rowHeight="100" id="WCw-Qf-5nD" customClass="OrderTableViewCell" customModule="Sammys_Kitchen" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khs-fJ-3Hz">
-                                            <rect key="frame" x="16" y="28" width="23" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="#1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Khs-fJ-3Hz">
+                                            <rect key="frame" x="16" y="38" width="23" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="uhc-29-MoD">
+                                            <rect key="frame" x="47" y="38" width="100" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="9:41 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPN-lO-2N7">
+                                            <rect key="frame" x="241.5" y="40" width="62.5" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Khs-fJ-3Hz" secondAttribute="trailingMargin" id="alm-LI-mqZ"/>
+                                        <constraint firstItem="PPN-lO-2N7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uhc-29-MoD" secondAttribute="trailing" id="CTZ-Pu-cvq"/>
+                                        <constraint firstItem="PPN-lO-2N7" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="ZnM-E7-dh1"/>
+                                        <constraint firstItem="uhc-29-MoD" firstAttribute="leading" secondItem="Khs-fJ-3Hz" secondAttribute="trailing" constant="8" symbolic="YES" id="dAd-qS-j0T"/>
                                         <constraint firstItem="Khs-fJ-3Hz" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leadingMargin" id="gVd-23-IvB"/>
+                                        <constraint firstItem="PPN-lO-2N7" firstAttribute="trailing" secondItem="37f-cq-3Eg" secondAttribute="trailingMargin" id="j43-kk-HkB"/>
+                                        <constraint firstItem="uhc-29-MoD" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="lDn-ib-FcI"/>
                                         <constraint firstItem="Khs-fJ-3Hz" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="nCg-ZC-xR8"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -104,7 +120,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="-630"/>
+            <point key="canvasLocation" x="560.7421875" y="-630.46875"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">

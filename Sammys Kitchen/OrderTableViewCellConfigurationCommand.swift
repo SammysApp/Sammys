@@ -9,6 +9,8 @@
 import UIKit
 
 struct OrderTableViewCellConfigurationCommand: TableViewCellCommand {
+    let kitchenOrder: KitchenOrder
+    
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? OrderTableViewCell else { return }
         cell.numberLabel.text = "#2"
