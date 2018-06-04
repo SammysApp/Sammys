@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-104" y="-630"/>
         </scene>
-        <!--Order View Controller-->
+        <!--Food View Controller-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController id="JEX-9P-axG" customClass="OrderViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="JEX-9P-axG" customClass="FoodViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,7 +83,7 @@
         <!--Orders View Controller-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="OrdersViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ordersViewController" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="OrdersViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="r7i-6Z-zg0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,7 +140,44 @@
                                     <outlet property="numberLabel" destination="Khs-fJ-3Hz" id="6Ic-af-RvT"/>
                                     <outlet property="timeLabel" destination="PPN-lO-2N7" id="bGK-1A-oKw"/>
                                     <outlet property="unreadImageView" destination="j1Q-hb-uPH" id="20K-YE-szS"/>
-                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showOrder" id="6S0-TO-JiA"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" rowHeight="100" id="ama-k9-hn9" customClass="FoodTableViewCell" customModule="Sammys_Kitchen" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="128" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ama-k9-hn9" id="BWc-lv-5iI">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="CeK-Ju-cou">
+                                            <rect key="frame" x="30" y="28" width="76.5" height="43"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="FdI-aP-exa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="76.5" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYn-uN-tDG">
+                                                    <rect key="frame" x="0.0" y="26" width="76.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="CeK-Ju-cou" firstAttribute="leading" secondItem="BWc-lv-5iI" secondAttribute="leading" constant="30" id="Aih-ms-iHN"/>
+                                        <constraint firstItem="CeK-Ju-cou" firstAttribute="centerY" secondItem="BWc-lv-5iI" secondAttribute="centerY" id="Kjw-E8-2G1"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="CeK-Ju-cou" secondAttribute="trailing" id="gbN-wd-pa0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="zYn-uN-tDG" id="tod-VG-fPM"/>
+                                    <outlet property="titleLabel" destination="FdI-aP-exa" id="qee-VP-oLU"/>
+                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showFood" id="lPP-OD-XEf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -177,6 +214,6 @@
         <image name="Unread" width="14" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="lPP-OD-XEf"/>
     </inferredMetricsTieBreakers>
 </document>

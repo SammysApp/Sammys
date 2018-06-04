@@ -8,11 +8,16 @@
 
 import Foundation
 
+enum OrdersViewControllerViewKey {
+    case orders, foods
+}
+
 protocol OrdersViewModelDelegate {
     func needsUIUpdate()
 }
 
 class OrdersViewModel {
+    var viewKey: OrdersViewControllerViewKey = .orders
     var delegate: OrdersViewModelDelegate?
     let id = UUID().uuidString
     
@@ -27,8 +32,17 @@ class OrdersViewModel {
         return kitchenOrders?.sorted { $0.order.date.compare($1.order.date) == .orderedDescending }
     }
     
+    var orderFoods: [Food]? {
+        didSet {
+            delegate?.needsUIUpdate()
+        }
+    }
+    
     private var cellViewModels: [TableViewCellViewModel]? {
-        return sortedKitchenOrders?.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
+        switch viewKey {
+        case .orders: return sortedKitchenOrders?.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
+        case .foods: return orderFoods?.map { FoodTableViewCellViewModelFactory(food: $0).create() }
+        }
     }
     
     var numberOfSections: Int {
@@ -47,8 +61,14 @@ class OrdersViewModel {
         return cellViewModels?[indexPath.row]
     }
     
+    /// Use when showing orders to get the foods for the given order's index path.
+    func foods(for indexPath: IndexPath) -> [Food]? {
+        return sortedKitchenOrders?[indexPath.row].order.foods[.salad]
+    }
+    
+    /// Use when showing foods to get the food at the given index path.
     func food(for indexPath: IndexPath) -> Food? {
-        return sortedKitchenOrders?[indexPath.row].order.foods[.salad]?.first
+        return orderFoods?[indexPath.row]
     }
 }
 

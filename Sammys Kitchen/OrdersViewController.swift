@@ -11,8 +11,10 @@ import UIKit
 class OrdersViewController: UITableViewController {
     let viewModel = OrdersViewModel()
     
+    static let storyboardID = "ordersViewController"
+    
     private enum SegueIdentifier: String {
-        case showOrder
+        case showFood
     }
 
     override func viewDidLoad() {
@@ -28,13 +30,25 @@ class OrdersViewController: UITableViewController {
         clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         super.viewWillAppear(animated)
     }
+    
+    func didSelectRow(at indexPath: IndexPath) {
+        switch viewModel.viewKey {
+        case .orders:
+            guard let ordersViewController = storyboard?.instantiateViewController(withIdentifier: OrdersViewController.storyboardID) as? OrdersViewController else { return }
+            ordersViewController.viewModel.viewKey = .foods
+            ordersViewController.viewModel.orderFoods = viewModel.foods(for: indexPath)
+            navigationController?.pushViewController(ordersViewController, animated: true)
+        case .foods:
+            performSegue(withIdentifier: SegueIdentifier.showFood.rawValue, sender: nil)
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifierString = segue.identifier,
             let identifier = SegueIdentifier(rawValue: identifierString) else { return }
         switch identifier {
-        case .showOrder:
-            guard let orderViewController = (segue.destination as? UINavigationController)?.topViewController as? OrderViewController,
+        case .showFood:
+            guard let orderViewController = (segue.destination as? UINavigationController)?.topViewController as? FoodViewController,
                 let indexPath = tableView.indexPathForSelectedRow,
                 let food = viewModel.food(for: indexPath) else { return }
             orderViewController.food = food
@@ -65,6 +79,7 @@ class OrdersViewController: UITableViewController {
         guard let cellViewModel = viewModel.cellViewModel(for: indexPath),
             let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
         cellViewModel.commands[.selection]?.perform(cell: cell)
+        didSelectRow(at: indexPath)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  OrderViewController.swift
+//  FoodViewController.swift
 //  Sammys Kitchen
 //
 //  Created by Natanel Niazoff on 5/31/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderViewController: UIViewController {
+class FoodViewController: UIViewController {
     var food: Food? {
         didSet {
             if let food = food { updateCollectionView(with: food) }
