@@ -61,6 +61,8 @@
 		5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
 		5B10D5C820C0886B00BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8222007D58400898FF0 /* GoogleService-Info.plist */; };
 		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
+		5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */; };
+		5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */; };
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
@@ -226,6 +228,8 @@
 		5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersReadDataStore.swift; sourceTree = "<group>"; };
+		5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
@@ -418,10 +422,12 @@
 			isa = PBXGroup;
 			children = (
 				5B10D58920C035F000BF05B2 /* AppDelegate.swift */,
+				5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */,
 				5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */,
 				5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */,
 				5B10D5C120C081B900BF05B2 /* OrderTableViewCell.swift */,
 				5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */,
+				5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */,
 				5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */,
 				5B10D58D20C035F000BF05B2 /* OrderViewController.swift */,
 				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
@@ -1214,12 +1220,14 @@
 				5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */,
 				5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */,
 				5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
+				5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */,
 				5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */,
 				5B10D59E20C044D000BF05B2 /* Item.swift in Sources */,
 				5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */,
 				5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */,
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
 				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
+				5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */,
 				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
 				5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */,
 				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,

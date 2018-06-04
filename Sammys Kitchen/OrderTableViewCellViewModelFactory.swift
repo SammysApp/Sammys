@@ -16,6 +16,6 @@ struct OrderTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     let kitchenOrder: KitchenOrder
     
     func create() -> TableViewCellViewModel {
-        return DefaultTableViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, height: 80, commands: [.configuration: OrderTableViewCellConfigurationCommand(kitchenOrder: kitchenOrder)])
+        return DefaultTableViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, height: 80, commands: [.configuration: OrderTableViewCellConfigurationCommand(kitchenOrder: kitchenOrder), .selection: OrderTableViewCellSelectionCommand(kitchenOrder: kitchenOrder)])
     }
 }

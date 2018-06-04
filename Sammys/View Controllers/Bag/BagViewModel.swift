@@ -253,7 +253,7 @@ class BagViewModel: NSObject {
     }
     
     func addToOrders() {
-        guard let userName = userName else { fatalError() }
+        guard let userName = orderUserName else { fatalError() }
         let date = Date()
         OrdersAPIClient.fetchNewOrderNumber(for: date) { number in
             let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, foods: self.foods)

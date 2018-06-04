@@ -13,6 +13,15 @@ struct OrderTableViewCellConfigurationCommand: TableViewCellCommand {
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? OrderTableViewCell else { return }
-        cell.numberLabel.text = "#2"
+        cell.numberLabel.text = "#\(kitchenOrder.order.number)"
+        cell.descriptionLabel.text = kitchenOrder.order.itemDescription(for: .salad)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        cell.timeLabel.text = dateFormatter.string(from: kitchenOrder.order.date)
+        
+        if OrdersReadDataStore.shared.isRead(kitchenOrder) {
+            cell.unreadImageView.isHidden = true
+        }
     }
 }

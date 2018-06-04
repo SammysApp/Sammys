@@ -15,6 +15,7 @@ class OrdersViewController: UITableViewController {
         super.viewDidLoad()
         
         viewModel.delegate = self
+        tableView.separatorInset.left = 30
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +40,17 @@ class OrdersViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier, for: indexPath)
         cellViewModel.commands[.configuration]?.perform(cell: cell)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError() }
+        return cellViewModel.height
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cellViewModel = viewModel.cellViewModel(for: indexPath),
+            let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
+        cellViewModel.commands[.selection]?.perform(cell: cell)
     }
 }
 

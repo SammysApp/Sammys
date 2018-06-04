@@ -113,6 +113,7 @@ extension Dictionary where Key == FoodType, Value == [Food] {
     }
     
     var randomFood: Food? {
+        // FIXME: crashed index out of range
         let foods = Array(values)[Int(arc4random_uniform(UInt32(count)))]
         return foods[Int(arc4random_uniform(UInt32(foods.count)))]
     }
