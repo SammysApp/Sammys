@@ -27,22 +27,44 @@
             </objects>
             <point key="canvasLocation" x="-104" y="-630"/>
         </scene>
-        <!--Detail-->
+        <!--Order View Controller-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController id="JEX-9P-axG" customClass="DetailViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="JEX-9P-axG" customClass="OrderViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iuM-0v-QOK" customClass="FoodCollectionView" customModule="Sammys_Kitchen" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="704" height="768"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GRj-bz-RUA">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iuM-0v-QOK" firstAttribute="top" secondItem="svH-Pt-448" secondAttribute="top" id="4xb-9E-wEy"/>
+                            <constraint firstAttribute="trailing" secondItem="iuM-0v-QOK" secondAttribute="trailing" id="Qr8-XI-xvs"/>
+                            <constraint firstItem="iuM-0v-QOK" firstAttribute="bottom" secondItem="VUw-jc-0yf" secondAttribute="bottom" id="U9N-00-3Iy"/>
+                            <constraint firstItem="iuM-0v-QOK" firstAttribute="leading" secondItem="VUw-jc-0yf" secondAttribute="leading" id="War-Rk-150"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" id="mOI-FS-AaM"/>
+                    <connections>
+                        <outlet property="collectionView" destination="iuM-0v-QOK" id="6aS-6y-EPr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="561" y="129"/>
+            <point key="canvasLocation" x="560.7421875" y="128.90625"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -58,7 +80,7 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
-        <!--Master-->
+        <!--Orders View Controller-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="OrdersViewController" customModule="Sammys_Kitchen" customModuleProvider="target" sceneMemberID="viewController">
@@ -118,7 +140,7 @@
                                     <outlet property="numberLabel" destination="Khs-fJ-3Hz" id="6Ic-af-RvT"/>
                                     <outlet property="timeLabel" destination="PPN-lO-2N7" id="bGK-1A-oKw"/>
                                     <outlet property="unreadImageView" destination="j1Q-hb-uPH" id="20K-YE-szS"/>
-                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
+                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showOrder" id="6S0-TO-JiA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -128,7 +150,7 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" id="Zdf-7t-Un8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>

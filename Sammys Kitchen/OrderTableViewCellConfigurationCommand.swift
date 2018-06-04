@@ -22,6 +22,8 @@ struct OrderTableViewCellConfigurationCommand: TableViewCellCommand {
         
         if OrdersReadDataStore.shared.isRead(kitchenOrder) {
             cell.unreadImageView.isHidden = true
+        } else {
+            cell.unreadImageView.isHidden = false
         }
     }
 }

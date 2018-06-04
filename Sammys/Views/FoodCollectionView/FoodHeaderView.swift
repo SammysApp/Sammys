@@ -13,11 +13,16 @@ class FoodHeaderView: UICollectionReusableView {
     
     private var _titleLabel = UILabel()
     private var _editButton = UIButton(type: .system)
-    public var titleLabel: UILabel {
+    var titleLabel: UILabel {
         return _titleLabel
     }
-    public var editButton: UIButton {
+    var editButton: UIButton {
         return _editButton
+    }
+    var showsEdit = true {
+        didSet {
+            updateUI()
+        }
     }
     
     struct Constants {
@@ -59,6 +64,12 @@ class FoodHeaderView: UICollectionReusableView {
         _editButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         _editButton.addTarget(self, action: #selector(FoodHeaderView._didTapEdit), for: .touchUpInside)
+        
+        updateUI()
+    }
+    
+    func updateUI() {
+        _editButton.isHidden = !showsEdit
     }
     
     @objc func _didTapEdit() {

@@ -19,7 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure Firebase.
         FirebaseApp.configure()
         
+        // Start observing for orders.
         OrdersAPIClient.startOrdersValueChangeObserver(for: Date())
+        
+        // Configure navigation bar appearance.
+        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        UINavigationBar.appearance().tintColor = #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)]
+        UINavigationBar.appearance().isTranslucent = false
+        
+        // Configure status bar style.
+        UIApplication.shared.statusBarStyle = .lightContent
         
         return true
     }

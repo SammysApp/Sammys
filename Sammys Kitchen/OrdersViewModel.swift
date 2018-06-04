@@ -22,9 +22,13 @@ class OrdersViewModel {
         }
     }
     
+    private var sortedKitchenOrders: [KitchenOrder]? {
+        // Result of sorting kitchen orders by date.
+        return kitchenOrders?.sorted { $0.order.date.compare($1.order.date) == .orderedDescending }
+    }
+    
     private var cellViewModels: [TableViewCellViewModel]? {
-        // Result of sorting kitchen orders by date and mapping to models.
-        return kitchenOrders?.sorted { $0.order.date.compare($1.order.date) == .orderedDescending }.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
+        return sortedKitchenOrders?.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
     }
     
     var numberOfSections: Int {
@@ -41,6 +45,10 @@ class OrdersViewModel {
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel? {
         return cellViewModels?[indexPath.row]
+    }
+    
+    func food(for indexPath: IndexPath) -> Food? {
+        return sortedKitchenOrders?[indexPath.row].order.foods[.salad]?.first
     }
 }
 
