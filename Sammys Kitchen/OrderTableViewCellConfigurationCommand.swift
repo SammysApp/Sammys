@@ -14,6 +14,7 @@ struct OrderTableViewCellConfigurationCommand: TableViewCellCommand {
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? OrderTableViewCell else { return }
         cell.numberLabel.text = "#\(kitchenOrder.order.number)"
+        cell.nameLabel.text = kitchenOrder.order.userName
         cell.descriptionLabel.text = kitchenOrder.order.itemDescription(for: .salad)
         
         let dateFormatter = DateFormatter()

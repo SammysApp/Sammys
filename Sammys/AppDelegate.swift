@@ -11,10 +11,25 @@ import Firebase
 import Stripe
 import FBSDKCoreKit
 
+enum AppEnvironment {
+    case debug, release
+}
+
+#if DEBUG
+let environment = AppEnvironment.debug
+#else
+let environment = AppEnvironment.release
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // The root window of the app.
     var window: UIWindow?
+    
+    private struct Constants {
+        static let stripeTestKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
+        static let stripeKey = ""
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -25,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Set Stripe publishable key to be able to create tokens.
-        STPPaymentConfiguration.shared().publishableKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
+        STPPaymentConfiguration.shared().publishableKey = environment == .debug ? Constants.stripeTestKey : Constants.stripeKey
         
         // Start listening for changes to user.
         UserAPIClient.startUserStateDidChangeListener()

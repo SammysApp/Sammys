@@ -102,12 +102,6 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="uhc-29-MoD">
-                                            <rect key="frame" x="61.5" y="38.5" width="100" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="9:41 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPN-lO-2N7">
                                             <rect key="frame" x="237" y="39" width="67" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -121,15 +115,32 @@
                                                 <constraint firstAttribute="width" constant="14" id="zNZ-qQ-cAL"/>
                                             </constraints>
                                         </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="XaJ-PC-SQi">
+                                            <rect key="frame" x="61.5" y="28.5" width="74" height="43"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="Se1-AO-2ZP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="74" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhc-29-MoD">
+                                                    <rect key="frame" x="0.0" y="26" width="74" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="PPN-lO-2N7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uhc-29-MoD" secondAttribute="trailing" id="CTZ-Pu-cvq"/>
+                                        <constraint firstItem="XaJ-PC-SQi" firstAttribute="leading" secondItem="Khs-fJ-3Hz" secondAttribute="trailing" constant="8" id="Bwc-wS-DiN"/>
+                                        <constraint firstItem="XaJ-PC-SQi" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="Ot4-Yt-Nod"/>
                                         <constraint firstItem="PPN-lO-2N7" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="ZnM-E7-dh1"/>
-                                        <constraint firstItem="uhc-29-MoD" firstAttribute="leading" secondItem="Khs-fJ-3Hz" secondAttribute="trailing" constant="8" id="dAd-qS-j0T"/>
                                         <constraint firstItem="j1Q-hb-uPH" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="8" id="j2D-Is-Wrk"/>
                                         <constraint firstItem="PPN-lO-2N7" firstAttribute="trailing" secondItem="37f-cq-3Eg" secondAttribute="trailingMargin" id="j43-kk-HkB"/>
-                                        <constraint firstItem="uhc-29-MoD" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="lDn-ib-FcI"/>
                                         <constraint firstItem="Khs-fJ-3Hz" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="nCg-ZC-xR8"/>
+                                        <constraint firstItem="PPN-lO-2N7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XaJ-PC-SQi" secondAttribute="trailing" constant="10" id="rLg-RC-HQR"/>
                                         <constraint firstItem="j1Q-hb-uPH" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="srf-Rp-WwF"/>
                                         <constraint firstItem="Khs-fJ-3Hz" firstAttribute="leading" secondItem="j1Q-hb-uPH" secondAttribute="trailing" constant="8" id="zCM-Tt-rEm"/>
                                     </constraints>
@@ -137,6 +148,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="uhc-29-MoD" id="SNz-Hv-vbM"/>
+                                    <outlet property="nameLabel" destination="Se1-AO-2ZP" id="xzZ-4i-1PD"/>
                                     <outlet property="numberLabel" destination="Khs-fJ-3Hz" id="6Ic-af-RvT"/>
                                     <outlet property="timeLabel" destination="PPN-lO-2N7" id="bGK-1A-oKw"/>
                                     <outlet property="unreadImageView" destination="j1Q-hb-uPH" id="20K-YE-szS"/>

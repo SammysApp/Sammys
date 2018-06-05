@@ -59,7 +59,6 @@
 		5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */; };
 		5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */; };
 		5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
-		5B10D5C820C0886B00BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8222007D58400898FF0 /* GoogleService-Info.plist */; };
 		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
 		5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */; };
 		5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */; };
@@ -219,7 +218,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.beta.xcconfig"; sourceTree = "<group>"; };
+		08B7B76D381100024015F3A3 /* Pods-Sammys Kitchen.release developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.release developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.release developer.xcconfig"; sourceTree = "<group>"; };
+		0A4B1569513317D2A2D5EBFA /* Pods-Sammys.debug developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug developer.xcconfig"; sourceTree = "<group>"; };
 		21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
+		3DF9405B3915D12679A6BBF8 /* Pods-Sammys Kitchen.debug developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.debug developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.debug developer.xcconfig"; sourceTree = "<group>"; };
 		5494BDE28465FF5670B5D65A /* Pods_Sammys_Kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys_Kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B02C70A20852992006D19A5 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B02C70C20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
@@ -389,8 +392,10 @@
 		5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.release.xcconfig"; sourceTree = "<group>"; };
+		98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.beta.xcconfig"; sourceTree = "<group>"; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 		E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.debug.xcconfig"; sourceTree = "<group>"; };
+		E6A5EBD8B5E5C8C5F40841F6 /* Pods-Sammys.release developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release developer.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +425,12 @@
 				BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */,
 				E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */,
 				8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */,
+				0A4B1569513317D2A2D5EBFA /* Pods-Sammys.debug developer.xcconfig */,
+				E6A5EBD8B5E5C8C5F40841F6 /* Pods-Sammys.release developer.xcconfig */,
+				3DF9405B3915D12679A6BBF8 /* Pods-Sammys Kitchen.debug developer.xcconfig */,
+				08B7B76D381100024015F3A3 /* Pods-Sammys Kitchen.release developer.xcconfig */,
+				98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */,
+				089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1048,7 +1059,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B10D59620C035F400BF05B2 /* LaunchScreen.storyboard in Resources */,
-				5B10D5C820C0886B00BF05B2 /* GoogleService-Info.plist in Resources */,
 				5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */,
 				5B9865FA20C58DC3004722D8 /* ItemCollectionViewCell.xib in Resources */,
 				5B9865FF20C5A367004722D8 /* SharedAssets.xcassets in Resources */,
@@ -1601,11 +1611,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 21E99B33225335D917CE3BA8 /* Pods-Sammys.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BUNDLE_ID_SUFFIX = .dev;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -1617,7 +1629,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BUNDLE_ID_SUFFIX = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
@@ -1629,6 +1642,93 @@
 			};
 			name = Release;
 		};
+		5B9B908220C6595B00FB6264 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Beta;
+		};
+		5B9B908320C6595B00FB6264 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BUNDLE_ID_SUFFIX = .beta;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
+				PRODUCT_NAME = "$(TARGET_NAME) Beta";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Beta;
+		};
+		5B9B908420C6595B00FB6264 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "Sammys Kitchen/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Beta;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1637,6 +1737,7 @@
 			buildConfigurations = (
 				5B10D59820C035F400BF05B2 /* Debug */,
 				5B10D59920C035F400BF05B2 /* Release */,
+				5B9B908420C6595B00FB6264 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1646,6 +1747,7 @@
 			buildConfigurations = (
 				5B6A06881FFD509A00BAC480 /* Debug */,
 				5B6A06891FFD509A00BAC480 /* Release */,
+				5B9B908220C6595B00FB6264 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1655,6 +1757,7 @@
 			buildConfigurations = (
 				5B6A068B1FFD509A00BAC480 /* Debug */,
 				5B6A068C1FFD509A00BAC480 /* Release */,
+				5B9B908320C6595B00FB6264 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
