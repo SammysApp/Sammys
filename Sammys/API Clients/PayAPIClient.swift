@@ -54,6 +54,7 @@ struct PayAPIClient {
     
     /// A collection of parameter symbols to send the API.
     struct Symbols {
+        static let isLive = "is_live"
         static let email = "email"
         static let customerID = "customer_id"
         static let sourceID = "source_id"
@@ -68,6 +69,8 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func createNewCustomer(parameters: Parameters = [:], completed: ((_ result: CreateCustomerAPIResult) -> Void)? = nil) {
+        var parameters = parameters
+        parameters[Symbols.isLive] = "\(environment.isLive)"
         Alamofire.request(baseURL.newCustomer, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -89,7 +92,7 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func chargeSource(_ sourceID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.amount: amount]
+        let parameters: Parameters = [Symbols.isLive: "\(environment.isLive)", Symbols.sourceID: sourceID, Symbols.amount: amount]
         Alamofire.request(baseURL.chargeSource, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -108,7 +111,7 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func charge(_ customerID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let parameters: Parameters = [Symbols.customerID: customerID, Symbols.amount: amount]
+        let parameters: Parameters = [Symbols.isLive: "\(environment.isLive)", Symbols.customerID: customerID, Symbols.amount: amount]
         Alamofire.request(baseURL.chargeCustomer, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -128,7 +131,7 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func chargeSource(_ sourceID: String, customerID: String, amount: Int, completed: ((_ result: ChargeAPIResult) -> Void)? = nil) {
-        let parameters: Parameters = [Symbols.sourceID: sourceID, Symbols.customerID: customerID, Symbols.amount: amount]
+        let parameters: Parameters = [Symbols.isLive: "\(environment.isLive)", Symbols.sourceID: sourceID, Symbols.customerID: customerID, Symbols.amount: amount]
         Alamofire.request(baseURL.chargeCard, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -147,7 +150,7 @@ struct PayAPIClient {
      - Parameter completed: The closure to call upon completion.
      */
     static func createEphemeralKey(with customerID: String, apiVersion: String, completed: @escaping (_ result: CreateEphemeralKeyAPIResult) -> Void) {
-        let params: Parameters = [Symbols.apiVersion: apiVersion, Symbols.customerID: customerID]
+        let params: Parameters = [Symbols.isLive: "\(environment.isLive)", Symbols.apiVersion: apiVersion, Symbols.customerID: customerID]
         Alamofire.request(baseURL.createEphemeralKey, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .responseJSON { response in

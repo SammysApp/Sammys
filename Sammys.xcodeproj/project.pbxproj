@@ -103,7 +103,6 @@
 		5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* FoodViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */; };
-		5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06821FFD509A00BAC480 /* Assets.xcassets */; };
 		5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */; };
 		5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
 		5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068F1FFD534C00BAC480 /* Vegetable.swift */; };
@@ -133,6 +132,7 @@
 		5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */; };
 		5B9B908C20C7416B00FB6264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */; };
 		5B9B908E20C74EF500FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908D20C74EF500FB6264 /* Alert.wav */; };
+		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */; };
 		5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */; };
 		5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */; };
@@ -289,7 +289,6 @@
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6A06801FFD509A00BAC480 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ItemsViewController.storyboard; sourceTree = "<group>"; };
-		5B6A06821FFD509A00BAC480 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B6A06851FFD509A00BAC480 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B6A06871FFD509A00BAC480 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6A068D1FFD52A000BAC480 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -310,6 +309,7 @@
 		5B9B907220C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B9B908D20C74EF500FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
+		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionView.swift; sourceTree = "<group>"; };
 		5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -710,7 +710,7 @@
 			isa = PBXGroup;
 			children = (
 				5B7B14C220558D4300BFE0C8 /* Images */,
-				5B6A06821FFD509A00BAC480 /* Assets.xcassets */,
+				5B9B908F20C8484E00FB6264 /* Assets.xcassets */,
 				5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */,
 				5B6A06871FFD509A00BAC480 /* Info.plist */,
 				5B44A8222007D58400898FF0 /* GoogleService-Info.plist */,
@@ -1116,6 +1116,7 @@
 				5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */,
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
+				5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */,
 				5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */,
 				5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */,
 				5BB29691208F7C3400520683 /* OrderViewController.storyboard in Resources */,
@@ -1128,7 +1129,6 @@
 				5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */,
 				5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */,
 				5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */,
-				5B6A06831FFD509A00BAC480 /* Assets.xcassets in Resources */,
 				5BBF854220BC7995004BF649 /* ItemCollectionViewCell.xib in Resources */,
 				5B6A06811FFD509A00BAC480 /* ItemsViewController.storyboard in Resources */,
 				5BB296C3209F4ADA00520683 /* UserSettingsViewController.storyboard in Resources */,
@@ -1656,7 +1656,7 @@
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1748,7 +1748,6 @@
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "$(TARGET_NAME) Beta";
 				PROVISIONING_PROFILE = "";

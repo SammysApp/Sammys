@@ -35,6 +35,8 @@ class ItemsViewModel {
     
     private var currentSaladPrice = 0.0
     
+    var hasSelectedOnce = false
+    
     private var currentChoiceIndex = 0 {
         didSet {
             delegate?.choiceDidChange()
@@ -74,6 +76,14 @@ class ItemsViewModel {
     
     var shouldHidePriceLabel: Bool {
         return currentViewLayoutState == .vertical || currentChoice == .lettuce
+    }
+    
+    var shouldHideFinishButton: Bool {
+        if hasSelectedOnce {
+            if !atLastChoice && currentChoice != .size && currentChoice != .lettuce
+            { return false }
+        }
+        return true
     }
     
     var totalPriceString: String {

@@ -13,6 +13,10 @@ import FBSDKCoreKit
 
 enum AppEnvironment {
     case debug, release
+    
+    var isLive: Bool {
+        return self == .release
+    }
 }
 
 #if DEBUG
@@ -27,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     private struct Constants {
-        static let stripeTestKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
-        static let stripeKey = ""
+        static let stripeTestPublishableKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
+        static let stripeLivePublishableKey = "pk_live_JvqJp6YegZgQqRwV9KchbE6I"
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -40,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Set Stripe publishable key to be able to create tokens.
-        STPPaymentConfiguration.shared().publishableKey = environment == .debug ? Constants.stripeTestKey : Constants.stripeKey
+        STPPaymentConfiguration.shared().publishableKey = environment == .debug ? Constants.stripeTestPublishableKey : Constants.stripeLivePublishableKey
         
         // Start listening for changes to user.
         UserAPIClient.startUserStateDidChangeListener()

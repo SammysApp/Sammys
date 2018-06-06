@@ -97,6 +97,9 @@ extension Salad {
     func toggle(_ modifier: Modifier, for item: Item) {
         // If salad doesn't have the modifier for the item...
         if !contains(modifier, for: item) {
+            if item is Dressing && dressings.count == 1 {
+                dressings = []
+            }
             // ...first add the item if doesn't have...
             if !contains(item) { add(item) }
             // ...and add modifier.

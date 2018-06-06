@@ -11,14 +11,13 @@ import NVActivityIndicatorView
 
 class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     private var viewModel = ItemsViewModel()
-
+    
     var currentItemIndex = 0 {
         didSet {
             if isViewLoaded { updateUI() }
         }
     }
     
-    var hasSelectedOnce = false
     var isEditingFood = false
     
     /// Closure called once done editing.
@@ -94,7 +93,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         layout.scrollDirection = .horizontal
         
         // Set selected to true if editing (otherwise can't tap next).
-        hasSelectedOnce = isEditingFood
+        viewModel.hasSelectedOnce = isEditingFood
         
         nextButton.layer.cornerRadius = 10
         backButton.layer.cornerRadius = 10
@@ -144,7 +143,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func updateNextButton() {
         nextButton.setTitle(Constants.next, for: .normal)
-        if viewModel.atFirstChoice && !hasSelectedOnce {
+        if viewModel.atFirstChoice && !viewModel.hasSelectedOnce {
             nextButton.isHidden = true
         } else {
             nextButton.isHidden = false
@@ -155,10 +154,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func updateFinishButton() {
-        if hasSelectedOnce {
-            if !viewModel.atLastChoice { finishButton.isHidden = false }
-            else { finishButton.isHidden = true }
-        } else { finishButton.isHidden = true }
+        finishButton.isHidden = viewModel.shouldHideFinishButton
     }
     
     func updateTopView(for contentOffsetY: CGFloat) {
@@ -256,7 +252,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         viewModel.handleItemSelection(at: index)
         currentItemIndex = index
         setContentOffset(for: currentItemIndex)
-        hasSelectedOnce = true
+        viewModel.hasSelectedOnce = true
         collectionView.reloadData()
     }
     
@@ -301,7 +297,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     @IBAction func didTapBack(_ sender: UIButton) {
         if viewModel.atFirstChoice {
-            if hasSelectedOnce {
+            if viewModel.hasSelectedOnce {
                 presentBackAlertController {
                     self.navigationController?.popViewController(animated: true)
                 }
