@@ -131,8 +131,8 @@
 		5B9B907320C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B907220C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift */; };
 		5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */; };
 		5B9B908C20C7416B00FB6264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */; };
-		5B9B908E20C74EF500FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908D20C74EF500FB6264 /* Alert.wav */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
+		5B9B909220C89E9200FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909120C89E9100FB6264 /* Alert.wav */; };
 		5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */; };
 		5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */; };
 		5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */; };
@@ -308,8 +308,8 @@
 		5B9B907020C5E4AD00FB6264 /* FoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCell.swift; sourceTree = "<group>"; };
 		5B9B907220C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
-		5B9B908D20C74EF500FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B9B909120C89E9100FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 		5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionView.swift; sourceTree = "<group>"; };
 		5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -591,7 +591,7 @@
 			children = (
 				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
 				5B10D59220C035F400BF05B2 /* Assets.xcassets */,
-				5B9B908D20C74EF500FB6264 /* Alert.wav */,
+				5B9B909120C89E9100FB6264 /* Alert.wav */,
 				5B10D59720C035F400BF05B2 /* Info.plist */,
 				5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */,
 			);
@@ -1100,9 +1100,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */,
-				5B9B908E20C74EF500FB6264 /* Alert.wav in Resources */,
 				5B9865FA20C58DC3004722D8 /* ItemCollectionViewCell.xib in Resources */,
 				5B9865FF20C5A367004722D8 /* SharedAssets.xcassets in Resources */,
+				5B9B909220C89E9200FB6264 /* Alert.wav in Resources */,
 				5B9B908C20C7416B00FB6264 /* LaunchScreen.storyboard in Resources */,
 				5B10D59320C035F400BF05B2 /* Assets.xcassets in Resources */,
 				5B10D59120C035F000BF05B2 /* Main.storyboard in Resources */,
@@ -1651,6 +1651,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
 				BUNDLE_ID_SUFFIX = .dev;
+				BUNDLE_VERSION = 1;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
@@ -1671,6 +1672,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
 				BUNDLE_ID_SUFFIX = "";
+				BUNDLE_VERSION = 1;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
@@ -1743,6 +1745,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
 				BUNDLE_ID_SUFFIX = .beta;
+				BUNDLE_VERSION = 2;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;

@@ -16,6 +16,7 @@ class OrdersViewController: UITableViewController {
     
     private struct Constants {
         static let alertFileName = "Alert.wav"
+        static let alertNumberOfLoops = 2
     }
     
     private enum SegueIdentifier: String {
@@ -50,7 +51,7 @@ class OrdersViewController: UITableViewController {
     }
     
     func playAlertSound() {
-        Sound.play(file: Constants.alertFileName)
+        Sound.play(file: Constants.alertFileName, numberOfLoops: Constants.alertNumberOfLoops - 1)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
