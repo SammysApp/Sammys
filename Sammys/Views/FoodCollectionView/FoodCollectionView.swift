@@ -83,6 +83,8 @@ class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         cell.layer.cornerRadius = 20
         
         cell.titleLabel.text = viewModel.title(for: indexPath)
+        cell.descriptionLabel.text = viewModel.descriptionText(for: indexPath)
+        cell.descriptionLabel.isHidden = viewModel.descriptionLabelShouldHide(for: indexPath)
         cell.priceLabel.text = viewModel.priceText(for: indexPath)
         cell.priceLabel.isHidden = viewModel.priceLabelShouldHide(for: indexPath)
         return cell
@@ -92,6 +94,7 @@ class FoodCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         if kind == UICollectionElementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FoodReuseIdentifier.header.rawValue, for: indexPath) as! FoodHeaderView
             headerView.titleLabel.text = viewModel.headerTitle(for: indexPath)
+            headerView.leftInset = viewModel.cellSpacing
             headerView.showsEdit = viewModel.showsEdit
             headerView.didTapEdit = { headerView in self.viewModel.didTapEdit(for: indexPath) }
             return headerView

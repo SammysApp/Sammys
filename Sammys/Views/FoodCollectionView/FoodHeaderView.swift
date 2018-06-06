@@ -19,6 +19,13 @@ class FoodHeaderView: UICollectionReusableView {
     var editButton: UIButton {
         return _editButton
     }
+    private var leftConstraint: NSLayoutConstraint?
+    
+    var leftInset: CGFloat = 15 {
+        didSet {
+            updateUI()
+        }
+    }
     var showsEdit = true {
         didSet {
             updateUI()
@@ -47,9 +54,10 @@ class FoodHeaderView: UICollectionReusableView {
         _titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         _titleLabel.textColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         _titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        _titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
         _titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         _titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        leftConstraint = _titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: leftInset)
+        leftConstraint?.isActive = true
         
         // setup editButton
         addSubview(_editButton)
@@ -70,6 +78,7 @@ class FoodHeaderView: UICollectionReusableView {
     
     func updateUI() {
         _editButton.isHidden = !showsEdit
+        leftConstraint?.constant = leftInset
     }
     
     @objc func _didTapEdit() {

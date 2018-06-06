@@ -7,6 +7,7 @@ def shared_pods
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'Alamofire'
+  pod 'SwiftySound'
 end
   
 # Pods for Sammys

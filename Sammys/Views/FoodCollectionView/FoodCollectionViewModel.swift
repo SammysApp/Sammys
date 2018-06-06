@@ -49,6 +49,14 @@ class FoodCollectionViewModel {
         return item(for: indexPath).price?.priceString
     }
     
+    func descriptionLabelShouldHide(for indexPath: IndexPath) -> Bool {
+        return item(for: indexPath).modifiers == nil
+    }
+    
+    func descriptionText(for indexPath: IndexPath) -> String? {
+        return item(for: indexPath).modifiers?.commaString
+    }
+    
     func headerTitle(for indexPath: IndexPath) -> String {
         return sections[indexPath.section].title
     }

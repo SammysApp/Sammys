@@ -20,3 +20,10 @@ struct Modifier: Codable, Equatable {
         return lhs.title == rhs.title
     }
 }
+
+extension Array where Element == Modifier {
+    /// Returns a string consisting of the `name`s of `Modifier`s seperated by commas.
+    var commaString: String? {
+        return count > 1 ? map { $0.title }.joined(separator: ", ") : first?.title
+    }
+}

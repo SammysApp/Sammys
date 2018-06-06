@@ -14,6 +14,7 @@ enum OrdersViewControllerViewKey {
 
 protocol OrdersViewModelDelegate {
     func needsUIUpdate()
+    func didGetNewOrder()
 }
 
 class OrdersViewModel {
@@ -53,12 +54,20 @@ class OrdersViewModel {
         OrdersAPIClient.addObserver(self)
     }
     
+    deinit {
+        OrdersAPIClient.removeObserver(self)
+    }
+    
     func numberOfRows(inSection section: Int) -> Int {
         return cellViewModels?.count ?? 0
     }
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel? {
         return cellViewModels?[indexPath.row]
+    }
+    
+    func orderTitle(for indexPath: IndexPath) -> String? {
+        return sortedKitchenOrders?[indexPath.row].order.userName
     }
     
     /// Use when showing orders to get the foods for the given order's index path.
@@ -74,6 +83,10 @@ class OrdersViewModel {
 
 extension OrdersViewModel: OrdersAPIObserver {
     func ordersValueDidChange(_ kitchenOrders: [KitchenOrder]) {
+        if let currentKitchenOrders = self.kitchenOrders,
+            kitchenOrders.count > currentKitchenOrders.count {
+            delegate?.didGetNewOrder()
+        }
         self.kitchenOrders = kitchenOrders
     }
 }

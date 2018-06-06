@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import SwiftySound
 
 class OrdersViewController: UITableViewController {
     let viewModel = OrdersViewModel()
     
     static let storyboardID = "ordersViewController"
+    
+    private struct Constants {
+        static let alertFileName = "Alert.wav"
+    }
     
     private enum SegueIdentifier: String {
         case showFood
@@ -37,10 +42,15 @@ class OrdersViewController: UITableViewController {
             guard let ordersViewController = storyboard?.instantiateViewController(withIdentifier: OrdersViewController.storyboardID) as? OrdersViewController else { return }
             ordersViewController.viewModel.viewKey = .foods
             ordersViewController.viewModel.orderFoods = viewModel.foods(for: indexPath)
+            ordersViewController.title = viewModel.orderTitle(for: indexPath)
             navigationController?.pushViewController(ordersViewController, animated: true)
         case .foods:
             performSegue(withIdentifier: SegueIdentifier.showFood.rawValue, sender: nil)
         }
+    }
+    
+    func playAlertSound() {
+        Sound.play(file: Constants.alertFileName)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -87,5 +97,8 @@ extension OrdersViewController: OrdersViewModelDelegate {
     func needsUIUpdate() {
         tableView.reloadData()
     }
+    
+    func didGetNewOrder() {
+        playAlertSound()
+    }
 }
-

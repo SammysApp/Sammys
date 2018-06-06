@@ -25,6 +25,7 @@ class FoodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = food?.title
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
     }

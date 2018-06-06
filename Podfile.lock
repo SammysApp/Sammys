@@ -64,6 +64,7 @@ PODS:
     - NVActivityIndicatorView/Presenter (= 4.1.1)
   - NVActivityIndicatorView/Presenter (4.1.1)
   - Stripe (12.1.2)
+  - SwiftySound (1.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - NVActivityIndicatorView
   - Stripe
+  - SwiftySound
 
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
@@ -93,7 +95,8 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
+  SwiftySound: b9c3370956fd4ed65ed79d45563070077a50a2cd
 
-PODFILE CHECKSUM: a2c0304aa70efd5961c94759ea2e5bcf93592303
+PODFILE CHECKSUM: 63059da5ff0694cc2152c80c29fbfa3c2fc44eab
 
 COCOAPODS: 1.4.0

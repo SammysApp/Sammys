@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -29,6 +28,12 @@
                             <color key="textColor" name="Snow"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axl-2B-EaZ">
+                            <rect key="frame" x="0.0" y="21.5" width="355" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                            <color key="textColor" name="Snow"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Kc-Xa-e8y">
                             <rect key="frame" x="0.0" y="21.5" width="355" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -49,16 +54,20 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="descriptionLabel" destination="axl-2B-EaZ" id="WIl-kx-0WI"/>
                 <outlet property="imageView" destination="45y-qE-hvH" id="ChI-TO-zLG"/>
                 <outlet property="priceLabel" destination="4Kc-Xa-e8y" id="bDS-vQ-xKd"/>
                 <outlet property="titleLabel" destination="3f8-Q2-WoJ" id="1YU-NZ-RKh"/>
             </connections>
-            <point key="canvasLocation" x="36" y="43"/>
+            <point key="canvasLocation" x="35.5" y="42.5"/>
         </view>
     </objects>
     <resources>
         <namedColor name="Snow">
-            <color red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98000001910000001" green="0.98000001910000001" blue="0.98000001910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

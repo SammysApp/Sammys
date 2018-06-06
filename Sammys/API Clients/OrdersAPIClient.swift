@@ -84,7 +84,7 @@ struct OrdersAPIClient {
     }
     
     static func startOrdersValueChangeObserver(for date: Date) {
-        ordersReference(for: date).observe(.value) { snapshot in
+        ordersReference(for: date).orders.observe(.value) { snapshot in
             guard snapshot.exists() else { return }
             var kitchenOrders = [KitchenOrder]()
             for orderSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
@@ -102,11 +102,15 @@ struct OrdersAPIClient {
         }
     }
     
+    static func removeAllOrdersObservers(for date: Date) {
+        ordersReference(for: date).orders.removeAllObservers()
+    }
+    
     static func add(_ order: Order, to date: Date, withNumber number: Int) {
         do {
             let jsonData = try JSONEncoder().encode(order)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-            ordersReference(for: date).child("\(number)").order.setValue(jsonString)
+            ordersReference(for: date).orders.child("\(number)").order.setValue(jsonString)
             setCompleted(false, for: order)
         } catch {
             print(error)
@@ -114,7 +118,7 @@ struct OrdersAPIClient {
     }
     
     static func setCompleted(_ completed: Bool, for order: Order) {
-        ordersReference(for: order.date).child("\(order.number)").completed.setValue(completed)
+        ordersReference(for: order.date).orders.child("\(order.number)").completed.setValue(completed)
     }
 }
 
