@@ -92,12 +92,15 @@ class BagViewController: UIViewController, BagViewModelDelegate {
             self.updateUI()
             self.viewModel.updatePaymentPrice()
             self.viewModel.saveBag()
+            self.viewModel.updateFave(food)
         }
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
     func didFave(food: Food) {
-        viewModel.fave(food)
+        viewModel.handleDidTapFave(food) {
+            self.tableView.reloadData()
+        }
     }
     
     func delete(sections: IndexSet) {
@@ -162,6 +165,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
             self.updateUI()
             self.viewModel.updatePaymentPrice()
             self.viewModel.saveBag()
+            self.viewModel.updateFave(food)
         }
         navigationController?.pushViewController(foodViewController, animated: true)
     }

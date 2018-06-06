@@ -17,6 +17,7 @@ class FoodBagTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var faveButton: UIButton!
     @IBOutlet var quantityCollectionView: QuantityCollectionView!
     
     // MARK: IBActions

@@ -72,6 +72,7 @@ class BagViewModel: NSObject {
                 for food in foods {
                     cellViewModels.append(
                         FoodBagTableViewCellViewModelFactory(
+                            user: user,
                             food: food,
                             height: UITableViewAutomaticDimension,
                             selectedQuantity: { food.quantity },
@@ -184,12 +185,38 @@ class BagViewModel: NSObject {
         remove(food, indexPath: indexPath)
     }
     
-    func fave(_ food: Food) {
+    func fave(_ food: Food, completed: (() -> Void)? = nil) {
         guard let user = user else { return }
         let originalQuantity = food.quantity
         food.quantity = 1
-        UserAPIClient.set(food, for: user)
+        UserAPIClient.set(food, for: user) {
+            if $0 == nil { completed?() }
+        }
         food.quantity = originalQuantity
+    }
+    
+    func updateFave(_ food: Food) {
+        guard let user = user else { return }
+        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
+            if foodIsAFavorite {
+                self.fave(food)
+            }
+        }
+    }
+    
+    func removeFave(_ food: Food, completed: (() -> Void)? = nil) {
+        guard let user = user else { return }
+        UserAPIClient.remove(food, for: user) {
+            if $0 == nil { completed?() }
+        }
+    }
+    
+    func handleDidTapFave(_ food: Food, completed: (() -> Void)? = nil) {
+        guard let user = user else { return }
+        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
+            if foodIsAFavorite { self.removeFave(food) { completed?() } }
+            else { self.fave(food) { completed?() } }
+        }
     }
     
     func changeQuantity(_ quantity: Quantity, for food: Food) {

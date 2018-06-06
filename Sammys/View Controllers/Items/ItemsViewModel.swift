@@ -33,9 +33,11 @@ class ItemsViewModel {
     
     private var salad = Salad()
     
-    private var currentSaladPrice = 0.0
+    private lazy var currentSaladPrice = food.price
     
     var hasSelectedOnce = false
+    
+    var isEditingFood = false
     
     private var currentChoiceIndex = 0 {
         didSet {
@@ -79,6 +81,7 @@ class ItemsViewModel {
     }
     
     var shouldHideFinishButton: Bool {
+        if isEditingFood { return false }
         if hasSelectedOnce {
             if !atLastChoice && currentChoice != .size && currentChoice != .lettuce
             { return false }

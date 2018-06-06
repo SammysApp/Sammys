@@ -9,6 +9,7 @@
 import UIKit
 
 struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
+    let user: User?
     let food: Food
     let selectedQuantity: () -> Int
     let didEdit: ((FoodBagTableViewCell) -> Void)?
@@ -36,5 +37,11 @@ struct FoodBagTableViewCellConfigurationCommand: TableViewCellCommand {
         }
         
         cell.itemImageView.layer.cornerRadius = cell.itemImageView.frame.width / 2
+        
+        if let user = user {
+            UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
+                cell.faveButton.setBackgroundImage(foodIsAFavorite ? #imageLiteral(resourceName: "Heart Cross Strawberry.pdf") : #imageLiteral(resourceName: "Heart Strawberry.pdf"), for: .normal)
+            }
+        }
     }
 }

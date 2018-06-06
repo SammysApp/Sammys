@@ -405,14 +405,16 @@ struct UserAPIClient {
      - Parameter favorite: The favorite object to add.
      - Parameter user: The user to add the favorite object to.
     */
-    static func set(_ favorite: Food, for user: User) {
+    static func set(_ favorite: Food, for user: User, completed: ((Error?) -> Void)? = nil) {
         do {
             // Attempt to encode the favorites object to JSON.
             let jsonData = try JSONEncoder().encode(AnyFood(favorite))
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
             // Set the JSON string as the value of the new favorite child.
             // favorites -> <food type> -> [favorite id : value]
-            favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString)
+            favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString) { error, reference in
+                completed?(error)
+            }
         } catch {
             printError(error)
         }
@@ -421,6 +423,12 @@ struct UserAPIClient {
     static func remove(_ favorite: Food, for user: User, completed: ((Error?) -> Void)? = nil) {
         favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).removeValue { error, reference in
             completed?(error)
+        }
+    }
+    
+    static func checkIfFoodIsAFavorite(_ food: Food, for user: User, completed: @escaping (Bool) -> Void) {
+        favoritesReference(forUserID: user.id).child(type(of: food).type).child(food.id).observeSingleEvent(of: .value) { snapshot in
+            completed(snapshot.exists())
         }
     }
     

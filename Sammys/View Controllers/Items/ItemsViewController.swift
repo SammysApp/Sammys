@@ -18,7 +18,13 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
     }
     
-    var isEditingFood = false
+    var isEditingFood: Bool {
+        get {
+            return viewModel.isEditingFood
+        } set {
+            viewModel.isEditingFood = newValue
+        }
+    }
     
     /// Closure called once done editing.
     var didFinishEditing: (() -> Void)?
@@ -92,14 +98,16 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         layout.animator = animator
         layout.scrollDirection = .horizontal
         
-        // Set selected to true if editing (otherwise can't tap next).
-        viewModel.hasSelectedOnce = isEditingFood
-        
         nextButton.layer.cornerRadius = 10
         backButton.layer.cornerRadius = 10
         
         modifierCollectionView.viewModel.didSelect = { self.didSelect($0, for: $1) }
         modifierCollectionView.viewModel.shouldShowSelected = viewModel.modifierIsSelected
+        
+        if isEditingFood {
+            totalPriceLabel.isHidden = false
+            totalPriceLabel.text = viewModel.totalPriceString
+        }
         
         updateUI()
     }
@@ -121,6 +129,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         itemLabel.isHidden = viewModel.shouldHideItemLabel
         priceLabel.isHidden = viewModel.shouldHidePriceLabel
         
+        updateBackButton()
         updateNextButton()
         updateFinishButton()
         updateCollectionView()
@@ -143,7 +152,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     
     func updateNextButton() {
         nextButton.setTitle(Constants.next, for: .normal)
-        if viewModel.atFirstChoice && !viewModel.hasSelectedOnce {
+        if viewModel.atFirstChoice && !viewModel.hasSelectedOnce && !isEditingFood {
             nextButton.isHidden = true
         } else {
             nextButton.isHidden = false
@@ -151,6 +160,11 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
                 nextButton.setTitle(isEditingFood ? Constants.done : Constants.finish, for: .normal)
             }
         }
+    }
+    
+    func updateBackButton() {
+        if viewModel.atFirstChoice && isEditingFood { backButton.isHidden = true }
+        else { backButton.isHidden = false }
     }
     
     func updateFinishButton() {
