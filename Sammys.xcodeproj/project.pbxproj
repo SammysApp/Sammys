@@ -393,8 +393,10 @@
 		5BFD2BD2202277C5005C01BF /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		60370EDE8F763E99A4745E79 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.release.xcconfig"; sourceTree = "<group>"; };
+		93230D43041C89D688BDB287 /* Pods-Sammys Kitchen.family.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.family.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.family.xcconfig"; sourceTree = "<group>"; };
 		98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.beta.xcconfig"; sourceTree = "<group>"; };
 		BE8FC56B2E8DABD79795EBA3 /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
+		D9E68F804444CD714D624E43 /* Pods-Sammys.family.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.family.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.family.xcconfig"; sourceTree = "<group>"; };
 		E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.debug.xcconfig"; sourceTree = "<group>"; };
 		E6A5EBD8B5E5C8C5F40841F6 /* Pods-Sammys.release developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys/Pods-Sammys.release developer.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -432,6 +434,8 @@
 				08B7B76D381100024015F3A3 /* Pods-Sammys Kitchen.release developer.xcconfig */,
 				98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */,
 				089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */,
+				D9E68F804444CD714D624E43 /* Pods-Sammys.family.xcconfig */,
+				93230D43041C89D688BDB287 /* Pods-Sammys Kitchen.family.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1778,6 +1782,99 @@
 			};
 			name = Beta;
 		};
+		5B9B909620C8DC4B00FB6264 /* Family */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Family;
+		};
+		5B9B909720C8DC4B00FB6264 /* Family */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
+				BUNDLE_ID_SUFFIX = .fam;
+				BUNDLE_VERSION = 2;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DFAMILY";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
+				PRODUCT_NAME = "$(TARGET_NAME) Beta";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Family;
+		};
+		5B9B909820C8DC4B00FB6264 /* Family */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Family;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1787,6 +1884,7 @@
 				5B10D59820C035F400BF05B2 /* Debug */,
 				5B10D59920C035F400BF05B2 /* Release */,
 				5B9B908420C6595B00FB6264 /* Beta */,
+				5B9B909820C8DC4B00FB6264 /* Family */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1797,6 +1895,7 @@
 				5B6A06881FFD509A00BAC480 /* Debug */,
 				5B6A06891FFD509A00BAC480 /* Release */,
 				5B9B908220C6595B00FB6264 /* Beta */,
+				5B9B909620C8DC4B00FB6264 /* Family */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1807,6 +1906,7 @@
 				5B6A068B1FFD509A00BAC480 /* Debug */,
 				5B6A068C1FFD509A00BAC480 /* Release */,
 				5B9B908320C6595B00FB6264 /* Beta */,
+				5B9B909720C8DC4B00FB6264 /* Family */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

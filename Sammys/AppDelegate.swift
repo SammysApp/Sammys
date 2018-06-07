@@ -12,7 +12,7 @@ import Stripe
 import FBSDKCoreKit
 
 enum AppEnvironment {
-    case debug, release
+    case debug, release, family
     
     var isLive: Bool {
         return self == .release
@@ -21,6 +21,8 @@ enum AppEnvironment {
 
 #if DEBUG
 let environment = AppEnvironment.debug
+#elseif FAMILY
+let environment = AppEnvironment.family
 #else
 let environment = AppEnvironment.release
 #endif
@@ -37,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        print("You're running in \(environment) mode!")
+        
         // Configure Firebase.
         FirebaseApp.configure()
         
@@ -44,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Set Stripe publishable key to be able to create tokens.
-        STPPaymentConfiguration.shared().publishableKey = environment == .debug ? Constants.stripeTestPublishableKey : Constants.stripeLivePublishableKey
+        STPPaymentConfiguration.shared().publishableKey = environment.isLive ? Constants.stripeLivePublishableKey : Constants.stripeTestPublishableKey
         
         // Start listening for changes to user.
         UserAPIClient.startUserStateDidChangeListener()

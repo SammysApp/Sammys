@@ -146,6 +146,19 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.2/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.2/nanopb.framework"
 fi
+if [[ "$CONFIGURATION" == "Family" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.2/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.2/GTMSessionFetcher.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.2/SwiftySound.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.2/leveldb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.2/nanopb.framework"
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.2/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"

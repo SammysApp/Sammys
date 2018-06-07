@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fPz-3p-alg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                 <color key="backgroundColor" name="Almond"/>
                                 <color key="separatorColor" name="Sand"/>
                                 <prototypes>
@@ -273,8 +273,8 @@
                         <constraints>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="7E7-PD-CyM"/>
                             <constraint firstAttribute="bottom" secondItem="DoF-ZV-1Xt" secondAttribute="bottom" id="B6G-R3-hy6"/>
+                            <constraint firstAttribute="bottom" secondItem="fPz-3p-alg" secondAttribute="bottom" id="EFS-1R-Hwz"/>
                             <constraint firstItem="DoF-ZV-1Xt" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="HRN-ig-Dja"/>
-                            <constraint firstItem="fPz-3p-alg" firstAttribute="bottom" secondItem="jaS-95-GXp" secondAttribute="bottom" id="QPJ-F6-sUc"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="7kB-gR-mHZ" secondAttribute="top" id="yC6-6h-WNW"/>
                             <constraint firstItem="DoF-ZV-1Xt" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="zQm-nc-yt4"/>
@@ -282,36 +282,21 @@
                         <viewLayoutGuide key="safeArea" id="jaS-95-GXp"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Bag" id="4Nr-DC-cLB">
-                        <barButtonItem key="leftBarButtonItem" id="XgH-uX-ype">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kye-UE-iSA">
-                                <rect key="frame" x="16" y="5" width="45" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" name="Snow"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapDone:" destination="1x3-yr-YVX" eventType="touchUpInside" id="WU8-7b-zdn"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="Luu-9D-5NP">
                             <color key="tintColor" name="Snow"/>
+                            <connections>
+                                <action selector="didTapDone:" destination="1x3-yr-YVX" id="rCW-5S-CiC"/>
+                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="vai-Ws-7X2">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hgw-22-lK8">
-                                <rect key="frame" x="314" y="5" width="45" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <state key="normal" title="Clear">
-                                    <color key="titleColor" name="Snow"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapClear:" destination="1x3-yr-YVX" eventType="touchUpInside" id="fqd-G8-P6x"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Clear" style="done" id="B7g-n8-K5E">
                             <color key="tintColor" name="Snow"/>
+                            <connections>
+                                <action selector="didTapClear:" destination="1x3-yr-YVX" id="QE9-Zr-evC"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="clearButton" destination="B7g-n8-K5E" id="rDp-Qa-5JY"/>
                         <outlet property="creditCardButton" destination="AZm-5M-VcU" id="1z1-Ba-kUr"/>
                         <outlet property="paymentStackView" destination="wSd-GW-GYh" id="oSe-mM-6Tu"/>
                         <outlet property="purchaseButton" destination="vAL-yv-ykH" id="ytU-6Q-AYi"/>
@@ -367,9 +352,6 @@
         </namedColor>
         <namedColor name="Sand">
             <color red="0.88999998569488525" green="0.86299997568130493" blue="0.83499997854232788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Snow">
-            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Snow">
             <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

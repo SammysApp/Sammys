@@ -11,9 +11,10 @@ import Stripe
 
 class BagViewController: UIViewController, BagViewModelDelegate {
     let viewModel = BagViewModel()
-
+    
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var clearButton: UIBarButtonItem!
     @IBOutlet var paymentStackView: UIStackView!
     @IBOutlet var subtotalLabel: UILabel!
     @IBOutlet var taxLabel: UILabel!
@@ -65,13 +66,24 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func updateUI() {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
-        purchaseButton.setTitle(viewModel.totalPrice.priceString, for: .normal)
+        purchaseButton.setTitle(viewModel.purchaseButtonText, for: .normal)
+        updateClearButton()
         updatePaymentUI()
+        updateTotalVisualEffectView()
+    }
+    
+    func updateClearButton() {
+        clearButton.isEnabled = viewModel.shouldEnableClearButton
     }
     
     func updatePaymentUI() {
         creditCardButton.isHidden = viewModel.shouldHideCreditCardButton
         paymentStackView.spacing = viewModel.paymentStackViewSpacing
+    }
+    
+    func updateTotalVisualEffectView() {
+        totalVisualEffectView.isHidden = viewModel.shouldHideTotalVisualEffectView
+        totalVisualEffectViewContainerView.isHidden = viewModel.shouldHideTotalVisualEffectView
     }
     
     func bagDataDidChange() {
@@ -129,11 +141,17 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func attemptPurchase() {
         if viewModel.user == nil {
             presentCheckoutAlertController(
-                didChooseGuest: presentAddCardViewController,
+                didChooseGuest: !viewModel.doesGetForFree ? presentAddCardViewController : {
+                    self.presentUserNameAlertController {
+                        self.viewModel.userName = $0
+                        self.viewModel.addToOrders()
+                        self.presentConfirmationViewController()
+                    }
+                },
                 didChooseCustomer: presentLoginPageViewController
             )
         } else {
-            viewModel.requestPayment()
+            viewModel.handleDidTapPurchase()
         }
     }
     
@@ -141,8 +159,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         creditCardButton.setTitle(paymentMethod.label, for: .normal)
     }
     
-    func paymentDidComplete(with paymentResult: PaymentResult) {
-        switch paymentResult {
+    func purchaseDidComplete(with purchaseResult: PurchaseResult) {
+        switch purchaseResult {
         case .success:
             presentConfirmationViewController()
             viewModel.addToOrders()
@@ -216,11 +234,11 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         attemptPurchase()
     }
     
-    @IBAction func didTapClear(_ sender: UIButton) {
+    @IBAction func didTapClear(_ sender: UIBarButtonItem) {
         clearBag()
     }
     
-    @IBAction func didTapDone(_ sender: UIButton) {
+    @IBAction func didTapDone(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -274,7 +292,7 @@ extension BagViewController: UITableViewDelegate {
 // MARK: - LoginPageViewControllerDelegate
 extension BagViewController: LoginPageViewControllerDelegate {
     func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
-        viewModel.setupPaymentContext()
+        if !viewModel.doesGetForFree { viewModel.setupPaymentContext() }
         updateUI()
     }
     

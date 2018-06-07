@@ -27,10 +27,10 @@ protocol BagViewModelDelegate {
     func delete(indexPaths: [IndexPath])
     func delete(sections: IndexSet)
     func paymentMethodDidChange(_ paymentMethod: STPPaymentMethod)
-    func paymentDidComplete(with paymentResult: PaymentResult)
+    func purchaseDidComplete(with purchaseResult: PurchaseResult)
 }
 
-enum PaymentResult {
+enum PurchaseResult {
     case success
     case failure(String)
 }
@@ -47,12 +47,12 @@ class BagViewModel: NSObject {
     var paymentContextHostViewController: UIViewController? {
         didSet {
             if paymentContextHostViewController != nil {
-                paymentContext.hostViewController = paymentContextHostViewController
+                paymentContext?.hostViewController = paymentContextHostViewController
             }
         }
     }
     
-    private var paymentContext: STPPaymentContext!
+    private var paymentContext: STPPaymentContext?
     
     private let data = BagDataStore.shared
     
@@ -104,17 +104,33 @@ class BagViewModel: NSObject {
     }
     
     var shouldHideCreditCardButton: Bool {
-        return user == nil
+        return user == nil || environment == .family
+    }
+    
+    var shouldHideTotalVisualEffectView: Bool {
+        return foods.isEmpty
+    }
+    
+    var shouldEnableClearButton: Bool {
+        return !foods.isEmpty
     }
     
     var paymentStackViewSpacing: CGFloat {
         return shouldHideCreditCardButton ? 20 : 10
     }
     
+    var purchaseButtonText: String {
+        return doesGetForFree ? "Order Free 😍" : totalPrice.priceString
+    }
+    
     var userName: String?
     
     var orderUserName: String? {
         return user?.name ?? userName
+    }
+    
+    var doesGetForFree: Bool {
+        return environment == .family
     }
     
     var numberOfSections: Int {
@@ -124,16 +140,18 @@ class BagViewModel: NSObject {
     override init() {
         super.init()
         
-        setupPaymentContext()
+        if !doesGetForFree {
+            setupPaymentContext()
+        }
     }
     
     func setupPaymentContext() {
         paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: EphemeralKeyProvider.shared))
-        paymentContext.delegate = self
-        paymentContext.largeTitleDisplayMode = .never
-        paymentContext.configuration.createCardSources = true
+        paymentContext?.delegate = self
+        paymentContext?.largeTitleDisplayMode = .never
+        paymentContext?.configuration.createCardSources = true
         if paymentContextHostViewController != nil {
-            paymentContext.hostViewController = paymentContextHostViewController
+            paymentContext?.hostViewController = paymentContextHostViewController
         }
         updatePaymentPrice()
     }
@@ -239,36 +257,43 @@ class BagViewModel: NSObject {
     }
     
     func presentPaymentMethodsViewController() {
-        paymentContext.presentPaymentMethodsViewController()
+        paymentContext?.presentPaymentMethodsViewController()
     }
     
     func updatePaymentPrice() {
-        paymentContext.paymentAmount = totalPrice.toCents()
+        paymentContext?.paymentAmount = totalPrice.toCents()
     }
     
     func requestPayment() {
-        paymentContext.requestPayment()
+        paymentContext?.requestPayment()
+    }
+    
+    func handleDidTapPurchase() {
+        if doesGetForFree {
+            delegate?.purchaseDidComplete(with: .success)
+        } else { requestPayment() }
     }
     
     func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {
         PayAPIClient.chargeSource(id, amount: totalPrice.toCents()) { result in
             switch result {
             case .success:
-                self.delegate?.paymentDidComplete(with: .success)
+                self.delegate?.purchaseDidComplete(with: .success)
                 completed?(nil)
             case .failure(let error):
-                self.delegate?.paymentDidComplete(with: .failure(error.localizedDescription))
+                self.delegate?.purchaseDidComplete(with: .failure(error.localizedDescription))
                 completed?(error)
             }
         }
     }
     
     func chargeCard(with id: String, completed: ((Error?) -> Void)? = nil) {
-        guard let user = user else { return }
+        guard let user = user,
+            let amount = paymentContext?.paymentAmount else { return }
         UserAPIClient.getCustomerID(for: user) { result in
             switch result {
             case .success(let customerID):
-                PayAPIClient.chargeSource(id, customerID: customerID, amount: self.paymentContext.paymentAmount) { result in
+                PayAPIClient.chargeSource(id, customerID: customerID, amount: amount) { result in
                     switch result {
                     case .success: completed?(nil)
                     case .failure(let error): completed?(error)
@@ -308,10 +333,10 @@ extension BagViewModel: STPPaymentContextDelegate {
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         switch status {
-        case .success: delegate?.paymentDidComplete(with: .success)
+        case .success: delegate?.purchaseDidComplete(with: .success)
         case .error:
             if let errorMessage = error?.localizedDescription {
-                delegate?.paymentDidComplete(with: .failure(errorMessage))
+                delegate?.purchaseDidComplete(with: .failure(errorMessage))
             }
         case .userCancellation: break
         }
