@@ -8,15 +8,19 @@
 
 import UIKit
 import SwiftySound
+import AVFoundation
 
 class OrdersViewController: UITableViewController {
     let viewModel = OrdersViewModel()
+    var alertSound: Sound?
     
     static let storyboardID = "ordersViewController"
     
     private struct Constants {
-        static let alertFileName = "Alert.wav"
+        static let alertFileName = "Alert"
+        static let alertFileExtension = "wav"
         static let alertNumberOfLoops = 2
+        static let alertMessage = "new order"
     }
     
     private enum SegueIdentifier: String {
@@ -30,6 +34,11 @@ class OrdersViewController: UITableViewController {
         tableView.separatorInset.left = 30
         tableView.separatorColor = #colorLiteral(red: 0.8901960784, green: 0.862745098, blue: 0.8352941176, alpha: 1)
         splitViewController?.view.backgroundColor = #colorLiteral(red: 0.3960784314, green: 0.3568627451, blue: 0.3215686275, alpha: 1)
+        
+        if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: Constants.alertFileExtension),
+            let sound = Sound(url: url) {
+            alertSound = sound
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +60,18 @@ class OrdersViewController: UITableViewController {
     }
     
     func playAlertSound() {
-        Sound.play(file: Constants.alertFileName, numberOfLoops: Constants.alertNumberOfLoops - 1)
+        alertSound?.play(numberOfLoops: Constants.alertNumberOfLoops - 1) {
+            guard $0 else { return }
+            self.speakMessage()
+        }
+    }
+    
+    func speakMessage() {
+        let message = Constants.alertMessage
+        let utterance = AVSpeechUtterance(string: message)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        let synth = AVSpeechSynthesizer()
+        synth.speak(utterance)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
