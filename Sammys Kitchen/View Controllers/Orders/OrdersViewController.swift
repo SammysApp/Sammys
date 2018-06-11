@@ -19,8 +19,8 @@ class OrdersViewController: UITableViewController {
     private struct Constants {
         static let alertFileName = "Alert"
         static let alertFileExtension = "wav"
-        static let alertNumberOfLoops = 2
-        static let alertMessage = "new order"
+        static let alertNumberOfLoops = 1
+        static let alertMessage = "there's a new order"
     }
     
     private enum SegueIdentifier: String {

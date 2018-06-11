@@ -18,8 +18,9 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     @IBOutlet var paymentStackView: UIStackView!
     @IBOutlet var subtotalLabel: UILabel!
     @IBOutlet var taxLabel: UILabel!
+    @IBOutlet var orderPickupDateButton: UIButton!
+    @IBOutlet var paymentMethodButton: UIButton!
     @IBOutlet var purchaseButton: UIButton!
-    @IBOutlet var creditCardButton: UIButton!
     @IBOutlet var totalVisualEffectView: UIVisualEffectView!
     @IBOutlet var totalVisualEffectViewContainerView: UIView!
     
@@ -46,21 +47,18 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         
         viewModel.updatePaymentPrice()
         viewModel.paymentContextHostViewController = self
-        
-        let maskShape = CAShapeLayer()
-        maskShape.bounds = totalVisualEffectView.frame
-        maskShape.position = totalVisualEffectView.center
-        maskShape.path = UIBezierPath(roundedRect: totalVisualEffectView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 40, height: 40)).cgPath
-        totalVisualEffectView.layer.mask = maskShape
-        
-        totalVisualEffectViewContainerView.layer.masksToBounds = false
-        totalVisualEffectViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: totalVisualEffectViewContainerView.bounds, cornerRadius: 40).cgPath, radius: 10, opacity: 0.1))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setupTotalVisualEffectView()
     }
     
     func updateUI() {
@@ -77,13 +75,24 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func updatePaymentUI() {
-        creditCardButton.isHidden = viewModel.shouldHideCreditCardButton
+        paymentMethodButton.isHidden = viewModel.shouldHideCreditCardButton
         paymentStackView.spacing = viewModel.paymentStackViewSpacing
     }
     
     func updateTotalVisualEffectView() {
         totalVisualEffectView.isHidden = viewModel.shouldHideTotalVisualEffectView
         totalVisualEffectViewContainerView.isHidden = viewModel.shouldHideTotalVisualEffectView
+    }
+    
+    func setupTotalVisualEffectView() {
+        let maskShape = CAShapeLayer()
+        maskShape.bounds = totalVisualEffectView.frame
+        maskShape.position = totalVisualEffectView.center
+        maskShape.path = UIBezierPath(roundedRect: totalVisualEffectView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 40, height: 40)).cgPath
+        totalVisualEffectView.layer.mask = maskShape
+        
+        totalVisualEffectViewContainerView.layer.masksToBounds = false
+        totalVisualEffectViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: totalVisualEffectViewContainerView.bounds, cornerRadius: 40).cgPath, radius: 10, opacity: 0.1))
     }
     
     func bagDataDidChange() {
@@ -156,7 +165,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func paymentMethodDidChange(_ paymentMethod: STPPaymentMethod) {
-        creditCardButton.setTitle(paymentMethod.label, for: .normal)
+        paymentMethodButton.setTitle(paymentMethod.label, for: .normal)
     }
     
     func purchaseDidComplete(with purchaseResult: PurchaseResult) {
@@ -230,10 +239,6 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
 
     // MARK: - IBActions
-    @IBAction func didTapPurchase(_ sender: UIButton) {
-        attemptPurchase()
-    }
-    
     @IBAction func didTapClear(_ sender: UIBarButtonItem) {
         clearBag()
     }
@@ -242,8 +247,18 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didTapCreditCard(_ sender: UIButton) {
+    @IBAction func didTapPaymentMethod(_ sender: UIButton) {
         viewModel.presentPaymentMethodsViewController()
+    }
+    
+    @IBAction func didTapOrderPickupDate(_ sender: UIButton) {
+        let orderDateViewController = OrderDateViewController.storyboardInstance()
+        let navigationViewController = UINavigationController(rootViewController: orderDateViewController)
+        present(navigationViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func didTapPurchase(_ sender: UIButton) {
+        attemptPurchase()
     }
 }
 

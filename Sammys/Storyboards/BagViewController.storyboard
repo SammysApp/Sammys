@@ -224,16 +224,31 @@
                                                                 </stackView>
                                                             </subviews>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZm-5M-VcU">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="A7k-qe-YsZ">
                                                             <rect key="frame" x="0.0" y="50.666666666666629" width="335" height="32"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                            <state key="normal">
-                                                                <color key="titleColor" name="Espresso"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="didTapCreditCard:" destination="1x3-yr-YVX" eventType="touchUpInside" id="PNV-ka-yBD"/>
-                                                            </connections>
-                                                        </button>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zo-86-Th3">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="167.66666666666666" height="32"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <state key="normal" title="Pickup Now">
+                                                                        <color key="titleColor" name="Espresso"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="didTapOrderPickupDate:" destination="1x3-yr-YVX" eventType="touchUpInside" id="cDe-pm-EMB"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZm-5M-VcU">
+                                                                    <rect key="frame" x="167.66666666666663" y="0.0" width="167.33333333333337" height="32"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <state key="normal" title="Payment Method">
+                                                                        <color key="titleColor" name="Espresso"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="didTapPaymentMethod:" destination="1x3-yr-YVX" eventType="touchUpInside" id="bZc-Qp-wNu"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAL-yv-ykH">
                                                             <rect key="frame" x="0.0" y="92.666666666666629" width="335" height="70"/>
                                                             <color key="backgroundColor" name="Flora"/>
@@ -297,7 +312,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clearButton" destination="B7g-n8-K5E" id="rDp-Qa-5JY"/>
-                        <outlet property="creditCardButton" destination="AZm-5M-VcU" id="1z1-Ba-kUr"/>
+                        <outlet property="orderPickupDateButton" destination="4Zo-86-Th3" id="7yL-QN-kNK"/>
+                        <outlet property="paymentMethodButton" destination="AZm-5M-VcU" id="9pK-zo-Fwa"/>
                         <outlet property="paymentStackView" destination="wSd-GW-GYh" id="oSe-mM-6Tu"/>
                         <outlet property="purchaseButton" destination="vAL-yv-ykH" id="ytU-6Q-AYi"/>
                         <outlet property="subtotalLabel" destination="VLr-dh-Nj8" id="omP-Uc-hxw"/>
