@@ -59,7 +59,9 @@ struct FavoriteGroup {
 /// A client to make user calls to the user 👩🏻 API 🏭.
 struct UserAPIClient {
     /// The shared Firebase database reference.
-    private static let database = Database.database().reference()
+    private static var database: DatabaseReference {
+        return Database.database().reference()
+    }
     
     // MARK: - Observers
     private static var observers: [UserAPIObserver] {
@@ -146,7 +148,7 @@ struct UserAPIClient {
     */
     static func createUser(with name: String, email: String, password: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
         // Create a user with `email` and `password`.
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        Auth.auth().createUser(withEmail: email, password: password) { _, error in
             // If there was an error...
             if let error = error {
                 printError(error)
@@ -186,14 +188,14 @@ struct UserAPIClient {
     */
     static func signIn(withEmail email: String, password: String, completed: ((_ result: APIResult<User>) -> Void)? = nil) {
         // Sign in user with `email` and `password`.
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
             // If there was an error...
             if let error = error {
                 printError(error)
             }
             // If successfully signed in user...
             else {
-                guard let user = user,
+                guard let user = result?.user,
                     let currentUser = createUser(from: user) else { return }
                 // ...call closure with `success`.
                 completed?(.success(currentUser))
@@ -203,12 +205,12 @@ struct UserAPIClient {
     
     static func signIn(withFacebookAccessToken accessToken: String, completed: ((_ result: APIResult<(user: User, firstTimeSignIn: Bool)>) -> Void)? = nil) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
-        Auth.auth().signIn(with: credential) { user, error in
+        Auth.auth().signInAndRetrieveData(with: credential) { result, error in
             if let error = error {
                 printError(error)
             }
             else {
-                guard let user = user,
+                guard let user = result?.user,
                     let currentUser = createUser(from: user) else { return }
                 addUserToDatabase(currentUser) { doesExistAlready in
                     // Send if first time signing in to closure.
@@ -221,13 +223,17 @@ struct UserAPIClient {
     static func reauthenticate(withEmail email: String, password: String, completed: ((Error?) -> Void)? = nil) {
         guard let currentUser = Auth.auth().currentUser else { return }
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-        currentUser.reauthenticate(with: credential, completion: completed)
+        currentUser.reauthenticateAndRetrieveData(with: credential) { _, error in
+            completed?(error)
+        }
     }
     
     static func reauthenticate(withFacebookAccessToken accessToken: String, completed: ((Error?) -> Void)? = nil) {
         guard let currentUser = Auth.auth().currentUser else { return }
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
-        currentUser.reauthenticate(with: credential, completion: completed)
+        currentUser.reauthenticateAndRetrieveData(with: credential) { _, error in
+            completed?(error)
+        }
     }
     
     static func updateCurrentUserName(_ name: String, completed: ((Error?) -> Void)? = nil) {
@@ -277,7 +283,7 @@ struct UserAPIClient {
         guard let currentFirebaseUser = Auth.auth().currentUser,
             let currentUser = UserDataStore.shared.user else { return }
         let credential = EmailAuthProvider.credential(withEmail: currentUser.email, password: password)
-        currentFirebaseUser.link(with: credential) { user, error in
+        currentFirebaseUser.linkAndRetrieveData(with: credential) { _, error in
             completed?(error)
         }
     }
@@ -356,7 +362,7 @@ struct UserAPIClient {
         // If there's a user signed in...
         if let user = Auth.auth().currentUser {
             // ...when a change is detected to the user's favorites...
-            favoritesReference(forUserID: user.uid).observe(.value) { (snapshot) in
+            favoritesReference(forUserID: user.uid).observe(.value) { snapshot in
                 // ...if there's no data...
                 if !snapshot.exists() {
                     observers.forEach { $0.favoritesValueDidChange?([]) }
@@ -381,7 +387,7 @@ struct UserAPIClient {
     */
     static func fetchFavorites(for user: User, completed: @escaping (_ result: APIResult<[FavoriteGroup]>) -> Void) {
         // Commence single observation of the given user's favorites.
-        favoritesReference(forUserID: user.id).observeSingleEvent(of: .value) { (snapshot) in
+        favoritesReference(forUserID: user.id).observeSingleEvent(of: .value) { snapshot in
             // If there's no data...
             if !snapshot.exists() {
                 completed(.failure(UserAPIClientError.doesNotExist))
@@ -412,7 +418,7 @@ struct UserAPIClient {
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
             // Set the JSON string as the value of the new favorite child.
             // favorites -> <food type> -> [favorite id : value]
-            favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString) { error, reference in
+            favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).setValue(jsonString) { error, _ in
                 completed?(error)
             }
         } catch {
@@ -421,7 +427,7 @@ struct UserAPIClient {
     }
     
     static func remove(_ favorite: Food, for user: User, completed: ((Error?) -> Void)? = nil) {
-        favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).removeValue { error, reference in
+        favoritesReference(forUserID: user.id).child(type(of: favorite).type).child(favorite.id).removeValue { error, _ in
             completed?(error)
         }
     }
@@ -501,6 +507,10 @@ struct UserAPIClient {
 
 // MARK: - References
 private extension DatabaseReference {
+    var developer: DatabaseReference {
+        return child("developer")
+    }
+    
     var users: DatabaseReference {
         return child("users")
     }

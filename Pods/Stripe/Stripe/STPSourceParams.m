@@ -101,17 +101,6 @@
     return params;
 }
 
-+ (STPSourceParams *)bitcoinParamsWithAmount:(NSUInteger)amount
-                                    currency:(NSString *)currency
-                                       email:(NSString *)email {
-    STPSourceParams *params = [self new];
-    params.type = STPSourceTypeBitcoin;
-    params.amount = @(amount);
-    params.currency = currency;
-    params.owner = @{ @"email": email };
-    return params;
-}
-
 + (STPSourceParams *)cardParamsWithCard:(STPCardParams *)card {
     STPSourceParams *params = [self new];
     params.type = STPSourceTypeCard;
@@ -163,7 +152,7 @@
 }
 
 + (STPSourceParams *)idealParamsWithAmount:(NSUInteger)amount
-                                      name:(NSString *)name
+                                      name:(nullable NSString *)name
                                  returnURL:(NSString *)returnURL
                        statementDescriptor:(nullable NSString *)statementDescriptor
                                       bank:(nullable NSString *)bank {
@@ -171,12 +160,14 @@
     params.type = STPSourceTypeIDEAL;
     params.amount = @(amount);
     params.currency = @"eur"; // iDEAL must always use eur
-    params.owner = @{ @"name": name };
+    if (name.length > 0) {
+        params.owner = @{ @"name": name };
+    }
     params.redirect = @{ @"return_url": returnURL };
-    if (statementDescriptor != nil || bank != nil) {
+    if (statementDescriptor.length > 0 || bank.length > 0) {
         NSMutableDictionary *idealDict = [NSMutableDictionary dictionary];
-        idealDict[@"statement_descriptor"] = statementDescriptor;
-        idealDict[@"bank"] = bank;
+        idealDict[@"statement_descriptor"] = (statementDescriptor.length > 0) ? statementDescriptor : nil;
+        idealDict[@"bank"] = (bank.length > 0) ? bank : nil;
         params.additionalAPIParameters = @{ @"ideal": idealDict };
     }
     return params;
@@ -305,6 +296,21 @@
     STPSourceParams *params = [self new];
     params.type = STPSourceTypeCard;
     params.additionalAPIParameters = @{ @"card": @{ @"visa_checkout": @{ @"callid": callId } } };
+    return params;
+}
+
++ (STPSourceParams *)masterpassParamsWithCartId:(NSString *)cartId
+                                  transactionId:(NSString *)transactionId {
+    STPSourceParams *params = [self new];
+    params.type = STPSourceTypeCard;
+    params.additionalAPIParameters = @{ @"card": @{
+                                                @"masterpass": @{
+                                                        @"cart_id": cartId,
+                                                        @"transaction_id": transactionId,
+                                                        }
+                                                }
+
+                                        };
     return params;
 }
 

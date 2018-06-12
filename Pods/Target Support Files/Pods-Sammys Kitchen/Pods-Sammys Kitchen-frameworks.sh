@@ -136,15 +136,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
-fi
-if [[ "$CONFIGURATION" == "Family" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
@@ -152,7 +144,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
@@ -160,7 +152,15 @@ fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
+fi
+if [[ "$CONFIGURATION" == "Family" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"

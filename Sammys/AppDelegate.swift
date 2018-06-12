@@ -11,14 +11,6 @@ import Firebase
 import Stripe
 import FBSDKCoreKit
 
-enum AppEnvironment {
-    case debug, release, family
-    
-    var isLive: Bool {
-        return self == .release
-    }
-}
-
 #if DEBUG
 let environment = AppEnvironment.debug
 #elseif FAMILY

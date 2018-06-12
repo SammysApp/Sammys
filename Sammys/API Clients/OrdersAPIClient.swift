@@ -30,7 +30,10 @@ private class OrdersAPIObservers {
 
 struct OrdersAPIClient {
     /// The shared Firebase database reference.
-    private static let database = Database.database().reference()
+    private static var database: DatabaseReference {
+        let reference =  Database.database().reference()
+        return environment.isLive ? reference : reference.developer
+    }
     
     // MARK: - Observers
     private static var observers: [OrdersAPIObserver] {
@@ -123,6 +126,10 @@ struct OrdersAPIClient {
 }
 
 private extension DatabaseReference {
+    var developer: DatabaseReference {
+        return child("developer")
+    }
+    
     var orders: DatabaseReference {
         return child("orders")
     }

@@ -61,6 +61,9 @@
 		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
 		5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */; };
 		5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */; };
+		5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
+		5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
+		5B18CB1520D058D4000C5CA4 /* Silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B18CB1420D058D3000C5CA4 /* Silence.wav */; };
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
@@ -248,6 +251,8 @@
 		5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersReadDataStore.swift; sourceTree = "<group>"; };
 		5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
+		5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		5B18CB1420D058D3000C5CA4 /* Silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Silence.wav; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
@@ -531,9 +536,9 @@
 			isa = PBXGroup;
 			children = (
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
+				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
-				5BD274F02063FAA900618128 /* Helpers */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
 				5B9CD59D204CCA5500F59E4C /* View Controllers */,
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
@@ -600,6 +605,7 @@
 				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
 				5B10D59220C035F400BF05B2 /* Assets.xcassets */,
 				5B9B909920CA037700FB6264 /* Alert.wav */,
+				5B18CB1420D058D3000C5CA4 /* Silence.wav */,
 				5B10D59720C035F400BF05B2 /* Info.plist */,
 				5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */,
 			);
@@ -863,13 +869,6 @@
 			path = "Data Stores";
 			sourceTree = "<group>";
 		};
-		5BD274F02063FAA900618128 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		5BD274F12063FABF00618128 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,6 +1110,7 @@
 			files = (
 				5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */,
 				5B9865FA20C58DC3004722D8 /* ItemCollectionViewCell.xib in Resources */,
+				5B18CB1520D058D4000C5CA4 /* Silence.wav in Resources */,
 				5B9865FF20C5A367004722D8 /* SharedAssets.xcassets in Resources */,
 				5B9B909A20CA037700FB6264 /* Alert.wav in Resources */,
 				5B9B908C20C7416B00FB6264 /* LaunchScreen.storyboard in Resources */,
@@ -1176,7 +1176,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework",
@@ -1237,7 +1237,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.2/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.2/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.2/SwiftySound.framework",
@@ -1298,6 +1298,7 @@
 				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
 				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
 				5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */,
+				5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
 				5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */,
 				5B10D5A720C0467400BF05B2 /* Array.swift in Sources */,
@@ -1351,6 +1352,7 @@
 			files = (
 				5BB296CD209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift in Sources */,
 				5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */,
+				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5BEED53E206C6F70002240EB /* AddViewModel.swift in Sources */,
 				5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
@@ -1515,13 +1517,15 @@
 			baseConfigurationReference = E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_SUFFIX_ID = .dev;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1533,13 +1537,14 @@
 			baseConfigurationReference = 8B1C7B0EBA7D6AA74F31DA4C /* Pods-Sammys Kitchen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_SUFFIX_ID = "";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1777,13 +1782,14 @@
 			baseConfigurationReference = 089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_SUFFIX_ID = "";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1845,7 +1851,7 @@
 		};
 		5B9B909720C8DC4B00FB6264 /* Family */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98656AC6264B18B8A7452C33 /* Pods-Sammys.beta.xcconfig */;
+			baseConfigurationReference = D9E68F804444CD714D624E43 /* Pods-Sammys.family.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon${BUNDLE_ID_SUFFIX}";
 				BUNDLE_ID_SUFFIX = .fam;
@@ -1867,16 +1873,17 @@
 		};
 		5B9B909820C8DC4B00FB6264 /* Family */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */;
+			baseConfigurationReference = 93230D43041C89D688BDB287 /* Pods-Sammys Kitchen.family.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_SUFFIX_ID = "";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;

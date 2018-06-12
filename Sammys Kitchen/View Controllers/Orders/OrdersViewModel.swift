@@ -12,14 +12,14 @@ enum OrdersViewControllerViewKey {
     case orders, foods
 }
 
-protocol OrdersViewModelDelegate {
+protocol OrdersViewModelDelegate: class {
     func needsUIUpdate()
     func didGetNewOrder()
 }
 
 class OrdersViewModel {
     var viewKey: OrdersViewControllerViewKey = .orders
-    var delegate: OrdersViewModelDelegate?
+    weak var delegate: OrdersViewModelDelegate?
     let id = UUID().uuidString
     
     private var kitchenOrders: [KitchenOrder]? {
@@ -50,11 +50,11 @@ class OrdersViewModel {
         return 1
     }
     
-    init() {
+    func handleViewDidAppear() {
         OrdersAPIClient.addObserver(self)
     }
     
-    deinit {
+    func handleViewDidDisappear() {
         OrdersAPIClient.removeObserver(self)
     }
     

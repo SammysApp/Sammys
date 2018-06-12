@@ -11,6 +11,12 @@ import Firebase
 
 var currentDate = Date()
 
+#if DEBUG
+let environment = AppEnvironment.debug
+#else
+let environment = AppEnvironment.release
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
