@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol OrderDateViewControllerDelegate {
+    
+}
+
 class OrderDateViewController: UIViewController {
     let formatter = DateFormatter()
     

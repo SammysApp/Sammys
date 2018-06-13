@@ -13,14 +13,11 @@ import AVFoundation
 class OrdersViewController: UITableViewController {
     let viewModel = OrdersViewModel()
     var alertSound: Sound?
-    var silenceSound: Sound?
     
     static let storyboardID = "ordersViewController"
     
     private struct Constants {
         static let alertFileName = "Alert"
-        static let silenceFileName = "Silence"
-        static let wavFileExtension = "wav"
         static let alertNumberOfLoops = 2
         static let alertMessage = "there's a new order"
     }
@@ -37,14 +34,9 @@ class OrdersViewController: UITableViewController {
         tableView.separatorColor = #colorLiteral(red: 0.8901960784, green: 0.862745098, blue: 0.8352941176, alpha: 1)
         splitViewController?.view.backgroundColor = #colorLiteral(red: 0.3960784314, green: 0.3568627451, blue: 0.3215686275, alpha: 1)
         
-        if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: Constants.wavFileExtension),
+        if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: FileExtension.wav.rawValue),
             let sound = Sound(url: url) {
             alertSound = sound
-        }
-        
-        if let url = Bundle.main.url(forResource: Constants.silenceFileName, withExtension: Constants.wavFileExtension),
-            let sound = Sound(url: url) {
-            silenceSound = sound
         }
     }
     
@@ -77,12 +69,9 @@ class OrdersViewController: UITableViewController {
     }
     
     func playAlertSound() {
-        silenceSound?.play() { completed in
-            guard completed else { return }
-            self.alertSound?.play(numberOfLoops: Constants.alertNumberOfLoops - 1) {
-                guard $0 else { return }
-                self.speakMessage()
-            }
+        alertSound?.play(numberOfLoops: Constants.alertNumberOfLoops - 1) {
+            guard $0 else { return }
+            self.speakMessage()
         }
     }
     

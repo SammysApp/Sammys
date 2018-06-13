@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftySound
 
 var currentDate = Date()
 
@@ -21,6 +22,11 @@ let environment = AppEnvironment.release
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var silenceSound: Sound?
+    
+    private struct Constants {
+        static let silenceFileName = "Silence"
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -39,6 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Start observing for today's orders and set notification for day change.
         startOrdersValueChangeObserver(for: currentDate)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.dayDidChange), name: .NSCalendarDayChanged, object: nil)
+        
+        // Setup silence sound to be used throughout app.
+        if let url = Bundle.main.url(forResource: Constants.silenceFileName, withExtension: FileExtension.wav.rawValue),
+            let sound = Sound(url: url) {
+            silenceSound = sound
+        }
+        
+        // Set to play silent sound every minute to keep any speaker on for alerts.
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
+            silenceSound?.play()
+        }.fire()
         
         return true
     }

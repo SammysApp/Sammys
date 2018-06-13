@@ -146,14 +146,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbf-7t-bvm">
                                         <rect key="frame" x="7.6666666666666572" y="306.66666666666663" width="360" height="297.66666666666663"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a future pickup date..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4w-ZW-vSM">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose another pickup date..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4w-ZW-vSM">
                                                 <rect key="frame" x="54.999999999999986" y="0.0" width="249.66666666666663" height="21.666666666666668"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="8mB-ZA-utJ">
-                                                <rect key="frame" x="0.0" y="21.999999999999986" width="360" height="241.66666666666663"/>
+                                                <rect key="frame" x="0.0" y="21.666666666666629" width="360" height="242"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="550353063.52288496">
                                                     <!--2018-06-10 19:51:03 +0000-->
                                                 </date>

@@ -64,6 +64,8 @@
 		5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
 		5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
 		5B18CB1520D058D4000C5CA4 /* Silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B18CB1420D058D3000C5CA4 /* Silence.wav */; };
+		5B18CB1720D0AC4C000C5CA4 /* FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB1620D0AC4C000C5CA4 /* FileExtension.swift */; };
+		5B18CB1820D0AC4C000C5CA4 /* FileExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB1620D0AC4C000C5CA4 /* FileExtension.swift */; };
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
@@ -253,6 +255,7 @@
 		5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		5B18CB1420D058D3000C5CA4 /* Silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Silence.wav; sourceTree = "<group>"; };
+		5B18CB1620D0AC4C000C5CA4 /* FileExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtension.swift; sourceTree = "<group>"; };
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
@@ -537,6 +540,7 @@
 			children = (
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
+				5B18CB1620D0AC4C000C5CA4 /* FileExtension.swift */,
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
@@ -1323,6 +1327,7 @@
 				5B9865F720C58DAD004722D8 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */,
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
+				5B18CB1820D0AC4C000C5CA4 /* FileExtension.swift in Sources */,
 				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
 				5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */,
 				5B9865F920C58DAD004722D8 /* ItemCollectionViewCellViewModelFactory.swift in Sources */,
@@ -1411,6 +1416,7 @@
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
+				5B18CB1720D0AC4C000C5CA4 /* FileExtension.swift in Sources */,
 				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
@@ -1521,6 +1527,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				DISPLAY_NAME = Developer;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1541,6 +1548,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				DISPLAY_NAME = Kitchen;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1786,6 +1794,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				DISPLAY_NAME = Kitchen;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1880,6 +1889,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				DISPLAY_NAME = Kitchen;
 				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
