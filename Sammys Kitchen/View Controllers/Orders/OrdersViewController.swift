@@ -221,6 +221,7 @@ class OrdersViewController: UIViewController {
     
     @IBAction func didTapToday(_ sender: UIButton) {
         datePicker.setDate(Date(), animated: true)
+        didChangeDatePickerValue(datePicker)
     }
 }
 
