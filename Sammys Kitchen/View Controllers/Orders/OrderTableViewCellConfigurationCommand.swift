@@ -21,7 +21,7 @@ struct OrderTableViewCellConfigurationCommand: TableViewCellCommand {
         dateFormatter.dateFormat = "h:mm a"
         cell.timeLabel.text = dateFormatter.string(from: kitchenOrder.order.date)
         
-        if OrdersReadDataStore.shared.isRead(kitchenOrder) {
+        if UserDataStore.shared.isRead(kitchenOrder) {
             cell.unreadImageView.isHidden = true
         } else {
             cell.unreadImageView.isHidden = false

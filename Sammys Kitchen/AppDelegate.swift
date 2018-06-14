@@ -10,8 +10,6 @@ import UIKit
 import Firebase
 import SwiftySound
 
-var currentDate = Date()
-
 #if DEBUG
 let environment = AppEnvironment.debug
 #else
@@ -39,40 +37,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)]
         UINavigationBar.appearance().isTranslucent = false
         
+        // Show status bar after it being initially hidden in Info.plist.
+        UIApplication.shared.isStatusBarHidden = false
+        
         // Configure status bar style.
         UIApplication.shared.statusBarStyle = .lightContent
         
-        // Start observing for today's orders and set notification for day change.
-        startOrdersValueChangeObserver(for: currentDate)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.dayDidChange), name: .NSCalendarDayChanged, object: nil)
+        // Start observing for orders.
+        UserDataStore.shared.startObservingDate()
         
-        // Setup silence sound to be used throughout app.
+        // Set to play silent sound every minute to keep a speaker on for alerts.
         if let url = Bundle.main.url(forResource: Constants.silenceFileName, withExtension: FileExtension.wav.rawValue),
             let sound = Sound(url: url) {
             silenceSound = sound
         }
-        
-        // Set to play silent sound every minute to keep any speaker on for alerts.
         Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
-            silenceSound?.play()
+            self.silenceSound?.play()
         }.fire()
         
         return true
     }
     
-    /// Starts observing for orders for the current date.
-    func startOrdersValueChangeObserver(for date: Date) {
-        OrdersAPIClient.startOrdersValueChangeObserver(for: date)
-    }
-    
-    func removeAllOrdersObservers(for date: Date) {
-        OrdersAPIClient.removeAllOrdersObservers(for: date)
-    }
-    
-    @objc
-    func dayDidChange() {
-        removeAllOrdersObservers(for: currentDate)
-        currentDate = Date()
-        startOrdersValueChangeObserver(for: currentDate)
+    func applicationSignificantTimeChange(_ application: UIApplication) {
+        UserDataStore.shared.handleSignificantTimeChange()
     }
 }

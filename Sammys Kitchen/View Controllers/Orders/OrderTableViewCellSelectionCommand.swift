@@ -15,6 +15,6 @@ struct OrderTableViewCellSelectionCommand: TableViewCellCommand {
         guard let cell = cell as? OrderTableViewCell else { return }
         cell.unreadImageView.isHidden = true
         
-        OrdersReadDataStore.shared.setRead(kitchenOrder)
+        UserDataStore.shared.setRead(kitchenOrder)
     }
 }

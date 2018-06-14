@@ -59,7 +59,7 @@
 		5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */; };
 		5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
 		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
-		5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */; };
+		5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* UserDataStore.swift */; };
 		5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */; };
 		5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
 		5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
@@ -251,7 +251,7 @@
 		5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersReadDataStore.swift; sourceTree = "<group>"; };
+		5B10D5CB20C4D55200BF05B2 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		5B18CB1420D058D3000C5CA4 /* Silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Silence.wav; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 		5B9B908720C70BE800FB6264 /* Data Stores */ = {
 			isa = PBXGroup;
 			children = (
-				5B10D5CB20C4D55200BF05B2 /* OrdersReadDataStore.swift */,
+				5B10D5CB20C4D55200BF05B2 /* UserDataStore.swift */,
 			);
 			path = "Data Stores";
 			sourceTree = "<group>";
@@ -1329,7 +1329,7 @@
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
 				5B18CB1820D0AC4C000C5CA4 /* FileExtension.swift in Sources */,
 				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
-				5B10D5CC20C4D55200BF05B2 /* OrdersReadDataStore.swift in Sources */,
+				5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */,
 				5B9865F920C58DAD004722D8 /* ItemCollectionViewCellViewModelFactory.swift in Sources */,
 				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
 				5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */,

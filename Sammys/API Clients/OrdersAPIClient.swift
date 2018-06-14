@@ -88,7 +88,10 @@ struct OrdersAPIClient {
     
     static func startOrdersValueChangeObserver(for date: Date) {
         ordersReference(for: date).orders.observe(.value) { snapshot in
-            guard snapshot.exists() else { return }
+            guard snapshot.exists() else {
+                observers.forEach { $0.ordersValueDidChange([]) }
+                return
+            }
             var kitchenOrders = [KitchenOrder]()
             for orderSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
                 guard let orderJSONString = orderSnapshot.childSnapshot(forPath: Paths.order).value as? String,
