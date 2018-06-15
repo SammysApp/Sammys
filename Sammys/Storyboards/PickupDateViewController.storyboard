@@ -176,11 +176,11 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="aJm-y9-XMA" firstAttribute="leading" secondItem="zbf-7t-bvm" secondAttribute="leading" id="5oT-AK-b91"/>
                                             <constraint firstItem="aJm-y9-XMA" firstAttribute="top" secondItem="zbf-7t-bvm" secondAttribute="top" id="Plg-Ih-m6k"/>
+                                            <constraint firstAttribute="trailing" secondItem="aJm-y9-XMA" secondAttribute="trailing" id="R2s-ch-F2T"/>
                                             <constraint firstItem="Abj-Ne-T6P" firstAttribute="top" secondItem="aJm-y9-XMA" secondAttribute="bottom" id="fQ5-Pp-eYs"/>
                                             <constraint firstAttribute="bottom" secondItem="Abj-Ne-T6P" secondAttribute="bottom" id="sYM-zS-Xd6"/>
-                                            <constraint firstAttribute="trailing" secondItem="aJm-y9-XMA" secondAttribute="trailing" id="tPg-w0-8RU"/>
+                                            <constraint firstItem="aJm-y9-XMA" firstAttribute="leading" secondItem="zbf-7t-bvm" secondAttribute="leading" id="u4R-5P-dxj"/>
                                             <constraint firstItem="Abj-Ne-T6P" firstAttribute="centerX" secondItem="zbf-7t-bvm" secondAttribute="centerX" id="uwh-S7-Z3K"/>
                                         </constraints>
                                     </view>
@@ -205,7 +205,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="0hd-xm-P75" id="8OE-NV-Tbp"/>
-                        <outlet property="dayPickerView" destination="Ith-Xz-Wl7" id="Hfe-0C-fkI"/>
+                        <outlet property="datePickerView" destination="Ith-Xz-Wl7" id="Hfe-0C-fkI"/>
                         <outlet property="pickupNowButton" destination="Abj-Ne-T6P" id="dyM-c7-2Hb"/>
                     </connections>
                 </viewController>

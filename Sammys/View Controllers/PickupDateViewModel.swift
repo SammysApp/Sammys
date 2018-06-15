@@ -8,35 +8,67 @@
 
 import Foundation
 
-enum PickerViewKey {
-    case day, time(Date)
+struct Component {
+    let key: PickerViewComponentKey
+    let rows: [Row]
+}
+
+struct Row {
+    let date: Date
+}
+
+enum PickerViewComponentKey: Int {
+    case day, time
+    
+    var dateFormat: String {
+        switch self {
+        case .day: return "E, MMM d"
+        case .time: return "h:mm a"
+        }
+    }
+}
+
+protocol PickupDateViewModelDelegate: class {
+    func datePickerViewNeedsUpdate()
+    func datePickerViewNeedsUpdate(for component: Int)
 }
 
 class PickupDateViewModel {
+    var startDate = Date()
+    lazy var selectedDayDate = availablePickupDayDates.first!
     var amountOfFutureDays = 7
     var timePickerInterval = 10
+    
+    weak var delegate: PickupDateViewModelDelegate?
     
     private var hours: [Hours]? {
         return SammysDataStore.shared.hours
     }
     
-    private var availablePickupDates: [Date] {
-        let currentDate = Date()
+    private var availablePickupDayDates = [Date]()
+    
+    var numberOfComponents: Int {
+        return components.count
+    }
+    
+    init() {
+        setupAvailablePickupDayDates()
+        SammysDataStore.shared.setHours { hours in
+            self.delegate?.datePickerViewNeedsUpdate()
+        }
+    }
+    
+    private func setupAvailablePickupDayDates() {
+        let currentDate = startDate
         var dates = [currentDate]
         for day in 1...amountOfFutureDays {
             guard let nextDate = Calendar.current.date(byAdding: .day, value: day, to: currentDate) else { continue }
             dates.append(nextDate)
         }
-        return dates
+        availablePickupDayDates = dates
     }
     
-    init() {
-        SammysDataStore.shared.setHours { hours in
-            
-        }
-    }
-    
-    private func availablePickupDates(for date: Date) -> [Date] {
+    private func availablePickupTimeDates(for date: Date) -> [Date] {
         guard let dateHours = hours?.dateHours(for: date) else { return [] }
         var startDate = dateHours.open
         var dates = [startDate]
@@ -48,26 +80,29 @@ class PickupDateViewModel {
         return dates
     }
     
-    func numberOfComponents(for pickerViewKey: PickerViewKey) -> Int {
-        return 1
+    private var components: [Component] {
+        let dayRows = availablePickupDayDates.map { Row(date: $0) }
+        let dayComponent = Component(key: .day, rows: dayRows)
+        let timeRows = availablePickupTimeDates(for: selectedDayDate).map { Row(date: $0) }
+        let timeComponent = Component(key: .time, rows: timeRows)
+        return [dayComponent, timeComponent]
     }
     
-    func numberOfRows(inComponent component: Int, for pickerViewKey: PickerViewKey) -> Int {
-        switch pickerViewKey {
-        case .day: return availablePickupDates.count
-        case .time(let date): return availablePickupDates(for: date).count
-        }
+    func numberOfRows(inComponent component: Int) -> Int {
+        return components[component].rows.count
     }
     
-    func title(forRow row: Int, inComponent component: Int, for pickerViewKey: PickerViewKey) -> String {
+    func title(forRow row: Int, inComponent component: Int) -> String {
         let formatter = DateFormatter()
-        switch pickerViewKey {
-        case .day:
-            formatter.dateFormat = "EEEE, MMM d"
-            return formatter.string(from: availablePickupDates[row])
-        case .time(let date):
-            formatter.dateFormat = "h:mm a"
-            return formatter.string(from: availablePickupDates(for: date)[row])
+        let component = components[component]
+        formatter.dateFormat = component.key.dateFormat
+        return formatter.string(from: component.rows[row].date)
+    }
+    
+    func handleDidSelectRow(_ row: Int, inComponent component: Int) {
+        if PickerViewComponentKey(rawValue: component) == .day {
+            selectedDayDate = components[component].rows[row].date
+            delegate?.datePickerViewNeedsUpdate(for: PickerViewComponentKey.time.rawValue)
         }
     }
 }

@@ -18,7 +18,7 @@ class PickupDateViewController: UIViewController {
     
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var pickupNowButton: UIButton!
-    @IBOutlet var dayPickerView: UIPickerView!
+    @IBOutlet var datePickerView: UIPickerView!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -31,26 +31,20 @@ class PickupDateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
         formatter.dateFormat = "MM/dd h:mm a"
         startUpdateDatePickerTimer()
     }
     
     func startUpdateDatePickerTimer() {
-        updateDatePicker()
+        updateDatePickerView()
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            self.updateDatePicker()
+            self.updateDatePickerView()
         }
     }
     
-    func updateDatePicker() {
-        //let date = Date()
-    }
-    
-    @IBAction func datePickerValueDidChange(_ sender: UIDatePicker) {
-        let dateComponents: Set<Calendar.Component> = [.month, .day, .hour, .minute]
-        let isPickupNow = Calendar.current.dateComponents(dateComponents, from: sender.date) == Calendar.current.dateComponents(dateComponents, from: Date())
-        dateLabel.text = isPickupNow ? Constants.pickupNow : formatter.string(from: sender.date)
-        pickupNowButton.isHidden = isPickupNow
+    func updateDatePickerView() {
+        
     }
     
     @IBAction func didTapPickupNow(_ sender: UIButton) {
@@ -58,27 +52,31 @@ class PickupDateViewController: UIViewController {
     }
 }
 
-extension PickupDateViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    func pickerViewKey(for pickerView: UIPickerView) -> PickerViewKey? {
-        switch pickerView {
-        case dayPickerView: return .day
-        default: return nil
-        }
+extension PickupDateViewController: PickupDateViewModelDelegate {
+    func datePickerViewNeedsUpdate() {
+        datePickerView.reloadAllComponents()
     }
     
+    func datePickerViewNeedsUpdate(for component: Int) {
+        datePickerView.reloadComponent(component)
+    }
+}
+
+extension PickupDateViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        guard let pickerViewKey = pickerViewKey(for: pickerView) else { fatalError() }
-        return viewModel.numberOfComponents(for: pickerViewKey)
+        return viewModel.numberOfComponents
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let pickerViewKey = pickerViewKey(for: pickerView) else { fatalError() }
-        return viewModel.numberOfRows(inComponent: component, for: pickerViewKey)
+        return viewModel.numberOfRows(inComponent: component)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let pickerViewKey = pickerViewKey(for: pickerView) else { fatalError() }
-        return viewModel.title(forRow: row, inComponent: component, for: pickerViewKey)
+        return viewModel.title(forRow: row, inComponent: component)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        viewModel.handleDidSelectRow(row, inComponent: component)
     }
 }
 
