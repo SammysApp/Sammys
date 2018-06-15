@@ -140,6 +140,16 @@ class ItemsViewModel {
         self.salad = salad
     }
     
+    func shouldHideDescriptionLabel(at index: Int) -> Bool {
+        guard !items.isEmpty else { return true }
+        return items[index].description.isEmpty
+    }
+    
+    func descriptionLabelText(at index: Int) -> String? {
+        guard !items.isEmpty else { return nil }
+        return items[index].description
+    }
+    
     func priceLabelText(at index: Int) -> String? {
         guard !items.isEmpty,
             currentChoice == .size,

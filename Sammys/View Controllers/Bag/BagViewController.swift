@@ -252,8 +252,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     @IBAction func didTapOrderPickupDate(_ sender: UIButton) {
-        let orderDateViewController = OrderDateViewController.storyboardInstance()
-        let navigationViewController = UINavigationController(rootViewController: orderDateViewController)
+        let pickupDateViewController = PickupDateViewController.storyboardInstance()
+        let navigationViewController = UINavigationController(rootViewController: pickupDateViewController)
         present(navigationViewController, animated: true, completion: nil)
     }
     

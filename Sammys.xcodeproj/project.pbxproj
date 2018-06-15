@@ -69,6 +69,9 @@
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
+		5B2DC37C20D357BB008FFA2D /* Hours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37B20D357BB008FFA2D /* Hours.swift */; };
+		5B2DC37E20D3657E008FFA2D /* SammysDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37D20D3657E008FFA2D /* SammysDataStore.swift */; };
+		5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */; };
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
 		5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */; };
 		5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
@@ -138,8 +141,8 @@
 		5B9B908C20C7416B00FB6264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5B9B909A20CA037700FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909920CA037700FB6264 /* Alert.wav */; };
-		5B9B909C20CDB7F400FB6264 /* OrderDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B909B20CDB7F400FB6264 /* OrderDateViewController.swift */; };
-		5B9B909E20CDB85000FB6264 /* OrderDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* OrderDateViewController.storyboard */; };
+		5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */; };
+		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
 		5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */; };
 		5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */; };
 		5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */; };
@@ -259,6 +262,9 @@
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
+		5B2DC37B20D357BB008FFA2D /* Hours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
+		5B2DC37D20D3657E008FFA2D /* SammysDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SammysDataStore.swift; sourceTree = "<group>"; };
+		5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewModel.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellCommand.swift; sourceTree = "<group>"; };
 		5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -320,8 +326,8 @@
 		5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B9B909920CA037700FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
-		5B9B909B20CDB7F400FB6264 /* OrderDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDateViewController.swift; sourceTree = "<group>"; };
-		5B9B909D20CDB85000FB6264 /* OrderDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrderDateViewController.storyboard; sourceTree = "<group>"; };
+		5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewController.swift; sourceTree = "<group>"; };
+		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
 		5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionView.swift; sourceTree = "<group>"; };
 		5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -644,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				5B44A8282007F7DB00898FF0 /* User.swift */,
+				5B2DC37B20D357BB008FFA2D /* Hours.swift */,
 				5B44A7C3200483E500898FF0 /* Food.swift */,
 				5B44A82C2009292A00898FF0 /* Item.swift */,
 				5B6A06951FFD54B500BAC480 /* Salad.swift */,
@@ -677,7 +684,8 @@
 				5BD6B3D120812F62000114F5 /* Confirmation */,
 				5BB2968A208E5AD500520683 /* Orders */,
 				5BB296A0208FD42E00520683 /* Order */,
-				5B9B909B20CDB7F400FB6264 /* OrderDateViewController.swift */,
+				5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */,
+				5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -715,7 +723,7 @@
 				5B6A067F1FFD509A00BAC480 /* ItemsViewController.storyboard */,
 				5B44A830200932A800898FF0 /* AddViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
-				5B9B909D20CDB85000FB6264 /* OrderDateViewController.storyboard */,
+				5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */,
 				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
 				5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */,
 				5B942D932087EA0600BF991A /* OrdersViewController.storyboard */,
@@ -868,6 +876,7 @@
 			children = (
 				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
+				5B2DC37D20D3657E008FFA2D /* SammysDataStore.swift */,
 				5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */,
 			);
 			path = "Data Stores";
@@ -1133,7 +1142,7 @@
 				5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */,
 				5B44A831200932A800898FF0 /* AddViewController.storyboard in Resources */,
 				5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */,
-				5B9B909E20CDB85000FB6264 /* OrderDateViewController.storyboard in Resources */,
+				5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */,
 				5BB29691208F7C3400520683 /* OrderViewController.storyboard in Resources */,
 				5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */,
 				5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */,
@@ -1359,8 +1368,10 @@
 				5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5BEED53E206C6F70002240EB /* AddViewModel.swift in Sources */,
+				5B2DC37C20D357BB008FFA2D /* Hours.swift in Sources */,
 				5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
+				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
 				5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
@@ -1405,7 +1416,7 @@
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */,
-				5B9B909C20CDB7F400FB6264 /* OrderDateViewController.swift in Sources */,
+				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
 				5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */,
 				5BB60F492069F5B100105E72 /* Int.swift in Sources */,
 				5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
@@ -1439,6 +1450,7 @@
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
+				5B2DC37E20D3657E008FFA2D /* SammysDataStore.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
 				5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */,

@@ -40,6 +40,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     @IBOutlet var totalPriceLabel: UILabel!
     @IBOutlet var itemLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var finishButton: UIButton!
@@ -125,8 +126,10 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         }
         
         itemTypeLabel.text = viewModel.itemTypeLabelText
+        descriptionLabel.text = viewModel.descriptionLabelText(at: currentItemIndex)
         priceLabel.text = viewModel.priceLabelText(at: currentItemIndex)
         itemLabel.isHidden = viewModel.shouldHideItemLabel
+        descriptionLabel.isHidden = viewModel.shouldHideDescriptionLabel(at: currentItemIndex)
         priceLabel.isHidden = viewModel.shouldHidePriceLabel
         
         updateBackButton()

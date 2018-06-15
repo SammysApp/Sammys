@@ -55,7 +55,7 @@ PODS:
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
-  - Stripe (13.0.2)
+  - Stripe (13.0.3)
   - SwiftySound (1.0.0)
 
 DEPENDENCIES:
@@ -86,7 +86,7 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
-  Stripe: f52f60e948fbc111c26b83227f7d802adfc64c5e
+  Stripe: 76c203e21555089b708e6cbe972a3e3baf1ab4d8
   SwiftySound: b9c3370956fd4ed65ed79d45563070077a50a2cd
 
 PODFILE CHECKSUM: 63059da5ff0694cc2152c80c29fbfa3c2fc44eab

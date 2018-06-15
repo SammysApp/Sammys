@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,24 +42,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CoT-jF-u6a">
-                                <rect key="frame" x="160.33333333333334" y="691.66666666666663" width="54.666666666666657" height="66.333333333333371"/>
+                                <rect key="frame" x="145" y="698.66666666666663" width="85.666666666666686" height="59.333333333333371"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="wTc-Pw-RbG">
-                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="33.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="85.666666666666671" height="33.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
                                         <color key="textColor" name="Snow"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62U-9r-QeD">
-                                        <rect key="frame" x="0.0" y="37.666666666666742" width="54.666666666666664" height="28.666666666666671"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                        <rect key="frame" x="0.0" y="37.666666666666742" width="85.666666666666671" height="21.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <color key="textColor" name="Snow"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mh6-ge-Qa5">
+                                        <rect key="frame" x="0.0" y="59.333333333333371" width="85.666666666666671" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <color key="textColor" name="Snow"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUb-Ux-Q8N">
-                                <rect key="frame" x="285" y="703.33333333333337" width="60" height="42"/>
+                                <rect key="frame" x="285" y="726.33333333333337" width="60" height="42"/>
                                 <color key="backgroundColor" name="Espresso"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -70,7 +77,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAz-oX-kCZ">
-                                <rect key="frame" x="30" y="704" width="62" height="42"/>
+                                <rect key="frame" x="30" y="726.33333333333337" width="62" height="42"/>
                                 <color key="backgroundColor" name="Espresso"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
@@ -189,10 +196,8 @@
                             <constraint firstAttribute="bottom" secondItem="G32-jb-Vzc" secondAttribute="bottom" id="D5g-R5-fry"/>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CoT-jF-u6a" secondAttribute="trailing" constant="15" id="Fsc-bP-cE1"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GCm-mh-Til"/>
-                            <constraint firstItem="tAz-oX-kCZ" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="J98-k0-b3M"/>
                             <constraint firstItem="G32-jb-Vzc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JXl-gn-w7l"/>
                             <constraint firstItem="G32-jb-Vzc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="MIX-z3-D1a"/>
-                            <constraint firstItem="dUb-Ux-Q8N" firstAttribute="centerY" secondItem="CoT-jF-u6a" secondAttribute="centerY" id="OU9-oL-lUJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="15" id="TQ3-aD-Zrv"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
@@ -201,12 +206,14 @@
                             <constraint firstAttribute="bottom" secondItem="SoD-Da-FXx" secondAttribute="bottom" id="Wnh-kG-ijK"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAC-WD-Mh4"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="bNd-uz-DVx"/>
+                            <constraint firstItem="dUb-Ux-Q8N" firstAttribute="firstBaseline" secondItem="CoT-jF-u6a" secondAttribute="baseline" id="blH-fo-Y8g"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="caT-7z-QFA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="30" id="jDa-MM-Sbq"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="10" id="rMq-dW-mE1"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uUX-uu-a8u"/>
                             <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wn0-wd-v6Q"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="yu7-5n-x4N"/>
+                            <constraint firstItem="tAz-oX-kCZ" firstAttribute="firstBaseline" secondItem="CoT-jF-u6a" secondAttribute="baseline" id="yuE-bb-coo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -214,6 +221,7 @@
                         <outlet property="activityIndicatorView" destination="a2q-fC-6Lk" id="47O-4X-0gc"/>
                         <outlet property="backButton" destination="tAz-oX-kCZ" id="eMq-Ua-dty"/>
                         <outlet property="collectionView" destination="SoD-Da-FXx" id="v3K-8j-Wkb"/>
+                        <outlet property="descriptionLabel" destination="mh6-ge-Qa5" id="yJM-me-OpL"/>
                         <outlet property="finishButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>
                         <outlet property="itemLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
                         <outlet property="itemStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
