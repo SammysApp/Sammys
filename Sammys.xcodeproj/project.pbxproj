@@ -13,6 +13,7 @@
 		5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */; };
 		5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */; };
 		5B02C7162087CA30006D19A5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
+		5B0B739B20D6413900D757FD /* Blurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B739A20D6413900D757FD /* Blurable.swift */; };
 		5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58920C035F000BF05B2 /* AppDelegate.swift */; };
 		5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */; };
 		5B10D58E20C035F000BF05B2 /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58D20C035F000BF05B2 /* FoodViewController.swift */; };
@@ -241,6 +242,7 @@
 		5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B02C7152087CA30006D19A5 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		5B0B739A20D6413900D757FD /* Blurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurable.swift; sourceTree = "<group>"; };
 		5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sammys Kitchen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B10D58920C035F000BF05B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
 				5B18CB1620D0AC4C000C5CA4 /* FileExtension.swift */,
+				5B0B739A20D6413900D757FD /* Blurable.swift */,
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
@@ -1395,6 +1398,7 @@
 				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
+				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */,

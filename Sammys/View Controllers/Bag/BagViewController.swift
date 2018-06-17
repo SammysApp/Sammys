@@ -252,9 +252,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     @IBAction func didTapOrderPickupDate(_ sender: UIButton) {
-        let pickupDateViewController = PickupDateViewController.storyboardInstance()
-        let navigationViewController = UINavigationController(rootViewController: pickupDateViewController)
-        present(navigationViewController, animated: true, completion: nil)
+        let pickupDateViewController = PickupDateViewController.storyboardInstance() as! PickupDateViewController
+        setupAndPresentBlurable(pickupDateViewController)
     }
     
     @IBAction func didTapPurchase(_ sender: UIButton) {

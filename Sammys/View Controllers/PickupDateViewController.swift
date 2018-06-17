@@ -12,13 +12,19 @@ protocol PickupDateViewControllerDelegate {
     
 }
 
-class PickupDateViewController: UIViewController {
+class PickupDateViewController: UIViewController, Blurable {
     let viewModel = PickupDateViewModel()
     let formatter = DateFormatter()
     
+    @IBOutlet var backgroundView: UIVisualEffectView!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var pickupNowButton: UIButton!
     @IBOutlet var datePickerView: UIPickerView!
+    
+    var blurView: UIVisualEffectView {
+        return backgroundView
+    }
+    let blurEffect = UIBlurEffect(style: .light)
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
