@@ -14,6 +14,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var clearButton: UIBarButtonItem!
     @IBOutlet var paymentStackView: UIStackView!
     @IBOutlet var subtotalLabel: UILabel!
@@ -23,6 +24,12 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     @IBOutlet var purchaseButton: UIButton!
     @IBOutlet var totalVisualEffectView: UIVisualEffectView!
     @IBOutlet var totalVisualEffectViewContainerView: UIView!
+    
+    lazy var pickupDateViewController: PickupDateViewController = {
+        let pickupDateViewController = PickupDateViewController.storyboardInstance() as! PickupDateViewController
+        pickupDateViewController.delegate = self
+        return pickupDateViewController
+    }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -237,6 +244,20 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         let navigationController = UINavigationController(rootViewController: addCardViewController)
         present(navigationController, animated: true, completion: nil)
     }
+    
+    func addPickupDateViewController() {
+        [doneButton, clearButton].forEach { $0.isEnabled = false }
+        add(asChildViewController: pickupDateViewController)
+        pickupDateViewController.animateBlurViewIn(withDuration: 0.5)
+    }
+    
+    func removePickupDateViewController() {
+        pickupDateViewController.animateBlurViewOut(withDuration: 0.5) { didComplete in
+            self.remove(asChildViewController: self.pickupDateViewController)
+            self.clearButton.isEnabled = true
+            [self.doneButton, self.clearButton].forEach { $0?.isEnabled = true }
+        }
+    }
 
     // MARK: - IBActions
     @IBAction func didTapClear(_ sender: UIBarButtonItem) {
@@ -252,8 +273,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     @IBAction func didTapOrderPickupDate(_ sender: UIButton) {
-        let pickupDateViewController = PickupDateViewController.storyboardInstance() as! PickupDateViewController
-        setupAndPresentBlurable(pickupDateViewController)
+        addPickupDateViewController()
     }
     
     @IBAction func didTapPurchase(_ sender: UIButton) {
@@ -300,6 +320,12 @@ extension BagViewController: UITableViewDelegate {
         if editingStyle == .delete {
             delete(at: indexPath)
         }
+    }
+}
+
+extension BagViewController: PickupDateViewControllerDelegate {
+    func pickupDateViewControllerDidFinish(_ pickupDateViewController: PickupDateViewController) {
+        removePickupDateViewController()
     }
 }
 

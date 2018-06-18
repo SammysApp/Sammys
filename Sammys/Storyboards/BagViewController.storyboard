@@ -297,7 +297,7 @@
                         <viewLayoutGuide key="safeArea" id="jaS-95-GXp"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Bag" id="4Nr-DC-cLB">
-                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="Luu-9D-5NP">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="Luu-9D-5NP">
                             <color key="tintColor" name="Snow"/>
                             <connections>
                                 <action selector="didTapDone:" destination="1x3-yr-YVX" id="rCW-5S-CiC"/>
@@ -312,6 +312,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clearButton" destination="B7g-n8-K5E" id="rDp-Qa-5JY"/>
+                        <outlet property="doneButton" destination="Luu-9D-5NP" id="vTp-i5-u4k"/>
                         <outlet property="orderPickupDateButton" destination="4Zo-86-Th3" id="7yL-QN-kNK"/>
                         <outlet property="paymentMethodButton" destination="AZm-5M-VcU" id="9pK-zo-Fwa"/>
                         <outlet property="paymentStackView" destination="wSd-GW-GYh" id="oSe-mM-6Tu"/>

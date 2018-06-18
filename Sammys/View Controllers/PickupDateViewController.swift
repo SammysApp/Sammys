@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol PickupDateViewControllerDelegate {
-    
+protocol PickupDateViewControllerDelegate: class {
+    func pickupDateViewControllerDidFinish(_ pickupDateViewController: PickupDateViewController)
 }
 
 class PickupDateViewController: UIViewController, Blurable {
     let viewModel = PickupDateViewModel()
-    let formatter = DateFormatter()
+    weak var delegate: PickupDateViewControllerDelegate?
     
     @IBOutlet var backgroundView: UIVisualEffectView!
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var pickupNowButton: UIButton!
+    @IBOutlet var pickupASAPButton: UIButton!
     @IBOutlet var datePickerView: UIPickerView!
     
     var blurView: UIVisualEffectView {
@@ -30,42 +30,69 @@ class PickupDateViewController: UIViewController, Blurable {
         return .lightContent
     }
     
-    struct Constants {
-        static let pickupNow = "Pickup Now"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initializeBlurView()
+        
         viewModel.delegate = self
-        formatter.dateFormat = "MM/dd h:mm a"
         startUpdateDatePickerTimer()
+        
+        updateUI()
+    }
+    
+    func updateUI() {
+        dateLabel.text = viewModel.dateLabelText
+        pickupASAPButton.isHidden = viewModel.shouldHidePickupASAPButton
     }
     
     func startUpdateDatePickerTimer() {
         updateDatePickerView()
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { timer in
             self.updateDatePickerView()
-        }
+        }.fire()
     }
     
     func updateDatePickerView() {
-        
+        viewModel.startDate = Date()
+        datePickerView.reloadAllComponents()
     }
     
-    @IBAction func didTapPickupNow(_ sender: UIButton) {
-        
+    func resetDatePickerView() {
+        viewModel.resetComponents()
+        for component in 0..<viewModel.componentsCount {
+            datePickerView.selectRow(0, inComponent: component, animated: true)
+        }
+    }
+    
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+        delegate?.pickupDateViewControllerDidFinish(self)
+    }
+    
+    @IBAction func didTapPickupASAP(_ sender: UIButton) {
+        resetDatePickerView()
+        viewModel.wantsPickupASAP = true
     }
 }
 
 extension PickupDateViewController: PickupDateViewModelDelegate {
+    func needsUIUpdate() {
+        updateUI()
+    }
+    
     func datePickerViewNeedsUpdate() {
         datePickerView.reloadAllComponents()
     }
     
-    func datePickerViewNeedsUpdate(for component: Int) {
+    func datePickerViewNeedsUpdate(forComponent component: Int) {
         datePickerView.reloadComponent(component)
     }
+    
+    func datePickerSelectedRow(inComponent component: Int) -> Int {
+        return datePickerView.selectedRow(inComponent: component)
+    }
+    
+    func didSelect(_ date: Date) {}
 }
 
 extension PickupDateViewController: UIPickerViewDataSource, UIPickerViewDelegate {

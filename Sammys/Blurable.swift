@@ -16,6 +16,7 @@ protocol Blurable where Self: UIViewController {
 
 extension Blurable {
     func initializeBlurView() {
+        view.backgroundColor = nil
         blurView.effect = nil
         blurView.contentView.alpha = 0
     }
@@ -26,6 +27,13 @@ extension Blurable {
         UIView.animate(withDuration: duration, animations: {
             self.blurView.effect = self.blurEffect
             self.blurView.contentView.alpha = 1
+        }, completion: completed)
+    }
+    
+    func animateBlurViewOut(withDuration duration: TimeInterval, completed: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: duration, animations: {
+            self.blurView.effect = nil
+            self.blurView.contentView.alpha = 0
         }, completion: completed)
     }
 }

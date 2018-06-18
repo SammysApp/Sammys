@@ -12,6 +12,7 @@ struct Hours: Codable {
     let day: Int
     let open: Int
     let close: Int
+    let doesCloseNextDay: Bool?
 }
 
 struct DateHours {
@@ -23,7 +24,11 @@ extension Hours {
     func dateHours(for date: Date) -> DateHours? {
         guard Calendar.current.component(.weekday, from: date) == day,
             let open = Calendar.current.date(bySettingHour: self.open, minute: 0, second: 0, of: date),
-            let close = Calendar.current.date(bySettingHour: self.close, minute: 0, second: 0, of: date) else { return nil }
+            var close = Calendar.current.date(bySettingHour: self.close, minute: 0, second: 0, of: date) else { return nil }
+        if doesCloseNextDay == true {
+            guard let closeNextDay = Calendar.current.date(byAdding: .day, value: 1, to: close) else { return nil }
+            close = closeNextDay
+        }
         return DateHours(open: open, close: close)
     }
 }
