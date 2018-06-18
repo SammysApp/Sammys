@@ -174,16 +174,16 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DoF-ZV-1Xt">
-                                <rect key="frame" x="0.0" y="481.33333333333343" width="375" height="242.66666666666669"/>
+                                <rect key="frame" x="0.0" y="457.33333333333337" width="375" height="266.66666666666663"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-Ha-3Fn">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="242.66666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="266.66666666666669"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="97i-YM-JPR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="242.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="266.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wSd-GW-GYh">
-                                                    <rect key="frame" x="20" y="40" width="335" height="162.66666666666666"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wSd-GW-GYh">
+                                                    <rect key="frame" x="20" y="30" width="335" height="182.66666666666666"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yLn-8k-I1c">
                                                             <rect key="frame" x="0.0" y="0.0" width="335" height="40.666666666666664"/>
@@ -225,22 +225,22 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="A7k-qe-YsZ">
-                                                            <rect key="frame" x="0.0" y="50.666666666666629" width="335" height="32"/>
+                                                            <rect key="frame" x="0.0" y="60.666666666666629" width="335" height="32"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zo-86-Th3">
                                                                     <rect key="frame" x="0.0" y="0.0" width="167.66666666666666" height="32"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                    <state key="normal" title="Pickup Now">
+                                                                    <state key="normal" title="Pickup ASAP">
                                                                         <color key="titleColor" name="Espresso"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="didTapOrderPickupDate:" destination="1x3-yr-YVX" eventType="touchUpInside" id="cDe-pm-EMB"/>
+                                                                        <action selector="didTapPickupDate:" destination="1x3-yr-YVX" eventType="touchUpInside" id="cDe-pm-EMB"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZm-5M-VcU">
                                                                     <rect key="frame" x="167.66666666666663" y="0.0" width="167.33333333333337" height="32"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                                    <state key="normal" title="Payment Method">
+                                                                    <state key="normal" title="Choose Payment">
                                                                         <color key="titleColor" name="Espresso"/>
                                                                     </state>
                                                                     <connections>
@@ -250,7 +250,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAL-yv-ykH">
-                                                            <rect key="frame" x="0.0" y="92.666666666666629" width="335" height="70"/>
+                                                            <rect key="frame" x="0.0" y="112.66666666666663" width="335" height="70"/>
                                                             <color key="backgroundColor" name="Flora"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="70" id="SKu-63-bLD"/>
@@ -267,9 +267,8 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="wSd-GW-GYh" firstAttribute="top" secondItem="97i-YM-JPR" secondAttribute="top" constant="40" id="GBX-fe-9mO"/>
+                                                <constraint firstItem="wSd-GW-GYh" firstAttribute="top" secondItem="97i-YM-JPR" secondAttribute="top" constant="30" id="GBX-fe-9mO"/>
                                                 <constraint firstAttribute="trailing" secondItem="wSd-GW-GYh" secondAttribute="trailing" constant="20" id="ahB-hB-Dtp"/>
-                                                <constraint firstAttribute="bottom" secondItem="wSd-GW-GYh" secondAttribute="bottom" constant="40" id="hrY-qw-3OA"/>
                                                 <constraint firstItem="wSd-GW-GYh" firstAttribute="leading" secondItem="97i-YM-JPR" secondAttribute="leading" constant="20" id="sEn-0X-9TU"/>
                                             </constraints>
                                         </view>
@@ -290,6 +289,7 @@
                             <constraint firstAttribute="bottom" secondItem="DoF-ZV-1Xt" secondAttribute="bottom" id="B6G-R3-hy6"/>
                             <constraint firstAttribute="bottom" secondItem="fPz-3p-alg" secondAttribute="bottom" id="EFS-1R-Hwz"/>
                             <constraint firstItem="DoF-ZV-1Xt" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="HRN-ig-Dja"/>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="bottom" secondItem="wSd-GW-GYh" secondAttribute="bottom" constant="20" id="JLR-3q-egv"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="top" secondItem="7kB-gR-mHZ" secondAttribute="top" id="yC6-6h-WNW"/>
                             <constraint firstItem="DoF-ZV-1Xt" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="zQm-nc-yt4"/>
@@ -313,9 +313,9 @@
                     <connections>
                         <outlet property="clearButton" destination="B7g-n8-K5E" id="rDp-Qa-5JY"/>
                         <outlet property="doneButton" destination="Luu-9D-5NP" id="vTp-i5-u4k"/>
-                        <outlet property="orderPickupDateButton" destination="4Zo-86-Th3" id="7yL-QN-kNK"/>
                         <outlet property="paymentMethodButton" destination="AZm-5M-VcU" id="9pK-zo-Fwa"/>
                         <outlet property="paymentStackView" destination="wSd-GW-GYh" id="oSe-mM-6Tu"/>
+                        <outlet property="pickupDateButton" destination="4Zo-86-Th3" id="7yL-QN-kNK"/>
                         <outlet property="purchaseButton" destination="vAL-yv-ykH" id="ytU-6Q-AYi"/>
                         <outlet property="subtotalLabel" destination="VLr-dh-Nj8" id="omP-Uc-hxw"/>
                         <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>

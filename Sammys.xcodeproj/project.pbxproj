@@ -473,6 +473,15 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		5B0B739E20D810F400D757FD /* Pickup Date */ = {
+			isa = PBXGroup;
+			children = (
+				5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */,
+				5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */,
+			);
+			path = "Pickup Date";
+			sourceTree = "<group>";
+		};
 		5B10D58820C035F000BF05B2 /* Sammys Kitchen */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,13 +693,12 @@
 				5BD274F32063FAD800618128 /* Login */,
 				5BD274F42063FAE300618128 /* Items */,
 				5BD274F52063FAEE00618128 /* Bag */,
+				5B0B739E20D810F400D757FD /* Pickup Date */,
 				5BEED53F206C72DD002240EB /* Add */,
 				5B553A66206C9BED00DD9689 /* Food */,
 				5BD6B3D120812F62000114F5 /* Confirmation */,
 				5BB2968A208E5AD500520683 /* Orders */,
 				5BB296A0208FD42E00520683 /* Order */,
-				5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */,
-				5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

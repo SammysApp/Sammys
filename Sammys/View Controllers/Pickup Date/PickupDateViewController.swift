@@ -9,6 +9,7 @@
 import UIKit
 
 protocol PickupDateViewControllerDelegate: class {
+    func pickupDateViewController(_ pickupDateViewController: PickupDateViewController, didSelect pickupDate: PickupDate)
     func pickupDateViewControllerDidFinish(_ pickupDateViewController: PickupDateViewController)
 }
 
@@ -92,7 +93,9 @@ extension PickupDateViewController: PickupDateViewModelDelegate {
         return datePickerView.selectedRow(inComponent: component)
     }
     
-    func didSelect(_ date: Date) {}
+    func didSelect(_ pickupDate: PickupDate) {
+        delegate?.pickupDateViewController(self, didSelect: pickupDate)
+    }
 }
 
 extension PickupDateViewController: UIPickerViewDataSource, UIPickerViewDelegate {

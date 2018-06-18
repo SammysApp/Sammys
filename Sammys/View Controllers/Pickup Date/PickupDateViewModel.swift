@@ -38,13 +38,16 @@ protocol PickupDateViewModelDelegate: class {
     func datePickerViewNeedsUpdate()
     func datePickerViewNeedsUpdate(forComponent component: Int)
     func datePickerSelectedRow(inComponent component: Int) -> Int
-    func didSelect(_ date: Date)
+    func didSelect(_ pickupDate: PickupDate)
 }
 
 class PickupDateViewModel {
     var startDate = Date()
     var wantsPickupASAP = true {
         didSet {
+            if wantsPickupASAP {
+                delegate?.didSelect(.asap)
+            }
             delegate?.needsUIUpdate()
         }
     }
@@ -157,10 +160,11 @@ class PickupDateViewModel {
             if let selectedTimeRow = delegate?.datePickerSelectedRow(inComponent: timeComponent) {
                 selectedTimeDate = components[timeComponent].rows[selectedTimeRow].date
             }
+            if let pickupDate = pickupDate { delegate?.didSelect(pickupDate) }
             delegate?.needsUIUpdate()
         case .time:
             selectedTimeDate = date
-            delegate?.didSelect(date)
+            if let pickupDate = pickupDate { delegate?.didSelect(pickupDate) }
             delegate?.needsUIUpdate()
         }
     }

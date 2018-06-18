@@ -19,7 +19,8 @@ private struct BagSection {
     }
 }
 
-protocol BagViewModelDelegate {
+protocol BagViewModelDelegate: class {
+    func needsUIUpdate()
     func bagDataDidChange()
     func didEdit(food: Food)
     func didFave(food: Food)
@@ -42,7 +43,15 @@ class BagViewModel: NSObject {
         return UserDataStore.shared.user
     }
     
-    var delegate: BagViewModelDelegate?
+    weak var delegate: BagViewModelDelegate?
+    
+    var pickupDate = PickupDate.asap {
+        didSet {
+            delegate?.needsUIUpdate()
+        }
+    }
+    
+    var isPickupDateViewControllerShowing = false
     
     var paymentContextHostViewController: UIViewController? {
         didSet {
@@ -111,12 +120,26 @@ class BagViewModel: NSObject {
         return foods.isEmpty
     }
     
+    var shouldEnableDoneButton: Bool {
+        return !isPickupDateViewControllerShowing
+    }
+    
     var shouldEnableClearButton: Bool {
-        return !foods.isEmpty
+        return !foods.isEmpty && !isPickupDateViewControllerShowing
     }
     
     var paymentStackViewSpacing: CGFloat {
         return shouldHideCreditCardButton ? 20 : 10
+    }
+    
+    var pickupDateButtonText: String {
+        switch pickupDate {
+        case .asap: return "Pickup ASAP"
+        case .future(let date):
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd, h:mm a"
+            return formatter.string(from: date)
+        }
     }
     
     var purchaseButtonText: String {

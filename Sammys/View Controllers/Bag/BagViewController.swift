@@ -19,7 +19,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     @IBOutlet var paymentStackView: UIStackView!
     @IBOutlet var subtotalLabel: UILabel!
     @IBOutlet var taxLabel: UILabel!
-    @IBOutlet var orderPickupDateButton: UIButton!
+    @IBOutlet var pickupDateButton: UIButton!
     @IBOutlet var paymentMethodButton: UIButton!
     @IBOutlet var purchaseButton: UIButton!
     @IBOutlet var totalVisualEffectView: UIVisualEffectView!
@@ -71,10 +71,20 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func updateUI() {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
+        pickupDateButton.setTitle(viewModel.pickupDateButtonText, for: .normal)
         purchaseButton.setTitle(viewModel.purchaseButtonText, for: .normal)
+        updateDoneButton()
         updateClearButton()
         updatePaymentUI()
         updateTotalVisualEffectView()
+    }
+    
+    func needsUIUpdate() {
+        updateUI()
+    }
+    
+    func updateDoneButton() {
+        doneButton.isEnabled = viewModel.shouldEnableDoneButton
     }
     
     func updateClearButton() {
@@ -246,7 +256,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func addPickupDateViewController() {
-        [doneButton, clearButton].forEach { $0.isEnabled = false }
+        viewModel.isPickupDateViewControllerShowing = true
+        updateUI()
         add(asChildViewController: pickupDateViewController)
         pickupDateViewController.animateBlurViewIn(withDuration: 0.5)
     }
@@ -254,8 +265,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func removePickupDateViewController() {
         pickupDateViewController.animateBlurViewOut(withDuration: 0.5) { didComplete in
             self.remove(asChildViewController: self.pickupDateViewController)
-            self.clearButton.isEnabled = true
-            [self.doneButton, self.clearButton].forEach { $0?.isEnabled = true }
+            self.viewModel.isPickupDateViewControllerShowing = false
+            self.updateUI()
         }
     }
 
@@ -272,7 +283,7 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         viewModel.presentPaymentMethodsViewController()
     }
     
-    @IBAction func didTapOrderPickupDate(_ sender: UIButton) {
+    @IBAction func didTapPickupDate(_ sender: UIButton) {
         addPickupDateViewController()
     }
     
@@ -323,7 +334,12 @@ extension BagViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - PickupDateViewControllerDelegate
 extension BagViewController: PickupDateViewControllerDelegate {
+    func pickupDateViewController(_ pickupDateViewController: PickupDateViewController, didSelect pickupDate: PickupDate) {
+        viewModel.pickupDate = pickupDate
+    }
+    
     func pickupDateViewControllerDidFinish(_ pickupDateViewController: PickupDateViewController) {
         removePickupDateViewController()
     }
