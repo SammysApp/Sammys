@@ -67,8 +67,13 @@ struct OrdersAPIClient {
         return database.orders.child(date)
     }
     
-    static func fetchNewOrderNumber(for date: Date, completed: @escaping (Int) -> Void) {
-        ordersReference(for: date).numberCounter.runTransactionBlock({ currentData in
+    private static func orderReference(for order: Order) -> DatabaseReference {
+        let date = order.pickupDate ?? order.date
+        return ordersReference(for: date).orders.child("\(order.number)")
+    }
+    
+    static func fetchNewOrderNumber(completed: @escaping (Int) -> Void) {
+        database.numberCounter.runTransactionBlock({ currentData in
             // If the counter doesn't exist...
             guard let value = currentData.value as? Int else {
                 // ...set the counter to 1.
@@ -112,11 +117,11 @@ struct OrdersAPIClient {
         ordersReference(for: date).orders.removeAllObservers()
     }
     
-    static func add(_ order: Order, to date: Date, withNumber number: Int) {
+    static func add(_ order: Order, withNumber number: Int) {
         do {
             let jsonData = try JSONEncoder().encode(order)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-            ordersReference(for: date).orders.child("\(number)").order.setValue(jsonString)
+            orderReference(for: order).order.setValue(jsonString)
             setCompleted(false, for: order)
         } catch {
             print(error)
@@ -124,7 +129,7 @@ struct OrdersAPIClient {
     }
     
     static func setCompleted(_ completed: Bool, for order: Order) {
-        ordersReference(for: order.date).orders.child("\(order.number)").completed.setValue(completed)
+        orderReference(for: order).completed.setValue(completed)
     }
 }
 

@@ -330,9 +330,13 @@ class BagViewModel: NSObject {
     func addToOrders() {
         guard let userName = orderUserName else { fatalError() }
         let date = Date()
-        OrdersAPIClient.fetchNewOrderNumber(for: date) { number in
-            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, foods: self.foods)
-            OrdersAPIClient.add(order, to: date, withNumber: number)
+        var pickupDate: Date?
+        if case .future(let date) = self.pickupDate {
+            pickupDate = date
+        }
+        OrdersAPIClient.fetchNewOrderNumber { number in
+            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods)
+            OrdersAPIClient.add(order, withNumber: number)
             if let user = self.user { UserAPIClient.add(order, for: user) }
             self.clearBag()
         }

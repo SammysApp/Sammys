@@ -241,6 +241,10 @@ extension OrdersViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.title(forSection: section)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError() }
         return cellViewModel.height

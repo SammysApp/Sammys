@@ -8,6 +8,11 @@
 
 import Foundation
 
+private struct Section {
+    let title: String?
+    let cellViewModels: [TableViewCellViewModel]
+}
+
 enum OrdersViewControllerViewKey {
     case orders, foods
 }
@@ -28,9 +33,13 @@ class OrdersViewModel {
         }
     }
     
-    private var sortedKitchenOrders: [KitchenOrder]? {
+    private var sortedScheduledKitchenOrders: [KitchenOrder]? {
+        return kitchenOrders?.filter { $0.order.pickupDate != nil }.sorted { $0.order.date < $1.order.date }
+    }
+    
+    private var sortedNonScheduledKitchenOrders: [KitchenOrder]? {
         // Result of sorting kitchen orders by date.
-        return kitchenOrders?.sorted { $0.order.date.compare($1.order.date) == .orderedDescending }
+        return kitchenOrders?.filter { $0.order.pickupDate == nil }.sorted { $0.order.date > $1.order.date }
     }
     
     var orderFoods: [Food]? {
@@ -57,15 +66,25 @@ class OrdersViewModel {
         }
     }
     
-    private var cellViewModels: [TableViewCellViewModel]? {
+    private var sections: [Section]? {
         switch viewKey {
-        case .orders: return sortedKitchenOrders?.map { OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }
-        case .foods: return orderFoods?.map { FoodTableViewCellViewModelFactory(food: $0).create() }
+        case .orders:
+            var sections = [Section]()
+            if let scheduledCellViewModels = sortedScheduledKitchenOrders?.map({ OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }), !scheduledCellViewModels.isEmpty {
+                sections.append(Section(title: "Scheduled", cellViewModels: scheduledCellViewModels))
+            }
+            if let todayCellViewModels = sortedNonScheduledKitchenOrders?.map({ OrderTableViewCellViewModelFactory(kitchenOrder: $0).create() }), !todayCellViewModels.isEmpty {
+                sections.append(Section(title: "Today", cellViewModels: todayCellViewModels))
+            }
+            return sections.isEmpty ? nil : sections
+        case .foods:
+            guard let cellViewModels = orderFoods?.map({ FoodTableViewCellViewModelFactory(food: $0).create() }) else { return nil }
+            return [Section(title: nil, cellViewModels: cellViewModels)]
         }
     }
     
     var numberOfSections: Int {
-        return 1
+        return sections?.count ?? 0
     }
     
     var dateButtonShouldHide: Bool {
@@ -102,6 +121,10 @@ class OrdersViewModel {
     
     var lastObservingDate = UserDataStore.shared.observingDate
     
+    var shouldHideSectionTitles: Bool {
+        return sortedScheduledKitchenOrders?.isEmpty ?? true
+    }
+    
     private struct Constants {
         static let week: TimeInterval = 7 * 24 * 60 * 60
     }
@@ -115,20 +138,24 @@ class OrdersViewModel {
     }
     
     func numberOfRows(inSection section: Int) -> Int {
-        return cellViewModels?.count ?? 0
+        return sections?[section].cellViewModels.count ?? 0
     }
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel? {
-        return cellViewModels?[indexPath.row]
+        return sections?[indexPath.section].cellViewModels[indexPath.row]
+    }
+    
+    func title(forSection section: Int) -> String? {
+        return shouldHideSectionTitles ? nil : sections?[section].title
     }
     
     func orderTitle(for indexPath: IndexPath) -> String? {
-        return sortedKitchenOrders?[indexPath.row].order.userName
+        return sortedNonScheduledKitchenOrders?[indexPath.row].order.userName
     }
     
     /// Use when showing orders to get the foods for the given order's index path.
     func foods(for indexPath: IndexPath) -> [Food]? {
-        return sortedKitchenOrders?[indexPath.row].order.foods[.salad]
+        return sortedNonScheduledKitchenOrders?[indexPath.row].order.foods[.salad]
     }
     
     /// Use when showing foods to get the food at the given index path.

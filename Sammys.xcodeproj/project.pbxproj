@@ -47,7 +47,6 @@
 		5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3D2069F5B100105E72 /* UITableView.swift */; };
 		5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F362069F5B100105E72 /* UIView.swift */; };
 		5B10D5B520C0467400BF05B2 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
-		5B10D5B720C05B8E00BF05B2 /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */; };
 		5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */; };
@@ -82,6 +81,7 @@
 		5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */; };
 		5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */; };
 		5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */; };
+		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BF20044E3800898FF0 /* UserDataStore.swift */; };
@@ -1438,6 +1438,7 @@
 				5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
+				5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */,
 				5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */,
 				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
@@ -1456,7 +1457,6 @@
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* FoodHomeCollectionViewCell.swift in Sources */,
 				5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */,
-				5B10D5B720C05B8E00BF05B2 /* KitchenOrder.swift in Sources */,
 				5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296CB209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift in Sources */,
