@@ -25,6 +25,7 @@ protocol BagViewModelDelegate: class {
     func didEdit(food: Food)
     func didFave(food: Food)
     func didSelect(food: Food)
+    func noteTextViewDidChange(_ textView: UITextView)
     func delete(indexPaths: [IndexPath])
     func delete(sections: IndexSet)
     func paymentMethodDidChange(_ paymentMethod: STPPaymentMethod)
@@ -95,6 +96,11 @@ class BagViewModel: NSObject {
                 sections.append(BagSection(cellViewModels: cellViewModels))
             }
         }
+        let configurationCommandParameters = NoteConfigurationParameters(textViewDidChange: delegate?.noteTextViewDidChange)
+        let configurationCommand = BagNoteTableViewCellConfigurationCommand(parameters: configurationCommandParameters)
+        sections.append(BagSection(title: "Special Instructions", cellViewModels: [
+            NoteTableViewCellViewModelFactory<DefaultNoteTableViewCellIdentifier>(identifier: .noteCell, height: UITableViewAutomaticDimension, configurationCommand: configurationCommand).create()
+        ]))
         return sections
     }
     
@@ -148,6 +154,8 @@ class BagViewModel: NSObject {
     
     var userName: String?
     
+    var orderNote: String?
+    
     var orderUserName: String? {
         return user?.name ?? userName
     }
@@ -189,6 +197,10 @@ class BagViewModel: NSObject {
     
     func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
         return cellViewModels(in: indexPath.section)[indexPath.row]
+    }
+    
+    func title(forSection section: Int) -> String? {
+        return sections[section].title
     }
     
     private func food(at indexPath: IndexPath) -> Food? {
@@ -327,7 +339,7 @@ class BagViewModel: NSObject {
         }
     }
     
-    func addToOrders() {
+    func addToOrders(didComplete: ((Order) -> Void)? = nil) {
         guard let userName = orderUserName else { fatalError() }
         let date = Date()
         var pickupDate: Date?
@@ -335,9 +347,10 @@ class BagViewModel: NSObject {
             pickupDate = date
         }
         OrdersAPIClient.fetchNewOrderNumber { number in
-            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods)
+            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods, note: self.orderNote)
             OrdersAPIClient.add(order, withNumber: number)
             if let user = self.user { UserAPIClient.add(order, for: user) }
+            didComplete?(order)
             self.clearBag()
         }
     }

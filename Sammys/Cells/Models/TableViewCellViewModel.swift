@@ -11,5 +11,17 @@ import UIKit
 protocol TableViewCellViewModel {
     var identifier: String { get }
     var height: CGFloat { get }
+    var isSelectable: Bool { get }
+    var isEditable: Bool { get }
     var commands: [TableViewCommandActionKey: TableViewCellCommand] { get }
+}
+
+extension TableViewCellViewModel {
+    var isSelectable: Bool {
+        return true
+    }
+    
+    var isEditable: Bool {
+        return true
+    }
 }

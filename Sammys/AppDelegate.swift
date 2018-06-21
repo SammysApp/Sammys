@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        print("You're running in \(environment) mode!")
+        print("Running in \(environment) mode!")
         
         // Configure Firebase.
         FirebaseApp.configure()

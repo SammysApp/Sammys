@@ -11,5 +11,15 @@ import UIKit
 struct DefaultTableViewCellViewModel: TableViewCellViewModel {
     let identifier: String
     let height: CGFloat
+    let isSelectable: Bool
+    let isEditable: Bool
     let commands: [TableViewCommandActionKey : TableViewCellCommand]
+    
+    init(identifier: String, height: CGFloat, isSelectable: Bool = true, isEditable: Bool = true, commands: [TableViewCommandActionKey : TableViewCellCommand]) {
+        self.identifier = identifier
+        self.height = height
+        self.isSelectable = isSelectable
+        self.isEditable = isEditable
+        self.commands = commands
+    }
 }

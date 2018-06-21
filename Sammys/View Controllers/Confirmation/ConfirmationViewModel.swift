@@ -9,6 +9,8 @@
 import UIKit
 
 class ConfirmationViewModel {
+    var order: Order?
+    
     var numberOfSections: Int {
         return 1
     }
@@ -18,8 +20,9 @@ class ConfirmationViewModel {
     }
     
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
+        guard let order = order else { fatalError() }
         return [
-            MessageCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create(),
+            MessageCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds), order: order).create(),
             MapCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create()
         ]
     }

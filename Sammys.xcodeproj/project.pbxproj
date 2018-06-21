@@ -124,6 +124,12 @@
 		5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */; };
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
 		5B6A06C52002AF9700BAC480 /* FoodsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */; };
+		5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
+		5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
+		5B705D4920DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */; };
+		5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
+		5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
+		5B705D4E20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */; };
 		5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8A3D0320AF157800790AF5 /* Salad.jpg */; };
 		5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B942D912087E98F00BF991A /* OrdersViewController.swift */; };
 		5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B942D932087EA0600BF991A /* OrdersViewController.storyboard */; };
@@ -321,6 +327,10 @@
 		5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearCardAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsDataStore.swift; sourceTree = "<group>"; };
+		5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
+		5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagNoteTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersNoteTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B8A3D0320AF157800790AF5 /* Salad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Salad.jpg; sourceTree = "<group>"; };
 		5B942D912087E98F00BF991A /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		5B942D932087EA0600BF991A /* OrdersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersViewController.storyboard; sourceTree = "<group>"; };
@@ -576,6 +586,15 @@
 			path = Sammys;
 			sourceTree = "<group>";
 		};
+		5B705D4A20DB4504003C37E1 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */,
+				5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */,
+			);
+			path = Note;
+			sourceTree = "<group>";
+		};
 		5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -645,6 +664,7 @@
 				5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */,
 				5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */,
 				5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */,
+				5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -710,6 +730,7 @@
 				5BB296B5209CEA0F00520683 /* Button */,
 				5BB296B0209CE57B00520683 /* Detail */,
 				5BD274F72063FBEA00618128 /* Item */,
+				5B705D4A20DB4504003C37E1 /* Note */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -942,6 +963,7 @@
 			children = (
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
+				5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */,
 				5B3176CF206D3D8300D83D12 /* Food */,
 			);
 			path = Bag;
@@ -1324,6 +1346,7 @@
 				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
 				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
 				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
+				5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */,
 				5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
@@ -1341,6 +1364,7 @@
 				5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */,
 				5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */,
 				5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
+				5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */,
 				5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */,
 				5B10D59E20C044D000BF05B2 /* Item.swift in Sources */,
@@ -1359,6 +1383,7 @@
 				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,
 				5B10D5B020C0467400BF05B2 /* UIColor.swift in Sources */,
 				5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */,
+				5B705D4E20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift in Sources */,
 				5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */,
 				5B10D5B220C0467400BF05B2 /* UIScrollView.swift in Sources */,
 				5B10D5AE20C0467400BF05B2 /* MKMapView.swift in Sources */,
@@ -1411,6 +1436,7 @@
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
 				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
+				5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */,
@@ -1445,6 +1471,7 @@
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
 				5B18CB1720D0AC4C000C5CA4 /* FileExtension.swift in Sources */,
+				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
@@ -1467,6 +1494,7 @@
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PayAPIClient.swift in Sources */,
 				5B2DC37E20D3657E008FFA2D /* SammysDataStore.swift in Sources */,
+				5B705D4920DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
 				5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */,

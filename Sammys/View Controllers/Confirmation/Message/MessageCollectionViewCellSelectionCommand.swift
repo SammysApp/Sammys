@@ -9,7 +9,5 @@
 import UIKit
 
 struct MessageCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-    func perform(parameters: CommandParameters) {
-        //guard let viewController = parameters.viewController else { return }
-    }
+    func perform(parameters: CommandParameters) {}
 }

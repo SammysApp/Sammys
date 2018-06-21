@@ -13,14 +13,11 @@ enum MessageCellIdentifier: String {
 }
 
 struct MessageCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-    private let size: CGSize
-    
-    init(size: CGSize) {
-        self.size = size
-    }
+    let size: CGSize
+    let order: Order
     
     func create() -> CollectionViewCellViewModel {
-        let configurationCommand = MessageCollectionViewCellConfigurationCommand()
+        let configurationCommand = MessageCollectionViewCellConfigurationCommand(order: order)
         let selectionCommand = MessageCollectionViewCellSelectionCommand()
         return CollectionViewCellViewModel(identifier: MessageCellIdentifier.messageCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
     }

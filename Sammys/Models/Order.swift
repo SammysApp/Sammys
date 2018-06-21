@@ -19,12 +19,13 @@ struct Order: Codable {
     let date: Date
     let pickupDate: Date?
     let foods: Foods
+    let note: String?
     
     enum CodingKeys: CodingKey {
-        case id, userName, userID, number, date, pickupDate, foods
+        case id, userName, userID, number, date, pickupDate, foods, note
     }
     
-    init(number: String, userName: String, userID: String?, date: Date, pickupDate: Date? = nil, foods: [FoodType : [Food]]) {
+    init(number: String, userName: String, userID: String?, date: Date, pickupDate: Date? = nil, foods: [FoodType : [Food]], note: String? = nil) {
         self.id = UUID().uuidString
         self.userName = userName
         self.userID = userID
@@ -32,6 +33,7 @@ struct Order: Codable {
         self.date = date
         self.pickupDate = pickupDate
         self.foods = foods
+        self.note = note
     }
     
     init(from decoder: Decoder) throws {
@@ -44,6 +46,7 @@ struct Order: Codable {
         self.pickupDate = try container.decodeIfPresent(Date.self, forKey: .pickupDate)
         let savedFoods = try container.decode(SavedFoods.self, forKey: .foods)
         self.foods = savedFoods.encodableUnwrapped()
+        self.note = try container.decodeIfPresent(String.self, forKey: .note)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -55,6 +58,7 @@ struct Order: Codable {
         try container.encode(date, forKey: .date)
         try container.encodeIfPresent(pickupDate, forKey: .pickupDate)
         try container.encode(foods.toEncodable(), forKey: .foods)
+        try container.encodeIfPresent(note, forKey: .note)
     }
 }
 

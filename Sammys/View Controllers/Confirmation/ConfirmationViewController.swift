@@ -33,6 +33,9 @@ class ConfirmationViewController: UIViewController, Storyboardable {
     }
     
     struct Constants {
+        static let cornerRadius: CGFloat = 20
+        static let borderWidth: CGFloat = 1
+        static let shadowOpacity: Float = 0.2
         static let sammysCoordinates = CLLocationCoordinate2D(latitude: 40.902340, longitude: -74.004410)
         static let sammys = "Sammy's"
         static let maps = "Maps"
@@ -44,6 +47,8 @@ class ConfirmationViewController: UIViewController, Storyboardable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Thank You!"
         cellViewModels = viewModel.cellViewModels(for: view.bounds)
     }
     
@@ -81,6 +86,15 @@ class ConfirmationViewController: UIViewController, Storyboardable {
         return cellViewModels[row]
     }
     
+    static func configureUI(for cell: UICollectionViewCell) {
+        cell.contentView.layer.masksToBounds = true
+        cell.contentView.layer.cornerRadius = Constants.cornerRadius
+        cell.contentView.layer.borderWidth = Constants.borderWidth
+        cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
+        cell.layer.masksToBounds = false
+        cell.add(UIView.Shadow(path: UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath, opacity: Constants.shadowOpacity))
+    }
+    
     // MARK: - IBActions
     @IBAction func didTapDone(_ sender: UIBarButtonItem) {
         dismiss(animated: true) { self.delegate?.confirmationViewControllerDidDismiss(self) }
@@ -105,9 +119,15 @@ extension ConfirmationViewController: UICollectionViewDataSource {
     }
 }
 
-extension ConfirmationViewController: UICollectionViewDelegate {
+extension ConfirmationViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         cellViewModel(at: indexPath.row)?.commands[.selection]?.perform(parameters: CommandParameters(viewController: self))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let cellViewModel = cellViewModel(at: indexPath.row)
+            else { fatalError() }
+        return cellViewModel.size
     }
 }
 

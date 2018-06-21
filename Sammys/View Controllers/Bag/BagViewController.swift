@@ -54,6 +54,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         
         viewModel.updatePaymentPrice()
         viewModel.paymentContextHostViewController = self
+        
+        DefaultNoteTableViewCellIdentifier.noteCell.register(for: tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,6 +143,12 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         }
     }
     
+    func noteTextViewDidChange(_ textView: UITextView) {
+        viewModel.orderNote = textView.text
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
     func delete(sections: IndexSet) {
         tableView.deleteSections(sections, with: .automatic)
         updateUI()
@@ -170,8 +178,9 @@ class BagViewController: UIViewController, BagViewModelDelegate {
                 didChooseGuest: !viewModel.doesGetForFree ? presentAddCardViewController : {
                     self.presentUserNameAlertController {
                         self.viewModel.userName = $0
-                        self.viewModel.addToOrders()
-                        self.presentConfirmationViewController()
+                        self.viewModel.addToOrders() { order in
+                            self.presentConfirmationViewController(with: order)
+                        }
                     }
                 },
                 didChooseCustomer: presentLoginPageViewController
@@ -188,16 +197,18 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func purchaseDidComplete(with purchaseResult: PurchaseResult) {
         switch purchaseResult {
         case .success:
-            presentConfirmationViewController()
-            viewModel.addToOrders()
+            viewModel.addToOrders() { order in
+                self.presentConfirmationViewController(with: order)
+            }
         case .failure(let message): print(message)
         }
     }
     
-    func presentConfirmationViewController() {
+    func presentConfirmationViewController(with order: Order) {
         let confirmationViewController = ConfirmationViewController.storyboardInstance() as! ConfirmationViewController
         let navigationViewController = UINavigationController(rootViewController: confirmationViewController)
         confirmationViewController.delegate = self
+        confirmationViewController.viewModel.order = order
         present(navigationViewController, animated: true, completion: nil)
     }
     
@@ -321,10 +332,34 @@ extension BagViewController: UITableViewDelegate {
         return cellViewModel.height
     }
     
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        return cellViewModel.isSelectable
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        return cellViewModel.isSelectable ? indexPath : nil
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let cellViewModel = viewModel.cellViewModel(for: indexPath)
         cellViewModel.commands[.selection]?.perform(cell: cell)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.title(forSection: section)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+        headerView.textLabel?.textColor = #colorLiteral(red: 0.3330000043, green: 0.3019999862, blue: 0.275000006, alpha: 1)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        return cellViewModel.isEditable
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

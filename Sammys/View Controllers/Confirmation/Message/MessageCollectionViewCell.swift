@@ -9,5 +9,7 @@
 import UIKit
 
 class MessageCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var messageTextView: UITextView!
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
 }

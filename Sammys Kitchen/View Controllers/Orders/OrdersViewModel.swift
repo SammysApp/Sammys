@@ -6,7 +6,7 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum OrdersViewControllerViewKey {
     case orders, foods
@@ -25,6 +25,7 @@ private protocol Section {
 private enum SectionKey {
     case scheduled([KitchenOrder])
     case today([KitchenOrder])
+    case orderNotes([String])
     case orderFoods([Food])
     
     var title: String? {
@@ -52,6 +53,19 @@ private struct KitchenOrdersSection: Section {
     }
 }
 
+private struct OrderNotesSection: Section {
+    let key: SectionKey
+    var cellViewModels: [TableViewCellViewModel] {
+        guard case .orderNotes(let orderNotes) = key else { return [] }
+        return orderNotes.map({ cellViewModel(note: $0) })
+    }
+    
+    private func cellViewModel(note: String) -> TableViewCellViewModel {
+        let configurationCommand = OrdersNoteTableViewCellConfigurationCommand(note: note)
+        return NoteTableViewCellViewModelFactory<DefaultNoteTableViewCellIdentifier>(identifier: .noteCell, height: UITableViewAutomaticDimension, configurationCommand: configurationCommand).create()
+    }
+}
+
 private struct OrderFoodsSection: Section {
     let key: SectionKey
     var cellViewModels: [TableViewCellViewModel] {
@@ -73,7 +87,7 @@ class OrdersViewModel {
     
     private var scheduledKitchenOrders: [KitchenOrder] {
         guard let kitchenOrders = kitchenOrders else { return [] }
-        return kitchenOrders.filter { $0.order.pickupDate != nil }.sorted { $0.order.date < $1.order.date }
+        return kitchenOrders.filter { $0.order.pickupDate != nil }.sorted { $0.order.pickupDate! < $1.order.pickupDate! }
     }
     
     private var todayKitchenOrders: [KitchenOrder] {
@@ -81,10 +95,21 @@ class OrdersViewModel {
         return kitchenOrders.filter { $0.order.pickupDate == nil }.sorted { $0.order.date > $1.order.date }
     }
     
-    var orderFoods: [Food]? {
+    var order: Order? {
         didSet {
             delegate?.updateUI()
         }
+    }
+    
+    private var orderFoods: [Food]? {
+        return order?.foods[.salad]
+    }
+    
+    private var orderNotes: [String]? {
+        if let note = order?.note {
+            return [note]
+        }
+        return nil
     }
     
     private var setTitle: String?
@@ -106,20 +131,27 @@ class OrdersViewModel {
     }
     
     private var sections: [Section]? {
+        var sections = [Section]()
         switch viewKey {
         case .orders:
-            var sections = [Section]()
             if !scheduledKitchenOrders.isEmpty {
                 sections.append(KitchenOrdersSection(key: .scheduled(scheduledKitchenOrders)))
             }
             if !todayKitchenOrders.isEmpty {
                 sections.append(KitchenOrdersSection(key: .today(todayKitchenOrders)))
             }
-            return sections.isEmpty ? nil : sections
         case .foods:
-            guard let orderFoods = orderFoods else { return nil }
-            return [OrderFoodsSection(key: .orderFoods(orderFoods))]
+            guard let orderFoods = orderFoods else { break }
+            if let orderNotes = orderNotes {
+                sections.append(OrderNotesSection(key: .orderNotes(orderNotes)))
+            }
+            sections.append(OrderFoodsSection(key: .orderFoods(orderFoods)))
         }
+        return sections.isEmpty ? nil : sections
+    }
+    
+    var cellIdentifiers: [TableViewCellIdentifier] {
+        return [DefaultNoteTableViewCellIdentifier.noteCell]
     }
     
     var numberOfSections: Int {
@@ -192,9 +224,9 @@ class OrdersViewModel {
         return sections?[indexPath.section].key.kitchenOrders?[indexPath.row].order.userName
     }
     
-    /// Use when showing orders to get the foods for the given order's index path.
-    func foods(for indexPath: IndexPath) -> [Food]? {
-        return sections?[indexPath.section].key.kitchenOrders?[indexPath.row].order.foods[.salad]
+    /// Use when showing orders to get the order for the given order's index path.
+    func order(for indexPath: IndexPath) -> Order? {
+        return sections?[indexPath.section].key.kitchenOrders?[indexPath.row].order
     }
     
     /// Use when showing foods to get the food at the given index path.

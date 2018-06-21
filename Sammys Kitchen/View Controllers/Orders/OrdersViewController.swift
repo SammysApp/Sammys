@@ -76,10 +76,11 @@ class OrdersViewController: UIViewController {
             let sound = Sound(url: url) {
             alertSound = sound
         }
+        
+        viewModel.cellIdentifiers.forEach { $0.register(for: tableView) }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed ?? false
         super.viewWillAppear(animated)
     }
     
@@ -112,7 +113,7 @@ class OrdersViewController: UIViewController {
         case .orders:
             guard let ordersViewController = storyboard?.instantiateViewController(withIdentifier: OrdersViewController.storyboardID) as? OrdersViewController else { return }
             ordersViewController.viewModel.viewKey = .foods
-            ordersViewController.viewModel.orderFoods = viewModel.foods(for: indexPath)
+            ordersViewController.viewModel.order = viewModel.order(for: indexPath)
             ordersViewController.viewModel.title = viewModel.orderTitle(for: indexPath)
             navigationController?.pushViewController(ordersViewController, animated: true)
         case .foods:
