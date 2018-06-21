@@ -10,6 +10,10 @@ import UIKit
 import SwiftySound
 import AVFoundation
 
+struct OrdersConstants {
+    static var cellLeftInset: CGFloat = 30
+}
+
 class OrdersViewController: UIViewController {
     let viewModel = OrdersViewModel()
     static let storyboardID = "ordersViewController"
@@ -262,9 +266,11 @@ extension OrdersViewController: UITableViewDataSource, UITableViewDelegate {
 extension OrdersViewController: OrdersViewModelDelegate {
     func updateUI() {
         tableView.reloadData()
-        if viewModel.isOrdersEmpty {
-            setupAndShowNothingView()
-        } else { hideNothingView() }
+        if viewModel.viewKey == .orders {
+            if viewModel.isOrdersEmpty {
+                setupAndShowNothingView()
+            } else { hideNothingView() }
+        }
     }
     
     func didGetNewOrder() {

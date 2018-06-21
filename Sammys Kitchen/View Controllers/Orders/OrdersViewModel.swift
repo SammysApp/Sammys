@@ -32,7 +32,8 @@ private enum SectionKey {
         switch self {
         case .scheduled: return "Scheduled"
         case .today: return "Today"
-        default: return nil
+        case .orderFoods: return "Order"
+        case .orderNotes: return "Special Instructions"
         }
     }
     
@@ -98,6 +99,7 @@ class OrdersViewModel {
     var order: Order? {
         didSet {
             delegate?.updateUI()
+            translateOrderNote()
         }
     }
     
@@ -107,9 +109,19 @@ class OrdersViewModel {
     
     private var orderNotes: [String]? {
         if let note = order?.note {
-            return [note]
+            var orderNotes = [note]
+            if let noteTranslation = orderNoteTranslation {
+                orderNotes.append(noteTranslation)
+            }
+            return orderNotes
         }
         return nil
+    }
+    
+    private var orderNoteTranslation: String? {
+        didSet {
+            delegate?.updateUI()
+        }
     }
     
     private var setTitle: String?
@@ -193,7 +205,10 @@ class OrdersViewModel {
     var lastObservingDate = UserDataStore.shared.observingDate
     
     var shouldHideSectionTitles: Bool {
-        return scheduledKitchenOrders.isEmpty
+        switch viewKey {
+        case .orders: return scheduledKitchenOrders.isEmpty
+        case .foods: return orderNotes?.isEmpty ?? true
+        }
     }
     
     private struct Constants {
@@ -241,6 +256,13 @@ class OrdersViewModel {
     
     func handleDatePickerValueChange(_ date: Date) {
         UserDataStore.shared.observingDate = isDateCurrent(date) ? .current : .another(date)
+    }
+    
+    func translateOrderNote() {
+        guard let note = order?.note else { return }
+        TranslationAPIClient.translate(note, from: .en, to: .es) { translation in
+            self.orderNoteTranslation = translation
+        }
     }
 }
 

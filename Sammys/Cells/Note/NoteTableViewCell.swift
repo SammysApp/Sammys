@@ -23,7 +23,15 @@ class NoteTableViewCell: UITableViewCell {
     
     var placeholderText = "" { didSet { updatePlaceholderTextViewUI() } }
     var fontSize: CGFloat = 16 { didSet { updateTextViewUI() } }
+    var leftInset: CGFloat = 0 { didSet { updateTextViewConstraints() } }
     var textViewDidChange: ((UITextView) -> Void)?
+    
+    var textViewConstraints: [NSLayoutConstraint] = [] {
+        willSet {
+            textViewConstraints.deactivateAll()
+            newValue.activateAll()
+        }
+    }
     
     override var tintColor: UIColor! {
         get {
@@ -65,14 +73,16 @@ class NoteTableViewCell: UITableViewCell {
     func setupTextView() {
         // General set up.
         textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textView)
         
         // Set up UI.
-        textView.fullViewConstraint(equalToMarginOf: self)
         updateTextViewUI()
     }
     
     func updatePlaceholderTextViewUI() {
+        placeholderTextView.textContainerInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        placeholderTextView.textContainer.lineFragmentPadding = 0
         placeholderTextView.backgroundColor = .clear
         placeholderTextView.frame = textView.frame
         placeholderTextView.text = placeholderText
@@ -83,11 +93,18 @@ class NoteTableViewCell: UITableViewCell {
     }
     
     func updateTextViewUI() {
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = .clear
         textView.tintColor = tintColor
         textView.font = UIFont.systemFont(ofSize: fontSize)
         textView.textAlignment = .left
         textView.isScrollEnabled = false
+        updateTextViewConstraints()
+    }
+    
+    func updateTextViewConstraints() {
+        textViewConstraints = textView.fullViewConstraints(equalTo: self, insetConstants: InsetConstants(left: leftInset, top: 0, right: 0, bottom: 0))
     }
 }
 

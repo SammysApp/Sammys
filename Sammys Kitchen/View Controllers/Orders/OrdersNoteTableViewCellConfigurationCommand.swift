@@ -13,6 +13,7 @@ struct OrdersNoteTableViewCellConfigurationCommand: NoteTableViewCellConfigurati
     
     func perform(cell: NoteTableViewCell) {
         cell.textViewText = note
+        cell.leftInset = OrdersConstants.cellLeftInset
         cell.isUserInteractionEnabled = false
     }
 }
