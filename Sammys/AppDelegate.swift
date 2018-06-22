@@ -23,11 +23,6 @@ let environment = AppEnvironment.release
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // The root window of the app.
     var window: UIWindow?
-    
-    private struct Constants {
-        static let stripeTestPublishableKey = "pk_test_wzWkBv3TCpgT1Yc8DzAU09zV"
-        static let stripeLivePublishableKey = "pk_live_JvqJp6YegZgQqRwV9KchbE6I"
-    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -40,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Set Stripe publishable key to be able to create tokens.
-        STPPaymentConfiguration.shared().publishableKey = environment.isLive ? Constants.stripeLivePublishableKey : Constants.stripeTestPublishableKey
+        STPPaymentConfiguration.shared().publishableKey = environment.isLive ? apiKey(for: .stripePublishableLive) : apiKey(for: .stripePublishableTest)
         
         // Start listening for changes to user.
         UserAPIClient.startUserStateDidChangeListener()

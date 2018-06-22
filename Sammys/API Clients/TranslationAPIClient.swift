@@ -9,15 +9,26 @@
 import Foundation
 import Alamofire
 
-enum LanguageCode: String {
-    case en, es, he
+enum Language {
+    case english, spanish
+    
+    fileprivate var code: LanguageCode {
+        switch self {
+        case .english: return .en
+        case .spanish: return .es
+        }
+    }
+}
+
+private enum LanguageCode: String {
+    case en, es
 }
 
 struct TranslationAPIClient {
     static let baseURL = "https://api.cognitive.microsofttranslator.com/translate"
     
-    static func translate(_ stringToTranslate: String, from fromLanguageCode: LanguageCode, to toLanguageCode: LanguageCode, didComplete: @escaping (String) -> Void) {
-        guard let url = URL(string: baseURL + "?api-version=3.0" + "&from=\(fromLanguageCode.rawValue)" + "&to=\(toLanguageCode.rawValue)") else { return }
+    static func translate(_ stringToTranslate: String, from fromLanguage: Language, to toLanguage: Language, didComplete: @escaping (String) -> Void) {
+        guard let url = URL(string: baseURL + "?api-version=3.0" + "&from=\(fromLanguage.code.rawValue)" + "&to=\(toLanguage.code.rawValue)") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue(apiKey(for: .microsoftTranslator), forHTTPHeaderField: "Ocp-Apim-Subscription-Key")

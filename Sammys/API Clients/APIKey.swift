@@ -11,6 +11,8 @@ import Foundation
 private let apiKeysFileName = "APIKeys"
 
 enum APIService: String {
+    case stripePublishableLive = "STRIPE_PUBLISHABLE_LIVE"
+    case stripePublishableTest = "STRIPE_PUBLISHABLE_TEST"
     case microsoftTranslator = "MICROSOFT_TRANSLATOR"
 }
 
