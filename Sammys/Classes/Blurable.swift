@@ -1,4 +1,3 @@
-
 //
 //  Blurable.swift
 //  Sammys

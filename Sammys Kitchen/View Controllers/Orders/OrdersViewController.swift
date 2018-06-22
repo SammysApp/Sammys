@@ -76,7 +76,7 @@ class OrdersViewController: UIViewController {
         splitViewController?.view.backgroundColor = #colorLiteral(red: 0.3960784314, green: 0.3568627451, blue: 0.3215686275, alpha: 1)
         dateButton.isHidden = viewModel.dateButtonShouldHide
         
-        if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: FileExtension.wav.rawValue),
+        if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: FileType.wav.rawValue),
             let sound = Sound(url: url) {
             alertSound = sound
         }

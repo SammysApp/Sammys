@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 enum LanguageCode: String {
-    case en, es
+    case en, es, he
 }
 
 struct TranslationAPIClient {
@@ -20,7 +20,7 @@ struct TranslationAPIClient {
         guard let url = URL(string: baseURL + "?api-version=3.0" + "&from=\(fromLanguageCode.rawValue)" + "&to=\(toLanguageCode.rawValue)") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("f710d17f80dd4ec599d0f3d36c01dbb6", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        request.setValue(apiKey(for: .microsoftTranslator), forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do { request.httpBody = try JSONSerialization.data(withJSONObject: [["Text": stringToTranslate]]) } catch { return }
         Alamofire.request(request).responseJSON { response in
@@ -35,7 +35,7 @@ struct TranslationAPIClient {
     }
 }
 
-struct TranslationData: Decodable {
+private struct TranslationData: Decodable {
     let translations: [Translation]
     
     struct Translation: Decodable {

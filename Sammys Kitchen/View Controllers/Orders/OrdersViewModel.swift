@@ -260,7 +260,7 @@ class OrdersViewModel {
     
     func translateOrderNote() {
         guard let note = order?.note else { return }
-        TranslationAPIClient.translate(note, from: .en, to: .es) { translation in
+        TranslationAPIClient.translate(note, from: .en, to: .he) { translation in
             self.orderNoteTranslation = translation
         }
     }

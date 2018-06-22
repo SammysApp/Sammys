@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDataStore.shared.startObservingDate()
         
         // Set to play silent sound every minute to keep a speaker on for alerts.
-        if let url = Bundle.main.url(forResource: Constants.silenceFileName, withExtension: FileExtension.wav.rawValue),
+        if let url = Bundle.main.url(forResource: Constants.silenceFileName, withExtension: FileType.wav.rawValue),
             let sound = Sound(url: url) {
             silenceSound = sound
         }

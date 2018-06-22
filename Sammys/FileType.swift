@@ -1,5 +1,5 @@
 //
-//  FileExtension.swift
+//  FileType.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 6/12/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum FileExtension: String {
-    case wav, mp3
+enum FileType: String {
+    case plist, wav, mp3
 }
