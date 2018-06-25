@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseDatabase
+import CodableFirebase
 
 protocol OrdersAPIObserver {
     /// A unique id to identify the specific observer. Primarily used to remove the observer from observing.
@@ -119,9 +120,8 @@ struct OrdersAPIClient {
     
     static func add(_ order: Order, withNumber number: Int) {
         do {
-            let jsonData = try JSONEncoder().encode(order)
-            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-            orderReference(for: order).order.setValue(jsonString)
+            let orderData = try FirebaseEncoder().encode(order)
+            orderReference(for: order).order.setValue(orderData)
             setCompleted(false, for: order)
         } catch {
             print(error)

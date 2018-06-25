@@ -135,6 +135,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
@@ -143,6 +144,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
@@ -151,6 +153,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
@@ -159,6 +162,7 @@ if [[ "$CONFIGURATION" == "Beta" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Family" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"

@@ -3,10 +3,11 @@
 inhibit_all_warnings!
 
 def shared_pods
+  pod 'Alamofire'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-  pod 'Alamofire'
+  pod 'CodableFirebase'
   pod 'SwiftySound'
 end
   
