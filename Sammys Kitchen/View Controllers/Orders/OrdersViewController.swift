@@ -56,6 +56,10 @@ class OrdersViewController: UIViewController {
         datePickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ]
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     private struct Constants {
         static let alertFileName = "Alert"
         static let alertNumberOfLoops = 2

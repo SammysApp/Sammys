@@ -22,6 +22,10 @@ class FoodViewController: UIViewController {
         }
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

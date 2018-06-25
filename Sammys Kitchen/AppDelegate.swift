@@ -37,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)]
         UINavigationBar.appearance().isTranslucent = false
         
-        // Show status bar after it being initially hidden in Info.plist.
-        UIApplication.shared.isStatusBarHidden = false
-        
         // Configure status bar style.
         UIApplication.shared.statusBarStyle = .lightContent
         

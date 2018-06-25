@@ -58,7 +58,6 @@
 		5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C120C081B900BF05B2 /* OrderTableViewCell.swift */; };
 		5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C320C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift */; };
 		5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5C520C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift */; };
-		5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
 		5B10D5CA20C08A4400BF05B2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */; };
 		5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CB20C4D55200BF05B2 /* UserDataStore.swift */; };
 		5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5CD20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift */; };
@@ -161,6 +160,9 @@
 		5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
 		5BAD4D2020B87C91009201A4 /* FoodsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1F20B87C91009201A4 /* FoodsData.swift */; };
 		5BAE181C207D1F28009BCE65 /* DataAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* DataAPIClient.swift */; };
+		5BB2256720DFDBE700DFE448 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5BB2256620DFDBE700DFE448 /* LICENSE */; };
+		5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */; };
+		5BB2256E20DFE7BA00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */; };
 		5BB29651208A461700520683 /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29650208A461700520683 /* OrdersViewModel.swift */; };
 		5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */; };
 		5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */; };
@@ -177,7 +179,6 @@
 		5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */; };
 		5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A12093891100520683 /* LoginPageViewModel.swift */; };
 		5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */; };
-		5BB296AB209CDF1C00520683 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */; };
 		5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AC209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift */; };
 		5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */; };
 		5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */; };
@@ -358,6 +359,8 @@
 		5BAD4D1D20B85FC3009201A4 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		5BAD4D1F20B87C91009201A4 /* FoodsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsData.swift; sourceTree = "<group>"; };
 		5BAE181B207D1F28009BCE65 /* DataAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAPIClient.swift; sourceTree = "<group>"; };
+		5BB2256620DFDBE700DFE448 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5BB29650208A461700520683 /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
 		5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -374,7 +377,6 @@
 		5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296A12093891100520683 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
-		5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DefaultTableViewCellViewModel.swift; path = Sammys/Cells/Models/DefaultTableViewCellViewModel.swift; sourceTree = SOURCE_ROOT; };
 		5BB296AC209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -510,7 +512,9 @@
 				5B10D58920C035F000BF05B2 /* AppDelegate.swift */,
 				5B9B908720C70BE800FB6264 /* Data Stores */,
 				5B9B908820C70C0900FB6264 /* View Controllers */,
-				5B9B908920C70C1E00FB6264 /* More */,
+				5BB2256920DFE4CD00DFE448 /* Storyboards */,
+				5BB2256820DFE4AA00DFE448 /* Assets */,
+				5B9B908920C70C1E00FB6264 /* Property Lists */,
 			);
 			path = "Sammys Kitchen";
 			sourceTree = "<group>";
@@ -582,17 +586,19 @@
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
 				5B724D8820DC98F300B9296E /* FileType.swift */,
+				5B724D8520DC967300B9296E /* APIKey.swift */,
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
 				5B9CD59D204CCA5500F59E4C /* View Controllers */,
-				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5B9CD59F204CCAA500F59E4C /* Views */,
-				5BD274F62063FBAD00618128 /* Classes */,
+				5BD274F62063FBAD00618128 /* Animation */,
+				5B724D8E20DFD86F00B9296E /* Protocols */,
 				5BED77A920B4798100232DD2 /* Extensions */,
 				5BB60F332069F5B100105E72 /* EasyExtensions */,
-				5B9CD5A0204CCAEF00F59E4C /* Storyboards */,
-				5B9CD5A2204E1EB200F59E4C /* More */,
+				5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */,
+				5B7B14C220558D4300BFE0C8 /* Assets */,
+				5B9CD5A2204E1EB200F59E4C /* Property Lists */,
 			);
 			path = Sammys;
 			sourceTree = "<group>";
@@ -606,22 +612,33 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
+		5B724D8E20DFD86F00B9296E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5B0B739A20D6413900D757FD /* Blurable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
 				5B6A06BC1FFFF4BD00BAC480 /* AnimatedCollectionViewLayout.swift */,
 				5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */,
 				5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */,
+				5BB2256620DFDBE700DFE448 /* LICENSE */,
 			);
 			path = AnimatedCollectionViewLayout;
 			sourceTree = "<group>";
 		};
-		5B7B14C220558D4300BFE0C8 /* Images */ = {
+		5B7B14C220558D4300BFE0C8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5B8A3D0320AF157800790AF5 /* Salad.jpg */,
+				5B9B908F20C8484E00FB6264 /* Assets.xcassets */,
+				5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */,
+				5BB2256520DFDA3500DFE448 /* Images */,
 			);
-			path = Images;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		5B8A3D0220ADC4F800790AF5 /* Food */ = {
@@ -653,17 +670,13 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		5B9B908920C70C1E00FB6264 /* More */ = {
+		5B9B908920C70C1E00FB6264 /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
-				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
-				5B10D59220C035F400BF05B2 /* Assets.xcassets */,
-				5B9B909920CA037700FB6264 /* Alert.wav */,
-				5B18CB1420D058D3000C5CA4 /* Silence.wav */,
 				5B10D59720C035F400BF05B2 /* Info.plist */,
 				5B10D5C920C08A4300BF05B2 /* GoogleService-Info.plist */,
 			);
-			path = More;
+			path = "Property Lists";
 			sourceTree = "<group>";
 		};
 		5B9B908A20C70C3800FB6264 /* Orders */ = {
@@ -749,6 +762,7 @@
 		5B9CD59F204CCAA500F59E4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5BED77AC20B47DC200232DD2 /* FoodCollectionView */,
 				5BED77AF20B4848700232DD2 /* QuantityCollectionView */,
 				5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */,
@@ -756,7 +770,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5B9CD5A0204CCAEF00F59E4C /* Storyboards */ = {
+		5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
@@ -776,19 +790,17 @@
 				5B6A06841FFD509A00BAC480 /* LaunchScreen.storyboard */,
 				5BBF854120BC7995004BF649 /* ItemCollectionViewCell.xib */,
 			);
-			path = Storyboards;
+			path = "Storyboards and Xibs";
 			sourceTree = "<group>";
 		};
-		5B9CD5A2204E1EB200F59E4C /* More */ = {
+		5B9CD5A2204E1EB200F59E4C /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
-				5B7B14C220558D4300BFE0C8 /* Images */,
-				5B9B908F20C8484E00FB6264 /* Assets.xcassets */,
-				5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */,
 				5B6A06871FFD509A00BAC480 /* Info.plist */,
 				5B44A8222007D58400898FF0 /* GoogleService-Info.plist */,
+				5B724D8B20DC9C8D00B9296E /* APIKeys.plist */,
 			);
-			path = More;
+			path = "Property Lists";
 			sourceTree = "<group>";
 		};
 		5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */ = {
@@ -799,6 +811,32 @@
 				5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */,
 			);
 			path = ModifierCollectionView;
+			sourceTree = "<group>";
+		};
+		5BB2256520DFDA3500DFE448 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5B8A3D0320AF157800790AF5 /* Salad.jpg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		5BB2256820DFE4AA00DFE448 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				5B10D59220C035F400BF05B2 /* Assets.xcassets */,
+				5B9B909920CA037700FB6264 /* Alert.wav */,
+				5B18CB1420D058D3000C5CA4 /* Silence.wav */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		5BB2256920DFE4CD00DFE448 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5B10D58F20C035F000BF05B2 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		5BB2968A208E5AD500520683 /* Orders */ = {
@@ -909,8 +947,6 @@
 		5BD274EE2063FA8F00618128 /* API Clients */ = {
 			isa = PBXGroup;
 			children = (
-				5B724D8B20DC9C8D00B9296E /* APIKeys.plist */,
-				5B724D8520DC967300B9296E /* APIKey.swift */,
 				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
 				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIClient.swift */,
 				5B44A832200C006400898FF0 /* PayAPIClient.swift */,
@@ -984,13 +1020,12 @@
 			path = Bag;
 			sourceTree = "<group>";
 		};
-		5BD274F62063FBAD00618128 /* Classes */ = {
+		5BD274F62063FBAD00618128 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				5B0B739A20D6413900D757FD /* Blurable.swift */,
 				5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */,
 			);
-			path = Classes;
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		5BD274F72063FBEA00618128 /* Item */ = {
@@ -1072,7 +1107,7 @@
 				5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */,
 				5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */,
 				5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */,
-				5BB296AA209CDF1C00520683 /* DefaultTableViewCellViewModel.swift */,
+				5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1205,6 +1240,7 @@
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
 				5B6A06861FFD509A00BAC480 /* LaunchScreen.storyboard in Resources */,
 				5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */,
+				5BB2256720DFDBE700DFE448 /* LICENSE in Resources */,
 				5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */,
 				5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */,
 				5BBF854220BC7995004BF649 /* ItemCollectionViewCell.xib in Resources */,
@@ -1356,7 +1392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B724D8A20DC98F300B9296E /* FileType.swift in Sources */,
-				5B10D5C720C0843D00BF05B2 /* DefaultTableViewCellViewModel.swift in Sources */,
 				5B10D59B20C042D200BF05B2 /* OrdersAPIClient.swift in Sources */,
 				5B10D58E20C035F000BF05B2 /* FoodViewController.swift in Sources */,
 				5B10D59C20C044A900BF05B2 /* Order.swift in Sources */,
@@ -1416,6 +1451,7 @@
 				5B724D8720DC967300B9296E /* APIKey.swift in Sources */,
 				5B9865F620C58DAD004722D8 /* ItemCollectionViewCell.swift in Sources */,
 				5B10D5AB20C0467400BF05B2 /* Double.swift in Sources */,
+				5BB2256E20DFE7BA00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
 				5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1500,7 +1536,6 @@
 				5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */,
 				5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */,
 				5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */,
-				5BB296AB209CDF1C00520683 /* DefaultTableViewCellViewModel.swift in Sources */,
 				5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */,
 				5BB29651208A461700520683 /* OrdersViewModel.swift in Sources */,
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
@@ -1522,6 +1557,7 @@
 				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
 				5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
+				5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
 				5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
 				5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */,
@@ -1608,7 +1644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				DISPLAY_NAME = Developer;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/Property Lists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
@@ -1629,7 +1665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				DISPLAY_NAME = Kitchen;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/Property Lists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
@@ -1760,7 +1796,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/Property Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
@@ -1781,7 +1817,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/Property Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1854,7 +1890,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/Property Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.Sammys;
 				PRODUCT_NAME = "$(TARGET_NAME) Beta";
@@ -1875,7 +1911,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				DISPLAY_NAME = Kitchen;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/Property Lists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";
@@ -1948,7 +1984,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys/Property Lists/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DFAMILY";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys${BUNDLE_ID_SUFFIX}";
@@ -1970,7 +2006,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LWC7S9F6VV;
 				DISPLAY_NAME = Kitchen;
-				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/More/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sammys Kitchen/Property Lists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.natanelniazoff.Sammys-Kitchen$(BUNDLE_SUFFIX_ID)";

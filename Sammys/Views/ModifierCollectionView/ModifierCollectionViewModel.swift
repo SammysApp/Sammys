@@ -54,8 +54,11 @@ class ModifierCollectionViewModel {
     }
     
     func backgroundColor(for indexPath: IndexPath) -> UIColor {
-        guard let item = item, let modifiers = modifiers else { fatalError() }
-        return (shouldShowSelected?(modifiers[indexPath.row], item) ?? false) ? .white : #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        return #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+    }
+    
+    func borderWidth(for indexPath: IndexPath) -> CGFloat {
+        return isItemSelected(at: indexPath) ? 5 : 0
     }
     
     func sizeForItem(at indexPath: IndexPath) -> CGSize {
@@ -69,6 +72,11 @@ class ModifierCollectionViewModel {
         let totalSum = CGFloat(totalCellWidth + totalSpacingWidth)
         let sidesInset = totalSum < contextBounds.width ? ((contextBounds.width - totalSum) / 2) : 10
         return UIEdgeInsets(top: 0, left: sidesInset, bottom: 0, right: sidesInset)
+    }
+    
+    func isItemSelected(at indexPath: IndexPath) -> Bool {
+        guard let item = item, let modifiers = modifiers else { fatalError() }
+        return shouldShowSelected?(modifiers[indexPath.row], item) ?? false
     }
     
     func selectItem(at indexPath: IndexPath) {

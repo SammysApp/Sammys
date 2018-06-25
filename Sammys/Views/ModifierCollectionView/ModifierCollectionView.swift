@@ -67,6 +67,8 @@ class ModifierCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         cell.priceLabel.isHidden = viewModel.shouldHidePriceLabel(for: indexPath)
         cell.priceLabel.text = viewModel.priceLabelText(for: indexPath)
         cell.contentView.backgroundColor = viewModel.backgroundColor(for: indexPath)
+        cell.contentView.layer.borderWidth = viewModel.borderWidth(for: indexPath)
+        cell.contentView.layer.borderColor = UIColor.white.cgColor
         return cell
     }
 }

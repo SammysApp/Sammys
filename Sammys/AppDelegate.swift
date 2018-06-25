@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         print("Running in \(environment) mode!")
         
         // Configure Firebase.
@@ -51,9 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)]
         UINavigationBar.appearance().isTranslucent = false
-        
-        // Show status bar after it being initially hidden in Info.plist.
-        UIApplication.shared.isStatusBarHidden = false
         
         return true
     }

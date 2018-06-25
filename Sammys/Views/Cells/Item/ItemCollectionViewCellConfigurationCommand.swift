@@ -29,9 +29,12 @@ struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         }
         
         cell.layer.cornerRadius = Constants.cornerRadius
-        cell.backgroundColor = shouldShowSelected ? .white : item.color
+        cell.backgroundColor = item.color
         cell.titleLabel.text = item.name
         cell.titleLabel.isHidden = shouldHideItemLabel
+        
+        cell.layer.borderWidth = shouldShowSelected ? 5 : 0
+        cell.layer.borderColor = #colorLiteral(red: 0.9800000191, green: 0.9800000191, blue: 0.9800000191, alpha: 1)
         
         if let price = item.price, !shouldHideItemLabel {
             cell.priceLabel.isHidden = false

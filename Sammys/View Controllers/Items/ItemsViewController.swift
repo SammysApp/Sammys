@@ -66,9 +66,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     struct Constants {
-        static let next = "Next"
         static let done = "Done"
-        static let finish = "Finish"
         static let backAlertTitle = "You sure?"
         static let backAlertMessage = "This will disregard your work."
     }
@@ -139,6 +137,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func updateCollectionView() {
+        collectionView.contentInset = viewModel.collectionViewInsets
         switch viewModel.currentViewLayoutState {
         case .horizontal:
             collectionView.alwaysBounceHorizontal = true
@@ -154,15 +153,8 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
     }
     
     func updateNextButton() {
-        nextButton.setTitle(Constants.next, for: .normal)
-        if viewModel.atFirstChoice && !viewModel.hasSelectedOnce && !isEditingFood {
-            nextButton.isHidden = true
-        } else {
-            nextButton.isHidden = false
-            if viewModel.atLastChoice {
-                nextButton.setTitle(isEditingFood ? Constants.done : Constants.finish, for: .normal)
-            }
-        }
+        nextButton.setTitle(viewModel.nextButtonTitle, for: .normal)
+        nextButton.isHidden = viewModel.shouldHideNextButton
     }
     
     func updateBackButton() {
@@ -199,7 +191,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         case .horizontal:
             collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
         case .vertical:
-            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: -(viewModel.collectionViewInsets.top + view.safeAreaInsets.top)), animated: false)
         }
         currentItemIndex = 0
     }
@@ -278,6 +270,7 @@ class ItemsViewController: UIViewController, ItemsViewModelDelegate {
         viewModel.toggleModifier(modifier, for: item)
         modifierCollectionView.reloadData()
         collectionView.reloadData()
+        updateUI()
     }
     
     /// Called once done editing.
@@ -377,10 +370,6 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let model = cellViewModel(for: indexPath)
         return model.size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return viewModel.collectionViewInsets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

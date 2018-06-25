@@ -89,6 +89,14 @@ class ItemsViewModel {
         return true
     }
     
+    var shouldHideNextButton: Bool {
+        return (atFirstChoice && !hasSelectedOnce && !isEditingFood) || (currentChoice == .lettuce && salad.lettuce.isEmpty)
+    }
+    
+    var nextButtonTitle: String {
+        return atLastChoice ? Constants.finish : Constants.next
+    }
+    
     var totalPriceString: String {
         return currentSaladPrice.priceString
     }
@@ -126,6 +134,11 @@ class ItemsViewModel {
         default:
             return .greatestFiniteMagnitude
         }
+    }
+    
+    struct Constants {
+        static let next = "Next"
+        static let finish = "Finish"
     }
     
     func setData(completed: (() -> Void)? = nil) {
