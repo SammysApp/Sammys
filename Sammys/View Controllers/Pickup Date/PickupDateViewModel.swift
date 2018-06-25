@@ -91,21 +91,26 @@ class PickupDateViewModel {
     }
     
     var numberOfComponents: Int {
-        return components.count
+        // Return 1 if empty to keep selection indicator visible.
+        return components.isEmpty ? 1 : components.count
     }
     
     init() {
-        setupAvailablePickupDayDates()
         SammysDataStore.shared.setHours { hours in
+            self.setupAvailablePickupDayDates()
+            self.selectedDayDate = self.availablePickupDayDates?.first
             self.delegate?.datePickerViewNeedsUpdate()
         }
     }
     
     private func setupAvailablePickupDayDates() {
-        var dates = [startDate]
-        for day in 1...amountOfFutureDays {
-            guard let nextDate = Calendar.current.date(byAdding: .day, value: day, to: startDate) else { continue }
-            dates.append(nextDate)
+        var dates = [Date]()
+        for day in 0...amountOfFutureDays {
+            guard let date = Calendar.current.date(byAdding: .day, value: day, to: startDate) else { continue }
+            if let availableDates = availablePickupTimeDates(for: date),
+                !availableDates.isEmpty {
+                dates.append(date)
+            }
         }
         availablePickupDayDates = dates
     }
@@ -137,12 +142,12 @@ class PickupDateViewModel {
     }
     
     func numberOfRows(inComponent component: Int) -> Int {
-        return components[component].rows.count
+        return components[safe: component]?.rows.count ?? 0
     }
     
-    func title(forRow row: Int, inComponent component: Int) -> String {
+    func title(forRow row: Int, inComponent component: Int) -> String? {
         let formatter = DateFormatter()
-        let component = components[component]
+        guard let component = components[safe: component] else { return nil }
         formatter.dateFormat = component.key.dateFormat
         return formatter.string(from: component.rows[row].date)
     }
@@ -151,14 +156,14 @@ class PickupDateViewModel {
         guard let pickerViewComponentKey = PickerViewComponentKey(rawValue: component) else { return }
         // Once selects anything in picker view, doesn't want pickup ASAP.
         wantsPickupASAP = false
-        let date = components[component].rows[row].date
+        guard let date = components[safe: component]?.rows[safe: row]?.date else { return }
         switch pickerViewComponentKey {
         case .day:
             selectedDayDate = date
             let timeComponent = PickerViewComponentKey.time.rawValue
             delegate?.datePickerViewNeedsUpdate(forComponent: timeComponent)
             if let selectedTimeRow = delegate?.datePickerSelectedRow(inComponent: timeComponent) {
-                selectedTimeDate = components[timeComponent].rows[selectedTimeRow].date
+                selectedTimeDate = components[safe: timeComponent]?.rows[safe: selectedTimeRow]?.date
             }
             if let pickupDate = pickupDate { delegate?.didSelect(pickupDate) }
             delegate?.needsUIUpdate()
