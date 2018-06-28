@@ -52,6 +52,12 @@ class BagViewModel: NSObject {
         }
     }
     
+    private var sammys: SammysDataStore {
+        return SammysDataStore.shared
+    }
+    
+    private var hours = [Hours]()
+    
     var isPickupDateViewControllerShowing = false
     
     var paymentContextHostViewController: UIViewController? {
@@ -72,6 +78,14 @@ class BagViewModel: NSObject {
     
     private var sortedFoodTypes: [FoodType] {
         return Array(foods.keys).sorted { $0.rawValue < $1.rawValue }
+    }
+    
+    private var pickupDateAvailabilityCheckerConfiguration: PickupDateAvailabilityCheckerConfiguration {
+        return PickupDateAvailabilityCheckerConfiguration(startDate: Date(), hours: hours, amountOfFutureDays: 7, timePickerInterval: 10)
+    }
+    
+    private var pickupDateAvailabilityChecker: PickupDateAvailabilityChecker {
+        return PickupDateAvailabilityChecker(pickupDateAvailabilityCheckerConfiguration)
     }
     
     private var sections: [BagSection] {
@@ -164,6 +178,11 @@ class BagViewModel: NSObject {
         return environment == .family
     }
     
+    var isPickupASAPAvailable: Bool {
+        guard let availablePickupTimeDatesForToday = pickupDateAvailabilityChecker.availablePickupTimeDates(for: Date()) else { return false }
+        return !availablePickupTimeDatesForToday.isEmpty
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -174,6 +193,20 @@ class BagViewModel: NSObject {
         if !doesGetForFree {
             setupPaymentContext()
         }
+        
+        setupHours()
+    }
+    
+    func setupHours() {
+        guard let hours = sammys.hours else {
+            sammys.setHours(didComplete: handleDidSetupHours)
+            return
+        }
+        handleDidSetupHours(hours)
+    }
+    
+    func handleDidSetupHours(_ hours: [Hours]) {
+        self.hours = hours
     }
     
     func setupPaymentContext() {

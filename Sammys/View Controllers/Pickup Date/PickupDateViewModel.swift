@@ -42,7 +42,14 @@ protocol PickupDateViewModelDelegate: class {
 }
 
 class PickupDateViewModel {
-    var startDate = Date()
+    weak var delegate: PickupDateViewModelDelegate?
+    
+    private var sammys: SammysDataStore {
+        return SammysDataStore.shared
+    }
+    
+    private var hours = [Hours]()
+    
     var wantsPickupASAP = true {
         didSet {
             if wantsPickupASAP {
@@ -51,27 +58,34 @@ class PickupDateViewModel {
             delegate?.needsUIUpdate()
         }
     }
+    
+    var startDate = Date() {
+        didSet {
+            delegate?.datePickerViewNeedsUpdate()
+        }
+    }
+    
+    private var pickupDateAvailabilityCheckerConfiguration: PickupDateAvailabilityCheckerConfiguration {
+        return PickupDateAvailabilityCheckerConfiguration(startDate: startDate, hours: hours, amountOfFutureDays: 7, timePickerInterval: 10)
+    }
+    
+    private var pickupDateAvailabilityChecker: PickupDateAvailabilityChecker {
+        return PickupDateAvailabilityChecker(pickupDateAvailabilityCheckerConfiguration)
+    }
+    
+    private var availablePickupDayDates: [Date]? {
+        return pickupDateAvailabilityChecker.availablePickupDayDates
+    }
+    
     private var selectedTimeDate: Date?
+    
     private lazy var selectedDayDate = availablePickupDayDates?.first
+    
     private var pickupDate: PickupDate? {
         if wantsPickupASAP { return .asap }
         else if let date = selectedTimeDate { return .future(date) }
         return nil
     }
-    var componentsCount: Int {
-        return components.count
-    }
-    
-    var amountOfFutureDays = 7
-    var timePickerInterval = 10
-    
-    weak var delegate: PickupDateViewModelDelegate?
-    
-    private var hours: [Hours]? {
-        return SammysDataStore.shared.hours
-    }
-    
-    private var availablePickupDayDates: [Date]?
     
     var dateLabelText: String? {
         if let pickupDate = pickupDate {
@@ -90,43 +104,31 @@ class PickupDateViewModel {
         return wantsPickupASAP
     }
     
+    var componentsCount: Int {
+        return components.count
+    }
+    
     var numberOfComponents: Int {
         // Return 1 if empty to keep selection indicator visible.
         return components.isEmpty ? 1 : components.count
     }
     
     init() {
-        SammysDataStore.shared.setHours { hours in
-            self.setupAvailablePickupDayDates()
-            self.selectedDayDate = self.availablePickupDayDates?.first
-            self.delegate?.datePickerViewNeedsUpdate()
-        }
+        setupHours()
     }
     
-    private func setupAvailablePickupDayDates() {
-        var dates = [Date]()
-        for day in 0...amountOfFutureDays {
-            guard let date = Calendar.current.date(byAdding: .day, value: day, to: startDate) else { continue }
-            if let availableDates = availablePickupTimeDates(for: date),
-                !availableDates.isEmpty {
-                dates.append(date)
-            }
+    func setupHours() {
+        guard let hours = sammys.hours else {
+            sammys.setHours(didComplete: handleDidSetupHours)
+            return
         }
-        availablePickupDayDates = dates
+        handleDidSetupHours(hours)
     }
     
-    private func availablePickupTimeDates(for date: Date) -> [Date]? {
-        guard let dateHours = hours?.dateHours(for: date) else { return nil }
-        var currentDate = dateHours.open
-        var dates = [Date]()
-        while currentDate <= dateHours.close {
-            if currentDate > startDate {
-                dates.append(currentDate)
-            }
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: timePickerInterval, to: currentDate) else { return nil }
-            currentDate = newDate
-        }
-        return dates
+    func handleDidSetupHours(_ hours: [Hours]) {
+        self.hours = hours
+        selectedDayDate = availablePickupDayDates?.first
+        delegate?.datePickerViewNeedsUpdate()
     }
     
     private var components: [Component] {
@@ -135,7 +137,7 @@ class PickupDateViewModel {
             components.append(Component(key: .day, rows: dayRows))
         }
         if let date = selectedDayDate,
-            let timeRows = availablePickupTimeDates(for: date)?.map({ Row(date: $0) }) {
+            let timeRows = pickupDateAvailabilityChecker.availablePickupTimeDates(for: date)?.map({ Row(date: $0) }) {
             components.append(Component(key: .time, rows: timeRows))
         }
         return components
