@@ -36,6 +36,8 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     private struct Constants {
+        static let pickupDateAlertTitle = "No Pickup Date"
+        static let pickupDateAlertMessage = "Please choose a pickup date before continuing."
         static let checkoutAlertMessage = "Choose the way you would like to checkout."
         static let userNameAlertMessage = "Please enter your name."
     }
@@ -73,10 +75,10 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     func updateUI() {
         subtotalLabel.text = viewModel.subtotalPrice.priceString
         taxLabel.text = viewModel.taxPrice.priceString
-        pickupDateButton.setTitle(viewModel.pickupDateButtonText, for: .normal)
         purchaseButton.setTitle(viewModel.purchaseButtonText, for: .normal)
         updateDoneButton()
         updateClearButton()
+        updatePickupUI()
         updatePaymentUI()
         updateTotalVisualEffectView()
     }
@@ -91,6 +93,10 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     
     func updateClearButton() {
         clearButton.isEnabled = viewModel.shouldEnableClearButton
+    }
+    
+    func updatePickupUI() {
+        pickupDateButton.setTitle(viewModel.pickupDateButtonText, for: .normal)
     }
     
     func updatePaymentUI() {
@@ -112,6 +118,14 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         
         totalVisualEffectViewContainerView.layer.masksToBounds = false
         totalVisualEffectViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: totalVisualEffectViewContainerView.bounds, cornerRadius: 40).cgPath, radius: 10, opacity: 0.1))
+    }
+    
+    func didStartLoadingPickupData() {
+        
+    }
+    
+    func didFinishLoadingPickupData() {
+        updatePickupUI()
     }
     
     func bagDataDidChange() {
@@ -173,7 +187,9 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     }
     
     func attemptPurchase() {
-        if viewModel.user == nil {
+        if !viewModel.isPickupDateSet {
+            presentPickupDateAlertController()
+        } else if viewModel.user == nil {
             presentCheckoutAlertController(
                 didChooseGuest: !viewModel.doesGetForFree ? presentAddCardViewController : {
                     self.presentUserNameAlertController {
@@ -225,6 +241,17 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         navigationController?.pushViewController(foodViewController, animated: true)
     }
     
+    func presentPickupDateAlertController() {
+        let pickupDateAlertController = UIAlertController(title: Constants.pickupDateAlertTitle, message: Constants.pickupDateAlertMessage, preferredStyle: .alert)
+        [UIAlertAction(title: "Choose", style: .default, handler: { action in
+            self.addPickupDateViewController()
+        }),
+         UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            pickupDateAlertController.dismiss(animated: true, completion: nil)
+         })].forEach { pickupDateAlertController.addAction($0) }
+        present(pickupDateAlertController, animated: true, completion: nil)
+    }
+    
     func presentCheckoutAlertController(didChooseGuest: @escaping () -> Void, didChooseCustomer: @escaping () -> Void) {
         let checkoutAlertController = UIAlertController(title: nil, message: Constants.checkoutAlertMessage, preferredStyle: .alert)
         [UIAlertAction(title: "Guest", style: .default, handler: { action in
@@ -270,11 +297,11 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         viewModel.isPickupDateViewControllerShowing = true
         updateUI()
         add(asChildViewController: pickupDateViewController)
-        pickupDateViewController.animateBlurViewIn(withDuration: 0.5)
+        pickupDateViewController.animateInBlurView(withDuration: 0.5)
     }
     
     func removePickupDateViewController() {
-        pickupDateViewController.animateBlurViewOut(withDuration: 0.5) { didComplete in
+        pickupDateViewController.animateOutBlurView(withDuration: 0.5) { didComplete in
             self.remove(asChildViewController: self.pickupDateViewController)
             self.viewModel.isPickupDateViewControllerShowing = false
             self.updateUI()

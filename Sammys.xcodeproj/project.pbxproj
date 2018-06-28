@@ -794,8 +794,8 @@
 				5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */,
 				5B942D932087EA0600BF991A /* OrdersViewController.storyboard */,
 				5BB29690208F7C3400520683 /* OrderViewController.storyboard */,
-				5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */,
 				5BBF854120BC7995004BF649 /* ItemCollectionViewCell.xib */,
+				5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */,
 			);
 			path = "Storyboards and Xibs";
 			sourceTree = "<group>";

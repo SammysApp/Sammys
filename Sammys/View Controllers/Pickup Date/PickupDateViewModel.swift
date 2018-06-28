@@ -50,6 +50,11 @@ class PickupDateViewModel {
     
     private var hours = [Hours]()
     
+    var isPickupASAPAvailable: Bool {
+        guard let availablePickupTimeDatesForToday = pickupDateAvailabilityChecker.availablePickupTimeDates(for: Date()) else { return false }
+        return !availablePickupTimeDatesForToday.isEmpty
+    }
+    
     var wantsPickupASAP = true {
         didSet {
             if wantsPickupASAP {
@@ -82,7 +87,7 @@ class PickupDateViewModel {
     private lazy var selectedDayDate = availablePickupDayDates?.first
     
     private var pickupDate: PickupDate? {
-        if wantsPickupASAP { return .asap }
+        if wantsPickupASAP && isPickupASAPAvailable { return .asap }
         else if let date = selectedTimeDate { return .future(date) }
         return nil
     }
@@ -96,12 +101,14 @@ class PickupDateViewModel {
                 formatter.dateFormat = "EEEE, MMM d\nh:mm a"
                 return formatter.string(from: date)
             }
+        } else if !isPickupASAPAvailable {
+            return "ASAP Unavailable"
         }
         return nil
     }
     
     var shouldHidePickupASAPButton: Bool {
-        return wantsPickupASAP
+        return wantsPickupASAP || !isPickupASAPAvailable
     }
     
     var componentsCount: Int {

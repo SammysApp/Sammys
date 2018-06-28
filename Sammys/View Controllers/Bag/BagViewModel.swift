@@ -21,6 +21,8 @@ private struct BagSection {
 
 protocol BagViewModelDelegate: class {
     func needsUIUpdate()
+    func didStartLoadingPickupData()
+    func didFinishLoadingPickupData()
     func bagDataDidChange()
     func didEdit(food: Food)
     func didFave(food: Food)
@@ -46,7 +48,7 @@ class BagViewModel: NSObject {
     
     weak var delegate: BagViewModelDelegate?
     
-    var pickupDate = PickupDate.asap {
+    var pickupDate: PickupDate? {
         didSet {
             delegate?.needsUIUpdate()
         }
@@ -153,12 +155,16 @@ class BagViewModel: NSObject {
     }
     
     var pickupDateButtonText: String {
-        switch pickupDate {
-        case .asap: return "Pickup ASAP"
-        case .future(let date):
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd, h:mm a"
-            return formatter.string(from: date)
+        if let pickupDate = pickupDate {
+            switch pickupDate {
+            case .asap: return "Pickup ASAP"
+            case .future(let date):
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM/dd, h:mm a"
+                return formatter.string(from: date)
+            }
+        } else {
+            return "Choose Pickup"
         }
     }
     
@@ -183,6 +189,10 @@ class BagViewModel: NSObject {
         return !availablePickupTimeDatesForToday.isEmpty
     }
     
+    var isPickupDateSet: Bool {
+        return pickupDate != nil
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -199,6 +209,7 @@ class BagViewModel: NSObject {
     
     func setupHours() {
         guard let hours = sammys.hours else {
+            delegate?.didStartLoadingPickupData()
             sammys.setHours(didComplete: handleDidSetupHours)
             return
         }
@@ -207,6 +218,8 @@ class BagViewModel: NSObject {
     
     func handleDidSetupHours(_ hours: [Hours]) {
         self.hours = hours
+        pickupDate = isPickupASAPAvailable ? .asap : nil
+        delegate?.didFinishLoadingPickupData()
     }
     
     func setupPaymentContext() {
@@ -376,7 +389,7 @@ class BagViewModel: NSObject {
         guard let userName = orderUserName else { fatalError() }
         let date = Date()
         var pickupDate: Date?
-        if case .future(let date) = self.pickupDate {
+        if case .future(let date) = self.pickupDate! {
             pickupDate = date
         }
         OrdersAPIClient.fetchNewOrderNumber { number in
