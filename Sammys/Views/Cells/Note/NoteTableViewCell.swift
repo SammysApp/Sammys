@@ -24,6 +24,8 @@ class NoteTableViewCell: UITableViewCell {
     var placeholderText = "" { didSet { updatePlaceholderTextViewUI() } }
     var fontSize: CGFloat = 16 { didSet { updateTextViewUI() } }
     var leftInset: CGFloat = 0 { didSet { updateTextViewConstraints() } }
+    var didBeginEditingTextView: ((UITextView) -> Void)?
+    var didEndEditingTextView: ((UITextView) -> Void)?
     var textViewDidChange: ((UITextView) -> Void)?
     
     var textViewConstraints: [NSLayoutConstraint] = [] {
@@ -77,6 +79,7 @@ class NoteTableViewCell: UITableViewCell {
         addSubview(textView)
         
         // Set up UI.
+        textView.returnKeyType = .done
         updateTextViewUI()
     }
     
@@ -109,8 +112,28 @@ class NoteTableViewCell: UITableViewCell {
 }
 
 extension NoteTableViewCell: UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        didBeginEditingTextView?(textView)
+        return true
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         textViewDidChange?(textView)
         placeholderTextView.isHidden = !textView.text.isEmpty
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Dismiss keyboard when typing enter.
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        didEndEditingTextView?(textView)
+        return true
+    }
 }
+

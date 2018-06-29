@@ -58,6 +58,9 @@ class BagViewController: UIViewController, BagViewModelDelegate {
         viewModel.paymentContextHostViewController = self
         
         DefaultNoteTableViewCellIdentifier.noteCell.register(for: tableView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustUIForKeyboard), name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustUIForKeyboard), name: .UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +88,20 @@ class BagViewController: UIViewController, BagViewModelDelegate {
     
     func needsUIUpdate() {
         updateUI()
+    }
+    
+    @objc func adjustUIForKeyboard(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let keyboardScreenEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue, let window = view.window else { return }
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: window)
+        switch notification.name {
+        case .UIKeyboardWillChangeFrame:
+            if keyboardViewEndFrame.height > totalVisualEffectView.frame.height {
+                tableView.contentInset.bottom = (keyboardViewEndFrame.height - totalVisualEffectView.frame.height) + totalVisualEffectView.frame.height
+            }
+        case .UIKeyboardWillHide: tableView.contentInset.bottom = totalVisualEffectView.frame.height
+        default: break
+        }
     }
     
     func updateDoneButton() {
