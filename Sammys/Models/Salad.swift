@@ -116,6 +116,11 @@ extension Salad {
             if item is Dressing && dressings.count == 1 {
                 dressings = []
             }
+            if item is Extra {
+                if let index = extras.firstIndex(where: { $0.modifiers != nil }) {
+                    extras[index].modifiers = []
+                }
+            }
             // ...first add the item if doesn't have...
             if !contains(item) { add(item) }
             // ...and add modifier.
