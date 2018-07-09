@@ -9,7 +9,7 @@
 import Foundation
 
 typealias Foods = [FoodType : [Food]]
-private typealias SavedFoods = [FoodType : [AnyFood]]
+private typealias SavedFoods = [String : [AnyFood]]
 
 struct Order: Codable {
     let id: String
@@ -92,12 +92,22 @@ extension Order {
 
 private extension Dictionary where Key == FoodType, Value == [Food] {
     func toEncodable() -> SavedFoods {
-        return self.mapValues { $0.map { AnyFood($0) } }
+        var encodableDictionary = SavedFoods()
+        for (key, value) in self {
+            encodableDictionary[key.rawValue] = value.map { AnyFood($0) }
+        }
+        return encodableDictionary
     }
 }
 
-private extension Dictionary where Key == FoodType, Value == [AnyFood] {
+private extension Dictionary where Key == String, Value == [AnyFood] {
     func encodableUnwrapped() -> Foods {
-        return self.mapValues { $0.map { $0.food } }
+        var unwrappedDictionary = Foods()
+        for (key, value) in self {
+            if let foodType = FoodType(rawValue: key) {
+                unwrappedDictionary[foodType] = value.map { $0.food }
+            }
+        }
+        return unwrappedDictionary
     }
 }

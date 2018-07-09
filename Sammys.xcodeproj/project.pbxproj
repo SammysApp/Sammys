@@ -78,6 +78,7 @@
 		5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
 		5B3176CE206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */; };
 		5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */; };
+		5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */; };
 		5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */; };
 		5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */; };
 		5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */; };
@@ -293,6 +294,7 @@
 		5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryRawRepresentableKeys.swift; sourceTree = "<group>"; };
 		5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConfirmationViewController.storyboard; sourceTree = "<group>"; };
 		5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -1073,6 +1075,7 @@
 			children = (
 				5BED77AA20B479A000232DD2 /* UINavigationController.swift */,
 				5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */,
+				5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1497,6 +1500,7 @@
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
 				5BB296C9209F4EA100520683 /* UserSettingsViewModel.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
+				5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */,
 				5BB2968F208F7BA600520683 /* OrderViewModel.swift in Sources */,
 				5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewController.swift in Sources */,

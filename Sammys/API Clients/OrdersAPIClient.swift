@@ -33,7 +33,7 @@ struct OrdersAPIClient {
     /// The shared Firebase database reference.
     private static var database: DatabaseReference {
         let reference =  Database.database().reference()
-        return environment.isLive ? reference : reference.developer
+        return environment.isLive ? reference.live : reference.develop
     }
     
     // MARK: - Observers
@@ -70,11 +70,11 @@ struct OrdersAPIClient {
     
     private static func orderReference(for order: Order) -> DatabaseReference {
         let date = order.pickupDate ?? order.date
-        return ordersReference(for: date).orders.child("\(order.number)")
+        return ordersReference(for: date).child("\(order.number)")
     }
     
     static func fetchNewOrderNumber(completed: @escaping (Int) -> Void) {
-        database.numberCounter.runTransactionBlock({ currentData in
+        database.orders.numberCounter.runTransactionBlock({ currentData in
             // If the counter doesn't exist...
             guard let value = currentData.value as? Int else {
                 // ...set the counter to 1.
@@ -120,9 +120,12 @@ struct OrdersAPIClient {
     
     static func add(_ order: Order, withNumber number: Int) {
         do {
-            let orderData = try FirebaseEncoder().encode(order)
-            orderReference(for: order).order.setValue(orderData)
-            setCompleted(false, for: order)
+            let encoder = FirebaseEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            let orderData = try encoder.encode(order)
+            database.orders.child(order.number).order.setValue(orderData)
+            // set completed, year and month
+            //setCompleted(false, for: order)
         } catch {
             print(error)
         }
@@ -134,8 +137,12 @@ struct OrdersAPIClient {
 }
 
 private extension DatabaseReference {
-    var developer: DatabaseReference {
-        return child("developer")
+    var develop: DatabaseReference {
+        return child("develop")
+    }
+    
+    var live: DatabaseReference {
+        return child("live")
     }
     
     var orders: DatabaseReference {
