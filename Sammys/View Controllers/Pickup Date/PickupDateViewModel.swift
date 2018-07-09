@@ -51,8 +51,7 @@ class PickupDateViewModel {
     private var hours = [Hours]()
     
     var isPickupASAPAvailable: Bool {
-        guard let availablePickupTimeDatesForToday = pickupDateAvailabilityChecker.availablePickupTimeDates(for: Date()) else { return false }
-        return !availablePickupTimeDatesForToday.isEmpty
+        return pickupDateAvailabilityChecker.isPickupASAPAvailable(for: Date())
     }
     
     var wantsPickupASAP = true {

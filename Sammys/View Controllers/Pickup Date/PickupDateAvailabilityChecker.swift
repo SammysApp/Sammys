@@ -47,4 +47,10 @@ struct PickupDateAvailabilityChecker {
         }
         return dates
     }
+    
+    func isPickupASAPAvailable(for date: Date) -> Bool {
+        guard let dateHours = configuration.hours.dateHours(for: date),
+            let lastAvailablePickupDate = availablePickupTimeDates(for: date)?.last else { return false }
+        return dateHours.open <= date && date <= lastAvailablePickupDate
+    }
 }
