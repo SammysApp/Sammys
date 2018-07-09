@@ -27,14 +27,14 @@ class OrdersViewController: UIViewController {
         }
     }
     @IBOutlet var nothingLabel: UILabel!
-    @IBOutlet var dateButton: UIButton! {
+    @IBOutlet var timeMachineButton: UIButton! {
         didSet {
-            dateButton.layer.cornerRadius = dateButton.frame.height/2
+            timeMachineButton.layer.cornerRadius = timeMachineButton.frame.height/2
         }
     }
-    @IBOutlet var datePickerView: UIVisualEffectView! {
+    @IBOutlet var timeMachineView: UIVisualEffectView! {
         didSet {
-            datePickerView.translatesAutoresizingMaskIntoConstraints = false
+            timeMachineView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     @IBOutlet var datePicker: UIDatePicker!
@@ -50,14 +50,18 @@ class OrdersViewController: UIViewController {
         nothingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ]
     lazy var datePickerViewConstraints = [
-        datePickerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-        datePickerView.topAnchor.constraint(equalTo: view.topAnchor),
-        datePickerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        datePickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        timeMachineView.leftAnchor.constraint(equalTo: view.leftAnchor),
+        timeMachineView.topAnchor.constraint(equalTo: view.topAnchor),
+        timeMachineView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        timeMachineView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ]
     
     override var prefersStatusBarHidden: Bool {
         return false
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     private struct Constants {
@@ -78,7 +82,7 @@ class OrdersViewController: UIViewController {
         tableView.separatorInset.left = 30
         tableView.separatorColor = #colorLiteral(red: 0.8901960784, green: 0.862745098, blue: 0.8352941176, alpha: 1)
         splitViewController?.view.backgroundColor = #colorLiteral(red: 0.3960784314, green: 0.3568627451, blue: 0.3215686275, alpha: 1)
-        dateButton.isHidden = viewModel.dateButtonShouldHide
+        timeMachineButton.isHidden = viewModel.dateButtonShouldHide
         
         if let url = Bundle.main.url(forResource: Constants.alertFileName, withExtension: FileType.wav.rawValue),
             let sound = Sound(url: url) {
@@ -105,7 +109,7 @@ class OrdersViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableView.contentInset.bottom = dateButton.frame.height + 40
+        tableView.contentInset.bottom = timeMachineButton.frame.height + 40
     }
     
     func updateTitle() {
@@ -162,7 +166,7 @@ class OrdersViewController: UIViewController {
     
     func setupAndShowNothingView() {
         nothingLabel.text = viewModel.nothingLabelText
-        view.insertSubview(nothingView, belowSubview: dateButton)
+        view.insertSubview(nothingView, belowSubview: timeMachineButton)
         setNothingViewConstraints()
     }
     
@@ -177,24 +181,24 @@ class OrdersViewController: UIViewController {
         datePicker.date = viewModel.datePickerDate
         datePicker.minimumDate = viewModel.datePickerMinDate
         datePicker.maximumDate = viewModel.datePickerMaxDate
-        datePickerView.effect = nil
-        datePickerView.contentView.alpha = 0
-        view.addSubview(datePickerView)
+        timeMachineView.effect = nil
+        timeMachineView.contentView.alpha = 0
+        view.addSubview(timeMachineView)
         setDatePickerViewConstraints()
         UIView.animate(withDuration: 0.25) {
-            self.datePickerView.effect = self.datePickerViewEffect
-            self.datePickerView.contentView.alpha = 1
+            self.timeMachineView.effect = self.datePickerViewEffect
+            self.timeMachineView.contentView.alpha = 1
         }
     }
     
     func hideDatePickerView() {
         UIView.animate(withDuration: 0.25, animations: {
-            self.datePickerView.effect = nil
-            self.datePickerView.contentView.alpha = 0
+            self.timeMachineView.effect = nil
+            self.timeMachineView.contentView.alpha = 0
         }) {
             guard $0 else { return }
             self.unsetDatePickerViewConstraints()
-            self.datePickerView.removeFromSuperview()
+            self.timeMachineView.removeFromSuperview()
             self.tapGestureRecognizer.isEnabled = false
         }
     }
@@ -213,12 +217,12 @@ class OrdersViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
-        if datePickerView.superview != nil {
+        if timeMachineView.superview != nil {
             hideDatePickerView()
         }
     }
     
-    @IBAction func didTapDate(_ sender: UIButton) {
+    @IBAction func didTapTimeMachine(_ sender: UIButton) {
         setupAndShowDatePickerView()
     }
     

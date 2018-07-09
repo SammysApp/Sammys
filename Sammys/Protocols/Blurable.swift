@@ -20,7 +20,7 @@ extension Blurable {
         blurView.contentView.alpha = 0
     }
     
-    func animateBlurViewIn(withDuration duration: TimeInterval, completed: ((Bool) -> Void)? = nil) {
+    func animateInBlurView(withDuration duration: TimeInterval, completed: ((Bool) -> Void)? = nil) {
         blurView.effect = nil
         blurView.contentView.alpha = 0
         UIView.animate(withDuration: duration, animations: {
@@ -29,7 +29,7 @@ extension Blurable {
         }, completion: completed)
     }
     
-    func animateBlurViewOut(withDuration duration: TimeInterval, completed: ((Bool) -> Void)? = nil) {
+    func animateOutBlurView(withDuration duration: TimeInterval, completed: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: duration, animations: {
             self.blurView.effect = nil
             self.blurView.contentView.alpha = 0
@@ -55,7 +55,7 @@ extension BlurAnimationController: UIViewControllerAnimatedTransitioning {
         toViewController.initializeBlurView()
         let container = transitionContext.containerView
         container.addSubview(toViewController.view)
-        toViewController.animateBlurViewIn(withDuration: duration) { didComplete in
+        toViewController.animateInBlurView(withDuration: duration) { didComplete in
             transitionContext.completeTransition(didComplete)
         }
     }

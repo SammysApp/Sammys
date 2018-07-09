@@ -44,6 +44,8 @@ protocol Food: class, Codable {
     
     /// An array of item groups belonging to the `Food`.
     var itemGroups: [ItemGroup] { get }
+    
+    var itemsCopy: Food { get }
 }
 
 extension Food {

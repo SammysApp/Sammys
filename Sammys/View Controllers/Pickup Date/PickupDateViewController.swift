@@ -56,7 +56,6 @@ class PickupDateViewController: UIViewController, Blurable {
     
     func updateDatePickerView() {
         viewModel.startDate = Date()
-        datePickerView.reloadAllComponents()
     }
     
     func resetDatePickerView() {

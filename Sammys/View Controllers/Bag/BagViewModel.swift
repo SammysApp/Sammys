@@ -21,6 +21,8 @@ private struct BagSection {
 
 protocol BagViewModelDelegate: class {
     func needsUIUpdate()
+    func didStartLoadingPickupData()
+    func didFinishLoadingPickupData()
     func bagDataDidChange()
     func didEdit(food: Food)
     func didFave(food: Food)
@@ -46,11 +48,17 @@ class BagViewModel: NSObject {
     
     weak var delegate: BagViewModelDelegate?
     
-    var pickupDate = PickupDate.asap {
+    var pickupDate: PickupDate? {
         didSet {
             delegate?.needsUIUpdate()
         }
     }
+    
+    private var sammys: SammysDataStore {
+        return SammysDataStore.shared
+    }
+    
+    private var hours = [Hours]()
     
     var isPickupDateViewControllerShowing = false
     
@@ -72,6 +80,14 @@ class BagViewModel: NSObject {
     
     private var sortedFoodTypes: [FoodType] {
         return Array(foods.keys).sorted { $0.rawValue < $1.rawValue }
+    }
+    
+    private var pickupDateAvailabilityCheckerConfiguration: PickupDateAvailabilityCheckerConfiguration {
+        return PickupDateAvailabilityCheckerConfiguration(startDate: Date(), hours: hours, amountOfFutureDays: 7, timePickerInterval: 10)
+    }
+    
+    private var pickupDateAvailabilityChecker: PickupDateAvailabilityChecker {
+        return PickupDateAvailabilityChecker(pickupDateAvailabilityCheckerConfiguration)
     }
     
     private var sections: [BagSection] {
@@ -139,12 +155,16 @@ class BagViewModel: NSObject {
     }
     
     var pickupDateButtonText: String {
-        switch pickupDate {
-        case .asap: return "Pickup ASAP"
-        case .future(let date):
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd, h:mm a"
-            return formatter.string(from: date)
+        if let pickupDate = pickupDate {
+            switch pickupDate {
+            case .asap: return "Pickup ASAP"
+            case .future(let date):
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM/dd, h:mm a"
+                return formatter.string(from: date)
+            }
+        } else {
+            return "Choose Pickup"
         }
     }
     
@@ -164,6 +184,14 @@ class BagViewModel: NSObject {
         return environment == .family
     }
     
+    var isPickupASAPAvailable: Bool {
+        return pickupDateAvailabilityChecker.isPickupASAPAvailable(for: Date())
+    }
+    
+    var isPickupDateSet: Bool {
+        return pickupDate != nil
+    }
+    
     var numberOfSections: Int {
         return sections.count
     }
@@ -174,6 +202,23 @@ class BagViewModel: NSObject {
         if !doesGetForFree {
             setupPaymentContext()
         }
+        
+        setupHours()
+    }
+    
+    func setupHours() {
+        guard let hours = sammys.hours else {
+            delegate?.didStartLoadingPickupData()
+            sammys.setHours(didComplete: handleDidSetupHours)
+            return
+        }
+        handleDidSetupHours(hours)
+    }
+    
+    func handleDidSetupHours(_ hours: [Hours]) {
+        self.hours = hours
+        pickupDate = isPickupASAPAvailable ? .asap : nil
+        delegate?.didFinishLoadingPickupData()
     }
     
     func setupPaymentContext() {
@@ -343,7 +388,7 @@ class BagViewModel: NSObject {
         guard let userName = orderUserName else { fatalError() }
         let date = Date()
         var pickupDate: Date?
-        if case .future(let date) = self.pickupDate {
+        if case .future(let date) = self.pickupDate! {
             pickupDate = date
         }
         OrdersAPIClient.fetchNewOrderNumber { number in

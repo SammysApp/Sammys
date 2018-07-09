@@ -36,6 +36,7 @@ class Salad: Food {
     static let type = FoodType.salad
     var id = UUID().uuidString
     
+    // FIXME: Put in own model like "SaladOrder"
     /// The quantity of salads to buy. Determines `price` value. Default is `1`.
     var quantity = 1
     
@@ -44,6 +45,21 @@ class Salad: Food {
     /// Returns title for salad.
     var title: String {
         return "\(size!.name) Salad"
+    }
+    
+    var itemsCopy: Food {
+        return Salad(withItemsFrom: self)
+    }
+    
+    init() {}
+    
+    init(withItemsFrom otherSalad: Salad) {
+        self.size = otherSalad.size
+        self.lettuce = otherSalad.lettuce
+        self.vegetables = otherSalad.vegetables
+        self.toppings = otherSalad.toppings
+        self.dressings = otherSalad.dressings
+        self.extras = otherSalad.extras
     }
 }
 
@@ -99,6 +115,11 @@ extension Salad {
         if !contains(modifier, for: item) {
             if item is Dressing && dressings.count == 1 {
                 dressings = []
+            }
+            if item is Extra {
+                if let index = extras.firstIndex(where: { $0.modifiers != nil }) {
+                    extras[index].modifiers = []
+                }
             }
             // ...first add the item if doesn't have...
             if !contains(item) { add(item) }
