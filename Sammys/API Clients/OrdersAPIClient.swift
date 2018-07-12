@@ -32,8 +32,8 @@ private class OrdersAPIObservers {
 struct OrdersAPIClient {
     /// The shared Firebase database reference.
     private static var database: DatabaseReference {
-        let reference =  Database.database().reference()
-        return environment.isLive ? reference.live : reference.develop
+        let database =  Database.database().reference()
+        return environment.isLive ? database.child(.live) : database.child(.develop)
     }
     
     // MARK: - Observers
@@ -45,9 +45,26 @@ struct OrdersAPIClient {
         }
     }
     
-    fileprivate struct Paths {
-        static let order = "order"
-        static let completed = "completed"
+    fileprivate static var calendarDateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d/yyyy"
+        return formatter
+    }
+    
+    private static var firebaseEncoder: FirebaseEncoder {
+        let encoder = FirebaseEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }
+    
+    private static var firebaseDecoder: FirebaseDecoder {
+        let decoder = FirebaseDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
+    
+    enum Path: String {
+        case develop, live, orders, numberCounter, order, kitchen, isCompleted, isInProgress, calendarDate
     }
     
     enum APIResult<T> {
@@ -65,16 +82,11 @@ struct OrdersAPIClient {
     }
     
     private static func ordersReference(for date: Date) -> DatabaseReference {
-        return database.orders.child(date)
-    }
-    
-    private static func orderReference(for order: Order) -> DatabaseReference {
-        let date = order.pickupDate ?? order.date
-        return ordersReference(for: date).child("\(order.number)")
+        return database.child(.orders).queryEqual(to: date).ref
     }
     
     static func fetchNewOrderNumber(completed: @escaping (Int) -> Void) {
-        database.orders.numberCounter.runTransactionBlock({ currentData in
+        database.child(.orders, .numberCounter).runTransactionBlock({ currentData in
             // If the counter doesn't exist...
             guard let value = currentData.value as? Int else {
                 // ...set the counter to 1.
@@ -84,28 +96,29 @@ struct OrdersAPIClient {
             // Otherwise increment the value by 1.
             currentData.value = value + 1
             return TransactionResult.success(withValue: currentData)
-        }) { error, commited, snapshot in
-            if commited {
+        }) { error, committed, snapshot in
+            if committed {
                 guard let count = snapshot?.value as? Int else { return }
                 completed(count)
             }
         }
     }
     
-    static func startOrdersValueChangeObserver(for date: Date) {
-        ordersReference(for: date).orders.observe(.value) { snapshot in
+    static func startOrdersValueChangeObserver(for date: Date) { 
+        ordersReference(for: date).observe(.value) { snapshot in
             guard snapshot.exists() else {
                 observers.forEach { $0.ordersValueDidChange([]) }
                 return
             }
             var kitchenOrders = [KitchenOrder]()
             for orderSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
-                guard let orderJSONString = orderSnapshot.childSnapshot(forPath: Paths.order).value as? String,
-                    let orderJSONData = orderJSONString.data(using: .utf8),
-                    let completed = orderSnapshot.childSnapshot(forPath: Paths.completed).value as? Bool else { continue }
+                let kitchenSnapshot = orderSnapshot.childSnapshot(forPath: Path.kitchen.rawValue)
+                guard let orderData = orderSnapshot.childSnapshot(forPath: Path.order.rawValue).value,
+                    let isInProgress = kitchenSnapshot.childSnapshot(forPath: Path.isInProgress.rawValue).value as? Bool,
+                    let isCompleted = kitchenSnapshot.childSnapshot(forPath: Path.isCompleted.rawValue).value as? Bool else { continue }
                 do {
-                    let order = try JSONDecoder().decode(Order.self, from: orderJSONData)
-                    kitchenOrders.append(KitchenOrder(order: order, completed: completed))
+                    let order = try firebaseDecoder.decode(Order.self, from: orderData)
+                    kitchenOrders.append(KitchenOrder(order: order, isInProgress: isInProgress, isCompleted: isCompleted))
                 } catch {
                     print(error)
                 }
@@ -115,59 +128,57 @@ struct OrdersAPIClient {
     }
     
     static func removeAllOrdersObservers(for date: Date) {
-        ordersReference(for: date).orders.removeAllObservers()
+        ordersReference(for: date).removeAllObservers()
     }
     
-    static func add(_ order: Order, withNumber number: Int) {
+    private static func kitchenDictionary(for order: Order) -> [String : Any] {
+        let calendarDateString = calendarDateFormatter.string(from: order.pickupDate ?? order.date)
+        return [
+            Path.calendarDate.rawValue: calendarDateString,
+            Path.isInProgress.rawValue: false,
+            Path.isCompleted.rawValue: false
+        ]
+    }
+    
+    private static func orderDictionary(for order: Order) -> [String : Any]? {
         do {
-            let encoder = FirebaseEncoder()
-            encoder.dateEncodingStrategy = .iso8601
-            let orderData = try encoder.encode(order)
-            database.orders.child(order.number).order.setValue(orderData)
-            // set completed, year and month
-            //setCompleted(false, for: order)
+            let orderData = try firebaseEncoder.encode(order)
+            return [
+                Path.order.rawValue: orderData,
+                Path.kitchen.rawValue: kitchenDictionary(for: order)
+            ]
         } catch {
             print(error)
+            return nil
         }
     }
     
-    static func setCompleted(_ completed: Bool, for order: Order) {
-        orderReference(for: order).completed.setValue(completed)
+    static func add(_ order: Order) {
+        guard let orderDictionary = orderDictionary(for: order) else { return }
+        database.child(.orders).child(order.number).setValue(orderDictionary)
     }
 }
 
 private extension DatabaseReference {
-    var develop: DatabaseReference {
-        return child("develop")
+    func child(_ path: OrdersAPIClient.Path) -> DatabaseReference {
+        return child(path.rawValue)
     }
     
-    var live: DatabaseReference {
-        return child("live")
+    func child(_ paths: OrdersAPIClient.Path...) -> DatabaseReference {
+        guard let firstPath = paths.first else { fatalError() }
+        var finalChild = child(firstPath)
+        paths.dropFirst().forEach { finalChild = finalChild.child($0) }
+        return finalChild
     }
     
-    var orders: DatabaseReference {
-        return child("orders")
+    func queryEqual(to date: Date) -> DatabaseQuery {
+        return queryOrdered(byChild: .calendarDate)
+            .queryEqual(toValue: OrdersAPIClient.calendarDateFormatter.string(from: date))
     }
-    
-    var order: DatabaseReference {
-        return child("order")
-    }
-    
-    var completed: DatabaseReference {
-        return child("completed")
-    }
-    
-    var numberCounter: DatabaseReference {
-        return child("numberCounter")
-    }
-    
-    func child(_ date: Date) -> DatabaseReference {
-        guard let timeZone = TimeZone(identifier: "America/New_York") else { fatalError() }
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
-        let day = calendar.component(.day, from: date)
-        return child("\(year)/\(month)/\(day)")
+}
+
+private extension DatabaseQuery {
+    func queryOrdered(byChild path: OrdersAPIClient.Path) -> DatabaseQuery {
+        return queryOrdered(byChild: path.rawValue)
     }
 }

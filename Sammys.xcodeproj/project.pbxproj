@@ -79,6 +79,8 @@
 		5B3176CE206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */; };
 		5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */; };
 		5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */; };
+		5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE420F79BE500A781E6 /* Sammys.swift */; };
+		5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE420F79BE500A781E6 /* Sammys.swift */; };
 		5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */; };
 		5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */; };
 		5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */; };
@@ -295,6 +297,7 @@
 		5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryRawRepresentableKeys.swift; sourceTree = "<group>"; };
+		5B342AE420F79BE500A781E6 /* Sammys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sammys.swift; sourceTree = "<group>"; };
 		5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConfirmationViewController.storyboard; sourceTree = "<group>"; };
 		5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
@@ -596,6 +599,7 @@
 				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
 				5B724D8820DC98F300B9296E /* FileType.swift */,
 				5B724D8520DC967300B9296E /* APIKey.swift */,
+				5B342AE420F79BE500A781E6 /* Sammys.swift */,
 				5BD274EE2063FA8F00618128 /* API Clients */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
@@ -1415,6 +1419,7 @@
 				5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */,
 				5BF39A5C20DC43B1007C4A66 /* TranslationAPIClient.swift in Sources */,
 				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
+				5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */,
 				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
 				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
 				5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
@@ -1511,6 +1516,7 @@
 				5B0B739D20D6B58C00D757FD /* UIViewController.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
+				5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */,
 				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
 				5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,

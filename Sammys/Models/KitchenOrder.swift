@@ -10,5 +10,6 @@ import Foundation
 
 struct KitchenOrder {
     let order: Order
-    let completed: Bool
+    let isInProgress: Bool
+    let isCompleted: Bool
 }
