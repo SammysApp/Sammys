@@ -394,7 +394,6 @@ class BagViewModel: NSObject {
         OrdersAPIClient.fetchNewOrderNumber { number in
             let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods, note: self.orderNote)
             OrdersAPIClient.add(order)
-            if let user = self.user { UserAPIClient.add(order, for: user) }
             didComplete?(order)
             self.clearBag()
         }

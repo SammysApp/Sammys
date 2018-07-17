@@ -11,6 +11,24 @@ import Firebase
 import FirebaseDatabase
 import CodableFirebase
 
+protocol PathStringRepresentable: CustomStringConvertible {
+    var pathString: String { get }
+}
+
+extension PathStringRepresentable {
+    var description: String {
+        return pathString
+    }
+}
+
+enum FirebasePath: String, PathStringRepresentable {
+    case develop, live, orders, numberCounter, order, kitchen, isCompleted, isInProgress, calendarDate, userID
+    
+    var pathString: String {
+        return rawValue
+    }
+}
+
 protocol OrdersAPIObserver {
     /// A unique id to identify the specific observer. Primarily used to remove the observer from observing.
     var id: String { get }
@@ -63,10 +81,6 @@ struct OrdersAPIClient {
         return decoder
     }
     
-    enum Path: String {
-        case develop, live, orders, numberCounter, order, kitchen, isCompleted, isInProgress, calendarDate
-    }
-    
     enum APIResult<T> {
         case success(T)
         case failure(Error)
@@ -81,8 +95,8 @@ struct OrdersAPIClient {
         observers = observers.filter { $0.id != observer.id }
     }
     
-    private static func ordersReference(for date: Date) -> DatabaseReference {
-        return database.child(.orders).queryEqual(to: date).ref
+    private static func ordersReference(for date: Date) -> DatabaseQuery {
+        return database.ordersQueryEqual(to: date)
     }
     
     static func fetchNewOrderNumber(completed: @escaping (Int) -> Void) {
@@ -112,10 +126,10 @@ struct OrdersAPIClient {
             }
             var kitchenOrders = [KitchenOrder]()
             for orderSnapshot in snapshot.children.allObjects as! [DataSnapshot] {
-                let kitchenSnapshot = orderSnapshot.childSnapshot(forPath: Path.kitchen.rawValue)
-                guard let orderData = orderSnapshot.childSnapshot(forPath: Path.order.rawValue).value,
-                    let isInProgress = kitchenSnapshot.childSnapshot(forPath: Path.isInProgress.rawValue).value as? Bool,
-                    let isCompleted = kitchenSnapshot.childSnapshot(forPath: Path.isCompleted.rawValue).value as? Bool else { continue }
+                let kitchenSnapshot = orderSnapshot.childSnapshot(forPath: FirebasePath.kitchen.rawValue)
+                guard let orderData = orderSnapshot.childSnapshot(forPath: FirebasePath.order.rawValue).value,
+                    let isInProgress = kitchenSnapshot.childSnapshot(forPath: FirebasePath.isInProgress.rawValue).value as? Bool,
+                    let isCompleted = kitchenSnapshot.childSnapshot(forPath: FirebasePath.isCompleted.rawValue).value as? Bool else { continue }
                 do {
                     let order = try firebaseDecoder.decode(Order.self, from: orderData)
                     kitchenOrders.append(KitchenOrder(order: order, isInProgress: isInProgress, isCompleted: isCompleted))
@@ -134,9 +148,9 @@ struct OrdersAPIClient {
     private static func kitchenDictionary(for order: Order) -> [String : Any] {
         let calendarDateString = calendarDateFormatter.string(from: order.pickupDate ?? order.date)
         return [
-            Path.calendarDate.rawValue: calendarDateString,
-            Path.isInProgress.rawValue: false,
-            Path.isCompleted.rawValue: false
+            FirebasePath.calendarDate.rawValue: calendarDateString,
+            FirebasePath.isInProgress.rawValue: false,
+            FirebasePath.isCompleted.rawValue: false
         ]
     }
     
@@ -144,8 +158,8 @@ struct OrdersAPIClient {
         do {
             let orderData = try firebaseEncoder.encode(order)
             return [
-                Path.order.rawValue: orderData,
-                Path.kitchen.rawValue: kitchenDictionary(for: order)
+                FirebasePath.order.rawValue: orderData,
+                FirebasePath.kitchen.rawValue: kitchenDictionary(for: order)
             ]
         } catch {
             print(error)
@@ -160,25 +174,43 @@ struct OrdersAPIClient {
 }
 
 private extension DatabaseReference {
-    func child(_ path: OrdersAPIClient.Path) -> DatabaseReference {
-        return child(path.rawValue)
-    }
-    
-    func child(_ paths: OrdersAPIClient.Path...) -> DatabaseReference {
-        guard let firstPath = paths.first else { fatalError() }
-        var finalChild = child(firstPath)
-        paths.dropFirst().forEach { finalChild = finalChild.child($0) }
-        return finalChild
-    }
-    
-    func queryEqual(to date: Date) -> DatabaseQuery {
-        return queryOrdered(byChild: .calendarDate)
+    func ordersQueryEqual(to date: Date) -> DatabaseQuery {
+        return child(.orders)
+            .queryOrdered(byChild: .kitchen, .calendarDate)
             .queryEqual(toValue: OrdersAPIClient.calendarDateFormatter.string(from: date))
     }
 }
 
-private extension DatabaseQuery {
-    func queryOrdered(byChild path: OrdersAPIClient.Path) -> DatabaseQuery {
-        return queryOrdered(byChild: path.rawValue)
+extension DatabaseReference {
+    func child(_ path: [PathStringRepresentable]) -> DatabaseReference {
+        guard let firstPath = path.first else { fatalError() }
+        var finalChild = child(firstPath.pathString)
+        path.dropFirst().forEach { finalChild = finalChild.child($0.pathString) }
+        return finalChild
+    }
+    
+    func child(_ path: PathStringRepresentable...) -> DatabaseReference {
+        return child(path)
+    }
+    
+    func child(_ path: FirebasePath...) -> DatabaseReference {
+        return child(path)
+    }
+}
+
+extension DatabaseQuery {
+    func queryOrdered(byChild path: [PathStringRepresentable]) -> DatabaseQuery {
+        guard let firstPath = path.first else { fatalError() }
+        var pathString = firstPath.pathString
+        path.dropFirst().forEach { pathString += "/\($0)" }
+        return queryOrdered(byChild: pathString)
+    }
+    
+    func queryOrdered(byChild path: PathStringRepresentable...) -> DatabaseQuery {
+        return queryOrdered(byChild: path)
+    }
+    
+    func queryOrdered(byChild path: FirebasePath...) -> DatabaseQuery {
+        return queryOrdered(byChild: path)
     }
 }

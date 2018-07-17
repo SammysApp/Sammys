@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseDatabase
+import CodableFirebase
 
 private typealias FirebaseUser = Firebase.User
 
@@ -70,6 +71,12 @@ struct UserAPIClient {
         } set {
             UserAPIObservers.shared.observers = newValue
         }
+    }
+    
+    private static var firebaseDecoder: FirebaseDecoder {
+        let decoder = FirebaseDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
     }
     
     /**
@@ -439,28 +446,17 @@ struct UserAPIClient {
     }
     
     // MARK: - Orders 📝
-    private static func ordersReference(forUserID userID: String) -> DatabaseReference {
-        return database.users.user(with: userID).orders
-    }
-    
-    static func add(_ order: Order, for user: User) {
-        do {
-            let jsonData = try JSONEncoder().encode(order)
-            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
-            ordersReference(forUserID: user.id).child(order.id).setValue(jsonString)
-        } catch {
-            printError(error)
-        }
+    private static func ordersReference(forUserID userID: String) -> DatabaseQuery {
+        return database.child(.develop).ordersQueryEqual(to: userID)
     }
     
     static func fetchOrders(for user: User, completed: @escaping (_ result: APIResult<[Order]>) -> Void) {
         ordersReference(forUserID: user.id).observeSingleEvent(of: .value) { snapshot in
             var orders = [Order]()
             for snapshot in snapshot.children.allObjects as! [DataSnapshot] {
-                guard let jsonString = snapshot.value as? String,
-                    let data = jsonString.data(using: .utf8) else { return }
+                guard let orderData = snapshot.childSnapshot(forPath: FirebasePath.order.rawValue).value else { return }
                 do {
-                    let order = try JSONDecoder().decode(Order.self, from: data)
+                    let order = try firebaseDecoder.decode(Order.self, from: orderData)
                     orders.append(order)
                 } catch {
                     completed(.failure(error))
@@ -552,6 +548,12 @@ private extension DatabaseReference {
         case .salad:
             return salad
         }
+    }
+    
+    func ordersQueryEqual(to userID: String) -> DatabaseQuery {
+        return child(.orders)
+            .queryOrdered(byChild: .order, .userID)
+            .queryEqual(toValue: userID)
     }
 }
 
