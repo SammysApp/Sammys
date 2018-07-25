@@ -56,6 +56,18 @@ PODS:
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
   - NVActivityIndicatorView/Presenter (4.2.1)
+  - PromiseKit (6.3.3):
+    - PromiseKit/CorePromise (= 6.3.3)
+    - PromiseKit/Foundation (= 6.3.3)
+    - PromiseKit/UIKit (= 6.3.3)
+  - PromiseKit/Alamofire (6.3.3):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.3.3)
+  - PromiseKit/Foundation (6.3.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.3.3):
+    - PromiseKit/CorePromise
   - Stripe (13.0.3)
   - SwiftySound (1.0.0)
 
@@ -68,6 +80,8 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - NVActivityIndicatorView
+  - PromiseKit
+  - PromiseKit/Alamofire
   - Stripe
   - SwiftySound
 
@@ -89,9 +103,10 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
+  PromiseKit: e168626994ae29c38b51252a8d1b0a561fd3f2c7
   Stripe: 76c203e21555089b708e6cbe972a3e3baf1ab4d8
   SwiftySound: b9c3370956fd4ed65ed79d45563070077a50a2cd
 
-PODFILE CHECKSUM: 06dcf0142b095cf64ea704696330a9a68ab9be01
+PODFILE CHECKSUM: 285f9577089f9c29a75d437ee4feb96db6c3aa09
 
 COCOAPODS: 1.4.0

@@ -8,6 +8,8 @@ def shared_pods
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'CodableFirebase'
+  pod 'PromiseKit'
+  pod 'PromiseKit/Alamofire'
   pod 'SwiftySound'
 end
   
