@@ -17,13 +17,8 @@ class FoodsDataStore {
     var foodsData: FoodsData?
     
     func setFoods(completed: ((_ data: FoodsData) -> Void)? = nil) {
-        DataAPIClient.getFoods { result in
-            switch result {
-            case .success(let foodsData):
-                self.foodsData = foodsData
-                completed?(foodsData)
-            case .failure(_): break
-            }
-        }
+        DataAPIManager.getFoods()
+            .get { self.foodsData = $0; completed?($0) }
+            .catch { print($0) }
     }
 }

@@ -13,10 +13,8 @@ def shared_pods
   pod 'SwiftySound'
 end
   
-# Pods for Sammys
 target 'Sammys' do
   use_frameworks!
-  
   shared_pods
   pod 'Firebase/Auth'
   pod 'Stripe'
@@ -26,6 +24,5 @@ end
 
 target 'Sammys Kitchen' do
   use_frameworks!
-  
   shared_pods
 end

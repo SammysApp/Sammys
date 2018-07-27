@@ -16,13 +16,8 @@ class SammysDataStore {
     private init() {}
     
     func setHours(didComplete: ((_ hours: [Hours]) -> Void)? = nil) {
-        DataAPIClient.getHours { result in
-            switch result {
-            case .success(let hours):
-                self.hours = hours
-                didComplete?(hours)
-            case .failure(_): break
-            }
-        }
+        DataAPIManager.getHours()
+            .get { self.hours = $0; didComplete?($0) }
+            .catch { print($0) }
     }
 }

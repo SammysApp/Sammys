@@ -447,14 +447,15 @@ struct UserAPIClient {
     
     // MARK: - Orders 📝
     private static func ordersReference(forUserID userID: String) -> DatabaseQuery {
-        return database.child(.develop).ordersQueryEqual(to: userID)
+        return DatabaseQuery()
+        //return database.child(.develop).ordersQueryEqual(to: userID)
     }
     
     static func fetchOrders(for user: User, completed: @escaping (_ result: APIResult<[Order]>) -> Void) {
         ordersReference(forUserID: user.id).observeSingleEvent(of: .value) { snapshot in
             var orders = [Order]()
             for snapshot in snapshot.children.allObjects as! [DataSnapshot] {
-                guard let orderData = snapshot.childSnapshot(forPath: FirebasePath.order.rawValue).value else { return }
+                guard let orderData = snapshot.childSnapshot(forPath: "order").value else { return }
                 do {
                     let order = try firebaseDecoder.decode(Order.self, from: orderData)
                     orders.append(order)
@@ -551,9 +552,10 @@ private extension DatabaseReference {
     }
     
     func ordersQueryEqual(to userID: String) -> DatabaseQuery {
-        return child(.orders)
-            .queryOrdered(byChild: .order, .userID)
-            .queryEqual(toValue: userID)
+        return DatabaseQuery()
+//        return child(.orders)
+//            .queryOrdered(byChild: .order, .userID)
+//            .queryEqual(toValue: userID)
     }
 }
 

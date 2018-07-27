@@ -125,14 +125,14 @@ func alamofireRequest(_ request: APIRequest) -> DataRequest {
     guard let method = request.method.httpMethod else { fatalError() }
     return Alamofire.request(request.endpoint.fullURL,
                              method: method,
-                             parameters: request.parameters)
+                             parameters: request.parameters).validate()
 }
 
 func alamofireRequest<T: Decodable>(_ request: DecodableAPIRequest<T>) -> DataRequest {
     guard let method = request.method.httpMethod else { fatalError() }
     return Alamofire.request(request.endpoint.fullURL,
                              method: method,
-                             parameters: request.parameters)
+                             parameters: request.parameters).validate()
 }
 
 extension APIMethod {

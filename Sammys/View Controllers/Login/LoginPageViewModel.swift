@@ -138,14 +138,11 @@ class LoginPageViewModel {
             switch result {
             case .success(let user):
                 // Create an empty customer for now and add to user.
-                PayAPIClient.createNewCustomer(parameters: [PayAPIClient.Symbols.email: email]) { result in
-                    switch result {
-                    case .success(let customer):
-                        UserAPIClient.set(customer.id, for: user)
-                        completed(true)
-                    case .failure(_): completed(false)
-                    }
-                }
+                PaymentAPIManager.createCustomer(email: email)
+                .get { customer in
+                    UserAPIClient.set(customer.id, for: user)
+                    completed(true)
+                }.catch { _ in completed(false) }
                 UserAPIClient.set(.email, for: user)
             case .failure(let error):
                 print(error.localizedDescription)

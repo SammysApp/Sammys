@@ -355,15 +355,14 @@ class BagViewModel: NSObject {
     }
     
     func chargeSource(with id: String, completed: ((Error?) -> Void)? = nil) {
-        PayAPIClient.chargeSource(id, amount: totalPrice.toCents()) { result in
-            switch result {
-            case .success:
-                self.delegate?.purchaseDidComplete(with: .success)
-                completed?(nil)
-            case .failure(let error):
-                self.delegate?.purchaseDidComplete(with: .failure(error.localizedDescription))
-                completed?(error)
-            }
+        PaymentAPIManager.chargeSource(id: id, amount: totalPrice.toCents())
+        .get {
+            self.delegate?.purchaseDidComplete(with: .success)
+            completed?(nil)
+        }
+        .catch { error in
+            self.delegate?.purchaseDidComplete(with: .failure(error.localizedDescription))
+            completed?(error)
         }
     }
     
@@ -373,12 +372,9 @@ class BagViewModel: NSObject {
         UserAPIClient.getCustomerID(for: user) { result in
             switch result {
             case .success(let customerID):
-                PayAPIClient.chargeSource(id, customerID: customerID, amount: amount) { result in
-                    switch result {
-                    case .success: completed?(nil)
-                    case .failure(let error): completed?(error)
-                    }
-                }
+                PaymentAPIManager.chargeCustomerSource(sourceID: id, customerID: customerID, amount: amount)
+                .get { completed?(nil) }
+                .catch { completed?($0) }
             case .failure: break
             }
         }
@@ -391,12 +387,12 @@ class BagViewModel: NSObject {
         if case .future(let date) = self.pickupDate! {
             pickupDate = date
         }
-        OrdersAPIClient.fetchNewOrderNumber { number in
-            let order = Order(number: "\(number)", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods, note: self.orderNote)
-            OrdersAPIClient.add(order)
+        //OrdersAPIClient.fetchNewOrderNumber { number in
+            let order = Order(number: "1", userName: userName, userID: self.user?.id, date: date, pickupDate: pickupDate, foods: self.foods, note: self.orderNote)
+            //OrdersAPIClient.add(order)
             didComplete?(order)
             self.clearBag()
-        }
+        //}
     }
 }
 
