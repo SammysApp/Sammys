@@ -1,5 +1,5 @@
 //
-//  StorageAPIClient.swift
+//  StorageAPIManager.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/21/18.
@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseStorage
 
-struct StorageAPIClient {
+struct StorageAPIManager {
     private static let storage = Storage.storage().reference()
     
     private struct Constants {

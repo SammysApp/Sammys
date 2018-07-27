@@ -45,7 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set as user API observer.
         UserDataStore.shared.setAsUserAPIObsever()
         
-        OrdersAPIManager.beginObservingOrders()
+//        let observableOrders = OrdersAPIManager.observableOrders()
+//        let ordersUpdate = UpdateClosure<OrdersAPIManager.OrdersPromise>(id: "test") {
+//            promise in promise.get { print($0) }.catch { print($0) }
+//        }
+//        observableOrders.add(ordersUpdate)
         
         // Configure navigation bar appearance.
         UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)

@@ -86,6 +86,7 @@
 		5B37A3AB20810D5D00526068 /* ConfirmationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */; };
 		5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
+		5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25B6210BA2850080290E /* DateFormatter.swift */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BF20044E3800898FF0 /* UserDataStore.swift */; };
@@ -225,7 +226,7 @@
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
 		5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */; };
-		5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E620631C9900618128 /* StorageAPIClient.swift */; };
+		5BD274E720631C9900618128 /* StorageAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E620631C9900618128 /* StorageAPIManager.swift */; };
 		5BD274E92063F74600618128 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E82063F74600618128 /* ItemsViewModel.swift */; };
 		5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */; };
 		5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EC2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift */; };
@@ -243,8 +244,8 @@
 		5BEED53E206C6F70002240EB /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddViewModel.swift */; };
 		5BF39A5820DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
 		5BF39A5920DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
-		5BF39A5B20DC43B1007C4A66 /* TranslationAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIClient.swift */; };
-		5BF39A5C20DC43B1007C4A66 /* TranslationAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIClient.swift */; };
+		5BF39A5B20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */; };
+		5BF39A5C20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */; };
 		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
 		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
@@ -320,6 +321,7 @@
 		5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConfirmationViewController.storyboard; sourceTree = "<group>"; };
 		5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
+		5B3F25B6210BA2850080290E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		5B44A7BF20044E3800898FF0 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
@@ -445,7 +447,7 @@
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCell.swift; sourceTree = "<group>"; };
-		5BD274E620631C9900618128 /* StorageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPIClient.swift; sourceTree = "<group>"; };
+		5BD274E620631C9900618128 /* StorageAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPIManager.swift; sourceTree = "<group>"; };
 		5BD274E82063F74600618128 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellCommand.swift; sourceTree = "<group>"; };
 		5BD274EC2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
@@ -462,7 +464,7 @@
 		5BEED53B206C6CE9002240EB /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5BEED53D206C6F70002240EB /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
-		5BF39A5A20DC43B1007C4A66 /* TranslationAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPIClient.swift; sourceTree = "<group>"; };
+		5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPIManager.swift; sourceTree = "<group>"; };
 		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
@@ -984,6 +986,7 @@
 				5BB60F382069F5B100105E72 /* Collection.swift */,
 				5BB60F352069F5B100105E72 /* Date.swift */,
 				5BB60F412069F5B100105E72 /* Double.swift */,
+				5B3F25B6210BA2850080290E /* DateFormatter.swift */,
 				5BB60F3B2069F5B100105E72 /* Int.swift */,
 				5BEED537206BEED2002240EB /* JSONDecoder.swift */,
 				5BB60F372069F5B100105E72 /* MKMapView.swift */,
@@ -1011,9 +1014,9 @@
 				5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */,
 				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
 				5BC9503F2108DF0D00AF1098 /* Observer.swift */,
+				5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */,
 				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
-				5BD274E620631C9900618128 /* StorageAPIClient.swift */,
-				5BF39A5A20DC43B1007C4A66 /* TranslationAPIClient.swift */,
+				5BD274E620631C9900618128 /* StorageAPIManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1477,7 +1480,7 @@
 				5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */,
 				5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */,
 				5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */,
-				5BF39A5C20DC43B1007C4A66 /* TranslationAPIClient.swift in Sources */,
+				5BF39A5C20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */,
 				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
 				5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */,
 				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
@@ -1558,6 +1561,7 @@
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddViewController.swift in Sources */,
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
+				5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
@@ -1585,7 +1589,7 @@
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
 				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */,
-				5BF39A5B20DC43B1007C4A66 /* TranslationAPIClient.swift in Sources */,
+				5BF39A5B20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */,
 				5BC9503621079FD900AF1098 /* APIClient.swift in Sources */,
 				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296BD209D009900520683 /* FoodHomeCollectionViewCellViewModelFactory.swift in Sources */,
@@ -1655,7 +1659,7 @@
 				5B02C7162087CA30006D19A5 /* URL.swift in Sources */,
 				5BB296BF209EACA800520683 /* FoodHomeCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */,
-				5BD274E720631C9900618128 /* StorageAPIClient.swift in Sources */,
+				5BD274E720631C9900618128 /* StorageAPIManager.swift in Sources */,
 				5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */,
 				5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,

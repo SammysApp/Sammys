@@ -1,5 +1,5 @@
 //
-//  TranslationAPIClient.swift
+//  TranslationAPIManager.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 6/21/18.
@@ -24,7 +24,7 @@ private enum LanguageCode: String {
     case en, es
 }
 
-struct TranslationAPIClient {
+struct TranslationAPIManager {
     static let baseURL = "https://api.cognitive.microsofttranslator.com/translate"
     
     static func translate(_ stringToTranslate: String, from fromLanguage: Language, to toLanguage: Language, didComplete: @escaping (String) -> Void) {
