@@ -87,6 +87,13 @@
 		5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25B6210BA2850080290E /* DateFormatter.swift */; };
+		5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */; };
+		5B3F25DA210F68160080290E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D9210F68160080290E /* Observable.swift */; };
+		5B3F25DC210F68610080290E /* ObservableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25DB210F68610080290E /* ObservableVariable.swift */; };
+		5B3F25E2210F79860080290E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E1210F79860080290E /* Endpoint.swift */; };
+		5B3F25E4210F7A200080290E /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E3210F7A200080290E /* Method.swift */; };
+		5B3F25E6210F7A790080290E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E5210F7A790080290E /* Request.swift */; };
+		5B3F25E8210F7F400080290E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E7210F7F400080290E /* APIService.swift */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BF20044E3800898FF0 /* UserDataStore.swift */; };
@@ -97,7 +104,7 @@
 		5B44A8072006D35600898FF0 /* FoodHomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */; };
 		5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A81C2007BB7000898FF0 /* UserViewController.swift */; };
 		5B44A81F2007BB9C00898FF0 /* UserViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */; };
-		5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8202007D31C00898FF0 /* UserAPIClient.swift */; };
+		5B44A8212007D31C00898FF0 /* UserAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8202007D31C00898FF0 /* UserAPIManager.swift */; };
 		5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8222007D58400898FF0 /* GoogleService-Info.plist */; };
 		5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8242007ED9200898FF0 /* LoginViewController.swift */; };
 		5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */; };
@@ -160,6 +167,7 @@
 		5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */; };
 		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
 		5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */; };
+		5BA01973213733870017A993 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA01972213733870017A993 /* APIManager.swift */; };
 		5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */; };
 		5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */; };
 		5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */; };
@@ -220,13 +228,12 @@
 		5BB60F4F2069F5B100105E72 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F412069F5B100105E72 /* Double.swift */; };
 		5BB60F512069FB4700105E72 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array.swift */; };
 		5BBF854220BC7995004BF649 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBF854120BC7995004BF649 /* ItemCollectionViewCell.xib */; };
-		5BC9503621079FD900AF1098 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503521079FD900AF1098 /* APIClient.swift */; };
+		5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */; };
 		5BC950382107D2B900AF1098 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* Customer.swift */; };
 		5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */; };
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
 		5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */; };
-		5BD274E720631C9900618128 /* StorageAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E620631C9900618128 /* StorageAPIManager.swift */; };
 		5BD274E92063F74600618128 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E82063F74600618128 /* ItemsViewModel.swift */; };
 		5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */; };
 		5BD274ED2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EC2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift */; };
@@ -244,8 +251,6 @@
 		5BEED53E206C6F70002240EB /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddViewModel.swift */; };
 		5BF39A5820DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
 		5BF39A5920DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
-		5BF39A5B20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */; };
-		5BF39A5C20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */; };
 		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
 		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
@@ -322,6 +327,13 @@
 		5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ConfirmationViewController.storyboard; sourceTree = "<group>"; };
 		5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
 		5B3F25B6210BA2850080290E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIManager.swift; sourceTree = "<group>"; };
+		5B3F25D9210F68160080290E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		5B3F25DB210F68610080290E /* ObservableVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableVariable.swift; sourceTree = "<group>"; };
+		5B3F25E1210F79860080290E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		5B3F25E3210F7A200080290E /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		5B3F25E5210F7A790080290E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		5B3F25E7210F7F400080290E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		5B44A7BF20044E3800898FF0 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
@@ -332,7 +344,7 @@
 		5B44A8062006D35600898FF0 /* FoodHomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B44A81C2007BB7000898FF0 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserViewController.storyboard; sourceTree = "<group>"; };
-		5B44A8202007D31C00898FF0 /* UserAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIClient.swift; sourceTree = "<group>"; };
+		5B44A8202007D31C00898FF0 /* UserAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPIManager.swift; sourceTree = "<group>"; };
 		5B44A8222007D58400898FF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B44A8242007ED9200898FF0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
@@ -383,6 +395,7 @@
 		5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewController.swift; sourceTree = "<group>"; };
 		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
 		5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateAvailabilityChecker.swift; sourceTree = "<group>"; };
+		5BA01972213733870017A993 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionView.swift; sourceTree = "<group>"; };
 		5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -441,13 +454,12 @@
 		5BB60F412069F5B100105E72 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		5BB60F502069FB4700105E72 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5BBF854120BC7995004BF649 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
-		5BC9503521079FD900AF1098 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAPIService.swift; sourceTree = "<group>"; };
 		5BC950372107D2B900AF1098 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralKeyProvider.swift; sourceTree = "<group>"; };
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCell.swift; sourceTree = "<group>"; };
-		5BD274E620631C9900618128 /* StorageAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAPIManager.swift; sourceTree = "<group>"; };
 		5BD274E82063F74600618128 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellCommand.swift; sourceTree = "<group>"; };
 		5BD274EC2063FA1C00618128 /* ItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
@@ -464,7 +476,6 @@
 		5BEED53B206C6CE9002240EB /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5BEED53D206C6F70002240EB /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
-		5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPIManager.swift; sourceTree = "<group>"; };
 		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
@@ -585,6 +596,91 @@
 			path = Food;
 			sourceTree = "<group>";
 		};
+		5B3F25D8210F67750080290E /* Patterns */ = {
+			isa = PBXGroup;
+			children = (
+				5B3F25DD210F68790080290E /* Observer */,
+			);
+			path = Patterns;
+			sourceTree = "<group>";
+		};
+		5B3F25DD210F68790080290E /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				5BC9503F2108DF0D00AF1098 /* Observer.swift */,
+				5B3F25D9210F68160080290E /* Observable.swift */,
+				5B3F25DB210F68610080290E /* ObservableVariable.swift */,
+			);
+			path = Observer;
+			sourceTree = "<group>";
+		};
+		5B3F25DE210F68B10080290E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
+				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
+				5B724D8820DC98F300B9296E /* FileType.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		5B3F25DF210F693D0080290E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5B3F25ED210F83FD0080290E /* Common */,
+				5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */,
+				5B44A832200C006400898FF0 /* PaymentAPIManager.swift */,
+				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
+				5B44A8202007D31C00898FF0 /* UserAPIManager.swift */,
+				5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5B3F25E9210F812F0080290E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5B3F25E1210F79860080290E /* Endpoint.swift */,
+				5B3F25E3210F7A200080290E /* Method.swift */,
+				5B3F25E5210F7A790080290E /* Request.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5B3F25EA210F83850080290E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5B3F25E7210F7F400080290E /* APIService.swift */,
+				5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5B3F25EB210F83B20080290E /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		5B3F25EC210F83CF0080290E /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				5B724D8520DC967300B9296E /* APIKey.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		5B3F25ED210F83FD0080290E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5BA01972213733870017A993 /* APIManager.swift */,
+				5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		5B44F1BC20AB557100B3E0A5 /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,10 +736,9 @@
 		5B6A067A1FFD509A00BAC480 /* Sammys */ = {
 			isa = PBXGroup;
 			children = (
-				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
-				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
-				5B724D8820DC98F300B9296E /* FileType.swift */,
 				5B342AE420F79BE500A781E6 /* Sammys.swift */,
+				5B3F25DE210F68B10080290E /* Application */,
+				5B3F25D8210F67750080290E /* Patterns */,
 				5BD274EE2063FA8F00618128 /* Networking */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
@@ -1006,17 +1101,11 @@
 		5BD274EE2063FA8F00618128 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				5B724D8520DC967300B9296E /* APIKey.swift */,
-				5BC9503521079FD900AF1098 /* APIClient.swift */,
-				5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */,
-				5B44A832200C006400898FF0 /* PaymentAPIManager.swift */,
-				5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */,
-				5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */,
-				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
-				5BC9503F2108DF0D00AF1098 /* Observer.swift */,
-				5BF39A5A20DC43B1007C4A66 /* TranslationAPIManager.swift */,
-				5B44A8202007D31C00898FF0 /* UserAPIClient.swift */,
-				5BD274E620631C9900618128 /* StorageAPIManager.swift */,
+				5B3F25EC210F83CF0080290E /* Security */,
+				5B3F25E9210F812F0080290E /* Models */,
+				5B3F25EA210F83850080290E /* Services */,
+				5B3F25EB210F83B20080290E /* Clients */,
+				5B3F25DF210F693D0080290E /* Managers */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1217,7 +1306,7 @@
 				5B10D58320C035EF00BF05B2 /* Sources */,
 				5B10D58420C035EF00BF05B2 /* Frameworks */,
 				5B10D58520C035EF00BF05B2 /* Resources */,
-				3415A929B3DF9F62C313284E /* [CP] Embed Pods Frameworks */,
+				C1F870C3D396AB28FC29EDA3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1236,7 +1325,7 @@
 				5B6A06741FFD509A00BAC480 /* Sources */,
 				5B6A06751FFD509A00BAC480 /* Frameworks */,
 				5B6A06761FFD509A00BAC480 /* Resources */,
-				9F083D1E86A109459C15C33E /* [CP] Embed Pods Frameworks */,
+				2CEF6CC03B8EE4C114D92BDA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1366,39 +1455,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3415A929B3DF9F62C313284E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.3/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftySound.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9F083D1E86A109459C15C33E /* [CP] Embed Pods Frameworks */ = {
+		2CEF6CC03B8EE4C114D92BDA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1411,7 +1468,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.2/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-iOS11.2/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.2/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.2/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
@@ -1427,7 +1484,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
@@ -1438,6 +1495,38 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1F870C3D396AB28FC29EDA3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CodableFirebase-iOS11.3/CodableFirebase.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.3/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftySound.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DB55628F610696F9ED3CF15F /* [CP] Check Pods Manifest.lock */ = {
@@ -1480,7 +1569,6 @@
 				5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */,
 				5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */,
 				5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */,
-				5BF39A5C20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */,
 				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
 				5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */,
 				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
@@ -1564,7 +1652,7 @@
 				5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
-				5B44A8212007D31C00898FF0 /* UserAPIClient.swift in Sources */,
+				5B44A8212007D31C00898FF0 /* UserAPIManager.swift in Sources */,
 				5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
@@ -1582,6 +1670,7 @@
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
 				5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */,
+				5B3F25E8210F7F400080290E /* APIService.swift in Sources */,
 				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
 				5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
@@ -1589,8 +1678,7 @@
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
 				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */,
-				5BF39A5B20DC43B1007C4A66 /* TranslationAPIManager.swift in Sources */,
-				5BC9503621079FD900AF1098 /* APIClient.swift in Sources */,
+				5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */,
 				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296BD209D009900520683 /* FoodHomeCollectionViewCellViewModelFactory.swift in Sources */,
 				5BB60F432069F5B100105E72 /* Date.swift in Sources */,
@@ -1614,6 +1702,7 @@
 				5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
+				5B3F25E2210F79860080290E /* Endpoint.swift in Sources */,
 				5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */,
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */,
@@ -1624,6 +1713,7 @@
 				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
+				5BA01973213733870017A993 /* APIManager.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */,
 				5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */,
@@ -1636,6 +1726,7 @@
 				5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */,
 				5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
+				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
 				5BB296CB209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift in Sources */,
 				5BC950402108DF0D00AF1098 /* Observer.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* ItemsViewController.swift in Sources */,
@@ -1659,7 +1750,6 @@
 				5B02C7162087CA30006D19A5 /* URL.swift in Sources */,
 				5BB296BF209EACA800520683 /* FoodHomeCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */,
-				5BD274E720631C9900618128 /* StorageAPIManager.swift in Sources */,
 				5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */,
 				5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,
@@ -1679,6 +1769,7 @@
 				5B02C70F20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift in Sources */,
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
+				5B3F25DC210F68610080290E /* ObservableVariable.swift in Sources */,
 				5BAD4D2020B87C91009201A4 /* FoodsData.swift in Sources */,
 				5BB2968D208F794B00520683 /* OrderViewController.swift in Sources */,
 				5BB296D1209F71CC00520683 /* UserSettingsViewController.swift in Sources */,
@@ -1690,9 +1781,12 @@
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5BB60F462069F5B100105E72 /* Collection.swift in Sources */,
+				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,
 				5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */,
 				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
+				5B3F25DA210F68160080290E /* Observable.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
+				5B3F25E6210F7A790080290E /* Request.swift in Sources */,
 				5B3176CE206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
 				5BB60F512069FB4700105E72 /* Array.swift in Sources */,
