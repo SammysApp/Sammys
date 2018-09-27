@@ -91,7 +91,7 @@ private struct KitchenData: Codable {
 }
 
 private extension KitchenOrder {
-    /// Used when mapping snapshots to kitchenOrders. Will return nil if can't decode snapshot.
+    /// Maps snapshots to kitchenOrders. Returns `nil` if can't decode snapshot.
     init?(orderData: OrderData?) {
         guard let orderData = orderData else { return nil }
         self.init(order: orderData.order,

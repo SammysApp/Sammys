@@ -10,14 +10,13 @@ import UIKit
 
 struct UserSettingsButtonTableViewCellConfigurationCommand: TableViewCellCommand {
     func perform(cell: UITableViewCell?) {
-        guard let cell = cell as? UserSettingsButtonTableViewCell,
-            let user = UserDataStore.shared.user else { return }
+        guard let cell = cell as? UserSettingsButtonTableViewCell else { return }
         
         cell.activityIndicatorView.startAnimating()
-        UserAPIClient.userHasEmailAuthenticationProvider(user) {
-            cell.activityIndicatorView.stopAnimating()
-            if $0 { cell.titleLabel.text = "Update Password" }
-            else { cell.titleLabel.text = "Add Password" }
-        }
+//        UserAPIClient.userHasEmailAuthenticationProvider(user) {
+//            cell.activityIndicatorView.stopAnimating()
+//            if $0 { cell.titleLabel.text = "Update Password" }
+//            else { cell.titleLabel.text = "Add Password" }
+//        }
     }
 }

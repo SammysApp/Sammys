@@ -42,9 +42,7 @@ enum PurchaseResult {
 class BagViewModel: NSObject {
     private struct Constants { }
     
-    var user: User? {
-        return UserDataStore.shared.user
-    }
+    var user: User?
     
     weak var delegate: BagViewModelDelegate?
     
@@ -287,34 +285,34 @@ class BagViewModel: NSObject {
         guard let user = user else { return }
         let originalQuantity = food.quantity
         food.quantity = 1
-        UserAPIClient.set(food, for: user) {
-            if $0 == nil { completed?() }
-        }
+//        UserAPIClient.set(food, for: user) {
+//            if $0 == nil { completed?() }
+//        }
         food.quantity = originalQuantity
     }
     
     func updateFave(_ food: Food) {
         guard let user = user else { return }
-        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
-            if foodIsAFavorite {
-                self.fave(food)
-            }
-        }
+//        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
+//            if foodIsAFavorite {
+//                self.fave(food)
+//            }
+//        }
     }
     
     func removeFave(_ food: Food, completed: (() -> Void)? = nil) {
         guard let user = user else { return }
-        UserAPIClient.remove(food, for: user) {
-            if $0 == nil { completed?() }
-        }
+//        UserAPIClient.remove(food, for: user) {
+//            if $0 == nil { completed?() }
+//        }
     }
     
     func handleDidTapFave(_ food: Food, completed: (() -> Void)? = nil) {
         guard let user = user else { return }
-        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
-            if foodIsAFavorite { self.removeFave(food) { completed?() } }
-            else { self.fave(food) { completed?() } }
-        }
+//        UserAPIClient.checkIfFoodIsAFavorite(food, for: user) { foodIsAFavorite in
+//            if foodIsAFavorite { self.removeFave(food) { completed?() } }
+//            else { self.fave(food) { completed?() } }
+//        }
     }
     
     func changeQuantity(_ quantity: Quantity, for food: Food) {
@@ -369,15 +367,15 @@ class BagViewModel: NSObject {
     func chargeCard(with id: String, completed: ((Error?) -> Void)? = nil) {
         guard let user = user,
             let amount = paymentContext?.paymentAmount else { return }
-        UserAPIClient.getCustomerID(for: user) { result in
-            switch result {
-            case .success(let customerID):
-                PaymentAPIManager.chargeCustomerSource(sourceID: id, customerID: customerID, amount: amount)
-                .get { completed?(nil) }
-                .catch { completed?($0) }
-            case .failure: break
-            }
-        }
+//        UserAPIClient.getCustomerID(for: user) { result in
+//            switch result {
+//            case .success(let customerID):
+//                PaymentAPIManager.chargeCustomerSource(sourceID: id, customerID: customerID, amount: amount)
+//                .get { completed?(nil) }
+//                .catch { completed?($0) }
+//            case .failure: break
+//            }
+//        }
     }
     
     func addToOrders(didComplete: ((Order) -> Void)? = nil) {

@@ -7,26 +7,28 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
 
-/// The home 🏠 of the app. Includes foods and user's favorites.
+//------Dependencies------//
+import NVActivityIndicatorView
+//------------------------//
+
 class HomeViewController: UIViewController, Storyboardable {
-    typealias ViewController = HomeViewController
-    
     var viewModel: HomeViewModel!
-    
+	
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionViewContainerView: UIView!
+	
     @IBOutlet var favesButton: UIButton!
+	
     @IBOutlet var bagButton: UIButton!
     @IBOutlet var bagButtonContainerView: UIView!
     @IBOutlet var bagQuantityLabel: UILabel!
+	
     @IBOutlet var noFavesView: UIView!
+	
     @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
-        didSet {
-            activityIndicatorView.color = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        }
+        didSet { setupActivityIndicatorView() }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -47,9 +49,7 @@ class HomeViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = HomeViewModel(contextBounds: collectionView.bounds, self)
-        setupNoFavesView()
-        noFavesView.isHidden = true
+        viewModel = HomeViewModel()
         
         collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
         collectionViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: collectionView.bounds, cornerRadius: collectionView.layer.cornerRadius).cgPath, opacity: Constants.collectionViewShadowOpacity))
@@ -57,6 +57,9 @@ class HomeViewController: UIViewController, Storyboardable {
         bagButton.layer.masksToBounds = true
         bagButton.layer.cornerRadius = bagButton.bounds.width / 2
         bagButtonContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath, opacity: Constants.bagButtonShadowOpacity))
+		
+		setupNoFavesView()
+		noFavesView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,50 +67,57 @@ class HomeViewController: UIViewController, Storyboardable {
         
         navigationController?.setNavigationBarHidden(true, animated: true)
         
-        if viewModel.needsBagQuantityUpdate {
-            bagQuantityLabel.text = viewModel.bagQuantityLabelText
-        }
+//        if viewModel.needsBagQuantityUpdate {
+//            bagQuantityLabel.text = viewModel.bagQuantityLabelText
+//        }
     }
+	
+	// MARK: - Setup
+	func setupActivityIndicatorView() {
+		activityIndicatorView.color = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+	}
     
     func setupNoFavesView() {
+		// Insert as subview under the bag button so can use the button still.
         view.insertSubview(noFavesView, belowSubview: bagButtonContainerView)
+		
         noFavesView.layer.cornerRadius = Constants.collectionViewCornerRadius
         noFavesView.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         noFavesView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            noFavesView.leftAnchor.constraint(equalTo: collectionView.leftAnchor),
-            noFavesView.topAnchor.constraint(equalTo: collectionView.topAnchor),
-            noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
-            noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
-        ])
+		
+        [noFavesView.leftAnchor.constraint(equalTo: collectionView.leftAnchor),
+		noFavesView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+		noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
+		noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+		].forEach { $0.isActive = true }
     }
     
     func updateFavesButton() {
-        favesButton.setBackgroundImage(viewModel.favesButtonImage, for: .normal)
+//        favesButton.setBackgroundImage(viewModel.favesButtonImage, for: .normal)
     }
     
     func updateNoFavesViewIsHidden() {
-        if viewModel.viewKey == .faves && viewModel.isNoItems {
-            noFavesView.isHidden = false
-        } else {
-            noFavesView.isHidden = true
-        }
+//        if viewModel.viewKey == .faves && viewModel.isNoItems {
+//            noFavesView.isHidden = false
+//        } else {
+//            noFavesView.isHidden = true
+//        }
     }
     
     func pushAddViewController(with food: Food) {
-        guard let addViewController = AddViewController.storyboardInstance() as? AddViewController else { return }
-        addViewController.viewModel = AddViewModel(food: food)
-        addViewController.viewModel.shouldUnfave = true
-        addViewController.viewModel.didGoBack = { addViewController, food in
-            // Override favorite with any new additions to the food.
-            if let food = food { self.viewModel.setFavorite(food) }
-            self.collectionView.reloadData()
-        }
+        let addViewController = AddViewController.storyboardInstance()
+//        addViewController.viewModel = AddViewModel(food: food)
+//        addViewController.viewModel.shouldUnfave = true
+//        addViewController.viewModel.didGoBack = { addViewController, food in
+//            // Override favorite with any new additions to the food.
+////            if let food = food { self.viewModel.setFavorite(food) }
+//            self.collectionView.reloadData()
+//        }
         navigationController?.pushViewController(addViewController, animated: true)
     }
     
     func presentLoginPageViewController() {
-        let loginPageViewController = LoginPageViewController.storyboardInstance() as! LoginPageViewController
+        let loginPageViewController = LoginPageViewController.storyboardInstance()
         loginPageViewController.delegate = self
         present(loginPageViewController, animated: true, completion: nil)
     }
@@ -118,7 +128,7 @@ class HomeViewController: UIViewController, Storyboardable {
     }
     
     @IBAction func didTapFaves(_ sender: UIButton) {
-        viewModel.toggleFavesView()
+//        viewModel.toggleFavesView()
     }
     
     @IBAction func didTapBag(_ sender: UIButton) {
@@ -126,8 +136,8 @@ class HomeViewController: UIViewController, Storyboardable {
     }
 }
 
-// MARK: - Collection View Data Source & Delegate
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+// MARK: - UICollectionViewDataSource
+extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.numberOfSections
     }
@@ -142,14 +152,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CommandParameters())
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return viewModel.cellViewModel(for: indexPath).size
-    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CommandParameters())
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return viewModel.cellViewModel(for: indexPath).size
+	}
 }
 
 // MARK: - View Model Delegate

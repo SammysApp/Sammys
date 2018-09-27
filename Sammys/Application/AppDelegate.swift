@@ -21,7 +21,6 @@ let environment = AppEnvironment.release
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    // The root window of the app.
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -35,21 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set Stripe publishable key to be able to create tokens.
         STPPaymentConfiguration.shared().publishableKey = environment.isLive ? apiKey(for: .stripePublishableLive) : apiKey(for: .stripePublishableTest)
-        
-        // Start listening for changes to user.
-        UserAPIClient.startUserStateDidChangeListener()
-        
-        // Start listening for changes to favorites.
-        UserAPIClient.startFavoritesValueChangeObserver()
-        
-        // Set as user API observer.
-        UserDataStore.shared.setAsUserAPIObsever()
-        
-//        let observableOrders = OrdersAPIManager.observableOrders()
-//        let ordersUpdate = UpdateClosure<OrdersAPIManager.OrdersPromise>(id: "test") {
-//            promise in promise.get { print($0) }.catch { print($0) }
-//        }
-//        observableOrders.add(ordersUpdate)
         
         // Configure navigation bar appearance.
         UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)

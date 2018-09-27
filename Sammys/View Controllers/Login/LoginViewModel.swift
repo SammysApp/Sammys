@@ -45,15 +45,15 @@ class LoginViewModel {
     
     func loginWithEmail(_ email: String, password: String) {
         switch loginMethod {
-        case .login:
-            UserAPIClient.signIn(withEmail: email, password: password) { result in
-                // FIXME: Handle bad password or something
-                self.didLogin?()
-            }
-        case .reauthenticate:
-            UserAPIClient.reauthenticate(withEmail: email, password: password) { result in
-                self.didLogin?()
-            }
+        case .login: break
+//            UserAPIClient.signIn(withEmail: email, password: password) { result in
+//                // FIXME: Handle bad password or something
+//                self.didLogin?()
+//            }
+        case .reauthenticate: break
+//            UserAPIClient.reauthenticate(withEmail: email, password: password) { result in
+//                self.didLogin?()
+//            }
         }
     }
     
@@ -63,27 +63,27 @@ class LoginViewModel {
             if error == nil {
                 guard let accessTokenString = FBSDKAccessToken.current()?.tokenString else { return }
                 switch self.loginMethod {
-                case .login:
-                    UserAPIClient.signIn(withFacebookAccessToken: accessTokenString) { result in
-                        switch result {
-                        case .success(let info):
-                            if info.firstTimeSignIn {
-                                PaymentAPIManager.createCustomer(email: info.user.email)
-                                .get { customer in
-                                    self.didLogin?()
-                                    UserAPIClient.set(customer.id, for: info.user)
-                                    UserAPIClient.set(.facebook, for: info.user)
-                                }.catch { print($0) }
-                            } else { self.didLogin?() }
-                        case .failure(let error):
-                            self.didLogin?()
-                            print(error)
-                        }
-                    }
-                case .reauthenticate:
-                    UserAPIClient.reauthenticate(withFacebookAccessToken: accessTokenString) { result in
-                        self.didLogin?()
-                    }
+                case .login: break
+//                    UserAPIClient.signIn(withFacebookAccessToken: accessTokenString) { result in
+//                        switch result {
+//                        case .success(let info):
+//                            if info.firstTimeSignIn {
+//                                PaymentAPIManager.createCustomer(email: info.user.email)
+//                                .get { customer in
+//                                    self.didLogin?()
+//                                    UserAPIClient.set(customer.id, for: info.user)
+//                                    UserAPIClient.set(.facebook, for: info.user)
+//                                }.catch { print($0) }
+//                            } else { self.didLogin?() }
+//                        case .failure(let error):
+//                            self.didLogin?()
+//                            print(error)
+//                        }
+//                    }
+                case .reauthenticate: break
+//                    UserAPIClient.reauthenticate(withFacebookAccessToken: accessTokenString) { result in
+//                        self.didLogin?()
+//                    }
                 }
             }
         }

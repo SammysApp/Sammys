@@ -17,9 +17,7 @@ class OrdersViewModel {
         return orders.map { OrderCollectionViewCellViewModelFactory(order: $0, size: CGSize(width: contextBounds.width - 20, height: 140)).create() }
     }
     
-    var user: User? {
-        return UserDataStore.shared.user
-    }
+    var user: User?
     
     var numberOfSections: Int {
         return 1
@@ -35,16 +33,16 @@ class OrdersViewModel {
     
     func setData(completed: (() -> Void)? = nil) {
         guard let user = user else { return }
-        UserAPIClient.fetchOrders(for: user) { result in
-            switch result {
-            case .success(let orders):
-                self.orders = orders
-                completed?()
-            case .failure(let error):
-                print(error.localizedDescription)
-                completed?()
-            }
-        }
+//        UserAPIClient.fetchOrders(for: user) { result in
+//            switch result {
+//            case .success(let orders):
+//                self.orders = orders
+//                completed?()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//                completed?()
+//            }
+//        }
     }
     
     func cellViewModel(forRow row: Int) -> CollectionViewCellViewModel {

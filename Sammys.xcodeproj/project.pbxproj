@@ -96,7 +96,6 @@
 		5B3F25E8210F7F400080290E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E7210F7F400080290E /* APIService.swift */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
-		5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BF20044E3800898FF0 /* UserDataStore.swift */; };
 		5B44A7C220047E5600898FF0 /* BagDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C120047E5600898FF0 /* BagDataStore.swift */; };
 		5B44A7C4200483E500898FF0 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* Food.swift */; };
 		5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8012006CE7F00898FF0 /* HomeViewController.swift */; };
@@ -336,7 +335,6 @@
 		5B3F25E7210F7F400080290E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
-		5B44A7BF20044E3800898FF0 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		5B44A7C120047E5600898FF0 /* BagDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagDataStore.swift; sourceTree = "<group>"; };
 		5B44A7C3200483E500898FF0 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		5B44A8012006CE7F00898FF0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -553,6 +551,14 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		5B0400C72149671900830FBD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5B342AE420F79BE500A781E6 /* Sammys.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		5B0B1CA9210A3E1B00CF1882 /* SammysTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,9 +742,7 @@
 		5B6A067A1FFD509A00BAC480 /* Sammys */ = {
 			isa = PBXGroup;
 			children = (
-				5B342AE420F79BE500A781E6 /* Sammys.swift */,
 				5B3F25DE210F68B10080290E /* Application */,
-				5B3F25D8210F67750080290E /* Patterns */,
 				5BD274EE2063FA8F00618128 /* Networking */,
 				5BD274EF2063FA9900618128 /* Data Stores */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
@@ -748,7 +752,9 @@
 				5B724D8E20DFD86F00B9296E /* Protocols */,
 				5BED77A920B4798100232DD2 /* Extensions */,
 				5BB60F332069F5B100105E72 /* EasyExtensions */,
+				5B3F25D8210F67750080290E /* Patterns */,
 				5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */,
+				5B0400C72149671900830FBD /* Data */,
 				5B7B14C220558D4300BFE0C8 /* Assets */,
 				5B9CD5A2204E1EB200F59E4C /* Property Lists */,
 			);
@@ -767,7 +773,9 @@
 		5B724D8E20DFD86F00B9296E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				5BB60EF12069EA5200105E72 /* Storyboardable.swift */,
 				5B0B739A20D6413900D757FD /* Blurable.swift */,
+				5BB60EEF2069EA4400105E72 /* ItemEditable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -875,8 +883,6 @@
 				5BB29688208E2D3500520683 /* Order.swift */,
 				5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */,
 				5BAD4D1F20B87C91009201A4 /* FoodsData.swift */,
-				5BB60EEF2069EA4400105E72 /* ItemEditable.swift */,
-				5BB60EF12069EA5200105E72 /* Storyboardable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1113,7 +1119,6 @@
 		5BD274EF2063FA9900618128 /* Data Stores */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A7BF20044E3800898FF0 /* UserDataStore.swift */,
 				5B44A7C120047E5600898FF0 /* BagDataStore.swift */,
 				5B2DC37D20D3657E008FFA2D /* SammysDataStore.swift */,
 				5B6A06C42002AF9700BAC480 /* FoodsDataStore.swift */,
@@ -1776,7 +1781,6 @@
 				5BB29693208F8A4F00520683 /* TotalPriceTableViewCell.swift in Sources */,
 				5BB296B9209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift in Sources */,
 				5BB296BB209CFF8D00520683 /* FoodHomeCollectionViewCellCofigurationCommand.swift in Sources */,
-				5B44A7C020044E3800898FF0 /* UserDataStore.swift in Sources */,
 				5BB60F4B2069F5B100105E72 /* UITableView.swift in Sources */,
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,

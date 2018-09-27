@@ -9,7 +9,7 @@
 import Foundation
 
 class Variable<T>: Observable {
-    var _value: T! {
+    private var _value: T! {
         didSet { notifyAllObservers(of: value) }
     }
     var value: T {

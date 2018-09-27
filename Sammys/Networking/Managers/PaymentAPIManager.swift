@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 import Stripe
 
-struct PaymentAPIManager: APIManager {
+struct PaymentAPIManager: APIManager, APIParameterNameable {
     enum APIParameterName: String, Hashable {
         case isLive = "is_live"
         case customerID = "customer_id"

@@ -34,9 +34,8 @@ class UserViewModel {
     var delegate: UserViewModelDelegate?
     let id = UUID().uuidString
     
-    private var user: User? {
-        return UserDataStore.shared.user
-    }
+    private var userState: Variable<UserState>?
+    private var user: User?
     
     /// The sections to populate the user view with.
     private var sections: [UserSection] {
@@ -62,7 +61,10 @@ class UserViewModel {
     }
     
     init() {
-        UserAPIClient.addObserver(self)
+        userState = UserAPIManager.observableUserState()
+            .adding(UpdateClosure<UserState>(id: id) { userState in
+            self.delegate?.userDidChange()
+        })
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -76,10 +78,4 @@ class UserViewModel {
     func sectionTitle(for section: Int) -> String? {
         return sections[section].title
     }
-}
-
-extension UserViewModel: UserAPIObserver {
-    var userStateDidChange: ((UserState) -> Void)? { return { _ in
-        self.delegate?.userDidChange()
-    }}
 }

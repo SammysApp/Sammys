@@ -19,10 +19,10 @@ class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
     private override init() {}
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
-        guard let user = UserDataStore.shared.user else { completion(nil, EphemeralKeyError.noUser); return }
-        UserAPIManager.getCustomerID(for: user)
-        .then { PaymentAPIManager.createEphemeralKey(customerID: $0, apiVersion: apiVersion) }
-        .get { completion($0, nil) }
-        .catch { completion(nil, $0) }
+//        guard let user = UserDataStore.shared.user else { completion(nil, EphemeralKeyError.noUser); return }
+//        UserAPIManager.getCustomerID(for: user)
+//        .then { PaymentAPIManager.createEphemeralKey(customerID: $0, apiVersion: apiVersion) }
+//        .get { completion($0, nil) }
+//        .catch { completion(nil, $0) }
     }
 }

@@ -14,7 +14,11 @@ enum UserAPIError: Error {
     case notEnoughDetails
 }
 
-/// A client to make user calls to the user 👩🏻 API 🏭.
+enum UserState {
+	case currentUser(User)
+	case noUser
+}
+
 struct UserAPIManager: FirebaseAPIManager {
     enum Path: String, PathStringRepresentable {
         case users
@@ -30,13 +34,36 @@ struct UserAPIManager: FirebaseAPIManager {
     private static func databaseReference(for firebaseUser: FirebaseUser) -> DatabaseReference {
         return databaseReference(.users).child(firebaseUser.uid)
     }
+	
+	private static func makeUser(from firebaseUser: FirebaseUser) -> User? {
+		guard let email = firebaseUser.email,
+			let name = firebaseUser.displayName else { return nil }
+		return User(id: firebaseUser.uid, email: email, name: name)
+	}
+	
+	private static func makeUserState(from firebaseUserState: FirebaseUserState) -> UserState? {
+		switch firebaseUserState {
+		case .currentUser(let firebaseUser):
+			guard let user = makeUser(from: firebaseUser) else { fallthrough }
+			return .currentUser(user)
+		case .noUser: return .noUser
+		}
+	}
+    
+    static func observableUserState() -> Variable<UserState> {
+		let observableUserState = Variable<UserState>()
+		let _ = Client.observableUserState().adding(UpdateClosure<FirebaseUserState>(id: UUID().uuidString) {
+			guard let userState = makeUserState(from: $0) else { return }
+			observableUserState.value = userState
+		})
+		return observableUserState
+    }
     
     private static func createUser(fromFirebaseUser user: FirebaseUser, providers: [UserProvider] = []) throws -> User {
         guard let email = user.email, let name = user.displayName else { throw UserAPIError.notEnoughDetails }
         return User(id: user.uid, email: email, name: name, providers: providers)
     }
     
-    /// Creates a `User` configured with an email provider and adds them to the database.
     static func createUser(withName name: String, email: String, password: String) -> Promise<User> {
         return Client.createUser(withEmail: email, password: password)
         .then { update($0, withName: name) }
@@ -44,7 +71,6 @@ struct UserAPIManager: FirebaseAPIManager {
         .get { try Client.set($0, at: databaseReference(for: $0)) }
     }
     
-    /// Returns the `User` from the database upon signing in successfully.
     static func signIn(withEmail email: String, password: String) -> Promise<User> {
         return Client.signIn(withEmail: email, password: password)
         .then { Client.get(at: databaseReference(for: $0)) }

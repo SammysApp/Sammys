@@ -105,7 +105,7 @@ extension UserViewController: UserViewModelDelegate {
     }
     
     var didSelectLogOut: () -> Void {
-        return { UserAPIClient.signOut() }
+        return { try! UserAPIManager.signOut() }
     }
 }
 

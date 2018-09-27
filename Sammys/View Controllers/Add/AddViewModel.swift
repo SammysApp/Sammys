@@ -24,9 +24,7 @@ class AddViewModel {
     var shouldUnfave = false
     var didRemove = false
     
-    var user: User? {
-        return UserDataStore.shared.user
-    }
+    var user: User?
     
     var title: String {
         return food.price.priceString
@@ -65,7 +63,7 @@ class AddViewModel {
     
     func addFoodAsFave() {
         guard let user = user else { return }
-        UserAPIClient.set(food, for: user)
+//        UserAPIClient.set(food, for: user)
         // FIXME: add to completed closure
         shouldUnfave = true
         delegate?.didUpdateFave()
@@ -73,7 +71,7 @@ class AddViewModel {
     
     func removeFoodAsFave() {
         guard let user = user else { return }
-        UserAPIClient.remove(food, for: user)
+//        UserAPIClient.remove(food, for: user)
         didRemove = true
         shouldUnfave = false
         delegate?.didUpdateFave()

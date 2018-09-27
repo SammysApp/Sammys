@@ -30,9 +30,7 @@ protocol UserSettingsViewModelDelegate {
 }
 
 class UserSettingsViewModel {
-    private var user: User? {
-        return UserDataStore.shared.user
-    }
+    private var user: User?
     
     var delegate: UserSettingsViewModelDelegate?
     
@@ -53,13 +51,12 @@ class UserSettingsViewModel {
         return sections.count
     }
     
-    var userHasEmailAuthenticationProvider = false
-    
-    init() {
-        if let user = user {
-            UserAPIClient.userHasEmailAuthenticationProvider(user) { self.userHasEmailAuthenticationProvider = $0 }
-        }
+    var userHasEmailAuthenticationProvider: Bool {
+        guard let user = user else { return false }
+        return user.providers.contains(.email)
     }
+    
+    init() {}
     
     func numberOfRows(inSection section: Int) -> Int {
         return sections[section].cellViewModels.count
@@ -71,32 +68,32 @@ class UserSettingsViewModel {
     
     func nameTextDidChange(with name: String, in cell: TextFieldTableViewCell) {
         delegate?.didStartUpdatingName(in: cell)
-        UserAPIClient.updateCurrentUserName(name) { error in self.delegate?.didFinishUpdatingName(in: cell)
-        }
+//        UserAPIClient.updateCurrentUserName(name) { error in self.delegate?.didFinishUpdatingName(in: cell)
+//        }
     }
     
     func emailTextDidChange(with email: String, in cell: TextFieldTableViewCell) {
         self.delegate?.didStartUpdatingEmail(in: cell)
-        UserAPIClient.updateCurrentUserEmail(email) { error in self.delegate?.didFinishUpdatingEmail(in: cell)
-        }
+//        UserAPIClient.updateCurrentUserEmail(email) { error in self.delegate?.didFinishUpdatingEmail(in: cell)
+//        }
     }
     
     func updatePassword(_ password: String, completed: @escaping (Bool) -> Void) {
-        UserAPIClient.updateCurrentUserPassword(password) { error in
-            completed(error != nil)
-        }
+//        UserAPIClient.updateCurrentUserPassword(password) { error in
+//            completed(error != nil)
+//        }
     }
     
     func linkPassword(_ password: String, completed: @escaping (Bool) -> Void) {
-        UserAPIClient.linkEmailAuthProviderToCurrentUser(withPassword: password) { error in
-            if error == nil, let user = self.user {
-                UserAPIClient.set(.email, for: user)
-            }
-            completed(error != nil)
-        }
+//        UserAPIClient.linkEmailAuthProviderToCurrentUser(withPassword: password) { error in
+//            if error == nil, let user = self.user {
+//                UserAPIClient.set(.email, for: user)
+//            }
+//            completed(error != nil)
+//        }
     }
     
     func reauthenticate(withEmail email: String, password: String, completed: ((Error?) -> Void)? = nil) {
-        UserAPIClient.reauthenticate(withEmail: email, password: password, completed: completed)
+//        UserAPIClient.reauthenticate(withEmail: email, password: password, completed: completed)
     }
 }

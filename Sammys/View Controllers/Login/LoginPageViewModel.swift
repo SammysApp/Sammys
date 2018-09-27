@@ -134,20 +134,20 @@ class LoginPageViewModel {
             let email = signUpInfo.email,
             let password = signUpInfo.password else { return }
         // Create a Firebase user with the given information.
-        UserAPIClient.createUser(with: name, email: email, password: password) { result in
-            switch result {
-            case .success(let user):
-                // Create an empty customer for now and add to user.
-                PaymentAPIManager.createCustomer(email: email)
-                .get { customer in
-                    UserAPIClient.set(customer.id, for: user)
-                    completed(true)
-                }.catch { _ in completed(false) }
-                UserAPIClient.set(.email, for: user)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        UserAPIClient.createUser(with: name, email: email, password: password) { result in
+//            switch result {
+//            case .success(let user):
+//                // Create an empty customer for now and add to user.
+//                PaymentAPIManager.createCustomer(email: email)
+//                .get { customer in
+//                    UserAPIClient.set(customer.id, for: user)
+//                    completed(true)
+//                }.catch { _ in completed(false) }
+//                UserAPIClient.set(.email, for: user)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
 }
 
