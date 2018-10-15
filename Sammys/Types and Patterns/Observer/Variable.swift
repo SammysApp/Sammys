@@ -1,5 +1,5 @@
 //
-//  ObservableVariable.swift
+//  Variable.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 7/30/18.
@@ -20,7 +20,7 @@ class Variable<T>: Observable {
     
     init(observers: [Observer]) { add(observers) }
     convenience init(observers: Observer...) { self.init(observers: observers) }
-    
+	
     func add(_ observer: Observer) { observers[observer.id] = observer }
     func remove(_ observer: Observer) { observers.removeValue(forKey: observer.id) }
     

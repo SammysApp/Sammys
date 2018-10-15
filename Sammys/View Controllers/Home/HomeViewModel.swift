@@ -8,13 +8,8 @@
 
 import UIKit
 
-/// A value that represents the state of the home view.
 enum HomeViewState {
     case foods, faves
-}
-
-protocol HomeViewModelDelegate {
-    
 }
 
 private struct Section {
@@ -27,40 +22,64 @@ private struct Section {
     }
 }
 
+protocol HomeViewModelDelegate {
+	var contextBounds: CGSize { get }
+}
+
 class HomeViewModel {
-    var delegate: HomeViewModelDelegate?
-    
-    private(set) var currentViewState = HomeViewState.foods
-    private var sections = [Section]()
-    
-    var numberOfSections: Int {
-        return sections.count
-    }
+	let delegate: HomeViewModelDelegate
+	private var sections = [Section]()
+	
+	/// Gets updated to given value of `setCurrentViewState(:)`.
+    private(set) var currentViewState = Dynamic(HomeViewState.foods)
+	/// Gets updated when the current view state is set.
+	private(set) var favesButtonImage = Dynamic(#imageLiteral(resourceName: "Heart.pdf"))
+	private (set) var shouldHideNoFavesView = Dynamic(true)
     
     var bagQuantityLabelText: String {
-        let quantity = BagDataStore.shared.quantity
-        return quantity > 0 ? "\(quantity)" : ""
+		return ""
     }
+	
+	var numberOfSections: Int {
+		return sections.count
+	}
+	
+	// ⚠️ Fetch foods to list from database. For now only salad.
+	private lazy var foodSections: [Section] = {[
+		Section(cellViewModels: [
+			FoodHomeCollectionViewCellViewModelFactory(
+				size: cellSize(for: .foods),
+				titleText: FoodType.salad.title
+			).create()
+		])
+	]}()
+	
+	private struct Constants {
+		static let foodCellHeight: CGFloat = 200
+	}
     
-    var favesButtonImage: UIImage {
-        return currentViewState == .faves ? #imageLiteral(resourceName: "Home.pdf") : #imageLiteral(resourceName: "Heart.pdf")
+	init(delegate: HomeViewModelDelegate) {
+		self.delegate = delegate
+		setUpSections(for: currentViewState.value)
     }
+	
+	func setCurrentViewState(to viewState: HomeViewState) {
+		currentViewState.value = viewState
+		setFavesButtonImage(for: viewState)
+	}
+	
+	func setFavesButtonImage(for viewState: HomeViewState) {
+		switch viewState {
+		case .foods: favesButtonImage.value = #imageLiteral(resourceName: "Heart.pdf")
+		case .faves: favesButtonImage.value = #imageLiteral(resourceName: "Home.pdf")
+		}
+	}
     
-    init() {
-        setSectionsWithFood()
-    }
-    
-    private func setSectionsWithFood() {
-        sections = [
-            Section(cellViewModels: [
-                FoodHomeCollectionViewCellViewModelFactory(
-                    size: cellSize(for: .foods),
-                    titleText: FoodType.salad.title,
-                    selectionCommand: FoodHomeCollectionViewCellSelectionCommand(didSelect: {
-						//self.delegate?.didSelectFood()
-					})).create()
-            ])
-        ]
+    private func setUpSections(for viewState: HomeViewState) {
+		switch viewState {
+		case .foods: sections = foodSections
+		case .faves: break
+		}
     }
     
     func numberOfItems(in section: Int) -> Int {
@@ -75,31 +94,12 @@ class HomeViewModel {
         return sections[section].title
     }
     
-    private func cellSize(for viewKey: HomeViewState) -> CGSize {
-//        switch viewKey {
-//        case .foods: return CGSize(width: contextBounds.width - 20, height: 200)
-//        case .faves:
-//            let size = (contextBounds.width / 2) - 15
-//            return CGSize(width: size, height: size)
-//        }
-		return CGSize()
-    }
-    
-    func setupView(for viewKey: HomeViewState) {
-        switch viewKey {
-        case .foods:
-            self.currentViewState = viewKey
-            setSectionsWithFood()
-//            delegate?.collectionViewDataDidChange()
-        case .faves: break
-        }
-    }
-    
-    func toggleFavesView() {
-        if currentViewState == .faves {
-            setupView(for: .foods)
-        } else {
-            setupView(for: .faves)
+    private func cellSize(for viewState: HomeViewState) -> CGSize {
+        switch viewState {
+        case .foods: return CGSize(width: delegate.contextBounds.width - 20, height: Constants.foodCellHeight)
+        case .faves:
+            let size = (delegate.contextBounds.width / 2) - 15
+            return CGSize(width: size, height: size)
         }
     }
 }

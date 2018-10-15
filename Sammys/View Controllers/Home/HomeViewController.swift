@@ -7,29 +7,24 @@
 //
 
 import UIKit
-
-//------Dependencies------//
 import NVActivityIndicatorView
-//------------------------//
 
-class HomeViewController: UIViewController, Storyboardable {
+class HomeViewController: UIViewController {
     var viewModel: HomeViewModel!
 	
     // MARK: - IBOutlets
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var collectionViewContainerView: UIView!
+	@IBOutlet var collectionView: UICollectionView!
+	@IBOutlet var collectionViewContainerView: UIView!
 	
-    @IBOutlet var favesButton: UIButton!
+	@IBOutlet var favesButton: UIButton!
 	
-    @IBOutlet var bagButton: UIButton!
-    @IBOutlet var bagButtonContainerView: UIView!
+	@IBOutlet var bagButton: UIButton!
+	@IBOutlet var bagButtonContainerView: UIView!
     @IBOutlet var bagQuantityLabel: UILabel!
 	
-    @IBOutlet var noFavesView: UIView!
+	@IBOutlet var noFavesView: UIView!
 	
-    @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
-        didSet { setupActivityIndicatorView() }
-    }
+    @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
     
     override var prefersStatusBarHidden: Bool {
         return false
@@ -49,30 +44,45 @@ class HomeViewController: UIViewController, Storyboardable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = HomeViewModel()
-        
-        collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
-        collectionViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: collectionView.bounds, cornerRadius: collectionView.layer.cornerRadius).cgPath, opacity: Constants.collectionViewShadowOpacity))
-        
-        bagButton.layer.masksToBounds = true
-        bagButton.layer.cornerRadius = bagButton.bounds.width / 2
-        bagButtonContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath, opacity: Constants.bagButtonShadowOpacity))
+		viewModel = HomeViewModel(delegate: self)
 		
+		setupCollectionView()
+		setupCollectionViewContainerView()
+		setupFavesButton()
+		setupBagButton()
+		setupBagButtonContainerView()
+		setupActivityIndicatorView()
 		setupNoFavesView()
-		noFavesView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-        
-//        if viewModel.needsBagQuantityUpdate {
-//            bagQuantityLabel.text = viewModel.bagQuantityLabelText
-//        }
     }
 	
 	// MARK: - Setup
+	func setupCollectionView() {
+		collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
+	}
+	
+	func setupCollectionViewContainerView() {
+		collectionViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: collectionView.bounds, cornerRadius: collectionView.layer.cornerRadius).cgPath, opacity: Constants.collectionViewShadowOpacity))
+	}
+	
+	func setupBagButton() {
+		bagButton.layer.masksToBounds = true
+		bagButton.layer.cornerRadius = bagButton.bounds.width / 2
+	}
+	
+	func setupBagButtonContainerView() {
+		bagButtonContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath, opacity: Constants.bagButtonShadowOpacity))
+	}
+	
+	func setupFavesButton() {
+		viewModel.favesButtonImage.bindAndRun { self.favesButton.setBackgroundImage($0, for: .normal) }
+	}
+	
 	func setupActivityIndicatorView() {
 		activityIndicatorView.color = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
 	}
@@ -90,50 +100,45 @@ class HomeViewController: UIViewController, Storyboardable {
 		noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
 		noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
 		].forEach { $0.isActive = true }
-    }
-    
-    func updateFavesButton() {
-//        favesButton.setBackgroundImage(viewModel.favesButtonImage, for: .normal)
-    }
-    
-    func updateNoFavesViewIsHidden() {
-//        if viewModel.viewKey == .faves && viewModel.isNoItems {
-//            noFavesView.isHidden = false
-//        } else {
-//            noFavesView.isHidden = true
-//        }
-    }
-    
-    func pushAddViewController(with food: Food) {
-        let addViewController = AddViewController.storyboardInstance()
-//        addViewController.viewModel = AddViewModel(food: food)
-//        addViewController.viewModel.shouldUnfave = true
-//        addViewController.viewModel.didGoBack = { addViewController, food in
-//            // Override favorite with any new additions to the food.
-////            if let food = food { self.viewModel.setFavorite(food) }
-//            self.collectionView.reloadData()
-//        }
-        navigationController?.pushViewController(addViewController, animated: true)
+		
+		viewModel.shouldHideNoFavesView.bindAndRun { self.noFavesView.isHidden = $0 }
     }
     
     func presentLoginPageViewController() {
-        let loginPageViewController = LoginPageViewController.storyboardInstance()
-        loginPageViewController.delegate = self
-        present(loginPageViewController, animated: true, completion: nil)
+		present({
+			let loginPageViewController = LoginPageViewController.storyboardInstance()
+			//loginPageViewController.delegate = self
+			return loginPageViewController
+		}(), animated: true, completion: nil)
     }
+	
+	func didSelectItem(at indexPath: IndexPath) {
+		switch viewModel.currentViewState.value {
+		case .foods: navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
+		case .faves: break
+		}
+	}
     
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
         present(UserViewController.storyboardInstance(), animated: true, completion: nil)
     }
     
-    @IBAction func didTapFaves(_ sender: UIButton) {
-//        viewModel.toggleFavesView()
-    }
+    @IBAction func didTapFaves(_ sender: UIButton) {}
     
     @IBAction func didTapBag(_ sender: UIButton) {
         present(BagViewController.storyboardInstance(), animated: true, completion: nil)
     }
+}
+
+// MARK: - Storyboardable
+extension HomeViewController: Storyboardable {}
+
+// MARK: - HomeViewModelDelegate
+extension HomeViewController: HomeViewModelDelegate {
+	var contextBounds: CGSize {
+		return collectionView.bounds.size
+	}
 }
 
 // MARK: - UICollectionViewDataSource
@@ -157,55 +162,11 @@ extension HomeViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		didSelectItem(at: indexPath)
 		viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CommandParameters())
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return viewModel.cellViewModel(for: indexPath).size
 	}
-}
-
-// MARK: - View Model Delegate
-extension HomeViewController: HomeViewModelDelegate {
-    var collectionViewDataDidChange: () -> Void {
-        return {
-            self.collectionView.reloadData()
-            self.updateNoFavesViewIsHidden()
-            self.updateFavesButton()
-        }
-    }
-    
-    var didSelectFood: () -> Void {
-        return {
-            self.navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
-        }
-    }
-    
-    var didSelectFavorite: (Food) -> Void {
-        return {
-            self.pushAddViewController(with: $0)
-        }
-    }
-    
-    func didStartLoading() {
-        activityIndicatorView.startAnimating()
-    }
-    
-    func didStopLoading() {
-        activityIndicatorView.stopAnimating()
-    }
-    
-    func showLogin() {
-        presentLoginPageViewController()
-    }
-}
-
-extension HomeViewController: LoginPageViewControllerDelegate {
-    func loginPageViewControllerDidCancel(_ loginPageViewController: LoginPageViewController) {
-        
-    }
-    
-    func loginPageViewControllerDidLogin(_ loginPageViewController: LoginPageViewController) {
-        viewModel.toggleFavesView()
-    }
 }
