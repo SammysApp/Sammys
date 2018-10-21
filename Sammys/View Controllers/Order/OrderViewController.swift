@@ -24,32 +24,32 @@ class OrderViewController: UIViewController {
     }
 }
 
-extension OrderViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows(forSection: section)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = viewModel.cellViewModel(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: model.identifier)!
-        model.commands[.configuration]?.perform(cell: cell)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = viewModel.cellViewModel(for: indexPath)
-        return model.height
-    }
-}
-
-extension OrderViewController: UITableViewDelegate {
-    
-}
-
-extension OrderViewController: Storyboardable {
-    typealias ViewController = OrderViewController
-}
+//extension OrderViewController: UITableViewDataSource {
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return viewModel.numberOfSections
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return viewModel.numberOfRows(forSection: section)
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let model = viewModel.cellViewModel(for: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: model.identifier)!
+//        model.commands[.configuration]?.perform(cell: cell)
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let model = viewModel.cellViewModel(for: indexPath)
+//        return model.height
+//    }
+//}
+//
+//extension OrderViewController: UITableViewDelegate {
+//    
+//}
+//
+//extension OrderViewController: Storyboardable {
+//    typealias ViewController = OrderViewController
+//}

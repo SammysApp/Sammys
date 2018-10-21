@@ -9,13 +9,13 @@
 import UIKit
 
 struct FoodOrderTableViewCellConfigurationCommand: TableViewCellCommand {
-    let food: Food
-    
+//    let food: Food
+	
     func perform(cell: UITableViewCell?) {
-        guard let cell = cell as? FoodOrderTableViewCell else { return }
-        // Set labels.
-        cell.quantityLabel.text = "\(food.quantity)"
-        cell.nameLabel.text = food.title
-        cell.priceLabel.text = food.price.priceString
+//        guard let cell = cell as? FoodOrderTableViewCell else { return }
+//        // Set labels.
+//        cell.quantityLabel.text = "\(food.quantity)"
+//        cell.nameLabel.text = food.title
+//        cell.priceLabel.text = food.price.priceString
     }
 }

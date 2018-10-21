@@ -9,12 +9,12 @@
 import UIKit
 
 struct ItemCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-    private let item: Item
-    
-    init(item: Item) {
-        self.item = item
-    }
-    
+//    private let item: Item
+//    
+//    init(item: Item) {
+//        self.item = item
+//    }
+//
     func perform(parameters: CommandParameters) {
 //        guard let cell = cell as? ItemCollectionViewCell else {
 //            return

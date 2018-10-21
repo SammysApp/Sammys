@@ -19,11 +19,11 @@ enum TotalPriceCellIdentifier: String {
     case totalCell
 }
 
-struct TotalPriceTableViewCellViewModelFactory: TableViewCellViewModelFactory {
-    let order: Order
-    let height: CGFloat
-    
-    func create() -> TableViewCellViewModel {
-        return TotalPriceTableViewCellViewModel(order: order, identifier: TotalPriceCellIdentifier.totalCell.rawValue, height: height, commands: [.configuration: TotalPriceTableViewCellConfigurationCommand(order: order)])
-    }
+struct TotalPriceTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
+//    let order: Order
+//    let height: CGFloat
+//
+//    func create() -> TableViewCellViewModel {
+//        return TotalPriceTableViewCellViewModel(order: order, identifier: TotalPriceCellIdentifier.totalCell.rawValue, height: height, commands: [.configuration: TotalPriceTableViewCellConfigurationCommand(order: order)])
+//    }
 }

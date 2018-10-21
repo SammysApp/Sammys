@@ -19,11 +19,11 @@ enum FoodOrderCellIdentifier: String {
     case foodCell
 }
 
-struct FoodOrderTableViewCellViewModelFactory: TableViewCellViewModelFactory {
-    let food: Food
-    let height: CGFloat
-    
-    func create() -> TableViewCellViewModel {
-        return FoodOrderTableViewCellViewModel(food: food, identifier: FoodOrderCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration: FoodOrderTableViewCellConfigurationCommand(food: food)])
-    }
+struct FoodOrderTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
+//    let food: Food
+//    let height: CGFloat
+	
+//    func create() -> TableViewCellViewModel {
+//        return FoodOrderTableViewCellViewModel(food: food, identifier: FoodOrderCellIdentifier.foodCell.rawValue, height: height, commands: [.configuration: FoodOrderTableViewCellConfigurationCommand(food: food)])
+//    }
 }

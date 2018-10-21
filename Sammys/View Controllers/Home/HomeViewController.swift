@@ -114,7 +114,9 @@ class HomeViewController: UIViewController {
 	
 	func didSelectItem(at indexPath: IndexPath) {
 		switch viewModel.currentViewState.value {
-		case .foods: navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
+		case .foods:
+			break
+//			navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
 		case .faves: break
 		}
 	}
@@ -127,7 +129,7 @@ class HomeViewController: UIViewController {
     @IBAction func didTapFaves(_ sender: UIButton) {}
     
     @IBAction func didTapBag(_ sender: UIButton) {
-        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
+//        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
     }
 }
 

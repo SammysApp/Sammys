@@ -9,412 +9,412 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ItemsViewController: UIViewController, ItemsViewModelDelegate {
-    private var viewModel = ItemsViewModel()
-    
-    var currentItemIndex = 0 {
-        didSet {
-            if isViewLoaded { updateUI() }
-        }
-    }
-    
-    var isEditingFood: Bool {
-        get {
-            return viewModel.isEditingFood
-        } set {
-            viewModel.isEditingFood = newValue
-        }
-    }
-    
-    /// Closure called once done editing.
-    var didFinishEditing: (() -> Void)?
-    
-    lazy var choiceDidChange: () -> () = {
-        self.handleNewChoice()
-    }
-    
-    // MARK: - IBOutlets & View Properties
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var itemTypeLabel: UILabel!
-    @IBOutlet var itemStackView: UIStackView!
-    @IBOutlet var totalPriceLabel: UILabel!
-    @IBOutlet var itemLabel: UILabel!
-    @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var nextButton: UIButton!
-    @IBOutlet var backButton: UIButton!
-    @IBOutlet var finishButton: UIButton!
-    @IBOutlet var modifierView: UIVisualEffectView!
-    @IBOutlet var modifierCollectionView: ModifierCollectionView!
-    @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
-        didSet {
-            activityIndicatorView.color = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        }
-    }
-    
-    let flowCollectionViewLayout = UICollectionViewFlowLayout()
-    let layout = AnimatedCollectionViewLayout()
-    let modifierViewEffect = UIBlurEffect(style: .dark)
-    var isCollectionViewAnimating = false
-    var topViewShouldBeHidden = false
-    var isLayoutAnimated: Bool {
-        return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    struct Constants {
-        static let done = "Done"
-        static let backAlertTitle = "You sure?"
-        static let backAlertMessage = "This will disregard your work."
-    }
-    
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Set up for loading food data.
-        activityIndicatorView.startAnimating()
-        itemStackView.isHidden = true
-        itemTypeLabel.isHidden = true
-        
-        viewModel.delegate = self
-        viewModel.setData {
-            self.activityIndicatorView.stopAnimating()
-            self.itemStackView.isHidden = false
-            self.itemTypeLabel.isHidden = false
-            self.collectionView.reloadData()
-            self.updateUI()
-        }
-        
-        view.sendSubview(toBack: collectionView)
-        collectionView.register(UINib(nibName: "ItemCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: ItemCellIdentifier.itemCell.rawValue)
-        
-        // Set up layout for collection view.
-        let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
-        layout.animator = animator
-        layout.scrollDirection = .horizontal
-        
-        nextButton.layer.cornerRadius = 10
-        backButton.layer.cornerRadius = 10
-        
-        modifierCollectionView.viewModel.didSelect = { self.didSelect($0, for: $1) }
-        modifierCollectionView.viewModel.shouldShowSelected = viewModel.modifierIsSelected
-        
-        if isEditingFood {
-            totalPriceLabel.isHidden = false
-            totalPriceLabel.text = viewModel.totalPriceString
-        }
-        
-        updateUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    // MARK: -
-    
-    func updateUI() {
-        if let item = viewModel.items[safe: currentItemIndex] {
-            itemLabel.text = item.name
-        }
-        
-        itemTypeLabel.text = viewModel.itemTypeLabelText
-        descriptionLabel.text = viewModel.descriptionLabelText(at: currentItemIndex)
-        priceLabel.text = viewModel.priceLabelText(at: currentItemIndex)
-        itemLabel.isHidden = viewModel.shouldHideItemLabel
-        descriptionLabel.isHidden = viewModel.shouldHideDescriptionLabel(at: currentItemIndex)
-        priceLabel.isHidden = viewModel.shouldHidePriceLabel
-        
-        updateBackButton()
-        updateNextButton()
-        updateFinishButton()
-        updateCollectionView()
-    }
-    
-    func updateCollectionView() {
-        collectionView.contentInset = viewModel.collectionViewInsets
-        switch viewModel.currentViewLayoutState {
-        case .horizontal:
-            collectionView.alwaysBounceHorizontal = true
-            collectionView.alwaysBounceVertical = false
-            collectionView.isPagingEnabled = true
-            collectionView.collectionViewLayout = layout
-        case .vertical:
-            collectionView.alwaysBounceHorizontal = false
-            collectionView.alwaysBounceVertical = true
-            collectionView.isPagingEnabled = false
-            collectionView.collectionViewLayout = flowCollectionViewLayout
-        }
-    }
-    
-    func updateNextButton() {
-        nextButton.setTitle(viewModel.nextButtonTitle, for: .normal)
-        nextButton.isHidden = viewModel.shouldHideNextButton
-    }
-    
-    func updateBackButton() {
-        if viewModel.atFirstChoice && isEditingFood { backButton.isHidden = true }
-        else { backButton.isHidden = false }
-    }
-    
-    func updateFinishButton() {
-        finishButton.isHidden = viewModel.shouldHideFinishButton
-    }
-    
-    func updateTopView(for contentOffsetY: CGFloat) {
-        if contentOffsetY > 0 {
-            topViewShouldBeHidden = true
-            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 0 } })
-        } else {
-            topViewShouldBeHidden = false
-            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 1 } })
-        }
-    }
-    
-    /// Updates `self.centerPoint` to the centermost cell's `indexPath.row` property.
-    func updateCurrentItemIndex() {
-        let centerPoint = view.convert(view.center, to: collectionView)
-        if let row = collectionView.indexPathForItem(at: centerPoint)?.row {
-            currentItemIndex = row
-        }
-    }
-    
-    /// Call when new choice selected.
-    func handleNewChoice() {
-        collectionView.reloadData()
-        switch viewModel.currentViewLayoutState {
-        case .horizontal:
-            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
-        case .vertical:
-            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: -(viewModel.collectionViewInsets.top + view.safeAreaInsets.top)), animated: false)
-        }
-        currentItemIndex = 0
-    }
-    
-    /// Sets to proper x content offset for item index.
-    func setContentOffset(for itemIndex: Int) {
-        if viewModel.currentViewLayoutState == .horizontal {
-            let itemIndexOffsetX = CGFloat(itemIndex) * collectionView.bounds.size.width
-            if collectionView.contentOffset.x != itemIndexOffsetX {
-                isCollectionViewAnimating = true
-                collectionView.setContentOffset(CGPoint(x: itemIndexOffsetX, y: collectionView.contentOffset.y), animated: true)
-            }
-        }
-    }
-    
-    func presentAddViewController() {
-        if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
-            let navigationController = UINavigationController(rootViewController: addViewController)
-            addViewController.viewModel = AddViewModel(food: viewModel.food, editDelegate: viewModel)
-            addViewController.delegate = self
-            present(navigationController, animated: true, completion: nil)
-        }
-    }
-    
-    func showModifiers(for item: Item) {
-        modifierCollectionView.viewModel.item = item
-        modifierCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-        // Set up for animation.
-        modifierView.effect = nil
-        modifierView.isHidden = false
-        modifierView.contentView.isHidden = false
-        modifierView.contentView.alpha = 0
-        UIView.animate(withDuration: 0.25) {
-            self.modifierView.effect = self.modifierViewEffect
-            self.modifierView.contentView.alpha = 1
-        }
-    }
-    
-    func hideModifiers() {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.modifierView.effect = nil
-            self.modifierView.contentView.alpha = 0
-        }) {
-            guard $0 else { return }
-            self.modifierView.isHidden = true
-            self.modifierView.contentView.isHidden = true
-        }
-    }
-    
-    func presentBackAlertController(didChooseBack: @escaping () -> Void) {
-        let checkoutAlertController = UIAlertController(title: Constants.backAlertTitle, message: Constants.backAlertMessage, preferredStyle: .alert)
-        [UIAlertAction(title: "Go Back", style: .default, handler: { action in
-            didChooseBack()
-        }),
-        UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-            checkoutAlertController.dismiss(animated: true, completion: nil)
-        })].forEach { checkoutAlertController.addAction($0) }
-        present(checkoutAlertController, animated: true, completion: nil)
-    }
-    
-    func priceDidChange() {
-        totalPriceLabel.isHidden = false
-        totalPriceLabel.text = viewModel.totalPriceString
-    }
-    
-    func didSelectItem(at index: Int) {
-        viewModel.handleItemSelection(at: index)
-        currentItemIndex = index
-        setContentOffset(for: currentItemIndex)
-        viewModel.hasSelectedOnce = true
-        collectionView.reloadData()
-    }
-    
-    func didSelect(_ modifier: Modifier, for item: Item) {
-        hideModifiers()
-        viewModel.toggleModifier(modifier, for: item)
-        modifierCollectionView.reloadData()
-        collectionView.reloadData()
-        updateUI()
-    }
-    
-    /// Called once done editing.
-    func finishEditing() {
-        didFinishEditing?()
-        navigationController?.popViewController(animated: true)
-    }
-    
-    /// Gets the cell view model for the index path from the view model.
-    func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
-        return viewModel.cellViewModels(for: collectionView.bounds)[indexPath.item]
-    }
-    
-    func resetFood(to food: Food) {
-        viewModel.resetFood(to: food)
-    }
-    
-    func edit(for itemType: ItemType) {
-        viewModel.edit(for: itemType)
-    }
-    
-    // MARK: - IBActions
-    @IBAction func didTapNext(_ sender: UIButton) {
-        if viewModel.atLastChoice {
-            if isEditingFood {
-                finishEditing()
-            } else {
-                presentAddViewController()
-            }
-        } else {
-            viewModel.goToNextChoice()
-        }
-    }
-    
-    @IBAction func didTapBack(_ sender: UIButton) {
-        if viewModel.atFirstChoice {
-            if viewModel.hasSelectedOnce {
-                presentBackAlertController {
-                    self.navigationController?.popViewController(animated: true)
-                }
-            } else {
-                navigationController?.popViewController(animated: true)
-            }
-        } else {
-            viewModel.goToPreviousChoice()
-        }
-    }
-    
-    @IBAction func didTapFinish(_ sender: UIButton) {
-        if isEditingFood {
-            finishEditing()
-        } else {
-            presentAddViewController()
-        }
-    }
-    
-    
-    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
-        if !modifierView.contentView.isHidden {
-            hideModifiers()
-        }
-    }
+class ItemsViewController: UIViewController /*ItemsViewModelDelegate*/ {
+//    private var viewModel = ItemsViewModel()
+//
+//    var currentItemIndex = 0 {
+//        didSet {
+//            if isViewLoaded { updateUI() }
+//        }
+//    }
+//
+//    var isEditingFood: Bool {
+//        get {
+//            return viewModel.isEditingFood
+//        } set {
+//            viewModel.isEditingFood = newValue
+//        }
+//    }
+//
+//    /// Closure called once done editing.
+//    var didFinishEditing: (() -> Void)?
+//
+//    lazy var choiceDidChange: () -> () = {
+//        self.handleNewChoice()
+//    }
+//
+//    // MARK: - IBOutlets & View Properties
+//    @IBOutlet var collectionView: UICollectionView!
+//    @IBOutlet var itemTypeLabel: UILabel!
+//    @IBOutlet var itemStackView: UIStackView!
+//    @IBOutlet var totalPriceLabel: UILabel!
+//    @IBOutlet var itemLabel: UILabel!
+//    @IBOutlet var priceLabel: UILabel!
+//    @IBOutlet var descriptionLabel: UILabel!
+//    @IBOutlet var nextButton: UIButton!
+//    @IBOutlet var backButton: UIButton!
+//    @IBOutlet var finishButton: UIButton!
+//    @IBOutlet var modifierView: UIVisualEffectView!
+//    @IBOutlet var modifierCollectionView: ModifierCollectionView!
+//    @IBOutlet var activityIndicatorView: NVActivityIndicatorView! {
+//        didSet {
+//            activityIndicatorView.color = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//        }
+//    }
+//
+//    let flowCollectionViewLayout = UICollectionViewFlowLayout()
+//    let layout = AnimatedCollectionViewLayout()
+//    let modifierViewEffect = UIBlurEffect(style: .dark)
+//    var isCollectionViewAnimating = false
+//    var topViewShouldBeHidden = false
+//    var isLayoutAnimated: Bool {
+//        return collectionView.collectionViewLayout.isKind(of: AnimatedCollectionViewLayout.self)
+//    }
+//
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
+//
+//    struct Constants {
+//        static let done = "Done"
+//        static let backAlertTitle = "You sure?"
+//        static let backAlertMessage = "This will disregard your work."
+//    }
+//
+//    // MARK: - Lifecycle
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        // Set up for loading food data.
+//        activityIndicatorView.startAnimating()
+//        itemStackView.isHidden = true
+//        itemTypeLabel.isHidden = true
+//
+//        viewModel.delegate = self
+//        viewModel.setData {
+//            self.activityIndicatorView.stopAnimating()
+//            self.itemStackView.isHidden = false
+//            self.itemTypeLabel.isHidden = false
+//            self.collectionView.reloadData()
+//            self.updateUI()
+//        }
+//
+//        view.sendSubview(toBack: collectionView)
+//        collectionView.register(UINib(nibName: "ItemCollectionViewCell", bundle: Bundle.main), forCellWithReuseIdentifier: ItemCellIdentifier.itemCell.rawValue)
+//
+//        // Set up layout for collection view.
+//        let animator = LinearCardAttributesAnimator(itemSpacing: 0.4, scaleRate: 0.75)
+//        layout.animator = animator
+//        layout.scrollDirection = .horizontal
+//
+//        nextButton.layer.cornerRadius = 10
+//        backButton.layer.cornerRadius = 10
+//
+//        modifierCollectionView.viewModel.didSelect = { self.didSelect($0, for: $1) }
+//        modifierCollectionView.viewModel.shouldShowSelected = viewModel.modifierIsSelected
+//
+//        if isEditingFood {
+//            totalPriceLabel.isHidden = false
+//            totalPriceLabel.text = viewModel.totalPriceString
+//        }
+//
+//        updateUI()
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        navigationController?.setNavigationBarHidden(true, animated: true)
+//    }
+//    // MARK: -
+//
+//    func updateUI() {
+//        if let item = viewModel.items[safe: currentItemIndex] {
+//            itemLabel.text = item.name
+//        }
+//
+//        itemTypeLabel.text = viewModel.itemTypeLabelText
+//        descriptionLabel.text = viewModel.descriptionLabelText(at: currentItemIndex)
+//        priceLabel.text = viewModel.priceLabelText(at: currentItemIndex)
+//        itemLabel.isHidden = viewModel.shouldHideItemLabel
+//        descriptionLabel.isHidden = viewModel.shouldHideDescriptionLabel(at: currentItemIndex)
+//        priceLabel.isHidden = viewModel.shouldHidePriceLabel
+//
+//        updateBackButton()
+//        updateNextButton()
+//        updateFinishButton()
+//        updateCollectionView()
+//    }
+//
+//    func updateCollectionView() {
+//        collectionView.contentInset = viewModel.collectionViewInsets
+//        switch viewModel.currentViewLayoutState {
+//        case .horizontal:
+//            collectionView.alwaysBounceHorizontal = true
+//            collectionView.alwaysBounceVertical = false
+//            collectionView.isPagingEnabled = true
+//            collectionView.collectionViewLayout = layout
+//        case .vertical:
+//            collectionView.alwaysBounceHorizontal = false
+//            collectionView.alwaysBounceVertical = true
+//            collectionView.isPagingEnabled = false
+//            collectionView.collectionViewLayout = flowCollectionViewLayout
+//        }
+//    }
+//
+//    func updateNextButton() {
+//        nextButton.setTitle(viewModel.nextButtonTitle, for: .normal)
+//        nextButton.isHidden = viewModel.shouldHideNextButton
+//    }
+//
+//    func updateBackButton() {
+//        if viewModel.atFirstChoice && isEditingFood { backButton.isHidden = true }
+//        else { backButton.isHidden = false }
+//    }
+//
+//    func updateFinishButton() {
+//        finishButton.isHidden = viewModel.shouldHideFinishButton
+//    }
+//
+//    func updateTopView(for contentOffsetY: CGFloat) {
+//        if contentOffsetY > 0 {
+//            topViewShouldBeHidden = true
+//            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 0 } })
+//        } else {
+//            topViewShouldBeHidden = false
+//            UIView.animate(withDuration: 0.25, animations: { [self.itemTypeLabel, self.totalPriceLabel, self.finishButton].forEach { $0.alpha = 1 } })
+//        }
+//    }
+//
+//    /// Updates `self.centerPoint` to the centermost cell's `indexPath.row` property.
+//    func updateCurrentItemIndex() {
+//        let centerPoint = view.convert(view.center, to: collectionView)
+//        if let row = collectionView.indexPathForItem(at: centerPoint)?.row {
+//            currentItemIndex = row
+//        }
+//    }
+//
+//    /// Call when new choice selected.
+//    func handleNewChoice() {
+//        collectionView.reloadData()
+//        switch viewModel.currentViewLayoutState {
+//        case .horizontal:
+//            collectionView.setContentOffset(CGPoint(x: 0, y: collectionView.contentOffset.y), animated: false)
+//        case .vertical:
+//            collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: -(viewModel.collectionViewInsets.top + view.safeAreaInsets.top)), animated: false)
+//        }
+//        currentItemIndex = 0
+//    }
+//
+//    /// Sets to proper x content offset for item index.
+//    func setContentOffset(for itemIndex: Int) {
+//        if viewModel.currentViewLayoutState == .horizontal {
+//            let itemIndexOffsetX = CGFloat(itemIndex) * collectionView.bounds.size.width
+//            if collectionView.contentOffset.x != itemIndexOffsetX {
+//                isCollectionViewAnimating = true
+//                collectionView.setContentOffset(CGPoint(x: itemIndexOffsetX, y: collectionView.contentOffset.y), animated: true)
+//            }
+//        }
+//    }
+//
+//    func presentAddViewController() {
+//        if let addViewController = AddViewController.storyboardInstance() as? AddViewController {
+//            let navigationController = UINavigationController(rootViewController: addViewController)
+//            addViewController.viewModel = AddViewModel(food: viewModel.food, editDelegate: viewModel)
+//            addViewController.delegate = self
+//            present(navigationController, animated: true, completion: nil)
+//        }
+//    }
+//
+//    func showModifiers(for item: Item) {
+//        modifierCollectionView.viewModel.item = item
+//        modifierCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+//        // Set up for animation.
+//        modifierView.effect = nil
+//        modifierView.isHidden = false
+//        modifierView.contentView.isHidden = false
+//        modifierView.contentView.alpha = 0
+//        UIView.animate(withDuration: 0.25) {
+//            self.modifierView.effect = self.modifierViewEffect
+//            self.modifierView.contentView.alpha = 1
+//        }
+//    }
+//
+//    func hideModifiers() {
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.modifierView.effect = nil
+//            self.modifierView.contentView.alpha = 0
+//        }) {
+//            guard $0 else { return }
+//            self.modifierView.isHidden = true
+//            self.modifierView.contentView.isHidden = true
+//        }
+//    }
+//
+//    func presentBackAlertController(didChooseBack: @escaping () -> Void) {
+//        let checkoutAlertController = UIAlertController(title: Constants.backAlertTitle, message: Constants.backAlertMessage, preferredStyle: .alert)
+//        [UIAlertAction(title: "Go Back", style: .default, handler: { action in
+//            didChooseBack()
+//        }),
+//        UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+//            checkoutAlertController.dismiss(animated: true, completion: nil)
+//        })].forEach { checkoutAlertController.addAction($0) }
+//        present(checkoutAlertController, animated: true, completion: nil)
+//    }
+//
+//    func priceDidChange() {
+//        totalPriceLabel.isHidden = false
+//        totalPriceLabel.text = viewModel.totalPriceString
+//    }
+//
+//    func didSelectItem(at index: Int) {
+//        viewModel.handleItemSelection(at: index)
+//        currentItemIndex = index
+//        setContentOffset(for: currentItemIndex)
+//        viewModel.hasSelectedOnce = true
+//        collectionView.reloadData()
+//    }
+//
+//    func didSelect(_ modifier: Modifier, for item: Item) {
+//        hideModifiers()
+//        viewModel.toggleModifier(modifier, for: item)
+//        modifierCollectionView.reloadData()
+//        collectionView.reloadData()
+//        updateUI()
+//    }
+//
+//    /// Called once done editing.
+//    func finishEditing() {
+//        didFinishEditing?()
+//        navigationController?.popViewController(animated: true)
+//    }
+//
+//    /// Gets the cell view model for the index path from the view model.
+//    func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
+//        return viewModel.cellViewModels(for: collectionView.bounds)[indexPath.item]
+//    }
+//
+//    func resetFood(to food: Food) {
+//        viewModel.resetFood(to: food)
+//    }
+//
+//    func edit(for itemType: ItemType) {
+//        viewModel.edit(for: itemType)
+//    }
+//
+//    // MARK: - IBActions
+//    @IBAction func didTapNext(_ sender: UIButton) {
+//        if viewModel.atLastChoice {
+//            if isEditingFood {
+//                finishEditing()
+//            } else {
+//                presentAddViewController()
+//            }
+//        } else {
+//            viewModel.goToNextChoice()
+//        }
+//    }
+//
+//    @IBAction func didTapBack(_ sender: UIButton) {
+//        if viewModel.atFirstChoice {
+//            if viewModel.hasSelectedOnce {
+//                presentBackAlertController {
+//                    self.navigationController?.popViewController(animated: true)
+//                }
+//            } else {
+//                navigationController?.popViewController(animated: true)
+//            }
+//        } else {
+//            viewModel.goToPreviousChoice()
+//        }
+//    }
+//
+//    @IBAction func didTapFinish(_ sender: UIButton) {
+//        if isEditingFood {
+//            finishEditing()
+//        } else {
+//            presentAddViewController()
+//        }
+//    }
+//
+//
+//    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
+//        if !modifierView.contentView.isHidden {
+//            hideModifiers()
+//        }
+//    }
 }
 
-// MARK: - UICollectionViewDataSource
-extension ItemsViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.numberOfSections
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = cellViewModel(for: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.identifier, for: indexPath)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let model = cellViewModel(for: indexPath)
-        model.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension ItemsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = cellViewModel(for: indexPath)
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            model.commands[.selection]?.perform(parameters: CommandParameters(cell: cell))
-        }
-        didSelectItem(at: indexPath.row)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let model = cellViewModel(for: indexPath)
-        return model.size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return viewModel.collectionViewMinimumLineSpacing
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return viewModel.collectionViewMinimumInteritemSpacing
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffsetY = scrollView.contentOffset.y + view.safeAreaInsets.top
-        updateTopView(for: contentOffsetY)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        isCollectionViewAnimating = false
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if viewModel.currentViewLayoutState == .horizontal {
-            if isLayoutAnimated && !isCollectionViewAnimating {
-                updateCurrentItemIndex()
-            }
-        }
-    }
-}
-
-extension ItemsViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let touchLocation = touch.location(in: self.view)
-        return !modifierCollectionView.frame.contains(touchLocation)
-    }
-}
-
-extension ItemsViewController: AddViewControllerDelegate {
-    func addViewControllerDidComplete(_ addViewController: AddViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func addViewControllerDidCancel(_ addViewController: AddViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-}
-
-extension ItemsViewController: Storyboardable {
-    typealias ViewController = ItemsViewController
-}
+//// MARK: - UICollectionViewDataSource
+//extension ItemsViewController: UICollectionViewDataSource {
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return viewModel.numberOfSections
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel.numberOfItems
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let model = cellViewModel(for: indexPath)
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.identifier, for: indexPath)
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        let model = cellViewModel(for: indexPath)
+//        model.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+//    }
+//}
+//
+//// MARK: - UICollectionViewDelegateFlowLayout
+//extension ItemsViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let model = cellViewModel(for: indexPath)
+//        if let cell = collectionView.cellForItem(at: indexPath) {
+//            model.commands[.selection]?.perform(parameters: CommandParameters(cell: cell))
+//        }
+//        didSelectItem(at: indexPath.row)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let model = cellViewModel(for: indexPath)
+//        return model.size
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return viewModel.collectionViewMinimumLineSpacing
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return viewModel.collectionViewMinimumInteritemSpacing
+//    }
+//
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let contentOffsetY = scrollView.contentOffset.y + view.safeAreaInsets.top
+//        updateTopView(for: contentOffsetY)
+//    }
+//
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        isCollectionViewAnimating = false
+//    }
+//
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        if viewModel.currentViewLayoutState == .horizontal {
+//            if isLayoutAnimated && !isCollectionViewAnimating {
+//                updateCurrentItemIndex()
+//            }
+//        }
+//    }
+//}
+//
+//extension ItemsViewController: UIGestureRecognizerDelegate {
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        let touchLocation = touch.location(in: self.view)
+//        return !modifierCollectionView.frame.contains(touchLocation)
+//    }
+//}
+//
+//extension ItemsViewController: AddViewControllerDelegate {
+//    func addViewControllerDidComplete(_ addViewController: AddViewController) {
+//        navigationController?.popViewController(animated: true)
+//    }
+//
+//    func addViewControllerDidCancel(_ addViewController: AddViewController) {
+//        navigationController?.popViewController(animated: true)
+//    }
+//}
+//
+//extension ItemsViewController: Storyboardable {
+//    typealias ViewController = ItemsViewController
+//}

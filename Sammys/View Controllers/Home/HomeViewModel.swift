@@ -49,7 +49,7 @@ class HomeViewModel {
 		Section(cellViewModels: [
 			FoodHomeCollectionViewCellViewModelFactory(
 				size: cellSize(for: .foods),
-				titleText: FoodType.salad.title
+				titleText: ""
 			).create()
 		])
 	]}()

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ItemEditable {
-    func edit(for itemType: ItemType)
+    //func edit(for itemType: ItemType)
 }

@@ -9,13 +9,13 @@
 import UIKit
 
 struct TotalPriceTableViewCellConfigurationCommand: TableViewCellCommand {
-    let order: Order
-    
+//    let order: Order
+	
     func perform(cell: UITableViewCell?) {
-        guard let cell = cell as? TotalPriceTableViewCell else { return }
-        // Set labels.
-        cell.subtotalLabel.text = order.subtotalPrice.priceString
-        cell.taxLabel.text = order.taxPrice.priceString
-        cell.totalLabel.text = order.totalPrice.priceString
+//        guard let cell = cell as? TotalPriceTableViewCell else { return }
+//        // Set labels.
+//        cell.subtotalLabel.text = order.subtotalPrice.priceString
+//        cell.taxLabel.text = order.taxPrice.priceString
+//        cell.totalLabel.text = order.totalPrice.priceString
     }
 }

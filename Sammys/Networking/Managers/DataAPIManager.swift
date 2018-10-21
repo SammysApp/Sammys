@@ -19,7 +19,7 @@ struct DataAPIManager: APIManager {
         return get(.hours, apiService: apiService)
     }
     
-    static func getFoods(apiService: APIService = AlamofireAPIService()) -> Promise<FoodsData> {
-        return get(.foods, apiService: apiService)
-    }
+//    static func getFoods(apiService: APIService = AlamofireAPIService()) -> Promise<FoodsData> {
+//        return get(.foods, apiService: apiService)
+//    }
 }

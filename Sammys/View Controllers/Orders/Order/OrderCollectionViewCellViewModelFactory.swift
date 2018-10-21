@@ -12,11 +12,11 @@ enum OrderCellIdentifier: String {
     case orderCell
 }
 
-struct OrderCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-    let order: Order
-    let size: CGSize
-    
-    func create() -> CollectionViewCellViewModel {
-        return CollectionViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, size: size, commands: [.configuration: OrderCollectionViewCellConfigurationCommand(order: order)])
-    }
+struct OrderCollectionViewCellViewModelFactory/*: CollectionViewCellViewModelFactory*/ {
+//    let order: Order
+//    let size: CGSize
+//
+//    func create() -> CollectionViewCellViewModel {
+//        return CollectionViewCellViewModel(identifier: OrderCellIdentifier.orderCell.rawValue, size: size, commands: [.configuration: OrderCollectionViewCellConfigurationCommand(order: order)])
+//    }
 }
