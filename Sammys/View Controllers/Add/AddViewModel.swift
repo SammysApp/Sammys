@@ -58,7 +58,7 @@ class AddViewModel {
     }
     
     func addFoodToBag() {
-        BagDataStore.shared.add(food.itemsCopy)
+        //BagDataStore.shared.add(food.itemsCopy)
     }
     
     func addFoodAsFave() {

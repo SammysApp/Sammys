@@ -70,12 +70,13 @@ class BagViewModel: NSObject {
     
     private var paymentContext: STPPaymentContext?
     
-    private let data = BagDataStore.shared
-    
-    private var foods: BagDataStore.Foods {
-        return data.foods
+    //private let data = BagDataStore.shared
+
+	typealias FoodDictionary = [FoodType: [Food]]
+    private var foods: Foods {
+        return FoodDictionary()
     }
-    
+	
     private var sortedFoodTypes: [FoodType] {
         return Array(foods.keys).sorted { $0.rawValue < $1.rawValue }
     }
@@ -265,10 +266,10 @@ class BagViewModel: NSObject {
     }
     
     private func remove(_ food: Food, indexPath: IndexPath) {
-        data.remove(food) { didRemoveSection in
-            if didRemoveSection { self.delegate?.delete(sections: [indexPath.section]) }
-            else { self.delegate?.delete(indexPaths: [indexPath]) }
-        }
+//        data.remove(food) { didRemoveSection in
+//            if didRemoveSection { self.delegate?.delete(sections: [indexPath.section]) }
+//            else { self.delegate?.delete(indexPaths: [indexPath]) }
+//        }
     }
     
     func remove(_ food: Food) {
@@ -327,11 +328,11 @@ class BagViewModel: NSObject {
     }
     
     func saveBag() {
-        data.save()
+//        data.save()
     }
     
     func clearBag() {
-        data.clear()
+//        data.clear()
     }
     
     func presentPaymentMethodsViewController() {
