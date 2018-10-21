@@ -8,13 +8,15 @@
 
 import Foundation
 
-struct Lettuce: ModifiableItem {
+struct Lettuce: ModifiableFoodItem {
     let name: String
     let description: String
     let modifiers: [Modifier]
 }
 
-extension Lettuce: Buildable {
+extension Lettuce: Hashable {}
+
+extension Lettuce: ArrayBuildable {
 	typealias ArrayBuilder = [Lettuce : [Modifier : Bool]]
 	
 	static func buildArray(from builder: ArrayBuilder) -> [Lettuce] {

@@ -8,8 +8,10 @@
 
 import Foundation
 
-struct Size: PricedItem {
+struct Size: PricedFoodItem {
     let name: String
     let description: String
     let price: Double
 }
+
+extension Size: Hashable {}

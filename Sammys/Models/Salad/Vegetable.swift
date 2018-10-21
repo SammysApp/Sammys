@@ -8,12 +8,14 @@
 
 import Foundation
 
-struct Vegetable: Item {
+struct Vegetable: FoodItem {
     let name: String
     let description: String
 }
 
-extension Vegetable: Buildable {
+extension Vegetable: Hashable {}
+
+extension Vegetable: ArrayBuildable {
 	typealias ArrayBuilder = [Vegetable : Bool]
 	
 	static func buildArray(from builder: ArrayBuilder) -> [Vegetable] { return Array(builder.filter { $1 }.keys) }

@@ -8,13 +8,15 @@
 
 import Foundation
 
-struct Dressing: ModifiableItem {
+struct Dressing: ModifiableFoodItem {
     let name: String
     let description: String
     let modifiers: [Modifier]
 }
 
-extension Dressing: Buildable {
+extension Dressing: Hashable {}
+
+extension Dressing: ArrayBuildable {
 	typealias ArrayBuilder = [Dressing : [Modifier : Bool]]
 	
 	static func buildArray(from builder: ArrayBuilder) -> [Dressing] {

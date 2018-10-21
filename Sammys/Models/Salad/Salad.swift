@@ -17,10 +17,14 @@ struct Salad: Food {
     let extras: [Extra]
 }
 
-extension Salad: Hashable {}
-
-extension Salad: CodableFood {
-	static let codableFoodType = CodableFoodType.salad
+extension Salad {
+	var price: Double {
+		return size.price + ([toppings, extras] as [[OptionallyPricedFoodItem]])
+			.flatMap { $0 }
+			.compactMap { $0.price }
+			.reduce(0, +)
+	}
 }
 
-extension Salad: HashableFood {}
+extension Salad: Hashable, ProtocolHashable {}
+extension Salad: ProtocolCodable { static var type = ProtocolCodableType.salad }

@@ -8,14 +8,16 @@
 
 import Foundation
 
-struct Extra: OptionallyPricedItem, ModifiableItem {
+struct Extra: OptionallyPricedFoodItem, ModifiableFoodItem {
     let name: String
     let description: String
     let price: Double?
 	let modifiers: [Modifier]
 }
 
-extension Extra: Buildable {
+extension Extra: Hashable {}
+
+extension Extra: ArrayBuildable {
 	typealias ArrayBuilder = [Extra : [Modifier : Bool]]
 	
 	static func buildArray(from builder: ArrayBuilder) -> [Extra] {

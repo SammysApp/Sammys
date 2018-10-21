@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  FoodItem.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/12/18.
@@ -8,25 +8,25 @@
 
 import UIKit
 
-protocol Item: Codable, Hashable {
+protocol FoodItem: Codable {
 	var name: String { get }
     var description: String { get }
 }
 
-protocol PricedItem: Item {
+protocol PricedFoodItem: FoodItem {
 	var price: Double { get }
 }
 
 /// Use in cases where instances can either be priced or be free.
-protocol OptionallyPricedItem: Item {
+protocol OptionallyPricedFoodItem: FoodItem {
 	var price: Double? { get }
 }
 
-protocol ModifiableItem: Item {
+protocol ModifiableFoodItem: FoodItem {
 	var modifiers: [Modifier] { get }
 }
 
-protocol Buildable where Self: Item {
+protocol ArrayBuildable where Self: FoodItem {
 	associatedtype ArrayBuilder
 	static func buildArray(from builder: ArrayBuilder) -> [Self]
 }
