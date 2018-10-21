@@ -256,6 +256,8 @@
 		5BFC573E217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */; };
 		5BFC5740217C308A0002179B /* Purchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573F217C308A0002179B /* Purchaseable.swift */; };
 		5BFC5741217C308A0002179B /* Purchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573F217C308A0002179B /* Purchaseable.swift */; };
+		5BFC5743217CC5050002179B /* PurchaseableQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */; };
+		5BFC5744217CC5050002179B /* PurchaseableQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */; };
 		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
 		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
 		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
@@ -481,6 +483,7 @@
 		5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEquatableProtocol.swift; sourceTree = "<group>"; };
 		5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyHashableProtocol.swift; sourceTree = "<group>"; };
 		5BFC573F217C308A0002179B /* Purchaseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchaseable.swift; sourceTree = "<group>"; };
+		5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseableQuantity.swift; sourceTree = "<group>"; };
 		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
 		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
@@ -883,6 +886,7 @@
 				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
 				5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */,
+				5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */,
 				5BFC573F217C308A0002179B /* Purchaseable.swift */,
 				5B44A7C3200483E500898FF0 /* Food.swift */,
 				5B44A82C2009292A00898FF0 /* FoodItem.swift */,
@@ -1598,6 +1602,7 @@
 				5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */,
 				5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */,
 				5BF39A5920DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */,
+				5BFC5744217CC5050002179B /* PurchaseableQuantity.swift in Sources */,
 				5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */,
 				5B9865F820C58DAD004722D8 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
 				5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */,
@@ -1742,6 +1747,7 @@
 				5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */,
 				5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */,
 				5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */,
+				5BFC5743217CC5050002179B /* PurchaseableQuantity.swift in Sources */,
 				5BB29651208A461700520683 /* OrdersViewModel.swift in Sources */,
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* FoodHomeCollectionViewCell.swift in Sources */,

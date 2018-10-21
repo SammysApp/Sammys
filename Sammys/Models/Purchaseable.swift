@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol Purchaseable {
+protocol Purchaseable: ProtocolHashable, ProtocolCodable {
 	var price: Double { get }
 }

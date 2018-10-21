@@ -7,7 +7,7 @@
 //
 
 import XCTest
-//@testable import Sammys
+@testable import Sammys
 
 class SammysTests: XCTestCase {
     func test() {

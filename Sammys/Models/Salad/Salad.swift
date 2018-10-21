@@ -26,5 +26,5 @@ extension Salad {
 	}
 }
 
-extension Salad: Hashable, ProtocolHashable {}
-extension Salad: ProtocolCodable { static var type = ProtocolCodableType.salad }
+extension Salad { static var type = ProtocolCodableType.salad }
+extension Salad: Hashable {}

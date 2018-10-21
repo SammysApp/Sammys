@@ -20,6 +20,9 @@ enum ProtocolCodableType: String, Codable {
 }
 
 protocol ProtocolCodable: Codable {
+	/// A value of `ProtocolCodableType` representing the type that conforms to `ProtocolCodable`.
+	///
+	/// Implement this static property to conform to `ProtocolCodable`.
 	static var type: ProtocolCodableType { get }
 }
 
@@ -33,6 +36,8 @@ extension ProtocolCodable {
 
 struct AnyCodableProtocol: Codable {
 	private let value: ProtocolCodable
+	
+	var base: Any { return value }
 	
 	init(_ value: ProtocolCodable) {
 		self.value = value

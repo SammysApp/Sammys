@@ -8,41 +8,64 @@
 
 import Foundation
 
+enum BagModelControllerError: Error {
+	case cantGetNeccessaryDataFromKey
+}
+
 struct BagModelController {
-    typealias Foods = [FoodType: [Food]]
-    private typealias StorableFoods = [FoodType : [AnyFood]]
+    private typealias PurchaseableQuantitiesDictionary = [AnyHashableProtocol : Int]
 	
-	private struct Constants {
-		static let foodsDataKey = "foods"
-	}
-    
-    private func storableFoods(for foods: Foods) -> StorableFoods {
-        return foods.mapValues { $0.map { AnyFood($0) } }
-    }
+	private let userDefaults: UserDefaults
 	
-	private func foods(for storableFoods: StorableFoods) -> Foods {
-		return storableFoods.mapValues { $0.map { $0.food } }
+	private struct Constants { static let purchaseableQuantitiesKey = "BagModelController.purchaseableQuantities" }
+	
+	init(userDefaults: UserDefaults = .standard) {
+		self.userDefaults = userDefaults
 	}
 	
-	private func store(foods: Foods) throws {
+	private func purchaseableQuantities(for dictionary: PurchaseableQuantitiesDictionary) -> [PurchaseableQuantity] {
+		return dictionary.compactMap {
+			guard let purchaseable = $0.key.base as? Purchaseable else { return nil }
+			return PurchaseableQuantity(quantity: $0.value, purchaseable: purchaseable)
+		}
+	}
+	
+	private func dictionary(for purchaseableQuantities: [PurchaseableQuantity]) -> PurchaseableQuantitiesDictionary {
+		return PurchaseableQuantitiesDictionary(uniqueKeysWithValues: purchaseableQuantities.map { (AnyHashableProtocol($0.purchaseable), $0.quantity) })
+	}
+	
+	private func store(_ dictionary: PurchaseableQuantitiesDictionary) throws {
 		UserDefaults.standard.set(
-			try JSONEncoder().encode(storableFoods(for: foods)),
-			forKey: Constants.foodsDataKey
+			try JSONEncoder().encode(purchaseableQuantities(for: dictionary)),
+			forKey: Constants.purchaseableQuantitiesKey
 		)
 	}
 	
-	func getFoods() throws -> Foods {
-		if let foodData = UserDefaults.standard.data(forKey: Constants.foodsDataKey) {
-			do {
-				return foods(for: try JSONDecoder().decode(StorableFoods.self, from: foodData))
-			} catch { throw error }
-		} else { fatalError("No data for for this key.") }
+	func getPurchasableQuantities() throws -> [PurchaseableQuantity] {
+		if let purchasableQuantitiesData = userDefaults.data(forKey: Constants.purchaseableQuantitiesKey) {
+			do { return try JSONDecoder().decode([PurchaseableQuantity].self, from: purchasableQuantitiesData) }
+			catch { throw error }
+		} else { throw BagModelControllerError.cantGetNeccessaryDataFromKey }
 	}
 	
-    func add(_ food: Food) throws {
+	func add(_ purchaseable: Purchaseable, quantity: Int = 1) throws {
 		do {
-			let foods = try getFoods()
-			
+			var dictionary = self.dictionary(for: try getPurchasableQuantities())
+			dictionary.set(AnyHashableProtocol(purchaseable), toInitialValue: quantity, orIncrementBy: quantity)
+			try store(dictionary)
 		} catch { throw error }
     }
+}
+
+extension BagModelController {
+	func getQuantity() throws -> Int {
+		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
+	}
+}
+
+private extension Dictionary where Key == AnyHashableProtocol, Value == Int {
+	mutating func set(_ key: AnyHashableProtocol, toInitialValue initialValue: Int, orIncrementBy incrementValue: Int) {
+		if let quantity = self[key] { self[key] = quantity + incrementValue }
+		else { self[key] = initialValue }
+	}
 }
