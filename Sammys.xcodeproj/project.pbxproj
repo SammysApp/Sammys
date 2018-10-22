@@ -756,8 +756,7 @@
 				5B3F25DE210F68B10080290E /* Application */,
 				5BD274EE2063FA8F00618128 /* Networking */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
-				5BFC57332179101D0002179B /* SaladBuilder.swift */,
-				5B44A7C120047E5600898FF0 /* BagModelController.swift */,
+				5BFD2189217D687C002D9A73 /* Model Controllers */,
 				5B9CD59D204CCA5500F59E4C /* View Controllers */,
 				5B9CD59F204CCAA500F59E4C /* Views */,
 				5BD274F62063FBAD00618128 /* Animation */,
@@ -1282,6 +1281,15 @@
 				5B6A06911FFD53C700BAC480 /* Extra.swift */,
 			);
 			path = Salad;
+			sourceTree = "<group>";
+		};
+		5BFD2189217D687C002D9A73 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5BFC57332179101D0002179B /* SaladBuilder.swift */,
+				5B44A7C120047E5600898FF0 /* BagModelController.swift */,
+			);
+			path = "Model Controllers";
 			sourceTree = "<group>";
 		};
 		94825A66B172021E2F0BA0A3 /* Frameworks */ = {

@@ -35,7 +35,7 @@ struct BagModelController {
 	}
 	
 	private func store(_ dictionary: PurchaseableQuantitiesDictionary) throws {
-		UserDefaults.standard.set(
+		userDefaults.set(
 			try JSONEncoder().encode(purchaseableQuantities(for: dictionary)),
 			forKey: Constants.purchaseableQuantitiesKey
 		)
@@ -50,7 +50,10 @@ struct BagModelController {
 	
 	func add(_ purchaseable: Purchaseable, quantity: Int = 1) throws {
 		do {
-			var dictionary = self.dictionary(for: try getPurchasableQuantities())
+			var dictionary = PurchaseableQuantitiesDictionary()
+			if let purchasableQuantities = try? getPurchasableQuantities() {
+				dictionary = self.dictionary(for: purchasableQuantities)
+			}
 			dictionary.set(AnyHashableProtocol(purchaseable), toInitialValue: quantity, orIncrementBy: quantity)
 			try store(dictionary)
 		} catch { throw error }
