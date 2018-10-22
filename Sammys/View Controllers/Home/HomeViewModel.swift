@@ -28,6 +28,8 @@ protocol HomeViewModelDelegate {
 
 class HomeViewModel {
 	let delegate: HomeViewModelDelegate
+	let bagModelController = BagModelController()
+	
 	private var sections = [Section]()
 	
 	/// Gets updated to given value of `setCurrentViewState(:)`.
@@ -37,7 +39,8 @@ class HomeViewModel {
 	private (set) var shouldHideNoFavesView = Dynamic(true)
     
     var bagQuantityLabelText: String {
-		return ""
+		guard let quantity = try? bagModelController.getQuantity() else { return "" }
+		return "\(quantity)"
     }
 	
 	var numberOfSections: Int {
