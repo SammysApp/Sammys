@@ -1,5 +1,5 @@
 //
-//  FoodHomeCollectionViewCellCofigurationCommand.swift
+//  HomeItemCollectionViewCellConfigurationCommand.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 5/4/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FoodHomeCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
+struct HomeItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
     let titleText: String
     
     private struct Constants {
@@ -17,7 +17,7 @@ struct FoodHomeCollectionViewCellConfigurationCommand: CollectionViewCellCommand
     }
     
     func perform(parameters: CommandParameters) {
-        guard let cell = parameters.cell as? FoodHomeCollectionViewCell else { return }
+        guard let cell = parameters.cell as? HomeItemCollectionViewCell else { return }
         cell.titleLabel.text = titleText
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .clear

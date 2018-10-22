@@ -12,6 +12,12 @@ import NVActivityIndicatorView
 class HomeViewController: UIViewController {
     var viewModel: HomeViewModel!
 	
+	lazy var loginPageViewController: LoginPageViewController = {
+		let loginPageViewController = LoginPageViewController.storyboardInstance()
+		//loginPageViewController.delegate = self
+		return loginPageViewController
+	}()
+	
     // MARK: - IBOutlets
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var collectionViewContainerView: UIView!
@@ -25,7 +31,8 @@ class HomeViewController: UIViewController {
 	@IBOutlet var noFavesView: UIView!
 	
     @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
-    
+	
+	// MARK: - Property Overrides
     override var prefersStatusBarHidden: Bool {
         return false
     }
@@ -35,6 +42,8 @@ class HomeViewController: UIViewController {
     }
     
     struct Constants {
+		static var homeCollectionViewCellHeight: Double = 200
+		static var collectionViewContentInset: CGFloat = 10
         static var collectionViewCornerRadius: CGFloat = 20
         static var collectionViewShadowOpacity: Float = 0.4
         static var bagButtonShadowOpacity: Float = 0.2
@@ -44,10 +53,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-		viewModel = HomeViewModel(delegate: self)
+		viewModel = HomeViewModel(self)
 		
 		setupCollectionView()
-		setupCollectionViewContainerView()
 		setupFavesButton()
 		setupBagButton()
 		setupBagButtonContainerView()
@@ -61,13 +69,32 @@ class HomeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		// Run once correct collection view size.
+		setupCollectionViewContainerView()
+		collectionView.reloadData()
+	}
+	
 	// MARK: - Setup
 	func setupCollectionView() {
 		collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
+		collectionView.contentInset = UIEdgeInsets(
+			top: Constants.collectionViewContentInset,
+			left: Constants.collectionViewContentInset,
+			bottom: 0,
+			right: Constants.collectionViewContentInset
+		)
 	}
 	
 	func setupCollectionViewContainerView() {
-		collectionViewContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: collectionView.bounds, cornerRadius: collectionView.layer.cornerRadius).cgPath, opacity: Constants.collectionViewShadowOpacity))
+		collectionViewContainerView.add(
+			UIView.Shadow(
+				path: UIBezierPath(roundedRect: collectionView.frame, cornerRadius: collectionView.layer.cornerRadius).cgPath,
+				opacity: Constants.collectionViewShadowOpacity
+			)
+		)
 	}
 	
 	func setupBagButton() {
@@ -76,11 +103,16 @@ class HomeViewController: UIViewController {
 	}
 	
 	func setupBagButtonContainerView() {
-		bagButtonContainerView.add(UIView.Shadow(path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath, opacity: Constants.bagButtonShadowOpacity))
+		bagButtonContainerView.add(
+			UIView.Shadow(
+				path: UIBezierPath(roundedRect: bagButton.bounds, cornerRadius: bagButton.layer.cornerRadius).cgPath,
+				opacity: Constants.bagButtonShadowOpacity
+			)
+		)
 	}
 	
 	func setupFavesButton() {
-		viewModel.favesButtonImage.bindAndRun { self.favesButton.setBackgroundImage($0, for: .normal) }
+		viewModel.favesButtonImage.bindAndRun { self.favesButton.setBackgroundImage($0.image, for: .normal) }
 	}
 	
 	func setupActivityIndicatorView() {
@@ -103,20 +135,11 @@ class HomeViewController: UIViewController {
 		
 		viewModel.shouldHideNoFavesView.bindAndRun { self.noFavesView.isHidden = $0 }
     }
-    
-    func presentLoginPageViewController() {
-		present({
-			let loginPageViewController = LoginPageViewController.storyboardInstance()
-			//loginPageViewController.delegate = self
-			return loginPageViewController
-		}(), animated: true, completion: nil)
-    }
 	
-	func didSelectItem(at indexPath: IndexPath) {
+	// MARK: - Methods
+    func didSelectItem(at indexPath: IndexPath) {
 		switch viewModel.currentViewState.value {
-		case .foods:
-			break
-//			navigationController?.pushViewController(ItemsViewController.storyboardInstance(), animated: true)
+		case .home: break
 		case .faves: break
 		}
 	}
@@ -137,9 +160,19 @@ class HomeViewController: UIViewController {
 extension HomeViewController: Storyboardable {}
 
 // MARK: - HomeViewModelDelegate
-extension HomeViewController: HomeViewModelDelegate {
-	var contextBounds: CGSize {
-		return collectionView.bounds.size
+extension HomeViewController: HomeViewModelViewDelegate {
+	func cellWidth(for state: HomeViewState) -> Double {
+		switch state {
+		case .home: return Double(collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right))
+		case .faves: return 0
+		}
+	}
+	
+	func cellHeight(for state: HomeViewState) -> Double {
+		switch state {
+		case .home: return Constants.homeCollectionViewCellHeight
+		case .faves: return 0
+		}
 	}
 }
 
@@ -170,5 +203,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return viewModel.cellViewModel(for: indexPath).size
+	}
+}
+
+enum HomeImage {
+	case home, heart
+	
+	var image: UIImage {
+		switch self {
+		case .home: return #imageLiteral(resourceName: "Home.pdf")
+		case .heart: return #imageLiteral(resourceName: "Heart.pdf")
+		}
 	}
 }

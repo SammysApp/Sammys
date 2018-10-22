@@ -6,10 +6,14 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 enum HomeViewState {
-    case foods, faves
+    case home, faves
+}
+
+private struct HomeItem {
+	let title: String
 }
 
 private struct Section {
@@ -22,48 +26,55 @@ private struct Section {
     }
 }
 
-protocol HomeViewModelDelegate {
-	var contextBounds: CGSize { get }
+protocol HomeViewModelViewDelegate {
+	func cellWidth(for state: HomeViewState) -> Double
+	func cellHeight(for state: HomeViewState) -> Double
 }
 
 class HomeViewModel {
-	let delegate: HomeViewModelDelegate
-	let bagModelController = BagModelController()
+	let viewDelegate: HomeViewModelViewDelegate
+	private let bagModelController = BagModelController()
 	
-	private var sections = [Section]()
+	private let homeItems: [HomeItem] = [
+		HomeItem(title: "Salad")
+	]
 	
-	/// Gets updated to given value of `setCurrentViewState(:)`.
-    private(set) var currentViewState = Dynamic(HomeViewState.foods)
-	/// Gets updated when the current view state is set.
-	private(set) var favesButtonImage = Dynamic(#imageLiteral(resourceName: "Heart.pdf"))
+	private var sections: [Section] {
+		switch currentViewState.value {
+		case .home: return homeSections
+		case .faves: return []
+		}
+	}
+	
+	// ⚠️ Fetch foods to list from database and create models.
+	private var homeSections: [Section] { return [
+		Section(cellViewModels: homeItems.map {
+			HomeItemCollectionViewCellViewModelFactory(
+				width: viewDelegate.cellWidth(for: currentViewState.value),
+				height: viewDelegate.cellHeight(for: currentViewState.value),
+				titleText: $0.title
+			).create()
+		})
+	]}
+	
+	private(set) var currentViewState = Dynamic(HomeViewState.home)
+	private(set) var favesButtonImage = Dynamic(HomeImage.heart)
 	private (set) var shouldHideNoFavesView = Dynamic(true)
+	
+	var bagQuantity: Int {
+		return (try? bagModelController.getQuantity()) ?? 0
+	}
     
-    var bagQuantityLabelText: String {
-		guard let quantity = try? bagModelController.getQuantity() else { return "" }
-		return "\(quantity)"
+    var bagQuantityLabelText: String? {
+		return bagQuantity > 0 ? "\(bagQuantity)" : nil
     }
 	
 	var numberOfSections: Int {
 		return sections.count
 	}
-	
-	// ⚠️ Fetch foods to list from database. For now only salad.
-	private lazy var foodSections: [Section] = {[
-		Section(cellViewModels: [
-			FoodHomeCollectionViewCellViewModelFactory(
-				size: cellSize(for: .foods),
-				titleText: ""
-			).create()
-		])
-	]}()
-	
-	private struct Constants {
-		static let foodCellHeight: CGFloat = 200
-	}
     
-	init(delegate: HomeViewModelDelegate) {
-		self.delegate = delegate
-		setUpSections(for: currentViewState.value)
+	init(_ viewDelegate: HomeViewModelViewDelegate) {
+		self.viewDelegate = viewDelegate
     }
 	
 	func setCurrentViewState(to viewState: HomeViewState) {
@@ -73,17 +84,10 @@ class HomeViewModel {
 	
 	func setFavesButtonImage(for viewState: HomeViewState) {
 		switch viewState {
-		case .foods: favesButtonImage.value = #imageLiteral(resourceName: "Heart.pdf")
-		case .faves: favesButtonImage.value = #imageLiteral(resourceName: "Home.pdf")
+		case .home: favesButtonImage.value = .heart
+		case .faves: favesButtonImage.value = .home
 		}
 	}
-    
-    private func setUpSections(for viewState: HomeViewState) {
-		switch viewState {
-		case .foods: sections = foodSections
-		case .faves: break
-		}
-    }
     
     func numberOfItems(in section: Int) -> Int {
         return sections[section].cellViewModels.count
@@ -95,14 +99,5 @@ class HomeViewModel {
     
     func title(for section: Int) -> String? {
         return sections[section].title
-    }
-    
-    private func cellSize(for viewState: HomeViewState) -> CGSize {
-        switch viewState {
-        case .foods: return CGSize(width: delegate.contextBounds.width - 20, height: Constants.foodCellHeight)
-        case .faves:
-            let size = (delegate.contextBounds.width / 2) - 15
-            return CGSize(width: size, height: size)
-        }
     }
 }
