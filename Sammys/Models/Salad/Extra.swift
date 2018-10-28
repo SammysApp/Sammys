@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Extra: OptionallyPricedFoodItem, ModifiableFoodItem {
+struct Extra: ModifiableFoodItem, OptionallyPricedFoodItem {
+	static let itemName = SaladFoodItem.extra.rawValue
     let name: String
     let description: String
     let price: Double?
@@ -16,15 +17,3 @@ struct Extra: OptionallyPricedFoodItem, ModifiableFoodItem {
 }
 
 extension Extra: Hashable {}
-
-extension Extra: ArrayBuildable {
-	typealias ArrayBuilder = [Extra : [Modifier : Bool]]
-	
-	static func buildArray(from builder: ArrayBuilder) -> [Extra] {
-		let filteredExtras = builder.filter { _, mods in mods.contains { $1 } }.keys
-		return filteredExtras.compactMap { extra in
-			guard let modifierKeys = builder[extra]?.filter({ $1 }).keys else { return nil }
-			return Extra(name: extra.name, description: extra.description, price: extra.price, modifiers: Array(modifierKeys))
-		}
-	}
-}

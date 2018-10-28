@@ -9,6 +9,7 @@
 import Foundation
 
 protocol FoodItem: Codable {
+	static var itemName: String { get }
 	var name: String { get }
     var description: String { get }
 }
@@ -22,11 +23,10 @@ protocol OptionallyPricedFoodItem: FoodItem {
 	var price: Double? { get }
 }
 
+/// A `FoodItem` that includes modifiers.
 protocol ModifiableFoodItem: FoodItem {
 	var modifiers: [Modifier] { get }
 }
 
-protocol ArrayBuildable where Self: FoodItem {
-	associatedtype ArrayBuilder
-	static func buildArray(from builder: ArrayBuilder) -> [Self]
-}
+/// A `FoodItem` that does not include modifiers.
+protocol NonModifiableFoodItem: FoodItem {}

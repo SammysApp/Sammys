@@ -28,3 +28,9 @@ extension Salad {
 
 extension Salad { static var type = ProtocolCodableType.salad }
 extension Salad: Hashable {}
+
+enum SaladFoodItem: String {
+	case size, lettuce, vegetable, topping, dressing, extra
+}
+
+extension SaladFoodItem: Hashable {}

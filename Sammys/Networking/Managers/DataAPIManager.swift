@@ -9,9 +9,21 @@
 import Foundation
 import PromiseKit
 
+enum FoodAPIKey: String {
+	case name, items
+}
+
+enum FoodAPIName: String {
+	case salad
+}
+
+enum SaladAPIItems: String {
+	case sizes, lettuces, vegetables, toppings, dressings, extras
+}
+
 struct DataAPIManager: APIManager {
     enum APIEndpoint: String, Endpoint {
-        static let baseURL = "https://sammysapp.herokuapp.com"
+        static let baseURL = "api.sammys.app"
         case hours, foods
     }
     
@@ -19,7 +31,7 @@ struct DataAPIManager: APIManager {
         return get(.hours, apiService: apiService)
     }
     
-//    static func getFoods(apiService: APIService = AlamofireAPIService()) -> Promise<FoodsData> {
-//        return get(.foods, apiService: apiService)
-//    }
+	static func getFoods(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise {
+        return get(.foods, parameters: parameters, apiService: apiService)
+    }
 }

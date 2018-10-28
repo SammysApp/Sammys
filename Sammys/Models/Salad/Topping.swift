@@ -8,16 +8,11 @@
 
 import Foundation
 
-struct Topping: OptionallyPricedFoodItem {
+struct Topping: NonModifiableFoodItem, OptionallyPricedFoodItem {
+	static let itemName = SaladFoodItem.topping.rawValue
     let name: String
     let description: String
     let price: Double?
 }
 
 extension Topping: Hashable {}
-
-extension Topping: ArrayBuildable {
-	typealias ArrayBuilder = [Topping : Bool]
-	
-	static func buildArray(from builder: ArrayBuilder) -> [Topping] { return Array(builder.filter { $1 }.keys) }
-}

@@ -35,6 +35,7 @@ class HomeViewModel {
 	let viewDelegate: HomeViewModelViewDelegate
 	private let bagModelController = BagModelController()
 	
+	// MARK: - Data
 	private let homeItems: [HomeItem] = [
 		HomeItem(title: "Salad")
 	]
@@ -57,6 +58,7 @@ class HomeViewModel {
 		})
 	]}
 	
+	// MARK: - Dynamic Properties
 	private(set) var currentViewState = Dynamic(HomeViewState.home)
 	private(set) var favesButtonImage = Dynamic(HomeImage.heart)
 	private (set) var shouldHideNoFavesView = Dynamic(true)
