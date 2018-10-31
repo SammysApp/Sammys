@@ -16,29 +16,26 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "FBSDKAppLinkTarget.h"
 
-#import <FBSDKCoreKit/FBSDKMacros.h>
+@interface FBSDKAppLinkTarget ()
 
-FBSDK_EXTERN NSString* const EMAIL;
-FBSDK_EXTERN NSString* const FIRST_NAME;
-FBSDK_EXTERN NSString* const LAST_NAME;
-FBSDK_EXTERN NSString* const PHONE;
-FBSDK_EXTERN NSString* const DATE_OF_BIRTH;
-FBSDK_EXTERN NSString* const GENDER;
-FBSDK_EXTERN NSString* const CITY;
-FBSDK_EXTERN NSString* const STATE;
-FBSDK_EXTERN NSString* const ZIP;
-FBSDK_EXTERN NSString* const COUNTRY;
+@property (nonatomic, strong) NSURL *URL;
+@property (nonatomic, copy) NSString *appStoreId;
+@property (nonatomic, copy) NSString *appName;
 
-@interface FBSDKUserDataStore : NSObject
+@end
 
-+ (void)initStore;
+@implementation FBSDKAppLinkTarget
 
-+ (void)initAndWait;
-
-+ (void) setUserDataAndHash:(NSDictionary*)ud;
-
-+ (NSString*) getHashedUserData;
++ (instancetype)appLinkTargetWithURL:(NSURL *)url
+                          appStoreId:(NSString *)appStoreId
+                             appName:(NSString *)appName {
+    FBSDKAppLinkTarget *target = [[self alloc] init];
+    target.URL = url;
+    target.appStoreId = appStoreId;
+    target.appName = appName;
+    return target;
+}
 
 @end

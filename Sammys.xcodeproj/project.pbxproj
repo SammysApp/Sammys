@@ -17,7 +17,6 @@
 		5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
 		5B05C7B520E4652800BDFBF4 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */; };
 		5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */; };
-		5B0B1CAB210A3E1B00CF1882 /* SammysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B1CAA210A3E1B00CF1882 /* SammysTests.swift */; };
 		5B0B739B20D6413900D757FD /* Blurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B739A20D6413900D757FD /* Blurable.swift */; };
 		5B0B739D20D6B58C00D757FD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B739C20D6B58C00D757FD /* UIViewController.swift */; };
 		5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58920C035F000BF05B2 /* AppDelegate.swift */; };
@@ -71,6 +70,11 @@
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
+		5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */; };
+		5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */; };
+		5B2950C3218A3E86008B0E49 /* FoodItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* FoodItemsDataFetcher.swift */; };
+		5B2950C5218A3F1B008B0E49 /* FoodItemBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C4218A3F1B008B0E49 /* FoodItemBuilder.swift */; };
+		5B2950C7218A3FB7008B0E49 /* FoodBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* FoodBuilder.swift */; };
 		5B2DC37C20D357BB008FFA2D /* Hours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37B20D357BB008FFA2D /* Hours.swift */; };
 		5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */; };
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
@@ -271,16 +275,6 @@
 		A50668C9BD111B7B10F02969 /* Pods_Sammys_Kitchen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5494BDE28465FF5670B5D65A /* Pods_Sammys_Kitchen.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		5B0B1CAD210A3E1B00CF1882 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5B6A06701FFD509A00BAC480 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5B6A06771FFD509A00BAC480;
-			remoteInfo = Sammys;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		089B4D7D2B952D3BD18CC5F6 /* Pods-Sammys Kitchen.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.beta.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.beta.xcconfig"; sourceTree = "<group>"; };
 		08B7B76D381100024015F3A3 /* Pods-Sammys Kitchen.release developer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys Kitchen.release developer.xcconfig"; path = "Pods/Target Support Files/Pods-Sammys Kitchen/Pods-Sammys Kitchen.release developer.xcconfig"; sourceTree = "<group>"; };
@@ -296,9 +290,6 @@
 		5B02C7152087CA30006D19A5 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		5B05C7B120E44AD700BDFBF4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewController.swift; sourceTree = "<group>"; };
-		5B0B1CA8210A3E1B00CF1882 /* SammysTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SammysTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5B0B1CAA210A3E1B00CF1882 /* SammysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SammysTests.swift; sourceTree = "<group>"; };
-		5B0B1CAC210A3E1B00CF1882 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B0B739A20D6413900D757FD /* Blurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurable.swift; sourceTree = "<group>"; };
 		5B0B739C20D6B58C00D757FD /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sammys Kitchen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +311,11 @@
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
+		5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladFoodItemsDataFetcher.swift; sourceTree = "<group>"; };
+		5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemCategory.swift; sourceTree = "<group>"; };
+		5B2950C2218A3E86008B0E49 /* FoodItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsDataFetcher.swift; sourceTree = "<group>"; };
+		5B2950C4218A3F1B008B0E49 /* FoodItemBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemBuilder.swift; sourceTree = "<group>"; };
+		5B2950C6218A3FB7008B0E49 /* FoodBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBuilder.swift; sourceTree = "<group>"; };
 		5B2DC37B20D357BB008FFA2D /* Hours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
 		5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewModel.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -505,13 +501,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5B0B1CA5210A3E1B00CF1882 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5B10D58420C035EF00BF05B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,15 +558,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		5B0B1CA9210A3E1B00CF1882 /* SammysTests */ = {
-			isa = PBXGroup;
-			children = (
-				5B0B1CAA210A3E1B00CF1882 /* SammysTests.swift */,
-				5B0B1CAC210A3E1B00CF1882 /* Info.plist */,
-			);
-			path = SammysTests;
-			sourceTree = "<group>";
-		};
 		5B0B739E20D810F400D757FD /* Pickup Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +579,16 @@
 				5B9B908920C70C1E00FB6264 /* Property Lists */,
 			);
 			path = "Sammys Kitchen";
+			sourceTree = "<group>";
+		};
+		5B2950C8218A404C008B0E49 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5B2950C2218A3E86008B0E49 /* FoodItemsDataFetcher.swift */,
+				5B2950C4218A3F1B008B0E49 /* FoodItemBuilder.swift */,
+				5B2950C6218A3FB7008B0E49 /* FoodBuilder.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		5B3176CF206D3D8300D83D12 /* Food */ = {
@@ -733,7 +723,6 @@
 			children = (
 				5B6A067A1FFD509A00BAC480 /* Sammys */,
 				5B10D58820C035F000BF05B2 /* Sammys Kitchen */,
-				5B0B1CA9210A3E1B00CF1882 /* SammysTests */,
 				5B6A06791FFD509A00BAC480 /* Products */,
 				121183D2095EEA5493A89E13 /* Pods */,
 				94825A66B172021E2F0BA0A3 /* Frameworks */,
@@ -745,7 +734,6 @@
 			children = (
 				5B6A06781FFD509A00BAC480 /* Sammys.app */,
 				5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */,
-				5B0B1CA8210A3E1B00CF1882 /* SammysTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -889,6 +877,7 @@
 				5BFC573F217C308A0002179B /* Purchaseable.swift */,
 				5B44A7C3200483E500898FF0 /* Food.swift */,
 				5B44A82C2009292A00898FF0 /* FoodItem.swift */,
+				5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
 				5BFC5732217820920002179B /* Salad */,
 			);
@@ -1286,6 +1275,8 @@
 		5BFD2189217D687C002D9A73 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5B2950C8218A404C008B0E49 /* Common */,
+				5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */,
 				5BFC57332179101D0002179B /* SaladBuilder.swift */,
 				5B44A7C120047E5600898FF0 /* BagModelController.swift */,
 			);
@@ -1305,24 +1296,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5B0B1CA7210A3E1B00CF1882 /* SammysTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5B0B1CAF210A3E1B00CF1882 /* Build configuration list for PBXNativeTarget "SammysTests" */;
-			buildPhases = (
-				5B0B1CA4210A3E1B00CF1882 /* Sources */,
-				5B0B1CA5210A3E1B00CF1882 /* Frameworks */,
-				5B0B1CA6210A3E1B00CF1882 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5B0B1CAE210A3E1B00CF1882 /* PBXTargetDependency */,
-			);
-			name = SammysTests;
-			productName = SammysTests;
-			productReference = 5B0B1CA8210A3E1B00CF1882 /* SammysTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		5B10D58620C035EF00BF05B2 /* Sammys Kitchen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B10D59A20C035F400BF05B2 /* Build configuration list for PBXNativeTarget "Sammys Kitchen" */;
@@ -1371,11 +1344,6 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Natanel Niazoff";
 				TargetAttributes = {
-					5B0B1CA7210A3E1B00CF1882 = {
-						CreatedOnToolsVersion = 10.0;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 5B6A06771FFD509A00BAC480;
-					};
 					5B10D58620C035EF00BF05B2 = {
 						CreatedOnToolsVersion = 9.3.1;
 						ProvisioningStyle = Automatic;
@@ -1401,19 +1369,11 @@
 			targets = (
 				5B6A06771FFD509A00BAC480 /* Sammys */,
 				5B10D58620C035EF00BF05B2 /* Sammys Kitchen */,
-				5B0B1CA7210A3E1B00CF1882 /* SammysTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5B0B1CA6210A3E1B00CF1882 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5B10D58520C035EF00BF05B2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1575,14 +1535,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5B0B1CA4210A3E1B00CF1882 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5B0B1CAB210A3E1B00CF1882 /* SammysTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5B10D58320C035EF00BF05B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1675,6 +1627,7 @@
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
 				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
 				5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */,
+				5B2950C7218A3FB7008B0E49 /* FoodBuilder.swift in Sources */,
 				5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
@@ -1734,6 +1687,7 @@
 				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
 				5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */,
 				5BB60F492069F5B100105E72 /* Int.swift in Sources */,
+				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
 				5BB60EED206997A500105E72 /* ItemCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
@@ -1743,12 +1697,15 @@
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */,
 				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
+				5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
+				5B2950C5218A3F1B008B0E49 /* FoodItemBuilder.swift in Sources */,
 				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
+				5B2950C3218A3E86008B0E49 /* FoodItemsDataFetcher.swift in Sources */,
 				5BA01973213733870017A993 /* APIManager.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagModelController.swift in Sources */,
@@ -1827,92 +1784,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		5B0B1CAE210A3E1B00CF1882 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5B6A06771FFD509A00BAC480 /* Sammys */;
-			targetProxy = 5B0B1CAD210A3E1B00CF1882 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		5B0B1CB0210A3E1B00CF1882 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = SammysTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
-			};
-			name = Debug;
-		};
-		5B0B1CB1210A3E1B00CF1882 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = SammysTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
-			};
-			name = Release;
-		};
-		5B0B1CB2210A3E1B00CF1882 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = SammysTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
-			};
-			name = Beta;
-		};
-		5B0B1CB3210A3E1B00CF1882 /* Family */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LWC7S9F6VV;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/**";
-				INFOPLIST_FILE = SammysTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
-			};
-			name = Family;
-		};
 		5B10D59820C035F400BF05B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E484580CD294F70CF06A987C /* Pods-Sammys Kitchen.debug.xcconfig */;
@@ -2298,17 +2170,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5B0B1CAF210A3E1B00CF1882 /* Build configuration list for PBXNativeTarget "SammysTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5B0B1CB0210A3E1B00CF1882 /* Debug */,
-				5B0B1CB1210A3E1B00CF1882 /* Release */,
-				5B0B1CB2210A3E1B00CF1882 /* Beta */,
-				5B0B1CB3210A3E1B00CF1882 /* Family */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		5B10D59A20C035F400BF05B2 /* Build configuration list for PBXNativeTarget "Sammys Kitchen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

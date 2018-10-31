@@ -9,7 +9,7 @@
 import Foundation
 
 struct Vegetable: NonModifiableFoodItem {
-	static let itemName = SaladFoodItem.vegetable.rawValue
+	static let itemName = SaladFoodItemCategory.vegetable.rawValue
     let name: String
     let description: String
 }

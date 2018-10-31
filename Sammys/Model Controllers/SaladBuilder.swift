@@ -12,54 +12,6 @@ enum SaladBuilderError: Error {
 	case noSize, needsModifier
 }
 
-protocol FoodItemBuilder {
-	associatedtype FoodItemBuilding: FoodItem & Hashable
-}
-
-protocol NonModifiableFoodItemBuilder: FoodItemBuilder {
-	typealias Builder = [FoodItemBuilding : Bool]
-	var builder: Builder { get set }
-	mutating func toggle(_ foodItem: FoodItem)
-}
-
-protocol ModifiableFoodItemBuilder: FoodItemBuilder {
-	typealias Builder = [FoodItemBuilding : [Modifier : Bool]]
-	var builder: Builder { get set }
-	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier)
-}
-
-extension NonModifiableFoodItemBuilder {
-	mutating func toggle(_ foodItem: FoodItem) {
-		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
-		// Negate current value for the food item or set to true.
-		builder[foodItemBuilding] = !(builder[foodItemBuilding] ?? false)
-	}
-}
-
-extension ModifiableFoodItemBuilder {
-	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier) {
-		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
-		// If a modifier dictionary is present for the food item...
-		if builder[foodItemBuilding] != nil {
-			// ...negate the current value for the modifier or set to true.
-			builder[foodItemBuilding]![modifier] = !(builder[foodItemBuilding]![modifier] ?? false)
-		} else {
-			// Otherwise initialize a modifier dictionary.
-			builder[foodItemBuilding] = [modifier: true]
-		}
-	}
-}
-
-protocol SingleFoodItemBuildable: FoodItemBuilder {
-	typealias Built = FoodItemBuilding
-	func build() -> Built?
-}
-
-protocol ArrayFoodItemBuildable: FoodItemBuilder {
-	typealias Built = [FoodItemBuilding]
-	func build() -> Built
-}
-
 struct SizeBuilder: NonModifiableFoodItemBuilder, SingleFoodItemBuildable {
 	typealias FoodItemBuilding = Size
 	var builder: Builder = [:]
@@ -120,7 +72,7 @@ struct ExtrasBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	}
 }
 
-struct SaladBuilder {
+struct SaladBuilder: FoodBuilder {
 	private var sizeBuilder = SizeBuilder()
 	private var lettuceBuilder = LettuceBuilder()
 	private var vegetablesBuilder = VegetablesBuilder()
@@ -128,21 +80,8 @@ struct SaladBuilder {
 	private var dressingsBuilder = DressingsBuilder()
 	private var extrasBuilder = ExtrasBuilder()
 	
-	func build() throws -> Salad {
-		guard let size = sizeBuilder.build()
-			else { throw SaladBuilderError.noSize }
-		return Salad(
-			size: size,
-			lettuce: lettuceBuilder.build(),
-			vegetables: vegetablesBuilder.build(),
-			toppings: toppingsBuilder.build(),
-			dressings: dressingsBuilder.build(),
-			extras: extrasBuilder.build()
-		)
-	}
-	
 	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier? = nil) throws {
-		if let saladFoodItem = SaladFoodItem(rawValue: type(of: foodItem).itemName) {
+		if let saladFoodItem = SaladFoodItemCategory(rawValue: type(of: foodItem).itemName) {
 			switch saladFoodItem {
 			case .size: sizeBuilder.toggle(foodItem)
 			case .lettuce:
@@ -158,5 +97,18 @@ struct SaladBuilder {
 				extrasBuilder.toggle(foodItem, with: modifier)
 			}
 		}
+	}
+	
+	func build() throws -> Food {
+		guard let size = sizeBuilder.build()
+			else { throw SaladBuilderError.noSize }
+		return Salad(
+			size: size,
+			lettuce: lettuceBuilder.build(),
+			vegetables: vegetablesBuilder.build(),
+			toppings: toppingsBuilder.build(),
+			dressings: dressingsBuilder.build(),
+			extras: extrasBuilder.build()
+		)
 	}
 }

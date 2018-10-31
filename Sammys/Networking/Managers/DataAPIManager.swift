@@ -23,7 +23,7 @@ enum SaladAPIItems: String {
 
 struct DataAPIManager: APIManager {
     enum APIEndpoint: String, Endpoint {
-        static let baseURL = "api.sammys.app"
+		static let baseURL = "http://api.sammys.app"
         case hours, foods
     }
     
@@ -31,7 +31,7 @@ struct DataAPIManager: APIManager {
         return get(.hours, apiService: apiService)
     }
     
-	static func getFoods(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise {
+	static func getFoodItems<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
         return get(.foods, parameters: parameters, apiService: apiService)
     }
 }
