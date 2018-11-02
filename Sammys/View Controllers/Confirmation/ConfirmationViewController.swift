@@ -120,9 +120,7 @@ extension ConfirmationViewController: UICollectionViewDataSource {
 }
 
 extension ConfirmationViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        cellViewModel(at: indexPath.row)?.commands[.selection]?.perform(parameters: CommandParameters(viewController: self))
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cellViewModel = cellViewModel(at: indexPath.row)

@@ -16,16 +16,6 @@ private struct HomeItem {
 	let title: String
 }
 
-private struct Section {
-    let title: String?
-    let cellViewModels: [CollectionViewCellViewModel]
-    
-    init(title: String? = nil, cellViewModels: [CollectionViewCellViewModel]) {
-        self.title = title
-        self.cellViewModels = cellViewModels
-    }
-}
-
 protocol HomeViewModelViewDelegate {
 	func cellWidth(for state: HomeViewState) -> Double
 	func cellHeight(for state: HomeViewState) -> Double
@@ -40,7 +30,7 @@ class HomeViewModel {
 		HomeItem(title: "Salad")
 	]
 	
-	private var sections: [Section] {
+	private var sections: [CollectionViewSection] {
 		switch currentViewState.value {
 		case .home: return homeSections
 		case .faves: return []
@@ -48,8 +38,8 @@ class HomeViewModel {
 	}
 	
 	// ⚠️ Fetch foods to list from database and create models.
-	private var homeSections: [Section] { return [
-		Section(cellViewModels: homeItems.map {
+	private var homeSections: [CollectionViewSection] { return [
+		CollectionViewSection(cellViewModels: homeItems.map {
 			HomeItemCollectionViewCellViewModelFactory(
 				width: viewDelegate.cellWidth(for: currentViewState.value),
 				height: viewDelegate.cellHeight(for: currentViewState.value),

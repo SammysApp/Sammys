@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,13 +35,13 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0K-Q8-L7Q">
-                                <rect key="frame" x="147.66666666666666" y="64" width="80.666666666666657" height="38.333333333333343"/>
+                                <rect key="frame" x="147.33333333333334" y="64" width="80.666666666666657" height="38.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                 <color key="textColor" name="Snow"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="CoT-jF-u6a">
-                                <rect key="frame" x="145" y="698.66666666666663" width="85.666666666666686" height="59.333333333333371"/>
+                                <rect key="frame" x="144.66666666666666" y="698.66666666666663" width="85.666666666666657" height="59.333333333333371"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="wTc-Pw-RbG">
                                         <rect key="frame" x="0.0" y="0.0" width="85.666666666666671" height="33.666666666666664"/>
@@ -89,7 +88,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXz-KP-Ocg">
-                                <rect key="frame" x="305" y="66.666666666666671" width="50" height="34"/>
+                                <rect key="frame" x="305" y="66.333333333333329" width="50" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="tintColor" name="Mocha"/>
                                 <state key="normal" title="Finish">
@@ -100,7 +99,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYP-bL-OLD">
-                                <rect key="frame" x="20.000000000000004" y="73" width="43.333333333333343" height="21.666666666666671"/>
+                                <rect key="frame" x="20.000000000000004" y="72.333333333333329" width="43.333333333333343" height="21.666666666666671"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" name="Snow"/>
                                 <nil key="highlightedColor"/>
@@ -141,7 +140,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RDQ-5g-jhq">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RDQ-5g-jhq">
                                                                 <rect key="frame" x="52" y="59.333333333333343" width="36.333333333333343" height="21.666666666666657"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhb-PO-eDJ">
@@ -151,7 +150,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78d-sC-8xz">
-                                                                        <rect key="frame" x="0.0" y="21.666666666666671" width="36.333333333333336" height="17"/>
+                                                                        <rect key="frame" x="0.0" y="21.666666666666664" width="36.333333333333336" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                         <color key="textColor" name="Snow"/>
                                                                         <nil key="highlightedColor"/>
@@ -221,15 +220,15 @@
                         <outlet property="activityIndicatorView" destination="a2q-fC-6Lk" id="47O-4X-0gc"/>
                         <outlet property="backButton" destination="tAz-oX-kCZ" id="eMq-Ua-dty"/>
                         <outlet property="collectionView" destination="SoD-Da-FXx" id="v3K-8j-Wkb"/>
-                        <outlet property="descriptionLabel" destination="mh6-ge-Qa5" id="yJM-me-OpL"/>
                         <outlet property="finishButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>
-                        <outlet property="itemLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
-                        <outlet property="itemStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
-                        <outlet property="itemTypeLabel" destination="L0K-Q8-L7Q" id="xB1-ea-uaj"/>
+                        <outlet property="itemCategoryLabel" destination="L0K-Q8-L7Q" id="xB1-ea-uaj"/>
+                        <outlet property="itemDescriptionLabel" destination="mh6-ge-Qa5" id="yJM-me-OpL"/>
+                        <outlet property="itemDetailsStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
+                        <outlet property="itemNameLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
+                        <outlet property="itemPriceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
                         <outlet property="modifierCollectionView" destination="gGX-jw-Tmj" id="pcK-q4-KGG"/>
                         <outlet property="modifierView" destination="G32-jb-Vzc" id="DSS-1E-rUp"/>
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
-                        <outlet property="priceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
                         <outlet property="totalPriceLabel" destination="HYP-bL-OLD" id="2nU-QF-J0e"/>
                     </connections>
                 </viewController>

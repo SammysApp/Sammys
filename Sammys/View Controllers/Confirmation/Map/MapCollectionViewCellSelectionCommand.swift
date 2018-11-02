@@ -9,8 +9,5 @@
 import Foundation
 
 struct MapCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-    func perform(parameters: CommandParameters) {
-        guard let viewController = parameters.viewController as? ConfirmationViewController else { return }
-        viewController.presentNavigationAlert()
-    }
+    func perform(parameters: CommandParameters) {}
 }

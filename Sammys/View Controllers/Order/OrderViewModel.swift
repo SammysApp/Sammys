@@ -8,7 +8,7 @@
 
 import Foundation
 
-private struct Section {
+private struct TableViewSection {
     let title: String?
     var cellViewModels: [TableViewCellViewModel]
     

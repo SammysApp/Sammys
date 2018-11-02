@@ -139,7 +139,14 @@ class HomeViewController: UIViewController {
 	// MARK: - Methods
     func didSelectItem(at indexPath: IndexPath) {
 		switch viewModel.currentViewState.value {
-		case .home: break
+		case .home:
+			let itemsViewController = ItemsViewController.storyboardInstance()
+			itemsViewController.viewModelParcel = ItemsViewModelParcel(
+				itemCategories: SaladFoodItemCategory.allCases,
+				dataFetcher: SaladFoodItemsDataFetcher.self,
+				builder: SaladBuilder()
+			)
+			present(itemsViewController, animated: true, completion: nil)
 		case .faves: break
 		}
 	}
@@ -151,9 +158,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func didTapFaves(_ sender: UIButton) {}
     
-    @IBAction func didTapBag(_ sender: UIButton) {
-//        present(BagViewController.storyboardInstance(), animated: true, completion: nil)
-    }
+    @IBAction func didTapBag(_ sender: UIButton) {}
 }
 
 // MARK: - Storyboardable
