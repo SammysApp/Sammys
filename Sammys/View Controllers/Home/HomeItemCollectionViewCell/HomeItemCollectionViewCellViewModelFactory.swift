@@ -21,9 +21,9 @@ struct HomeItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFa
 		return CGSize(width: width, height: height)
 	}
     
-    func create() -> CollectionViewCellViewModel {
+    func create() -> DefaultCollectionViewCellViewModel {
         let configurationCommand = HomeItemCollectionViewCellConfigurationCommand(titleText: titleText)
         let commands: [CollectionViewCommandActionKey : CollectionViewCellCommand] = [.configuration: configurationCommand]
-        return CollectionViewCellViewModel(identifier: HomeItemCellIdentifier.homeItemCell.rawValue, size: size, commands: commands)
+        return DefaultCollectionViewCellViewModel(identifier: HomeItemCellIdentifier.homeItemCell.rawValue, size: size, commands: commands)
     }
 }

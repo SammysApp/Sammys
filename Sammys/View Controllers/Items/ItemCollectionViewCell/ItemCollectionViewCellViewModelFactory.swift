@@ -17,9 +17,9 @@ extension ItemsViewModel {
 		let foodItem: FoodItem
 		let size: CGSize
 		
-		func create() -> CollectionViewCellViewModel {
+		func create() -> ItemCollectionViewCellViewModel {
 			let configurationCommand = ItemCollectionViewCellConfigurationCommand(foodItem: foodItem)
-			return CollectionViewCellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration: configurationCommand])
+			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration: configurationCommand])
 		}
 	}
 }

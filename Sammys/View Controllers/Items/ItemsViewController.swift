@@ -14,6 +14,8 @@ enum ItemsViewLayoutState {
 }
 
 class ItemsViewController: UIViewController {
+	typealias CellViewModel = ItemsViewModel.ItemCollectionViewCellViewModel
+	
 	/// Must be set for the view model to use.
 	var viewModelParcel: ItemsViewModelParcel!
 	private var viewModel: ItemsViewModel!
@@ -65,13 +67,15 @@ class ItemsViewController: UIViewController {
 		viewModel = ItemsViewModel(viewDelegate: self, parcel: viewModelParcel)
 		
 		setupCollectionView()
-		viewModel.sections.bindAndRun { _ in self.collectionView.reloadData() }
-		
 		setupAnimatedCardCollectionViewLayout()
 		setupBackButton()
 		setupNextButton()
 		
-		updateCollectionView(for: .horizontal)
+		viewModel.itemCategory.bindAndRun { self.didChangeItemCategory(with: $0) }
+		viewModel.sections.bindAndRun { _ in self.collectionView.reloadData() }
+		viewModel.centerCellViewModel.bindAndRun { cellViewModel in
+			if let cellViewModel = cellViewModel { self.didCenter(at: cellViewModel) }
+		}
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +90,7 @@ class ItemsViewController: UIViewController {
 			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
 			forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue
 		)
+		updateCollectionView(for: .horizontal)
 	}
 	
 	func setupAnimatedCardCollectionViewLayout() {
@@ -136,10 +141,22 @@ class ItemsViewController: UIViewController {
 			}
 		)
 	}
+	
+	func didChangeItemCategory(with itemCategory: FoodItemCategory) {
+		itemCategoryLabel.text = itemCategory.name
+	}
+	
+	func didCenter(at cellViewModel: CellViewModel) {
+		itemNameLabel.text = cellViewModel.foodItem.name
+		if let pricedFoodItem = cellViewModel.foodItem as? PricedFoodItem {
+			itemPriceLabel.text = "\(pricedFoodItem.price)"
+		}
+	}
 
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
-		
+		do { try viewModel.incrementItemCategory() }
+		catch { print(error) }
     }
 
     @IBAction func didTapBack(_ sender: UIButton) {
@@ -155,15 +172,15 @@ class ItemsViewController: UIViewController {
     }
 }
 
+// MARK: - Storyboardable
+extension ItemsViewController: Storyboardable {}
+
 // MARK: - ItemsViewModelViewDelegate
 extension ItemsViewController: ItemsViewModelViewDelegate {
 	func cellWidth() -> Double { return Double(collectionView.frame.width) }
 	
 	func cellHeight() -> Double { return Double(collectionView.frame.height / 1.5) }
 }
-
-// MARK: - Storyboardable
-extension ItemsViewController: Storyboardable {}
 
 // MARK: - UICollectionViewDataSource
 extension ItemsViewController: UICollectionViewDataSource {
@@ -194,4 +211,11 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateTopViews(forContentOffsetY: scrollView.contentOffset.y + view.safeAreaInsets.top)
     }
+	
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		let centerPoint = view.convert(view.center, to: collectionView)
+		if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint) {
+			viewModel.didCenterCellViewModel(at: centerIndexPath)
+		}
+	}
 }

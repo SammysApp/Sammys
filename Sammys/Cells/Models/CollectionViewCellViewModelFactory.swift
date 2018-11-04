@@ -9,5 +9,7 @@
 import Foundation
 
 protocol CollectionViewCellViewModelFactory {
-    func create() -> CollectionViewCellViewModel
+	associatedtype ViewModel: CollectionViewCellViewModel
+	
+    func create() -> ViewModel
 }

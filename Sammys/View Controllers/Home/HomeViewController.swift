@@ -146,7 +146,7 @@ class HomeViewController: UIViewController {
 				dataFetcher: SaladFoodItemsDataFetcher.self,
 				builder: SaladBuilder()
 			)
-			present(itemsViewController, animated: true, completion: nil)
+			navigationController?.pushViewController(itemsViewController, animated: true)
 		case .faves: break
 		}
 	}

@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum ItemsViewModelError: Error {
+	case nonIncrementable
+}
+
 struct ItemsViewModelParcel {
 	let itemCategories: [FoodItemCategory]
 	let dataFetcher: FoodItemsDataFetcher.Type
@@ -20,13 +24,23 @@ protocol ItemsViewModelViewDelegate {
 }
 
 class ItemsViewModel {
+	typealias ItemsCollectionViewSection = CollectionViewSection<ItemCollectionViewCellViewModel>
+	
 	private let viewDelegate: ItemsViewModelViewDelegate
 	private var parcel: ItemsViewModelParcel
+	
+	private(set) var itemCategory: Dynamic<FoodItemCategory>
+	private var currentItemCategoryIndex: Int? {
+		return parcel.itemCategories.firstIndex
+			{ self.itemCategory.value.stringValue == $0.stringValue }
+	}
 	
 	private var items = [FoodItem]() {
 		didSet { sections.value = sections(for: items) }
 	}
-	private(set) var sections = Dynamic([CollectionViewSection]())
+	private(set) var sections = Dynamic([ItemsCollectionViewSection]())
+	
+	private(set) var centerCellViewModel: Dynamic<ItemCollectionViewCellViewModel?> = Dynamic(nil)
 	
 	var numberOfSections: Int { return sections.value.count }
 	
@@ -34,13 +48,25 @@ class ItemsViewModel {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
 		
-		if let firstItemCategory = parcel.itemCategories.first {
-			parcel.dataFetcher.getFoodItems(for: firstItemCategory)
-				.get { self.items = $0 }.catch { print($0) }
-		}
+		guard let firstItemCategory = parcel.itemCategories.first
+			else { fatalError() }
+		self.itemCategory = Dynamic(firstItemCategory)
+		
+		parcel.dataFetcher.getFoodItems(for: firstItemCategory)
+			.get { self.items = $0 }.catch { print($0) }
 	}
 	
-	func sections(for items: [FoodItem]) -> [CollectionViewSection] {
+	func incrementItemCategory() throws {
+		guard let currentIndex = currentItemCategoryIndex,
+		let nextItemCategory = parcel.itemCategories[safe: currentIndex + 1]
+			else { throw ItemsViewModelError.nonIncrementable }
+		itemCategory.value = nextItemCategory
+		
+		parcel.dataFetcher.getFoodItems(for: itemCategory.value)
+			.get { self.items = $0 }.catch { print($0) }
+	}
+	
+	func sections(for items: [FoodItem]) -> [ItemsCollectionViewSection] {
 		return [CollectionViewSection(
 			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, size: cellSize()).create() }
 		)]
@@ -56,5 +82,9 @@ class ItemsViewModel {
 	
 	func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
 		return sections.value[indexPath.section].cellViewModels[indexPath.row]
+	}
+	
+	func didCenterCellViewModel(at indexPath: IndexPath) {
+		centerCellViewModel.value = sections.value[indexPath.section].cellViewModels[indexPath.item]
 	}
 }

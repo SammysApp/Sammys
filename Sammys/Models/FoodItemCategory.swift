@@ -9,11 +9,16 @@
 import Foundation
 
 protocol FoodItemCategory {
+	var stringValue: String { get }
 	var name: String { get }
 }
 
 extension FoodItemCategory where Self: RawRepresentable, Self.RawValue == String {
-	var name: String {
+	var stringValue: String {
 		return rawValue
+	}
+	
+	var name: String {
+		return rawValue.capitalizingFirstLetter()
 	}
 }

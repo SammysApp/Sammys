@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct CollectionViewSection {
+struct CollectionViewSection<ViewModel: CollectionViewCellViewModel> {
 	let title: String?
-	let cellViewModels: [CollectionViewCellViewModel]
+	let cellViewModels: [ViewModel]
 	
-	init(title: String? = nil, cellViewModels: [CollectionViewCellViewModel]) {
+	init(title: String? = nil, cellViewModels: [ViewModel]) {
 		self.title = title
 		self.cellViewModels = cellViewModels
 	}

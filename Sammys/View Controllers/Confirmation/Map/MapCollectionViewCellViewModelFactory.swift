@@ -19,9 +19,9 @@ struct MapCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory
         self.size = size
     }
     
-    func create() -> CollectionViewCellViewModel {
+    func create() -> DefaultCollectionViewCellViewModel {
         let configurationCommand = MapCollectionViewCellConfigurationCommand()
         let selectionCommand = MapCollectionViewCellSelectionCommand()
-        return CollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
+        return DefaultCollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
     }
 }

@@ -22,6 +22,8 @@ protocol HomeViewModelViewDelegate {
 }
 
 class HomeViewModel {
+	typealias HomeCollectionViewSection = CollectionViewSection<DefaultCollectionViewCellViewModel>
+	
 	let viewDelegate: HomeViewModelViewDelegate
 	private let bagModelController = BagModelController()
 	
@@ -30,7 +32,7 @@ class HomeViewModel {
 		HomeItem(title: "Salad")
 	]
 	
-	private var sections: [CollectionViewSection] {
+	private var sections: [HomeCollectionViewSection] {
 		switch currentViewState.value {
 		case .home: return homeSections
 		case .faves: return []
@@ -38,7 +40,7 @@ class HomeViewModel {
 	}
 	
 	// ⚠️ Fetch foods to list from database and create models.
-	private var homeSections: [CollectionViewSection] { return [
+	private var homeSections: [HomeCollectionViewSection] { return [
 		CollectionViewSection(cellViewModels: homeItems.map {
 			HomeItemCollectionViewCellViewModelFactory(
 				width: viewDelegate.cellWidth(for: currentViewState.value),

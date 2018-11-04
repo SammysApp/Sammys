@@ -16,9 +16,9 @@ struct MessageCollectionViewCellViewModelFactory: CollectionViewCellViewModelFac
     let size: CGSize
     let order: Order
     
-    func create() -> CollectionViewCellViewModel {
+    func create() -> DefaultCollectionViewCellViewModel {
         let configurationCommand = MessageCollectionViewCellConfigurationCommand(order: order)
         let selectionCommand = MessageCollectionViewCellSelectionCommand()
-        return CollectionViewCellViewModel(identifier: MessageCellIdentifier.messageCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
+        return DefaultCollectionViewCellViewModel(identifier: MessageCellIdentifier.messageCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
     }
 }
