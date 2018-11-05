@@ -31,9 +31,15 @@ class ItemsViewModel {
 	private var parcel: ItemsViewModelParcel
 	
 	private(set) var itemCategory: Dynamic<FoodItemCategory>
+	
 	private var currentItemCategoryIndex: Int? {
 		return parcel.itemCategories.firstIndex
 			{ self.itemCategory.value.stringValue == $0.stringValue }
+	}
+	
+	var isAtLastItemCategory: Bool {
+		guard let currentIndex = currentItemCategoryIndex else { return false }
+		return currentIndex == parcel.itemCategories.endIndex - 1
 	}
 	
 	private var items = [FoodItem]() {
@@ -71,23 +77,27 @@ class ItemsViewModel {
 	
 	func sections(for items: [FoodItem]) -> [ItemsCollectionViewSection] {
 		return [CollectionViewSection(
-			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, size: cellSize()).create() }
+			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
 		)]
-	}
-	
-	func cellSize() -> CGSize {
-		return CGSize(width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight())
 	}
 	
 	func numberOfItems(inSection section: Int) -> Int {
 		return sections.value[section].cellViewModels.count
 	}
 	
-	func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
+	func cellViewModel(for indexPath: IndexPath) -> ItemCollectionViewCellViewModel {
 		return sections.value[indexPath.section].cellViewModels[indexPath.row]
 	}
 	
 	func didCenterCellViewModel(at indexPath: IndexPath) {
 		centerCellViewModel.value = sections.value[indexPath.section].cellViewModels[indexPath.item]
+	}
+	
+	func toggle(_ foodItem: FoodItem, with modifier: Modifier? = nil) throws {
+		try parcel.builder.toggle(foodItem, with: modifier)
+	}
+	
+	func buildFood() throws {
+		try print(parcel.builder.build())
 	}
 }

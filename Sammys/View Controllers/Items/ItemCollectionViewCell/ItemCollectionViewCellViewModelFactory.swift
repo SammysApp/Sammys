@@ -15,11 +15,12 @@ extension ItemsViewModel {
 
 	struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
 		let foodItem: FoodItem
-		let size: CGSize
+		let width: Double
+		let height: Double
 		
 		func create() -> ItemCollectionViewCellViewModel {
 			let configurationCommand = ItemCollectionViewCellConfigurationCommand(foodItem: foodItem)
-			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, size: size, commands: [.configuration: configurationCommand])
+			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, size: CGSize(width: width, height: height), commands: [.configuration: configurationCommand])
 		}
 	}
 }

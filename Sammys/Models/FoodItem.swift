@@ -28,5 +28,10 @@ protocol ModifiableFoodItem: FoodItem {
 	var modifiers: [Modifier] { get }
 }
 
+/// Use in cases where instances can either be modifiable or not.
+protocol OptionallyModifiableFoodItem: FoodItem {
+	var modifiers: [Modifier]? { get }
+}
+
 /// A `FoodItem` that does not include modifiers.
 protocol NonModifiableFoodItem: FoodItem {}

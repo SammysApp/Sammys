@@ -35,21 +35,21 @@ struct SaladFoodItemsDataFetcher: FoodItemsDataFetcher {
 		])
 	}
 	
-	private static func getToppings() -> Promise<[Vegetable]> {
+	private static func getToppings() -> Promise<[Topping]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.toppings.rawValue
 		])
 	}
 	
-	private static func getDressings() -> Promise<[Vegetable]> {
+	private static func getDressings() -> Promise<[Dressing]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.dressings.rawValue
 		])
 	}
 	
-	private static func getExtras() -> Promise<[Vegetable]> {
+	private static func getExtras() -> Promise<[Extra]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.extras.rawValue

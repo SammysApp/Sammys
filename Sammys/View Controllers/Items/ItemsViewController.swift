@@ -24,9 +24,15 @@ class ItemsViewController: UIViewController {
 	var viewModelParcel: ItemsViewModelParcel!
 	private var viewModel: ItemsViewModel!
 	
+	let defaultViewLayoutState = ItemsViewLayoutState.horizontal
 	let animatedCardCollectionViewLayout = AnimatedCollectionViewLayout()
 	let flowCollectionViewLayout = UICollectionViewFlowLayout()
 	let modifierViewEffect = UIBlurEffect(style: .dark)
+	
+	var currentViewLayoutState: ItemsViewLayoutState {
+		guard let stateSpecifier = viewModel.itemCategory.value as? ItemsViewLayoutStateSpecifier else { return defaultViewLayoutState }
+		return stateSpecifier.state
+	}
 
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
@@ -55,6 +61,8 @@ class ItemsViewController: UIViewController {
 	
 	struct Constants {
 		static let itemCollectionViewCellXibName = "ItemCollectionViewCell"
+		
+		static let collectionViewContentInset: CGFloat = 10
 		
 		static let cardAnimatorItemSpacing: CGFloat = 0.4
 		static let cardAnimatorScaleRate: CGFloat = 0.75
@@ -94,7 +102,8 @@ class ItemsViewController: UIViewController {
 			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
 			forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue
 		)
-		updateCollectionView(for: .horizontal)
+		collectionView.contentInset.right = Constants.collectionViewContentInset
+		collectionView.contentInset.left = Constants.collectionViewContentInset
 	}
 	
 	func setupAnimatedCardCollectionViewLayout() {
@@ -136,6 +145,11 @@ class ItemsViewController: UIViewController {
     }
 	
 	// MARK: - Methods
+	func changeViewLayout(for state: ItemsViewLayoutState) {
+		itemDetailsStackView.isHidden = state == .vertical
+		updateCollectionView(for: state)
+	}
+	
 	func toggleTopViewsHidden(_ shouldHide: Bool, animationDuration: TimeInterval = Constants.topViewsUpdateAnimationDuration) {
 		UIView.animate(
 			withDuration: animationDuration,
@@ -150,8 +164,8 @@ class ItemsViewController: UIViewController {
 		viewModel.setupData(for: itemCategory).catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
 		if let stateSpecifier = itemCategory as? ItemsViewLayoutStateSpecifier {
-			updateCollectionView(for: stateSpecifier.state)
-		}
+			changeViewLayout(for: stateSpecifier.state)
+		} else { changeViewLayout(for: defaultViewLayoutState) }
 	}
 	
 	func didCenter(at cellViewModel: CellViewModel) {
@@ -160,11 +174,18 @@ class ItemsViewController: UIViewController {
 			itemPriceLabel.text = "\(pricedFoodItem.price)"
 		}
 	}
+	
+	func didSelect(_ cellViewModel: CellViewModel) {
+		do { try viewModel.toggle(cellViewModel.foodItem) }
+		catch { print(error) }
+	}
 
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
-		do { try viewModel.incrementItemCategory() }
-		catch { print(error) }
+		do {
+			if viewModel.isAtLastItemCategory { try viewModel.buildFood() }
+			else { try viewModel.incrementItemCategory() }
+		} catch { print(error) }
     }
 
     @IBAction func didTapBack(_ sender: UIButton) {
@@ -182,9 +203,19 @@ extension ItemsViewController: Storyboardable {}
 
 // MARK: - ItemsViewModelViewDelegate
 extension ItemsViewController: ItemsViewModelViewDelegate {
-	func cellWidth() -> Double { return Double(collectionView.frame.width) }
+	func cellWidth() -> Double {
+		switch currentViewLayoutState {
+		case .horizontal: return Double(collectionView.frame.width)
+		case .vertical: return Double(collectionView.frame.width / 2 - 15)
+		}
+	}
 	
-	func cellHeight() -> Double { return Double(collectionView.frame.height / 1.5) }
+	func cellHeight() -> Double {
+		switch currentViewLayoutState {
+		case .horizontal: return Double(collectionView.frame.height / 1.5)
+		case .vertical: return cellWidth()
+		}
+	}
 }
 
 // MARK: - UICollectionViewDataSource
@@ -207,7 +238,10 @@ extension ItemsViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		didSelect(cellViewModel)
+	}
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return viewModel.cellViewModel(for: indexPath).size
