@@ -6,10 +6,11 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import PromiseKit
 
 enum ItemsViewModelError: Error {
-	case nonIncrementable
+	case nonAdjustable
 }
 
 struct ItemsViewModelParcel {
@@ -51,20 +52,22 @@ class ItemsViewModel {
 		guard let firstItemCategory = parcel.itemCategories.first
 			else { fatalError() }
 		self.itemCategory = Dynamic(firstItemCategory)
-		
-		parcel.dataFetcher.getFoodItems(for: firstItemCategory)
-			.get { self.items = $0 }.catch { print($0) }
 	}
 	
-	func incrementItemCategory() throws {
-		guard let currentIndex = currentItemCategoryIndex,
-		let nextItemCategory = parcel.itemCategories[safe: currentIndex + 1]
-			else { throw ItemsViewModelError.nonIncrementable }
-		itemCategory.value = nextItemCategory
-		
-		parcel.dataFetcher.getFoodItems(for: itemCategory.value)
-			.get { self.items = $0 }.catch { print($0) }
+	func setupData(for itemCategory: FoodItemCategory) -> Promise<Void> {
+		return parcel.dataFetcher.getFoodItems(for: itemCategory)
+			.get { self.items = $0 }.asVoid()
 	}
+	
+	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
+		guard let currentIndex = currentItemCategoryIndex,
+		let adjustedItemCategory = parcel.itemCategories[safe: currentIndex + indexValue]
+			else { throw ItemsViewModelError.nonAdjustable }
+		itemCategory.value = adjustedItemCategory
+	}
+	
+	func incrementItemCategory() throws { try adjustItemCategory(byIndexValue: 1) }
+	func decrementItemCategory() throws { try adjustItemCategory(byIndexValue: -1) }
 	
 	func sections(for items: [FoodItem]) -> [ItemsCollectionViewSection] {
 		return [CollectionViewSection(

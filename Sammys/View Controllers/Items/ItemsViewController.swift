@@ -13,10 +13,14 @@ enum ItemsViewLayoutState {
 	case horizontal, vertical
 }
 
+protocol ItemsViewLayoutStateSpecifier {
+	var state: ItemsViewLayoutState { get }
+}
+
 class ItemsViewController: UIViewController {
 	typealias CellViewModel = ItemsViewModel.ItemCollectionViewCellViewModel
 	
-	/// Must be set for the view model to use.
+	/// Must be set for use by the view model.
 	var viewModelParcel: ItemsViewModelParcel!
 	private var viewModel: ItemsViewModel!
 	
@@ -143,7 +147,11 @@ class ItemsViewController: UIViewController {
 	}
 	
 	func didChangeItemCategory(with itemCategory: FoodItemCategory) {
+		viewModel.setupData(for: itemCategory).catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
+		if let stateSpecifier = itemCategory as? ItemsViewLayoutStateSpecifier {
+			updateCollectionView(for: stateSpecifier.state)
+		}
 	}
 	
 	func didCenter(at cellViewModel: CellViewModel) {
@@ -160,16 +168,13 @@ class ItemsViewController: UIViewController {
     }
 
     @IBAction func didTapBack(_ sender: UIButton) {
-		
+		do { try viewModel.decrementItemCategory() }
+		catch { print(error) }
     }
 
-    @IBAction func didTapFinish(_ sender: UIButton) {
-		
-    }
+    @IBAction func didTapFinish(_ sender: UIButton) {}
 
-    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
-		
-    }
+    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {}
 }
 
 // MARK: - Storyboardable
@@ -216,6 +221,16 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 		let centerPoint = view.convert(view.center, to: collectionView)
 		if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint) {
 			viewModel.didCenterCellViewModel(at: centerIndexPath)
+		}
+	}
+}
+
+// MARK: - SaladFoodItemCategory+ItemsViewLayoutStateSpecifier
+extension SaladFoodItemCategory: ItemsViewLayoutStateSpecifier {
+	var state: ItemsViewLayoutState {
+		switch self {
+		case .size, .lettuce: return .horizontal
+		default: return .vertical
 		}
 	}
 }
