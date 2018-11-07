@@ -58,6 +58,15 @@ struct BagModelController {
 			try store(dictionary)
 		} catch { throw error }
     }
+	
+	func remove(_ purchaseable: Purchaseable, quantity: Int = 1) throws {
+		do {
+			guard let purchasableQuantities = try? getPurchasableQuantities() else { return }
+			var dictionary = self.dictionary(for: purchasableQuantities)
+			dictionary.decrementAndRemoveNonPositiveKeyed(AnyHashableProtocol(purchaseable), by: quantity)
+			try store(dictionary)
+		} catch { throw error }
+	}
 }
 
 extension BagModelController {
@@ -68,7 +77,14 @@ extension BagModelController {
 
 private extension Dictionary where Key == AnyHashableProtocol, Value == Int {
 	mutating func set(_ key: AnyHashableProtocol, toInitialValue initialValue: Int, orIncrementBy incrementValue: Int) {
-		if let quantity = self[key] { self[key] = quantity + incrementValue }
+		if let currentValue = self[key] { self[key] = currentValue + incrementValue }
 		else { self[key] = initialValue }
+	}
+	
+	mutating func decrementAndRemoveNonPositiveKeyed(_ key: AnyHashableProtocol, by value: Int) {
+		if let currentValue = self[key] {
+			let newValue = currentValue - value
+			self[key] = newValue > 0 ? newValue : nil
+		}
 	}
 }
