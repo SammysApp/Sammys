@@ -97,7 +97,7 @@ class ItemsViewModel {
 		try parcel.builder.toggle(foodItem, with: modifier)
 	}
 	
-	func addFoodViewModelParcel() throws -> FoodViewModelParcel {
-		return FoodViewModelParcel(food: try parcel.builder.build())
+	func addFoodViewModelParcel() throws -> AddFoodViewModelParcel {
+		return AddFoodViewModelParcel(food: try parcel.builder.build())
 	}
 }

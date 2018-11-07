@@ -181,7 +181,7 @@ class ItemsViewController: UIViewController {
 	}
 	
 	func presentAddFoodViewController() throws {
-		let addFoodViewController = FoodViewController.storyboardInstance()
+		let addFoodViewController = AddFoodViewController.storyboardInstance()
 		addFoodViewController.viewModelParcel = try viewModel.addFoodViewModelParcel()
 		present(addFoodViewController, animated: true, completion: nil)
 	}
