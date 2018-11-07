@@ -8,70 +8,65 @@
 
 import UIKit
 
-/// View food details and edit if neccesarry.
-class FoodViewController: UIViewController, FoodViewModelDelegate, Storyboardable {
-//    typealias ViewController = FoodViewController
-//    
-//    var viewModel: FoodViewModel!
-//    
-//    var didGoBack: ((FoodViewController) -> Void)?
-//    
-//    // MARK: - IBOutlets & View Properties
-//    var collectionView: FoodCollectionView!
-//    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
-//    
-//    // MARK: - Lifecycle
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        viewModel.delegate = self
-//        
-//        navigationController?.navigationBar.isTranslucent = false
-//        
-//        collectionView = FoodCollectionView(frame: CGRect.zero, viewModel: viewModel.collectionViewModel)
-//        
-//        view.insertSubview(collectionView, at: 0)
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-//        ])
-//        
-//        updateUI()
-//    }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//    }
-//    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        
-//        if isMovingFromParentViewController {
-//            didGoBack?(self)
-//        }
-//    }
-//    
-//    func updateUI() {
-//        navigationItem.title = viewModel.navigationItemTitle
-//    }
-//    
-//    func didTapEdit(for itemType: ItemType) {
-//        let itemsViewController = ItemsViewController.storyboardInstance() as! ItemsViewController
-//        itemsViewController.resetFood(to: viewModel.food)
-//        itemsViewController.edit(for: itemType)
-//        itemsViewController.isEditingFood = true
-//        itemsViewController.didFinishEditing = {
-//            self.collectionView.reloadData()
-//            self.updateUI()
-//        }
-//        navigationController?.pushViewController(itemsViewController, animated: true)
-//    }
+class FoodViewController: UIViewController {
+	/// Must be set for use by the view model.
+	var viewModelParcel: FoodViewModelParcel!
+	var viewModel: FoodViewModel!
+	
+	// MARK: - IBOutlets
+	@IBOutlet var collectionView: UICollectionView!
+	
+	struct Constants {
+		static let itemCollectionViewCellXibName = "ItemCollectionViewCell"
+	}
+	
+	// MARK: - Lifecycle
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		viewModel = FoodViewModel(viewModelParcel, viewDelegate: self)
+		
+		setupCollectionView()
+	}
+	
+	// MARK: - Setup
+	func setupCollectionView() {
+		collectionView.register(
+			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
+			forCellWithReuseIdentifier: FoodViewModel.ItemCellIdentifier.itemCell.rawValue
+		)
+	}
+}
+
+// MARK: - UICollectionViewDataSource
+extension FoodViewController: UICollectionViewDataSource {
+	func numberOfSections(in collectionView: UICollectionView) -> Int {
+		return viewModel.numberOfSections
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return viewModel.numberOfItems(inSection: section)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
+		cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+		return cell
+	}
+}
+
+extension FoodViewController: UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return viewModel.cellViewModel(for: indexPath).size
+	}
+}
+
+// MARK: - Storyboardable
+extension FoodViewController: Storyboardable {}
+
+// MARK: - FoodViewModelViewDelegate
+extension FoodViewController: FoodViewModelViewDelegate {
+	func cellWidth() -> Double { return 300 }
+	func cellHeight() -> Double { return 300 }
 }

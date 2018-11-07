@@ -9,6 +9,8 @@
 import Foundation
 
 struct CollectionViewSection<ViewModel: CollectionViewCellViewModel> {
+	typealias CellViewModel = ViewModel
+	
 	let title: String?
 	let cellViewModels: [ViewModel]
 	

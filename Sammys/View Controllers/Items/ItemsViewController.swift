@@ -18,7 +18,7 @@ protocol ItemsViewLayoutStateSpecifier {
 }
 
 class ItemsViewController: UIViewController {
-	typealias CellViewModel = ItemsViewModel.ItemCollectionViewCellViewModel
+	typealias CellViewModel = ItemsViewModel.Section.CellViewModel
 	
 	/// Must be set for use by the view model.
 	var viewModelParcel: ItemsViewModelParcel!
@@ -179,11 +179,17 @@ class ItemsViewController: UIViewController {
 		do { try viewModel.toggle(cellViewModel.foodItem) }
 		catch { print(error) }
 	}
+	
+	func presentAddFoodViewController() throws {
+		let addFoodViewController = FoodViewController.storyboardInstance()
+		addFoodViewController.viewModelParcel = try viewModel.addFoodViewModelParcel()
+		present(addFoodViewController, animated: true, completion: nil)
+	}
 
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
 		do {
-			if viewModel.isAtLastItemCategory { try viewModel.buildFood() }
+			if viewModel.isAtLastItemCategory { try presentAddFoodViewController() }
 			else { try viewModel.incrementItemCategory() }
 		} catch { print(error) }
     }

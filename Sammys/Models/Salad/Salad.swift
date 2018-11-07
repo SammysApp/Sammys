@@ -26,11 +26,32 @@ extension Salad {
 	}
 }
 
+extension Salad {
+	var allItemCategories: [FoodItemCategory] {
+		return SaladFoodItemCategory.allCases
+	}
+	
+	func items(for itemCategory: FoodItemCategory) -> [FoodItem] {
+		guard let saladItemCategory = itemCategory as? SaladFoodItemCategory
+			else { return [] }
+		switch saladItemCategory {
+		case .size: return [size]
+		case .lettuce: return lettuce
+		case .vegetable: return vegetables
+		case .topping: return toppings
+		case .dressing: return dressings
+		case .extra: return extras
+		}
+	}
+}
+
 extension Salad { static var type = ProtocolCodableType.salad }
 extension Salad: Hashable {}
 
-enum SaladFoodItemCategory: String, CaseIterable, FoodItemCategory {
+enum SaladFoodItemCategory: String {
 	case size, lettuce, vegetable, topping, dressing, extra
 }
 
+extension SaladFoodItemCategory: FoodItemCategory {}
 extension SaladFoodItemCategory: Hashable {}
+extension SaladFoodItemCategory: CaseIterable {}

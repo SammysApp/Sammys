@@ -25,7 +25,7 @@ protocol ItemsViewModelViewDelegate {
 }
 
 class ItemsViewModel {
-	typealias ItemsCollectionViewSection = CollectionViewSection<ItemCollectionViewCellViewModel>
+	typealias Section = CollectionViewSection<ItemCollectionViewCellViewModel>
 	
 	private let viewDelegate: ItemsViewModelViewDelegate
 	private var parcel: ItemsViewModelParcel
@@ -45,9 +45,9 @@ class ItemsViewModel {
 	private var items = [FoodItem]() {
 		didSet { sections.value = sections(for: items) }
 	}
-	private(set) var sections = Dynamic([ItemsCollectionViewSection]())
+	private(set) var sections = Dynamic([Section]())
 	
-	private(set) var centerCellViewModel: Dynamic<ItemCollectionViewCellViewModel?> = Dynamic(nil)
+	private(set) var centerCellViewModel: Dynamic<Section.CellViewModel?> = Dynamic(nil)
 	
 	var numberOfSections: Int { return sections.value.count }
 	
@@ -75,7 +75,7 @@ class ItemsViewModel {
 	func incrementItemCategory() throws { try adjustItemCategory(byIndexValue: 1) }
 	func decrementItemCategory() throws { try adjustItemCategory(byIndexValue: -1) }
 	
-	func sections(for items: [FoodItem]) -> [ItemsCollectionViewSection] {
+	func sections(for items: [FoodItem]) -> [Section] {
 		return [CollectionViewSection(
 			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
 		)]
@@ -85,7 +85,7 @@ class ItemsViewModel {
 		return sections.value[section].cellViewModels.count
 	}
 	
-	func cellViewModel(for indexPath: IndexPath) -> ItemCollectionViewCellViewModel {
+	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
 		return sections.value[indexPath.section].cellViewModels[indexPath.row]
 	}
 	
@@ -97,7 +97,7 @@ class ItemsViewModel {
 		try parcel.builder.toggle(foodItem, with: modifier)
 	}
 	
-	func buildFood() throws {
-		try print(parcel.builder.build())
+	func addFoodViewModelParcel() throws -> FoodViewModelParcel {
+		return FoodViewModelParcel(food: try parcel.builder.build())
 	}
 }

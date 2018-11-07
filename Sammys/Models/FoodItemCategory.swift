@@ -8,7 +8,12 @@
 
 import Foundation
 
-protocol FoodItemCategory {
+struct CategorizedFoodItems {
+	let category: FoodItemCategory
+	let items: [FoodItem]
+}
+
+protocol FoodItemCategory: ProtocolHashable {
 	var stringValue: String { get }
 	var name: String { get }
 }
