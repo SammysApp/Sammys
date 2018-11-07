@@ -21,7 +21,7 @@ extension FoodViewModel {
 			
 			// Set style
 			cell.layer.cornerRadius = Constants.cornerRadius
-			cell.backgroundColor = .lightGray
+			cell.backgroundColor = .black
 			
 			// Set data
 			cell.titleLabel.text = foodItem.name

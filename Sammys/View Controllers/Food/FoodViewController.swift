@@ -18,6 +18,8 @@ class FoodViewController: UIViewController {
 	
 	struct Constants {
 		static let itemCollectionViewCellXibName = "ItemCollectionViewCell"
+		
+		static let collectionViewContentInset: CGFloat = 10
 	}
 	
 	// MARK: - Lifecycle
@@ -35,6 +37,8 @@ class FoodViewController: UIViewController {
 			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
 			forCellWithReuseIdentifier: FoodViewModel.ItemCellIdentifier.itemCell.rawValue
 		)
+		collectionView.contentInset.left = Constants.collectionViewContentInset
+		collectionView.contentInset.right = Constants.collectionViewContentInset
 	}
 }
 
@@ -67,6 +71,10 @@ extension FoodViewController: Storyboardable {}
 
 // MARK: - FoodViewModelViewDelegate
 extension FoodViewController: FoodViewModelViewDelegate {
-	func cellWidth() -> Double { return 300 }
-	func cellHeight() -> Double { return 300 }
+	func cellWidth() -> Double {
+		let totalCellsWidth = collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right)
+		guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return Double(totalCellsWidth) / 2 }
+		return Double(totalCellsWidth - (layout.minimumInteritemSpacing * (2 - 1))) / 2
+	}
+	func cellHeight() -> Double { return cellWidth() }
 }
