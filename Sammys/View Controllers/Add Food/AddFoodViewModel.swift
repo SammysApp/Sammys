@@ -13,7 +13,11 @@ struct AddFoodViewModelParcel {
 }
 
 class AddFoodViewModel {
-	let parcel: AddFoodViewModelParcel
+	private let parcel: AddFoodViewModelParcel
+	
+	let bagModelController = BagModelController()
+	
+	var food: Food { return parcel.food }
 	
 	var foodViewModelParcel: FoodViewModelParcel {
 		return FoodViewModelParcel(food: parcel.food)
@@ -22,4 +26,6 @@ class AddFoodViewModel {
 	init(_ parcel: AddFoodViewModelParcel) {
 		self.parcel = parcel
 	}
+	
+	func add() throws { try bagModelController.add(food) }
 }

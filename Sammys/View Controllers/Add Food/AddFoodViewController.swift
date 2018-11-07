@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol AddFoodViewControllerDelegate {
+	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddFood food: Food)
+	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController)
+}
+
 class AddFoodViewController: UIViewController {
 	var viewModelParcel: AddFoodViewModelParcel!
 	var viewModel: AddFoodViewModel!
+	
+	var delegate: AddFoodViewControllerDelegate?
 	
 	lazy var foodViewController: FoodViewController = {
 		let foodViewController = FoodViewController.storyboardInstance()
@@ -19,11 +26,16 @@ class AddFoodViewController: UIViewController {
 	}()
 
     // MARK: - IBOutlets
+	@IBOutlet var addButton: UIButton! { didSet { setupAddButton() } }
 	
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+	
+	struct Constants {
+		static let addButtonCornerRadius: CGFloat = 20
+	}
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -34,8 +46,25 @@ class AddFoodViewController: UIViewController {
 		add(asChildViewController: foodViewController)
 		foodViewController.view.translatesAutoresizingMaskIntoConstraints = false
 		foodViewController.view.fullViewConstraints(equalTo: view).activateAll()
+		view.sendSubview(toBack: foodViewController.view)
     }
+	
+	// MARK: - Setup
+	func setupAddButton() {
+		addButton.layer.cornerRadius = Constants.addButtonCornerRadius
+	}
+	
+	// MARK: - IBActions
+	@IBAction func didTapAdd(_ sender: UIButton) {
+		do { try viewModel.add() } catch { print(error) }
+		delegate?.addFoodViewController(self, didAddFood: viewModel.food)
+	}
 }
 
 // MARK: - Storyboardable
 extension AddFoodViewController: Storyboardable {}
+
+extension AddFoodViewControllerDelegate {
+	// Make function requirement optional.
+	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController) {}
+}

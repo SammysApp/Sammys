@@ -29,6 +29,9 @@
                                 <state key="normal" title="Add to Bag">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapAdd:" destination="VAb-Jt-u9r" eventType="touchUpInside" id="ZUJ-Ii-Wix"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
@@ -40,16 +43,16 @@
                         <viewLayoutGuide key="safeArea" id="0jz-Vz-ra2"/>
                     </view>
                     <navigationItem key="navigationItem" id="T5E-sZ-DLW">
-                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="urd-AR-9sn">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="urd-AR-9sn">
                             <color key="tintColor" name="Snow"/>
-                            <connections>
-                                <action selector="didTapCancel:" destination="VAb-Jt-u9r" id="TiG-JN-kOe"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Fave" image="Heart Bar" id="XUF-ks-en8">
                             <color key="tintColor" name="Snow"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="BJT-lW-SOL" id="wEK-48-C6w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRt-Z5-RJG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

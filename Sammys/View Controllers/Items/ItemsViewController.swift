@@ -183,7 +183,8 @@ class ItemsViewController: UIViewController {
 	func presentAddFoodViewController() throws {
 		let addFoodViewController = AddFoodViewController.storyboardInstance()
 		addFoodViewController.viewModelParcel = try viewModel.addFoodViewModelParcel()
-		present(addFoodViewController, animated: true, completion: nil)
+		addFoodViewController.delegate = self
+		present(UINavigationController(rootViewController: addFoodViewController), animated: true, completion: nil)
 	}
 
     // MARK: - IBActions
@@ -261,6 +262,15 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 		let centerPoint = view.convert(view.center, to: collectionView)
 		if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint) {
 			viewModel.didCenterCellViewModel(at: centerIndexPath)
+		}
+	}
+}
+
+// MARK: - AddFoodViewControllerDelegate
+extension ItemsViewController: AddFoodViewControllerDelegate {
+	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddFood food: Food) {
+		addFoodViewController.dismiss(animated: true) {
+			self.navigationController?.popViewController(animated: true)
 		}
 	}
 }
