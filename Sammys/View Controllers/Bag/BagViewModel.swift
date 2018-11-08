@@ -43,4 +43,8 @@ class BagViewModel {
 	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
 		return sections[indexPath.section].cellViewModels[indexPath.row]
 	}
+	
+	func delete(at indexPath: IndexPath) throws {
+		try bagModelController.remove(cellViewModel(for: indexPath).purchaseable)
+	}
 }

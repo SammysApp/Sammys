@@ -12,5 +12,6 @@ struct BagPurchaseableTableViewCellViewModel: TableViewCellViewModel {
 	let purchaseable: Purchaseable
 	let identifier: String
 	let height: Double
+	let isEditable: Bool
 	let commands: [TableViewCommandActionKey : TableViewCellCommand]
 }

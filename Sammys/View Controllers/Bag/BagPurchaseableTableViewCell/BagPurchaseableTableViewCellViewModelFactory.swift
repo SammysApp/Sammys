@@ -17,6 +17,6 @@ struct BagPurchaseableTableViewCellViewModelFactory: TableViewCellViewModelFacto
 	let height: Double
 	
 	func create() -> BagPurchaseableTableViewCellViewModel {
-		return BagPurchaseableTableViewCellViewModel(purchaseable: purchaseable, identifier: BagPurchaseableCellIdentifier.purchaseableCell.rawValue, height: height, commands: [.configuration: BagPurchaseableTableViewCellConfigurationCommand(purchaseable: purchaseable)])
+		return BagPurchaseableTableViewCellViewModel(purchaseable: purchaseable, identifier: BagPurchaseableCellIdentifier.purchaseableCell.rawValue, height: height, isEditable: true, commands: [.configuration: BagPurchaseableTableViewCellConfigurationCommand(purchaseable: purchaseable)])
 	}
 }

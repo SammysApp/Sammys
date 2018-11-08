@@ -39,6 +39,14 @@ class BagViewController: UIViewController {
 		tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
 		tableView.rowHeight = UITableViewAutomaticDimension
 	}
+	
+	func delete(at indexPath: IndexPath) {
+		do {
+			try viewModel.delete(at: indexPath)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		}
+		catch { print(error) }
+	}
 
     // MARK: - IBActions
     @IBAction func didTapClear(_ sender: UIBarButtonItem) {}
@@ -75,4 +83,13 @@ extension BagViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension BagViewController: UITableViewDelegate {}
+extension BagViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		return cellViewModel.isEditable
+	}
+	
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete { delete(at: indexPath) }
+	}
+}
