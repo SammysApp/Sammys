@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ButtonTableViewCellConfigurationCommand: TableViewCellCommand {
+struct ButtonTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
     let buttonText: String
     
     func perform(cell: UITableViewCell?) {

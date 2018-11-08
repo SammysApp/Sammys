@@ -6,7 +6,7 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension ItemsViewModel {
 	enum ItemCellIdentifier: String {
@@ -19,8 +19,7 @@ extension ItemsViewModel {
 		let height: Double
 		
 		func create() -> ItemCollectionViewCellViewModel {
-			let configurationCommand = ItemCollectionViewCellConfigurationCommand(foodItem: foodItem)
-			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, size: CGSize(width: width, height: height), commands: [.configuration: configurationCommand])
+			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, width: width, height: height, commands: [.configuration: ItemCollectionViewCellConfigurationCommand(foodItem: foodItem)])
 		}
 	}
 }

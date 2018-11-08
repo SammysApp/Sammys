@@ -39,12 +39,12 @@ extension NoteTableViewCellConfigurationCommand {
     }
 }
 
-struct NoteTableViewCellViewModelFactory<T: NoteTableViewCellIdentifier>: TableViewCellViewModelFactory {
+struct NoteTableViewCellViewModelFactory<T: NoteTableViewCellIdentifier>/*: TableViewCellViewModelFactory*/ {
     let identifier: T
     let height: CGFloat
     let configurationCommand: NoteTableViewCellConfigurationCommand
     
-    func create() -> TableViewCellViewModel {
-        return DefaultTableViewCellViewModel(identifier: identifier.rawValue, height: height, isSelectable: false, isEditable: false, commands: [.configuration: configurationCommand])
-    }
+//    func create() -> TableViewCellViewModel {
+//        return DefaultTableViewCellViewModel(identifier: identifier.rawValue, height: height, isSelectable: false, isEditable: false, commands: [.configuration: configurationCommand])
+//    }
 }

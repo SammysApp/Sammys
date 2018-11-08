@@ -9,5 +9,5 @@
 import UIKit
 
 struct MessageCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-    func perform(parameters: CommandParameters) {}
+    func perform(parameters: CollectionViewCellCommandParameters) {}
 }

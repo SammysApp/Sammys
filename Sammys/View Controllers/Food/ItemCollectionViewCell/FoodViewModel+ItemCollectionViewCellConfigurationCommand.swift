@@ -16,7 +16,7 @@ extension FoodViewModel {
 			static let cornerRadius: CGFloat = 20
 		}
 		
-		func perform(parameters: CommandParameters) {
+		func perform(parameters: CollectionViewCellCommandParameters) {
 			guard let cell = parameters.cell as? ItemCollectionViewCell else { return }
 			
 			// Set style

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FoodOrderTableViewCellViewModel: TableViewCellViewModel {
+struct FoodOrderTableViewCellViewModel/*: TableViewCellViewModel*/ {
     let food: Food
     let identifier: String
     let height: CGFloat

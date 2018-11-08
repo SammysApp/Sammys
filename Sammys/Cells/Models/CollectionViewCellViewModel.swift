@@ -6,10 +6,11 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol CollectionViewCellViewModel {
 	var identifier: String { get }
-	var size: CGSize { get }
+	var width: Double { get }
+	var height: Double { get }
 	var commands: [CollectionViewCommandActionKey: CollectionViewCellCommand] { get }
 }

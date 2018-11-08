@@ -83,8 +83,8 @@
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
 		5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */; };
 		5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
-		5B3176CE206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */; };
-		5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */; };
+		5B3176CE206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CD206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift */; };
+		5B3176D12074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176D02074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift */; };
 		5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */; };
 		5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE420F79BE500A781E6 /* Sammys.swift */; };
 		5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B342AE420F79BE500A781E6 /* Sammys.swift */; };
@@ -95,6 +95,8 @@
 		5B3A4AC02192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4ABF2192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift */; };
 		5B3A4AC221925E9B00F22F78 /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58D20C035F000BF05B2 /* FoodViewController.swift */; };
 		5B3A4AC32193399200F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5B218F5648008D2CBD /* String.swift */; };
+		5B3A4AC521948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC421948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift */; };
+		5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC62194952200F22F78 /* TableViewSection.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25B6210BA2850080290E /* DateFormatter.swift */; };
 		5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */; };
@@ -145,7 +147,6 @@
 		5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CD5FF216ACDF000E30780 /* Dynamic.swift */; };
 		5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
 		5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
-		5B705D4920DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */; };
 		5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
 		5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
 		5B705D4E20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */; };
@@ -199,7 +200,6 @@
 		5BB2969B208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */; };
 		5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */; };
 		5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A12093891100520683 /* LoginPageViewModel.swift */; };
-		5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */; };
 		5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AC209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift */; };
 		5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */; };
 		5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */; };
@@ -214,7 +214,6 @@
 		5BB296D1209F71CC00520683 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296CF209F71CB00520683 /* UserSettingsViewController.swift */; };
 		5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */; };
 		5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D320A1F13C00520683 /* LoginViewModel.swift */; };
-		5BB60EED206997A500105E72 /* ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEC206997A500105E72 /* ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift */; };
 		5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* ItemEditable.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
 		5BB60F422069F5B100105E72 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F342069F5B100105E72 /* UIScrollView.swift */; };
@@ -234,7 +233,7 @@
 		5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */; };
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
-		5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */; };
+		5BD274C5205EBDA500618128 /* BagFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274C4205EBDA500618128 /* BagFoodTableViewCell.swift */; };
 		5BD274E92063F74600618128 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274E82063F74600618128 /* ItemsViewModel.swift */; };
 		5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */; };
 		5BD274ED2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274EC2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift */; };
@@ -329,8 +328,8 @@
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellCommand.swift; sourceTree = "<group>"; };
 		5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
-		5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
-		5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B3176CD206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagFoodTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B3176D02074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagFoodTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryRawRepresentableKeys.swift; sourceTree = "<group>"; };
 		5B342AE420F79BE500A781E6 /* Sammys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sammys.swift; sourceTree = "<group>"; };
 		5B37A3A8207FDE1E00526068 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +337,8 @@
 		5B37A3AC208111CB00526068 /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
 		5B3A4ABD219226FA00F22F78 /* FoodViewModel+ItemCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FoodViewModel+ItemCollectionViewCellViewModelFactory.swift"; sourceTree = "<group>"; };
 		5B3A4ABF2192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift"; sourceTree = "<group>"; };
+		5B3A4AC421948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagFoodTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		5B3A4AC62194952200F22F78 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		5B3F25B6210BA2850080290E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIManager.swift; sourceTree = "<group>"; };
 		5B3F25D9210F68160080290E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -389,7 +390,6 @@
 		5B6CD5FF216ACDF000E30780 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
-		5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagNoteTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersNoteTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B724D8520DC967300B9296E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5B724D8820DC98F300B9296E /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
@@ -431,7 +431,6 @@
 		5BB2969A208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB2969C208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296A12093891100520683 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
-		5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5BB296AC209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -446,7 +445,6 @@
 		5BB296CF209F71CB00520683 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		5BB296D0209F71CC00520683 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		5BB296D320A1F13C00520683 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		5BB60EEC206997A500105E72 /* ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
 		5BB60EEF2069EA4400105E72 /* ItemEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditable.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		5BB60F342069F5B100105E72 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
@@ -466,7 +464,7 @@
 		5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralKeyProvider.swift; sourceTree = "<group>"; };
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
-		5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBagTableViewCell.swift; sourceTree = "<group>"; };
+		5BD274C4205EBDA500618128 /* BagFoodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagFoodTableViewCell.swift; sourceTree = "<group>"; };
 		5BD274E82063F74600618128 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		5BD274EA2063F8E500618128 /* CollectionViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellCommand.swift; sourceTree = "<group>"; };
 		5BD274EC2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift"; sourceTree = "<group>"; };
@@ -605,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */,
+				5B3A4AC62194952200F22F78 /* TableViewSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -614,21 +613,20 @@
 			children = (
 				5B226A5F218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift */,
 				5BD274EC2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift */,
-				5BB60EEC206997A500105E72 /* ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift */,
 				5BD274FC206403E500618128 /* ItemsViewModel+ItemCollectionViewCellViewModelFactory.swift */,
 			);
 			path = ItemCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		5B3176CF206D3D8300D83D12 /* Food */ = {
+		5B3176CF206D3D8300D83D12 /* BagFoodTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5BD274C4205EBDA500618128 /* FoodBagTableViewCell.swift */,
-				5B3176CD206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift */,
-				5BB296A32093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift */,
-				5B3176D02074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift */,
+				5BD274C4205EBDA500618128 /* BagFoodTableViewCell.swift */,
+				5B3A4AC421948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift */,
+				5B3176CD206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift */,
+				5B3176D02074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift */,
 			);
-			path = Food;
+			path = BagFoodTableViewCell;
 			sourceTree = "<group>";
 		};
 		5B3A4AC12192274800F22F78 /* ItemCollectionViewCell */ = {
@@ -928,13 +926,13 @@
 			children = (
 				5B2950CB218CC02B008B0E49 /* Models */,
 				5BD274F12063FABF00618128 /* Home */,
-				5BD274F22063FAC900618128 /* User */,
-				5BB296CE209F719200520683 /* User Settings */,
-				5BD274F32063FAD800618128 /* Login */,
 				5BD274F42063FAE300618128 /* Items */,
 				5BEED53F206C72DD002240EB /* Add Food */,
 				5B553A66206C9BED00DD9689 /* Food */,
 				5BD274F52063FAEE00618128 /* Bag */,
+				5BD274F22063FAC900618128 /* User */,
+				5BB296CE209F719200520683 /* User Settings */,
+				5BD274F32063FAD800618128 /* Login */,
 				5B0B739E20D810F400D757FD /* Pickup Date */,
 				5BD6B3D120812F62000114F5 /* Confirmation */,
 				5BB2968A208E5AD500520683 /* Orders */,
@@ -1200,8 +1198,7 @@
 			children = (
 				5B44A7BD2004202E00898FF0 /* BagViewController.swift */,
 				5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */,
-				5B705D4820DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift */,
-				5B3176CF206D3D8300D83D12 /* Food */,
+				5B3176CF206D3D8300D83D12 /* BagFoodTableViewCell */,
 			);
 			path = Bag;
 			sourceTree = "<group>";
@@ -1665,6 +1662,7 @@
 				5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */,
 				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
+				5B3A4AC521948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift in Sources */,
 				5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */,
 				5B2950C7218A3FB7008B0E49 /* FoodBuilder.swift in Sources */,
 				5B226A5C218F5648008D2CBD /* String.swift in Sources */,
@@ -1677,7 +1675,7 @@
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
 				5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
-				5BD274C5205EBDA500618128 /* FoodBagTableViewCell.swift in Sources */,
+				5BD274C5205EBDA500618128 /* BagFoodTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIManager.swift in Sources */,
 				5BFC5740217C308A0002179B /* Purchaseable.swift in Sources */,
 				5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */,
@@ -1729,15 +1727,13 @@
 				5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */,
 				5BB60F492069F5B100105E72 /* Int.swift in Sources */,
 				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
-				5BB60EED206997A500105E72 /* ItemsViewModel+ItemCollectionViewCellSelectionCommand.swift in Sources */,
-				5BB296A42093DF3100520683 /* FoodBagTableViewCellSelectionCommand.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
 				5B3F25E2210F79860080290E /* Endpoint.swift in Sources */,
 				5B226A5E218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift in Sources */,
 				5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */,
 				5BFC573D217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
-				5B3176D12074079C00D83D12 /* FoodBagTableViewCellViewModelFactory.swift in Sources */,
+				5B3176D12074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift in Sources */,
 				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
 				5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
@@ -1760,6 +1756,7 @@
 				5B44A8072006D35600898FF0 /* HomeItemCollectionViewCell.swift in Sources */,
 				5B724D8620DC967300B9296E /* APIKey.swift in Sources */,
 				5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */,
+				5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */,
 				5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
@@ -1771,7 +1768,6 @@
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */,
-				5B705D4920DABDA9003C37E1 /* BagNoteTableViewCellConfigurationCommand.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
 				5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */,
 				5BC950382107D2B900AF1098 /* Customer.swift in Sources */,
@@ -1819,7 +1815,7 @@
 				5B3F25DA210F68160080290E /* Observable.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
 				5B3F25E6210F7A790080290E /* Request.swift in Sources */,
-				5B3176CE206D3AFC00D83D12 /* FoodBagTableViewCellConfigurationCommand.swift in Sources */,
+				5B3176CE206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* CollectionViewSection.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
 				5BB60F512069FB4700105E72 /* Array.swift in Sources */,

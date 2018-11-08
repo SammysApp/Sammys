@@ -40,16 +40,17 @@ class UserViewModel {
     /// The sections to populate the user view with.
     private var sections: [UserSection] {
         guard let user = user else { return [] }
-        return [
-            UserSection(title: "My Info", cellViewModels: [
-                DetailTableViewCellViewModelFactory(height: 60, titleText: "Name", detailText: user.name).create(),
-                DetailTableViewCellViewModelFactory(height: 60, titleText: "Email", detailText: user.email).create()
-            ]),
-            UserSection(cellViewModels: [
-                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "My Orders", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectOrders() })).create(),
-                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "Log Out", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectLogOut() })).create()
-            ])
-        ]
+//        return [
+//            UserSection(title: "My Info", cellViewModels: [
+//                DetailTableViewCellViewModelFactory(height: 60, titleText: "Name", detailText: user.name).create(),
+//                DetailTableViewCellViewModelFactory(height: 60, titleText: "Email", detailText: user.email).create()
+//            ]),
+//            UserSection(cellViewModels: [
+//                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "My Orders", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectOrders() })).create(),
+//                ButtonTableViewCellViewModelFactory(height: 60, buttonText: "Log Out", selectionCommand: UserButtonTableViewCellSelectionCommand(didSelect: { self.delegate?.didSelectLogOut() })).create()
+//            ])
+//        ]
+		return []
     }
     
     var needsUser: Bool {

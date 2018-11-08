@@ -9,5 +9,5 @@
 import Foundation
 
 struct MapCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-    func perform(parameters: CommandParameters) {}
+    func perform(parameters: CollectionViewCellCommandParameters) {}
 }

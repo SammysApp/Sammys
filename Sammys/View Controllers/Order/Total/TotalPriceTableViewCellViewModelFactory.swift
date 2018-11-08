@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct TotalPriceTableViewCellViewModel: TableViewCellViewModel {
+struct TotalPriceTableViewCellViewModel/*: TableViewCellViewModel*/ {
     let order: Order
     let identifier: String
     let height: CGFloat

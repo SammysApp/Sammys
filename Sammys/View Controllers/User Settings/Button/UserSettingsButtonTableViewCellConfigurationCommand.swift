@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UserSettingsButtonTableViewCellConfigurationCommand: TableViewCellCommand {
+struct UserSettingsButtonTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
     func perform(cell: UITableViewCell?) {
         guard let cell = cell as? UserSettingsButtonTableViewCell else { return }
         

@@ -6,16 +6,16 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct DefaultTableViewCellViewModel: TableViewCellViewModel {
     let identifier: String
-    let height: CGFloat
+    let height: Double
     let isSelectable: Bool
     let isEditable: Bool
     let commands: [TableViewCommandActionKey : TableViewCellCommand]
     
-    init(identifier: String, height: CGFloat, isSelectable: Bool = true, isEditable: Bool = true, commands: [TableViewCommandActionKey : TableViewCellCommand]) {
+    init(identifier: String, height: Double, isSelectable: Bool = true, isEditable: Bool = true, commands: [TableViewCommandActionKey : TableViewCellCommand]) {
         self.identifier = identifier
         self.height = height
         self.isSelectable = isSelectable

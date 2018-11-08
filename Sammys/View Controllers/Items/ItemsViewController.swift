@@ -78,10 +78,7 @@ class ItemsViewController: UIViewController {
 		
 		viewModel = ItemsViewModel(viewDelegate: self, parcel: viewModelParcel)
 		
-		setupCollectionView()
-		setupAnimatedCardCollectionViewLayout()
-		setupBackButton()
-		setupNextButton()
+		setupViews()
 		
 		viewModel.itemCategory.bindAndRun { self.didChangeItemCategory(with: $0) }
 		viewModel.sections.bindAndRun { _ in self.collectionView.reloadData() }
@@ -97,6 +94,13 @@ class ItemsViewController: UIViewController {
     }
 	
 	// MARK: - Setup
+	func setupViews() {
+		setupCollectionView()
+		setupAnimatedCardCollectionViewLayout()
+		setupBackButton()
+		setupNextButton()
+	}
+	
 	func setupCollectionView() {
 		collectionView.register(
 			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
@@ -238,7 +242,7 @@ extension ItemsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
-		cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+		cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
 		return cell
     }
 }
@@ -251,7 +255,8 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 	}
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return viewModel.cellViewModel(for: indexPath).size
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

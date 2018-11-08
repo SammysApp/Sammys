@@ -16,7 +16,7 @@ struct MapCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
         static let longitudinalMeters = 125.0
     }
     
-    func perform(parameters: CommandParameters) {
+    func perform(parameters: CollectionViewCellCommandParameters) {
         guard let cell = parameters.cell as? MapCollectionViewCell else { return }
         // Configure cell UI.
         ConfirmationViewController.configureUI(for: cell)

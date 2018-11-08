@@ -12,16 +12,16 @@ private enum MapCellIdentifier: String {
     case mapCell
 }
 
-struct MapCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
+struct MapCollectionViewCellViewModelFactory/*: CollectionViewCellViewModelFactory*/ {
     private let size: CGSize
     
     init(size: CGSize) {
         self.size = size
     }
     
-    func create() -> DefaultCollectionViewCellViewModel {
-        let configurationCommand = MapCollectionViewCellConfigurationCommand()
-        let selectionCommand = MapCollectionViewCellSelectionCommand()
-        return DefaultCollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
-    }
+//    func create() -> DefaultCollectionViewCellViewModel {
+//        let configurationCommand = MapCollectionViewCellConfigurationCommand()
+//        let selectionCommand = MapCollectionViewCellSelectionCommand()
+//        return DefaultCollectionViewCellViewModel(identifier: MapCellIdentifier.mapCell.rawValue, size: size, commands: [.configuration: configurationCommand, .selection: selectionCommand])
+//    }
 }

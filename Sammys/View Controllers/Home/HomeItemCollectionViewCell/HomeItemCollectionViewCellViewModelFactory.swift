@@ -6,7 +6,7 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 enum HomeItemCellIdentifier: String {
     case homeItemCell
@@ -16,14 +16,8 @@ struct HomeItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFa
 	let width: Double
 	let height: Double
     let titleText: String
-	
-	var size: CGSize {
-		return CGSize(width: width, height: height)
-	}
     
     func create() -> DefaultCollectionViewCellViewModel {
-        let configurationCommand = HomeItemCollectionViewCellConfigurationCommand(titleText: titleText)
-        let commands: [CollectionViewCommandActionKey : CollectionViewCellCommand] = [.configuration: configurationCommand]
-        return DefaultCollectionViewCellViewModel(identifier: HomeItemCellIdentifier.homeItemCell.rawValue, size: size, commands: commands)
+        return DefaultCollectionViewCellViewModel(identifier: HomeItemCellIdentifier.homeItemCell.rawValue, width: width, height: height, commands: [.configuration: HomeItemCollectionViewCellConfigurationCommand(titleText: titleText)])
     }
 }

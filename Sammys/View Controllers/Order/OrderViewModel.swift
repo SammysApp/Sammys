@@ -8,16 +8,6 @@
 
 import Foundation
 
-private struct TableViewSection {
-    let title: String?
-    var cellViewModels: [TableViewCellViewModel]
-    
-    init(title: String? = nil, cellViewModels: [TableViewCellViewModel]) {
-        self.title = title
-        self.cellViewModels = cellViewModels
-    }
-}
-
 class OrderViewModel {
 //    let order: Order
 //

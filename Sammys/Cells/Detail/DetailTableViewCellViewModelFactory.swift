@@ -12,13 +12,13 @@ enum DetailCellIdentifier: String {
     case detailCell
 }
 
-struct DetailTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+struct DetailTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
     let height: CGFloat
     let titleText: String
     let detailText: String
     
-    func create() -> TableViewCellViewModel {
-        let configurationCommand = DetailTableViewCellConfigurationCommand(titleText: titleText, detailText: detailText)
-        return DefaultTableViewCellViewModel(identifier: DetailCellIdentifier.detailCell.rawValue, height: height, commands: [.configuration: configurationCommand])
-    }
+//    func create() -> TableViewCellViewModel {
+//        let configurationCommand = DetailTableViewCellConfigurationCommand(titleText: titleText, detailText: detailText)
+//		return DefaultTableViewCellViewModel(identifier: DetailCellIdentifier.detailCell.rawValue, height: height, commands: [:])
+//    }
 }

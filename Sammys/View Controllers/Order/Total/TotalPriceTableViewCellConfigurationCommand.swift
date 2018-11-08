@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct TotalPriceTableViewCellConfigurationCommand: TableViewCellCommand {
+struct TotalPriceTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
 //    let order: Order
 	
     func perform(cell: UITableViewCell?) {

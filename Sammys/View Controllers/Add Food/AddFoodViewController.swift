@@ -26,7 +26,7 @@ class AddFoodViewController: UIViewController {
 	}()
 
     // MARK: - IBOutlets
-	@IBOutlet var addButton: UIButton! { didSet { setupAddButton() } }
+	@IBOutlet var addButton: UIButton!
 	
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -43,6 +43,8 @@ class AddFoodViewController: UIViewController {
 		
 		viewModel = AddFoodViewModel(viewModelParcel)
 		
+		setupViews()
+		
 		add(asChildViewController: foodViewController)
 		foodViewController.view.translatesAutoresizingMaskIntoConstraints = false
 		foodViewController.view.fullViewConstraints(equalTo: view).activateAll()
@@ -50,6 +52,10 @@ class AddFoodViewController: UIViewController {
     }
 	
 	// MARK: - Setup
+	func setupViews() {
+		setupAddButton()
+	}
+	
 	func setupAddButton() {
 		addButton.layer.cornerRadius = Constants.addButtonCornerRadius
 	}

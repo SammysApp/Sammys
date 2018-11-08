@@ -17,7 +17,7 @@ struct OrderCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
 //        return formatter.string(from: order.date)
 //    }
 //    
-    func perform(parameters: CommandParameters) {
+    func perform(parameters: CollectionViewCellCommandParameters) {
 //        guard let cell = parameters.cell as? OrderCollectionViewCell else { return }
 //        cell.orderLabel.text = "#\(order.number)"
 //        cell.dateLabel.text = dateLabelText

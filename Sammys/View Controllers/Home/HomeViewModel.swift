@@ -39,7 +39,7 @@ class HomeViewModel {
 		}
 	}
 	
-	// ⚠️ Fetch foods to list from database and create models.
+	// FIXME: Fetch foods to list from database and create models.
 	private var homeSections: [HomeCollectionViewSection] { return [
 		CollectionViewSection(cellViewModels: homeItems.map {
 			HomeItemCollectionViewCellViewModelFactory(
@@ -56,7 +56,7 @@ class HomeViewModel {
 	private (set) var shouldHideNoFavesView = Dynamic(true)
 	
 	var bagQuantity: Int {
-		return (try? bagModelController.getQuantity()) ?? 0
+		return (try? bagModelController.getTotalQuantity()) ?? 0
 	}
     
     var bagQuantityLabelText: String? {

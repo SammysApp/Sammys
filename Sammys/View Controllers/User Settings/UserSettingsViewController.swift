@@ -111,17 +111,17 @@ extension UserSettingsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellViewModel = viewModel.cellViewModel(for: indexPath)
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier) else { fatalError() }
-        cellViewModel.commands[.configuration]?.perform(cell: cell)
+        //cellViewModel.commands[.configuration]?.perform(cell: cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewModel.cellViewModel(for: indexPath).height
+        return 0 //return viewModel.cellViewModel(for: indexPath).height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(cell: cell)
+        //viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(cell: cell)
     }
 }
 

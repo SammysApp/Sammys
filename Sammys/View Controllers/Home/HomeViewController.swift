@@ -55,12 +55,7 @@ class HomeViewController: UIViewController {
         
 		viewModel = HomeViewModel(self)
 		
-		setupCollectionView()
-		setupFavesButton()
-		setupBagButton()
-		setupBagButtonContainerView()
-		setupActivityIndicatorView()
-		setupNoFavesView()
+		setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +73,15 @@ class HomeViewController: UIViewController {
 	}
 	
 	// MARK: - Setup
+	func setupViews() {
+		setupCollectionView()
+		setupFavesButton()
+		setupBagButton()
+		setupBagButtonContainerView()
+		setupActivityIndicatorView()
+		setupNoFavesView()
+	}
+	
 	func setupCollectionView() {
 		collectionView.layer.cornerRadius = Constants.collectionViewCornerRadius
 		collectionView.contentInset = UIEdgeInsets(
@@ -152,13 +156,13 @@ class HomeViewController: UIViewController {
 	}
     
     // MARK: - IBActions
-    @IBAction func didTapAccount(_ sender: UIButton) {
-        present(UserViewController.storyboardInstance(), animated: true, completion: nil)
-    }
+    @IBAction func didTapAccount(_ sender: UIButton) {}
     
     @IBAction func didTapFaves(_ sender: UIButton) {}
     
-    @IBAction func didTapBag(_ sender: UIButton) {}
+    @IBAction func didTapBag(_ sender: UIButton) {
+		present(UINavigationController(rootViewController: BagViewController.storyboardInstance()), animated: true, completion: nil)
+	}
 }
 
 // MARK: - Storyboardable
@@ -194,7 +198,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellViewModel = viewModel.cellViewModel(for: indexPath)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
-        cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+        cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
         return cell
     }
 }
@@ -203,11 +207,12 @@ extension HomeViewController: UICollectionViewDataSource {
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		didSelectItem(at: indexPath)
-		viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CommandParameters())
+		viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters())
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return viewModel.cellViewModel(for: indexPath).size
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
 }
 

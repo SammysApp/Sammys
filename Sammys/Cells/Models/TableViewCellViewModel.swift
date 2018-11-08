@@ -6,22 +6,17 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol TableViewCellViewModel {
     var identifier: String { get }
-    var height: CGFloat { get }
+    var height: Double { get }
     var isSelectable: Bool { get }
     var isEditable: Bool { get }
     var commands: [TableViewCommandActionKey: TableViewCellCommand] { get }
 }
 
 extension TableViewCellViewModel {
-    var isSelectable: Bool {
-        return true
-    }
-    
-    var isEditable: Bool {
-        return true
-    }
+    var isSelectable: Bool { return false }
+    var isEditable: Bool { return false }
 }

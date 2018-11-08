@@ -70,7 +70,7 @@ struct BagModelController {
 }
 
 extension BagModelController {
-	func getQuantity() throws -> Int {
+	func getTotalQuantity() throws -> Int {
 		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
 	}
 }

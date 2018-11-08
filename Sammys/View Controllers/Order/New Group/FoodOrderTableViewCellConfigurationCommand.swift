@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FoodOrderTableViewCellConfigurationCommand: TableViewCellCommand {
+struct FoodOrderTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
 //    let food: Food
 	
     func perform(cell: UITableViewCell?) {

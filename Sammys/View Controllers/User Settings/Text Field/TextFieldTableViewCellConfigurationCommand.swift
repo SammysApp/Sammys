@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct TextFieldTableViewCellConfigurationCommand: TableViewCellCommand {
+struct TextFieldTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
     let text: String
     let placeholder: String
     let textDidChange: ((String, TextFieldTableViewCell) -> Void)

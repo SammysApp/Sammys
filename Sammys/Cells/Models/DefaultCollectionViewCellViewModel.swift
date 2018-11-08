@@ -6,10 +6,11 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct DefaultCollectionViewCellViewModel: CollectionViewCellViewModel {
 	let identifier: String
-	let size: CGSize
+	let width: Double
+	let height: Double
 	let commands: [CollectionViewCommandActionKey : CollectionViewCellCommand]
 }

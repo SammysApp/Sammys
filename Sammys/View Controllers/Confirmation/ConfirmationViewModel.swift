@@ -21,10 +21,11 @@ class ConfirmationViewModel {
     
     func cellViewModels(for contextBounds: CGRect) -> [CollectionViewCellViewModel] {
         guard let order = order else { fatalError() }
-        return [
-            MessageCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds), order: order).create(),
-            MapCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create()
-        ]
+//        return [
+//            MessageCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds), order: order).create(),
+//            MapCollectionViewCellViewModelFactory(size: cellSize(for: contextBounds)).create()
+//        ]
+		return []
     }
     
     func cellSize(for contextBounds: CGRect) -> CGSize {

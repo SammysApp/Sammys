@@ -36,15 +36,16 @@ class UserSettingsViewModel {
     
     private var sections: [UserSettingsSection] {
         guard let user = user else { return [] }
-        return [
-            UserSettingsSection(cellViewModels: [
-                TextFieldTableViewCellViewModelFactory(height: 60, text: user.name, placeholder: "Name", textDidChange: nameTextDidChange).create(),
-                TextFieldTableViewCellViewModelFactory(height: 60, text: user.email, placeholder: "Email", textDidChange: emailTextDidChange).create()
-            ]),
-            UserSettingsSection(cellViewModels: [
-                UserSettingsButtonTableViewCellViewModelFactory(height: 60) { self.delegate?.didTapPassword() }.create()
-            ])
-        ]
+//        return [
+//            UserSettingsSection(cellViewModels: [
+//                TextFieldTableViewCellViewModelFactory(height: 60, text: user.name, placeholder: "Name", textDidChange: nameTextDidChange).create(),
+//                TextFieldTableViewCellViewModelFactory(height: 60, text: user.email, placeholder: "Email", textDidChange: emailTextDidChange).create()
+//            ]),
+//            UserSettingsSection(cellViewModels: [
+//                UserSettingsButtonTableViewCellViewModelFactory(height: 60) { self.delegate?.didTapPassword() }.create()
+//            ])
+//        ]
+		return []
     }
     
     var numberOfSections: Int {

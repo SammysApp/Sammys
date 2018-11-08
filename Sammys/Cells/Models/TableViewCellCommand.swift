@@ -8,8 +8,16 @@
 
 import UIKit
 
+struct TableViewCellCommandParameters {
+	let cell: UITableViewCell?
+	
+	init(cell: UITableViewCell? = nil) {
+		self.cell = cell
+	}
+}
+
 protocol TableViewCellCommand {
-    func perform(cell: UITableViewCell?)
+	func perform(parameters: TableViewCellCommandParameters)
 }
 
 enum TableViewCommandActionKey {

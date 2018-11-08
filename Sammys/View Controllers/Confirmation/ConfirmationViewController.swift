@@ -114,7 +114,7 @@ extension ConfirmationViewController: UICollectionViewDataSource {
         guard let cellViewModel = cellViewModel(at: indexPath.row)
             else { fatalError() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
-        cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+        cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
         return cell
     }
 }
@@ -125,7 +125,8 @@ extension ConfirmationViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cellViewModel = cellViewModel(at: indexPath.row)
             else { fatalError() }
-        return cellViewModel.size
+        //return cellViewModel.size
+		return CGSize.zero
     }
 }
 

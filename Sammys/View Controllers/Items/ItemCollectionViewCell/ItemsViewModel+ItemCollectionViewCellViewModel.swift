@@ -6,13 +6,14 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension ItemsViewModel {
 	struct ItemCollectionViewCellViewModel: CollectionViewCellViewModel {
 		let foodItem: FoodItem
 		let identifier: String
-		let size: CGSize
+		let width: Double
+		let height: Double
 		let commands: [CollectionViewCommandActionKey : CollectionViewCellCommand]
 	}
 }

@@ -17,7 +17,7 @@ struct MessageCollectionViewCellConfigurationCommand: CollectionViewCellCommand 
         static let timeFormat = "h:mm a"
     }
     
-    func perform(parameters: CommandParameters) {
+    func perform(parameters: CollectionViewCellCommandParameters) {
         guard let cell = parameters.cell as? MessageCollectionViewCell else { return }
         // Configure cell UI.
         ConfirmationViewController.configureUI(for: cell)

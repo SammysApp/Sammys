@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CommandParameters {
+struct CollectionViewCellCommandParameters {
     let cell: UICollectionViewCell?
     
     init(cell: UICollectionViewCell? = nil) {
@@ -17,7 +17,7 @@ struct CommandParameters {
 }
 
 protocol CollectionViewCellCommand {
-    func perform(parameters: CommandParameters)
+    func perform(parameters: CollectionViewCellCommandParameters)
 }
 
 enum CollectionViewCommandActionKey {

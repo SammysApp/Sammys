@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct DetailTableViewCellConfigurationCommand: TableViewCellCommand {
+struct DetailTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
     let titleText: String
     let detailText: String
     

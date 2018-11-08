@@ -16,7 +16,7 @@ struct HomeItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand
         static let shadowOpacity: Float = 0.2
     }
     
-    func perform(parameters: CommandParameters) {
+    func perform(parameters: CollectionViewCellCommandParameters) {
         guard let cell = parameters.cell as? HomeItemCollectionViewCell else { return }
         cell.titleLabel.text = titleText
         cell.contentView.layer.masksToBounds = true

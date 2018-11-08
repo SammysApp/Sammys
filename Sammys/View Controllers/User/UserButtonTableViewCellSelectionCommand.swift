@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UserButtonTableViewCellSelectionCommand: TableViewCellCommand {
+struct UserButtonTableViewCellSelectionCommand/*: TableViewCellCommand*/ {
     let didSelect: () -> Void
     
     func perform(cell: UITableViewCell?) {

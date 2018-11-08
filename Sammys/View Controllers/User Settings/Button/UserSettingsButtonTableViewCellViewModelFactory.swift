@@ -12,13 +12,13 @@ enum UserSettingsButtonCellIdentifier: String {
     case buttonCell
 }
 
-struct UserSettingsButtonTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+struct UserSettingsButtonTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
     let height: CGFloat
     let didSelect: () -> Void
     
-    func create() -> TableViewCellViewModel {
-        let configurationCommand = UserSettingsButtonTableViewCellConfigurationCommand()
-        let selectionCommand = UserSettingsButtonTableViewCellSelectionCommand(didSelect: didSelect)
-        return DefaultTableViewCellViewModel(identifier: UserSettingsButtonCellIdentifier.buttonCell.rawValue, height: height, commands: [.configuration: configurationCommand, .selection: selectionCommand])
-    }
+//    func create() -> TableViewCellViewModel {
+//        let configurationCommand = UserSettingsButtonTableViewCellConfigurationCommand()
+//        let selectionCommand = UserSettingsButtonTableViewCellSelectionCommand(didSelect: didSelect)
+//		return DefaultTableViewCellViewModel(identifier: UserSettingsButtonCellIdentifier.buttonCell.rawValue, height: height, commands: [:])
+//    }
 }

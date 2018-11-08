@@ -12,14 +12,14 @@ enum TextFieldCellIdetifier: String {
     case textFieldCell
 }
 
-struct TextFieldTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+struct TextFieldTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
     let height: CGFloat
     let text: String
     let placeholder: String
     let textDidChange: ((String, TextFieldTableViewCell) -> Void)
     
-    func create() -> TableViewCellViewModel {
-        let configurationCommand = TextFieldTableViewCellConfigurationCommand(text: text, placeholder: placeholder, textDidChange: textDidChange)
-        return DefaultTableViewCellViewModel(identifier: TextFieldCellIdetifier.textFieldCell.rawValue, height: height, commands: [.configuration: configurationCommand])
-    }
+//    func create() -> TableViewCellViewModel {
+//        let configurationCommand = TextFieldTableViewCellConfigurationCommand(text: text, placeholder: placeholder, textDidChange: textDidChange)
+//        return DefaultTableViewCellViewModel(identifier: TextFieldCellIdetifier.textFieldCell.rawValue, height: height, commands: [:])
+//    }
 }

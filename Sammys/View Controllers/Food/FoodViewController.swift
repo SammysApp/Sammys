@@ -28,10 +28,14 @@ class FoodViewController: UIViewController {
 		
 		viewModel = FoodViewModel(viewModelParcel, viewDelegate: self)
 		
-		setupCollectionView()
+		setupViews()
 	}
 	
 	// MARK: - Setup
+	func setupViews() {
+		setupCollectionView()
+	}
+	
 	func setupCollectionView() {
 		collectionView.register(
 			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
@@ -55,14 +59,15 @@ extension FoodViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
-		cellViewModel.commands[.configuration]?.perform(parameters: CommandParameters(cell: cell))
+		cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
 		return cell
 	}
 }
 
 extension FoodViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return viewModel.cellViewModel(for: indexPath).size
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
 }
 
