@@ -9,5 +9,7 @@
 import Foundation
 
 protocol Purchaseable: ProtocolHashable, ProtocolCodable {
+	var title: String { get }
+	var description: String { get }
 	var price: Double { get }
 }

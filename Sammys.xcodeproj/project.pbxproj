@@ -34,7 +34,7 @@
 		5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
 		5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06911FFD53C700BAC480 /* Extra.swift */; };
 		5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
-		5B10D5A720C0467400BF05B2 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array.swift */; };
+		5B10D5A720C0467400BF05B2 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array+Equatable.swift */; };
 		5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */; };
 		5B10D5A920C0467400BF05B2 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F382069F5B100105E72 /* Collection.swift */; };
 		5B10D5AA20C0467400BF05B2 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F352069F5B100105E72 /* Date.swift */; };
@@ -97,6 +97,7 @@
 		5B3A4AC32193399200F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5B218F5648008D2CBD /* String.swift */; };
 		5B3A4AC521948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC421948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift */; };
 		5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC62194952200F22F78 /* TableViewSection.swift */; };
+		5B3A4AE02194CA3300F22F78 /* SaladFoodItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4ADF2194CA3300F22F78 /* SaladFoodItemCategory.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25B6210BA2850080290E /* DateFormatter.swift */; };
 		5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */; };
@@ -227,7 +228,7 @@
 		5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3F2069F5B100105E72 /* UIButton.swift */; };
 		5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F402069F5B100105E72 /* UIImage.swift */; };
 		5BB60F4F2069F5B100105E72 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F412069F5B100105E72 /* Double.swift */; };
-		5BB60F512069FB4700105E72 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array.swift */; };
+		5BB60F512069FB4700105E72 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array+Equatable.swift */; };
 		5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */; };
 		5BC950382107D2B900AF1098 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* Customer.swift */; };
 		5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */; };
@@ -339,6 +340,7 @@
 		5B3A4ABF2192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift"; sourceTree = "<group>"; };
 		5B3A4AC421948C6E00F22F78 /* BagFoodTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagFoodTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3A4AC62194952200F22F78 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
+		5B3A4ADF2194CA3300F22F78 /* SaladFoodItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladFoodItemCategory.swift; sourceTree = "<group>"; };
 		5B3F25B6210BA2850080290E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIManager.swift; sourceTree = "<group>"; };
 		5B3F25D9210F68160080290E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -458,7 +460,7 @@
 		5BB60F3F2069F5B100105E72 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		5BB60F402069F5B100105E72 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		5BB60F412069F5B100105E72 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		5BB60F502069FB4700105E72 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		5BB60F502069FB4700105E72 /* Array+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Equatable.swift"; sourceTree = "<group>"; };
 		5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAPIService.swift; sourceTree = "<group>"; };
 		5BC950372107D2B900AF1098 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralKeyProvider.swift; sourceTree = "<group>"; };
@@ -1116,7 +1118,7 @@
 		5BB60F332069F5B100105E72 /* EasyExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				5BB60F502069FB4700105E72 /* Array.swift */,
+				5BB60F502069FB4700105E72 /* Array+Equatable.swift */,
 				5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */,
 				5BB60F382069F5B100105E72 /* Collection.swift */,
 				5BB60F352069F5B100105E72 /* Date.swift */,
@@ -1299,6 +1301,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6A06951FFD54B500BAC480 /* Salad.swift */,
+				5B3A4ADF2194CA3300F22F78 /* SaladFoodItemCategory.swift */,
 				5B6A068D1FFD52A000BAC480 /* Size.swift */,
 				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
 				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
@@ -1593,7 +1596,7 @@
 				5B3A4AC32193399200F22F78 /* String.swift in Sources */,
 				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
 				5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */,
-				5B10D5A720C0467400BF05B2 /* Array.swift in Sources */,
+				5B10D5A720C0467400BF05B2 /* Array+Equatable.swift in Sources */,
 				5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */,
 				5BFC5738217A44170002179B /* AnyCodableProtocol.swift in Sources */,
 				5B9865F420C58D91004722D8 /* FoodCollectionViewModel.swift in Sources */,
@@ -1732,6 +1735,7 @@
 				5B226A5E218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift in Sources */,
 				5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */,
 				5BFC573D217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
+				5B3A4AE02194CA3300F22F78 /* SaladFoodItemCategory.swift in Sources */,
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* BagFoodTableViewCellViewModelFactory.swift in Sources */,
 				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
@@ -1818,7 +1822,7 @@
 				5B3176CE206D3AFC00D83D12 /* BagFoodTableViewCellConfigurationCommand.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* CollectionViewSection.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
-				5BB60F512069FB4700105E72 /* Array.swift in Sources */,
+				5BB60F512069FB4700105E72 /* Array+Equatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

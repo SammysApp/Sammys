@@ -17,7 +17,17 @@ struct Salad: Food {
     let extras: [Extra]
 }
 
+// MARK: - Purchaseable
 extension Salad {
+	var title: String {
+		return "\(size.name) Salad"
+	}
+	
+	var description: String {
+		let itemNames = items(for: [.lettuce, .vegetable, .topping, .dressing, .extra] as [SaladFoodItemCategory]).map { $0.name.lowercased() }
+		return "\(size.name) size salad" + (itemNames.isEmpty ? "" : " with \(itemNames.joined(separator: ", "))") + "."
+	}
+	
 	var price: Double {
 		return size.price + ([toppings, extras] as [[OptionallyPricedFoodItem]])
 			.flatMap { $0 }
@@ -26,6 +36,7 @@ extension Salad {
 	}
 }
 
+// MARK: - Food
 extension Salad {
 	var allItemCategories: [FoodItemCategory] {
 		return SaladFoodItemCategory.allCases
@@ -45,13 +56,12 @@ extension Salad {
 	}
 }
 
+// MARK: - ProtocolCodable
 extension Salad { static var type = ProtocolCodableType.salad }
 extension Salad: Hashable {}
 
-enum SaladFoodItemCategory: String {
-	case size, lettuce, vegetable, topping, dressing, extra
+private extension Salad {
+	func items(for itemCategories: [FoodItemCategory]) -> [FoodItem] {
+		return itemCategories.flatMap { items(for: $0) }
+	}
 }
-
-extension SaladFoodItemCategory: FoodItemCategory {}
-extension SaladFoodItemCategory: Hashable {}
-extension SaladFoodItemCategory: CaseIterable {}
