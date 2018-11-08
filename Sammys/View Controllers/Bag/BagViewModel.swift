@@ -47,4 +47,6 @@ class BagViewModel {
 	func delete(at indexPath: IndexPath) throws {
 		try bagModelController.remove(cellViewModel(for: indexPath).purchaseable)
 	}
+	
+	func clear() { bagModelController.clearAll() }
 }

@@ -73,6 +73,10 @@ extension BagModelController {
 	func getTotalQuantity() throws -> Int {
 		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
 	}
+	
+	func clearAll() {
+		userDefaults.removeObject(forKey: Constants.purchaseableQuantitiesKey)
+	}
 }
 
 private extension Dictionary where Key == AnyHashableProtocol, Value == Int {

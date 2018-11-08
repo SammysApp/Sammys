@@ -49,7 +49,10 @@ class BagViewController: UIViewController {
 	}
 
     // MARK: - IBActions
-    @IBAction func didTapClear(_ sender: UIBarButtonItem) {}
+    @IBAction func didTapClear(_ sender: UIBarButtonItem) {
+		viewModel.clear()
+		tableView.reloadData()
+	}
 
     @IBAction func didTapDone(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
