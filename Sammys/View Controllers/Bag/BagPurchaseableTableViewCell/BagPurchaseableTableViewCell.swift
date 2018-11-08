@@ -1,5 +1,5 @@
 //
-//  BagFoodTableViewCell.swift
+//  BagPurchaseableTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/20/18.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class BagFoodTableViewCell: UITableViewCell {
-    var didEdit: ((BagFoodTableViewCell) -> Void)?
-    var didFave: ((BagFoodTableViewCell) -> Void)?
+class BagPurchaseableTableViewCell: UITableViewCell {
+    var didEdit: ((BagPurchaseableTableViewCell) -> Void)?
+    var didFave: ((BagPurchaseableTableViewCell) -> Void)?
     
     // MARK: IBOutlets
-    @IBOutlet var foodImageView: UIImageView!
+    @IBOutlet var purchaseableImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!

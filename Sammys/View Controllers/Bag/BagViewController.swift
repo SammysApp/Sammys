@@ -37,6 +37,7 @@ class BagViewController: UIViewController {
 	
 	func setupTableView() {
 		tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
+		tableView.rowHeight = UITableViewAutomaticDimension
 	}
 
     // MARK: - IBActions
@@ -52,7 +53,7 @@ extension BagViewController: Storyboardable {}
 
 // MARK: - BagViewModelViewDelegate
 extension BagViewController: BagViewModelViewDelegate {
-	func cellHeight() -> Double { return 120 }
+	func cellHeight() -> Double { return 100 }
 }
 
 // MARK: - UITableViewDataSource
@@ -74,9 +75,4 @@ extension BagViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension BagViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellViewModel = viewModel.cellViewModel(for: indexPath)
-		return CGFloat(cellViewModel.height)
-    }
-}
+extension BagViewController: UITableViewDelegate {}

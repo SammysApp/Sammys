@@ -1,5 +1,5 @@
 //
-//  BagFoodTableViewCellViewModel.swift
+//  BagPurchaseableTableViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/8/18.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct BagFoodTableViewCellViewModel: TableViewCellViewModel {
-	let food: Food
+struct BagPurchaseableTableViewCellViewModel: TableViewCellViewModel {
+	let purchaseable: Purchaseable
 	let identifier: String
 	let height: Double
 	let commands: [TableViewCommandActionKey : TableViewCellCommand]

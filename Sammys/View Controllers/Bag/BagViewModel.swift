@@ -13,18 +13,19 @@ protocol BagViewModelViewDelegate {
 }
 
 class BagViewModel {
-	typealias Section = TableViewSection<BagFoodTableViewCellViewModel>
+	typealias Section = TableViewSection<BagPurchaseableTableViewCellViewModel>
 	
 	private let viewDelegate: BagViewModelViewDelegate
 	
 	private let bagModelController = BagModelController()
-	private var foods: [Food] {
-		do { return try getFoods() } catch { print(error); return [] }
+	private var purchaseables: [Purchaseable] {
+		do { return try bagModelController.getPurchasableQuantities().map { $0.purchaseable } }
+		catch { print(error); return [] }
 	}
 	private var sections: [Section] {
 		return [
-			Section(cellViewModels: foods
-				.map { BagFoodTableViewCellViewModelFactory(food: $0, height: viewDelegate.cellHeight()).create() }
+			Section(cellViewModels: purchaseables
+				.map { BagPurchaseableTableViewCellViewModelFactory(purchaseable: $0, height: viewDelegate.cellHeight()).create() }
 			)
 		]
 	}
@@ -33,11 +34,6 @@ class BagViewModel {
 	
 	init(_ viewDelegate: BagViewModelViewDelegate) {
 		self.viewDelegate = viewDelegate
-	}
-	
-	private func getFoods() throws -> [Food] {
-		return try bagModelController.getPurchasableQuantities()
-			.compactMap { $0.purchaseable as? Food }
 	}
 	
 	func numberOfRows(inSection section: Int) -> Int {
