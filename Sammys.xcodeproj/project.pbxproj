@@ -121,6 +121,8 @@
 		5B3A4B742195F3E400F22F78 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B452195F3E300F22F78 /* Double.swift */; };
 		5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */; };
 		5B3A4B762195F3E400F22F78 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */; };
+		5B3A4B792196179800F22F78 /* PaymentViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B3A4B782196179800F22F78 /* PaymentViewController.storyboard */; };
+		5B3A4B7B21961F4C00F22F78 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B7A21961F4C00F22F78 /* PaymentViewController.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */; };
 		5B3F25DA210F68160080290E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D9210F68160080290E /* Observable.swift */; };
@@ -365,6 +367,8 @@
 		5B3A4B442195F3E300F22F78 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		5B3A4B452195F3E300F22F78 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Equatable.swift"; sourceTree = "<group>"; };
+		5B3A4B782196179800F22F78 /* PaymentViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PaymentViewController.storyboard; sourceTree = "<group>"; };
+		5B3A4B7A21961F4C00F22F78 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIManager.swift; sourceTree = "<group>"; };
 		5B3F25D9210F68160080290E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		5B3F25DB210F68610080290E /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -676,6 +680,14 @@
 			path = EasyExtensions;
 			sourceTree = "<group>";
 		};
+		5B3A4B772196172F00F22F78 /* PaymentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B3A4B7A21961F4C00F22F78 /* PaymentViewController.swift */,
+			);
+			path = PaymentViewController;
+			sourceTree = "<group>";
+		};
 		5B3F25D8210F67750080290E /* Types and Patterns */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,6 +980,7 @@
 				5BEED53F206C72DD002240EB /* AddFoodViewController */,
 				5B553A66206C9BED00DD9689 /* FoodViewController */,
 				5BD274F52063FAEE00618128 /* BagViewController */,
+				5B3A4B772196172F00F22F78 /* PaymentViewController */,
 				5BD274F22063FAC900618128 /* User */,
 				5BB296CE209F719200520683 /* User Settings */,
 				5BD274F32063FAD800618128 /* Login */,
@@ -1004,22 +1017,23 @@
 		5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
-				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
-				5BB296C2209F4ADA00520683 /* UserSettingsViewController.storyboard */,
-				5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */,
-				5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */,
-				5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */,
-				5BAEE6E520E4716900607DFA /* ItemsViewController.storyboard */,
 				5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
-				5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */,
-				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
 				5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */,
+				5B1CB08420158CAF0006235F /* FoodViewController.storyboard */,
+				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
+				5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */,
+				5BAEE6E520E4716900607DFA /* ItemsViewController.storyboard */,
+				5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */,
+				5BFD2BCE20214816005C01BF /* LoginPageViewController.storyboard */,
+				5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */,
 				5B942D932087EA0600BF991A /* OrdersViewController.storyboard */,
 				5BB29690208F7C3400520683 /* OrderViewController.storyboard */,
-				5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */,
-				5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */,
+				5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */,
+				5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */,
+				5BB296C2209F4ADA00520683 /* UserSettingsViewController.storyboard */,
+				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
+				5B3A4B782196179800F22F78 /* PaymentViewController.storyboard */,
 			);
 			path = "Storyboards and Xibs";
 			sourceTree = "<group>";
@@ -1461,6 +1475,7 @@
 				5BAEE6E620E4716A00607DFA /* ItemsViewController.storyboard in Resources */,
 				5B9865FE20C5A347004722D8 /* SharedAssets.xcassets in Resources */,
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
+				5B3A4B792196179800F22F78 /* PaymentViewController.storyboard in Resources */,
 				5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */,
 				5BB2256720DFDBE700DFE448 /* LICENSE in Resources */,
 				5BFD2BCD20211703005C01BF /* SignUpViewController.storyboard in Resources */,
@@ -1747,6 +1762,7 @@
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */,
+				5B3A4B7B21961F4C00F22F78 /* PaymentViewController.swift in Sources */,
 				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
 				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,

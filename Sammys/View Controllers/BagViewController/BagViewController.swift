@@ -11,9 +11,12 @@ import UIKit
 class BagViewController: UIViewController {
 	lazy var viewModel = BagViewModel(self)
 	
+	lazy var paymentViewController = { return PaymentViewController.storyboardInstance() }()
+	
     // MARK: - IBOutlets
 	@IBOutlet var tableView: UITableView!
-
+	@IBOutlet var paymentVisualEffectView: UIVisualEffectView!
+	
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -35,11 +38,18 @@ class BagViewController: UIViewController {
 	// MARK: - Setup
 	func setupViews() {
 		setupTableView()
+		setupChildPaymentViewController()
 	}
 	
 	func setupTableView() {
 		tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
 		tableView.rowHeight = UITableViewAutomaticDimension
+	}
+	
+	func setupChildPaymentViewController() {
+		add(asChildViewController: paymentViewController)
+		paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
+		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
 	}
 	
 	func delete(at indexPath: IndexPath) {

@@ -148,9 +148,23 @@
                                     <outlet property="delegate" destination="1x3-yr-YVX" id="YpC-ur-OXe"/>
                                 </connections>
                             </tableView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Emv-yh-FdB">
+                                <rect key="frame" x="0.0" y="490" width="375" height="200"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Dt1-xo-JQE">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Fuw-0W-wHL"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="bottom" secondItem="Emv-yh-FdB" secondAttribute="bottom" id="0wh-vG-qqE"/>
+                            <constraint firstItem="jaS-95-GXp" firstAttribute="trailing" secondItem="Emv-yh-FdB" secondAttribute="trailing" id="5l2-Iz-zNj"/>
+                            <constraint firstItem="Emv-yh-FdB" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="5pM-eG-WnX"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="leading" secondItem="jaS-95-GXp" secondAttribute="leading" id="7E7-PD-CyM"/>
                             <constraint firstAttribute="bottom" secondItem="fPz-3p-alg" secondAttribute="bottom" id="EFS-1R-Hwz"/>
                             <constraint firstItem="fPz-3p-alg" firstAttribute="trailing" secondItem="jaS-95-GXp" secondAttribute="trailing" id="Trh-Bn-AwG"/>
@@ -173,6 +187,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="paymentVisualEffectView" destination="Emv-yh-FdB" id="yr3-Df-Qd6"/>
                         <outlet property="tableView" destination="fPz-3p-alg" id="52I-qg-fHz"/>
                     </connections>
                 </viewController>

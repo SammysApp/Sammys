@@ -44,16 +44,19 @@ class AddFoodViewController: UIViewController {
 		viewModel = AddFoodViewModel(viewModelParcel)
 		
 		setupViews()
-		
-		add(asChildViewController: foodViewController)
-		foodViewController.view.translatesAutoresizingMaskIntoConstraints = false
-		foodViewController.view.fullViewConstraints(equalTo: view).activateAll()
-		view.sendSubview(toBack: foodViewController.view)
     }
 	
 	// MARK: - Setup
 	func setupViews() {
+		setupChildFoodViewController()
 		setupAddButton()
+	}
+	
+	func setupChildFoodViewController() {
+		add(asChildViewController: foodViewController)
+		foodViewController.view.translatesAutoresizingMaskIntoConstraints = false
+		foodViewController.view.fullViewConstraints(equalTo: view).activateAll()
+		view.sendSubview(toBack: foodViewController.view)
 	}
 	
 	func setupAddButton() {
