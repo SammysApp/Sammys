@@ -9,7 +9,7 @@
 import Foundation
 
 struct BagPurchaseableTableViewCellViewModel: TableViewCellViewModel {
-	let purchaseable: Purchaseable
+	let purchaseableQuantity: PurchaseableQuantity
 	let identifier: String
 	let height: Double
 	let isEditable: Bool

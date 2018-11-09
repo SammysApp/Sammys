@@ -27,6 +27,8 @@ class BagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		viewModel.bagPurchaseableTableViewCellDelegate = self
+		
 		setupViews()
     }
 	
@@ -94,5 +96,16 @@ extension BagViewController: UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete { delete(at: indexPath) }
+	}
+}
+
+// MARK: - BagPurchaseableTableViewCellDelegate
+extension BagViewController: BagPurchaseableTableViewCellDelegate {
+	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didDecrementQuantityAt indexPath: IndexPath) {
+		do { try viewModel.decrement(at: indexPath); tableView.reloadData() } catch { print(error) }
+	}
+	
+	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didIncrementQuantityAt indexPath: IndexPath) {
+		do { try viewModel.increment(at: indexPath); tableView.reloadData() } catch { print(error) }
 	}
 }

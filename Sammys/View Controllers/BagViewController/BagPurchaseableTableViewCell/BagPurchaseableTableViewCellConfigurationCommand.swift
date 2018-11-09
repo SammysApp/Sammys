@@ -9,12 +9,15 @@
 import UIKit
 
 struct BagPurchaseableTableViewCellConfigurationCommand: TableViewCellCommand {
-	let purchaseable: Purchaseable
+	let purchaseableQuantity: PurchaseableQuantity
+	let delegate: BagPurchaseableTableViewCellDelegate?
 	
 	func perform(parameters: TableViewCellCommandParameters) {
 		guard let cell = parameters.cell as? BagPurchaseableTableViewCell else { return }
-		cell.titleLabel.text = purchaseable.title
-		cell.descriptionLabel.text = purchaseable.description
-		cell.priceLabel.text = purchaseable.price.priceString
+		cell.delegate = delegate
+		cell.titleLabel.text = purchaseableQuantity.purchaseable.title
+		cell.descriptionLabel.text = purchaseableQuantity.purchaseable.description
+		cell.priceLabel.text = purchaseableQuantity.purchaseable.price.priceString
+		cell.quantityTextField.placeholder = "\(purchaseableQuantity.quantity)"
 	}
 }
