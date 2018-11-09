@@ -12,13 +12,11 @@
 		5B02C70F20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */; };
 		5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */; };
 		5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */; };
-		5B02C7162087CA30006D19A5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
 		5B05C7B220E44AD700BDFBF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B05C7B120E44AD700BDFBF4 /* Main.storyboard */; };
 		5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
 		5B05C7B520E4652800BDFBF4 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */; };
 		5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */; };
 		5B0B739B20D6413900D757FD /* Blurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B739A20D6413900D757FD /* Blurable.swift */; };
-		5B0B739D20D6B58C00D757FD /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B739C20D6B58C00D757FD /* UIViewController.swift */; };
 		5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58920C035F000BF05B2 /* AppDelegate.swift */; };
 		5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */; };
 		5B10D59320C035F400BF05B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D59220C035F400BF05B2 /* Assets.xcassets */; };
@@ -34,21 +32,6 @@
 		5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
 		5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06911FFD53C700BAC480 /* Extra.swift */; };
 		5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
-		5B10D5A720C0467400BF05B2 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array+Equatable.swift */; };
-		5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */; };
-		5B10D5A920C0467400BF05B2 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F382069F5B100105E72 /* Collection.swift */; };
-		5B10D5AA20C0467400BF05B2 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F352069F5B100105E72 /* Date.swift */; };
-		5B10D5AB20C0467400BF05B2 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F412069F5B100105E72 /* Double.swift */; };
-		5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3B2069F5B100105E72 /* Int.swift */; };
-		5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED537206BEED2002240EB /* JSONDecoder.swift */; };
-		5B10D5AE20C0467400BF05B2 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F372069F5B100105E72 /* MKMapView.swift */; };
-		5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3F2069F5B100105E72 /* UIButton.swift */; };
-		5B10D5B020C0467400BF05B2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53B206C6CE9002240EB /* UIColor.swift */; };
-		5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F402069F5B100105E72 /* UIImage.swift */; };
-		5B10D5B220C0467400BF05B2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F342069F5B100105E72 /* UIScrollView.swift */; };
-		5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3D2069F5B100105E72 /* UITableView.swift */; };
-		5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F362069F5B100105E72 /* UIView.swift */; };
-		5B10D5B520C0467400BF05B2 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B02C7152087CA30006D19A5 /* URL.swift */; };
 		5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
 		5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B920C07D1D00BF05B2 /* OrdersViewModel.swift */; };
 		5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */; };
@@ -69,7 +52,6 @@
 		5B1CB0612010FCCE0006235F /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B1CB08320158BDA0006235F /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB08220158BDA0006235F /* FoodViewController.swift */; };
 		5B1CB08520158CAF0006235F /* FoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1CB08420158CAF0006235F /* FoodViewController.storyboard */; };
-		5B226A5C218F5648008D2CBD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5B218F5648008D2CBD /* String.swift */; };
 		5B226A5E218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5D218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift */; };
 		5B226A60218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5F218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift */; };
 		5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */; };
@@ -94,14 +76,52 @@
 		5B3A4ABE219226FA00F22F78 /* FoodViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4ABD219226FA00F22F78 /* FoodViewModel+ItemCollectionViewCellViewModelFactory.swift */; };
 		5B3A4AC02192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4ABF2192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift */; };
 		5B3A4AC221925E9B00F22F78 /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D58D20C035F000BF05B2 /* FoodViewController.swift */; };
-		5B3A4AC32193399200F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B226A5B218F5648008D2CBD /* String.swift */; };
 		5B3A4AC521948C6E00F22F78 /* BagPurchaseableTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC421948C6E00F22F78 /* BagPurchaseableTableViewCellViewModel.swift */; };
 		5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AC62194952200F22F78 /* TableViewSection.swift */; };
 		5B3A4AE02194CA3300F22F78 /* SaladFoodItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4ADF2194CA3300F22F78 /* SaladFoodItemCategory.swift */; };
-		5B3A4AE221950A9800F22F78 /* UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AE121950A9800F22F78 /* UIResponder.swift */; };
-		5B3A4AE421950B7000F22F78 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4AE321950B7000F22F78 /* UITableViewCell.swift */; };
+		5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */; };
+		5B3A4B482195F3E400F22F78 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */; };
+		5B3A4B492195F3E400F22F78 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B302195F3E300F22F78 /* Date.swift */; };
+		5B3A4B4A2195F3E400F22F78 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B302195F3E300F22F78 /* Date.swift */; };
+		5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B312195F3E300F22F78 /* UIView.swift */; };
+		5B3A4B4C2195F3E400F22F78 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B312195F3E300F22F78 /* UIView.swift */; };
+		5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B322195F3E300F22F78 /* MKMapView.swift */; };
+		5B3A4B4E2195F3E400F22F78 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B322195F3E300F22F78 /* MKMapView.swift */; };
+		5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B332195F3E300F22F78 /* Collection.swift */; };
+		5B3A4B502195F3E400F22F78 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B332195F3E300F22F78 /* Collection.swift */; };
+		5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */; };
+		5B3A4B542195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */; };
+		5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B362195F3E300F22F78 /* UIColor.swift */; };
+		5B3A4B562195F3E400F22F78 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B362195F3E300F22F78 /* UIColor.swift */; };
+		5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */; };
+		5B3A4B582195F3E400F22F78 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */; };
+		5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */; };
+		5B3A4B5A2195F3E400F22F78 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */; };
+		5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B392195F3E300F22F78 /* Int.swift */; };
+		5B3A4B5C2195F3E400F22F78 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B392195F3E300F22F78 /* Int.swift */; };
+		5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3B2195F3E300F22F78 /* UITableView.swift */; };
+		5B3A4B602195F3E400F22F78 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3B2195F3E300F22F78 /* UITableView.swift */; };
+		5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */; };
+		5B3A4B642195F3E400F22F78 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */; };
+		5B3A4B652195F3E400F22F78 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3E2195F3E300F22F78 /* URL.swift */; };
+		5B3A4B662195F3E400F22F78 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3E2195F3E300F22F78 /* URL.swift */; };
+		5B3A4B672195F3E400F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3F2195F3E300F22F78 /* String.swift */; };
+		5B3A4B682195F3E400F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3F2195F3E300F22F78 /* String.swift */; };
+		5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B402195F3E300F22F78 /* UIResponder.swift */; };
+		5B3A4B6A2195F3E400F22F78 /* UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B402195F3E300F22F78 /* UIResponder.swift */; };
+		5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B412195F3E300F22F78 /* UIButton.swift */; };
+		5B3A4B6C2195F3E400F22F78 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B412195F3E300F22F78 /* UIButton.swift */; };
+		5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B422195F3E300F22F78 /* UIImage.swift */; };
+		5B3A4B6E2195F3E400F22F78 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B422195F3E300F22F78 /* UIImage.swift */; };
+		5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B432195F3E300F22F78 /* UIViewController.swift */; };
+		5B3A4B702195F3E400F22F78 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B432195F3E300F22F78 /* UIViewController.swift */; };
+		5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B442195F3E300F22F78 /* DateFormatter.swift */; };
+		5B3A4B722195F3E400F22F78 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B442195F3E300F22F78 /* DateFormatter.swift */; };
+		5B3A4B732195F3E400F22F78 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B452195F3E300F22F78 /* Double.swift */; };
+		5B3A4B742195F3E400F22F78 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B452195F3E300F22F78 /* Double.swift */; };
+		5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */; };
+		5B3A4B762195F3E400F22F78 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */; };
 		5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */; };
-		5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25B6210BA2850080290E /* DateFormatter.swift */; };
 		5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */; };
 		5B3F25DA210F68160080290E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25D9210F68160080290E /* Observable.swift */; };
 		5B3F25DC210F68610080290E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25DB210F68610080290E /* Variable.swift */; };
@@ -219,18 +239,6 @@
 		5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D320A1F13C00520683 /* LoginViewModel.swift */; };
 		5BB60EF02069EA4400105E72 /* ItemEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EEF2069EA4400105E72 /* ItemEditable.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
-		5BB60F422069F5B100105E72 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F342069F5B100105E72 /* UIScrollView.swift */; };
-		5BB60F432069F5B100105E72 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F352069F5B100105E72 /* Date.swift */; };
-		5BB60F442069F5B100105E72 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F362069F5B100105E72 /* UIView.swift */; };
-		5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F372069F5B100105E72 /* MKMapView.swift */; };
-		5BB60F462069F5B100105E72 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F382069F5B100105E72 /* Collection.swift */; };
-		5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */; };
-		5BB60F492069F5B100105E72 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3B2069F5B100105E72 /* Int.swift */; };
-		5BB60F4B2069F5B100105E72 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3D2069F5B100105E72 /* UITableView.swift */; };
-		5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F3F2069F5B100105E72 /* UIButton.swift */; };
-		5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F402069F5B100105E72 /* UIImage.swift */; };
-		5BB60F4F2069F5B100105E72 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F412069F5B100105E72 /* Double.swift */; };
-		5BB60F512069FB4700105E72 /* Array+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60F502069FB4700105E72 /* Array+Equatable.swift */; };
 		5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */; };
 		5BC950382107D2B900AF1098 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* Customer.swift */; };
 		5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */; };
@@ -248,12 +256,8 @@
 		5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
 		5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */; };
-		5BEED538206BEED2002240EB /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED537206BEED2002240EB /* JSONDecoder.swift */; };
 		5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */; };
-		5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53B206C6CE9002240EB /* UIColor.swift */; };
 		5BEED53E206C6F70002240EB /* AddFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */; };
-		5BF39A5820DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
-		5BF39A5920DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */; };
 		5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
 		5BFC57312174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
 		5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC57332179101D0002179B /* SaladBuilder.swift */; };
@@ -293,11 +297,9 @@
 		5B02C70E20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B02C7112087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B02C71320879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
-		5B02C7152087CA30006D19A5 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		5B05C7B120E44AD700BDFBF4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5B05C7B420E4652800BDFBF4 /* UISplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewController.swift; sourceTree = "<group>"; };
 		5B0B739A20D6413900D757FD /* Blurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blurable.swift; sourceTree = "<group>"; };
-		5B0B739C20D6B58C00D757FD /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		5B10D58720C035EF00BF05B2 /* Sammys Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sammys Kitchen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B10D58920C035F000BF05B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B10D58B20C035F000BF05B2 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
@@ -317,7 +319,6 @@
 		5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHeaderView.swift; sourceTree = "<group>"; };
 		5B1CB08220158BDA0006235F /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		5B1CB08420158CAF0006235F /* FoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FoodViewController.storyboard; sourceTree = "<group>"; };
-		5B226A5B218F5648008D2CBD /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5B226A5D218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B226A5F218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewModel+ItemCollectionViewCellViewModel.swift"; sourceTree = "<group>"; };
 		5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladFoodItemsDataFetcher.swift; sourceTree = "<group>"; };
@@ -343,9 +344,27 @@
 		5B3A4AC421948C6E00F22F78 /* BagPurchaseableTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagPurchaseableTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3A4AC62194952200F22F78 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		5B3A4ADF2194CA3300F22F78 /* SaladFoodItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladFoodItemCategory.swift; sourceTree = "<group>"; };
-		5B3A4AE121950A9800F22F78 /* UIResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResponder.swift; sourceTree = "<group>"; };
-		5B3A4AE321950B7000F22F78 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
-		5B3F25B6210BA2850080290E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
+		5B3A4B302195F3E300F22F78 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5B3A4B312195F3E300F22F78 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		5B3A4B322195F3E300F22F78 /* MKMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapView.swift; sourceTree = "<group>"; };
+		5B3A4B332195F3E300F22F78 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
+		5B3A4B362195F3E300F22F78 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationDistance.swift; sourceTree = "<group>"; };
+		5B3A4B392195F3E300F22F78 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		5B3A4B3B2195F3E300F22F78 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
+		5B3A4B3E2195F3E300F22F78 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		5B3A4B3F2195F3E300F22F78 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5B3A4B402195F3E300F22F78 /* UIResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResponder.swift; sourceTree = "<group>"; };
+		5B3A4B412195F3E300F22F78 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		5B3A4B422195F3E300F22F78 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		5B3A4B432195F3E300F22F78 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		5B3A4B442195F3E300F22F78 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		5B3A4B452195F3E300F22F78 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Equatable.swift"; sourceTree = "<group>"; };
 		5B3F25D6210F66BE0080290E /* FirebaseAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIManager.swift; sourceTree = "<group>"; };
 		5B3F25D9210F68160080290E /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		5B3F25DB210F68610080290E /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -453,18 +472,6 @@
 		5BB296D320A1F13C00520683 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		5BB60EEF2069EA4400105E72 /* ItemEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEditable.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
-		5BB60F342069F5B100105E72 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
-		5BB60F352069F5B100105E72 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		5BB60F362069F5B100105E72 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		5BB60F372069F5B100105E72 /* MKMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapView.swift; sourceTree = "<group>"; };
-		5BB60F382069F5B100105E72 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationDistance.swift; sourceTree = "<group>"; };
-		5BB60F3B2069F5B100105E72 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
-		5BB60F3D2069F5B100105E72 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
-		5BB60F3F2069F5B100105E72 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
-		5BB60F402069F5B100105E72 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		5BB60F412069F5B100105E72 /* Double.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		5BB60F502069FB4700105E72 /* Array+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Equatable.swift"; sourceTree = "<group>"; };
 		5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAPIService.swift; sourceTree = "<group>"; };
 		5BC950372107D2B900AF1098 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralKeyProvider.swift; sourceTree = "<group>"; };
@@ -482,11 +489,8 @@
 		5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewModel.swift; sourceTree = "<group>"; };
-		5BEED537206BEED2002240EB /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewModel.swift; sourceTree = "<group>"; };
-		5BEED53B206C6CE9002240EB /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewModel.swift; sourceTree = "<group>"; };
-		5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		5BFC57332179101D0002179B /* SaladBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladBuilder.swift; sourceTree = "<group>"; };
 		5BFC5736217A44170002179B /* AnyCodableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodableProtocol.swift; sourceTree = "<group>"; };
@@ -644,6 +648,34 @@
 			path = ItemCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		5B3A4B2E2195F3E300F22F78 /* EasyExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */,
+				5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */,
+				5B3A4B332195F3E300F22F78 /* Collection.swift */,
+				5B3A4B302195F3E300F22F78 /* Date.swift */,
+				5B3A4B442195F3E300F22F78 /* DateFormatter.swift */,
+				5B3A4B452195F3E300F22F78 /* Double.swift */,
+				5B3A4B392195F3E300F22F78 /* Int.swift */,
+				5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */,
+				5B3A4B322195F3E300F22F78 /* MKMapView.swift */,
+				5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */,
+				5B3A4B3F2195F3E300F22F78 /* String.swift */,
+				5B3A4B412195F3E300F22F78 /* UIButton.swift */,
+				5B3A4B362195F3E300F22F78 /* UIColor.swift */,
+				5B3A4B422195F3E300F22F78 /* UIImage.swift */,
+				5B3A4B402195F3E300F22F78 /* UIResponder.swift */,
+				5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */,
+				5B3A4B3B2195F3E300F22F78 /* UITableView.swift */,
+				5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */,
+				5B3A4B312195F3E300F22F78 /* UIView.swift */,
+				5B3A4B432195F3E300F22F78 /* UIViewController.swift */,
+				5B3A4B3E2195F3E300F22F78 /* URL.swift */,
+			);
+			path = EasyExtensions;
+			sourceTree = "<group>";
+		};
 		5B3F25D8210F67750080290E /* Types and Patterns */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +798,7 @@
 			children = (
 				5B6A067A1FFD509A00BAC480 /* Sammys */,
 				5B10D58820C035F000BF05B2 /* Sammys Kitchen */,
+				5B3A4B2E2195F3E300F22F78 /* EasyExtensions */,
 				5B6A06791FFD509A00BAC480 /* Products */,
 				121183D2095EEA5493A89E13 /* Pods */,
 				94825A66B172021E2F0BA0A3 /* Frameworks */,
@@ -795,7 +828,6 @@
 				5B3F25D8210F67750080290E /* Types and Patterns */,
 				5B724D8E20DFD86F00B9296E /* Protocols */,
 				5BED77A920B4798100232DD2 /* Extensions */,
-				5BB60F332069F5B100105E72 /* EasyExtensions */,
 				5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */,
 				5B0400C72149671900830FBD /* Data */,
 				5B7B14C220558D4300BFE0C8 /* Assets */,
@@ -1117,34 +1149,6 @@
 				5B44F1BC20AB557100B3E0A5 /* Button */,
 			);
 			path = "User Settings";
-			sourceTree = "<group>";
-		};
-		5BB60F332069F5B100105E72 /* EasyExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				5BB60F502069FB4700105E72 /* Array+Equatable.swift */,
-				5BB60F3A2069F5B100105E72 /* CLLocationDistance.swift */,
-				5BB60F382069F5B100105E72 /* Collection.swift */,
-				5BB60F352069F5B100105E72 /* Date.swift */,
-				5BB60F412069F5B100105E72 /* Double.swift */,
-				5B3F25B6210BA2850080290E /* DateFormatter.swift */,
-				5BB60F3B2069F5B100105E72 /* Int.swift */,
-				5BEED537206BEED2002240EB /* JSONDecoder.swift */,
-				5BB60F372069F5B100105E72 /* MKMapView.swift */,
-				5BF39A5720DC2758007C4A66 /* NSLayoutConstraint.swift */,
-				5B226A5B218F5648008D2CBD /* String.swift */,
-				5BB60F3F2069F5B100105E72 /* UIButton.swift */,
-				5BEED53B206C6CE9002240EB /* UIColor.swift */,
-				5BB60F402069F5B100105E72 /* UIImage.swift */,
-				5B3A4AE121950A9800F22F78 /* UIResponder.swift */,
-				5BB60F342069F5B100105E72 /* UIScrollView.swift */,
-				5BB60F3D2069F5B100105E72 /* UITableView.swift */,
-				5B3A4AE321950B7000F22F78 /* UITableViewCell.swift */,
-				5BB60F362069F5B100105E72 /* UIView.swift */,
-				5B0B739C20D6B58C00D757FD /* UIViewController.swift */,
-				5B02C7152087CA30006D19A5 /* URL.swift */,
-			);
-			path = EasyExtensions;
 			sourceTree = "<group>";
 		};
 		5BD274EE2063FA8F00618128 /* Networking */ = {
@@ -1589,70 +1593,74 @@
 				5B10D59B20C042D200BF05B2 /* OrdersAPIManager.swift in Sources */,
 				5B10D59C20C044A900BF05B2 /* Order.swift in Sources */,
 				5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */,
-				5B10D5AC20C0467400BF05B2 /* Int.swift in Sources */,
 				5B05C7B320E463AD00BDFBF4 /* UINavigationController.swift in Sources */,
-				5B10D5B420C0467400BF05B2 /* UIView.swift in Sources */,
 				5B3A4AC221925E9B00F22F78 /* FoodViewController.swift in Sources */,
 				5B342AE620F79BE600A781E6 /* Sammys.swift in Sources */,
-				5B10D5B520C0467400BF05B2 /* URL.swift in Sources */,
+				5B3A4B602195F3E400F22F78 /* UITableView.swift in Sources */,
+				5B3A4B742195F3E400F22F78 /* Double.swift in Sources */,
 				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
 				5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */,
 				5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */,
-				5B3A4AC32193399200F22F78 /* String.swift in Sources */,
 				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
 				5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */,
-				5B10D5A720C0467400BF05B2 /* Array+Equatable.swift in Sources */,
+				5B3A4B5C2195F3E400F22F78 /* Int.swift in Sources */,
 				5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */,
 				5BFC5738217A44170002179B /* AnyCodableProtocol.swift in Sources */,
 				5B9865F420C58D91004722D8 /* FoodCollectionViewModel.swift in Sources */,
+				5B3A4B542195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */,
 				5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */,
-				5BF39A5920DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */,
+				5B3A4B762195F3E400F22F78 /* Array+Equatable.swift in Sources */,
 				5BFC5744217CC5050002179B /* PurchaseableQuantity.swift in Sources */,
 				5B10D58C20C035F000BF05B2 /* OrdersViewController.swift in Sources */,
+				5B3A4B662195F3E400F22F78 /* URL.swift in Sources */,
+				5B3A4B722195F3E400F22F78 /* DateFormatter.swift in Sources */,
+				5B3A4B4A2195F3E400F22F78 /* Date.swift in Sources */,
 				5B10D5BA20C07D1D00BF05B2 /* OrdersViewModel.swift in Sources */,
 				5B10D5A120C044DE00BF05B2 /* Lettuce.swift in Sources */,
-				5B10D5A920C0467400BF05B2 /* Collection.swift in Sources */,
-				5B10D5B120C0467400BF05B2 /* UIImage.swift in Sources */,
-				5B10D5AF20C0467400BF05B2 /* UIButton.swift in Sources */,
+				5B3A4B682195F3E400F22F78 /* String.swift in Sources */,
 				5B10D5C420C0828F00BF05B2 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
+				5B3A4B702195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5BFC5741217C308A0002179B /* Purchaseable.swift in Sources */,
 				5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */,
+				5B3A4B6C2195F3E400F22F78 /* UIButton.swift in Sources */,
+				5B3A4B482195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */,
 				5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */,
-				5B10D5B320C0467400BF05B2 /* UITableView.swift in Sources */,
 				5BFC573B217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
 				5B10D59E20C044D000BF05B2 /* FoodItem.swift in Sources */,
 				5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */,
+				5B3A4B562195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B9B907320C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift in Sources */,
 				5B9B907120C5E4AD00FB6264 /* FoodTableViewCell.swift in Sources */,
+				5B3A4B4C2195F3E400F22F78 /* UIView.swift in Sources */,
 				5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */,
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
 				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
 				5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */,
 				5BFC573E217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
 				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
-				5B10D5AD20C0467400BF05B2 /* JSONDecoder.swift in Sources */,
 				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,
-				5B10D5B020C0467400BF05B2 /* UIColor.swift in Sources */,
 				5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */,
 				5B705D4E20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift in Sources */,
 				5B10D5C620C0830100BF05B2 /* OrderTableViewCellViewModelFactory.swift in Sources */,
-				5B10D5B220C0467400BF05B2 /* UIScrollView.swift in Sources */,
 				5BFC57352179101D0002179B /* SaladBuilder.swift in Sources */,
-				5B10D5AE20C0467400BF05B2 /* MKMapView.swift in Sources */,
+				5B3A4B6A2195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B10D5BD20C0805500BF05B2 /* CollectionViewCellViewModelFactory.swift in Sources */,
+				5B3A4B502195F3E400F22F78 /* Collection.swift in Sources */,
 				5B10D5BF20C0805500BF05B2 /* TableViewCellCommand.swift in Sources */,
+				5B3A4B6E2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5B9865F320C58D8E004722D8 /* FoodCollectionView.swift in Sources */,
+				5B3A4B642195F3E400F22F78 /* UITableViewCell.swift in Sources */,
+				5B3A4B4E2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B9865F520C58D93004722D8 /* FoodHeaderView.swift in Sources */,
-				5B10D5AA20C0467400BF05B2 /* Date.swift in Sources */,
+				5B3A4B5A2195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */,
 				5B724D8720DC967300B9296E /* APIKey.swift in Sources */,
 				5B9865F620C58DAD004722D8 /* ItemCollectionViewCell.swift in Sources */,
-				5B10D5AB20C0467400BF05B2 /* Double.swift in Sources */,
+				5B3A4B582195F3E400F22F78 /* JSONDecoder.swift in Sources */,
 				5BB2256E20DFE7BA00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
-				5B10D5A820C0467400BF05B2 /* CLLocationDistance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1662,6 +1670,7 @@
 			files = (
 				5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */,
 				5B3A4ABE219226FA00F22F78 /* FoodViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */,
+				5B3A4B672195F3E400F22F78 /* String.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
 				5BB296CD209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift in Sources */,
 				5B553A65206C774F00DD9689 /* FoodViewModel.swift in Sources */,
@@ -1673,42 +1682,47 @@
 				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
 				5B3A4AC521948C6E00F22F78 /* BagPurchaseableTableViewCellViewModel.swift in Sources */,
 				5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */,
+				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B2950C7218A3FB7008B0E49 /* FoodBuilder.swift in Sources */,
-				5B226A5C218F5648008D2CBD /* String.swift in Sources */,
 				5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */,
+				5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
 				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddFoodViewController.swift in Sources */,
+				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
-				5B3F25B7210BA2850080290E /* DateFormatter.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* BagPurchaseableTableViewCell.swift in Sources */,
 				5B44A8212007D31C00898FF0 /* UserAPIManager.swift in Sources */,
 				5BFC5740217C308A0002179B /* Purchaseable.swift in Sources */,
 				5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
+				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
 				5BB296C9209F4EA100520683 /* UserSettingsViewModel.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
 				5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */,
 				5BB2968F208F7BA600520683 /* OrderViewModel.swift in Sources */,
-				5BEED53C206C6CE9002240EB /* UIColor.swift in Sources */,
+				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewController.swift in Sources */,
 				5BB29699208F9B2200520683 /* FoodOrderTableViewCellViewModelFactory.swift in Sources */,
 				5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */,
+				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
+				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */,
 				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
-				5B0B739D20D6B58C00D757FD /* UIViewController.swift in Sources */,
+				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
 				5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */,
+				5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */,
 				5B3F25E8210F7F400080290E /* APIService.swift in Sources */,
 				5BFC5737217A44170002179B /* AnyCodableProtocol.swift in Sources */,
 				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
+				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
 				5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
-				5B3A4AE221950A9800F22F78 /* UIResponder.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
@@ -1717,16 +1731,16 @@
 				5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */,
 				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BB296BD209D009900520683 /* HomeItemCollectionViewCellViewModelFactory.swift in Sources */,
-				5BB60F432069F5B100105E72 /* Date.swift in Sources */,
-				5BF39A5820DC2758007C4A66 /* NSLayoutConstraint.swift in Sources */,
 				5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */,
+				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */,
 				5B02C7122087903F006D19A5 /* MessageCollectionViewCellSelectionCommand.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
 				5BD274E92063F74600618128 /* ItemsViewModel.swift in Sources */,
+				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */,
-				5BB60F422069F5B100105E72 /* UIScrollView.swift in Sources */,
 				5B3A4AC02192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
+				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B44A82D2009292A00898FF0 /* FoodItem.swift in Sources */,
 				5BD274FD206403E500618128 /* ItemsViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */,
 				5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */,
@@ -1734,26 +1748,23 @@
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */,
 				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
-				5BB60F4E2069F5B100105E72 /* UIImage.swift in Sources */,
-				5BB60F492069F5B100105E72 /* Int.swift in Sources */,
 				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
 				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
+				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
+				5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B3F25E2210F79860080290E /* Endpoint.swift in Sources */,
 				5B226A5E218F64CE008D2CBD /* DefaultCollectionViewCellViewModel.swift in Sources */,
 				5B3B869E20D81768003CE08D /* KitchenOrder.swift in Sources */,
-				5B3A4AE421950B7000F22F78 /* UITableViewCell.swift in Sources */,
 				5BFC573D217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
 				5B3A4AE02194CA3300F22F78 /* SaladFoodItemCategory.swift in Sources */,
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* BagPurchaseableTableViewCellViewModelFactory.swift in Sources */,
-				5BB60F482069F5B100105E72 /* CLLocationDistance.swift in Sources */,
 				5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
 				5B2950C5218A3F1B008B0E49 /* FoodItemBuilder.swift in Sources */,
 				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
-				5BB60F442069F5B100105E72 /* UIView.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5B2950C3218A3E86008B0E49 /* FoodItemsDataFetcher.swift in Sources */,
 				5BA01973213733870017A993 /* APIManager.swift in Sources */,
@@ -1767,9 +1778,9 @@
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
 				5B44A8072006D35600898FF0 /* HomeItemCollectionViewCell.swift in Sources */,
 				5B724D8620DC967300B9296E /* APIKey.swift in Sources */,
+				5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */,
 				5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */,
 				5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */,
-				5BB60F452069F5B100105E72 /* MKMapView.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
 				5BB296CB209F4EB700520683 /* TextFieldTableViewCellConfigurationCommand.swift in Sources */,
@@ -1781,17 +1792,18 @@
 				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
+				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
+				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */,
 				5BC950382107D2B900AF1098 /* Customer.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
 				5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
+				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
 				5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
 				5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */,
-				5B02C7162087CA30006D19A5 /* URL.swift in Sources */,
-				5BB60F4D2069F5B100105E72 /* UIButton.swift in Sources */,
 				5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */,
 				5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,
@@ -1800,9 +1812,7 @@
 				5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */,
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
-				5BEED538206BEED2002240EB /* JSONDecoder.swift in Sources */,
 				5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */,
-				5BB60F4F2069F5B100105E72 /* Double.swift in Sources */,
 				5B724D8920DC98F300B9296E /* FileType.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */,
@@ -1816,11 +1826,10 @@
 				5BB296B9209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift in Sources */,
 				5BB296BB209CFF8D00520683 /* HomeItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B226A60218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift in Sources */,
-				5BB60F4B2069F5B100105E72 /* UITableView.swift in Sources */,
+				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
-				5BB60F462069F5B100105E72 /* Collection.swift in Sources */,
 				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,
 				5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */,
 				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
@@ -1830,7 +1839,6 @@
 				5B3176CE206D3AFC00D83D12 /* BagPurchaseableTableViewCellConfigurationCommand.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* CollectionViewSection.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
-				5BB60F512069FB4700105E72 /* Array+Equatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

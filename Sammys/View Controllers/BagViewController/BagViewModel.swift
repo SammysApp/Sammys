@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum BagViewModelError: Error {
+	case badCellViewModelIndexPath
+}
+
 protocol BagViewModelViewDelegate {
 	func cellHeight() -> Double
 }
@@ -42,20 +46,32 @@ class BagViewModel {
 		return sections[section].cellViewModels.count
 	}
 	
-	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
-		return sections[indexPath.section].cellViewModels[indexPath.row]
+	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel? {
+		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func increment(at indexPath: IndexPath) throws {
-		try bagModelController.add(cellViewModel(for: indexPath).purchaseableQuantity.purchaseable)
+	func set(toQuantity quantity: Int, at indexPath: IndexPath) throws {
+		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+			else { throw BagViewModelError.badCellViewModelIndexPath }
+		try bagModelController.set(purchaseable, toQuantity: quantity)
 	}
 	
-	func decrement(at indexPath: IndexPath) throws {
-		try bagModelController.remove(cellViewModel(for: indexPath).purchaseableQuantity.purchaseable, quantity: 1)
+	func incrementQuantity(at indexPath: IndexPath) throws {
+		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+			else { throw BagViewModelError.badCellViewModelIndexPath }
+		try bagModelController.add(purchaseable)
+	}
+	
+	func decrementQuantity(at indexPath: IndexPath) throws {
+		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+			else { throw BagViewModelError.badCellViewModelIndexPath }
+		try bagModelController.remove(purchaseable, quantity: 1)
 	}
 	
 	func delete(at indexPath: IndexPath) throws {
-		try bagModelController.remove(cellViewModel(for: indexPath).purchaseableQuantity.purchaseable)
+		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+			else { throw BagViewModelError.badCellViewModelIndexPath }
+		try bagModelController.remove(purchaseable)
 	}
 	
 	func clear() { bagModelController.clearAll() }
