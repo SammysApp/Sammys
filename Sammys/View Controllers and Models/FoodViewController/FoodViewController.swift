@@ -64,6 +64,7 @@ extension FoodViewController: UICollectionViewDataSource {
 	}
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension FoodViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)

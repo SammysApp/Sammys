@@ -833,10 +833,9 @@
 				5BD274EE2063FA8F00618128 /* Networking */,
 				5B9CD59C204CCA0500F59E4C /* Models */,
 				5BFD2189217D687C002D9A73 /* Model Controllers */,
-				5B9CD59D204CCA5500F59E4C /* View Controllers */,
+				5B9CD59D204CCA5500F59E4C /* View Controllers and Models */,
 				5B9CD59F204CCAA500F59E4C /* Views */,
 				5BD274F62063FBAD00618128 /* Animation */,
-				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5B3F25D8210F67750080290E /* Types and Patterns */,
 				5B724D8E20DFD86F00B9296E /* Protocols */,
 				5BED77A920B4798100232DD2 /* Extensions */,
@@ -971,7 +970,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5B9CD59D204CCA5500F59E4C /* View Controllers */ = {
+		5B9CD59D204CCA5500F59E4C /* View Controllers and Models */ = {
 			isa = PBXGroup;
 			children = (
 				5B2950CB218CC02B008B0E49 /* Models */,
@@ -989,7 +988,7 @@
 				5BB2968A208E5AD500520683 /* Orders */,
 				5BB296A0208FD42E00520683 /* Order */,
 			);
-			path = "View Controllers";
+			path = "View Controllers and Models";
 			sourceTree = "<group>";
 		};
 		5B9CD59E204CCA7F00F59E4C /* Cells */ = {
@@ -1007,6 +1006,7 @@
 		5B9CD59F204CCAA500F59E4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B9CD59E204CCA7F00F59E4C /* Cells */,
 				5BED77AC20B47DC200232DD2 /* FoodCollectionView */,
 				5BED77AF20B4848700232DD2 /* QuantityCollectionView */,
 				5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */,
