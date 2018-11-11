@@ -81,7 +81,7 @@ struct SaladBuilder: FoodBuilder {
 	private var extrasBuilder = ExtrasBuilder()
 	
 	mutating func toggle(_ foodItem: Item, with modifier: Modifier? = nil) throws {
-		if let saladFoodItem = SaladFoodItemCategory(rawValue: type(of: foodItem).itemName) {
+		if let saladFoodItem = SaladItemCategory(rawValue: type(of: foodItem).itemName) {
 			switch saladFoodItem {
 			case .size: sizeBuilder.toggle(foodItem)
 			case .lettuce:

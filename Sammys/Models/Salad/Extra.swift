@@ -9,11 +9,12 @@
 import Foundation
 
 struct Extra: OptionallyModifiableItem, OptionallyPricedItem {
-	static let itemName = SaladFoodItemCategory.extra.rawValue
+	static let itemName = SaladItemCategory.extra.rawValue
     let name: String
     let description: String
     let price: Double?
 	let modifiers: [Modifier]?
 }
 
+// MARK: - Hashable
 extension Extra: Hashable {}

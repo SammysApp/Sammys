@@ -9,10 +9,11 @@
 import Foundation
 
 struct Lettuce: ModifiableItem {
-	static let itemName = SaladFoodItemCategory.lettuce.rawValue
+	static let itemName = SaladItemCategory.lettuce.rawValue
     let name: String
     let description: String
     let modifiers: [Modifier]
 }
 
+// MARK: - Hashable
 extension Lettuce: Hashable {}

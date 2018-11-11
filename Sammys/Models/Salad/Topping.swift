@@ -9,10 +9,11 @@
 import Foundation
 
 struct Topping: OptionallyPricedItem {
-	static let itemName = SaladFoodItemCategory.topping.rawValue
+	static let itemName = SaladItemCategory.topping.rawValue
     let name: String
     let description: String
     let price: Double?
 }
 
+// MARK: - Hashable
 extension Topping: Hashable {}

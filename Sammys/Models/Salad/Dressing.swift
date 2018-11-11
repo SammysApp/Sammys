@@ -9,10 +9,11 @@
 import Foundation
 
 struct Dressing: ModifiableItem {
-	static let itemName = SaladFoodItemCategory.dressing.rawValue
+	static let itemName = SaladItemCategory.dressing.rawValue
     let name: String
     let description: String
     let modifiers: [Modifier]
 }
 
+// MARK: - Hashable
 extension Dressing: Hashable {}

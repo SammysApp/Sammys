@@ -24,7 +24,7 @@ extension Salad {
 	}
 	
 	var description: String {
-		let itemNames = items(for: [.lettuce, .vegetable, .topping, .dressing, .extra] as [SaladFoodItemCategory]).map { $0.name.lowercased() }
+		let itemNames = items(for: [.lettuce, .vegetable, .topping, .dressing, .extra] as [SaladItemCategory]).map { $0.name.lowercased() }
 		return "\(size.name) size salad" + (itemNames.isEmpty ? "" : " with \(itemNames.joined(separator: ", "))") + "."
 	}
 	
@@ -38,12 +38,12 @@ extension Salad {
 
 // MARK: - ItemedPurchaseable
 extension Salad {
-	static var allItemCategories: [ItemCategory] { return SaladFoodItemCategory.allCases }
+	static var allItemCategories: [ItemCategory] { return SaladItemCategory.allCases }
 	static var itemsDataFetcher: FoodItemsDataFetcher.Type { return SaladFoodItemsDataFetcher.self }
 	static var builder: FoodBuilder.Type { return SaladBuilder.self }
 	
 	func items(for itemCategory: ItemCategory) -> [Item] {
-		guard let saladItemCategory = itemCategory as? SaladFoodItemCategory
+		guard let saladItemCategory = itemCategory as? SaladItemCategory
 			else { return [] }
 		switch saladItemCategory {
 		case .size: return [size]

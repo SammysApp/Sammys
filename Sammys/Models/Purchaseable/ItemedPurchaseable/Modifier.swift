@@ -13,5 +13,8 @@ struct Modifier {
     let price: Double?
 }
 
+// MARK: - Hashable
 extension Modifier: Hashable {}
+
+// MARK: - Codable
 extension Modifier: Codable {}

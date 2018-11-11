@@ -9,10 +9,11 @@
 import Foundation
 
 struct Size: PricedItem {
-	static let itemName = SaladFoodItemCategory.size.rawValue
+	static let itemName = SaladItemCategory.size.rawValue
     let name: String
     let description: String
     let price: Double
 }
 
+// MARK: - Hashable
 extension Size: Hashable {}

@@ -284,7 +284,7 @@ extension ItemsViewController: FoodViewControllerDelegate {
 }
 
 // MARK: - SaladFoodItemCategory+ItemsViewLayoutStateSpecifier
-extension SaladFoodItemCategory: ItemsViewLayoutStateSpecifier {
+extension SaladItemCategory: ItemsViewLayoutStateSpecifier {
 	var state: ItemsViewLayoutState {
 		switch self {
 		case .size, .lettuce: return .horizontal

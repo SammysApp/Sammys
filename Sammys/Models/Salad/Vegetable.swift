@@ -9,9 +9,10 @@
 import Foundation
 
 struct Vegetable: Item {
-	static let itemName = SaladFoodItemCategory.vegetable.rawValue
+	static let itemName = SaladItemCategory.vegetable.rawValue
     let name: String
     let description: String
 }
 
+// MARK: - Hashable
 extension Vegetable: Hashable {}
