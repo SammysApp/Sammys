@@ -9,7 +9,7 @@
 import Foundation
 
 struct Size: PricedItem {
-	static let itemName = SaladItemCategory.size.rawValue
+	static let category: ItemCategory = SaladItemCategory.size
     let name: String
     let description: String
     let price: Double

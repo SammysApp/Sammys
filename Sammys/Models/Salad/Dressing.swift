@@ -9,7 +9,7 @@
 import Foundation
 
 struct Dressing: ModifiableItem {
-	static let itemName = SaladItemCategory.dressing.rawValue
+	static let category: ItemCategory = SaladItemCategory.dressing
     let name: String
     let description: String
     let modifiers: [Modifier]
