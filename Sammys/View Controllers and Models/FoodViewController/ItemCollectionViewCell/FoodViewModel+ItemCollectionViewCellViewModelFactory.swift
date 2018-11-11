@@ -14,7 +14,7 @@ extension FoodViewModel {
 	}
 
 	struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-		let foodItem: FoodItem
+		let foodItem: Item
 		let width: Double
 		let height: Double
 		

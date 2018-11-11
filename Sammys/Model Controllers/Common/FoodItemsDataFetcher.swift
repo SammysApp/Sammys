@@ -10,5 +10,5 @@ import Foundation
 import PromiseKit
 
 protocol FoodItemsDataFetcher {
-	static func getFoodItems(for foodItemCategory: FoodItemCategory) -> Promise<[FoodItem]>
+	static func getFoodItems(for foodItemCategory: FoodItemCategory) -> Promise<[Item]>
 }

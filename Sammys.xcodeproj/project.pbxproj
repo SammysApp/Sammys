@@ -23,7 +23,7 @@
 		5B10D59B20C042D200BF05B2 /* OrdersAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */; };
 		5B10D59C20C044A900BF05B2 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29688208E2D3500520683 /* Order.swift */; };
 		5B10D59D20C044C200BF05B2 /* ItemedPurchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */; };
-		5B10D59E20C044D000BF05B2 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* FoodItem.swift */; };
+		5B10D59E20C044D000BF05B2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
 		5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06951FFD54B500BAC480 /* Salad.swift */; };
 		5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
 		5B10D5A120C044DE00BF05B2 /* Lettuce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06931FFD543300BAC480 /* Lettuce.swift */; };
@@ -149,7 +149,7 @@
 		5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8242007ED9200898FF0 /* LoginViewController.swift */; };
 		5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */; };
 		5B44A8292007F7DB00898FF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8282007F7DB00898FF0 /* User.swift */; };
-		5B44A82D2009292A00898FF0 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* FoodItem.swift */; };
+		5B44A82D2009292A00898FF0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
 		5B44A82F2009326000898FF0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddFoodViewController.swift */; };
 		5B44A831200932A800898FF0 /* AddFoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */; };
 		5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A832200C006400898FF0 /* PaymentAPIManager.swift */; };
@@ -384,7 +384,7 @@
 		5B44A8242007ED9200898FF0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8282007F7DB00898FF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5B44A82C2009292A00898FF0 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		5B44A82C2009292A00898FF0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5B44A82E2009326000898FF0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
 		5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFoodViewController.storyboard; sourceTree = "<group>"; };
 		5B44A832200C006400898FF0 /* PaymentAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAPIManager.swift; sourceTree = "<group>"; };
@@ -952,7 +952,7 @@
 				5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */,
 				5BFC573F217C308A0002179B /* Purchaseable.swift */,
 				5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */,
-				5B44A82C2009292A00898FF0 /* FoodItem.swift */,
+				5B44A82C2009292A00898FF0 /* Item.swift */,
 				5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
 				5BFC5732217820920002179B /* Salad */,
@@ -1610,7 +1610,7 @@
 				5B3A4B482195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */,
 				5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */,
-				5B10D59E20C044D000BF05B2 /* FoodItem.swift in Sources */,
+				5B10D59E20C044D000BF05B2 /* Item.swift in Sources */,
 				5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */,
 				5B3A4B562195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B9B907320C5E4DC00FB6264 /* FoodTableViewCellConfigurationCommand.swift in Sources */,
@@ -1720,7 +1720,7 @@
 				5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */,
 				5B3A4AC02192272400F22F78 /* FoodViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
-				5B44A82D2009292A00898FF0 /* FoodItem.swift in Sources */,
+				5B44A82D2009292A00898FF0 /* Item.swift in Sources */,
 				5BD274FD206403E500618128 /* ItemsViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */,
 				5B37A3AD208111CB00526068 /* ConfirmationViewModel.swift in Sources */,
 				5B6A06901FFD534C00BAC480 /* Vegetable.swift in Sources */,

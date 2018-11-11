@@ -169,7 +169,7 @@ class ItemsViewController: UIViewController {
 	
 	func didCenter(at cellViewModel: CellViewModel) {
 		itemNameLabel.text = cellViewModel.foodItem.name
-		if let pricedFoodItem = cellViewModel.foodItem as? PricedFoodItem {
+		if let pricedFoodItem = cellViewModel.foodItem as? PricedItem {
 			itemPriceLabel.text = "\(pricedFoodItem.price)"
 		}
 	}

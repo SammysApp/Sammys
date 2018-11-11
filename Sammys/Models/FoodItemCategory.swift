@@ -10,7 +10,7 @@ import Foundation
 
 struct CategorizedFoodItems {
 	let category: FoodItemCategory
-	let items: [FoodItem]
+	let items: [Item]
 }
 
 protocol FoodItemCategory: ProtocolHashable {

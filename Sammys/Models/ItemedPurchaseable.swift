@@ -11,7 +11,7 @@ import Foundation
 protocol ItemedPurchaseable: Purchaseable {
 	static var allItemCategories: [FoodItemCategory] { get }
 	var categorizedItems: [CategorizedFoodItems] { get }
-	func items(for itemCategory: FoodItemCategory) -> [FoodItem]
+	func items(for itemCategory: FoodItemCategory) -> [Item]
 }
 
 extension ItemedPurchaseable {

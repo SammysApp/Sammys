@@ -56,15 +56,15 @@ struct SaladFoodItemsDataFetcher: FoodItemsDataFetcher {
 		])
 	}
 	
-	static func getFoodItems(for foodItemCategory: FoodItemCategory) -> Promise<[FoodItem]> {
+	static func getFoodItems(for foodItemCategory: FoodItemCategory) -> Promise<[Item]> {
 		guard let saladFoodItemCategory = SaladFoodItemCategory(rawValue: foodItemCategory.rawValue) else { return Promise(error: SaladFoodItemsDataFetcherError.foodItemCategoryNotFound) }
 		switch saladFoodItemCategory {
-		case .size: return getSizes().mapValues { $0 as FoodItem }
-		case .lettuce: return getLettuces().mapValues { $0 as FoodItem }
-		case .vegetable: return getVegetables().mapValues { $0 as FoodItem }
-		case .topping: return getToppings().mapValues { $0 as FoodItem }
-		case .dressing: return getDressings().mapValues { $0 as FoodItem }
-		case .extra: return getExtras().mapValues { $0 as FoodItem }
+		case .size: return getSizes().mapValues { $0 as Item }
+		case .lettuce: return getLettuces().mapValues { $0 as Item }
+		case .vegetable: return getVegetables().mapValues { $0 as Item }
+		case .topping: return getToppings().mapValues { $0 as Item }
+		case .dressing: return getDressings().mapValues { $0 as Item }
+		case .extra: return getExtras().mapValues { $0 as Item }
 		}
 	}
 }

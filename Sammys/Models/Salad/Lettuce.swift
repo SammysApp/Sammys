@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Lettuce: ModifiableFoodItem {
+struct Lettuce: ModifiableItem {
 	static let itemName = SaladFoodItemCategory.lettuce.rawValue
     let name: String
     let description: String

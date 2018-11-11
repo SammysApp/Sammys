@@ -10,7 +10,7 @@ import Foundation
 
 extension ItemsViewModel {
 	struct ItemCollectionViewCellViewModel: CollectionViewCellViewModel {
-		let foodItem: FoodItem
+		let foodItem: Item
 		let identifier: String
 		let width: Double
 		let height: Double

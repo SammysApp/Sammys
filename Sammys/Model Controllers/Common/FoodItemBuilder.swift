@@ -9,23 +9,23 @@
 import Foundation
 
 protocol FoodItemBuilder {
-	associatedtype FoodItemBuilding: FoodItem & Hashable
+	associatedtype FoodItemBuilding: Item & Hashable
 }
 
 protocol NonModifiableFoodItemBuilder: FoodItemBuilder {
 	typealias Builder = [FoodItemBuilding : Bool]
 	var builder: Builder { get set }
-	mutating func toggle(_ foodItem: FoodItem)
+	mutating func toggle(_ foodItem: Item)
 }
 
 protocol ModifiableFoodItemBuilder: FoodItemBuilder {
 	typealias Builder = [FoodItemBuilding : [Modifier : Bool]]
 	var builder: Builder { get set }
-	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier)
+	mutating func toggle(_ foodItem: Item, with modifier: Modifier)
 }
 
 extension NonModifiableFoodItemBuilder {
-	mutating func toggle(_ foodItem: FoodItem) {
+	mutating func toggle(_ foodItem: Item) {
 		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
 		// Negate current value for the food item or set to true.
 		builder[foodItemBuilding] = !(builder[foodItemBuilding] ?? false)
@@ -33,7 +33,7 @@ extension NonModifiableFoodItemBuilder {
 }
 
 extension ModifiableFoodItemBuilder {
-	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier) {
+	mutating func toggle(_ foodItem: Item, with modifier: Modifier) {
 		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
 		// If a modifier dictionary is present for the food item...
 		if builder[foodItemBuilding] != nil {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Topping: NonModifiableFoodItem, OptionallyPricedFoodItem {
+struct Topping: OptionallyPricedItem {
 	static let itemName = SaladFoodItemCategory.topping.rawValue
     let name: String
     let description: String

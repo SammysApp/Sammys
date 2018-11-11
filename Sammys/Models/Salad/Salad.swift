@@ -29,7 +29,7 @@ extension Salad {
 	}
 	
 	var price: Double {
-		return size.price + ([toppings, extras] as [[OptionallyPricedFoodItem]])
+		return size.price + ([toppings, extras] as [[OptionallyPricedItem]])
 			.flatMap { $0 }
 			.compactMap { $0.price }
 			.reduce(0, +)
@@ -42,7 +42,7 @@ extension Salad {
 	static var itemsDataFetcher: FoodItemsDataFetcher.Type { return SaladFoodItemsDataFetcher.self }
 	static var builder: FoodBuilder.Type { return SaladBuilder.self }
 	
-	func items(for itemCategory: FoodItemCategory) -> [FoodItem] {
+	func items(for itemCategory: FoodItemCategory) -> [Item] {
 		guard let saladItemCategory = itemCategory as? SaladFoodItemCategory
 			else { return [] }
 		switch saladItemCategory {
@@ -63,7 +63,7 @@ extension Salad: Hashable {}
 extension Salad { static var type = ProtocolCodableType.salad }
 
 private extension Salad {
-	func items(for itemCategories: [FoodItemCategory]) -> [FoodItem] {
+	func items(for itemCategories: [FoodItemCategory]) -> [Item] {
 		return itemCategories.flatMap { items(for: $0) }
 	}
 }

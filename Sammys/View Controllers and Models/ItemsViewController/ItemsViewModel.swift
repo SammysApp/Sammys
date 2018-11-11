@@ -42,7 +42,7 @@ class ItemsViewModel {
 		return currentIndex == parcel.itemCategories.endIndex - 1
 	}
 	
-	private var items = [FoodItem]() {
+	private var items = [Item]() {
 		didSet { sections.value = sections(for: items) }
 	}
 	private(set) var sections = Dynamic([Section]())
@@ -81,7 +81,7 @@ class ItemsViewModel {
 	func incrementItemCategory() throws { try adjustItemCategory(byIndexValue: 1) }
 	func decrementItemCategory() throws { try adjustItemCategory(byIndexValue: -1) }
 	
-	func sections(for items: [FoodItem]) -> [Section] {
+	func sections(for items: [Item]) -> [Section] {
 		return [CollectionViewSection(
 			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
 		)]
@@ -99,7 +99,7 @@ class ItemsViewModel {
 		centerCellViewModel.value = sections.value[indexPath.section].cellViewModels[indexPath.item]
 	}
 	
-	func toggle(_ foodItem: FoodItem, with modifier: Modifier? = nil) throws {
+	func toggle(_ foodItem: Item, with modifier: Modifier? = nil) throws {
 		try parcel.builder.toggle(foodItem, with: modifier)
 	}
 	

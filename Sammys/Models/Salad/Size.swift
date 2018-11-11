@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Size: NonModifiableFoodItem, PricedFoodItem {
+struct Size: PricedItem {
 	static let itemName = SaladFoodItemCategory.size.rawValue
     let name: String
     let description: String

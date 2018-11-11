@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Extra: OptionallyModifiableFoodItem, OptionallyPricedFoodItem {
+struct Extra: OptionallyModifiableItem, OptionallyPricedItem {
 	static let itemName = SaladFoodItemCategory.extra.rawValue
     let name: String
     let description: String

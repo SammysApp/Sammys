@@ -80,7 +80,7 @@ struct SaladBuilder: FoodBuilder {
 	private var dressingsBuilder = DressingsBuilder()
 	private var extrasBuilder = ExtrasBuilder()
 	
-	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier? = nil) throws {
+	mutating func toggle(_ foodItem: Item, with modifier: Modifier? = nil) throws {
 		if let saladFoodItem = SaladFoodItemCategory(rawValue: type(of: foodItem).itemName) {
 			switch saladFoodItem {
 			case .size: sizeBuilder.toggle(foodItem)
