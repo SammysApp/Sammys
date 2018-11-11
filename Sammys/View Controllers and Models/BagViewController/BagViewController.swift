@@ -56,6 +56,13 @@ class BagViewController: UIViewController {
 		do { try viewModel.delete(at: indexPath); tableView.deleteRows(at: [indexPath], with: .automatic) }
 		catch { print(error) }
 	}
+	
+	func foodViewController(for indexPath: IndexPath) -> FoodViewController? {
+		guard let viewModelParcel = viewModel.foodViewModelParcel(for: indexPath) else { return nil }
+		let foodViewController = FoodViewController.storyboardInstance()
+		foodViewController.viewModelParcel = viewModelParcel
+		return foodViewController
+	}
 
     // MARK: - IBActions
     @IBAction func didTapClear(_ sender: UIBarButtonItem) {
@@ -96,6 +103,12 @@ extension BagViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension BagViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if let foodViewController = foodViewController(for: indexPath) {
+			navigationController?.pushViewController(foodViewController, animated: true)
+		}
+	}
+	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
 			else { return false }
