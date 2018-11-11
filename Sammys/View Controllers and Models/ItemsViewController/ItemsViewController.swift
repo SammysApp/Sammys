@@ -277,7 +277,7 @@ extension ItemsViewController: AddFoodViewControllerDelegate {
 
 // MARK: - FoodViewControllerDelegate
 extension ItemsViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory) {
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in food: Food) {
 		foodViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}

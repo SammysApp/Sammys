@@ -30,6 +30,8 @@ class FoodViewModel {
 				.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
 	}
 	
+	var food: Food { return parcel.food }
+	
 	var numberOfSections: Int { return sections.count }
 	
 	init(_ parcel: FoodViewModelParcel, viewDelegate: FoodViewModelViewDelegate) {

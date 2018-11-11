@@ -11,4 +11,5 @@ import Foundation
 protocol FoodBuilder {
 	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier?) throws
 	func build() throws -> Food
+	init()
 }

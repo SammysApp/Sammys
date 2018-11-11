@@ -38,9 +38,9 @@ extension Salad {
 
 // MARK: - Food
 extension Salad {
-	var allItemCategories: [FoodItemCategory] {
-		return SaladFoodItemCategory.allCases
-	}
+	static var allItemCategories: [FoodItemCategory] { return SaladFoodItemCategory.allCases }
+	static var itemsDataFetcher: FoodItemsDataFetcher.Type { return SaladFoodItemsDataFetcher.self }
+	static var builder: FoodBuilder.Type { return SaladBuilder.self }
 	
 	func items(for itemCategory: FoodItemCategory) -> [FoodItem] {
 		guard let saladItemCategory = itemCategory as? SaladFoodItemCategory

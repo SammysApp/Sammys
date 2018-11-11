@@ -9,14 +9,16 @@
 import Foundation
 
 protocol Food: Purchaseable {
-	var allItemCategories: [FoodItemCategory] { get }
+	static var allItemCategories: [FoodItemCategory] { get }
+	static var itemsDataFetcher: FoodItemsDataFetcher.Type { get }
+	static var builder: FoodBuilder.Type { get }
 	var categorizedItems: [CategorizedFoodItems] { get }
 	func items(for itemCategory: FoodItemCategory) -> [FoodItem]
 }
 
 extension Food {
 	var categorizedItems: [CategorizedFoodItems] {
-		return allItemCategories
+		return Self.allItemCategories
 			.map { CategorizedFoodItems(category: $0, items: items(for: $0)) }
 			.filter { !$0.items.isEmpty }
 	}

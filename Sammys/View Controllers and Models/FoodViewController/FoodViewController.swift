@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory)
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in food: Food)
 }
 
 class FoodViewController: UIViewController {
@@ -115,6 +115,6 @@ extension FoodViewController: FoodCollectionViewSectionHeaderViewDelegate {
 	func foodCollectionViewSectionHeaderView(_ foodCollectionViewSectionHeaderView: FoodCollectionViewSectionHeaderView, didTapEdit editButton: UIButton) {
 		guard let section = supplementaryViewIndexPaths[foodCollectionViewSectionHeaderView]?.section else { return }
 		let itemCategory = viewModel.itemCategory(forSection: section)
-		delegate?.foodViewController(self, didSelectEdit: itemCategory)
+		delegate?.foodViewController(self, didSelectEdit: itemCategory, in: viewModel.food)
 	}
 }

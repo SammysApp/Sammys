@@ -12,14 +12,14 @@ enum SaladBuilderError: Error {
 	case noSize, needsModifier
 }
 
-struct SizeBuilder: NonModifiableFoodItemBuilder, SingleFoodItemBuildable {
+private struct SizeBuilder: NonModifiableFoodItemBuilder, SingleFoodItemBuildable {
 	typealias FoodItemBuilding = Size
 	var builder: Builder = [:]
 	
 	func build() -> Built? { return Array(builder.filter { $1 }.keys).first }
 }
 
-struct LettuceBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
+private struct LettuceBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	typealias FoodItemBuilding = Lettuce
 	var builder: Builder = [:]
 	
@@ -32,21 +32,21 @@ struct LettuceBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	}
 }
 
-struct VegetablesBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
+private struct VegetablesBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	typealias FoodItemBuilding = Vegetable
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-struct ToppingsBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
+private struct ToppingsBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	typealias FoodItemBuilding = Topping
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-struct DressingsBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
+private struct DressingsBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	typealias FoodItemBuilding = Dressing
 	var builder: Builder = [:]
 	
@@ -59,7 +59,7 @@ struct DressingsBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	}
 }
 
-struct ExtrasBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
+private struct ExtrasBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
 	typealias FoodItemBuilding = Extra
 	var builder: Builder = [:]
 	

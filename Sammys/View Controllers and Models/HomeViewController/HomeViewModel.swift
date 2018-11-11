@@ -94,4 +94,12 @@ class HomeViewModel {
     func title(for section: Int) -> String? {
         return sections[section].title
     }
+	
+	func itemsViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel {
+		return ItemsViewModelParcel(
+			itemCategories: Salad.allItemCategories,
+			dataFetcher: Salad.itemsDataFetcher,
+			builder: Salad.builder.init()
+		)
+	}
 }

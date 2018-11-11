@@ -181,7 +181,6 @@
 		5B724D8620DC967300B9296E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8520DC967300B9296E /* APIKey.swift */; };
 		5B724D8720DC967300B9296E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8520DC967300B9296E /* APIKey.swift */; };
 		5B724D8920DC98F300B9296E /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8820DC98F300B9296E /* FileType.swift */; };
-		5B724D8A20DC98F300B9296E /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8820DC98F300B9296E /* FileType.swift */; };
 		5B724D8C20DC9C8D00B9296E /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B724D8B20DC9C8D00B9296E /* APIKeys.plist */; };
 		5B724D8D20DC9C8D00B9296E /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B724D8B20DC9C8D00B9296E /* APIKeys.plist */; };
 		5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8A3D0320AF157800790AF5 /* Salad.jpg */; };
@@ -262,11 +261,8 @@
 		5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC57332179101D0002179B /* SaladBuilder.swift */; };
 		5BFC57352179101D0002179B /* SaladBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC57332179101D0002179B /* SaladBuilder.swift */; };
 		5BFC5737217A44170002179B /* AnyCodableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5736217A44170002179B /* AnyCodableProtocol.swift */; };
-		5BFC5738217A44170002179B /* AnyCodableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5736217A44170002179B /* AnyCodableProtocol.swift */; };
 		5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */; };
-		5BFC573B217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */; };
 		5BFC573D217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */; };
-		5BFC573E217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */; };
 		5BFC5740217C308A0002179B /* Purchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573F217C308A0002179B /* Purchaseable.swift */; };
 		5BFC5741217C308A0002179B /* Purchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573F217C308A0002179B /* Purchaseable.swift */; };
 		5BFC5743217CC5050002179B /* PurchaseableQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */; };
@@ -684,7 +680,11 @@
 		5B3F25D8210F67750080290E /* Types and Patterns */ = {
 			isa = PBXGroup;
 			children = (
+				5BFC5736217A44170002179B /* AnyCodableProtocol.swift */,
+				5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */,
+				5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */,
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
+				5B724D8820DC98F300B9296E /* FileType.swift */,
 				5B3F25DD210F68790080290E /* Observer */,
 			);
 			path = "Types and Patterns";
@@ -705,7 +705,6 @@
 			children = (
 				5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */,
 				5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */,
-				5B724D8820DC98F300B9296E /* FileType.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -945,9 +944,6 @@
 		5B9CD59C204CCA0500F59E4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */,
-				5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */,
-				5BFC5736217A44170002179B /* AnyCodableProtocol.swift */,
 				5B2DC37B20D357BB008FFA2D /* Hours.swift */,
 				5BC950372107D2B900AF1098 /* Customer.swift */,
 				5B44A8282007F7DB00898FF0 /* User.swift */,
@@ -1578,7 +1574,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B724D8A20DC98F300B9296E /* FileType.swift in Sources */,
 				5B10D59B20C042D200BF05B2 /* OrdersAPIManager.swift in Sources */,
 				5B10D59C20C044A900BF05B2 /* Order.swift in Sources */,
 				5B10D5C020C0805500BF05B2 /* TableViewCellViewModelFactory.swift in Sources */,
@@ -1595,7 +1590,6 @@
 				5B10D5BC20C0805500BF05B2 /* CollectionViewCellCommand.swift in Sources */,
 				5B3A4B5C2195F3E400F22F78 /* Int.swift in Sources */,
 				5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */,
-				5BFC5738217A44170002179B /* AnyCodableProtocol.swift in Sources */,
 				5B3A4B542195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */,
 				5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */,
@@ -1616,7 +1610,6 @@
 				5B3A4B482195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */,
 				5B10D5CE20C4D96F00BF05B2 /* OrderTableViewCellSelectionCommand.swift in Sources */,
-				5BFC573B217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
 				5B10D59E20C044D000BF05B2 /* FoodItem.swift in Sources */,
 				5B10D5B820C05BE600BF05B2 /* KitchenOrder.swift in Sources */,
 				5B3A4B562195F3E400F22F78 /* UIColor.swift in Sources */,
@@ -1627,7 +1620,6 @@
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
 				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
 				5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */,
-				5BFC573E217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
 				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
 				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,
 				5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */,

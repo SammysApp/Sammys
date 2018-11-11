@@ -7,16 +7,9 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
 
 class HomeViewController: UIViewController {
     var viewModel: HomeViewModel!
-	
-	lazy var loginPageViewController: LoginPageViewController = {
-		let loginPageViewController = LoginPageViewController.storyboardInstance()
-		//loginPageViewController.delegate = self
-		return loginPageViewController
-	}()
 	
     // MARK: - IBOutlets
 	@IBOutlet var collectionView: UICollectionView!
@@ -29,8 +22,6 @@ class HomeViewController: UIViewController {
     @IBOutlet var bagQuantityLabel: UILabel!
 	
 	@IBOutlet var noFavesView: UIView!
-	
-    @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
 	
 	// MARK: - Property Overrides
     override var prefersStatusBarHidden: Bool {
@@ -78,7 +69,6 @@ class HomeViewController: UIViewController {
 		setupFavesButton()
 		setupBagButton()
 		setupBagButtonContainerView()
-		setupActivityIndicatorView()
 		setupNoFavesView()
 	}
 	
@@ -118,10 +108,6 @@ class HomeViewController: UIViewController {
 	func setupFavesButton() {
 		viewModel.favesButtonImage.bindAndRun { self.favesButton.setBackgroundImage($0.image, for: .normal) }
 	}
-	
-	func setupActivityIndicatorView() {
-		activityIndicatorView.color = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-	}
     
     func setupNoFavesView() {
 		// Insert as subview under the bag button so can use the button still.
@@ -145,11 +131,7 @@ class HomeViewController: UIViewController {
 		switch viewModel.currentViewState.value {
 		case .home:
 			let itemsViewController = ItemsViewController.storyboardInstance()
-			itemsViewController.viewModelParcel = ItemsViewModelParcel(
-				itemCategories: SaladFoodItemCategory.allCases,
-				dataFetcher: SaladFoodItemsDataFetcher.self,
-				builder: SaladBuilder()
-			)
+			itemsViewController.viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath)
 			navigationController?.pushViewController(itemsViewController, animated: true)
 		case .faves: break
 		}
