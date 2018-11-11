@@ -145,7 +145,6 @@
 		5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8242007ED9200898FF0 /* LoginViewController.swift */; };
 		5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */; };
 		5B44A8292007F7DB00898FF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8282007F7DB00898FF0 /* User.swift */; };
-		5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */; };
 		5B44A82D2009292A00898FF0 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* FoodItem.swift */; };
 		5B44A82F2009326000898FF0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddFoodViewController.swift */; };
 		5B44A831200932A800898FF0 /* AddFoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */; };
@@ -184,9 +183,6 @@
 		5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8A3D0320AF157800790AF5 /* Salad.jpg */; };
 		5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B942D912087E98F00BF991A /* OrdersViewController.swift */; };
 		5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B942D932087EA0600BF991A /* OrdersViewController.storyboard */; };
-		5B9865F320C58D8E004722D8 /* FoodCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */; };
-		5B9865F420C58D91004722D8 /* FoodCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */; };
-		5B9865F520C58D93004722D8 /* FoodHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */; };
 		5B9865F620C58DAD004722D8 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */; };
 		5B9865FE20C5A347004722D8 /* SharedAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */; };
 		5B9865FF20C5A367004722D8 /* SharedAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */; };
@@ -257,8 +253,6 @@
 		5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */; };
 		5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
-		5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */; };
-		5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */; };
 		5BEED53E206C6F70002240EB /* AddFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */; };
 		5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
 		5BFC57312174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
@@ -274,8 +268,6 @@
 		5BFC5741217C308A0002179B /* Purchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC573F217C308A0002179B /* Purchaseable.swift */; };
 		5BFC5743217CC5050002179B /* PurchaseableQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */; };
 		5BFC5744217CC5050002179B /* PurchaseableQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */; };
-		5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */; };
-		5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */; };
 		5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */; };
 		5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */; };
 		5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */; };
@@ -390,7 +382,6 @@
 		5B44A8242007ED9200898FF0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8282007F7DB00898FF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionView.swift; sourceTree = "<group>"; };
 		5B44A82C2009292A00898FF0 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		5B44A82E2009326000898FF0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
 		5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFoodViewController.storyboard; sourceTree = "<group>"; };
@@ -492,8 +483,6 @@
 		5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
-		5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewModel.swift; sourceTree = "<group>"; };
-		5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewModel.swift; sourceTree = "<group>"; };
 		5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewModel.swift; sourceTree = "<group>"; };
 		5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		5BFC57332179101D0002179B /* SaladBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladBuilder.swift; sourceTree = "<group>"; };
@@ -502,8 +491,6 @@
 		5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyHashableProtocol.swift; sourceTree = "<group>"; };
 		5BFC573F217C308A0002179B /* Purchaseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchaseable.swift; sourceTree = "<group>"; };
 		5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseableQuantity.swift; sourceTree = "<group>"; };
-		5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionView.swift; sourceTree = "<group>"; };
-		5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BFD2BC6201E35F8005C01BF /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
 		5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -800,6 +787,7 @@
 			children = (
 				5B1CB08220158BDA0006235F /* FoodViewController.swift */,
 				5B553A64206C774F00DD9689 /* FoodViewModel.swift */,
+				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
 				5B3A4AC12192274800F22F78 /* ItemCollectionViewCell */,
 			);
 			path = FoodViewController;
@@ -1007,8 +995,6 @@
 			isa = PBXGroup;
 			children = (
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
-				5BED77AC20B47DC200232DD2 /* FoodCollectionView */,
-				5BED77AF20B4848700232DD2 /* QuantityCollectionView */,
 				5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */,
 			);
 			path = Views;
@@ -1275,26 +1261,6 @@
 				5B342AE220F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		5BED77AC20B47DC200232DD2 /* FoodCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				5B44A82A2009102F00898FF0 /* FoodCollectionView.swift */,
-				5BEED539206BFF9D002240EB /* FoodCollectionViewModel.swift */,
-				5B1CB0602010FCCE0006235F /* FoodHeaderView.swift */,
-			);
-			path = FoodCollectionView;
-			sourceTree = "<group>";
-		};
-		5BED77AF20B4848700232DD2 /* QuantityCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				5BFD2BC0201B8D26005C01BF /* QuantityCollectionView.swift */,
-				5BED77AD20B47DE400232DD2 /* QuantityCollectionViewModel.swift */,
-				5BFD2BC4201D799F005C01BF /* QuantityCollectionViewCell.swift */,
-			);
-			path = QuantityCollectionView;
 			sourceTree = "<group>";
 		};
 		5BEED53F206C72DD002240EB /* AddFoodViewController */ = {
@@ -1622,7 +1588,6 @@
 				5B3A4B5C2195F3E400F22F78 /* Int.swift in Sources */,
 				5B10D5C220C081B900BF05B2 /* OrderTableViewCell.swift in Sources */,
 				5BFC5738217A44170002179B /* AnyCodableProtocol.swift in Sources */,
-				5B9865F420C58D91004722D8 /* FoodCollectionViewModel.swift in Sources */,
 				5B3A4B542195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */,
 				5B10D5BB20C0805500BF05B2 /* CollectionViewCellViewModel.swift in Sources */,
@@ -1666,10 +1631,8 @@
 				5B3A4B502195F3E400F22F78 /* Collection.swift in Sources */,
 				5B10D5BF20C0805500BF05B2 /* TableViewCellCommand.swift in Sources */,
 				5B3A4B6E2195F3E400F22F78 /* UIImage.swift in Sources */,
-				5B9865F320C58D8E004722D8 /* FoodCollectionView.swift in Sources */,
 				5B3A4B642195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5B3A4B4E2195F3E400F22F78 /* MKMapView.swift in Sources */,
-				5B9865F520C58D93004722D8 /* FoodHeaderView.swift in Sources */,
 				5B3A4B5A2195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */,
 				5B724D8720DC967300B9296E /* APIKey.swift in Sources */,
@@ -1765,7 +1728,6 @@
 				5B3A4B7B21961F4C00F22F78 /* PaymentViewController.swift in Sources */,
 				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
 				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
-				5BEED53A206BFF9D002240EB /* FoodCollectionViewModel.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
 				5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B3F25E2210F79860080290E /* Endpoint.swift in Sources */,
@@ -1805,7 +1767,6 @@
 				5BD6B3CB20812439000114F5 /* MapCollectionViewCell.swift in Sources */,
 				5BB2969B208FAEDB00520683 /* TotalPriceTableViewCellConfigurationCommand.swift in Sources */,
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
-				5BFD2BC5201D799F005C01BF /* QuantityCollectionViewCell.swift in Sources */,
 				5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
@@ -1819,7 +1780,6 @@
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
 				5BB296D2209F71CC00520683 /* TextFieldTableViewCell.swift in Sources */,
 				5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */,
-				5BED77AE20B47DE400232DD2 /* QuantityCollectionViewModel.swift in Sources */,
 				5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */,
 				5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */,
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,
@@ -1844,11 +1804,9 @@
 				5B226A60218F6642008D2CBD /* ItemsViewModel+ItemCollectionViewCellViewModel.swift in Sources */,
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
-				5BFD2BC1201B8D26005C01BF /* QuantityCollectionView.swift in Sources */,
 				5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
 				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,
 				5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */,
-				5B44A82B2009102F00898FF0 /* FoodCollectionView.swift in Sources */,
 				5B3F25DA210F68160080290E /* Observable.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
 				5B3F25E6210F7A790080290E /* Request.swift in Sources */,
