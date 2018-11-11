@@ -14,8 +14,8 @@ enum ItemsViewModelError: Error {
 }
 
 struct ItemsViewModelParcel {
-	let itemCategories: [ItemCategory]
-	let dataFetcher: ItemsDataFetcher.Type
+	let categories: [ItemCategory]
+	let fetcher: ItemsFetcher.Type
 	var builder: ItemedPurchaseableBuilder
 }
 
@@ -33,13 +33,13 @@ class ItemsViewModel {
 	private(set) var itemCategory: Dynamic<ItemCategory>
 	
 	private var currentItemCategoryIndex: Int? {
-		return parcel.itemCategories.firstIndex
+		return parcel.categories.firstIndex
 			{ self.itemCategory.value.rawValue == $0.rawValue }
 	}
 	
 	var isAtLastItemCategory: Bool {
 		guard let currentIndex = currentItemCategoryIndex else { return false }
-		return currentIndex == parcel.itemCategories.endIndex - 1
+		return currentIndex == parcel.categories.endIndex - 1
 	}
 	
 	private var items = [Item]() {
@@ -55,25 +55,25 @@ class ItemsViewModel {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
 		
-		guard let firstItemCategory = parcel.itemCategories.first
+		guard let firstItemCategory = parcel.categories.first
 			else { fatalError() }
 		self.itemCategory = Dynamic(firstItemCategory)
 	}
 	
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
-		return parcel.dataFetcher.getItems(for: itemCategory)
+		return parcel.fetcher.getItems(for: itemCategory)
 			.get { self.items = $0 }.asVoid()
 	}
 	
 	func set(to itemCategory: ItemCategory) {
-		if parcel.itemCategories
+		if parcel.categories
 			.map({ AnyEquatableProtocol($0) })
 			.contains(AnyEquatableProtocol(itemCategory)) { self.itemCategory.value = itemCategory }
 	}
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
 		guard let currentIndex = currentItemCategoryIndex,
-		let adjustedItemCategory = parcel.itemCategories[safe: currentIndex + indexValue]
+		let adjustedItemCategory = parcel.categories[safe: currentIndex + indexValue]
 			else { throw ItemsViewModelError.nonAdjustable }
 		itemCategory.value = adjustedItemCategory
 	}

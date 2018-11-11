@@ -1,5 +1,5 @@
 //
-//  ItemsDataFetcher.swift
+//  ItemsFetcher.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -9,6 +9,10 @@
 import Foundation
 import PromiseKit
 
-protocol ItemsDataFetcher {
+protocol ItemsFetchable {
+	static var fetcher: ItemsFetcher.Type { get }
+}
+
+protocol ItemsFetcher {
 	static func getItems(for itemCategory: ItemCategory) -> Promise<[Item]>
 }

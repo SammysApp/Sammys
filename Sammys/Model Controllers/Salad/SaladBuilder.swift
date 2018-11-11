@@ -19,7 +19,7 @@ private struct SizeBuilder: NonModifiableItemBuilder, SingleItemBuildable {
 	func build() -> Built? { return Array(builder.filter { $1 }.keys).first }
 }
 
-private struct LettuceBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+private struct LettuceBuilder: ModifiableItemBuilder, ItemArrayBuildable {
 	typealias ItemBuilding = Lettuce
 	var builder: Builder = [:]
 	
@@ -32,21 +32,21 @@ private struct LettuceBuilder: ModifiableItemBuilder, ArrayItemBuildable {
 	}
 }
 
-private struct VegetablesBuilder: NonModifiableItemBuilder, ArrayItemBuildable {
+private struct VegetablesBuilder: NonModifiableItemBuilder, ItemArrayBuildable {
 	typealias ItemBuilding = Vegetable
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-private struct ToppingsBuilder: NonModifiableItemBuilder, ArrayItemBuildable {
+private struct ToppingsBuilder: NonModifiableItemBuilder, ItemArrayBuildable {
 	typealias ItemBuilding = Topping
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-private struct DressingsBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+private struct DressingsBuilder: ModifiableItemBuilder, ItemArrayBuildable {
 	typealias ItemBuilding = Dressing
 	var builder: Builder = [:]
 	
@@ -59,7 +59,7 @@ private struct DressingsBuilder: ModifiableItemBuilder, ArrayItemBuildable {
 	}
 }
 
-private struct ExtrasBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+private struct ExtrasBuilder: ModifiableItemBuilder, ItemArrayBuildable {
 	typealias ItemBuilding = Extra
 	var builder: Builder = [:]
 	
@@ -111,4 +111,8 @@ struct SaladBuilder: ItemedPurchaseableBuilder {
 			extras: extrasBuilder.build()
 		)
 	}
+}
+
+extension Salad: ItemedPurchaseableBuildable {
+	static var builder: ItemedPurchaseableBuilder.Type { return SaladBuilder.self }
 }

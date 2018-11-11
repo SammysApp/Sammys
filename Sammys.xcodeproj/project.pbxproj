@@ -58,9 +58,9 @@
 		5B2278582197C030003E3DE2 /* FoodCollectionViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278572197C030003E3DE2 /* FoodCollectionViewSectionHeaderView.swift */; };
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B22785B2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
-		5B2950BF218A3575008B0E49 /* SaladItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladItemsDataFetcher.swift */; };
+		5B2950BF218A3575008B0E49 /* SaladItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladItemsFetcher.swift */; };
 		5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* ItemCategory.swift */; };
-		5B2950C3218A3E86008B0E49 /* ItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* ItemsDataFetcher.swift */; };
+		5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */; };
 		5B2950C5218A3F1B008B0E49 /* ItemBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C4218A3F1B008B0E49 /* ItemBuilder.swift */; };
 		5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */; };
 		5B2950CA218CBEF1008B0E49 /* CollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */; };
@@ -317,9 +317,9 @@
 		5B2278552197B990003E3DE2 /* Nibable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nibable.swift; sourceTree = "<group>"; };
 		5B2278572197C030003E3DE2 /* FoodCollectionViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
-		5B2950BE218A3575008B0E49 /* SaladItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladItemsDataFetcher.swift; sourceTree = "<group>"; };
+		5B2950BE218A3575008B0E49 /* SaladItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladItemsFetcher.swift; sourceTree = "<group>"; };
 		5B2950C0218A361C008B0E49 /* ItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
-		5B2950C2218A3E86008B0E49 /* ItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsDataFetcher.swift; sourceTree = "<group>"; };
+		5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsFetcher.swift; sourceTree = "<group>"; };
 		5B2950C4218A3F1B008B0E49 /* ItemBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBuilder.swift; sourceTree = "<group>"; };
 		5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemedPurchaseableBuilder.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSection.swift; sourceTree = "<group>"; };
@@ -594,18 +594,31 @@
 		5B28A7AD2198CA9C002F70C3 /* Salad */ = {
 			isa = PBXGroup;
 			children = (
-				5B2950BE218A3575008B0E49 /* SaladItemsDataFetcher.swift */,
+				5B2950BE218A3575008B0E49 /* SaladItemsFetcher.swift */,
 				5BFC57332179101D0002179B /* SaladBuilder.swift */,
 			);
 			path = Salad;
 			sourceTree = "<group>";
 		};
+		5B28A7AE2198CC18002F70C3 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				5B6A068D1FFD52A000BAC480 /* Size.swift */,
+				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
+				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
+				5B44A834200EA4BE00898FF0 /* Topping.swift */,
+				5B44A836200EA4CA00898FF0 /* Dressing.swift */,
+				5B6A06911FFD53C700BAC480 /* Extra.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
 		5B2950C8218A404C008B0E49 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				5B2950C2218A3E86008B0E49 /* ItemsDataFetcher.swift */,
-				5B2950C4218A3F1B008B0E49 /* ItemBuilder.swift */,
+				5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */,
 				5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */,
+				5B2950C4218A3F1B008B0E49 /* ItemBuilder.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1320,12 +1333,7 @@
 			children = (
 				5B6A06951FFD54B500BAC480 /* Salad.swift */,
 				5B3A4ADF2194CA3300F22F78 /* SaladItemCategory.swift */,
-				5B6A068D1FFD52A000BAC480 /* Size.swift */,
-				5B6A06931FFD543300BAC480 /* Lettuce.swift */,
-				5B6A068F1FFD534C00BAC480 /* Vegetable.swift */,
-				5B44A834200EA4BE00898FF0 /* Topping.swift */,
-				5B44A836200EA4CA00898FF0 /* Dressing.swift */,
-				5B6A06911FFD53C700BAC480 /* Extra.swift */,
+				5B28A7AE2198CC18002F70C3 /* Items */,
 			);
 			path = Salad;
 			sourceTree = "<group>";
@@ -1762,14 +1770,14 @@
 				5B3A4AE02194CA3300F22F78 /* SaladItemCategory.swift in Sources */,
 				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* BagPurchaseableTableViewCellViewModelFactory.swift in Sources */,
-				5B2950BF218A3575008B0E49 /* SaladItemsDataFetcher.swift in Sources */,
+				5B2950BF218A3575008B0E49 /* SaladItemsFetcher.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
 				5B2950C5218A3F1B008B0E49 /* ItemBuilder.swift in Sources */,
 				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
-				5B2950C3218A3E86008B0E49 /* ItemsDataFetcher.swift in Sources */,
+				5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */,
 				5BA01973213733870017A993 /* APIManager.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagModelController.swift in Sources */,

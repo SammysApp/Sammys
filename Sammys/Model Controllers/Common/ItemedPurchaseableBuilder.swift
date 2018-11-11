@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol ItemedPurchaseableBuildable {
+	static var builder: ItemedPurchaseableBuilder.Type { get }
+}
+
 protocol ItemedPurchaseableBuilder {
 	mutating func toggle(_ item: Item, with modifier: Modifier?) throws
 	func build() throws -> ItemedPurchaseable

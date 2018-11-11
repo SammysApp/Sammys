@@ -130,8 +130,9 @@ class HomeViewController: UIViewController {
     func didSelectItem(at indexPath: IndexPath) {
 		switch viewModel.currentViewState.value {
 		case .home:
+			guard let viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath) else { return }
 			let itemsViewController = ItemsViewController.storyboardInstance()
-			itemsViewController.viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath)
+			itemsViewController.viewModelParcel = viewModelParcel
 			navigationController?.pushViewController(itemsViewController, animated: true)
 		case .faves: break
 		}

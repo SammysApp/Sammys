@@ -51,7 +51,7 @@ protocol SingleItemBuildable: ItemBuilder {
 	func build() -> Built?
 }
 
-protocol ArrayItemBuildable: ItemBuilder {
+protocol ItemArrayBuildable: ItemBuilder {
 	typealias Built = [ItemBuilding]
 	func build() -> Built
 }

@@ -1,5 +1,5 @@
 //
-//  SaladItemsDataFetcher.swift
+//  SaladItemsFetcher.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -9,11 +9,11 @@
 import Foundation
 import PromiseKit
 
-enum SaladItemsDataFetcherError: Error {
+enum SaladItemsFetcherError: Error {
 	case foodItemCategoryNotFound
 }
 
-struct SaladItemsDataFetcher: ItemsDataFetcher {
+struct SaladItemsFetcher: ItemsFetcher {
 	private static func getSizes() -> Promise<[Size]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
@@ -57,7 +57,8 @@ struct SaladItemsDataFetcher: ItemsDataFetcher {
 	}
 	
 	static func getItems(for foodItemCategory: ItemCategory) -> Promise<[Item]> {
-		guard let saladFoodItemCategory = SaladItemCategory(rawValue: foodItemCategory.rawValue) else { return Promise(error: SaladItemsDataFetcherError.foodItemCategoryNotFound) }
+		guard let saladFoodItemCategory = SaladItemCategory(rawValue: foodItemCategory.rawValue)
+			else { return Promise(error: SaladItemsFetcherError.foodItemCategoryNotFound) }
 		switch saladFoodItemCategory {
 		case .size: return getSizes().mapValues { $0 as Item }
 		case .lettuce: return getLettuces().mapValues { $0 as Item }
@@ -67,4 +68,8 @@ struct SaladItemsDataFetcher: ItemsDataFetcher {
 		case .extra: return getExtras().mapValues { $0 as Item }
 		}
 	}
+}
+
+extension Salad: ItemsFetchable {
+	static var fetcher: ItemsFetcher.Type { return SaladItemsFetcher.self }
 }
