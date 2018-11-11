@@ -16,7 +16,7 @@ enum ItemsViewModelError: Error {
 struct ItemsViewModelParcel {
 	let itemCategories: [ItemCategory]
 	let dataFetcher: ItemsDataFetcher.Type
-	var builder: FoodBuilder
+	var builder: ItemedPurchaseableBuilder
 }
 
 protocol ItemsViewModelViewDelegate {

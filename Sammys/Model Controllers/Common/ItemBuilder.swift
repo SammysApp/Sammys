@@ -1,5 +1,5 @@
 //
-//  FoodItemBuilder.swift
+//  ItemBuilder.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -8,33 +8,33 @@
 
 import Foundation
 
-protocol FoodItemBuilder {
-	associatedtype FoodItemBuilding: Item & Hashable
+protocol ItemBuilder {
+	associatedtype ItemBuilding: Item & Hashable
 }
 
-protocol NonModifiableFoodItemBuilder: FoodItemBuilder {
-	typealias Builder = [FoodItemBuilding : Bool]
+protocol NonModifiableItemBuilder: ItemBuilder {
+	typealias Builder = [ItemBuilding : Bool]
 	var builder: Builder { get set }
 	mutating func toggle(_ foodItem: Item)
 }
 
-protocol ModifiableFoodItemBuilder: FoodItemBuilder {
-	typealias Builder = [FoodItemBuilding : [Modifier : Bool]]
+protocol ModifiableItemBuilder: ItemBuilder {
+	typealias Builder = [ItemBuilding : [Modifier : Bool]]
 	var builder: Builder { get set }
 	mutating func toggle(_ foodItem: Item, with modifier: Modifier)
 }
 
-extension NonModifiableFoodItemBuilder {
+extension NonModifiableItemBuilder {
 	mutating func toggle(_ foodItem: Item) {
-		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
+		guard let foodItemBuilding = foodItem as? ItemBuilding else { return }
 		// Negate current value for the food item or set to true.
 		builder[foodItemBuilding] = !(builder[foodItemBuilding] ?? false)
 	}
 }
 
-extension ModifiableFoodItemBuilder {
+extension ModifiableItemBuilder {
 	mutating func toggle(_ foodItem: Item, with modifier: Modifier) {
-		guard let foodItemBuilding = foodItem as? FoodItemBuilding else { return }
+		guard let foodItemBuilding = foodItem as? ItemBuilding else { return }
 		// If a modifier dictionary is present for the food item...
 		if builder[foodItemBuilding] != nil {
 			// ...negate the current value for the modifier or set to true.
@@ -46,12 +46,12 @@ extension ModifiableFoodItemBuilder {
 	}
 }
 
-protocol SingleFoodItemBuildable: FoodItemBuilder {
-	typealias Built = FoodItemBuilding
+protocol SingleItemBuildable: ItemBuilder {
+	typealias Built = ItemBuilding
 	func build() -> Built?
 }
 
-protocol ArrayFoodItemBuildable: FoodItemBuilder {
-	typealias Built = [FoodItemBuilding]
+protocol ArrayItemBuildable: ItemBuilder {
+	typealias Built = [ItemBuilding]
 	func build() -> Built
 }

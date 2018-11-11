@@ -12,15 +12,15 @@ enum SaladBuilderError: Error {
 	case noSize, needsModifier
 }
 
-private struct SizeBuilder: NonModifiableFoodItemBuilder, SingleFoodItemBuildable {
-	typealias FoodItemBuilding = Size
+private struct SizeBuilder: NonModifiableItemBuilder, SingleItemBuildable {
+	typealias ItemBuilding = Size
 	var builder: Builder = [:]
 	
 	func build() -> Built? { return Array(builder.filter { $1 }.keys).first }
 }
 
-private struct LettuceBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
-	typealias FoodItemBuilding = Lettuce
+private struct LettuceBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+	typealias ItemBuilding = Lettuce
 	var builder: Builder = [:]
 	
 	func build() -> Built {
@@ -32,22 +32,22 @@ private struct LettuceBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable
 	}
 }
 
-private struct VegetablesBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
-	typealias FoodItemBuilding = Vegetable
+private struct VegetablesBuilder: NonModifiableItemBuilder, ArrayItemBuildable {
+	typealias ItemBuilding = Vegetable
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-private struct ToppingsBuilder: NonModifiableFoodItemBuilder, ArrayFoodItemBuildable {
-	typealias FoodItemBuilding = Topping
+private struct ToppingsBuilder: NonModifiableItemBuilder, ArrayItemBuildable {
+	typealias ItemBuilding = Topping
 	var builder: Builder = [:]
 	
 	func build() -> Built { return Array(builder.filter { $1 }.keys) }
 }
 
-private struct DressingsBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
-	typealias FoodItemBuilding = Dressing
+private struct DressingsBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+	typealias ItemBuilding = Dressing
 	var builder: Builder = [:]
 	
 	func build() -> Built {
@@ -59,8 +59,8 @@ private struct DressingsBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildab
 	}
 }
 
-private struct ExtrasBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable {
-	typealias FoodItemBuilding = Extra
+private struct ExtrasBuilder: ModifiableItemBuilder, ArrayItemBuildable {
+	typealias ItemBuilding = Extra
 	var builder: Builder = [:]
 	
 	func build() -> Built {
@@ -72,7 +72,7 @@ private struct ExtrasBuilder: ModifiableFoodItemBuilder, ArrayFoodItemBuildable 
 	}
 }
 
-struct SaladBuilder: FoodBuilder {
+struct SaladBuilder: ItemedPurchaseableBuilder {
 	private var sizeBuilder = SizeBuilder()
 	private var lettuceBuilder = LettuceBuilder()
 	private var vegetablesBuilder = VegetablesBuilder()
@@ -80,21 +80,21 @@ struct SaladBuilder: FoodBuilder {
 	private var dressingsBuilder = DressingsBuilder()
 	private var extrasBuilder = ExtrasBuilder()
 	
-	mutating func toggle(_ foodItem: Item, with modifier: Modifier? = nil) throws {
-		if let saladFoodItem = SaladItemCategory(rawValue: type(of: foodItem).category.rawValue) {
-			switch saladFoodItem {
-			case .size: sizeBuilder.toggle(foodItem)
+	mutating func toggle(_ item: Item, with modifier: Modifier? = nil) throws {
+		if let saladItem = SaladItemCategory(rawValue: type(of: item).category.rawValue) {
+			switch saladItem {
+			case .size: sizeBuilder.toggle(item)
 			case .lettuce:
 				guard let modifier = modifier else { throw SaladBuilderError.needsModifier }
-				lettuceBuilder.toggle(foodItem, with: modifier)
-			case .vegetable: vegetablesBuilder.toggle(foodItem)
-			case .topping: toppingsBuilder.toggle(foodItem)
+				lettuceBuilder.toggle(item, with: modifier)
+			case .vegetable: vegetablesBuilder.toggle(item)
+			case .topping: toppingsBuilder.toggle(item)
 			case .dressing:
 				guard let modifier = modifier else { throw SaladBuilderError.needsModifier }
-				dressingsBuilder.toggle(foodItem, with: modifier)
+				dressingsBuilder.toggle(item, with: modifier)
 			case .extra:
 				guard let modifier = modifier else { throw SaladBuilderError.needsModifier }
-				extrasBuilder.toggle(foodItem, with: modifier)
+				extrasBuilder.toggle(item, with: modifier)
 			}
 		}
 	}

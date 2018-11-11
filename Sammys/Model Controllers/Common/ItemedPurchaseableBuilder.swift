@@ -1,5 +1,5 @@
 //
-//  FoodBuilder.swift
+//  ItemedPurchaseableBuilder.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol FoodBuilder {
-	mutating func toggle(_ foodItem: Item, with modifier: Modifier?) throws
+protocol ItemedPurchaseableBuilder {
+	mutating func toggle(_ item: Item, with modifier: Modifier?) throws
 	func build() throws -> ItemedPurchaseable
 	init()
 }
