@@ -77,7 +77,7 @@ class BagViewModel {
 	func clear() { bagModelController.clearAll() }
 	
 	func foodViewModelParcel(for indexPath: IndexPath) -> FoodViewModelParcel? {
-		guard let food = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable as? Food else { return nil }
-		return FoodViewModelParcel(food: food)
+		guard let itemedPurchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable as? ItemedPurchaseable else { return nil }
+		return FoodViewModelParcel(itemedPurchaseable: itemedPurchaseable)
 	}
 }

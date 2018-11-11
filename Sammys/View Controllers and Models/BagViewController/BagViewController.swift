@@ -155,10 +155,7 @@ extension BagViewController: BagPurchaseableTableViewCellDelegate {
 
 // MARK - FoodViewControllerDelegate
 extension BagViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in food: Food) {
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
 		let itemsViewController = ItemsViewController.storyboardInstance()
-		let foodType = type(of: food)
-		itemsViewController.viewModelParcel = ItemsViewModelParcel(itemCategories: foodType.allItemCategories, dataFetcher: foodType.itemsDataFetcher, builder: foodType.builder.init())
-		foodViewController.present(itemsViewController, animated: true, completion: nil)
 	}
 }

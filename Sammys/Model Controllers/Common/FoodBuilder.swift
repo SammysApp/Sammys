@@ -10,6 +10,6 @@ import Foundation
 
 protocol FoodBuilder {
 	mutating func toggle(_ foodItem: FoodItem, with modifier: Modifier?) throws
-	func build() throws -> Food
+	func build() throws -> ItemedPurchaseable
 	init()
 }

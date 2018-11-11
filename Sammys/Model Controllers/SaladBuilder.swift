@@ -99,7 +99,7 @@ struct SaladBuilder: FoodBuilder {
 		}
 	}
 	
-	func build() throws -> Food {
+	func build() throws -> ItemedPurchaseable {
 		guard let size = sizeBuilder.build()
 			else { throw SaladBuilderError.noSize }
 		return Salad(

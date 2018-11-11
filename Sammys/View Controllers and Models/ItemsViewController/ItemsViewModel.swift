@@ -104,6 +104,6 @@ class ItemsViewModel {
 	}
 	
 	func addFoodViewModelParcel() throws -> AddFoodViewModelParcel {
-		return AddFoodViewModelParcel(food: try parcel.builder.build())
+		return AddFoodViewModelParcel(itemedPurchaseable: try parcel.builder.build())
 	}
 }

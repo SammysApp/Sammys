@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddFoodViewControllerDelegate: FoodViewControllerDelegate {
-	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddFood food: Food)
+	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable)
 	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController)
 }
 
@@ -67,7 +67,7 @@ class AddFoodViewController: UIViewController {
 	// MARK: - IBActions
 	@IBAction func didTapAdd(_ sender: UIButton) {
 		do { try viewModel.add() } catch { print(error) }
-		delegate?.addFoodViewController(self, didAddFood: viewModel.food)
+		delegate?.addFoodViewController(self, didAddItemedPurchaseable: viewModel.itemedPurchaseable)
 	}
 }
 

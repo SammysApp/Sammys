@@ -268,7 +268,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - AddFoodViewControllerDelegate
 extension ItemsViewController: AddFoodViewControllerDelegate {
-	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddFood food: Food) {
+	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable) {
 		addFoodViewController.dismiss(animated: true) {
 			self.navigationController?.popViewController(animated: true)
 		}
@@ -277,7 +277,7 @@ extension ItemsViewController: AddFoodViewControllerDelegate {
 
 // MARK: - FoodViewControllerDelegate
 extension ItemsViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in food: Food) {
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
 		foodViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}

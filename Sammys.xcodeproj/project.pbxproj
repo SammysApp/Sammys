@@ -22,7 +22,7 @@
 		5B10D59320C035F400BF05B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B10D59220C035F400BF05B2 /* Assets.xcassets */; };
 		5B10D59B20C042D200BF05B2 /* OrdersAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */; };
 		5B10D59C20C044A900BF05B2 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29688208E2D3500520683 /* Order.swift */; };
-		5B10D59D20C044C200BF05B2 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* Food.swift */; };
+		5B10D59D20C044C200BF05B2 /* ItemedPurchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */; };
 		5B10D59E20C044D000BF05B2 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* FoodItem.swift */; };
 		5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06951FFD54B500BAC480 /* Salad.swift */; };
 		5B10D5A020C044DB00BF05B2 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
@@ -138,7 +138,7 @@
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C220047E5600898FF0 /* BagModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C120047E5600898FF0 /* BagModelController.swift */; };
-		5B44A7C4200483E500898FF0 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* Food.swift */; };
+		5B44A7C4200483E500898FF0 /* ItemedPurchaseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */; };
 		5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8012006CE7F00898FF0 /* HomeViewController.swift */; };
 		5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */; };
 		5B44A8072006D35600898FF0 /* HomeItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8062006D35600898FF0 /* HomeItemCollectionViewCell.swift */; };
@@ -373,7 +373,7 @@
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		5B44A7C120047E5600898FF0 /* BagModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagModelController.swift; sourceTree = "<group>"; };
-		5B44A7C3200483E500898FF0 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemedPurchaseable.swift; sourceTree = "<group>"; };
 		5B44A8012006CE7F00898FF0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8062006D35600898FF0 /* HomeItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -951,7 +951,7 @@
 				5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */,
 				5BFC5742217CC5050002179B /* PurchaseableQuantity.swift */,
 				5BFC573F217C308A0002179B /* Purchaseable.swift */,
-				5B44A7C3200483E500898FF0 /* Food.swift */,
+				5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */,
 				5B44A82C2009292A00898FF0 /* FoodItem.swift */,
 				5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
@@ -1618,7 +1618,7 @@
 				5B3A4B4C2195F3E400F22F78 /* UIView.swift in Sources */,
 				5B10D5A320C044E400BF05B2 /* Topping.swift in Sources */,
 				5B10D58A20C035F000BF05B2 /* AppDelegate.swift in Sources */,
-				5B10D59D20C044C200BF05B2 /* Food.swift in Sources */,
+				5B10D59D20C044C200BF05B2 /* ItemedPurchaseable.swift in Sources */,
 				5B10D5CC20C4D55200BF05B2 /* UserDataStore.swift in Sources */,
 				5B10D5A520C044E900BF05B2 /* Extra.swift in Sources */,
 				5B10D5A420C044E600BF05B2 /* Dressing.swift in Sources */,
@@ -1705,7 +1705,7 @@
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
-				5B44A7C4200483E500898FF0 /* Food.swift in Sources */,
+				5B44A7C4200483E500898FF0 /* ItemedPurchaseable.swift in Sources */,
 				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */,
 				5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */,
 				5B02C70D20852BA0006D19A5 /* MessageCollectionViewCellConfigurationCommand.swift in Sources */,

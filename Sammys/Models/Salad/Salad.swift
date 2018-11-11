@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Salad: Food {
+struct Salad: ItemedPurchaseable {
 	let size: Size
 	let lettuce: [Lettuce]
     let vegetables: [Vegetable]
@@ -36,7 +36,7 @@ extension Salad {
 	}
 }
 
-// MARK: - Food
+// MARK: - ItemedPurchaseable
 extension Salad {
 	static var allItemCategories: [FoodItemCategory] { return SaladFoodItemCategory.allCases }
 	static var itemsDataFetcher: FoodItemsDataFetcher.Type { return SaladFoodItemsDataFetcher.self }
@@ -56,9 +56,11 @@ extension Salad {
 	}
 }
 
+// MARK: - Hashable
+extension Salad: Hashable {}
+
 // MARK: - ProtocolCodable
 extension Salad { static var type = ProtocolCodableType.salad }
-extension Salad: Hashable {}
 
 private extension Salad {
 	func items(for itemCategories: [FoodItemCategory]) -> [FoodItem] {
