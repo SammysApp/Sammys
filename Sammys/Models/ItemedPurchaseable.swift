@@ -9,15 +9,15 @@
 import Foundation
 
 protocol ItemedPurchaseable: Purchaseable {
-	static var allItemCategories: [FoodItemCategory] { get }
-	var categorizedItems: [CategorizedFoodItems] { get }
-	func items(for itemCategory: FoodItemCategory) -> [Item]
+	static var allItemCategories: [ItemCategory] { get }
+	var categorizedItems: [CategorizedItems] { get }
+	func items(for itemCategory: ItemCategory) -> [Item]
 }
 
 extension ItemedPurchaseable {
-	var categorizedItems: [CategorizedFoodItems] {
+	var categorizedItems: [CategorizedItems] {
 		return Self.allItemCategories
-			.map { CategorizedFoodItems(category: $0, items: items(for: $0)) }
+			.map { CategorizedItems(category: $0, items: items(for: $0)) }
 			.filter { !$0.items.isEmpty }
 	}
 }

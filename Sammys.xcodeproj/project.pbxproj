@@ -59,7 +59,7 @@
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B22785B2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B2950BF218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */; };
-		5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */; };
+		5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* ItemCategory.swift */; };
 		5B2950C3218A3E86008B0E49 /* FoodItemsDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* FoodItemsDataFetcher.swift */; };
 		5B2950C5218A3F1B008B0E49 /* FoodItemBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C4218A3F1B008B0E49 /* FoodItemBuilder.swift */; };
 		5B2950C7218A3FB7008B0E49 /* FoodBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* FoodBuilder.swift */; };
@@ -318,7 +318,7 @@
 		5B2278572197C030003E3DE2 /* FoodCollectionViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		5B2950BE218A3575008B0E49 /* SaladFoodItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladFoodItemsDataFetcher.swift; sourceTree = "<group>"; };
-		5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemCategory.swift; sourceTree = "<group>"; };
+		5B2950C0218A361C008B0E49 /* ItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
 		5B2950C2218A3E86008B0E49 /* FoodItemsDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemsDataFetcher.swift; sourceTree = "<group>"; };
 		5B2950C4218A3F1B008B0E49 /* FoodItemBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemBuilder.swift; sourceTree = "<group>"; };
 		5B2950C6218A3FB7008B0E49 /* FoodBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBuilder.swift; sourceTree = "<group>"; };
@@ -953,7 +953,7 @@
 				5BFC573F217C308A0002179B /* Purchaseable.swift */,
 				5B44A7C3200483E500898FF0 /* ItemedPurchaseable.swift */,
 				5B44A82C2009292A00898FF0 /* Item.swift */,
-				5B2950C0218A361C008B0E49 /* FoodItemCategory.swift */,
+				5B2950C0218A361C008B0E49 /* ItemCategory.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
 				5BFC5732217820920002179B /* Salad */,
 			);
@@ -1728,7 +1728,7 @@
 				5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */,
 				5B3A4B7B21961F4C00F22F78 /* PaymentViewController.swift in Sources */,
 				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
-				5B2950C1218A361C008B0E49 /* FoodItemCategory.swift in Sources */,
+				5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
 				5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B3F25E2210F79860080290E /* Endpoint.swift in Sources */,

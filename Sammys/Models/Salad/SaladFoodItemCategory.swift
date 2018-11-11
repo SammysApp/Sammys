@@ -12,6 +12,6 @@ enum SaladFoodItemCategory: String {
 	case size, lettuce, vegetable, topping, dressing, extra
 }
 
-extension SaladFoodItemCategory: FoodItemCategory {}
+extension SaladFoodItemCategory: ItemCategory {}
 extension SaladFoodItemCategory: Hashable {}
 extension SaladFoodItemCategory: CaseIterable {}

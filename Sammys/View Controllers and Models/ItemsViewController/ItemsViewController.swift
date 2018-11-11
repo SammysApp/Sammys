@@ -159,7 +159,7 @@ class ItemsViewController: UIViewController {
 		)
 	}
 	
-	func didChangeItemCategory(with itemCategory: FoodItemCategory) {
+	func didChangeItemCategory(with itemCategory: ItemCategory) {
 		viewModel.setupData(for: itemCategory).catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
 		if let stateSpecifier = itemCategory as? ItemsViewLayoutStateSpecifier {
@@ -277,7 +277,7 @@ extension ItemsViewController: AddFoodViewControllerDelegate {
 
 // MARK: - FoodViewControllerDelegate
 extension ItemsViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
 		foodViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}

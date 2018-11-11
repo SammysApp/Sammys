@@ -1,5 +1,5 @@
 //
-//  FoodItemCategory.swift
+//  ItemCategory.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct CategorizedFoodItems {
-	let category: FoodItemCategory
+struct CategorizedItems {
+	let category: ItemCategory
 	let items: [Item]
 }
 
-protocol FoodItemCategory: ProtocolHashable {
+protocol ItemCategory: ProtocolHashable {
 	var rawValue: String { get }
 	var name: String { get }
 }
 
-extension FoodItemCategory where Self: RawRepresentable, Self.RawValue == String {
+extension ItemCategory where Self: RawRepresentable, Self.RawValue == String {
 	var name: String { return rawValue.capitalizingFirstLetter() }
 }

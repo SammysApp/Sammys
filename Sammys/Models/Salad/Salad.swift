@@ -38,11 +38,11 @@ extension Salad {
 
 // MARK: - ItemedPurchaseable
 extension Salad {
-	static var allItemCategories: [FoodItemCategory] { return SaladFoodItemCategory.allCases }
+	static var allItemCategories: [ItemCategory] { return SaladFoodItemCategory.allCases }
 	static var itemsDataFetcher: FoodItemsDataFetcher.Type { return SaladFoodItemsDataFetcher.self }
 	static var builder: FoodBuilder.Type { return SaladBuilder.self }
 	
-	func items(for itemCategory: FoodItemCategory) -> [Item] {
+	func items(for itemCategory: ItemCategory) -> [Item] {
 		guard let saladItemCategory = itemCategory as? SaladFoodItemCategory
 			else { return [] }
 		switch saladItemCategory {
@@ -63,7 +63,7 @@ extension Salad: Hashable {}
 extension Salad { static var type = ProtocolCodableType.salad }
 
 private extension Salad {
-	func items(for itemCategories: [FoodItemCategory]) -> [Item] {
+	func items(for itemCategories: [ItemCategory]) -> [Item] {
 		return itemCategories.flatMap { items(for: $0) }
 	}
 }

@@ -14,7 +14,7 @@ enum ItemsViewModelError: Error {
 }
 
 struct ItemsViewModelParcel {
-	let itemCategories: [FoodItemCategory]
+	let itemCategories: [ItemCategory]
 	let dataFetcher: FoodItemsDataFetcher.Type
 	var builder: FoodBuilder
 }
@@ -30,7 +30,7 @@ class ItemsViewModel {
 	private let viewDelegate: ItemsViewModelViewDelegate
 	private var parcel: ItemsViewModelParcel
 	
-	private(set) var itemCategory: Dynamic<FoodItemCategory>
+	private(set) var itemCategory: Dynamic<ItemCategory>
 	
 	private var currentItemCategoryIndex: Int? {
 		return parcel.itemCategories.firstIndex
@@ -60,12 +60,12 @@ class ItemsViewModel {
 		self.itemCategory = Dynamic(firstItemCategory)
 	}
 	
-	func setupData(for itemCategory: FoodItemCategory) -> Promise<Void> {
+	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
 		return parcel.dataFetcher.getFoodItems(for: itemCategory)
 			.get { self.items = $0 }.asVoid()
 	}
 	
-	func set(to itemCategory: FoodItemCategory) {
+	func set(to itemCategory: ItemCategory) {
 		if parcel.itemCategories
 			.map({ AnyEquatableProtocol($0) })
 			.contains(AnyEquatableProtocol(itemCategory)) { self.itemCategory.value = itemCategory }

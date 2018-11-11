@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory, in itemedPurchaseable: ItemedPurchaseable)
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable)
 }
 
 class FoodViewController: UIViewController {
