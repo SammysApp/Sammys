@@ -60,8 +60,6 @@ class ItemsViewController: UIViewController {
     }
 	
 	struct Constants {
-		static let itemCollectionViewCellXibName = "ItemCollectionViewCell"
-		
 		static let collectionViewContentInset: CGFloat = 10
 		
 		static let cardAnimatorItemSpacing: CGFloat = 0.4
@@ -102,10 +100,7 @@ class ItemsViewController: UIViewController {
 	}
 	
 	func setupCollectionView() {
-		collectionView.register(
-			UINib(nibName: Constants.itemCollectionViewCellXibName, bundle: Bundle.main),
-			forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue
-		)
+		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue)
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 	}
@@ -277,6 +272,14 @@ extension ItemsViewController: AddFoodViewControllerDelegate {
 		addFoodViewController.dismiss(animated: true) {
 			self.navigationController?.popViewController(animated: true)
 		}
+	}
+}
+
+// MARK: - FoodViewControllerDelegate
+extension ItemsViewController: FoodViewControllerDelegate {
+	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: FoodItemCategory) {
+		foodViewController.dismiss(animated: true, completion: nil)
+		viewModel.set(to: itemCategory)
 	}
 }
 

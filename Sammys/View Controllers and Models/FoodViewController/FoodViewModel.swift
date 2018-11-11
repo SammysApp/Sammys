@@ -23,8 +23,9 @@ class FoodViewModel {
 	private let parcel: FoodViewModelParcel
 	private let viewDelegate: FoodViewModelViewDelegate
 	
+	var categorizedItems: [CategorizedFoodItems] { return parcel.food.categorizedItems }
 	var sections: [Section] {
-		return parcel.food.categorizedItems
+		return categorizedItems
 			.map { Section(title: $0.category.name, cellViewModels: $0.items
 				.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
 	}
@@ -42,5 +43,9 @@ class FoodViewModel {
 	
 	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
 		return sections[indexPath.section].cellViewModels[indexPath.item]
+	}
+	
+	func itemCategory(forSection section: Int) -> FoodItemCategory {
+		return categorizedItems[section].category
 	}
 }

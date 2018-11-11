@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FoodCollectionViewSectionHeaderView" customModule="Sammys" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjd-rm-AtK">
+                    <rect key="frame" x="15" y="25.5" width="46.5" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kwc-7B-met">
+                    <rect key="frame" x="326" y="22" width="34" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Edit"/>
+                    <connections>
+                        <action selector="didTapEdit:" destination="iN0-l3-epB" eventType="touchUpInside" id="vI4-bn-fLG"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Kwc-7B-met" secondAttribute="trailing" constant="15" id="4Kh-aj-IG6"/>
+                <constraint firstItem="Kwc-7B-met" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BNt-Yw-jJk"/>
+                <constraint firstItem="rjd-rm-AtK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="nZb-jN-uaE"/>
+                <constraint firstItem="rjd-rm-AtK" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="t4G-6h-gV5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="editButton" destination="Kwc-7B-met" id="25B-4l-ZaY"/>
+                <outlet property="titleLabel" destination="rjd-rm-AtK" id="7Dm-3v-NFw"/>
+            </connections>
+            <point key="canvasLocation" x="104.8" y="-125.03748125937032"/>
+        </view>
+    </objects>
+</document>

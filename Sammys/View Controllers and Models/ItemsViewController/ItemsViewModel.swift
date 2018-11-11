@@ -34,7 +34,7 @@ class ItemsViewModel {
 	
 	private var currentItemCategoryIndex: Int? {
 		return parcel.itemCategories.firstIndex
-			{ self.itemCategory.value.stringValue == $0.stringValue }
+			{ self.itemCategory.value.rawValue == $0.rawValue }
 	}
 	
 	var isAtLastItemCategory: Bool {
@@ -63,6 +63,12 @@ class ItemsViewModel {
 	func setupData(for itemCategory: FoodItemCategory) -> Promise<Void> {
 		return parcel.dataFetcher.getFoodItems(for: itemCategory)
 			.get { self.items = $0 }.asVoid()
+	}
+	
+	func set(to itemCategory: FoodItemCategory) {
+		if parcel.itemCategories
+			.map({ AnyEquatableProtocol($0) })
+			.contains(AnyEquatableProtocol(itemCategory)) { self.itemCategory.value = itemCategory }
 	}
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
