@@ -1,5 +1,5 @@
 //
-//  FoodItemsDataFetcher.swift
+//  ItemsDataFetcher.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -9,6 +9,6 @@
 import Foundation
 import PromiseKit
 
-protocol FoodItemsDataFetcher {
-	static func getFoodItems(for foodItemCategory: ItemCategory) -> Promise<[Item]>
+protocol ItemsDataFetcher {
+	static func getItems(for itemCategory: ItemCategory) -> Promise<[Item]>
 }

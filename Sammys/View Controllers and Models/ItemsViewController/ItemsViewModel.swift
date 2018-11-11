@@ -15,7 +15,7 @@ enum ItemsViewModelError: Error {
 
 struct ItemsViewModelParcel {
 	let itemCategories: [ItemCategory]
-	let dataFetcher: FoodItemsDataFetcher.Type
+	let dataFetcher: ItemsDataFetcher.Type
 	var builder: FoodBuilder
 }
 
@@ -61,7 +61,7 @@ class ItemsViewModel {
 	}
 	
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
-		return parcel.dataFetcher.getFoodItems(for: itemCategory)
+		return parcel.dataFetcher.getItems(for: itemCategory)
 			.get { self.items = $0 }.asVoid()
 	}
 	
