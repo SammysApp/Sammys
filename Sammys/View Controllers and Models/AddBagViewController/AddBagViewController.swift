@@ -1,5 +1,5 @@
 //
-//  AddFoodViewController.swift
+//  AddBagViewController.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/12/18.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-protocol AddFoodViewControllerDelegate: ItemsViewControllerDelegate {
-	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable)
-	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController)
+protocol AddBagViewControllerDelegate: ItemsViewControllerDelegate {
+	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable)
+	func addBagViewControllerDidCancel(_ addBagViewController: AddBagViewController)
 }
 
-class AddFoodViewController: UIViewController {
-	var viewModelParcel: AddFoodViewModelParcel!
-	var viewModel: AddFoodViewModel!
+class AddBagViewController: UIViewController {
+	var viewModelParcel: AddBagViewModelParcel!
+	var viewModel: AddBagViewModel!
 	
-	var delegate: AddFoodViewControllerDelegate?
+	var delegate: AddBagViewControllerDelegate?
 	
 	lazy var foodViewController: ItemsViewController = {
 		let foodViewController = ItemsViewController.storyboardInstance()
@@ -42,7 +42,7 @@ class AddFoodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel = AddFoodViewModel(viewModelParcel)
+		viewModel = AddBagViewModel(viewModelParcel)
 		
 		setupViews()
     }
@@ -67,14 +67,14 @@ class AddFoodViewController: UIViewController {
 	// MARK: - IBActions
 	@IBAction func didTapAdd(_ sender: UIButton) {
 		do { try viewModel.add() } catch { print(error) }
-		delegate?.addFoodViewController(self, didAddItemedPurchaseable: viewModel.itemedPurchaseable)
+		delegate?.addBagViewController(self, didAddItemedPurchaseable: viewModel.itemedPurchaseable)
 	}
 }
 
 // MARK: - Storyboardable
-extension AddFoodViewController: Storyboardable {}
+extension AddBagViewController: Storyboardable {}
 
-extension AddFoodViewControllerDelegate {
+extension AddBagViewControllerDelegate {
 	// Make function requirement optional.
-	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController) {}
+	func addBagViewControllerDidCancel(_ addBagViewController: AddBagViewController) {}
 }

@@ -150,8 +150,8 @@
 		5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */; };
 		5B44A8292007F7DB00898FF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A8282007F7DB00898FF0 /* User.swift */; };
 		5B44A82D2009292A00898FF0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
-		5B44A82F2009326000898FF0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddFoodViewController.swift */; };
-		5B44A831200932A800898FF0 /* AddFoodViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */; };
+		5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddBagViewController.swift */; };
+		5B44A831200932A800898FF0 /* AddBagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddBagViewController.storyboard */; };
 		5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A832200C006400898FF0 /* PaymentAPIManager.swift */; };
 		5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A834200EA4BE00898FF0 /* Topping.swift */; };
 		5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
@@ -255,7 +255,7 @@
 		5BD6B3CD20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */; };
 		5BD6B3CF20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationController.swift */; };
-		5BEED53E206C6F70002240EB /* AddFoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */; };
+		5BEED53E206C6F70002240EB /* AddBagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddBagViewModel.swift */; };
 		5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
 		5BFC57312174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
 		5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFC57332179101D0002179B /* SaladBuilder.swift */; };
@@ -385,8 +385,8 @@
 		5B44A8262007EDB400898FF0 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		5B44A8282007F7DB00898FF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5B44A82C2009292A00898FF0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		5B44A82E2009326000898FF0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
-		5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFoodViewController.storyboard; sourceTree = "<group>"; };
+		5B44A82E2009326000898FF0 /* AddBagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBagViewController.swift; sourceTree = "<group>"; };
+		5B44A830200932A800898FF0 /* AddBagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddBagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A832200C006400898FF0 /* PaymentAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAPIManager.swift; sourceTree = "<group>"; };
 		5B44A834200EA4BE00898FF0 /* Topping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topping.swift; sourceTree = "<group>"; };
 		5B44A836200EA4CA00898FF0 /* Dressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dressing.swift; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 		5BD6B3CC20812469000114F5 /* MapCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BD6B3CE20812480000114F5 /* MapCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
-		5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodViewModel.swift; sourceTree = "<group>"; };
+		5BEED53D206C6F70002240EB /* AddBagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBagViewModel.swift; sourceTree = "<group>"; };
 		5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		5BFC57332179101D0002179B /* SaladBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladBuilder.swift; sourceTree = "<group>"; };
 		5BFC5736217A44170002179B /* AnyCodableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodableProtocol.swift; sourceTree = "<group>"; };
@@ -1004,7 +1004,7 @@
 				5B2950CB218CC02B008B0E49 /* Models */,
 				5BD274F12063FABF00618128 /* HomeViewController */,
 				5BD274F42063FAE300618128 /* BuilderViewController */,
-				5BEED53F206C72DD002240EB /* AddFoodViewController */,
+				5BEED53F206C72DD002240EB /* AddBagViewController */,
 				5B553A66206C9BED00DD9689 /* ItemsViewController */,
 				5BD274F52063FAEE00618128 /* BagViewController */,
 				5B3A4B772196172F00F22F78 /* PaymentViewController */,
@@ -1043,7 +1043,7 @@
 		5B9CD5A0204CCAEF00F59E4C /* Storyboards and Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A830200932A800898FF0 /* AddFoodViewController.storyboard */,
+				5B44A830200932A800898FF0 /* AddBagViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
 				5B37A3AA20810D5D00526068 /* ConfirmationViewController.storyboard */,
 				5B2278532197B7C2003E3DE2 /* ItemsCollectionViewSectionHeaderView.xib */,
@@ -1304,13 +1304,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5BEED53F206C72DD002240EB /* AddFoodViewController */ = {
+		5BEED53F206C72DD002240EB /* AddBagViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5B44A82E2009326000898FF0 /* AddFoodViewController.swift */,
-				5BEED53D206C6F70002240EB /* AddFoodViewModel.swift */,
+				5B44A82E2009326000898FF0 /* AddBagViewController.swift */,
+				5BEED53D206C6F70002240EB /* AddBagViewModel.swift */,
 			);
-			path = AddFoodViewController;
+			path = AddBagViewController;
 			sourceTree = "<group>";
 		};
 		5BEED540206C7330002240EB /* Models */ = {
@@ -1463,7 +1463,7 @@
 				5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */,
 				5B44A8052006CEB200898FF0 /* HomeViewController.storyboard in Resources */,
 				5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */,
-				5B44A831200932A800898FF0 /* AddFoodViewController.storyboard in Resources */,
+				5B44A831200932A800898FF0 /* AddBagViewController.storyboard in Resources */,
 				5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */,
 				5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */,
 				5B2278542197B7C2003E3DE2 /* ItemsCollectionViewSectionHeaderView.xib in Resources */,
@@ -1687,7 +1687,7 @@
 				5BB296CD209F4EC600520683 /* TextFieldViewCellViewModelFactory.swift in Sources */,
 				5B553A65206C774F00DD9689 /* ItemsViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
-				5BEED53E206C6F70002240EB /* AddFoodViewModel.swift in Sources */,
+				5BEED53E206C6F70002240EB /* AddBagViewModel.swift in Sources */,
 				5B2DC37C20D357BB008FFA2D /* Hours.swift in Sources */,
 				5B1CB08320158BDA0006235F /* ItemsViewController.swift in Sources */,
 				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
@@ -1701,7 +1701,7 @@
 				5B02C71420879597006D19A5 /* MapCollectionViewCellSelectionCommand.swift in Sources */,
 				5BB2969D208FB02E00520683 /* TotalPriceTableViewCellViewModelFactory.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
-				5B44A82F2009326000898FF0 /* AddFoodViewController.swift in Sources */,
+				5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */,
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5B02C70B20852992006D19A5 /* MessageCollectionViewCell.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,

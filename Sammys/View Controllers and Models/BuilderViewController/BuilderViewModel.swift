@@ -103,7 +103,7 @@ class BuilderViewModel {
 		try parcel.builder.toggle(foodItem, with: modifier)
 	}
 	
-	func addFoodViewModelParcel() throws -> AddFoodViewModelParcel {
-		return AddFoodViewModelParcel(itemedPurchaseable: try parcel.builder.build())
+	func addFoodViewModelParcel() throws -> AddBagViewModelParcel {
+		return AddBagViewModelParcel(itemedPurchaseable: try parcel.builder.build())
 	}
 }

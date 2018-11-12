@@ -177,7 +177,7 @@ class BuilderViewController: UIViewController {
 	}
 	
 	func presentAddFoodViewController() throws {
-		let addFoodViewController = AddFoodViewController.storyboardInstance()
+		let addFoodViewController = AddBagViewController.storyboardInstance()
 		addFoodViewController.viewModelParcel = try viewModel.addFoodViewModelParcel()
 		addFoodViewController.delegate = self
 		present(UINavigationController(rootViewController: addFoodViewController), animated: true, completion: nil)
@@ -263,10 +263,10 @@ extension BuilderViewController: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-// MARK: - AddFoodViewControllerDelegate
-extension BuilderViewController: AddFoodViewControllerDelegate {
-	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable) {
-		addFoodViewController.dismiss(animated: true) {
+// MARK: - AddBagViewControllerDelegate
+extension BuilderViewController: AddBagViewControllerDelegate {
+	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable) {
+		addBagViewController.dismiss(animated: true) {
 			self.navigationController?.popViewController(animated: true)
 		}
 	}

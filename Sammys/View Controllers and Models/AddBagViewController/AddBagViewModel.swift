@@ -1,5 +1,5 @@
 //
-//  AddFoodViewModel.swift
+//  AddBagViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/28/18.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-struct AddFoodViewModelParcel {
+struct AddBagViewModelParcel {
 	let itemedPurchaseable: ItemedPurchaseable
 }
 
-class AddFoodViewModel {
-	private let parcel: AddFoodViewModelParcel
+class AddBagViewModel {
+	private let parcel: AddBagViewModelParcel
 	
 	let bagModelController = BagModelController()
 	
@@ -23,7 +23,7 @@ class AddFoodViewModel {
 		return ItemsViewModelParcel(itemedPurchaseable: parcel.itemedPurchaseable)
 	}
 	
-	init(_ parcel: AddFoodViewModelParcel) {
+	init(_ parcel: AddBagViewModelParcel) {
 		self.parcel = parcel
 	}
 	
