@@ -1,5 +1,5 @@
 //
-//  BagPurchaseableTableViewCell.swift
+//  BagPurchasableTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/20/18.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol BagPurchaseableTableViewCellDelegate {
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didChangeQuantityTo quantity: Int, at indexPath: IndexPath)
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didDecrementQuantityAt indexPath: IndexPath)
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didIncrementQuantityAt indexPath: IndexPath)
+protocol BagPurchasableTableViewCellDelegate {
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didChangeQuantityTo quantity: Int, at indexPath: IndexPath)
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didDecrementQuantityAt indexPath: IndexPath)
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didIncrementQuantityAt indexPath: IndexPath)
 }
 
-class BagPurchaseableTableViewCell: UITableViewCell {
-	var delegate: BagPurchaseableTableViewCellDelegate?
+class BagPurchasableTableViewCell: UITableViewCell {
+	var delegate: BagPurchasableTableViewCellDelegate?
     
     // MARK: IBOutlets
-    @IBOutlet var purchaseableImageView: UIImageView!
+    @IBOutlet var purchasableImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -32,16 +32,16 @@ class BagPurchaseableTableViewCell: UITableViewCell {
 		guard let quantityString = sender.text,
 			let quantity = Int(quantityString),
 			let indexPath = indexPath else { return }
-		delegate?.bagPurchaseableTableViewCell(self, didChangeQuantityTo: quantity, at: indexPath)
+		delegate?.bagPurchasableTableViewCell(self, didChangeQuantityTo: quantity, at: indexPath)
 	}
 	
 	@IBAction func didTapDecrement(_ sender: UIButton) {
 		guard let indexPath = indexPath else { return }
-		delegate?.bagPurchaseableTableViewCell(self, didDecrementQuantityAt: indexPath)
+		delegate?.bagPurchasableTableViewCell(self, didDecrementQuantityAt: indexPath)
 	}
 	
 	@IBAction func didTapIncrement(_ sender: UIButton) {
 		guard let indexPath = indexPath else { return }
-		delegate?.bagPurchaseableTableViewCell(self, didIncrementQuantityAt: indexPath)
+		delegate?.bagPurchasableTableViewCell(self, didIncrementQuantityAt: indexPath)
 	}
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct ItemsViewModelParcel {
-	var itemedPurchaseable: ItemedPurchaseable
+	var itemedPurchasable: ItemedPurchasable
 }
 
 protocol ItemsViewModelViewDelegate {
@@ -23,14 +23,14 @@ class ItemsViewModel {
 	private let parcel: ItemsViewModelParcel
 	private let viewDelegate: ItemsViewModelViewDelegate
 	
-	var categorizedItems: [CategorizedItems] { return parcel.itemedPurchaseable.categorizedItems }
+	var categorizedItems: [CategorizedItems] { return parcel.itemedPurchasable.categorizedItems }
 	var sections: [Section] {
 		return categorizedItems
 			.map { Section(title: $0.category.name, cellViewModels: $0.items
 				.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
 	}
 	
-	var itemedPurchaseable: ItemedPurchaseable { return parcel.itemedPurchaseable }
+	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
 	
 	var numberOfSections: Int { return sections.count }
 	

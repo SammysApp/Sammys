@@ -1,5 +1,5 @@
 //
-//  Purchaseable.swift
+//  Purchasable.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/20/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Purchaseable: ProtocolHashable, ProtocolCodable {
+protocol Purchasable: ProtocolHashable, ProtocolCodable {
 	var title: String { get }
 	var description: String { get }
 	var price: Double { get }

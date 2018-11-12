@@ -16,7 +16,7 @@ enum BuilderViewModelError: Error {
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
 	let fetcher: ItemsFetcher.Type
-	var builder: ItemedPurchaseableBuilder
+	var builder: ItemedPurchasableBuilder
 }
 
 protocol BuilderViewModelViewDelegate {
@@ -104,6 +104,6 @@ class BuilderViewModel {
 	}
 	
 	func addFoodViewModelParcel() throws -> AddBagViewModelParcel {
-		return AddBagViewModelParcel(itemedPurchaseable: try parcel.builder.build())
+		return AddBagViewModelParcel(itemedPurchasable: try parcel.builder.build())
 	}
 }

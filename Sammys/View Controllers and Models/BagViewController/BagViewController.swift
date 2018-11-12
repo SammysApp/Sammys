@@ -30,7 +30,7 @@ class BagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel.bagPurchaseableTableViewCellDelegate = self
+		viewModel.bagPurchasableTableViewCellDelegate = self
 		
 		setupViews()
     }
@@ -121,26 +121,26 @@ extension BagViewController: UITableViewDelegate {
 	}
 }
 
-// MARK: - BagPurchaseableTableViewCellDelegate
-extension BagViewController: BagPurchaseableTableViewCellDelegate {
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didChangeQuantityTo quantity: Int, at indexPath: IndexPath) {
+// MARK: - BagPurchasableTableViewCellDelegate
+extension BagViewController: BagPurchasableTableViewCellDelegate {
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didChangeQuantityTo quantity: Int, at indexPath: IndexPath) {
 		do { try viewModel.set(toQuantity: quantity, at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
 		catch { print(error) }
 	}
 	
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didDecrementQuantityAt indexPath: IndexPath) {
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didDecrementQuantityAt indexPath: IndexPath) {
 		do { try viewModel.decrementQuantity(at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
 		catch { print(error) }
 	}
 	
-	func bagPurchaseableTableViewCell(_ cell: BagPurchaseableTableViewCell, didIncrementQuantityAt indexPath: IndexPath) {
+	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didIncrementQuantityAt indexPath: IndexPath) {
 		do { try viewModel.incrementQuantity(at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
 		catch { print(error) }
 	}
 	
-	private func handleQuantityUpdate(in cell: BagPurchaseableTableViewCell, at indexPath: IndexPath) {
+	private func handleQuantityUpdate(in cell: BagPurchasableTableViewCell, at indexPath: IndexPath) {
 		if let cellViewModel = viewModel.cellViewModel(for: indexPath) {
-			updateQuantityTextField(cell.quantityTextField, forQuantity: cellViewModel.purchaseableQuantity.quantity)
+			updateQuantityTextField(cell.quantityTextField, forQuantity: cellViewModel.purchasableQuantity.quantity)
 		}
 		// Assuming no more cell view model means cell was deleted.
 		else { tableView.deleteRows(at: [indexPath], with: .automatic) }
@@ -155,6 +155,6 @@ extension BagViewController: BagPurchaseableTableViewCellDelegate {
 
 // MARK - ItemsViewControllerDelegate
 extension BagViewController: ItemsViewControllerDelegate {
-	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
 	}
 }

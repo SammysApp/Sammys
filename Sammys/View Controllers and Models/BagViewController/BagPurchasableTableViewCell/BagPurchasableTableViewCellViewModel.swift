@@ -1,5 +1,5 @@
 //
-//  BagPurchaseableTableViewCellViewModel.swift
+//  BagPurchasableTableViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/8/18.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct BagPurchaseableTableViewCellViewModel: TableViewCellViewModel {
-	let purchaseableQuantity: PurchaseableQuantity
+struct BagPurchasableTableViewCellViewModel: TableViewCellViewModel {
+	let purchasableQuantity: PurchasableQuantity
 	let identifier: String
 	let height: Double
 	let isEditable: Bool

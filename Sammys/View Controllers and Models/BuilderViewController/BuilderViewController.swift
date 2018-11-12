@@ -265,7 +265,7 @@ extension BuilderViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - AddBagViewControllerDelegate
 extension BuilderViewController: AddBagViewControllerDelegate {
-	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable) {
+	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchasable itemedPurchasable: ItemedPurchasable) {
 		addBagViewController.dismiss(animated: true) {
 			self.navigationController?.popViewController(animated: true)
 		}
@@ -274,7 +274,7 @@ extension BuilderViewController: AddBagViewControllerDelegate {
 
 // MARK: - ItemsViewControllerDelegate
 extension BuilderViewController: ItemsViewControllerDelegate {
-	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
 		itemsViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}

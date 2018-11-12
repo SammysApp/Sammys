@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddBagViewControllerDelegate: ItemsViewControllerDelegate {
-	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable)
+	func addBagViewController(_ addBagViewController: AddBagViewController, didAddItemedPurchasable itemedPurchasable: ItemedPurchasable)
 	func addBagViewControllerDidCancel(_ addBagViewController: AddBagViewController)
 }
 
@@ -67,7 +67,7 @@ class AddBagViewController: UIViewController {
 	// MARK: - IBActions
 	@IBAction func didTapAdd(_ sender: UIButton) {
 		do { try viewModel.add() } catch { print(error) }
-		delegate?.addBagViewController(self, didAddItemedPurchaseable: viewModel.itemedPurchaseable)
+		delegate?.addBagViewController(self, didAddItemedPurchasable: viewModel.itemedPurchasable)
 	}
 }
 

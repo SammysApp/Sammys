@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ItemsViewControllerDelegate {
-	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable)
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable)
 }
 
 class ItemsViewController: UIViewController {
@@ -115,6 +115,6 @@ extension ItemsViewController: ItemsCollectionViewSectionHeaderViewDelegate {
 	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEdit editButton: UIButton) {
 		guard let section = supplementaryViewIndexPaths[itemsCollectionViewSectionHeaderView]?.section else { return }
 		let itemCategory = viewModel.itemCategory(forSection: section)
-		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchaseable)
+		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchasable)
 	}
 }

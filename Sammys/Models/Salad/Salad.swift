@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Salad: ItemedPurchaseable {
+struct Salad: ItemedPurchasable {
 	let size: Size
 	let lettuce: [Lettuce]
     let vegetables: [Vegetable]
@@ -17,7 +17,7 @@ struct Salad: ItemedPurchaseable {
     let extras: [Extra]
 }
 
-// MARK: - Purchaseable
+// MARK: - Purchasable
 extension Salad {
 	var title: String {
 		return "\(size.name) Salad"
@@ -36,7 +36,7 @@ extension Salad {
 	}
 }
 
-// MARK: - ItemedPurchaseable
+// MARK: - ItemedPurchasable
 extension Salad {
 	static var allItemCategories: [ItemCategory] { return SaladItemCategory.allCases }
 	

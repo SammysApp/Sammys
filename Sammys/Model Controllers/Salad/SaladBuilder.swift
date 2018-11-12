@@ -72,7 +72,7 @@ private struct ExtrasBuilder: ModifiableItemBuilder, ItemArrayBuildable {
 	}
 }
 
-struct SaladBuilder: ItemedPurchaseableBuilder {
+struct SaladBuilder: ItemedPurchasableBuilder {
 	private var sizeBuilder = SizeBuilder()
 	private var lettuceBuilder = LettuceBuilder()
 	private var vegetablesBuilder = VegetablesBuilder()
@@ -99,7 +99,7 @@ struct SaladBuilder: ItemedPurchaseableBuilder {
 		}
 	}
 	
-	func build() throws -> ItemedPurchaseable {
+	func build() throws -> ItemedPurchasable {
 		guard let size = sizeBuilder.build()
 			else { throw SaladBuilderError.noSize }
 		return Salad(
@@ -113,6 +113,6 @@ struct SaladBuilder: ItemedPurchaseableBuilder {
 	}
 }
 
-extension Salad: ItemedPurchaseableBuildable {
-	static var builder: ItemedPurchaseableBuilder.Type { return SaladBuilder.self }
+extension Salad: ItemedPurchasableBuildable {
+	static var builder: ItemedPurchasableBuilder.Type { return SaladBuilder.self }
 }

@@ -13,67 +13,67 @@ enum BagModelControllerError: Error {
 }
 
 struct BagModelController {
-    fileprivate typealias PurchaseableQuantitiesDictionary = [AnyHashableProtocol : Int]
+    fileprivate typealias PurchasableQuantitiesDictionary = [AnyHashableProtocol : Int]
 	
 	private let userDefaults: UserDefaults
 	
-	private struct Constants { static let purchaseableQuantitiesKey = "BagModelController.purchaseableQuantities" }
+	private struct Constants { static let purchasableQuantitiesKey = "BagModelController.purchasableQuantities" }
 	
 	init(userDefaults: UserDefaults = .standard) {
 		self.userDefaults = userDefaults
 	}
 	
-	private func purchaseableQuantities(for dictionary: PurchaseableQuantitiesDictionary) -> [PurchaseableQuantity] {
+	private func purchasableQuantities(for dictionary: PurchasableQuantitiesDictionary) -> [PurchasableQuantity] {
 		return dictionary.compactMap {
-			guard let purchaseable = $0.key.base as? Purchaseable else { return nil }
-			return PurchaseableQuantity(quantity: $0.value, purchaseable: purchaseable)
+			guard let purchasable = $0.key.base as? Purchasable else { return nil }
+			return PurchasableQuantity(quantity: $0.value, purchasable: purchasable)
 		}
 	}
 	
-	private func store(_ dictionary: PurchaseableQuantitiesDictionary) throws {
+	private func store(_ dictionary: PurchasableQuantitiesDictionary) throws {
 		userDefaults.set(
-			try JSONEncoder().encode(purchaseableQuantities(for: dictionary)),
-			forKey: Constants.purchaseableQuantitiesKey
+			try JSONEncoder().encode(purchasableQuantities(for: dictionary)),
+			forKey: Constants.purchasableQuantitiesKey
 		)
 	}
 	
-	func getPurchasableQuantities() throws -> [PurchaseableQuantity] {
-		if let purchasableQuantitiesData = userDefaults.data(forKey: Constants.purchaseableQuantitiesKey) {
-			do { return try JSONDecoder().decode([PurchaseableQuantity].self, from: purchasableQuantitiesData) }
+	func getPurchasableQuantities() throws -> [PurchasableQuantity] {
+		if let purchasableQuantitiesData = userDefaults.data(forKey: Constants.purchasableQuantitiesKey) {
+			do { return try JSONDecoder().decode([PurchasableQuantity].self, from: purchasableQuantitiesData) }
 			catch { throw error }
 		} else { throw BagModelControllerError.cantGetNeccessaryDataFromKey }
 	}
 	
-	private func storeModifiedStoredOrCreatedPurchaseableQuantitiesDictionary(_ modifiedDictionary: (PurchaseableQuantitiesDictionary) -> PurchaseableQuantitiesDictionary) throws {
-		try store(modifiedDictionary((try? getPurchasableQuantities())?.toDictionary() ?? PurchaseableQuantitiesDictionary()))
+	private func storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary(_ modifiedDictionary: (PurchasableQuantitiesDictionary) -> PurchasableQuantitiesDictionary) throws {
+		try store(modifiedDictionary((try? getPurchasableQuantities())?.toDictionary() ?? PurchasableQuantitiesDictionary()))
 	}
 	
-	private func storeModifiedStoredPurchaseableQuantitiesDictionary(_ modifiedDictionary: (PurchaseableQuantitiesDictionary) -> PurchaseableQuantitiesDictionary) throws {
+	private func storeModifiedStoredPurchasableQuantitiesDictionary(_ modifiedDictionary: (PurchasableQuantitiesDictionary) -> PurchasableQuantitiesDictionary) throws {
 		guard let dictionary = (try? getPurchasableQuantities())?.toDictionary()
 			else { return }
 		try store(modifiedDictionary(dictionary))
 	}
 	
-	func set(_ purchaseable: Purchaseable, toQuantity quantity: Int) throws {
-		do { try storeModifiedStoredOrCreatedPurchaseableQuantitiesDictionary { $0.settingAndRemovingNonPositiveValued(AnyHashableProtocol(purchaseable), to: quantity) } }
+	func set(_ purchasable: Purchasable, toQuantity quantity: Int) throws {
+		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.settingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), to: quantity) } }
 		catch { throw error }
 	}
 	
-	func add(_ purchaseable: Purchaseable, quantity: Int = 1) throws {
-		do { try storeModifiedStoredOrCreatedPurchaseableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchaseable), toInitialValue: quantity, orIncrementingBy: quantity) } }
+	func add(_ purchasable: Purchasable, quantity: Int = 1) throws {
+		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
 		catch { throw error }
     }
 	
-	func remove(_ purchaseable: Purchaseable, quantity: Int) throws {
-		do { try storeModifiedStoredPurchaseableQuantitiesDictionary { $0.decrementingAndRemovingNonPositiveValued(AnyHashableProtocol(purchaseable), by: quantity) } }
+	func remove(_ purchasable: Purchasable, quantity: Int) throws {
+		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.decrementingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), by: quantity) } }
 		catch { throw error }
 	}
 	
-	func remove(_ purchaseable: Purchaseable) throws {
+	func remove(_ purchasable: Purchasable) throws {
 		do {
-			try storeModifiedStoredPurchaseableQuantitiesDictionary {
+			try storeModifiedStoredPurchasableQuantitiesDictionary {
 				var dictionary = $0
-				dictionary[AnyHashableProtocol(purchaseable)] = nil
+				dictionary[AnyHashableProtocol(purchasable)] = nil
 				return dictionary
 			}
 		} catch { throw error }
@@ -86,13 +86,13 @@ extension BagModelController {
 	}
 	
 	func clearAll() {
-		userDefaults.removeObject(forKey: Constants.purchaseableQuantitiesKey)
+		userDefaults.removeObject(forKey: Constants.purchasableQuantitiesKey)
 	}
 }
 
-private extension Array where Element == PurchaseableQuantity {
-	func toDictionary() -> BagModelController.PurchaseableQuantitiesDictionary {
-		return BagModelController.PurchaseableQuantitiesDictionary(uniqueKeysWithValues: map { (AnyHashableProtocol($0.purchaseable), $0.quantity) })
+private extension Array where Element == PurchasableQuantity {
+	func toDictionary() -> BagModelController.PurchasableQuantitiesDictionary {
+		return BagModelController.PurchasableQuantitiesDictionary(uniqueKeysWithValues: map { (AnyHashableProtocol($0.purchasable), $0.quantity) })
 	}
 }
 

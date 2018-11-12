@@ -9,7 +9,7 @@
 import UIKit
 
 struct AddBagViewModelParcel {
-	let itemedPurchaseable: ItemedPurchaseable
+	let itemedPurchasable: ItemedPurchasable
 }
 
 class AddBagViewModel {
@@ -17,15 +17,15 @@ class AddBagViewModel {
 	
 	let bagModelController = BagModelController()
 	
-	var itemedPurchaseable: ItemedPurchaseable { return parcel.itemedPurchaseable }
+	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
 	
 	var foodViewModelParcel: ItemsViewModelParcel {
-		return ItemsViewModelParcel(itemedPurchaseable: parcel.itemedPurchaseable)
+		return ItemsViewModelParcel(itemedPurchasable: parcel.itemedPurchasable)
 	}
 	
 	init(_ parcel: AddBagViewModelParcel) {
 		self.parcel = parcel
 	}
 	
-	func add() throws { try bagModelController.add(itemedPurchaseable) }
+	func add() throws { try bagModelController.add(itemedPurchasable) }
 }

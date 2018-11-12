@@ -14,7 +14,7 @@ enum HomeViewState {
 
 private struct HomeItem {
 	let title: String
-	let purchaseableType: Purchaseable.Type
+	let purchasableType: Purchasable.Type
 }
 
 protocol HomeViewModelViewDelegate {
@@ -30,7 +30,7 @@ class HomeViewModel {
 	
 	// MARK: - Data
 	private let homeItems: [HomeItem] = [
-		HomeItem(title: "Salad", purchaseableType: Salad.self)
+		HomeItem(title: "Salad", purchasableType: Salad.self)
 	]
 	
 	private var sections: [HomeCollectionViewSection] {
@@ -96,16 +96,16 @@ class HomeViewModel {
     }
 	
 	func itemsViewModelParcel(for indexPath: IndexPath) -> BuilderViewModelParcel? {
-		let purchaseableType = homeItems[indexPath.section].purchaseableType
+		let purchasableType = homeItems[indexPath.section].purchasableType
 		guard currentViewState.value == .home,
-			let itemedPurchaseableType = purchaseableType as? ItemedPurchaseable.Type,
-			let itemsFetchableType = purchaseableType as? ItemsFetchable.Type,
-			let itemedPurchaseableBuildableType = purchaseableType as? ItemedPurchaseableBuildable.Type
+			let itemedPurchasableType = purchasableType as? ItemedPurchasable.Type,
+			let itemsFetchableType = purchasableType as? ItemsFetchable.Type,
+			let itemedPurchasableBuildableType = purchasableType as? ItemedPurchasableBuildable.Type
 			else { return nil }
 		return BuilderViewModelParcel(
-			categories: itemedPurchaseableType.allItemCategories,
+			categories: itemedPurchasableType.allItemCategories,
 			fetcher: itemsFetchableType.fetcher,
-			builder: itemedPurchaseableBuildableType.builder.init()
+			builder: itemedPurchasableBuildableType.builder.init()
 		)
 	}
 }

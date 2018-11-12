@@ -1,5 +1,5 @@
 //
-//  ItemedPurchaseableBuilder.swift
+//  ItemedPurchasableBuilder.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/31/18.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-protocol ItemedPurchaseableBuildable {
-	static var builder: ItemedPurchaseableBuilder.Type { get }
+protocol ItemedPurchasableBuildable {
+	static var builder: ItemedPurchasableBuilder.Type { get }
 }
 
-protocol ItemedPurchaseableBuilder {
+protocol ItemedPurchasableBuilder {
 	mutating func toggle(_ item: Item, with modifier: Modifier?) throws
-	mutating func toggleExisting(in itemedPurchaseable: ItemedPurchaseable) throws
-	func build() throws -> ItemedPurchaseable
+	mutating func toggleExisting(in itemedPurchasable: ItemedPurchasable) throws
+	func build() throws -> ItemedPurchasable
 	init()
 }
 
-extension ItemedPurchaseableBuilder {
-	mutating func toggleExisting(in itemedPurchaseable: ItemedPurchaseable) throws {
-		for category in type(of: itemedPurchaseable).allItemCategories {
+extension ItemedPurchasableBuilder {
+	mutating func toggleExisting(in itemedPurchasable: ItemedPurchasable) throws {
+		for category in type(of: itemedPurchasable).allItemCategories {
 			// FIXME: Handle modifiers
-			try itemedPurchaseable.items(for: category).forEach { try toggle($0, with: nil) }
+			try itemedPurchasable.items(for: category).forEach { try toggle($0, with: nil) }
 		}
 	}
 }

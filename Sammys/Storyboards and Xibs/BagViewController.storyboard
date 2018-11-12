@@ -24,7 +24,7 @@
                                 <color key="backgroundColor" name="Almond"/>
                                 <color key="separatorColor" name="Sand"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="purchaseableCell" rowHeight="160" id="sXJ-hh-3l4" customClass="BagPurchaseableTableViewCell" customModule="Sammys" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="purchasableCell" rowHeight="160" id="sXJ-hh-3l4" customClass="BagPurchasableTableViewCell" customModule="Sammys" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sXJ-hh-3l4" id="Gm4-4L-j07">
@@ -137,7 +137,7 @@
                                         <connections>
                                             <outlet property="descriptionLabel" destination="YxK-pR-X1K" id="KbI-x7-Cwm"/>
                                             <outlet property="priceLabel" destination="P7W-Y9-Lcd" id="K4R-97-c8o"/>
-                                            <outlet property="purchaseableImageView" destination="3th-XY-wtv" id="Sxx-SF-UuX"/>
+                                            <outlet property="purchasableImageView" destination="3th-XY-wtv" id="Sxx-SF-UuX"/>
                                             <outlet property="quantityTextField" destination="Oee-49-bi8" id="z5l-wn-5rL"/>
                                             <outlet property="titleLabel" destination="OGS-5y-QFx" id="lQt-yL-fNw"/>
                                         </connections>

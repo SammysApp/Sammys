@@ -17,21 +17,21 @@ protocol BagViewModelViewDelegate {
 }
 
 class BagViewModel {
-	typealias Section = TableViewSection<BagPurchaseableTableViewCellViewModel>
+	typealias Section = TableViewSection<BagPurchasableTableViewCellViewModel>
 	
 	private let viewDelegate: BagViewModelViewDelegate
-	var bagPurchaseableTableViewCellDelegate: BagPurchaseableTableViewCellDelegate?
+	var bagPurchasableTableViewCellDelegate: BagPurchasableTableViewCellDelegate?
 	
 	private let bagModelController = BagModelController()
-	private var purchaseableQuantities: [PurchaseableQuantity] {
+	private var purchasableQuantities: [PurchasableQuantity] {
 		do { return try bagModelController.getPurchasableQuantities() }
 		catch { print(error); return [] }
 	}
 	
 	private var sections: [Section] {
 		return [
-			Section(cellViewModels: purchaseableQuantities
-				.map { BagPurchaseableTableViewCellViewModelFactory(purchaseableQuantity: $0, height: viewDelegate.cellHeight(), delegate: bagPurchaseableTableViewCellDelegate).create() }
+			Section(cellViewModels: purchasableQuantities
+				.map { BagPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, height: viewDelegate.cellHeight(), delegate: bagPurchasableTableViewCellDelegate).create() }
 			)
 		]
 	}
@@ -51,33 +51,33 @@ class BagViewModel {
 	}
 	
 	func set(toQuantity quantity: Int, at indexPath: IndexPath) throws {
-		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
 			else { throw BagViewModelError.badCellViewModelIndexPath }
-		try bagModelController.set(purchaseable, toQuantity: quantity)
+		try bagModelController.set(purchasable, toQuantity: quantity)
 	}
 	
 	func incrementQuantity(at indexPath: IndexPath) throws {
-		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
 			else { throw BagViewModelError.badCellViewModelIndexPath }
-		try bagModelController.add(purchaseable)
+		try bagModelController.add(purchasable)
 	}
 	
 	func decrementQuantity(at indexPath: IndexPath) throws {
-		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
 			else { throw BagViewModelError.badCellViewModelIndexPath }
-		try bagModelController.remove(purchaseable, quantity: 1)
+		try bagModelController.remove(purchasable, quantity: 1)
 	}
 	
 	func delete(at indexPath: IndexPath) throws {
-		guard let purchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable
+		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
 			else { throw BagViewModelError.badCellViewModelIndexPath }
-		try bagModelController.remove(purchaseable)
+		try bagModelController.remove(purchasable)
 	}
 	
 	func clear() { bagModelController.clearAll() }
 	
 	func foodViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel? {
-		guard let itemedPurchaseable = cellViewModel(for: indexPath)?.purchaseableQuantity.purchaseable as? ItemedPurchaseable else { return nil }
-		return ItemsViewModelParcel(itemedPurchaseable: itemedPurchaseable)
+		guard let itemedPurchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable as? ItemedPurchasable else { return nil }
+		return ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
 	}
 }
