@@ -1,5 +1,5 @@
 //
-//  FoodViewController.swift
+//  ItemsViewController.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/21/18.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-protocol FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable)
+protocol ItemsViewControllerDelegate {
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable)
 }
 
-class FoodViewController: UIViewController {
+class ItemsViewController: UIViewController {
 	/// Must be set for use by the view model.
-	var viewModelParcel: FoodViewModelParcel!
-	var viewModel: FoodViewModel!
+	var viewModelParcel: ItemsViewModelParcel!
+	var viewModel: ItemsViewModel!
 	
-	var delegate: FoodViewControllerDelegate?
+	var delegate: ItemsViewControllerDelegate?
 	
 	private var supplementaryViewIndexPaths = [UICollectionReusableView : IndexPath]()
 	
@@ -36,7 +36,7 @@ class FoodViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		viewModel = FoodViewModel(viewModelParcel, viewDelegate: self)
+		viewModel = ItemsViewModel(viewModelParcel, viewDelegate: self)
 		
 		setupViews()
 	}
@@ -47,8 +47,8 @@ class FoodViewController: UIViewController {
 	}
 	
 	func setupCollectionView() {
-		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: FoodViewModel.ItemCellIdentifier.itemCell.rawValue)
-		collectionView.register(FoodCollectionViewSectionHeaderView.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier)
+		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue)
+		collectionView.register(ItemsCollectionViewSectionHeaderView.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier)
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		(collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: collectionView.frame.width, height: Constants.collectionViewHeaderHeight)
@@ -56,10 +56,10 @@ class FoodViewController: UIViewController {
 }
 
 // MARK: - Storyboardable
-extension FoodViewController: Storyboardable {}
+extension ItemsViewController: Storyboardable {}
 
 // MARK: - UICollectionViewDataSource
-extension FoodViewController: UICollectionViewDataSource {
+extension ItemsViewController: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
 		return viewModel.numberOfSections
 	}
@@ -79,7 +79,7 @@ extension FoodViewController: UICollectionViewDataSource {
 		var view = UICollectionReusableView()
 		switch kind {
 		case UICollectionElementKindSectionHeader:
-			guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier, for: indexPath) as? FoodCollectionViewSectionHeaderView else { break }
+			guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier, for: indexPath) as? ItemsCollectionViewSectionHeaderView else { break }
 			sectionHeader.delegate = self
 			sectionHeader.titleLabel.text = viewModel.itemCategory(forSection: indexPath.section).name
 			view = sectionHeader
@@ -93,15 +93,15 @@ extension FoodViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension FoodViewController: UICollectionViewDelegateFlowLayout {
+extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
 }
 
-// MARK: - FoodViewModelViewDelegate
-extension FoodViewController: FoodViewModelViewDelegate {
+// MARK: - ItemsViewModelViewDelegate
+extension ItemsViewController: ItemsViewModelViewDelegate {
 	func cellWidth() -> Double {
 		let totalCellsWidth = collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right)
 		guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return Double(totalCellsWidth) / Double(Constants.collectionViewNumberOfItemsPerRow) }
@@ -110,11 +110,11 @@ extension FoodViewController: FoodViewModelViewDelegate {
 	func cellHeight() -> Double { return cellWidth() }
 }
 
-// MARK: - FoodCollectionViewSectionHeaderViewDelegate
-extension FoodViewController: FoodCollectionViewSectionHeaderViewDelegate {
-	func foodCollectionViewSectionHeaderView(_ foodCollectionViewSectionHeaderView: FoodCollectionViewSectionHeaderView, didTapEdit editButton: UIButton) {
-		guard let section = supplementaryViewIndexPaths[foodCollectionViewSectionHeaderView]?.section else { return }
+// MARK: - ItemsCollectionViewSectionHeaderViewDelegate
+extension ItemsViewController: ItemsCollectionViewSectionHeaderViewDelegate {
+	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEdit editButton: UIButton) {
+		guard let section = supplementaryViewIndexPaths[itemsCollectionViewSectionHeaderView]?.section else { return }
 		let itemCategory = viewModel.itemCategory(forSection: section)
-		delegate?.foodViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchaseable)
+		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchaseable)
 	}
 }

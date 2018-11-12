@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddFoodViewControllerDelegate: FoodViewControllerDelegate {
+protocol AddFoodViewControllerDelegate: ItemsViewControllerDelegate {
 	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable)
 	func addFoodViewControllerDidCancel(_ addFoodViewController: AddFoodViewController)
 }
@@ -19,8 +19,8 @@ class AddFoodViewController: UIViewController {
 	
 	var delegate: AddFoodViewControllerDelegate?
 	
-	lazy var foodViewController: FoodViewController = {
-		let foodViewController = FoodViewController.storyboardInstance()
+	lazy var foodViewController: ItemsViewController = {
+		let foodViewController = ItemsViewController.storyboardInstance()
 		foodViewController.viewModelParcel = viewModel.foodViewModelParcel
 		foodViewController.delegate = delegate
 		return foodViewController

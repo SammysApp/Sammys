@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension FoodViewModel {
+extension ItemsViewModel {
 	enum ItemCellIdentifier: String {
 		case itemCell
 	}

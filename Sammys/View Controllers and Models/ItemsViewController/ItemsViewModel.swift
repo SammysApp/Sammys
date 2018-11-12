@@ -1,5 +1,5 @@
 //
-//  FoodViewModel.swift
+//  ItemsViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/28/18.
@@ -8,20 +8,20 @@
 
 import Foundation
 
-struct FoodViewModelParcel {
+struct ItemsViewModelParcel {
 	var itemedPurchaseable: ItemedPurchaseable
 }
 
-protocol FoodViewModelViewDelegate {
+protocol ItemsViewModelViewDelegate {
 	func cellWidth() -> Double
 	func cellHeight() -> Double
 }
 
-class FoodViewModel {
+class ItemsViewModel {
 	typealias Section = CollectionViewSection<DefaultCollectionViewCellViewModel>
 	
-	private let parcel: FoodViewModelParcel
-	private let viewDelegate: FoodViewModelViewDelegate
+	private let parcel: ItemsViewModelParcel
+	private let viewDelegate: ItemsViewModelViewDelegate
 	
 	var categorizedItems: [CategorizedItems] { return parcel.itemedPurchaseable.categorizedItems }
 	var sections: [Section] {
@@ -34,7 +34,7 @@ class FoodViewModel {
 	
 	var numberOfSections: Int { return sections.count }
 	
-	init(_ parcel: FoodViewModelParcel, viewDelegate: FoodViewModelViewDelegate) {
+	init(_ parcel: ItemsViewModelParcel, viewDelegate: ItemsViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

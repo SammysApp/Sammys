@@ -19,8 +19,8 @@ class AddFoodViewModel {
 	
 	var itemedPurchaseable: ItemedPurchaseable { return parcel.itemedPurchaseable }
 	
-	var foodViewModelParcel: FoodViewModelParcel {
-		return FoodViewModelParcel(itemedPurchaseable: parcel.itemedPurchaseable)
+	var foodViewModelParcel: ItemsViewModelParcel {
+		return ItemsViewModelParcel(itemedPurchaseable: parcel.itemedPurchaseable)
 	}
 	
 	init(_ parcel: AddFoodViewModelParcel) {

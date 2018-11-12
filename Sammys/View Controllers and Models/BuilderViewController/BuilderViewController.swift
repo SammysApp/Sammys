@@ -272,10 +272,10 @@ extension BuilderViewController: AddFoodViewControllerDelegate {
 	}
 }
 
-// MARK: - FoodViewControllerDelegate
-extension BuilderViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
-		foodViewController.dismiss(animated: true, completion: nil)
+// MARK: - ItemsViewControllerDelegate
+extension BuilderViewController: ItemsViewControllerDelegate {
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
+		itemsViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}
 }

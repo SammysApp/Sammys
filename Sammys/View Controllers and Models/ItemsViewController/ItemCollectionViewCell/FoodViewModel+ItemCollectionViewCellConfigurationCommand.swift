@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension FoodViewModel {
+extension ItemsViewModel {
 	struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
 		let foodItem: Item
 		

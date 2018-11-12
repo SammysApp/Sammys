@@ -57,9 +57,9 @@ class BagViewController: UIViewController {
 		catch { print(error) }
 	}
 	
-	func foodViewController(for indexPath: IndexPath) -> FoodViewController? {
+	func foodViewController(for indexPath: IndexPath) -> ItemsViewController? {
 		guard let viewModelParcel = viewModel.foodViewModelParcel(for: indexPath) else { return nil }
-		let foodViewController = FoodViewController.storyboardInstance()
+		let foodViewController = ItemsViewController.storyboardInstance()
 		foodViewController.viewModelParcel = viewModelParcel
 		foodViewController.delegate = self
 		return foodViewController
@@ -153,8 +153,8 @@ extension BagViewController: BagPurchaseableTableViewCellDelegate {
 	}
 }
 
-// MARK - FoodViewControllerDelegate
-extension BagViewController: FoodViewControllerDelegate {
-	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
+// MARK - ItemsViewControllerDelegate
+extension BagViewController: ItemsViewControllerDelegate {
+	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
 	}
 }
