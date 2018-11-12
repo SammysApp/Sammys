@@ -95,14 +95,14 @@ class HomeViewModel {
         return sections[section].title
     }
 	
-	func itemsViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel? {
+	func itemsViewModelParcel(for indexPath: IndexPath) -> BuilderViewModelParcel? {
 		let purchaseableType = homeItems[indexPath.section].purchaseableType
 		guard currentViewState.value == .home,
 			let itemedPurchaseableType = purchaseableType as? ItemedPurchaseable.Type,
 			let itemsFetchableType = purchaseableType as? ItemsFetchable.Type,
 			let itemedPurchaseableBuildableType = purchaseableType as? ItemedPurchaseableBuildable.Type
 			else { return nil }
-		return ItemsViewModelParcel(
+		return BuilderViewModelParcel(
 			categories: itemedPurchaseableType.allItemCategories,
 			fetcher: itemsFetchableType.fetcher,
 			builder: itemedPurchaseableBuildableType.builder.init()

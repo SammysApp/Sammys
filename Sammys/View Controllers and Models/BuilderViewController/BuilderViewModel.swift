@@ -1,5 +1,5 @@
 //
-//  ItemsViewModel.swift
+//  BuilderViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/22/18.
@@ -9,26 +9,26 @@
 import Foundation
 import PromiseKit
 
-enum ItemsViewModelError: Error {
+enum BuilderViewModelError: Error {
 	case nonAdjustable
 }
 
-struct ItemsViewModelParcel {
+struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
 	let fetcher: ItemsFetcher.Type
 	var builder: ItemedPurchaseableBuilder
 }
 
-protocol ItemsViewModelViewDelegate {
+protocol BuilderViewModelViewDelegate {
 	func cellWidth() -> Double
 	func cellHeight() -> Double
 }
 
-class ItemsViewModel {
+class BuilderViewModel {
 	typealias Section = CollectionViewSection<ItemCollectionViewCellViewModel>
 	
-	private let viewDelegate: ItemsViewModelViewDelegate
-	private var parcel: ItemsViewModelParcel
+	private let viewDelegate: BuilderViewModelViewDelegate
+	private var parcel: BuilderViewModelParcel
 	
 	private(set) var itemCategory: Dynamic<ItemCategory>
 	
@@ -51,7 +51,7 @@ class ItemsViewModel {
 	
 	var numberOfSections: Int { return sections.value.count }
 	
-	init(viewDelegate: ItemsViewModelViewDelegate, parcel: ItemsViewModelParcel) {
+	init(viewDelegate: BuilderViewModelViewDelegate, parcel: BuilderViewModelParcel) {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
 		
@@ -74,7 +74,7 @@ class ItemsViewModel {
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
 		guard let currentIndex = currentItemCategoryIndex,
 		let adjustedItemCategory = parcel.categories[safe: currentIndex + indexValue]
-			else { throw ItemsViewModelError.nonAdjustable }
+			else { throw BuilderViewModelError.nonAdjustable }
 		itemCategory.value = adjustedItemCategory
 	}
 	

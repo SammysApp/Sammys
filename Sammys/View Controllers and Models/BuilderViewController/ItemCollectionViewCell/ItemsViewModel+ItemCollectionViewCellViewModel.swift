@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension ItemsViewModel {
+extension BuilderViewModel {
 	struct ItemCollectionViewCellViewModel: CollectionViewCellViewModel {
 		let foodItem: Item
 		let identifier: String

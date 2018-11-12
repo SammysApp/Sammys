@@ -1,5 +1,5 @@
 //
-//  ItemsViewController.swift
+//  BuilderViewController.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/4/18.
@@ -7,30 +7,29 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
 
-enum ItemsViewLayoutState {
+enum BuilderViewLayoutState {
 	case horizontal, vertical
 }
 
-protocol ItemsViewLayoutStateSpecifier {
-	var state: ItemsViewLayoutState { get }
+protocol BuilderViewLayoutStateSpecifier {
+	var state: BuilderViewLayoutState { get }
 }
 
-class ItemsViewController: UIViewController {
-	typealias CellViewModel = ItemsViewModel.Section.CellViewModel
+class BuilderViewController: UIViewController {
+	typealias CellViewModel = BuilderViewModel.Section.CellViewModel
 	
 	/// Must be set for use by the view model.
-	var viewModelParcel: ItemsViewModelParcel!
-	private var viewModel: ItemsViewModel!
+	var viewModelParcel: BuilderViewModelParcel!
+	private var viewModel: BuilderViewModel!
 	
-	let defaultViewLayoutState = ItemsViewLayoutState.horizontal
+	let defaultViewLayoutState = BuilderViewLayoutState.horizontal
 	let animatedCardCollectionViewLayout = AnimatedCollectionViewLayout()
 	let flowCollectionViewLayout = UICollectionViewFlowLayout()
 	let modifierViewEffect = UIBlurEffect(style: .dark)
 	
-	var currentViewLayoutState: ItemsViewLayoutState {
-		guard let stateSpecifier = viewModel.itemCategory.value as? ItemsViewLayoutStateSpecifier else { return defaultViewLayoutState }
+	var currentViewLayoutState: BuilderViewLayoutState {
+		guard let stateSpecifier = viewModel.itemCategory.value as? BuilderViewLayoutStateSpecifier else { return defaultViewLayoutState }
 		return stateSpecifier.state
 	}
 
@@ -51,8 +50,6 @@ class ItemsViewController: UIViewController {
 	
     @IBOutlet var modifierView: UIVisualEffectView!
     @IBOutlet var modifierCollectionView: ModifierCollectionView!
-	
-    @IBOutlet var activityIndicatorView: NVActivityIndicatorView!
 
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -74,7 +71,7 @@ class ItemsViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel = ItemsViewModel(viewDelegate: self, parcel: viewModelParcel)
+		viewModel = BuilderViewModel(viewDelegate: self, parcel: viewModelParcel)
 		
 		setupViews()
 		
@@ -100,7 +97,7 @@ class ItemsViewController: UIViewController {
 	}
 	
 	func setupCollectionView() {
-		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue)
+		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: BuilderViewModel.ItemCellIdentifier.itemCell.rawValue)
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 	}
@@ -123,7 +120,7 @@ class ItemsViewController: UIViewController {
 	}
 	
 	// MARK: - Update
-	func updateCollectionView(for state: ItemsViewLayoutState) {
+	func updateCollectionView(for state: BuilderViewLayoutState) {
         switch state {
         case .horizontal:
             collectionView.alwaysBounceHorizontal = true
@@ -144,7 +141,7 @@ class ItemsViewController: UIViewController {
     }
 	
 	// MARK: - Methods
-	func changeViewLayout(for state: ItemsViewLayoutState) {
+	func changeViewLayout(for state: BuilderViewLayoutState) {
 		itemDetailsStackView.isHidden = state == .vertical
 		updateCollectionView(for: state)
 	}
@@ -162,7 +159,7 @@ class ItemsViewController: UIViewController {
 	func didChangeItemCategory(with itemCategory: ItemCategory) {
 		viewModel.setupData(for: itemCategory).catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
-		if let stateSpecifier = itemCategory as? ItemsViewLayoutStateSpecifier {
+		if let stateSpecifier = itemCategory as? BuilderViewLayoutStateSpecifier {
 			changeViewLayout(for: stateSpecifier.state)
 		} else { changeViewLayout(for: defaultViewLayoutState) }
 	}
@@ -205,10 +202,10 @@ class ItemsViewController: UIViewController {
 }
 
 // MARK: - Storyboardable
-extension ItemsViewController: Storyboardable {}
+extension BuilderViewController: Storyboardable {}
 
-// MARK: - ItemsViewModelViewDelegate
-extension ItemsViewController: ItemsViewModelViewDelegate {
+// MARK: - BuilderViewModelViewDelegate
+extension BuilderViewController: BuilderViewModelViewDelegate {
 	func cellWidth() -> Double {
 		switch currentViewLayoutState {
 		case .horizontal: return Double(collectionView.frame.width)
@@ -225,7 +222,7 @@ extension ItemsViewController: ItemsViewModelViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ItemsViewController: UICollectionViewDataSource {
+extension BuilderViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.numberOfSections
     }
@@ -243,7 +240,7 @@ extension ItemsViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ItemsViewController: UICollectionViewDelegateFlowLayout {
+extension BuilderViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		didSelect(cellViewModel)
@@ -267,7 +264,7 @@ extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - AddFoodViewControllerDelegate
-extension ItemsViewController: AddFoodViewControllerDelegate {
+extension BuilderViewController: AddFoodViewControllerDelegate {
 	func addFoodViewController(_ addFoodViewController: AddFoodViewController, didAddItemedPurchaseable itemedPurchaseable: ItemedPurchaseable) {
 		addFoodViewController.dismiss(animated: true) {
 			self.navigationController?.popViewController(animated: true)
@@ -276,16 +273,16 @@ extension ItemsViewController: AddFoodViewControllerDelegate {
 }
 
 // MARK: - FoodViewControllerDelegate
-extension ItemsViewController: FoodViewControllerDelegate {
+extension BuilderViewController: FoodViewControllerDelegate {
 	func foodViewController(_ foodViewController: FoodViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchaseable: ItemedPurchaseable) {
 		foodViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
 	}
 }
 
-// MARK: - SaladFoodItemCategory+ItemsViewLayoutStateSpecifier
-extension SaladItemCategory: ItemsViewLayoutStateSpecifier {
-	var state: ItemsViewLayoutState {
+// MARK: - SaladItemCategory+BuilderViewLayoutStateSpecifier
+extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
+	var state: BuilderViewLayoutState {
 		switch self {
 		case .size, .lettuce: return .horizontal
 		default: return .vertical

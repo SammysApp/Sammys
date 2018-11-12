@@ -131,7 +131,7 @@ class HomeViewController: UIViewController {
 		switch viewModel.currentViewState.value {
 		case .home:
 			guard let viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath) else { return }
-			let itemsViewController = ItemsViewController.storyboardInstance()
+			let itemsViewController = BuilderViewController.storyboardInstance()
 			itemsViewController.viewModelParcel = viewModelParcel
 			navigationController?.pushViewController(itemsViewController, animated: true)
 		case .faves: break
