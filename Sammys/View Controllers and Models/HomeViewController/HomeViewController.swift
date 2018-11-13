@@ -130,10 +130,10 @@ class HomeViewController: UIViewController {
     func didSelectItem(at indexPath: IndexPath) {
 		switch viewModel.currentViewState.value {
 		case .home:
-			guard let viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath) else { return }
-			let itemsViewController = BuilderViewController.storyboardInstance()
-			itemsViewController.viewModelParcel = viewModelParcel
-			navigationController?.pushViewController(itemsViewController, animated: true)
+			guard let viewModelParcel = viewModel.builderViewModelParcel(for: indexPath) else { return }
+			let builderViewController = BuilderViewController.storyboardInstance()
+			builderViewController.viewModelParcel = viewModelParcel
+			navigationController?.pushViewController(builderViewController, animated: true)
 		case .faves: break
 		}
 	}

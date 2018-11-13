@@ -19,11 +19,11 @@ class AddBagViewController: UIViewController {
 	
 	var delegate: AddBagViewControllerDelegate?
 	
-	lazy var foodViewController: ItemsViewController = {
-		let foodViewController = ItemsViewController.storyboardInstance()
-		foodViewController.viewModelParcel = viewModel.foodViewModelParcel
-		foodViewController.delegate = delegate
-		return foodViewController
+	lazy var itemsViewController: ItemsViewController = {
+		let itemsViewController = ItemsViewController.storyboardInstance()
+		itemsViewController.viewModelParcel = viewModel.foodViewModelParcel
+		itemsViewController.delegate = delegate
+		return itemsViewController
 	}()
 
     // MARK: - IBOutlets
@@ -49,15 +49,15 @@ class AddBagViewController: UIViewController {
 	
 	// MARK: - Setup
 	func setupViews() {
-		setupChildFoodViewController()
+		setupChildItemsViewController()
 		setupAddButton()
 	}
 	
-	func setupChildFoodViewController() {
-		add(asChildViewController: foodViewController)
-		foodViewController.view.translatesAutoresizingMaskIntoConstraints = false
-		foodViewController.view.fullViewConstraints(equalTo: view).activateAll()
-		view.sendSubview(toBack: foodViewController.view)
+	func setupChildItemsViewController() {
+		add(asChildViewController: itemsViewController)
+		itemsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+		itemsViewController.view.fullViewConstraints(equalTo: view).activateAll()
+		view.sendSubview(toBack: itemsViewController.view)
 	}
 	
 	func setupAddButton() {

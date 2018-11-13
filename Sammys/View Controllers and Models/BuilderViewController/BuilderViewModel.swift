@@ -15,7 +15,7 @@ enum BuilderViewModelError: Error {
 
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
-	let fetcher: ItemsFetcher.Type
+	let fetcher: ItemsFetcher
 	var builder: ItemedPurchasableBuilder
 }
 
@@ -99,11 +99,26 @@ class BuilderViewModel {
 		centerCellViewModel.value = sections.value[indexPath.section].cellViewModels[indexPath.item]
 	}
 	
-	func toggle(_ foodItem: Item, with modifier: Modifier? = nil) throws {
-		try parcel.builder.toggle(foodItem, with: modifier)
+	func toggle(_ item: Item) throws {
+		try parcel.builder.toggle(item)
 	}
 	
-	func addFoodViewModelParcel() throws -> AddBagViewModelParcel {
-		return AddBagViewModelParcel(itemedPurchasable: try parcel.builder.build())
+	func build() throws -> ItemedPurchasable { return try parcel.builder.build() }
+	
+	func addBagViewModelParcel() throws -> AddBagViewModelParcel {
+		return AddBagViewModelParcel(itemedPurchasable: try build())
+	}
+}
+
+extension BuilderViewModelParcel {
+	static func instance(for itemedPurchasableType: ItemedPurchasable.Type) -> BuilderViewModelParcel? {
+		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
+			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
+			else { return nil }
+		return BuilderViewModelParcel(
+			categories: itemedPurchasableType.allItemCategories,
+			fetcher: itemsFetchableType.fetcher,
+			builder: itemedPurchasableBuildableType.builder
+		)
 	}
 }

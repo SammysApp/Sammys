@@ -104,16 +104,6 @@
                                 <color key="textColor" name="Snow"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a2q-fC-6Lk" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="137.66666666666666" y="356" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="1kA-mo-BXM"/>
-                                    <constraint firstAttribute="width" constant="100" id="XaZ-Hu-Ed9"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScaleMultiple"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G32-jb-Vzc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dqG-S4-dgl">
@@ -201,7 +191,6 @@
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="15" id="TQ3-aD-Zrv"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HYP-bL-OLD" secondAttribute="trailing" constant="10" id="V7f-8N-ITs"/>
-                            <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="VZb-FJ-ygy"/>
                             <constraint firstAttribute="bottom" secondItem="SoD-Da-FXx" secondAttribute="bottom" id="Wnh-kG-ijK"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAC-WD-Mh4"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="bNd-uz-DVx"/>
@@ -210,14 +199,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dUb-Ux-Q8N" secondAttribute="trailing" constant="30" id="jDa-MM-Sbq"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L0K-Q8-L7Q" secondAttribute="trailing" constant="10" id="rMq-dW-mE1"/>
                             <constraint firstItem="L0K-Q8-L7Q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uUX-uu-a8u"/>
-                            <constraint firstItem="a2q-fC-6Lk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wn0-wd-v6Q"/>
                             <constraint firstItem="PXz-KP-Ocg" firstAttribute="centerY" secondItem="L0K-Q8-L7Q" secondAttribute="centerY" id="yu7-5n-x4N"/>
                             <constraint firstItem="tAz-oX-kCZ" firstAttribute="firstBaseline" secondItem="CoT-jF-u6a" secondAttribute="baseline" id="yuE-bb-coo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="a2q-fC-6Lk" id="47O-4X-0gc"/>
                         <outlet property="backButton" destination="tAz-oX-kCZ" id="eMq-Ua-dty"/>
                         <outlet property="collectionView" destination="SoD-Da-FXx" id="v3K-8j-Wkb"/>
                         <outlet property="finishButton" destination="PXz-KP-Ocg" id="brf-HJ-KaD"/>

@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol BuilderViewControllerDelegate {
+	/// Shows `AddBagViewController` by default.
+	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable)
+}
+
 enum BuilderViewLayoutState {
 	case horizontal, vertical
 }
@@ -22,6 +27,8 @@ class BuilderViewController: UIViewController {
 	/// Must be set for use by the view model.
 	var viewModelParcel: BuilderViewModelParcel!
 	private var viewModel: BuilderViewModel!
+	
+	var delegate: BuilderViewControllerDelegate?
 	
 	let defaultViewLayoutState = BuilderViewLayoutState.horizontal
 	let animatedCardCollectionViewLayout = AnimatedCollectionViewLayout()
@@ -176,18 +183,20 @@ class BuilderViewController: UIViewController {
 		catch { print(error) }
 	}
 	
-	func presentAddFoodViewController() throws {
-		let addFoodViewController = AddBagViewController.storyboardInstance()
-		addFoodViewController.viewModelParcel = try viewModel.addFoodViewModelParcel()
-		addFoodViewController.delegate = self
-		present(UINavigationController(rootViewController: addFoodViewController), animated: true, completion: nil)
+	func presentAddBagViewController() throws {
+		let addBagViewController = AddBagViewController.storyboardInstance()
+		addBagViewController.viewModelParcel = try viewModel.addBagViewModelParcel()
+		addBagViewController.delegate = self
+		present(UINavigationController(rootViewController: addBagViewController), animated: true, completion: nil)
 	}
 
     // MARK: - IBActions
     @IBAction func didTapNext(_ sender: UIButton) {
 		do {
-			if viewModel.isAtLastItemCategory { try presentAddFoodViewController() }
-			else { try viewModel.incrementItemCategory() }
+			if viewModel.isAtLastItemCategory {
+				if delegate == nil { try presentAddBagViewController() }
+				else { delegate?.builderViewController(self, didFinishBuilding: try viewModel.build()) }
+			} else { try viewModel.incrementItemCategory() }
 		} catch { print(error) }
     }
 
@@ -277,6 +286,13 @@ extension BuilderViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
 		itemsViewController.dismiss(animated: true, completion: nil)
 		viewModel.set(to: itemCategory)
+	}
+}
+
+extension BuilderViewControllerDelegate {
+	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
+		do { return try builderViewController.presentAddBagViewController() }
+		catch { print(error) }
 	}
 }
 

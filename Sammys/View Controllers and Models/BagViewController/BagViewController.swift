@@ -153,8 +153,23 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 	}
 }
 
-// MARK - ItemsViewControllerDelegate
+// MARK: - ItemsViewControllerDelegate
 extension BagViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
+		let builderViewController = BuilderViewController.storyboardInstance()
+		builderViewController.viewModelParcel = BuilderViewModelParcel.instance(for: type(of: itemedPurchasable))
+		do { try builderViewController.viewModelParcel.builder.toggleExisting(from: itemedPurchasable) } catch { print(error); return }
+		builderViewController.delegate = self
+		itemsViewController.present(builderViewController, animated: true, completion: nil)
+	}
+}
+
+// MARK: - BuilderViewControllerDelegate
+extension BagViewController: BuilderViewControllerDelegate {
+	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
+		if let itemsViewController = (builderViewController.presentingViewController as? UINavigationController)?.topViewController as? ItemsViewController {
+			itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
+			builderViewController.dismiss(animated: true, completion: nil)
+		}
 	}
 }

@@ -14,8 +14,10 @@ protocol ItemsViewControllerDelegate {
 
 class ItemsViewController: UIViewController {
 	/// Must be set for use by the view model.
-	var viewModelParcel: ItemsViewModelParcel!
-	var viewModel: ItemsViewModel!
+	var viewModelParcel: ItemsViewModelParcel! {
+		didSet { viewModel = ItemsViewModel(viewModelParcel, viewDelegate: self) }
+	}
+	var viewModel: ItemsViewModel! { didSet { reloadView() } }
 	
 	var delegate: ItemsViewControllerDelegate?
 	
@@ -36,9 +38,11 @@ class ItemsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		viewModel = ItemsViewModel(viewModelParcel, viewDelegate: self)
-		
 		setupViews()
+	}
+	
+	func reloadView() {
+		collectionView?.reloadData()
 	}
 	
 	// MARK: - Setup
