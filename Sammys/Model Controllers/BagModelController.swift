@@ -59,7 +59,7 @@ struct BagModelController {
 		catch { throw error }
 	}
 	
-	func add(_ purchasable: Purchasable, quantity: Int = 1) throws {
+	func add(_ purchasable: Purchasable, quantity: UInt = 1) throws {
 		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
 		catch { throw error }
     }
@@ -103,10 +103,10 @@ private extension Dictionary where Key == AnyHashableProtocol, Value == Int {
 		return dictionary
 	}
 	
-	func setting(_ key: AnyHashableProtocol, toInitialValue initialValue: Int, orIncrementingBy incrementValue: Int) -> [AnyHashableProtocol : Int] {
+	func setting(_ key: AnyHashableProtocol, toInitialValue initialValue: UInt, orIncrementingBy incrementValue: UInt) -> [AnyHashableProtocol : Int] {
 		var dictionary = self
-		if let currentValue = dictionary[key] { dictionary[key] = currentValue + incrementValue }
-		else { dictionary[key] = initialValue }
+		if let currentValue = dictionary[key] { dictionary[key] = currentValue + Int(incrementValue) }
+		else { dictionary[key] = Int(initialValue) }
 		return dictionary
 	}
 	
