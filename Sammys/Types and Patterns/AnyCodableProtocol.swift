@@ -1,5 +1,5 @@
 //
-//  AnyCodableFood.swift
+//  AnyCodableProtocol.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 10/19/18.

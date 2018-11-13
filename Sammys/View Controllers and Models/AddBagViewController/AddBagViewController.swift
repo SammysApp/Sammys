@@ -21,7 +21,7 @@ class AddBagViewController: UIViewController {
 	
 	lazy var itemsViewController: ItemsViewController = {
 		let itemsViewController = ItemsViewController.storyboardInstance()
-		itemsViewController.viewModelParcel = viewModel.foodViewModelParcel
+		itemsViewController.viewModelParcel = viewModel.itemsViewModelParcel
 		itemsViewController.delegate = delegate
 		return itemsViewController
 	}()

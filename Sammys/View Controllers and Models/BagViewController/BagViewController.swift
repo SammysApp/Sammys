@@ -60,7 +60,7 @@ class BagViewController: UIViewController {
 	}
 	
 	func itemsViewController(for indexPath: IndexPath) -> ItemsViewController? {
-		guard let viewModelParcel = viewModel.foodViewModelParcel(for: indexPath) else { return nil }
+		guard let viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath) else { return nil }
 		let itemsViewController = ItemsViewController.storyboardInstance()
 		itemsViewController.viewModelParcel = viewModelParcel
 		itemsViewController.delegate = self

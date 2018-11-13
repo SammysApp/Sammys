@@ -14,12 +14,12 @@ extension BuilderViewModel {
 	}
 
 	struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-		let foodItem: Item
+		let item: Item
 		let width: Double
 		let height: Double
 		
 		func create() -> ItemCollectionViewCellViewModel {
-			return ItemCollectionViewCellViewModel(foodItem: foodItem, identifier: ItemCellIdentifier.itemCell.rawValue, width: width, height: height, commands: [.configuration: ItemCollectionViewCellConfigurationCommand(foodItem: foodItem)])
+			return ItemCollectionViewCellViewModel(item: item, identifier: ItemCellIdentifier.itemCell.rawValue, width: width, height: height, commands: [.configuration: ItemCollectionViewCellConfigurationCommand(item: item)])
 		}
 	}
 }

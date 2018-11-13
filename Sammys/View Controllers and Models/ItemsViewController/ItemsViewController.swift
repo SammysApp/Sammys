@@ -27,7 +27,7 @@ class ItemsViewController: UIViewController {
 	@IBOutlet var collectionView: UICollectionView!
 	
 	struct Constants {
-		static let foodCollectionViewSectionHeaderViewReuseIdentifier = "foodCollectionViewSectionHeaderView"
+		static let itemsCollectionViewSectionHeaderViewReuseIdentifier = "itemsCollectionViewSectionHeaderView"
 		
 		static let collectionViewContentInset: CGFloat = 10
 		static let collectionViewNumberOfItemsPerRow = 2
@@ -52,7 +52,7 @@ class ItemsViewController: UIViewController {
 	
 	func setupCollectionView() {
 		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue)
-		collectionView.register(ItemsCollectionViewSectionHeaderView.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier)
+		collectionView.register(ItemsCollectionViewSectionHeaderView.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: Constants.itemsCollectionViewSectionHeaderViewReuseIdentifier)
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		(collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: collectionView.frame.width, height: Constants.collectionViewHeaderHeight)
@@ -83,7 +83,7 @@ extension ItemsViewController: UICollectionViewDataSource {
 		var view = UICollectionReusableView()
 		switch kind {
 		case UICollectionElementKindSectionHeader:
-			guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.foodCollectionViewSectionHeaderViewReuseIdentifier, for: indexPath) as? ItemsCollectionViewSectionHeaderView else { break }
+			guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.itemsCollectionViewSectionHeaderViewReuseIdentifier, for: indexPath) as? ItemsCollectionViewSectionHeaderView else { break }
 			sectionHeader.delegate = self
 			sectionHeader.titleLabel.text = viewModel.itemCategory(forSection: indexPath.section).name
 			view = sectionHeader

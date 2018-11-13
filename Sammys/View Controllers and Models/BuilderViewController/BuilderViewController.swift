@@ -172,14 +172,14 @@ class BuilderViewController: UIViewController {
 	}
 	
 	func didCenter(at cellViewModel: CellViewModel) {
-		itemNameLabel.text = cellViewModel.foodItem.name
-		if let pricedFoodItem = cellViewModel.foodItem as? PricedItem {
-			itemPriceLabel.text = "\(pricedFoodItem.price)"
+		itemNameLabel.text = cellViewModel.item.name
+		if let pricedItem = cellViewModel.item as? PricedItem {
+			itemPriceLabel.text = "\(pricedItem.price)"
 		}
 	}
 	
 	func didSelect(_ cellViewModel: CellViewModel) {
-		do { try viewModel.toggle(cellViewModel.foodItem) }
+		do { try viewModel.toggle(cellViewModel.item) }
 		catch { print(error) }
 	}
 	

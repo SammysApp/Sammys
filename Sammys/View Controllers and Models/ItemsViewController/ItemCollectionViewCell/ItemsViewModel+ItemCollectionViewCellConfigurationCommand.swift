@@ -10,7 +10,7 @@ import UIKit
 
 extension ItemsViewModel {
 	struct ItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
-		let foodItem: Item
+		let item: Item
 		
 		private struct Constants {
 			static let cornerRadius: CGFloat = 20
@@ -24,9 +24,9 @@ extension ItemsViewModel {
 			cell.backgroundColor = .black
 			
 			// Set data
-			cell.titleLabel.text = foodItem.name
-			if let pricedFoodItem = foodItem as? PricedItem {
-				cell.priceLabel.text = "$\(pricedFoodItem.price)"
+			cell.titleLabel.text = item.name
+			if let pricedItem = item as? PricedItem {
+				cell.priceLabel.text = "$\(pricedItem.price)"
 			}
 		}
 	}

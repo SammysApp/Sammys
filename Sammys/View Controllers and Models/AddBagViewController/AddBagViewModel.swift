@@ -19,7 +19,7 @@ class AddBagViewModel {
 	
 	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
 	
-	var foodViewModelParcel: ItemsViewModelParcel {
+	var itemsViewModelParcel: ItemsViewModelParcel {
 		return ItemsViewModelParcel(itemedPurchasable: parcel.itemedPurchasable)
 	}
 	

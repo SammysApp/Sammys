@@ -83,7 +83,7 @@ class BuilderViewModel {
 	
 	func sections(for items: [Item]) -> [Section] {
 		return [CollectionViewSection(
-			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(foodItem: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
+			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(item: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
 		)]
 	}
 	
