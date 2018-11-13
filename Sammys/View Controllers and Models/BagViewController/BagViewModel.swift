@@ -56,6 +56,12 @@ class BagViewModel {
 		try bagModelController.set(purchasable, toQuantity: quantity)
 	}
 	
+	func updatePurchasable(at indexPath: IndexPath, to newPurchasable: Purchasable) throws {
+		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
+			else { throw BagViewModelError.badCellViewModelIndexPath }
+		try bagModelController.update(purchasable, to: newPurchasable)
+	}
+	
 	func incrementQuantity(at indexPath: IndexPath) throws {
 		guard let purchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable
 			else { throw BagViewModelError.badCellViewModelIndexPath }

@@ -13,6 +13,8 @@ class BagViewController: UIViewController {
 	
 	lazy var paymentViewController = { return PaymentViewController.storyboardInstance() }()
 	
+	var lastSelectedIndexPath: IndexPath?
+	
     // MARK: - IBOutlets
 	@IBOutlet var tableView: UITableView!
 	@IBOutlet var paymentVisualEffectView: UIVisualEffectView!
@@ -57,12 +59,12 @@ class BagViewController: UIViewController {
 		catch { print(error) }
 	}
 	
-	func foodViewController(for indexPath: IndexPath) -> ItemsViewController? {
+	func itemsViewController(for indexPath: IndexPath) -> ItemsViewController? {
 		guard let viewModelParcel = viewModel.foodViewModelParcel(for: indexPath) else { return nil }
-		let foodViewController = ItemsViewController.storyboardInstance()
-		foodViewController.viewModelParcel = viewModelParcel
-		foodViewController.delegate = self
-		return foodViewController
+		let itemsViewController = ItemsViewController.storyboardInstance()
+		itemsViewController.viewModelParcel = viewModelParcel
+		itemsViewController.delegate = self
+		return itemsViewController
 	}
 
     // MARK: - IBActions
@@ -105,8 +107,9 @@ extension BagViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension BagViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let foodViewController = foodViewController(for: indexPath) {
-			navigationController?.pushViewController(foodViewController, animated: true)
+		lastSelectedIndexPath = indexPath
+		if let itemsViewController = itemsViewController(for: indexPath) {
+			navigationController?.pushViewController(itemsViewController, animated: true)
 		}
 	}
 	
@@ -170,6 +173,13 @@ extension BagViewController: BuilderViewControllerDelegate {
 		if let itemsViewController = (builderViewController.presentingViewController as? UINavigationController)?.topViewController as? ItemsViewController {
 			itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
 			builderViewController.dismiss(animated: true, completion: nil)
+		}
+		if let selectedIndexPath = lastSelectedIndexPath {
+			do {
+				try viewModel.updatePurchasable(at: selectedIndexPath, to: itemedPurchasable)
+				tableView.reloadData()
+			}
+			catch { print(error) }
 		}
 	}
 }
