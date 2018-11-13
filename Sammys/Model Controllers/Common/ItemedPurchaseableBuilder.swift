@@ -37,5 +37,12 @@ extension ItemedPurchasableBuilder {
 		} else { modifiers[AnyHashableProtocol(item)] = [modifier] }
 	}
 	
-	mutating func toggleExisting(from itemedPurchasable: ItemedPurchasable) throws {}
+	mutating func toggleExisting(from itemedPurchasable: ItemedPurchasable) throws {
+		for category in type(of: itemedPurchasable).allItemCategories {
+			for item in itemedPurchasable.items(for: category) {
+				// FIXME: Handle modifiable items
+				try toggle(item)
+			}
+		}
+	}
 }
