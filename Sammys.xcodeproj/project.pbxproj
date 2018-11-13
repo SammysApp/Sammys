@@ -160,6 +160,8 @@
 		5B44F1BA20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */; };
 		5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */; };
 		5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */; };
+		5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
+		5B4DC2E0219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
 		5B553A65206C774F00DD9689 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* ItemsViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
@@ -396,6 +398,7 @@
 		5B44F1B820AA508F00B3E0A5 /* UserSettingsButtonTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B44F1B920AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAPIManager.swift; sourceTree = "<group>"; };
+		5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		5B553A64206C774F00DD9689 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -671,6 +674,7 @@
 				5B3A4B332195F3E300F22F78 /* Collection.swift */,
 				5B3A4B302195F3E300F22F78 /* Date.swift */,
 				5B3A4B442195F3E300F22F78 /* DateFormatter.swift */,
+				5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */,
 				5B3A4B452195F3E300F22F78 /* Double.swift */,
 				5B3A4B392195F3E300F22F78 /* Int.swift */,
 				5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */,
@@ -1672,6 +1676,7 @@
 				5B10D5A620C044EB00BF05B2 /* Modifier.swift in Sources */,
 				5B724D8720DC967300B9296E /* APIKey.swift in Sources */,
 				5B9865F620C58DAD004722D8 /* ItemCollectionViewCell.swift in Sources */,
+				5B4DC2E0219B31FA009BDA6D /* Dictionary.swift in Sources */,
 				5B3A4B582195F3E400F22F78 /* JSONDecoder.swift in Sources */,
 				5BB2256E20DFE7BA00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
 			);
@@ -1697,6 +1702,7 @@
 				5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */,
+				5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */,
 				5BB29697208F970500520683 /* FoodOrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,

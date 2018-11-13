@@ -71,6 +71,11 @@ extension BagModelController {
 		catch { throw error }
 	}
 	
+	func update(_ oldPurchasable: Purchasable, to newPurchasable: Purchasable) throws {
+		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.switchingKey(AnyHashableProtocol(oldPurchasable), to: AnyHashableProtocol(newPurchasable)) } }
+		catch { throw error }
+	}
+	
 	func add(_ purchasable: Purchasable, quantity: UInt = 1) throws {
 		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
 		catch { throw error }
