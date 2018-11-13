@@ -39,3 +39,7 @@ struct PurchasableQuantity: Codable {
 		try container.encode(AnyCodableProtocol(purchasable), forKey: .purchasable)
 	}
 }
+
+extension PurchasableQuantity {
+	var quantitativePrice: Double { return purchasable.price * Double(quantity) }
+}

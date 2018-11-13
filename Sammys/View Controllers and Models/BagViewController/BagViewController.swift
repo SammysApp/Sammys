@@ -11,7 +11,7 @@ import UIKit
 class BagViewController: UIViewController {
 	lazy var viewModel = BagViewModel(self)
 	
-	lazy var paymentViewController = { return PaymentViewController.storyboardInstance() }()
+	lazy var paymentViewController = { PaymentViewController.storyboardInstance() }()
 	
 	var lastSelectedIndexPath: IndexPath?
 	
@@ -49,9 +49,17 @@ class BagViewController: UIViewController {
 	}
 	
 	func setupChildPaymentViewController() {
-		add(asChildViewController: paymentViewController)
-		paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
-		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
+		do {
+			try updatePaymentViewController()
+			add(asChildViewController: paymentViewController)
+			paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
+			paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
+		} catch { print(error) }
+	}
+	
+	func updatePaymentViewController() throws {
+		do { paymentViewController.viewModelParcel = try viewModel.paymentViewModelParcel() }
+		catch { throw error }
 	}
 	
 	func delete(at indexPath: IndexPath) {
@@ -142,6 +150,7 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 	}
 	
 	private func handleQuantityUpdate(in cell: BagPurchasableTableViewCell, at indexPath: IndexPath) {
+		do { try updatePaymentViewController() } catch { print(error) }
 		if let cellViewModel = viewModel.cellViewModel(for: indexPath) {
 			updateQuantityTextField(cell.quantityTextField, forQuantity: cellViewModel.purchasableQuantity.quantity)
 		}
@@ -178,6 +187,7 @@ extension BagViewController: BuilderViewControllerDelegate {
 			do {
 				try viewModel.updatePurchasable(at: selectedIndexPath, to: itemedPurchasable)
 				tableView.reloadData()
+				try updatePaymentViewController()
 			}
 			catch { print(error) }
 		}

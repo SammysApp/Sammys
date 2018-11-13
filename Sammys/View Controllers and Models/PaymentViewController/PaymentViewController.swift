@@ -9,6 +9,12 @@
 import UIKit
 
 class PaymentViewController: UIViewController {
+	/// Must be set for use by the view model.
+	var viewModelParcel: PaymentViewModelParcel! {
+		didSet { viewModel = PaymentViewModel(viewModelParcel) }
+	}
+	private var viewModel: PaymentViewModel! { didSet { loadViews() } }
+	
 	// MARK: IBOutlets
 	@IBOutlet var subtotalLabel: UILabel!
 	@IBOutlet var taxLabel: UILabel!
@@ -25,9 +31,16 @@ class PaymentViewController: UIViewController {
 		setupViews()
     }
 	
+	func loadViews() {
+		subtotalLabel?.text = viewModel.subtotalText
+		taxLabel?.text = viewModel.taxText
+		totalButton?.setTitle(viewModel.totalText, for: .normal)
+	}
+	
 	// MARK: - Setup
 	func setupViews() {
 		setupTotalButton()
+		loadViews()
 	}
 	
 	func setupTotalButton() {

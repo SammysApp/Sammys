@@ -17,7 +17,7 @@ class ItemsViewController: UIViewController {
 	var viewModelParcel: ItemsViewModelParcel! {
 		didSet { viewModel = ItemsViewModel(viewModelParcel, viewDelegate: self) }
 	}
-	var viewModel: ItemsViewModel! { didSet { reloadView() } }
+	var viewModel: ItemsViewModel! { didSet { loadViews() } }
 	
 	var delegate: ItemsViewControllerDelegate?
 	
@@ -41,13 +41,14 @@ class ItemsViewController: UIViewController {
 		setupViews()
 	}
 	
-	func reloadView() {
+	func loadViews() {
 		collectionView?.reloadData()
 	}
 	
 	// MARK: - Setup
 	func setupViews() {
 		setupCollectionView()
+		loadViews()
 	}
 	
 	func setupCollectionView() {

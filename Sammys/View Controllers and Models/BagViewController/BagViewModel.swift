@@ -82,6 +82,10 @@ class BagViewModel {
 	
 	func clear() { bagModelController.clearAllPurchasables() }
 	
+	func paymentViewModelParcel() throws -> PaymentViewModelParcel {
+		return PaymentViewModelParcel(subtotal: try bagModelController.getTotalPurchasablesPrice())
+	}
+	
 	func itemsViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel? {
 		guard let itemedPurchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable as? ItemedPurchasable else { return nil }
 		return ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
