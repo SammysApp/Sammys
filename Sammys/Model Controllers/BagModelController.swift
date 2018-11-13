@@ -22,26 +22,23 @@ struct BagModelController {
 	init(userDefaults: UserDefaults = .standard) {
 		self.userDefaults = userDefaults
 	}
-	
+}
+
+extension BagModelController {
 	private func purchasableQuantities(for dictionary: PurchasableQuantitiesDictionary) -> [PurchasableQuantity] {
 		return dictionary.compactMap {
 			guard let purchasable = $0.key.base as? Purchasable else { return nil }
 			return PurchasableQuantity(quantity: $0.value, purchasable: purchasable)
 		}
 	}
-	
+}
+
+extension BagModelController {
 	private func store(_ dictionary: PurchasableQuantitiesDictionary) throws {
 		userDefaults.set(
 			try JSONEncoder().encode(purchasableQuantities(for: dictionary)),
 			forKey: Constants.purchasableQuantitiesKey
 		)
-	}
-	
-	func getPurchasableQuantities() throws -> [PurchasableQuantity] {
-		if let purchasableQuantitiesData = userDefaults.data(forKey: Constants.purchasableQuantitiesKey) {
-			do { return try JSONDecoder().decode([PurchasableQuantity].self, from: purchasableQuantitiesData) }
-			catch { throw error }
-		} else { throw BagModelControllerError.cantGetNeccessaryDataFromKey }
 	}
 	
 	private func storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary(_ modifiedDictionary: (PurchasableQuantitiesDictionary) -> PurchasableQuantitiesDictionary) throws {
@@ -53,7 +50,22 @@ struct BagModelController {
 			else { return }
 		try store(modifiedDictionary(dictionary))
 	}
+}
+
+extension BagModelController {
+	func getPurchasableQuantities() throws -> [PurchasableQuantity] {
+		if let purchasableQuantitiesData = userDefaults.data(forKey: Constants.purchasableQuantitiesKey) {
+			do { return try JSONDecoder().decode([PurchasableQuantity].self, from: purchasableQuantitiesData) }
+			catch { throw error }
+		} else { throw BagModelControllerError.cantGetNeccessaryDataFromKey }
+	}
 	
+	func getTotalPurchasablesQuantity() throws -> Int {
+		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
+	}
+}
+
+extension BagModelController {
 	func set(_ purchasable: Purchasable, toQuantity quantity: Int) throws {
 		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.settingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), to: quantity) } }
 		catch { throw error }
@@ -62,7 +74,7 @@ struct BagModelController {
 	func add(_ purchasable: Purchasable, quantity: UInt = 1) throws {
 		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
 		catch { throw error }
-    }
+	}
 	
 	func remove(_ purchasable: Purchasable, quantity: Int) throws {
 		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.decrementingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), by: quantity) } }
@@ -78,14 +90,8 @@ struct BagModelController {
 			}
 		} catch { throw error }
 	}
-}
-
-extension BagModelController {
-	func getTotalQuantity() throws -> Int {
-		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
-	}
 	
-	func clearAll() {
+	func clearAllPurchasables() {
 		userDefaults.removeObject(forKey: Constants.purchasableQuantitiesKey)
 	}
 }

@@ -56,7 +56,7 @@ class HomeViewModel {
 	private (set) var shouldHideNoFavesView = Dynamic(true)
 	
 	var bagQuantity: Int {
-		return (try? bagModelController.getTotalQuantity()) ?? 0
+		return (try? bagModelController.getTotalPurchasablesQuantity()) ?? 0
 	}
     
     var bagQuantityLabelText: String? {

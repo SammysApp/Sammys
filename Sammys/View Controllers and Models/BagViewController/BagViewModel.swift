@@ -74,7 +74,7 @@ class BagViewModel {
 		try bagModelController.remove(purchasable)
 	}
 	
-	func clear() { bagModelController.clearAll() }
+	func clear() { bagModelController.clearAllPurchasables() }
 	
 	func foodViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel? {
 		guard let itemedPurchasable = cellViewModel(for: indexPath)?.purchasableQuantity.purchasable as? ItemedPurchasable else { return nil }
