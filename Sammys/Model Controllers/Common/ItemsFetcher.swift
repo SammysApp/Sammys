@@ -10,9 +10,9 @@ import Foundation
 import PromiseKit
 
 protocol ItemsFetchable {
-	static var fetcher: ItemsFetcher.Type { get }
+	static var fetcher: ItemsFetcher { get }
 }
 
 protocol ItemsFetcher {
-	static func getItems(for itemCategory: ItemCategory) -> Promise<[Item]>
+	func getItems(for itemCategory: ItemCategory) -> Promise<[Item]>
 }
