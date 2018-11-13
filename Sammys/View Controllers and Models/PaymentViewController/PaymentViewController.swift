@@ -18,7 +18,7 @@ class PaymentViewController: UIViewController {
 	// MARK: IBOutlets
 	@IBOutlet var subtotalLabel: UILabel!
 	@IBOutlet var taxLabel: UILabel!
-	@IBOutlet var totalButton: UIButton!
+	@IBOutlet var payButton: UIButton!
 	
 	struct Constants {
 		static let totalButtonCornerRadius: CGFloat = 20
@@ -34,7 +34,7 @@ class PaymentViewController: UIViewController {
 	func loadViews() {
 		subtotalLabel?.text = viewModel.subtotalText
 		taxLabel?.text = viewModel.taxText
-		totalButton?.setTitle(viewModel.totalText, for: .normal)
+		payButton?.setTitle(viewModel.payText, for: .normal)
 	}
 	
 	// MARK: - Setup
@@ -44,7 +44,7 @@ class PaymentViewController: UIViewController {
 	}
 	
 	func setupTotalButton() {
-		totalButton.layer.cornerRadius = Constants.totalButtonCornerRadius
+		payButton.layer.cornerRadius = Constants.totalButtonCornerRadius
 	}
 	
 	// MARK: - IBActions

@@ -66,7 +66,7 @@
                                         <rect key="frame" x="0.0" y="313.5" width="335" height="313.5"/>
                                         <color key="backgroundColor" name="Flora"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <state key="normal" title="$0.00">
+                                        <state key="normal" title="Pay $0.00">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -85,9 +85,9 @@
                         <viewLayoutGuide key="safeArea" id="Qem-9T-3pS"/>
                     </view>
                     <connections>
+                        <outlet property="payButton" destination="AhE-ph-tql" id="RDT-pq-uRA"/>
                         <outlet property="subtotalLabel" destination="Plk-O9-uyC" id="Tc6-tZ-WmC"/>
                         <outlet property="taxLabel" destination="Rlw-gC-GC6" id="x7c-7Q-6VL"/>
-                        <outlet property="totalButton" destination="AhE-ph-tql" id="RDT-pq-uRA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMD-qq-vt4" userLabel="First Responder" sceneMemberID="firstResponder"/>

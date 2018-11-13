@@ -21,7 +21,7 @@ class PaymentViewModel {
 	
 	var subtotalText: String { return subtotal.priceString }
 	var taxText: String { return tax.priceString }
-	var totalText: String { return total.priceString }
+	var payText: String { return "Pay \(total.priceString)" }
 	
 	private struct Constants {
 		static let taxRateMultiplier: Double = 0.06625
