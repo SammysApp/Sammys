@@ -25,7 +25,8 @@ struct PaymentAPIManager: APIManager, APIParameterNameable {
         case createCustomer = "create-customer"
         case chargeSource = "charge-source"
         case chargeCustomer = "charge-customer"
-        case chargeCustomerSource = "charge-card" // ⚠️ Fix in server to: charge-customer-source
+		// FIXME: Change in server to charge-customer-source
+        case chargeCustomerSource = "charge-card"
         case createEphemeralKey = "create-ephemeral-key"
     }
     

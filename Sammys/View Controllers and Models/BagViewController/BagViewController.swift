@@ -20,9 +20,7 @@ class BagViewController: UIViewController {
 	@IBOutlet var paymentVisualEffectView: UIVisualEffectView!
 	
 	// MARK: - Property Overrides
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 	
 	struct Constants {
 		static let tableViewEstimatedRowHeight: CGFloat = 120

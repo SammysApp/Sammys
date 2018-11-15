@@ -30,9 +30,7 @@ class AddBagViewController: UIViewController {
 	@IBOutlet var addButton: UIButton!
 	
 	// MARK: - Property Overrides
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 	
 	struct Constants {
 		static let addButtonCornerRadius: CGFloat = 20

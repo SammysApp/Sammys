@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct CollectionViewSection<ViewModel: CollectionViewCellViewModel> {
-	typealias CellViewModel = ViewModel
+struct CollectionViewSection<T: CollectionViewCellViewModel> {
+	typealias CellViewModel = T
 	
 	let title: String?
-	let cellViewModels: [ViewModel]
+	let cellViewModels: [CellViewModel]
 	
-	init(title: String? = nil, cellViewModels: [ViewModel]) {
+	init(title: String? = nil, cellViewModels: [CellViewModel]) {
 		self.title = title
 		self.cellViewModels = cellViewModels
 	}

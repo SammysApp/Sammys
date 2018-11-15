@@ -8,39 +8,27 @@
 
 import UIKit
 
-/// The sign up page for a user 📝.
 class SignUpViewController: UIViewController {
-    var titleText: String?
-    var prefilledText: String?
-    
-    // MARK: - IBOutlets & View Properties
+    // MARK: - IBOutlets
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textField: UITextField!
-    
-    /// Called when text field for sign up info edited.
-    var didUpdateText: ((String?) -> Void)?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        titleLabel.text = titleText
-        textField.text = prefilledText
+		
     }
     
     // MARK: - IBActions
-    @IBAction func textFieldEditingChanged(_ sender: UITextField) {
-        didUpdateText?(textField.text)
-    }
+    @IBAction func textFieldDidChangeEditing(_ sender: UITextField) {}
 }
 
+// MARK: - Storyboardable
+extension SignUpViewController: Storyboardable {}
+
+// MARK: - UITextFieldDelegate
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return true
+		view.endEditing(true); return true
     }
-}
-
-extension SignUpViewController: Storyboardable {
-    typealias ViewController = SignUpViewController
 }

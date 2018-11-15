@@ -28,9 +28,7 @@ class HomeViewController: UIViewController {
         return false
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
     struct Constants {
 		static var homeCollectionViewCellHeight: Double = 200
@@ -139,7 +137,9 @@ class HomeViewController: UIViewController {
 	}
     
     // MARK: - IBActions
-    @IBAction func didTapAccount(_ sender: UIButton) {}
+    @IBAction func didTapAccount(_ sender: UIButton) {
+		present(UINavigationController(rootViewController: UserViewController.storyboardInstance()), animated: true, completion: nil)
+	}
     
     @IBAction func didTapFaves(_ sender: UIButton) {}
     

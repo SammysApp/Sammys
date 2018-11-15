@@ -8,12 +8,12 @@
 
 import UIKit
 
-struct DetailTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
-    let titleText: String
+struct DetailTableViewCellConfigurationCommand: TableViewCellCommand {
+	let titleText: String
     let detailText: String
     
-    func perform(cell: UITableViewCell?) {
-        guard let cell = cell else { return }
+    func perform(parameters: TableViewCellCommandParameters) {
+        guard let cell = parameters.cell else { return }
         cell.textLabel?.text = titleText
         cell.detailTextLabel?.text = detailText
     }

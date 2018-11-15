@@ -163,6 +163,7 @@
 		5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
 		5B4DC2E0219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
 		5B4DC2E2219B6CA8009BDA6D /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2E1219B6CA8009BDA6D /* PaymentViewModel.swift */; };
+		5B4DC2E4219BA69F009BDA6D /* AnyViewModelTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2E3219BA69F009BDA6D /* AnyViewModelTableViewSection.swift */; };
 		5B553A65206C774F00DD9689 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B553A64206C774F00DD9689 /* ItemsViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A068D1FFD52A000BAC480 /* Size.swift */; };
@@ -232,7 +233,6 @@
 		5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */; };
 		5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */; };
 		5BB296B7209CEAFB00520683 /* ButtonTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296B6209CEAFA00520683 /* ButtonTableViewCellConfigurationCommand.swift */; };
-		5BB296B9209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296B8209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift */; };
 		5BB296BB209CFF8D00520683 /* HomeItemCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296BA209CFF8D00520683 /* HomeItemCollectionViewCellConfigurationCommand.swift */; };
 		5BB296BD209D009900520683 /* HomeItemCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296BC209D009900520683 /* HomeItemCollectionViewCellViewModelFactory.swift */; };
 		5BB296C3209F4ADA00520683 /* UserSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BB296C2209F4ADA00520683 /* UserSettingsViewController.storyboard */; };
@@ -401,6 +401,7 @@
 		5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAPIManager.swift; sourceTree = "<group>"; };
 		5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		5B4DC2E1219B6CA8009BDA6D /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		5B4DC2E3219BA69F009BDA6D /* AnyViewModelTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModelTableViewSection.swift; sourceTree = "<group>"; };
 		5B553A64206C774F00DD9689 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -463,7 +464,6 @@
 		5BB296AE209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296B6209CEAFA00520683 /* ButtonTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
-		5BB296B8209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButtonTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5BB296BA209CFF8D00520683 /* HomeItemCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5BB296BC209D009900520683 /* HomeItemCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB296C2209F4ADA00520683 /* UserSettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserSettingsViewController.storyboard; sourceTree = "<group>"; };
@@ -633,6 +633,7 @@
 			children = (
 				5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */,
 				5B3A4AC62194952200F22F78 /* TableViewSection.swift */,
+				5B4DC2E3219BA69F009BDA6D /* AnyViewModelTableViewSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -714,8 +715,8 @@
 				5BFC5739217C1AC10002179B /* AnyEquatableProtocol.swift */,
 				5BFC573C217C1AEF0002179B /* AnyHashableProtocol.swift */,
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
-				5B724D8820DC98F300B9296E /* FileType.swift */,
 				5B3F25DD210F68790080290E /* Observer */,
+				5B7E571E219DF05900FF331F /* Convenience */,
 			);
 			path = "Types and Patterns";
 			sourceTree = "<group>";
@@ -931,6 +932,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		5B7E571E219DF05900FF331F /* Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				5B724D8820DC98F300B9296E /* FileType.swift */,
+			);
+			path = Convenience;
+			sourceTree = "<group>";
+		};
 		5B8A3D0220ADC4F800790AF5 /* HomeItemCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,9 +1006,9 @@
 			children = (
 				5B6F63B82198BFE500189599 /* Purchasable */,
 				5BFC5732217820920002179B /* Salad */,
+				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5B2DC37B20D357BB008FFA2D /* Hours.swift */,
 				5BC950372107D2B900AF1098 /* Customer.swift */,
-				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
 				5B10D5B620C05B8E00BF05B2 /* KitchenOrder.swift */,
 			);
@@ -1016,9 +1025,9 @@
 				5B553A66206C9BED00DD9689 /* ItemsViewController */,
 				5BD274F52063FAEE00618128 /* BagViewController */,
 				5B3A4B772196172F00F22F78 /* PaymentViewController */,
-				5BD274F22063FAC900618128 /* User */,
-				5BB296CE209F719200520683 /* User Settings */,
+				5BD274F22063FAC900618128 /* UserViewController */,
 				5BD274F32063FAD800618128 /* Login */,
+				5BB296CE209F719200520683 /* User Settings */,
 				5B0B739E20D810F400D757FD /* Pickup Date */,
 				5BD6B3D120812F62000114F5 /* Confirmation */,
 				5BB2968A208E5AD500520683 /* Orders */,
@@ -1222,14 +1231,13 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		5BD274F22063FAC900618128 /* User */ = {
+		5BD274F22063FAC900618128 /* UserViewController */ = {
 			isa = PBXGroup;
 			children = (
 				5B44A81C2007BB7000898FF0 /* UserViewController.swift */,
 				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
-				5BB296B8209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift */,
 			);
-			path = User;
+			path = UserViewController;
 			sourceTree = "<group>";
 		};
 		5BD274F32063FAD800618128 /* Login */ = {
@@ -1838,13 +1846,13 @@
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */,
 				5B02C70F20857EEF006D19A5 /* MessageCollectionViewCellViewModelFactory.swift in Sources */,
+				5B4DC2E4219BA69F009BDA6D /* AnyViewModelTableViewSection.swift in Sources */,
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B3F25DC210F68610080290E /* Variable.swift in Sources */,
 				5BB2968D208F794B00520683 /* OrderViewController.swift in Sources */,
 				5BB296D1209F71CC00520683 /* UserSettingsViewController.swift in Sources */,
 				5BB29693208F8A4F00520683 /* TotalPriceTableViewCell.swift in Sources */,
-				5BB296B9209CED2500520683 /* UserButtonTableViewCellSelectionCommand.swift in Sources */,
 				5BB296BB209CFF8D00520683 /* HomeItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B226A60218F6642008D2CBD /* BuilderViewModel+ItemCollectionViewCellViewModel.swift in Sources */,
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,

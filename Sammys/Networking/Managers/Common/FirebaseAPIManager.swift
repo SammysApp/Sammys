@@ -16,7 +16,7 @@ protocol FirebaseAPIManager {
 extension FirebaseAPIManager {
     typealias Client = FirebaseAPIClient
     
-    static func databaseReference(_ path: Path...) -> DatabaseReference {
-        return Client.databaseReference(path)
+	func databaseReference(_ path: Path...) -> DatabaseReference {
+		return Client.databaseReference(path)
     }
 }

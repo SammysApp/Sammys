@@ -6,19 +6,16 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-enum DetailCellIdentifier: String {
-    case detailCell
-}
-
-struct DetailTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
-    let height: CGFloat
+struct DetailTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+	let identifier: String
+    let height: Double
     let titleText: String
     let detailText: String
     
-//    func create() -> TableViewCellViewModel {
-//        let configurationCommand = DetailTableViewCellConfigurationCommand(titleText: titleText, detailText: detailText)
-//		return DefaultTableViewCellViewModel(identifier: DetailCellIdentifier.detailCell.rawValue, height: height, commands: [:])
-//    }
+    func create() -> DefaultTableViewCellViewModel {
+        let configurationCommand = DetailTableViewCellConfigurationCommand(titleText: titleText, detailText: detailText)
+		return DefaultTableViewCellViewModel(identifier: identifier, height: height, commands: [.configuration: configurationCommand])
+    }
 }

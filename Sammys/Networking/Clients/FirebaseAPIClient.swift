@@ -65,9 +65,9 @@ struct FirebaseAPIClient {
     }
     
     // MARK: - Database
-    static func databaseReference(_ path: [PathStringRepresentable]) -> DatabaseReference {
+	static func databaseReference(_ path: [PathStringRepresentable], environment: AppEnvironment = environment) -> DatabaseReference {
         let database = Database.database().reference()
-        let environmentDatabase = database.child(environment.isLive ? EnvironmentPath.live : EnvironmentPath.develop)
+        let environmentDatabase = database //database.child(environment.isLive ? EnvironmentPath.live : EnvironmentPath.develop)
         return path.isEmpty ? environmentDatabase : environmentDatabase.child(path)
     }
     
@@ -90,6 +90,7 @@ struct FirebaseAPIClient {
     static func observableSnapshot(for eventType: DataEventType = .value, at databaseQuery: DatabaseQuery = databaseReference()) -> ObservableSnapshotPromise {
         let observableSnapshot = ObservableSnapshotPromise()
         databaseQuery.observe(eventType) { snapshot in
+			// FIXME: Does this reference stay forever?
             observableSnapshot.value = Promise { $0.resolve(snapshot: snapshot) }
         }
         return observableSnapshot

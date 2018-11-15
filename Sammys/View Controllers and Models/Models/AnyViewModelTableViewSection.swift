@@ -1,15 +1,15 @@
 //
-//  TableViewSection.swift
+//  AnyViewModelTableViewSection.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 11/8/18.
+//  Created by Natanel Niazoff on 11/13/18.
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
 import Foundation
 
-struct TableViewSection<T: TableViewCellViewModel> {
-	typealias CellViewModel = T
+struct AnyViewModelTableViewSection {
+	typealias CellViewModel = TableViewCellViewModel
 	
 	let title: String?
 	let cellViewModels: [CellViewModel]

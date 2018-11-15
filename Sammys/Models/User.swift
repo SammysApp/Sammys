@@ -14,9 +14,9 @@ enum UserProvider: String {
 
 extension UserProvider: Codable {}
 
-/// 👩🏻
 class User: Codable {
     var id: String
+	var customerID: String?
     var email: String
     var name: String
     var providers: [UserProvider]

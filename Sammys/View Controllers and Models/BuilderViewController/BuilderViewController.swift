@@ -59,9 +59,7 @@ class BuilderViewController: UIViewController {
     @IBOutlet var modifierCollectionView: ModifierCollectionView!
 
 	// MARK: - Property Overrides
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 	
 	struct Constants {
 		static let collectionViewContentInset: CGFloat = 10
