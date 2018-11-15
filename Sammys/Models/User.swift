@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum UserProvider: String {
-    case email, facebook
-}
+enum UserState { case noUser, currentUser(User) }
+
+enum UserProvider: String { case email, facebook }
 
 extension UserProvider: Codable {}
 

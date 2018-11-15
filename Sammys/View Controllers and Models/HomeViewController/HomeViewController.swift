@@ -11,6 +11,12 @@ import UIKit
 class HomeViewController: UIViewController {
     var viewModel: HomeViewModel!
 	
+	lazy var userViewController: UserViewController = {
+		let userViewController = UserViewController.storyboardInstance()
+		userViewController.viewModelParcel = viewModel.userViewModelParcel()
+		return userViewController
+	}()
+	
     // MARK: - IBOutlets
 	@IBOutlet var collectionView: UICollectionView!
 	@IBOutlet var collectionViewContainerView: UIView!
@@ -138,7 +144,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
-		present(UINavigationController(rootViewController: UserViewController.storyboardInstance()), animated: true, completion: nil)
+		present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
 	}
     
     @IBAction func didTapFaves(_ sender: UIButton) {}

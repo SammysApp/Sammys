@@ -99,4 +99,8 @@ class HomeViewModel {
 		guard let itemedPurchasableType = homeItems[indexPath.section].purchasableType as? ItemedPurchasable.Type else { return nil }
 		return BuilderViewModelParcel.instance(for: itemedPurchasableType)
 	}
+	
+	func userViewModelParcel() -> UserViewModelParcel {
+		return UserViewModelParcel(userState: .noUser)
+	}
 }

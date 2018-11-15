@@ -9,10 +9,17 @@
 import UIKit
 
 class UserViewController: UIViewController {
-	private lazy var viewModel = UserViewModel(self)
+	/// Must be set for use by the view model.
+	var viewModelParcel: UserViewModelParcel! {
+		didSet { viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self) }
+	}
+	private var viewModel: UserViewModel! { didSet { loadViews() } }
 	
-	let loginPageViewController: LoginPageViewController = { LoginPageViewController.storyboardInstance() }()
-	var shouldPresentLoginIfNoUser = true
+	lazy var loginPageViewController: LoginPageViewController = {
+		let loginPageViewController = LoginPageViewController.storyboardInstance()
+		loginPageViewController.delegate = self
+		return loginPageViewController
+	}()
 	
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -28,22 +35,12 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel.userState.bindAndRun(didChangeUserState)
-		
-		loginPageViewController.delegate = self
+		if case .noUser = viewModel.userState
+		{ present(loginPageViewController, animated: true, completion: nil) }
     }
 	
 	func loadViews() {
-		tableView.reloadData()
-	}
-	
-	func didChangeUserState(_ userState: UserState) {
-		switch userState {
-		case .noUser: if shouldPresentLoginIfNoUser
-		{ present(loginPageViewController, animated: true, completion: nil) }
-		shouldPresentLoginIfNoUser = false
-		case .currentUser: loadViews()
-		}
+		tableView?.reloadData()
 	}
 }
 
@@ -77,6 +74,7 @@ extension UserViewController: UserViewModelViewDelegate {
 // MARK: - LoginPageViewControllerDelegate
 extension UserViewController: LoginPageViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
+		viewModelParcel.userState = .currentUser(user)
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	

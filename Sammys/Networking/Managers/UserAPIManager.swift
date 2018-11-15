@@ -14,12 +14,7 @@ enum UserAPIError: Error {
     case notEnoughDetails
 }
 
-enum UserState {
-	case currentUser(User)
-	case noUser
-}
-
-class UserAPIManager: FirebaseAPIManager {
+struct UserAPIManager: FirebaseAPIManager {
     enum Path: String, PathStringRepresentable {
         case users
         case customerID
@@ -37,22 +32,6 @@ class UserAPIManager: FirebaseAPIManager {
 	private func getUser(for firebaseUser: FirebaseUser) -> Promise<User> {
 		return Client.get(at: databaseReference(for: firebaseUser))
 	}
-	
-	private func userStatePromise(for firebaseUserState: FirebaseUserState) -> Promise<UserState> {
-		switch firebaseUserState {
-		case .currentUser(let user): return getUser(for: user).map { .currentUser($0) }
-		case .noUser: return Promise { $0.fulfill(.noUser) }
-		}
-	}
-	
-	private var observableFirebaseUserState: Variable<FirebaseUserState>?
-	func observableUserState() -> Variable<Promise<UserState>> {
-		let observableUserState = Variable<Promise<UserState>>()
-		observableFirebaseUserState = Client.observableUserState().adding(UpdateClosure<FirebaseUserState>(id: UUID().uuidString) {
-			observableUserState.value = self.userStatePromise(for: $0)
-		})
-		return observableUserState
-    }
     
     private func makeUser(fromFirebaseUser user: FirebaseUser, providers: [UserProvider] = []) throws -> User {
         guard let email = user.email, let name = user.displayName else { throw UserAPIError.notEnoughDetails }

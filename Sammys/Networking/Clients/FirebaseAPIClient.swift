@@ -32,11 +32,6 @@ enum FirebaseAPIError: Error {
 typealias FirebaseUser = Firebase.User
 typealias ObservableSnapshotPromise = Variable<Promise<DataSnapshot>>
 
-enum FirebaseUserState {
-    case currentUser(FirebaseUser)
-    case noUser
-}
-
 struct FirebaseAPIClient {
     private enum EnvironmentPath: String, PathStringRepresentable {
         case develop, live
@@ -111,14 +106,6 @@ struct FirebaseAPIClient {
     
     // MARK: - Auth
     private static var defaultAuth: Auth { return Auth.auth() }
-    
-    static func observableUserState() -> Variable<FirebaseUserState> {
-        let observableUserState = Variable<FirebaseUserState>()
-        Auth.auth().addStateDidChangeListener { auth, user in
-            observableUserState.value = user == nil ? .noUser : .currentUser(user!)
-        }
-        return observableUserState
-    }
     
     static func createUser(withEmail email: String, password: String) -> Promise<FirebaseUser> {
         return Promise { defaultAuth.createUser(withEmail: email, password: password, completion: $0.resolve) }
@@ -226,7 +213,7 @@ private extension Resolver where T == FirebaseUser {
 
 extension DatabaseReference {
     func child(_ path: [PathStringRepresentable]) -> DatabaseReference {
-        guard let firstPath = path.first else { fatalError() }
+        guard let firstPath = path.first else { return self }
         var finalChild = child(firstPath.pathString)
         path.dropFirst().forEach { finalChild = finalChild.child($0.pathString) }
         return finalChild
@@ -239,7 +226,7 @@ extension DatabaseReference {
 
 extension DatabaseQuery {
     func queryOrdered(byChild path: [PathStringRepresentable]) -> DatabaseQuery {
-        guard let firstPath = path.first else { fatalError() }
+        guard let firstPath = path.first else { return self }
         var pathString = firstPath.pathString
         path.dropFirst().forEach { pathString += "/\($0)" }
         return queryOrdered(byChild: pathString)

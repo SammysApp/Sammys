@@ -14,58 +14,44 @@ typealias ObservableOrdersPromise = Variable<Promise<[KitchenOrder]>>
 typealias OrderNumber = Int
 
 struct OrdersAPIManager: FirebaseAPIManager {
-    static let id = UUID().uuidString
-    
     enum Path: String, PathStringRepresentable {
         case orders, numberCounter
         case order, userID
         case kitchen, calendarDate
     }
     
-    private static func ordersDatabaseReference(_ path: Path...) -> DatabaseReference {
-        return Client.databaseReference(path).child(.orders)
+    private func ordersDatabaseReference(_ path: Path...) -> DatabaseReference {
+        return databaseReference(.orders).child(path)
     }
     
-    private static func ordersDatabaseQueryEqual(to date: Date) -> DatabaseQuery {
+    private func ordersDatabaseQueryEqual(to date: Date) -> DatabaseQuery {
         return ordersDatabaseReference()
             .queryOrdered(byChild: .kitchen, .calendarDate)
             .queryEqual(toValue: calendarDateString(for: date))
     }
     
-    private static var calendarDateFormatter: DateFormatter {
+    private var calendarDateFormatter: DateFormatter {
         return DateFormatter(format: "M/d/yyyy")
     }
     
-    private static var observableOrdersSnapshot: ObservableSnapshotPromise?
-    private static var ordersSnapshotUpdate = UpdateClosure<Promise<DataSnapshot>>(id: id) { promise in
-        ordersObservable.value = promise.map { decodeOrdersSnapshot($0) }
-    }
-    private static let ordersObservable = ObservableOrdersPromise()
-    
-    static func observableOrders(for date: Date = Date()) -> ObservableOrdersPromise {
-        observableOrdersSnapshot?.remove(ordersSnapshotUpdate)
-        observableOrdersSnapshot = Client.observableSnapshot(at: ordersDatabaseQueryEqual(to: date)).adding(ordersSnapshotUpdate)
-        return ordersObservable
-    }
-    
-    private static func decodeOrdersSnapshot(_ snapshot: DataSnapshot) -> [KitchenOrder] {
+    private func decodeOrdersSnapshot(_ snapshot: DataSnapshot) -> [KitchenOrder] {
         guard let ordersSnapshot = snapshot.allChildrenSnapshots else { fatalError() }
         return ordersSnapshot.compactMap { KitchenOrder(orderData: try? Client.decode($0)) }
     }
     
-    static func generateOrderNumber() -> Promise<OrderNumber> {
+    func generateOrderNumber() -> Promise<OrderNumber> {
         return Client.incrementCounter(at: ordersDatabaseReference(.numberCounter))
     }
     
-    private static func calendarDateString(for date: Date) -> String {
+    private func calendarDateString(for date: Date) -> String {
         return calendarDateFormatter.string(from: date)
     }
     
-    private static func calendarDate(for order: Order) -> Date {
+    private func calendarDate(for order: Order) -> Date {
         return order.pickupDate ?? order.date
     }
     
-    static func add(_ order: Order) {
+    func add(_ order: Order) {
         let calendarDateString = self.calendarDateString(for: calendarDate(for: order))
         try? Client.set(OrderData(kitchen: KitchenData(calendarDate: calendarDateString), order: order))
     }

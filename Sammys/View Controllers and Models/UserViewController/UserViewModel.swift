@@ -9,6 +9,10 @@
 import Foundation
 import PromiseKit
 
+struct UserViewModelParcel {
+	var userState: UserState
+}
+
 enum UserCellIdentifier: String {
 	case detailCell
 }
@@ -20,14 +24,14 @@ protocol UserViewModelViewDelegate {
 class UserViewModel {
 	typealias Section = AnyViewModelTableViewSection
 	
+	private let parcel: UserViewModelParcel
 	private let viewDelegate: UserViewModelViewDelegate
-	private let userAPIManager = UserAPIManager()
 	
-	private var userStateObservable: Variable<Promise<UserState>> {
-		didSet { beginObservingUserState() }
+	var userState: UserState { return parcel.userState }
+	private var user: User? {
+		guard case .currentUser(let user) = userState else { return nil }
+		return user
 	}
-	private(set) var userState = Dynamic(UserState.noUser)
-	private var user: User?
 	
 	private var sections: [Section] {
 		guard let user = user else { return [] }
@@ -54,19 +58,9 @@ class UserViewModel {
 		static let emailCellTitle = "Email"
 	}
 	
-	init(_ viewDelegate: UserViewModelViewDelegate) {
+	init(parcel: UserViewModelParcel, viewDelegate: UserViewModelViewDelegate) {
+		self.parcel = parcel
 		self.viewDelegate = viewDelegate
-		self.userStateObservable = userAPIManager.observableUserState()
-	}
-	
-	private func beginObservingUserState() {
-		userStateObservable.add(UpdateClosure<Promise<UserState>>(id: UUID().uuidString)
-		{ $0.get(self.setup).catch { print($0) } })
-	}
-	
-	private func setup(_ userState: UserState) {
-		self.userState.value = userState
-		if case .currentUser(let user) = userState { self.user = user }
 	}
     
     func numberOfRows(inSection section: Int) -> Int {
