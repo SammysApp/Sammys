@@ -8,12 +8,14 @@
 
 import UIKit
 
+protocol UserViewControllerDelegate: LoginViewControllerDelegate {}
+
 class UserViewController: UIViewController {
 	/// Must be set for use by the view model.
-	var viewModelParcel: UserViewModelParcel! {
-		didSet { viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self) }
-	}
-	private var viewModel: UserViewModel! { didSet { loadViews() } }
+	var viewModelParcel: UserViewModelParcel!
+	private lazy var viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self)
+	
+	var delegate: UserViewControllerDelegate?
 	
 	lazy var loginPageViewController: LoginPageViewController = {
 		let loginPageViewController = LoginPageViewController.storyboardInstance()
@@ -35,13 +37,25 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		if case .noUser = viewModel.userState
-		{ present(loginPageViewController, animated: true, completion: nil) }
     }
 	
-	func loadViews() {
-		tableView?.reloadData()
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		if case .noUser = viewModel.userState
+		{ present(loginPageViewController, animated: true, completion: nil) }
 	}
+	
+	func loadViews() {
+		tableView.reloadData()
+	}
+	
+	// MARK: - IBActions
+	@IBAction func didTapDone(_ sender: UIBarButtonItem) {
+		dismiss(animated: true, completion: nil)
+	}
+	
+	@IBAction func didTapSettings(_ sender: UIBarButtonItem) {}
 }
 
 // MARK: - Storyboardable
@@ -66,21 +80,33 @@ extension UserViewController: UITableViewDataSource {
 	}
 }
 
+// MARK: - UITableViewDelegate
 extension UserViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return CGFloat(viewModel.cellViewModel(for: indexPath).height)
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		viewModel.cellViewModel(for: indexPath).selectionHandler?()
 	}
 }
 
 // MARK: - UserViewModelViewDelegate
 extension UserViewController: UserViewModelViewDelegate {
 	func cellHeight() -> Double { return Constants.cellHeight }
+	
+	func userViewModel(_ viewModel: UserViewModel, didUpdate userState: UserState) {
+		loadViews()
+		if case .noUser = userState { dismiss(animated: true, completion: nil) }
+	}
 }
 
 // MARK: - LoginPageViewControllerDelegate
 extension UserViewController: LoginPageViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
-		viewModelParcel.userState = .currentUser(user)
+		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
+		viewModel.userState = .currentUser(user)
+		loadViews()
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	

@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct HomeViewModelParcel {
+	let userState: UserState
+}
+
 enum HomeViewState {
     case home, faves
 }
@@ -25,6 +29,7 @@ protocol HomeViewModelViewDelegate {
 class HomeViewModel {
 	typealias HomeCollectionViewSection = CollectionViewSection<DefaultCollectionViewCellViewModel>
 	
+	let parcel: HomeViewModelParcel
 	let viewDelegate: HomeViewModelViewDelegate
 	private let bagModelController = BagModelController()
 	
@@ -56,7 +61,7 @@ class HomeViewModel {
 	private (set) var shouldHideNoFavesView = Dynamic(true)
 	
 	let userAPIManager = UserAPIManager()
-	var userState = UserState.noUser
+	lazy var userState = { parcel.userState }()
 	
 	var bagQuantity: Int {
 		return (try? bagModelController.getTotalPurchasablesQuantity()) ?? 0
@@ -70,7 +75,8 @@ class HomeViewModel {
 		return sections.count
 	}
     
-	init(_ viewDelegate: HomeViewModelViewDelegate) {
+	init(parcel: HomeViewModelParcel, viewDelegate: HomeViewModelViewDelegate) {
+		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 		
 		userAPIManager.currentUserState().get { self.userState = $0 }.catch { print($0) }

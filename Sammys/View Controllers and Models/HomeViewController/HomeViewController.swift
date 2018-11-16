@@ -9,11 +9,14 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    var viewModel: HomeViewModel!
+	/// Must be set for use by the view model.
+	var viewModelParcel: HomeViewModelParcel!
+	private lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	lazy var userViewController: UserViewController = {
 		let userViewController = UserViewController.storyboardInstance()
 		userViewController.viewModelParcel = viewModel.userViewModelParcel()
+		userViewController.delegate = self
 		return userViewController
 	}()
 	
@@ -47,8 +50,8 @@ class HomeViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-		viewModel = HomeViewModel(self)
+		
+		viewModelParcel = HomeViewModelParcel(userState: .noUser)
 		
 		setupViews()
     }
@@ -203,6 +206,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
+}
+
+// MARK: - UserViewControllerDelegate
+extension HomeViewController: UserViewControllerDelegate {}
+
+// MARK: - LoginViewControllerDelegate
+extension HomeViewController: LoginViewControllerDelegate {
+	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) { viewModel.userState = .currentUser(user) }
+	
+	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {}
 }
 
 enum HomeImage {

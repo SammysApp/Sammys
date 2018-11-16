@@ -6,23 +6,16 @@
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-enum ButtonCellIdentifier: String {
-    case buttonCell
-}
-
-struct ButtonTableViewCellViewModelFactory/*: TableViewCellViewModelFactory*/ {
-    let height: CGFloat
+struct ButtonTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+	let identifier: String
+    let height: Double
     let buttonText: String
-    let selectionCommand: TableViewCellCommand?
-    
-//    func create() -> TableViewCellViewModel {
-//        let configurationCommand = ButtonTableViewCellConfigurationCommand(buttonText: buttonText)
-//        var commands: [TableViewCommandActionKey : TableViewCellCommand] = [.configuration: configurationCommand]
-//        if let selectionCommand = selectionCommand {
-//            commands[.selection] = selectionCommand
-//        }
-//        return DefaultTableViewCellViewModel(identifier: ButtonCellIdentifier.buttonCell.rawValue, height: height, commands: commands)
-//    }
+	let selectionHandler: () -> Void
+	
+	func create() -> DefaultTableViewCellViewModel {
+		let configurationCommand = ButtonTableViewCellConfigurationCommand(buttonText: buttonText)
+		return DefaultTableViewCellViewModel(identifier: identifier, height: height, selectionHandler: selectionHandler, commands: [.configuration: configurationCommand])
+	}
 }

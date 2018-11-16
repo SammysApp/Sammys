@@ -54,9 +54,6 @@ class BuilderViewController: UIViewController {
 	@IBOutlet var backButton: UIButton!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var finishButton: UIButton!
-	
-    @IBOutlet var modifierView: UIVisualEffectView!
-    @IBOutlet var modifierCollectionView: ModifierCollectionView!
 
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }

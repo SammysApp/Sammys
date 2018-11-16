@@ -8,11 +8,11 @@
 
 import UIKit
 
-struct ButtonTableViewCellConfigurationCommand/*: TableViewCellCommand*/ {
-    let buttonText: String
-    
-    func perform(cell: UITableViewCell?) {
-        guard let cell = cell else { return }
-        cell.textLabel?.text = buttonText
-    }
+struct ButtonTableViewCellConfigurationCommand: TableViewCellCommand {
+	let buttonText: String
+	
+	func perform(parameters: TableViewCellCommandParameters) {
+		guard let cell = parameters.cell else { return }
+		cell.textLabel?.text = buttonText
+	}
 }

@@ -10,15 +10,14 @@ import Foundation
 import PromiseKit
 
 struct UserViewModelParcel {
-	var userState: UserState
+	let userState: UserState
 }
 
-enum UserCellIdentifier: String {
-	case detailCell
-}
+enum UserCellIdentifier: String { case detailCell, buttonCell }
 
 protocol UserViewModelViewDelegate {
 	func cellHeight() -> Double
+	func userViewModel(_ viewModel: UserViewModel, didUpdate userState: UserState)
 }
 
 class UserViewModel {
@@ -27,7 +26,9 @@ class UserViewModel {
 	private let parcel: UserViewModelParcel
 	private let viewDelegate: UserViewModelViewDelegate
 	
-	var userState: UserState { return parcel.userState }
+	private let userAPIManager = UserAPIManager()
+	
+	lazy var userState: UserState = { parcel.userState }()
 	private var user: User? {
 		guard case .currentUser(let user) = userState else { return nil }
 		return user
@@ -35,15 +36,38 @@ class UserViewModel {
 	
 	private var sections: [Section] {
 		guard let user = user else { return [] }
-		return [myInfoSection(for: user)]
+		return [myInfoSection(for: user), buttonsSection()]
 	}
 	
 	func myInfoSection(for user: User) -> Section {
 		return Section(
 			title: Constants.myInfoSectionTitle,
 			cellViewModels: [
-				DetailTableViewCellViewModelFactory(identifier: UserCellIdentifier.detailCell.rawValue, height: viewDelegate.cellHeight(), titleText: Constants.nameCellTitle, detailText: user.name).create(),
-				DetailTableViewCellViewModelFactory(identifier: UserCellIdentifier.detailCell.rawValue, height: viewDelegate.cellHeight(), titleText: Constants.emailCellTitle, detailText: user.email).create()
+				DetailTableViewCellViewModelFactory(
+					identifier: UserCellIdentifier.detailCell.rawValue,
+					height: viewDelegate.cellHeight(),
+					titleText: Constants.nameCellTitle,
+					detailText: user.name).create(),
+				DetailTableViewCellViewModelFactory(
+					identifier: UserCellIdentifier.detailCell.rawValue,
+					height: viewDelegate.cellHeight(),
+					titleText: Constants.emailCellTitle,
+					detailText: user.email).create()
+			]
+		)
+	}
+	
+	func buttonsSection() -> Section {
+		return Section(
+			cellViewModels: [
+				ButtonTableViewCellViewModelFactory(
+					identifier: UserCellIdentifier.buttonCell.rawValue,
+					height: viewDelegate.cellHeight(),
+					buttonText: Constants.logOutCellTitle,
+					selectionHandler: {
+						do { try self.logOut(); self.viewDelegate.userViewModel(self, didUpdate: self.userState) }
+						catch { print(error) }
+					}).create()
 			]
 		)
 	}
@@ -56,11 +80,16 @@ class UserViewModel {
 		static let myInfoSectionTitle = "My Info"
 		static let nameCellTitle = "Name"
 		static let emailCellTitle = "Email"
+		static let logOutCellTitle = "Log Out"
 	}
 	
 	init(parcel: UserViewModelParcel, viewDelegate: UserViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
+		
+		if case .noUser = userState { userAPIManager.currentUserState()
+			.get { self.userState = $0; self.viewDelegate.userViewModel(self, didUpdate: $0) }
+			.catch { print($0) } }
 	}
     
     func numberOfRows(inSection section: Int) -> Int {
@@ -74,4 +103,9 @@ class UserViewModel {
     func sectionTitle(for section: Int) -> String? {
         return sections[section].title
     }
+	
+	func logOut() throws {
+		do { try userAPIManager.signOut(); userState = .noUser }
+		catch { throw error }
+	}
 }

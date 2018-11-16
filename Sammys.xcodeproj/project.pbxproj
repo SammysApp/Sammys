@@ -176,10 +176,6 @@
 		5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */; };
 		5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */; };
 		5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CD5FF216ACDF000E30780 /* Dynamic.swift */; };
-		5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
-		5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
-		5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */; };
-		5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */; };
 		5B705D4E20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */; };
 		5B724D8620DC967300B9296E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8520DC967300B9296E /* APIKey.swift */; };
 		5B724D8720DC967300B9296E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8520DC967300B9296E /* APIKey.swift */; };
@@ -203,9 +199,6 @@
 		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
 		5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */; };
 		5BA01973213733870017A993 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA01972213733870017A993 /* APIManager.swift */; };
-		5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */; };
-		5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */; };
-		5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */; };
 		5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
 		5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */; };
 		5BAEE6E620E4716A00607DFA /* BuilderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */; };
@@ -416,8 +409,6 @@
 		5B6A06BD1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearCardAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6A06C22001B0CA00BAC480 /* LayoutAttributesAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAttributesAnimator.swift; sourceTree = "<group>"; };
 		5B6CD5FF216ACDF000E30780 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
-		5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
-		5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B705D4D20DB4706003C37E1 /* OrdersNoteTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersNoteTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
 		5B724D8520DC967300B9296E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5B724D8820DC98F300B9296E /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
@@ -436,9 +427,6 @@
 		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
 		5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateAvailabilityChecker.swift; sourceTree = "<group>"; };
 		5BA01972213733870017A993 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionView.swift; sourceTree = "<group>"; };
-		5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewModel.swift; sourceTree = "<group>"; };
-		5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierCollectionViewCell.swift; sourceTree = "<group>"; };
 		5BAD4D1D20B85FC3009201A4 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAPIManager.swift; sourceTree = "<group>"; };
 		5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BuilderViewController.storyboard; sourceTree = "<group>"; };
@@ -892,15 +880,6 @@
 			path = ItemedPurchasable;
 			sourceTree = "<group>";
 		};
-		5B705D4A20DB4504003C37E1 /* Note */ = {
-			isa = PBXGroup;
-			children = (
-				5B705D4220DAAE88003C37E1 /* NoteTableViewCell.swift */,
-				5B705D4620DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift */,
-			);
-			path = Note;
-			sourceTree = "<group>";
-		};
 		5B724D8E20DFD86F00B9296E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,7 +1022,6 @@
 				5BB296B5209CEA0F00520683 /* Button */,
 				5BB296B0209CE57B00520683 /* Detail */,
 				5BD274F72063FBEA00618128 /* Item */,
-				5B705D4A20DB4504003C37E1 /* Note */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1052,7 +1030,6 @@
 			isa = PBXGroup;
 			children = (
 				5B9CD59E204CCA7F00F59E4C /* Cells */,
-				5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1090,16 +1067,6 @@
 				5B724D8B20DC9C8D00B9296E /* APIKeys.plist */,
 			);
 			path = "Property Lists";
-			sourceTree = "<group>";
-		};
-		5BAD4D1C20B84B31009201A4 /* ModifierCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				5BAD4D1620B764C2009201A4 /* ModifierCollectionView.swift */,
-				5BAD4D1820B764D8009201A4 /* ModifierCollectionViewModel.swift */,
-				5BAD4D1A20B84A08009201A4 /* ModifierCollectionViewCell.swift */,
-			);
-			path = ModifierCollectionView;
 			sourceTree = "<group>";
 		};
 		5BB2256520DFDA3500DFE448 /* Images */ = {
@@ -1631,7 +1598,6 @@
 				5B3A4B602195F3E400F22F78 /* UITableView.swift in Sources */,
 				5B3A4B742195F3E400F22F78 /* Double.swift in Sources */,
 				5B10D5BE20C0805500BF05B2 /* TableViewCellViewModel.swift in Sources */,
-				5B705D4C20DB452F003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B10D59F20C044D800BF05B2 /* Salad.swift in Sources */,
 				5B18CB1120D03245000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B10D5A220C044E000BF05B2 /* Vegetable.swift in Sources */,
@@ -1654,7 +1620,6 @@
 				5B3A4B702195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5BFC5741217C308A0002179B /* Purchasable.swift in Sources */,
 				5B7C0B33219A4BBD00EBC0EB /* Array.swift in Sources */,
-				5B705D4B20DB452D003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5B3A4B6C2195F3E400F22F78 /* UIButton.swift in Sources */,
 				5B3A4B482195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B05C7B620E4652800BDFBF4 /* UISplitViewController.swift in Sources */,
@@ -1742,7 +1707,6 @@
 				5B44F1BB20AA508F00B3E0A5 /* UserSettingsButtonTableViewCellViewModelFactory.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
-				5BAD4D1720B764C2009201A4 /* ModifierCollectionView.swift in Sources */,
 				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
 				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
 				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
@@ -1753,7 +1717,6 @@
 				5BFC5737217A44170002179B /* AnyCodableProtocol.swift in Sources */,
 				5B0B739B20D6413900D757FD /* Blurable.swift in Sources */,
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
-				5B705D4720DAB268003C37E1 /* NoteTableViewCellViewModelFactory.swift in Sources */,
 				5B44F1B720AA4CA700B3E0A5 /* UserSettingsButtonTableViewCell.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* BuilderViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
@@ -1795,7 +1758,6 @@
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
-				5B705D4320DAAE88003C37E1 /* NoteTableViewCell.swift in Sources */,
 				5B6A06921FFD53C700BAC480 /* Extra.swift in Sources */,
 				5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */,
 				5BA01973213733870017A993 /* APIManager.swift in Sources */,
@@ -1838,7 +1800,6 @@
 				5B37A3A9207FDE1E00526068 /* ConfirmationViewController.swift in Sources */,
 				5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */,
 				5B44F1B520AA37BC00B3E0A5 /* UserSettingsButtonTableViewCellSelectionCommand.swift in Sources */,
-				5BAD4D1920B764D8009201A4 /* ModifierCollectionViewModel.swift in Sources */,
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */,
@@ -1860,7 +1821,6 @@
 				5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
 				5B2278582197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift in Sources */,
 				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,
-				5BAD4D1B20B84A08009201A4 /* ModifierCollectionViewCell.swift in Sources */,
 				5B3F25DA210F68160080290E /* Observable.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,
 				5B3F25E6210F7A790080290E /* Request.swift in Sources */,

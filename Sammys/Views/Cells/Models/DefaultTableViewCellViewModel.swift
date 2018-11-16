@@ -13,13 +13,15 @@ struct DefaultTableViewCellViewModel: TableViewCellViewModel {
     let height: Double
     let isSelectable: Bool
     let isEditable: Bool
+	let selectionHandler: (() -> Void)?
     let commands: [TableViewCommandActionKey : TableViewCellCommand]
     
-    init(identifier: String, height: Double, isSelectable: Bool = true, isEditable: Bool = true, commands: [TableViewCommandActionKey : TableViewCellCommand]) {
+    init(identifier: String, height: Double, isSelectable: Bool = true, isEditable: Bool = true, selectionHandler: (() -> Void)? = nil, commands: [TableViewCommandActionKey : TableViewCellCommand]) {
         self.identifier = identifier
         self.height = height
         self.isSelectable = isSelectable
         self.isEditable = isEditable
+		self.selectionHandler = selectionHandler
         self.commands = commands
     }
 }
