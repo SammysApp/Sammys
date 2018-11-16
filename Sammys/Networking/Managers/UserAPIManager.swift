@@ -37,6 +37,11 @@ struct UserAPIManager: FirebaseAPIManager {
         guard let email = user.email, let name = user.displayName else { throw UserAPIError.notEnoughDetails }
         return User(id: user.uid, email: email, name: name, providers: providers)
     }
+	
+	func currentUserState() -> Promise<UserState> {
+		guard let firebaseUser = Client.currentUser else { return Promise { $0.fulfill(.noUser) } }
+		return getUser(for: firebaseUser).map { .currentUser($0) }
+	}
     
 	func createUser(withName name: String, email: String, password: String) -> Promise<User> {
         return Client.createUser(withEmail: email, password: password)

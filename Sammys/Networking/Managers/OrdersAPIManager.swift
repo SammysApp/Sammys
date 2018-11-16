@@ -10,7 +10,6 @@ import Foundation
 import PromiseKit
 import Firebase
 
-typealias ObservableOrdersPromise = Variable<Promise<[KitchenOrder]>>
 typealias OrderNumber = Int
 
 struct OrdersAPIManager: FirebaseAPIManager {

@@ -30,7 +30,6 @@ enum FirebaseAPIError: Error {
 }
 
 typealias FirebaseUser = Firebase.User
-typealias ObservableSnapshotPromise = Variable<Promise<DataSnapshot>>
 
 struct FirebaseAPIClient {
     private enum EnvironmentPath: String, PathStringRepresentable {
@@ -82,15 +81,6 @@ struct FirebaseAPIClient {
         return Promise { databaseReference.observeSingleEvent(of: eventType, with: $0.resolve) }
     }
     
-    static func observableSnapshot(for eventType: DataEventType = .value, at databaseQuery: DatabaseQuery = databaseReference()) -> ObservableSnapshotPromise {
-        let observableSnapshot = ObservableSnapshotPromise()
-        databaseQuery.observe(eventType) { snapshot in
-			// FIXME: Does this reference stay forever?
-            observableSnapshot.value = Promise { $0.resolve(snapshot: snapshot) }
-        }
-        return observableSnapshot
-    }
-    
     static func attemptTransaction<T>(_ transaction: @escaping (T?) -> T, at databaseReference: DatabaseReference = databaseReference()) -> Promise<T> {
         return Promise<T> {
             databaseReference.runTransactionBlock({ currentData in
@@ -106,6 +96,8 @@ struct FirebaseAPIClient {
     
     // MARK: - Auth
     private static var defaultAuth: Auth { return Auth.auth() }
+	
+	static var currentUser: FirebaseUser? { return defaultAuth.currentUser }
     
     static func createUser(withEmail email: String, password: String) -> Promise<FirebaseUser> {
         return Promise { defaultAuth.createUser(withEmail: email, password: password, completion: $0.resolve) }

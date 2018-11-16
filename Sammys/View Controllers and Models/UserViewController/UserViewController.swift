@@ -66,6 +66,12 @@ extension UserViewController: UITableViewDataSource {
 	}
 }
 
+extension UserViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return CGFloat(viewModel.cellViewModel(for: indexPath).height)
+	}
+}
+
 // MARK: - UserViewModelViewDelegate
 extension UserViewController: UserViewModelViewDelegate {
 	func cellHeight() -> Double { return Constants.cellHeight }

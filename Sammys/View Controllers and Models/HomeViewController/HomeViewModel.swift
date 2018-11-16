@@ -55,6 +55,9 @@ class HomeViewModel {
 	private(set) var favesButtonImage = Dynamic(HomeImage.heart)
 	private (set) var shouldHideNoFavesView = Dynamic(true)
 	
+	let userAPIManager = UserAPIManager()
+	var userState = UserState.noUser
+	
 	var bagQuantity: Int {
 		return (try? bagModelController.getTotalPurchasablesQuantity()) ?? 0
 	}
@@ -69,6 +72,8 @@ class HomeViewModel {
     
 	init(_ viewDelegate: HomeViewModelViewDelegate) {
 		self.viewDelegate = viewDelegate
+		
+		userAPIManager.currentUserState().get { self.userState = $0 }.catch { print($0) }
     }
 	
 	func setCurrentViewState(to viewState: HomeViewState) {
@@ -101,6 +106,6 @@ class HomeViewModel {
 	}
 	
 	func userViewModelParcel() -> UserViewModelParcel {
-		return UserViewModelParcel(userState: .noUser)
+		return UserViewModelParcel(userState: userState)
 	}
 }
