@@ -929,6 +929,24 @@
 			path = HomeItemCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		5B96DD55219F3C4D006113B8 /* LoginPageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */,
+				5BB296A12093891100520683 /* LoginPageViewModel.swift */,
+			);
+			path = LoginPageViewController;
+			sourceTree = "<group>";
+		};
+		5B96DD56219F3C69006113B8 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
+				5BB296D320A1F13C00520683 /* LoginViewModel.swift */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
 		5B9B908720C70BE800FB6264 /* Data Stores */ = {
 			isa = PBXGroup;
 			children = (
@@ -1005,7 +1023,9 @@
 				5BD274F52063FAEE00618128 /* BagViewController */,
 				5B3A4B772196172F00F22F78 /* PaymentViewController */,
 				5BD274F22063FAC900618128 /* UserViewController */,
-				5BD274F32063FAD800618128 /* Login */,
+				5B96DD55219F3C4D006113B8 /* LoginPageViewController */,
+				5B96DD56219F3C69006113B8 /* LoginViewController */,
+				5BD274F32063FAD800618128 /* SignUpViewController */,
 				5BB296CE209F719200520683 /* User Settings */,
 				5B0B739E20D810F400D757FD /* Pickup Date */,
 				5BD6B3D120812F62000114F5 /* Confirmation */,
@@ -1207,16 +1227,12 @@
 			path = UserViewController;
 			sourceTree = "<group>";
 		};
-		5BD274F32063FAD800618128 /* Login */ = {
+		5BD274F32063FAD800618128 /* SignUpViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5BFD2BC8202112DE005C01BF /* LoginPageViewController.swift */,
-				5BB296A12093891100520683 /* LoginPageViewModel.swift */,
-				5B44A8242007ED9200898FF0 /* LoginViewController.swift */,
-				5BB296D320A1F13C00520683 /* LoginViewModel.swift */,
 				5BFD2BCA202116C0005C01BF /* SignUpViewController.swift */,
 			);
-			path = Login;
+			path = SignUpViewController;
 			sourceTree = "<group>";
 		};
 		5BD274F42063FAE300618128 /* BuilderViewController */ = {

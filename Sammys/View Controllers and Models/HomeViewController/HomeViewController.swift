@@ -216,6 +216,8 @@ extension HomeViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) { viewModel.userState = .currentUser(user) }
 	
 	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {}
+	
+	func loginViewControllerDidCancel(_ loginViewController: LoginViewController) {}
 }
 
 enum HomeImage {

@@ -11,6 +11,7 @@ import UIKit
 protocol LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User)
 	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error)
+	func loginViewControllerDidCancel(_ loginViewController: LoginViewController)
 }
 
 class LoginViewController: UIViewController {
@@ -71,7 +72,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func didTapFacebook(_ sender: UIButton) {}
     
-    @IBAction func didTapCancel(_ sender: UIButton) {}
+    @IBAction func didTapCancel(_ sender: UIButton) { delegate?.loginViewControllerDidCancel(self) }
 }
 
 // MARK: - Storyboardable

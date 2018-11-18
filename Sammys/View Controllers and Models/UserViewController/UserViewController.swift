@@ -17,6 +17,7 @@ class UserViewController: UIViewController {
 	
 	var delegate: UserViewControllerDelegate?
 	
+	var shouldShowLoginPageViewController = true
 	lazy var loginPageViewController: LoginPageViewController = {
 		let loginPageViewController = LoginPageViewController.storyboardInstance()
 		loginPageViewController.delegate = self
@@ -42,7 +43,7 @@ class UserViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		if case .noUser = viewModel.userState
+		if shouldShowLoginPageViewController, case .noUser = viewModel.userState
 		{ present(loginPageViewController, animated: true, completion: nil) }
 	}
 	
@@ -110,7 +111,13 @@ extension UserViewController: LoginPageViewControllerDelegate {
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	
-	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {
-		print(error)
+	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {}
+	
+	func loginViewControllerDidCancel(_ loginViewController: LoginViewController) {
+		shouldShowLoginPageViewController = false
+		loginViewController.dismiss(animated: true) {
+			self.dismiss(animated: true, completion: nil)
+			self.shouldShowLoginPageViewController = true
+		}
 	}
 }
