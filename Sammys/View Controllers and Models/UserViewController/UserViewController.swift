@@ -104,6 +104,17 @@ extension UserViewController: UserViewModelViewDelegate {
 
 // MARK: - LoginPageViewControllerDelegate
 extension UserViewController: LoginPageViewControllerDelegate {
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User) {
+		viewModel.userState = .currentUser(user)
+		loadViews()
+		loginPageViewController.dismiss(animated: true, completion: nil)
+	}
+	
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, couldNotSignUpDueTo error: Error) { print(error) }
+}
+
+// MARK: - LoginViewControllerDelegate
+extension UserViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
 		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
 		viewModel.userState = .currentUser(user)

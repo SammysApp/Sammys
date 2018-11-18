@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
     @IBAction func didTapLogin(_ sender: UIButton) {
 		guard let email = emailTextField.text, let password = passwordTextField.text
 			else { return }
-		viewModel.login(with: LoginDetails(email: email, password: password))
+		viewModel.login(with: LoginFields(email: email, password: password))
 		.get { self.delegate?.loginViewController(self, didFinishLoggingIn: $0) }
 		.catch { self.delegate?.loginViewController(self, couldNotLoginDueTo: $0) }
     }

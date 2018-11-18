@@ -9,10 +9,11 @@
 import UIKit
 
 protocol SignUpViewControllerDelegate {
-	func signUpViewController(_ signUpViewController: SignUpViewController, textFieldDidChangeEditing textField: UITextField)
+	func signUpViewController(_ signUpViewController: SignUpViewController, for page: LoginPage, textFieldDidChangeEditing textField: UITextField)
 }
 
 class SignUpViewController: UIViewController {
+	var page: LoginPage? { didSet { titleText = page?.rawValue.uppercased() } }
 	var titleText: String? { didSet { titleLabel?.text = titleText } }
 	
 	var delegate: SignUpViewControllerDelegate?
@@ -28,7 +29,10 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: - IBActions
-    @IBAction func textFieldDidChangeEditing(_ sender: UITextField) { delegate?.signUpViewController(self, textFieldDidChangeEditing: sender) }
+	@IBAction func textFieldDidChangeEditing(_ sender: UITextField) {
+		guard let page = page else { return }
+		delegate?.signUpViewController(self, for: page, textFieldDidChangeEditing: sender)
+	}
 }
 
 // MARK: - Storyboardable

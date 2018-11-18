@@ -15,7 +15,7 @@ struct LoginViewModelParcel {
 	let method: LoginMethod
 }
 
-struct LoginDetails {
+struct LoginFields {
 	let email: String
 	let password: String
 }
@@ -27,7 +27,7 @@ class LoginViewModel {
 		self.parcel = parcel
 	}
 	
-	func login(with details: LoginDetails) -> Promise<User> {
-		return UserAPIManager().signIn(withEmail: details.email, password: details.password)
+	func login(with fields: LoginFields) -> Promise<User> {
+		return UserAPIManager().signIn(withEmail: fields.email, password: fields.password)
 	}
 }

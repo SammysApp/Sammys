@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol LoginPageViewControllerDelegate: LoginViewControllerDelegate {}
+protocol LoginPageViewControllerDelegate: LoginViewControllerDelegate {
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User)
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, couldNotSignUpDueTo error: Error)
+}
 
 class LoginPageViewController: UIViewController {
     private let viewModel = LoginPageViewModel()
@@ -49,10 +52,10 @@ class LoginPageViewController: UIViewController {
 		setViewController(for: viewModel.currentPage)
 	}
 	
-	func signUpViewController(for loginPage: LoginPage) -> SignUpViewController {
+	func signUpViewController(for page: LoginPage) -> SignUpViewController {
 		let signupViewController = SignUpViewController.storyboardInstance()
 		signupViewController.delegate = self
-		signupViewController.titleText = loginPage.rawValue.uppercased()
+		signupViewController.page = page
 		return signupViewController
 	}
 	
@@ -64,7 +67,16 @@ class LoginPageViewController: UIViewController {
 	}
     
     // MARK: IBActions
-	@IBAction func didTapNext(_ sender: UIButton)   { viewModel.incrementOrLoopCurrentPage(); setViewController(for: viewModel.currentPage, animated: true) }
+	@IBAction func didTapNext(_ sender: UIButton)   {
+		if viewModel.isAtLastSignUpPage {
+			viewModel.signUp()
+				.get { self.delegate?.loginPageViewController(self, didSignUp: $0) }
+				.catch { self.delegate?.loginPageViewController(self, couldNotSignUpDueTo: $0) }
+		} else {
+			viewModel.incrementOrLoopCurrentPage()
+			setViewController(for: viewModel.currentPage, animated: true)
+		}
+	}
 	
 	@IBAction func didTapBack(_ sender: UIButton) { viewModel.decrementCurrentPage(); setViewController(for: viewModel.currentPage, direction: .reverse, animated: true) }
 }
@@ -72,6 +84,7 @@ class LoginPageViewController: UIViewController {
 // MARK: - Storyboardable
 extension LoginPageViewController: Storyboardable {}
 
+// MARK: - LoginViewControllerDelegate
 extension LoginPageViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) { delegate?.loginViewController(loginViewController, didFinishLoggingIn: user) }
 	
@@ -88,7 +101,8 @@ extension LoginPageViewController: LoginViewControllerDelegate {
 
 // MARK: - SignUpViewControllerDelegate
 extension LoginPageViewController: SignUpViewControllerDelegate {
-	func signUpViewController(_ signUpViewController: SignUpViewController, textFieldDidChangeEditing textField: UITextField) {
-		
+	func signUpViewController(_ signUpViewController: SignUpViewController, for page: LoginPage, textFieldDidChangeEditing textField: UITextField) {
+		guard let text = textField.text else { return }
+		viewModel.signUpFields[page] = text
 	}
 }
