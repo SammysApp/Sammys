@@ -8,9 +8,17 @@
 
 import UIKit
 
+protocol SignUpViewControllerDelegate {
+	func signUpViewController(_ signUpViewController: SignUpViewController, textFieldDidChangeEditing textField: UITextField)
+}
+
 class SignUpViewController: UIViewController {
+	var titleText: String? { didSet { titleLabel?.text = titleText } }
+	
+	var delegate: SignUpViewControllerDelegate?
+	
     // MARK: - IBOutlets
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel! { didSet { titleLabel.text = titleText } }
     @IBOutlet var textField: UITextField!
     
     // MARK: - Lifecycle
@@ -20,7 +28,7 @@ class SignUpViewController: UIViewController {
     }
     
     // MARK: - IBActions
-    @IBAction func textFieldDidChangeEditing(_ sender: UITextField) {}
+    @IBAction func textFieldDidChangeEditing(_ sender: UITextField) { delegate?.signUpViewController(self, textFieldDidChangeEditing: sender) }
 }
 
 // MARK: - Storyboardable

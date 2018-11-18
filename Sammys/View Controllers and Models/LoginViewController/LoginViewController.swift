@@ -11,6 +11,7 @@ import UIKit
 protocol LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User)
 	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error)
+	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController)
 	func loginViewControllerDidCancel(_ loginViewController: LoginViewController)
 }
 
@@ -68,7 +69,7 @@ class LoginViewController: UIViewController {
 		.catch { self.delegate?.loginViewController(self, couldNotLoginDueTo: $0) }
     }
 	
-	@IBAction func didTapSignUp(_ sender: UIButton) {}
+	@IBAction func didTapSignUp(_ sender: UIButton) { delegate?.loginViewControllerDidTapSignUp(self) }
     
     @IBAction func didTapFacebook(_ sender: UIButton) {}
     

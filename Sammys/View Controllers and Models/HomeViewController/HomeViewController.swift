@@ -217,6 +217,8 @@ extension HomeViewController: LoginViewControllerDelegate {
 	
 	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {}
 	
+	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController) {}
+	
 	func loginViewControllerDidCancel(_ loginViewController: LoginViewController) {}
 }
 

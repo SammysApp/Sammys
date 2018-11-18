@@ -8,23 +8,33 @@
 
 import Foundation
 
-enum LoginPageIndex: Int {
+enum LoginPage: String {
     case login, name, email, password
+	
+	static var firstSignUpPage: LoginPage { return .name }
 }
 
-extension LoginPageIndex: CaseIterable {}
+extension LoginPage: CaseIterable {}
 
 class LoginPageViewModel {
-	private var defaultPageIndex = LoginPageIndex.login
-	private(set) lazy var currentPageIndex = defaultPageIndex
+	private var defaultPage = LoginPage.login
+	lazy var currentPage = defaultPage
 	
-	func incrementOrLoopCurrentPageIndex() {
-		guard let incrementedPageIndex = LoginPageIndex(rawValue: currentPageIndex.rawValue + 1) else { currentPageIndex = defaultPageIndex; return }
-		currentPageIndex = incrementedPageIndex
+	private var currentPageIndex: Int? {
+		return LoginPage.allCases.firstIndex(of: currentPage)
 	}
 	
-	func decrementCurrentPageIndex() {
-		guard let decrementedPageIndex = LoginPageIndex(rawValue: currentPageIndex.rawValue - 1) else { return }
-		currentPageIndex = decrementedPageIndex
+	func incrementOrLoopCurrentPage() {
+		guard let currentPageIndex = currentPageIndex,
+			let incrementedPage = LoginPage.allCases[safe: currentPageIndex + 1]
+			else { currentPage = defaultPage; return }
+		currentPage = incrementedPage
+	}
+	
+	func decrementCurrentPage() {
+		guard let currentPageIndex = currentPageIndex,
+			let decrementedPage = LoginPage.allCases[safe: currentPageIndex - 1]
+			else { return }
+		currentPage = decrementedPage
 	}
 }
