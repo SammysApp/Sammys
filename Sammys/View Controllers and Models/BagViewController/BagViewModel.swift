@@ -7,9 +7,14 @@
 //
 
 import Foundation
+import PromiseKit
 
 enum BagViewModelError: Error {
 	case badCellViewModelIndexPath
+}
+
+struct BagViewModelParcel {
+	let userState: UserState
 }
 
 protocol BagViewModelViewDelegate {
@@ -19,14 +24,19 @@ protocol BagViewModelViewDelegate {
 class BagViewModel {
 	typealias Section = TableViewSection<BagPurchasableTableViewCellViewModel>
 	
+	private let parcel: BagViewModelParcel
 	private let viewDelegate: BagViewModelViewDelegate
 	var bagPurchasableTableViewCellDelegate: BagPurchasableTableViewCellDelegate?
+	
+	private let ordersAPIManager = OrdersAPIManager()
 	
 	private let bagModelController = BagModelController()
 	private var purchasableQuantities: [PurchasableQuantity] {
 		do { return try bagModelController.getPurchasableQuantities() }
 		catch { print(error); return [] }
 	}
+	
+	var user: User? { guard case .currentUser(let user) = parcel.userState else { return nil }; return user }
 	
 	private var sections: [Section] {
 		return [
@@ -38,7 +48,8 @@ class BagViewModel {
 	
 	var numberOfSections: Int { return sections.count }
 	
-	init(_ viewDelegate: BagViewModelViewDelegate) {
+	init(parcel: BagViewModelParcel, viewDelegate: BagViewModelViewDelegate) {
+		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}
 	
@@ -81,6 +92,15 @@ class BagViewModel {
 	}
 	
 	func clear() { bagModelController.clearAllPurchasables() }
+	
+	private func makeBagOrder(withNumber number: Int) -> Order {
+		return Order(id: UUID().uuidString, number: "\(number)", userName: user?.name ?? "No Name", userID: user?.id, date: Date(), pickupDate: nil, note: nil, purchasableQuantities: purchasableQuantities)
+	}
+	
+	func sendOrder() -> Promise<Void> {
+		return ordersAPIManager.generateOrderNumber()
+			.get { try self.ordersAPIManager.add(self.makeBagOrder(withNumber: $0)) }.asVoid()
+	}
 	
 	func paymentViewModelParcel() throws -> PaymentViewModelParcel {
 		return PaymentViewModelParcel(subtotal: try bagModelController.getTotalPurchasablesPrice())

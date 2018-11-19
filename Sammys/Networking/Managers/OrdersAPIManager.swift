@@ -33,9 +33,9 @@ struct OrdersAPIManager: FirebaseAPIManager {
         return DateFormatter(format: "M/d/yyyy")
     }
     
-    private func decodeOrdersSnapshot(_ snapshot: DataSnapshot) -> [KitchenOrder] {
+    private func decodeOrdersSnapshot(_ snapshot: DataSnapshot) throws -> [KitchenOrder] {
         guard let ordersSnapshot = snapshot.allChildrenSnapshots else { fatalError() }
-        return ordersSnapshot.compactMap { KitchenOrder(orderData: try? Client.decode($0)) }
+        return try ordersSnapshot.map { KitchenOrder(orderData: try Client.decode($0)) }
     }
     
     func generateOrderNumber() -> Promise<OrderNumber> {
@@ -50,9 +50,12 @@ struct OrdersAPIManager: FirebaseAPIManager {
         return order.pickupDate ?? order.date
     }
     
-    func add(_ order: Order) {
+    func add(_ order: Order) throws {
         let calendarDateString = self.calendarDateString(for: calendarDate(for: order))
-        try? Client.set(OrderData(kitchen: KitchenData(calendarDate: calendarDateString), order: order))
+		try Client.set(
+			OrderData(kitchen: KitchenData(calendarDate: calendarDateString), order: order),
+			at: ordersDatabaseReference().child("\(order.number)")
+		)
     }
 }
 
@@ -76,22 +79,12 @@ private struct KitchenData: Codable {
 }
 
 private extension KitchenOrder {
-    /// Maps snapshots to kitchenOrders. Returns `nil` if can't decode snapshot.
-    init?(orderData: OrderData?) {
-        guard let orderData = orderData else { return nil }
-        self.init(order: orderData.order,
-                  isInProgress: orderData.kitchen.isInProgress,
-                  isComplete: orderData.kitchen.isComplete)
+    init(orderData: OrderData) {
+        self.init(order: orderData.order, isInProgress: orderData.kitchen.isInProgress, isComplete: orderData.kitchen.isComplete)
     }
 }
 
-extension DatabaseReference {
-    func child(_ path: OrdersAPIManager.Path...) -> DatabaseReference {
-        return child(path)
-    }
-}
-
-extension DatabaseQuery {
+private extension DatabaseQuery {
     func queryOrdered(byChild path: OrdersAPIManager.Path...) -> DatabaseQuery {
         return queryOrdered(byChild: path)
     }

@@ -15,9 +15,13 @@ class HomeViewController: UIViewController {
 	
 	lazy var userViewController: UserViewController = {
 		let userViewController = UserViewController.storyboardInstance()
-		userViewController.viewModelParcel = viewModel.userViewModelParcel()
 		userViewController.delegate = self
 		return userViewController
+	}()
+	
+	lazy var bagViewController: BagViewController = {
+		let bagViewController = BagViewController.storyboardInstance()
+		return bagViewController
 	}()
 	
     // MARK: - IBOutlets
@@ -147,13 +151,15 @@ class HomeViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
+		userViewController.viewModelParcel = viewModel.userViewModelParcel()
 		present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
 	}
     
     @IBAction func didTapFaves(_ sender: UIButton) {}
     
     @IBAction func didTapBag(_ sender: UIButton) {
-		present(UINavigationController(rootViewController: BagViewController.storyboardInstance()), animated: true, completion: nil)
+		bagViewController.viewModelParcel = viewModel.bagViewModelParcel()
+		present(UINavigationController(rootViewController: bagViewController), animated: true, completion: nil)
 	}
 }
 

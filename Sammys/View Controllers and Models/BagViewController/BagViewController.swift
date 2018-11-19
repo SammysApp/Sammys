@@ -9,11 +9,17 @@
 import UIKit
 
 class BagViewController: UIViewController {
-	lazy var viewModel = BagViewModel(self)
+	/// Must be set for use by the view model.
+	var viewModelParcel: BagViewModelParcel!
+	private lazy var viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
-	lazy var paymentViewController = { PaymentViewController.storyboardInstance() }()
+	lazy var paymentViewController: PaymentViewController = {
+		let paymentViewController = PaymentViewController.storyboardInstance()
+		paymentViewController.delegate = self
+		return paymentViewController
+	}()
 	
-	var lastSelectedIndexPath: IndexPath?
+	private var lastSelectedIndexPath: IndexPath?
 	
     // MARK: - IBOutlets
 	@IBOutlet var tableView: UITableView!
@@ -160,6 +166,12 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 		let quantityString = "\(quantity)"
 		quantityTextField.placeholder = quantityString
 		if let text = quantityTextField.text, !text.isEmpty { quantityTextField.text = quantityString }
+	}
+}
+
+extension BagViewController: PaymentViewControllerDelegate {
+	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPay payButton: UIButton, forTotal total: Double) {
+		viewModel.sendOrder().catch { print($0) }
 	}
 }
 

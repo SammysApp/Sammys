@@ -17,7 +17,7 @@ class PaymentViewModel {
 	
 	private var subtotal: Double { return parcel.subtotal }
 	private var tax: Double { return parcel.subtotal * Constants.taxRateMultiplier }
-	private var total: Double { return subtotal + tax }
+	var total: Double { return subtotal + tax }
 	
 	var subtotalText: String { return subtotal.priceString }
 	var taxText: String { return tax.priceString }

@@ -114,4 +114,8 @@ class HomeViewModel {
 	func userViewModelParcel() -> UserViewModelParcel {
 		return UserViewModelParcel(userState: userState)
 	}
+	
+	func bagViewModelParcel() -> BagViewModelParcel {
+		return BagViewModelParcel(userState: userState)
+	}
 }

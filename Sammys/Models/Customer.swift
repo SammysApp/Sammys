@@ -8,7 +8,6 @@
 
 import Foundation
 
-/// A Stripe customer.
 struct Customer: Decodable {
     let id: String
     let email: String

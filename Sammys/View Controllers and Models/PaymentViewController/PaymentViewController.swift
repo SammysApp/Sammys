@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol PaymentViewControllerDelegate {
+	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPay payButton: UIButton, forTotal total: Double)
+}
+
 class PaymentViewController: UIViewController {
 	/// Must be set for use by the view model.
 	var viewModelParcel: PaymentViewModelParcel! {
 		didSet { viewModel = PaymentViewModel(viewModelParcel) }
 	}
 	private var viewModel: PaymentViewModel! { didSet { loadViews() } }
+	
+	var delegate: PaymentViewControllerDelegate?
 	
 	// MARK: IBOutlets
 	@IBOutlet var subtotalLabel: UILabel!
@@ -48,8 +54,7 @@ class PaymentViewController: UIViewController {
 	}
 	
 	// MARK: - IBActions
-	@IBAction func didTapTotalButton(_ sender: UIButton) {
-	}
+	@IBAction func didTapPayButton(_ sender: UIButton) { delegate?.paymentViewController(self, didTapPay: sender, forTotal: viewModel.total) }
 }
 
 // MARK: - Storyboardable

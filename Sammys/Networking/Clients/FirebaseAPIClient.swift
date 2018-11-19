@@ -61,7 +61,7 @@ struct FirebaseAPIClient {
     // MARK: - Database
 	static func databaseReference(_ path: [PathStringRepresentable], environment: AppEnvironment = environment) -> DatabaseReference {
         let database = Database.database().reference()
-        let environmentDatabase = database //database.child(environment.isLive ? EnvironmentPath.live : EnvironmentPath.develop)
+        let environmentDatabase = database.child(environment.isLive ? EnvironmentPath.live : EnvironmentPath.develop)
         return path.isEmpty ? environmentDatabase : environmentDatabase.child(path)
     }
     
