@@ -13,12 +13,10 @@ protocol TableViewCellViewModel {
     var height: Double { get }
     var isSelectable: Bool { get }
     var isEditable: Bool { get }
-	var selectionHandler: (() -> Void)? { get }
     var commands: [TableViewCommandActionKey: TableViewCellCommand] { get }
 }
 
 extension TableViewCellViewModel {
     var isSelectable: Bool { return false }
     var isEditable: Bool { return false }
-	var selectionHandler: (() -> Void)? { return nil }
 }

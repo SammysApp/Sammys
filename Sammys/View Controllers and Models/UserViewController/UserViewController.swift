@@ -13,7 +13,7 @@ protocol UserViewControllerDelegate: LoginViewControllerDelegate {}
 class UserViewController: UIViewController {
 	/// Must be set for use by the view model.
 	var viewModelParcel: UserViewModelParcel!
-	private lazy var viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self)
+	lazy var viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: UserViewControllerDelegate?
 	
@@ -22,6 +22,11 @@ class UserViewController: UIViewController {
 		let loginPageViewController = LoginPageViewController.storyboardInstance()
 		loginPageViewController.delegate = self
 		return loginPageViewController
+	}()
+	
+	lazy var ordersViewController: OrdersViewController = {
+		let ordersViewController = OrdersViewController.storyboardInstance()
+		return ordersViewController
 	}()
 	
     // MARK: - IBOutlets
@@ -43,12 +48,38 @@ class UserViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		if shouldShowLoginPageViewController, case .noUser = viewModel.userState
-		{ present(loginPageViewController, animated: true, completion: nil) }
+		if case .noUser = viewModel.userState {
+			viewModel.setupUserState()
+				.get { self.handleUpdatedUserState($0, shouldShowLoginIfNoUser: self.shouldShowLoginPageViewController) }
+				.catch { print($0) }
+		}
 	}
 	
 	func loadViews() {
 		tableView.reloadData()
+	}
+	
+	func handleUpdatedUserState(_ userState: UserState,
+								shouldShowLoginIfNoUser: Bool = false) {
+		loadViews()
+		switch userState {
+		case .currentUser: break
+		case .noUser:
+			if shouldShowLoginIfNoUser
+			{ present(self.loginPageViewController, animated: true, completion: nil) }
+		}
+	}
+	
+	func logOut() {
+		do {
+			try viewModel.logOut()
+			handleUpdatedUserState(.noUser)
+			dismiss(animated: true, completion: nil)
+		} catch { print(error) }
+	}
+	
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)"
 	}
 	
 	// MARK: - IBActions
@@ -73,7 +104,7 @@ extension UserViewController: UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier)
 			else { fatalError("Can't dequeue reusable cell with identifier: \(cellViewModel.identifier)") }
 		cellViewModel.commands[.configuration]?.perform(parameters: TableViewCellCommandParameters(cell: cell))
@@ -84,29 +115,26 @@ extension UserViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension UserViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return CGFloat(viewModel.cellViewModel(for: indexPath).height)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
+		return CGFloat(cellViewModel.height)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		viewModel.cellViewModel(for: indexPath).selectionHandler?()
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
+		cellViewModel.commands[.selection]?.perform(parameters: TableViewCellCommandParameters(cell: tableView.cellForRow(at: indexPath), viewController: self))
 	}
 }
 
 // MARK: - UserViewModelViewDelegate
 extension UserViewController: UserViewModelViewDelegate {
 	func cellHeight() -> Double { return Constants.cellHeight }
-	
-	func userViewModel(_ viewModel: UserViewModel, didUpdate userState: UserState) {
-		loadViews()
-		if case .noUser = userState { dismiss(animated: true, completion: nil) }
-	}
 }
 
 // MARK: - LoginPageViewControllerDelegate
 extension UserViewController: LoginPageViewControllerDelegate {
 	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User) {
 		viewModel.userState = .currentUser(user)
-		loadViews()
+		handleUpdatedUserState(viewModel.userState)
 		loginPageViewController.dismiss(animated: true, completion: nil)
 	}
 	
@@ -118,11 +146,13 @@ extension UserViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
 		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
 		viewModel.userState = .currentUser(user)
-		loadViews()
+		handleUpdatedUserState(viewModel.userState)
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	
-	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {}
+	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {
+		print(error)
+	}
 	
 	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController) {}
 	

@@ -9,6 +9,8 @@
 import Foundation
 import PromiseKit
 
+enum UserViewModelError: Error { case needsUser }
+
 struct UserViewModelParcel {
 	let userState: UserState
 }
@@ -17,7 +19,6 @@ enum UserCellIdentifier: String { case detailCell, buttonCell }
 
 protocol UserViewModelViewDelegate {
 	func cellHeight() -> Double
-	func userViewModel(_ viewModel: UserViewModel, didUpdate userState: UserState)
 }
 
 class UserViewModel {
@@ -40,36 +41,33 @@ class UserViewModel {
 	}
 	
 	func myInfoSection(for user: User) -> Section {
-		return Section(
-			title: Constants.myInfoSectionTitle,
-			cellViewModels: [
-				DetailTableViewCellViewModelFactory(
-					identifier: UserCellIdentifier.detailCell.rawValue,
-					height: viewDelegate.cellHeight(),
-					titleText: Constants.nameCellTitle,
-					detailText: user.name).create(),
-				DetailTableViewCellViewModelFactory(
-					identifier: UserCellIdentifier.detailCell.rawValue,
-					height: viewDelegate.cellHeight(),
-					titleText: Constants.emailCellTitle,
-					detailText: user.email).create()
-			]
-		)
+		return Section(cellViewModels: [
+			DetailTableViewCellViewModelFactory(
+				identifier: UserCellIdentifier.detailCell.rawValue,
+				height: viewDelegate.cellHeight(),
+				titleText: Constants.nameCellTitle,
+				detailText: user.name).create(),
+			DetailTableViewCellViewModelFactory(
+				identifier: UserCellIdentifier.detailCell.rawValue,
+				height: viewDelegate.cellHeight(),
+				titleText: Constants.emailCellTitle,
+				detailText: user.email).create()
+		])
 	}
 	
 	func buttonsSection() -> Section {
-		return Section(
-			cellViewModels: [
-				ButtonTableViewCellViewModelFactory(
-					identifier: UserCellIdentifier.buttonCell.rawValue,
-					height: viewDelegate.cellHeight(),
-					buttonText: Constants.logOutCellTitle,
-					selectionHandler: {
-						do { try self.logOut(); self.viewDelegate.userViewModel(self, didUpdate: self.userState) }
-						catch { print(error) }
-					}).create()
-			]
-		)
+		return Section(cellViewModels: [
+			ButtonTableViewCellViewModelFactory(
+				identifier: UserCellIdentifier.buttonCell.rawValue,
+				height: viewDelegate.cellHeight(),
+				buttonText: Constants.ordersCellTitle,
+				selectionCommand: OrdersButtonTableViewCellSelectionCommand()).create(),
+			ButtonTableViewCellViewModelFactory(
+				identifier: UserCellIdentifier.buttonCell.rawValue,
+				height: viewDelegate.cellHeight(),
+				buttonText: Constants.logOutCellTitle,
+				selectionCommand: LoginButtonTableViewCellSelectionCommand()).create()
+		])
 	}
     
     var numberOfSections: Int {
@@ -77,27 +75,27 @@ class UserViewModel {
     }
 	
 	private struct Constants {
-		static let myInfoSectionTitle = "My Info"
 		static let nameCellTitle = "Name"
 		static let emailCellTitle = "Email"
+		static let ordersCellTitle = "Your Orders"
 		static let logOutCellTitle = "Log Out"
 	}
 	
 	init(parcel: UserViewModelParcel, viewDelegate: UserViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
-		
-		if case .noUser = userState { userAPIManager.currentUserState()
-			.get { self.userState = $0; self.viewDelegate.userViewModel(self, didUpdate: $0) }
-			.catch { print($0) } }
+	}
+	
+	func setupUserState() -> Promise<UserState> {
+		return userAPIManager.currentUserState().get { self.userState = $0 }
 	}
     
     func numberOfRows(inSection section: Int) -> Int {
         return sections[section].cellViewModels.count
     }
     
-    func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
-        return sections[indexPath.section].cellViewModels[indexPath.row]
+    func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel? {
+		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
     }
     
     func sectionTitle(for section: Int) -> String? {
@@ -107,5 +105,10 @@ class UserViewModel {
 	func logOut() throws {
 		do { try userAPIManager.signOut(); userState = .noUser }
 		catch { throw error }
+	}
+	
+	func ordersViewModelParcel() throws -> OrdersViewModelParcel {
+		guard let user = user else { throw UserViewModelError.needsUser }
+		return OrdersViewModelParcel(user: user)
 	}
 }

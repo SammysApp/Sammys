@@ -188,6 +188,8 @@
 		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
 		5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */; };
 		5BA01973213733870017A993 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA01972213733870017A993 /* APIManager.swift */; };
+		5BA1135B21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */; };
+		5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */; };
 		5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
 		5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */; };
 		5BAEE6E620E4716A00607DFA /* BuilderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */; };
@@ -197,9 +199,9 @@
 		5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */; };
 		5BB2256E20DFE7BA00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */; };
 		5BB29651208A461700520683 /* OrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29650208A461700520683 /* OrdersViewModel.swift */; };
-		5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */; };
-		5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */; };
-		5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29656208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift */; };
+		5BB29653208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29652208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift */; };
+		5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29654208A72C500520683 /* OrderTableViewCell.swift */; };
+		5BB29657208A737D00520683 /* OrderTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29656208A737D00520683 /* OrderTableViewCellViewModelFactory.swift */; };
 		5BB29689208E2D3500520683 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB29688208E2D3500520683 /* Order.swift */; };
 		5BB2968D208F794B00520683 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2968C208F794B00520683 /* OrderViewController.swift */; };
 		5BB2968F208F7BA600520683 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2968E208F7BA600520683 /* OrderViewModel.swift */; };
@@ -397,6 +399,8 @@
 		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
 		5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateAvailabilityChecker.swift; sourceTree = "<group>"; };
 		5BA01972213733870017A993 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+LoginButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
+		5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
 		5BAD4D1D20B85FC3009201A4 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAPIManager.swift; sourceTree = "<group>"; };
 		5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BuilderViewController.storyboard; sourceTree = "<group>"; };
@@ -404,9 +408,9 @@
 		5BB2256620DFDBE700DFE448 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5BB29650208A461700520683 /* OrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewModel.swift; sourceTree = "<group>"; };
-		5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
-		5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
-		5BB29656208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5BB29652208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5BB29654208A72C500520683 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
+		5BB29656208A737D00520683 /* OrderTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BB29688208E2D3500520683 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		5BB2968C208F794B00520683 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		5BB2968E208F7BA600520683 /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
@@ -956,9 +960,9 @@
 				5B96DD55219F3C4D006113B8 /* LoginPageViewController */,
 				5B96DD56219F3C69006113B8 /* LoginViewController */,
 				5BD274F32063FAD800618128 /* SignUpViewController */,
-				5B0B739E20D810F400D757FD /* Pickup Date */,
-				5BB2968A208E5AD500520683 /* Orders */,
+				5BB2968A208E5AD500520683 /* OrdersViewController */,
 				5BB296A0208FD42E00520683 /* Order */,
+				5B0B739E20D810F400D757FD /* Pickup Date */,
 			);
 			path = "View Controllers and Models";
 			sourceTree = "<group>";
@@ -1043,24 +1047,24 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		5BB2968A208E5AD500520683 /* Orders */ = {
+		5BB2968A208E5AD500520683 /* OrdersViewController */ = {
 			isa = PBXGroup;
 			children = (
 				5B942D912087E98F00BF991A /* OrdersViewController.swift */,
 				5BB29650208A461700520683 /* OrdersViewModel.swift */,
-				5BB2968B208E5B0100520683 /* Order */,
+				5BB2968B208E5B0100520683 /* OrderTableViewCell */,
 			);
-			path = Orders;
+			path = OrdersViewController;
 			sourceTree = "<group>";
 		};
-		5BB2968B208E5B0100520683 /* Order */ = {
+		5BB2968B208E5B0100520683 /* OrderTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5BB29654208A72C500520683 /* OrderCollectionViewCell.swift */,
-				5BB29652208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift */,
-				5BB29656208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift */,
+				5BB29654208A72C500520683 /* OrderTableViewCell.swift */,
+				5BB29652208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift */,
+				5BB29656208A737D00520683 /* OrderTableViewCellViewModelFactory.swift */,
 			);
-			path = Order;
+			path = OrderTableViewCell;
 			sourceTree = "<group>";
 		};
 		5BB2969E208FD3F500520683 /* Total */ = {
@@ -1140,6 +1144,8 @@
 			children = (
 				5B44A81C2007BB7000898FF0 /* UserViewController.swift */,
 				5BFD2BD020217D36005C01BF /* UserViewModel.swift */,
+				5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */,
+				5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */,
 			);
 			path = UserViewController;
 			sourceTree = "<group>";
@@ -1603,6 +1609,7 @@
 				5BFC5740217C308A0002179B /* Purchasable.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
+				5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,
 				5B6A06941FFD543300BAC480 /* Lettuce.swift in Sources */,
 				5B342AE320F3EBD600A781E6 /* DictionaryRawRepresentableKeys.swift in Sources */,
@@ -1614,7 +1621,7 @@
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */,
 				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
-				5BB29657208A737D00520683 /* OrderCollectionViewCellViewModelFactory.swift in Sources */,
+				5BB29657208A737D00520683 /* OrderTableViewCellViewModelFactory.swift in Sources */,
 				5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */,
 				5B342AE520F79BE600A781E6 /* Sammys.swift in Sources */,
 				5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */,
@@ -1627,6 +1634,7 @@
 				5B44A7C4200483E500898FF0 /* ItemedPurchasable.swift in Sources */,
 				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */,
 				5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */,
+				5BA1135B21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift in Sources */,
 				5BB296BD209D009900520683 /* HomeItemCollectionViewCellViewModelFactory.swift in Sources */,
 				5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
@@ -1673,7 +1681,7 @@
 				5B724D8620DC967300B9296E /* APIKey.swift in Sources */,
 				5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */,
 				5B3A4AC72194952200F22F78 /* TableViewSection.swift in Sources */,
-				5BB29653208A72AF00520683 /* OrderCollectionViewCellConfigurationCommand.swift in Sources */,
+				5BB29653208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
 				5BC950402108DF0D00AF1098 /* Observer.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* BuilderViewController.swift in Sources */,
@@ -1685,7 +1693,7 @@
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */,
 				5BC950382107D2B900AF1098 /* Customer.swift in Sources */,
-				5BB29655208A72C500520683 /* OrderCollectionViewCell.swift in Sources */,
+				5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,

@@ -12,10 +12,10 @@ struct ButtonTableViewCellViewModelFactory: TableViewCellViewModelFactory {
 	let identifier: String
     let height: Double
     let buttonText: String
-	let selectionHandler: () -> Void
+	let selectionCommand: TableViewCellCommand
 	
 	func create() -> DefaultTableViewCellViewModel {
 		let configurationCommand = ButtonTableViewCellConfigurationCommand(buttonText: buttonText)
-		return DefaultTableViewCellViewModel(identifier: identifier, height: height, selectionHandler: selectionHandler, commands: [.configuration: configurationCommand])
+		return DefaultTableViewCellViewModel(identifier: identifier, height: height, commands: [.configuration: configurationCommand, .selection: selectionCommand])
 	}
 }

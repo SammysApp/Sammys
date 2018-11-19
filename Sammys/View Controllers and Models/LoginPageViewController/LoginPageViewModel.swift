@@ -51,7 +51,7 @@ class LoginPageViewModel {
 	func signUp() -> Promise<User> {
 		guard let name = signUpFields[.name],
 			let email = signUpFields[.email],
-			let password = signUpFields[.email]
+			let password = signUpFields[.password]
 			else { return Promise(error: LoginPageViewModelError.missingSignUpFields) }
 		return userAPIManager.createUser(withName: name, email: email, password: password)
 	}

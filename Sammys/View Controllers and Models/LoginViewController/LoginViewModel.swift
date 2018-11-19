@@ -23,11 +23,13 @@ struct LoginFields {
 class LoginViewModel {
 	private let parcel: LoginViewModelParcel
 	
+	private let userAPIManager = UserAPIManager()
+	
 	init(_ parcel: LoginViewModelParcel) {
 		self.parcel = parcel
 	}
 	
 	func login(with fields: LoginFields) -> Promise<User> {
-		return UserAPIManager().signIn(withEmail: fields.email, password: fields.password)
+		return userAPIManager.signIn(withEmail: fields.email, password: fields.password)
 	}
 }

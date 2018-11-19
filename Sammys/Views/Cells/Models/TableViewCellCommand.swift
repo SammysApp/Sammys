@@ -10,9 +10,11 @@ import UIKit
 
 struct TableViewCellCommandParameters {
 	let cell: UITableViewCell?
+	let viewController: UIViewController?
 	
-	init(cell: UITableViewCell? = nil) {
+	init(cell: UITableViewCell? = nil, viewController: UIViewController? = nil) {
 		self.cell = cell
+		self.viewController = viewController
 	}
 }
 
