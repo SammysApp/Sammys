@@ -10,11 +10,11 @@ import Foundation
 
 struct Salad: ItemedPurchasable {
 	let size: Size
-	let lettuce: [Lettuce]
-    let vegetables: [Vegetable]
-    let toppings: [Topping]
-    let dressings: [Dressing]
-    let extras: [Extra]
+	let lettuce: [Lettuce]?
+    let vegetables: [Vegetable]?
+    let toppings: [Topping]?
+    let dressings: [Dressing]?
+    let extras: [Extra]?
 }
 
 // MARK: - Purchasable
@@ -29,7 +29,8 @@ extension Salad {
 	}
 	
 	var price: Double {
-		return size.price + ([toppings, extras] as [[OptionallyPricedItem]])
+		// FIXME: Account for priced modifiers
+		return size.price + ([toppings ?? [], extras ?? []] as [[OptionallyPricedItem]])
 			.flatMap { $0 }
 			.compactMap { $0.price }
 			.reduce(0, +)
@@ -45,11 +46,11 @@ extension Salad {
 			else { return [] }
 		switch saladItemCategory {
 		case .size: return [size]
-		case .lettuce: return lettuce
-		case .vegetable: return vegetables
-		case .topping: return toppings
-		case .dressing: return dressings
-		case .extra: return extras
+		case .lettuce: return lettuce ?? []
+		case .vegetable: return vegetables ?? []
+		case .topping: return toppings ?? []
+		case .dressing: return dressings ?? []
+		case .extra: return extras ?? []
 		}
 	}
 }

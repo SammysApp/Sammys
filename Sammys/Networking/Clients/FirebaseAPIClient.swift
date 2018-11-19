@@ -77,8 +77,8 @@ struct FirebaseAPIClient {
         return observeOnce(at: databaseReference).map(decode)
     }
     
-    static func observeOnce(for eventType: DataEventType = .value, at databaseReference: DatabaseReference = databaseReference()) -> Promise<DataSnapshot> {
-        return Promise { databaseReference.observeSingleEvent(of: eventType, with: $0.resolve) }
+    static func observeOnce(for eventType: DataEventType = .value, at databaseQuery: DatabaseQuery = databaseReference()) -> Promise<DataSnapshot> {
+        return Promise { databaseQuery.observeSingleEvent(of: eventType, with: $0.resolve) }
     }
     
     static func attemptTransaction<T>(_ transaction: @escaping (T?) -> T, at databaseReference: DatabaseReference = databaseReference()) -> Promise<T> {

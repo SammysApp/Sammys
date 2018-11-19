@@ -10,6 +10,8 @@ import Foundation
 import PromiseKit
 import Firebase
 
+enum OrdersAPIManagerError: Error { case notExpectedSnapshotData }
+
 typealias OrderNumber = Int
 
 struct OrdersAPIManager: FirebaseAPIManager {
@@ -28,6 +30,12 @@ struct OrdersAPIManager: FirebaseAPIManager {
             .queryOrdered(byChild: .kitchen, .calendarDate)
             .queryEqual(toValue: calendarDateString(for: date))
     }
+	
+	private func ordersDatabaseQuery(for user: User) -> DatabaseQuery {
+		return ordersDatabaseReference()
+			.queryOrdered(byChild: .order, .userID)
+			.queryEqual(toValue: user.id)
+	}
     
     private var calendarDateFormatter: DateFormatter {
         return DateFormatter(format: "M/d/yyyy")
@@ -37,6 +45,19 @@ struct OrdersAPIManager: FirebaseAPIManager {
         guard let ordersSnapshot = snapshot.allChildrenSnapshots else { fatalError() }
         return try ordersSnapshot.map { KitchenOrder(orderData: try Client.decode($0)) }
     }
+	
+	private func ordersData(for user: User) -> Promise<[OrderData]> {
+		return Client.observeOnce(at: self.ordersDatabaseQuery(for: user))
+			.map { snapshot in
+				guard let ordersDataSnapshot = snapshot.allChildrenSnapshots
+					else { throw OrdersAPIManagerError.notExpectedSnapshotData }
+				return try ordersDataSnapshot.map { try Client.decode($0) }
+			}
+	}
+	
+	func orders(for user: User) -> Promise<[Order]> {
+		return ordersData(for: user).map { orderData in orderData.map { $0.order } }
+	}
     
     func generateOrderNumber() -> Promise<OrderNumber> {
         return Client.incrementCounter(at: ordersDatabaseReference(.numberCounter))
