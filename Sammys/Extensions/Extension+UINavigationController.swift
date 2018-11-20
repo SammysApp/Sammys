@@ -10,7 +10,6 @@ import UIKit
 
 extension UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        // Set the style to the style of the top view controller if it's available.
         return topViewController?.preferredStatusBarStyle ?? .default
     }
 }

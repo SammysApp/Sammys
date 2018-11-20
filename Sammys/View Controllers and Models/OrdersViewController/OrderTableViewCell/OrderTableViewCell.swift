@@ -11,4 +11,7 @@ import UIKit
 class OrderTableViewCell: UITableViewCell {
 	// MARK: - IBOutlets
 	@IBOutlet var numberLabel: UILabel!
+	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet var dateLabel: UILabel!
+	@IBOutlet var priceLabel: UILabel!
 }

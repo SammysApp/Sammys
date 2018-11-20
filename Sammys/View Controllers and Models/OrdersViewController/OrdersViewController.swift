@@ -20,7 +20,7 @@ class OrdersViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 	
 	struct Constants {
-		static let cellHeight: Double = 60
+		static let cellHeight: Double = 100
 	}
 
 	// MARK: - Lifecycle
@@ -38,6 +38,9 @@ class OrdersViewController: UIViewController {
 		return "No cell view model for index path, \(indexPath)"
 	}
 }
+
+// MARK: - Storyboardable
+extension OrdersViewController: Storyboardable {}
 
 // MARK: - UITableViewDataSource
 extension OrdersViewController: UITableViewDataSource {
@@ -67,9 +70,6 @@ extension OrdersViewController: UITableViewDelegate {
 		return CGFloat(cellViewModel.height)
 	}
 }
-
-// MARK: - Storyboardable
-extension OrdersViewController: Storyboardable {}
 
 // MARK: - OrdersViewModelViewDelegate
 extension OrdersViewController: OrdersViewModelViewDelegate {

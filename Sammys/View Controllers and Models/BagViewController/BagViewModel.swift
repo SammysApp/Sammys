@@ -38,13 +38,15 @@ class BagViewModel {
 	
 	var user: User? { guard case .currentUser(let user) = parcel.userState else { return nil }; return user }
 	
-	private var sections: [Section] {
-		return [
-			Section(cellViewModels: purchasableQuantities
-				.map { BagPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, height: viewDelegate.cellHeight(), delegate: bagPurchasableTableViewCellDelegate).create() }
-			)
-		]
-	}
+	private var subtotal: Double { return purchasableQuantities.totalPrice }
+	private var tax: Double { return purchasableQuantities.totalTaxPrice }
+	private var total: Double { return purchasableQuantities.totalTaxedPrice }
+	
+	private var sections: [Section] { return [
+		Section(cellViewModels: purchasableQuantities
+			.map { BagPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, height: viewDelegate.cellHeight(), delegate: bagPurchasableTableViewCellDelegate).create() }
+		)
+	]}
 	
 	var numberOfSections: Int { return sections.count }
 	
@@ -94,7 +96,16 @@ class BagViewModel {
 	func clear() { bagModelController.clearAllPurchasables() }
 	
 	private func makeBagOrder(withNumber number: Int) -> Order {
-		return Order(id: UUID().uuidString, number: "\(number)", userName: user?.name ?? "No Name", userID: user?.id, date: Date(), pickupDate: nil, note: nil, purchasableQuantities: purchasableQuantities)
+		return Order(
+			id: UUID().uuidString,
+			number: "\(number)",
+			date: Date(),
+			user: Order.User(userName: user?.name ?? "no name", userID: user?.id),
+			purchasableQuantities: purchasableQuantities,
+			price: Price(taxPrice: tax, totalPrice: total),
+			more: nil,
+			status: Order.Status()
+		)
 	}
 	
 	func sendOrder() -> Promise<Void> {
@@ -103,7 +114,7 @@ class BagViewModel {
 	}
 	
 	func paymentViewModelParcel() throws -> PaymentViewModelParcel {
-		return PaymentViewModelParcel(subtotal: try bagModelController.getTotalPurchasablesPrice())
+		return PaymentViewModelParcel(subtotal: subtotal, tax: tax, total: total)
 	}
 	
 	func itemsViewModelParcel(for indexPath: IndexPath) -> ItemsViewModelParcel? {

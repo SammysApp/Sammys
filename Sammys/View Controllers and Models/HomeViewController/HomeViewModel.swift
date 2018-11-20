@@ -63,14 +63,6 @@ class HomeViewModel {
 	let userAPIManager = UserAPIManager()
 	lazy var userState = { parcel.userState }()
 	
-	var bagQuantity: Int {
-		return (try? bagModelController.getTotalPurchasablesQuantity()) ?? 0
-	}
-    
-    var bagQuantityLabelText: String? {
-		return bagQuantity > 0 ? "\(bagQuantity)" : nil
-    }
-	
 	var numberOfSections: Int {
 		return sections.count
 	}

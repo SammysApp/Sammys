@@ -10,7 +10,6 @@ import UIKit
 
 extension UISplitViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        // Set the style to the style of the first child controller if it's available.
         return childViewControllers.first?.preferredStatusBarStyle ?? .default
     }
 }

@@ -11,10 +11,35 @@ import Foundation
 struct Order: Codable {
     let id: String
 	let number: String
-    let userName: String
-    let userID: String?
-    let date: Date
-    let pickupDate: Date?
-    let note: String?
+	let date: Date
+	let user: User
 	let purchasableQuantities: [PurchasableQuantity]
+	let price: Price
+	let more: More?
+	let status: Status
+	
+	struct User: Codable {
+		let userName: String
+		let userID: String?
+		
+		init(userName: String, userID: String? = nil) {
+			self.userName = userName
+			self.userID = userID
+		}
+	}
+	
+	struct More: Codable {
+		let pickupDate: Date?
+		let note: String?
+	}
+	
+	struct Status: Codable {
+		let isInProgress: Bool
+		let isComplete: Bool
+		
+		init(isInProgress: Bool = false, isComplete: Bool = false) {
+			self.isInProgress = isInProgress
+			self.isComplete = isComplete
+		}
+	}
 }

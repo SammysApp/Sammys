@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Salad: ItemedPurchasable {
+struct Salad {
 	let size: Size
 	let lettuce: [Lettuce]?
     let vegetables: [Vegetable]?
@@ -18,7 +18,7 @@ struct Salad: ItemedPurchasable {
 }
 
 // MARK: - Purchasable
-extension Salad {
+extension Salad: Purchasable {
 	var title: String {
 		return "\(size.name) Salad"
 	}
@@ -35,10 +35,12 @@ extension Salad {
 			.compactMap { $0.price }
 			.reduce(0, +)
 	}
+	
+	var isTaxSubjected: Bool { return true }
 }
 
 // MARK: - ItemedPurchasable
-extension Salad {
+extension Salad: ItemedPurchasable {
 	static var allItemCategories: [ItemCategory] { return SaladItemCategory.allCases }
 	
 	func items(for itemCategory: ItemCategory) -> [Item] {

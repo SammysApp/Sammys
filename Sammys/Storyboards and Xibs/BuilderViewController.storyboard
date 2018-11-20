@@ -104,76 +104,6 @@
                                 <color key="textColor" name="Snow"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G32-jb-Vzc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dqG-S4-dgl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gGX-jw-Tmj" customClass="ModifierCollectionView" customModule="Sammys" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="336" width="375" height="140"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="140" id="snC-4A-T21"/>
-                                            </constraints>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TgU-Vm-Bzy">
-                                                <size key="itemSize" width="0.0" height="0.0"/>
-                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            </collectionViewFlowLayout>
-                                            <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="modifierCell" id="vMB-Fq-DTx" customClass="ModifierCollectionViewCell" customModule="Sammys" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RDQ-5g-jhq">
-                                                                <rect key="frame" x="52" y="59.333333333333343" width="36.333333333333343" height="21.666666666666657"/>
-                                                                <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhb-PO-eDJ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="21.666666666666668"/>
-                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                                        <color key="textColor" name="Snow"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78d-sC-8xz">
-                                                                        <rect key="frame" x="0.0" y="21.666666666666664" width="36.333333333333336" height="17"/>
-                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                                        <color key="textColor" name="Snow"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </stackView>
-                                                        </subviews>
-                                                    </view>
-                                                    <constraints>
-                                                        <constraint firstItem="RDQ-5g-jhq" firstAttribute="centerY" secondItem="vMB-Fq-DTx" secondAttribute="centerY" id="V5D-a9-KYg"/>
-                                                        <constraint firstItem="RDQ-5g-jhq" firstAttribute="centerX" secondItem="vMB-Fq-DTx" secondAttribute="centerX" id="xQy-vU-71m"/>
-                                                    </constraints>
-                                                    <size key="customSize" width="140" height="140"/>
-                                                    <connections>
-                                                        <outlet property="priceLabel" destination="78d-sC-8xz" id="LLO-Qt-Ru0"/>
-                                                        <outlet property="titleLabel" destination="mhb-PO-eDJ" id="RzK-se-WIV"/>
-                                                    </connections>
-                                                </collectionViewCell>
-                                            </cells>
-                                        </collectionView>
-                                    </subviews>
-                                    <gestureRecognizers/>
-                                    <constraints>
-                                        <constraint firstItem="gGX-jw-Tmj" firstAttribute="leading" secondItem="dqG-S4-dgl" secondAttribute="leading" id="5EP-fx-fXC"/>
-                                        <constraint firstItem="gGX-jw-Tmj" firstAttribute="centerY" secondItem="dqG-S4-dgl" secondAttribute="centerY" id="7y7-df-nds"/>
-                                        <constraint firstAttribute="trailing" secondItem="gGX-jw-Tmj" secondAttribute="trailing" id="pJW-TD-M8S"/>
-                                    </constraints>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="mzT-aI-KFd" appends="YES" id="QmH-fN-DC0"/>
-                                    </connections>
-                                </view>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" name="Snow"/>
                         <constraints>
@@ -181,12 +111,8 @@
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3yJ-ub-iJu"/>
                             <constraint firstItem="HYP-bL-OLD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8Eh-8i-p6h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CoT-jF-u6a" secondAttribute="bottom" constant="20" id="8r3-4Z-clE"/>
-                            <constraint firstItem="G32-jb-Vzc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="A84-1D-cYH"/>
-                            <constraint firstAttribute="bottom" secondItem="G32-jb-Vzc" secondAttribute="bottom" id="D5g-R5-fry"/>
                             <constraint firstItem="dUb-Ux-Q8N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CoT-jF-u6a" secondAttribute="trailing" constant="15" id="Fsc-bP-cE1"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GCm-mh-Til"/>
-                            <constraint firstItem="G32-jb-Vzc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JXl-gn-w7l"/>
-                            <constraint firstItem="G32-jb-Vzc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="MIX-z3-D1a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXz-KP-Ocg" secondAttribute="trailing" constant="20" id="SuA-UV-TrO"/>
                             <constraint firstItem="CoT-jF-u6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tAz-oX-kCZ" secondAttribute="trailing" constant="15" id="TQ3-aD-Zrv"/>
                             <constraint firstItem="SoD-Da-FXx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Uzg-3u-Hjy"/>
@@ -213,19 +139,11 @@
                         <outlet property="itemDetailsStackView" destination="CoT-jF-u6a" id="FBt-2u-dNk"/>
                         <outlet property="itemNameLabel" destination="wTc-Pw-RbG" id="TUl-nU-0Dk"/>
                         <outlet property="itemPriceLabel" destination="62U-9r-QeD" id="JSl-bz-Fxd"/>
-                        <outlet property="modifierCollectionView" destination="gGX-jw-Tmj" id="pcK-q4-KGG"/>
-                        <outlet property="modifierView" destination="G32-jb-Vzc" id="DSS-1E-rUp"/>
                         <outlet property="nextButton" destination="dUb-Ux-Q8N" id="yNp-44-PKr"/>
                         <outlet property="totalPriceLabel" destination="HYP-bL-OLD" id="2nU-QF-J0e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="mzT-aI-KFd">
-                    <connections>
-                        <action selector="didTapView:" destination="BYZ-38-t0r" id="UEd-hx-3JA"/>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="9sd-7x-qO8"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="138.40000000000001" y="132.26600985221674"/>
         </scene>

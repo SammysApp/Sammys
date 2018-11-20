@@ -30,19 +30,49 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCc-CW-NI7">
-                                                    <rect key="frame" x="345" y="36" width="15" height="27.666666666666671"/>
+                                                    <rect key="frame" x="15" y="35.666666666666664" width="15.333333333333336" height="28.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="8t1-cP-c9j">
+                                                    <rect key="frame" x="45.333333333333336" y="27" width="99.666666666666657" height="46"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-Zv-3Md">
+                                                            <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/0/0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXo-WF-ddV">
+                                                            <rect key="frame" x="0.0" y="26.666666666666664" width="99.666666666666671" height="19.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3Z-rj-lXa">
+                                                    <rect key="frame" x="302.33333333333331" y="38" width="57.666666666666686" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BCc-CW-NI7" firstAttribute="trailing" secondItem="HaT-xo-6xz" secondAttribute="trailingMargin" id="28O-PJ-EnJ"/>
+                                                <constraint firstItem="j3Z-rj-lXa" firstAttribute="centerY" secondItem="HaT-xo-6xz" secondAttribute="centerY" id="GAH-AW-uZD"/>
+                                                <constraint firstItem="BCc-CW-NI7" firstAttribute="leading" secondItem="HaT-xo-6xz" secondAttribute="leadingMargin" id="ME3-zn-G6q"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="j3Z-rj-lXa" secondAttribute="trailing" id="RqG-39-apf"/>
                                                 <constraint firstItem="BCc-CW-NI7" firstAttribute="centerY" secondItem="HaT-xo-6xz" secondAttribute="centerY" id="Sqq-p9-e0a"/>
+                                                <constraint firstItem="8t1-cP-c9j" firstAttribute="leading" secondItem="BCc-CW-NI7" secondAttribute="trailing" constant="15" id="p67-Ih-ATK"/>
+                                                <constraint firstItem="8t1-cP-c9j" firstAttribute="centerY" secondItem="HaT-xo-6xz" secondAttribute="centerY" id="rvD-uD-Kot"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="dateLabel" destination="ZXo-WF-ddV" id="amQ-XE-B4l"/>
+                                            <outlet property="descriptionLabel" destination="h7K-Zv-3Md" id="d4E-sg-gUG"/>
                                             <outlet property="numberLabel" destination="BCc-CW-NI7" id="AXG-2X-PtY"/>
+                                            <outlet property="priceLabel" destination="j3Z-rj-lXa" id="1cy-ub-6an"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -170,7 +170,7 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 }
 
 extension BagViewController: PaymentViewControllerDelegate {
-	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPay payButton: UIButton, forTotal total: Double) {
+	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
 		viewModel.sendOrder().catch { print($0) }
 	}
 }

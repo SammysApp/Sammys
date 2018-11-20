@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PaymentViewControllerDelegate {
-	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPay payButton: UIButton, forTotal total: Double)
+	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton)
 }
 
 class PaymentViewController: UIViewController {
@@ -27,7 +27,7 @@ class PaymentViewController: UIViewController {
 	@IBOutlet var payButton: UIButton!
 	
 	struct Constants {
-		static let totalButtonCornerRadius: CGFloat = 20
+		static let payButtonCornerRadius: CGFloat = 20
 	}
 	
 	// MARK - Lifecycle
@@ -45,16 +45,16 @@ class PaymentViewController: UIViewController {
 	
 	// MARK: - Setup
 	func setupViews() {
-		setupTotalButton()
+		setupPayButton()
 		loadViews()
 	}
 	
-	func setupTotalButton() {
-		payButton.layer.cornerRadius = Constants.totalButtonCornerRadius
+	func setupPayButton() {
+		payButton.layer.cornerRadius = Constants.payButtonCornerRadius
 	}
 	
 	// MARK: - IBActions
-	@IBAction func didTapPayButton(_ sender: UIButton) { delegate?.paymentViewController(self, didTapPay: sender, forTotal: viewModel.total) }
+	@IBAction func didTapPayButton(_ sender: UIButton) { delegate?.paymentViewController(self, didTapPayButton: sender) }
 }
 
 // MARK: - Storyboardable

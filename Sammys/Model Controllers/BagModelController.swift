@@ -59,14 +59,6 @@ extension BagModelController {
 			catch { throw error }
 		} else { throw BagModelControllerError.cantGetNeccessaryDataFromKey }
 	}
-	
-	func getTotalPurchasablesQuantity() throws -> Int {
-		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantity }
-	}
-	
-	func getTotalPurchasablesPrice() throws -> Double {
-		return try getPurchasableQuantities().reduce(0) { $0 + $1.quantitativePrice }
-	}
 }
 
 extension BagModelController {

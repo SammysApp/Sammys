@@ -10,22 +10,16 @@ import Foundation
 
 struct PaymentViewModelParcel {
 	let subtotal: Double
+	let tax: Double
+	let total: Double
 }
 
 class PaymentViewModel {
 	private let parcel: PaymentViewModelParcel
 	
-	private var subtotal: Double { return parcel.subtotal }
-	private var tax: Double { return parcel.subtotal * Constants.taxRateMultiplier }
-	var total: Double { return subtotal + tax }
-	
-	var subtotalText: String { return subtotal.priceString }
-	var taxText: String { return tax.priceString }
-	var payText: String { return "Pay \(total.priceString)" }
-	
-	private struct Constants {
-		static let taxRateMultiplier: Double = 0.06625
-	}
+	var subtotalText: String { return parcel.subtotal.priceString }
+	var taxText: String { return parcel.tax.priceString }
+	var payText: String { return "Pay \(parcel.total.priceString)" }
 	
 	init(_ parcel: PaymentViewModelParcel) {
 		self.parcel = parcel
