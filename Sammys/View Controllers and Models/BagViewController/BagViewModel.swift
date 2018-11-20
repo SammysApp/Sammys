@@ -97,14 +97,10 @@ class BagViewModel {
 	
 	private func makeBagOrder(withNumber number: Int) -> Order {
 		return Order(
-			id: UUID().uuidString,
 			number: "\(number)",
-			date: Date(),
 			user: Order.User(userName: user?.name ?? "no name", userID: user?.id),
 			purchasableQuantities: purchasableQuantities,
-			price: Price(taxPrice: tax, totalPrice: total),
-			more: nil,
-			status: Order.Status()
+			price: Price(taxPrice: tax, totalPrice: total)
 		)
 	}
 	

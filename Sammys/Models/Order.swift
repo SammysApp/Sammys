@@ -18,6 +18,17 @@ struct Order: Codable {
 	let more: More?
 	let status: Status
 	
+	init(id: String = UUID().uuidString, number: String, date: Date = Date(), user: User, purchasableQuantities: [PurchasableQuantity], price: Price, more: More? = nil, status: Status = Status()) {
+		self.id = id
+		self.number = number
+		self.date = date
+		self.user = user
+		self.purchasableQuantities = purchasableQuantities
+		self.price = price
+		self.more = more
+		self.status = status
+	}
+	
 	struct User: Codable {
 		let userName: String
 		let userID: String?
