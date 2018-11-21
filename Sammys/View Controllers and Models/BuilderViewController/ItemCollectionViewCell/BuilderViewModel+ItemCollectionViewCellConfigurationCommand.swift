@@ -22,7 +22,7 @@ extension BuilderViewModel {
 			cell.backgroundColor = .black
 			cell.titleLabel.text = item.name
 			if let pricedItem = item as? PricedItem {
-				cell.priceLabel.text = "$\(pricedItem.price)"
+				cell.priceLabel.text = pricedItem.price.priceString
 			}
 		}
 	}

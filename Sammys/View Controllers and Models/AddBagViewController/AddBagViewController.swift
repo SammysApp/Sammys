@@ -15,13 +15,14 @@ protocol AddBagViewControllerDelegate: ItemsViewControllerDelegate {
 
 class AddBagViewController: UIViewController {
 	var viewModelParcel: AddBagViewModelParcel!
+	{ didSet { viewModel = AddBagViewModel(viewModelParcel) } }
 	var viewModel: AddBagViewModel!
 	
 	var delegate: AddBagViewControllerDelegate?
 	
+	// MARK: - View Controllers
 	lazy var itemsViewController: ItemsViewController = {
 		let itemsViewController = ItemsViewController.storyboardInstance()
-		itemsViewController.viewModelParcel = viewModel.itemsViewModelParcel
 		itemsViewController.delegate = delegate
 		return itemsViewController
 	}()
@@ -40,15 +41,18 @@ class AddBagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel = AddBagViewModel(viewModelParcel)
-		
 		setupViews()
     }
 	
 	// MARK: - Setup
+	func loadViews() {
+		itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: viewModel.itemedPurchasable)
+	}
+	
 	func setupViews() {
 		setupChildItemsViewController()
 		setupAddButton()
+		loadViews()
 	}
 	
 	func setupChildItemsViewController() {
@@ -71,8 +75,3 @@ class AddBagViewController: UIViewController {
 
 // MARK: - Storyboardable
 extension AddBagViewController: Storyboardable {}
-
-extension AddBagViewControllerDelegate {
-	// Make function requirement optional.
-	func addBagViewControllerDidCancel(_ addBagViewController: AddBagViewController) {}
-}

@@ -15,13 +15,9 @@ struct AddBagViewModelParcel {
 class AddBagViewModel {
 	private let parcel: AddBagViewModelParcel
 	
-	let bagModelController = BagModelController()
+	private let bagModelController = BagModelController()
 	
 	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
-	
-	var itemsViewModelParcel: ItemsViewModelParcel {
-		return ItemsViewModelParcel(itemedPurchasable: parcel.itemedPurchasable)
-	}
 	
 	init(_ parcel: AddBagViewModelParcel) {
 		self.parcel = parcel

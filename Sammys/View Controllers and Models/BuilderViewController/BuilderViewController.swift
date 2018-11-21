@@ -13,12 +13,6 @@ protocol BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable)
 }
 
-extension BuilderViewControllerDelegate {
-	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
-		builderViewController.presentAddBagViewController(with: itemedPurchasable)
-	}
-}
-
 enum BuilderViewLayoutState {
 	case horizontal, vertical
 }
@@ -92,16 +86,17 @@ class BuilderViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 	
+	// MARK: - Setup
 	func loadViews() {
 		collectionView.reloadData()
 	}
 	
-	// MARK: - Setup
 	func setupViews() {
 		setupCollectionView()
 		setupAnimatedCardCollectionViewLayout()
 		setupBackButton()
 		setupNextButton()
+		loadViews()
 	}
 	
 	func setupCollectionView() {
@@ -290,6 +285,8 @@ extension BuilderViewController: AddBagViewControllerDelegate {
 			self.navigationController?.popViewController(animated: true)
 		}
 	}
+	
+	func addBagViewControllerDidCancel(_ addBagViewController: AddBagViewController) {}
 }
 
 // MARK: - ItemsViewControllerDelegate
@@ -308,5 +305,11 @@ extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
 		case .size, .lettuce: return .horizontal
 		default: return .vertical
 		}
+	}
+}
+
+extension BuilderViewControllerDelegate {
+	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
+		builderViewController.presentAddBagViewController(with: itemedPurchasable)
 	}
 }

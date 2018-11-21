@@ -64,7 +64,7 @@ class HomeViewModel {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 		
-		userAPIManager.currentUserState().get { self.userState = $0 }.cauterize()
+		userAPIManager.currentUserState().get { self.userState = $0 }.catch { print($0) }
     }
     
     func numberOfItems(in section: Int) -> Int {
