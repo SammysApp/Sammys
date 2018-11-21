@@ -13,9 +13,10 @@ extension UserViewModel {
 		func perform(parameters: TableViewCellCommandParameters) {
 			guard let userViewController = parameters.viewController as? UserViewController else { return }
 			let ordersViewController = userViewController.ordersViewController
-			do { try ordersViewController.viewModelParcel = userViewController.viewModel.ordersViewModelParcel() }
-			catch { print(error); return }
-			if userViewController.isViewLoaded { userViewController.navigationController?.pushViewController(ordersViewController, animated: true) }
+			if let user = userViewController.viewModel.user {
+				ordersViewController.viewModelParcel = OrdersViewModelParcel.init(user: user)
+			}
+			if userViewController.isVisible { userViewController.navigationController?.pushViewController(ordersViewController, animated: true) }
 		}
 	}
 }

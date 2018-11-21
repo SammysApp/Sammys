@@ -11,13 +11,16 @@ import UIKit
 protocol UserViewControllerDelegate: LoginViewControllerDelegate {}
 
 class UserViewController: UIViewController {
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: UserViewModelParcel!
-	lazy var viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self)
+	{ didSet { viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self) } }
+	var viewModel: UserViewModel!
 	
 	var delegate: UserViewControllerDelegate?
 	
 	var shouldShowLoginPageViewController = true
+	
+	// MARK: - View Controllers
 	lazy var loginPageViewController: LoginPageViewController = {
 		let loginPageViewController = LoginPageViewController.storyboardInstance()
 		loginPageViewController.delegate = self
@@ -55,10 +58,12 @@ class UserViewController: UIViewController {
 		}
 	}
 	
+	// MARK: - Setup
 	func loadViews() {
 		tableView.reloadData()
 	}
 	
+	// MARK: - Methods
 	func handleUpdatedUserState(_ userState: UserState,
 								shouldShowLoginIfNoUser: Bool = false) {
 		loadViews()
@@ -78,16 +83,21 @@ class UserViewController: UIViewController {
 		} catch { print(error) }
 	}
 	
-	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
-		return "No cell view model for index path, \(indexPath)"
-	}
-	
 	// MARK: - IBActions
 	@IBAction func didTapDone(_ sender: UIBarButtonItem) {
 		dismiss(animated: true, completion: nil)
 	}
 	
 	@IBAction func didTapSettings(_ sender: UIBarButtonItem) {}
+	
+	// MARK: - Debug
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)"
+	}
+	
+	func cantDequeueCellMessage(forIdentifier identifier: String) -> String {
+		return "Can't dequeue reusable cell with identifier: \(identifier)"
+	}
 }
 
 // MARK: - Storyboardable
@@ -106,7 +116,7 @@ extension UserViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier)
-			else { fatalError("Can't dequeue reusable cell with identifier: \(cellViewModel.identifier)") }
+			else { fatalError(cantDequeueCellMessage(forIdentifier: cellViewModel.identifier)) }
 		cellViewModel.commands[.configuration]?.perform(parameters: TableViewCellCommandParameters(cell: cell))
 		return cell
 	}
@@ -120,8 +130,7 @@ extension UserViewController: UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
-		cellViewModel.commands[.selection]?.perform(parameters: TableViewCellCommandParameters(cell: tableView.cellForRow(at: indexPath), viewController: self))
+		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: TableViewCellCommandParameters(cell: tableView.cellForRow(at: indexPath), viewController: self))
 	}
 }
 
@@ -150,9 +159,7 @@ extension UserViewController: LoginViewControllerDelegate {
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	
-	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {
-		print(error)
-	}
+	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) { print(error) }
 	
 	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController) {}
 	

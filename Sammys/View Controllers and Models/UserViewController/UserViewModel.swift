@@ -9,17 +9,15 @@
 import Foundation
 import PromiseKit
 
-enum UserViewModelError: Error { case needsUser }
-
 struct UserViewModelParcel {
 	let userState: UserState
 }
 
-enum UserCellIdentifier: String { case detailCell, buttonCell }
-
 protocol UserViewModelViewDelegate {
 	func cellHeight() -> Double
 }
+
+enum UserCellIdentifier: String { case detailCell, buttonCell }
 
 class UserViewModel {
 	typealias Section = AnyViewModelTableViewSection
@@ -30,11 +28,12 @@ class UserViewModel {
 	private let userAPIManager = UserAPIManager()
 	
 	lazy var userState: UserState = { parcel.userState }()
-	private var user: User? {
+	var user: User? {
 		guard case .currentUser(let user) = userState else { return nil }
 		return user
 	}
 	
+	// MARK: - Data
 	private var sections: [Section] {
 		guard let user = user else { return [] }
 		return [myInfoSection(for: user), buttonsSection()]
@@ -105,10 +104,5 @@ class UserViewModel {
 	func logOut() throws {
 		do { try userAPIManager.signOut(); userState = .noUser }
 		catch { throw error }
-	}
-	
-	func ordersViewModelParcel() throws -> OrdersViewModelParcel {
-		guard let user = user else { throw UserViewModelError.needsUser }
-		return OrdersViewModelParcel(user: user)
 	}
 }

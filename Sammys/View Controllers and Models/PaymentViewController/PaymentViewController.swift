@@ -13,7 +13,7 @@ protocol PaymentViewControllerDelegate {
 }
 
 class PaymentViewController: UIViewController {
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: PaymentViewModelParcel!
 	{ didSet { viewModel = PaymentViewModel(viewModelParcel) } }
 	private var viewModel: PaymentViewModel! { didSet { loadViews() } }
