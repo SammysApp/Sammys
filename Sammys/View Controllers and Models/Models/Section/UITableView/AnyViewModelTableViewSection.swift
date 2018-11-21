@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AnyViewModelTableViewSection {
+struct AnyViewModelTableViewSection: Section {
 	typealias CellViewModel = TableViewCellViewModel
 	
 	let title: String?

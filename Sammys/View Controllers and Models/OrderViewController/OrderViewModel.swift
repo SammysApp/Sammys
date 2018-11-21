@@ -19,7 +19,7 @@ protocol OrderViewModelViewDelegate {
 enum OrderCellIdentifier: String { case purchasableCell }
 
 class OrderViewModel {
-	typealias Section = TableViewSection<OrderPurchasableTableViewCellViewModel>
+	typealias Section = DefaultTableViewSection<OrderPurchasableTableViewCellViewModel>
 	
 	private let parcel: OrderViewModelParcel
 	private let viewDelegate: OrderViewModelViewDelegate

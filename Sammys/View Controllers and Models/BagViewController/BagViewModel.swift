@@ -26,7 +26,7 @@ protocol BagViewModelViewDelegate {
 }
 
 class BagViewModel {
-	typealias Section = TableViewSection<BagPurchasableTableViewCellViewModel>
+	typealias Section = DefaultTableViewSection<BagPurchasableTableViewCellViewModel>
 	
 	private let parcel: BagViewModelParcel
 	private let viewDelegate: BagViewModelViewDelegate

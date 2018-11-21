@@ -1,5 +1,5 @@
 //
-//  AnyViewModelCollectionViewSection.swift
+//  DefaultCollectionViewSection.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/21/18.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct AnyViewModelCollectionViewSection {
-	typealias CellViewModel = CollectionViewCellViewModel
+struct DefaultCollectionViewSection<T: CollectionViewCellViewModel>: Section {
+	typealias CellViewModel = T
 	
 	let title: String?
 	let cellViewModels: [CellViewModel]

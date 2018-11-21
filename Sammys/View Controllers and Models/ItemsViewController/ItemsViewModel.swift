@@ -22,16 +22,15 @@ enum ItemsCellIdentifier: String {
 }
 
 class ItemsViewModel {
-	typealias Section = CollectionViewSection<DefaultCollectionViewCellViewModel>
+	typealias Section = ItemsCollectionViewSection
 	
 	private let parcel: ItemsViewModelParcel
 	private let viewDelegate: ItemsViewModelViewDelegate
 	
 	// MARK: - Data
-	var categorizedItems: [CategorizedItems] { return parcel.itemedPurchasable.categorizedItems }
-	var sections: [Section] {
-		return categorizedItems
-			.map { Section(title: $0.category.name, cellViewModels: $0.items
+	private var sections: [Section] {
+		return parcel.itemedPurchasable.categorizedItems
+			.map { Section(category: $0.category, cellViewModels: $0.items
 				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
 	}
 	
@@ -53,6 +52,6 @@ class ItemsViewModel {
 	}
 	
 	func itemCategory(forSection section: Int) -> ItemCategory {
-		return categorizedItems[section].category
+		return sections[section].category
 	}
 }

@@ -1,15 +1,15 @@
 //
-//  CollectionViewSection.swift
+//  AnyViewModelCollectionViewSection.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 11/2/18.
+//  Created by Natanel Niazoff on 11/21/18.
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
 import Foundation
 
-struct CollectionViewSection<T: CollectionViewCellViewModel> {
-	typealias CellViewModel = T
+struct AnyViewModelCollectionViewSection: Section {
+	typealias CellViewModel = CollectionViewCellViewModel
 	
 	let title: String?
 	let cellViewModels: [CellViewModel]

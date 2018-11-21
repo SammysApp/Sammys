@@ -1,14 +1,14 @@
 //
-//  TableViewSection.swift
+//  DefaultTableViewSection.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 11/8/18.
+//  Created by Natanel Niazoff on 11/21/18.
 //  Copyright © 2018 Natanel Niazoff. All rights reserved.
 //
 
 import Foundation
 
-struct TableViewSection<T: TableViewCellViewModel> {
+struct DefaultTableViewSection<T: TableViewCellViewModel>: Section {
 	typealias CellViewModel = T
 	
 	let title: String?

@@ -29,7 +29,7 @@ enum BuilderViewModelError: Error {
 }
 
 class BuilderViewModel {
-	typealias Section = CollectionViewSection<ItemCollectionViewCellViewModel>
+	typealias Section = DefaultCollectionViewSection<ItemCollectionViewCellViewModel>
 	
 	private var parcel: BuilderViewModelParcel
 	private let viewDelegate: BuilderViewModelViewDelegate
@@ -39,7 +39,7 @@ class BuilderViewModel {
 	// MARK: - Data
 	private var sections = [Section]()
 	private func sections(for items: [Item]) -> [Section] { return [
-		CollectionViewSection(cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: BuilderCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() })
+		Section(cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: BuilderCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() })
 	]}
 	
 	var numberOfSections: Int { return sections.count }

@@ -22,7 +22,7 @@ protocol OrdersViewModelViewDelegate {
 }
 
 class OrdersViewModel {
-	typealias Section = TableViewSection<OrderTableViewCellViewModel>
+	typealias Section = DefaultTableViewSection<OrderTableViewCellViewModel>
 	private let parcel: OrdersViewModelParcel
 	private let viewDelegate: OrdersViewModelViewDelegate
 	
