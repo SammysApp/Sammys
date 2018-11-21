@@ -15,6 +15,10 @@ class OrderViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
+	@IBOutlet var priceView: UIView!
+	@IBOutlet var subtotalLabel: UILabel!
+	@IBOutlet var taxLabel: UILabel!
+	@IBOutlet var totalLabel: UILabel!
 	
 	// MARK: - Property Overrides
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
@@ -33,11 +37,19 @@ class OrderViewController: UIViewController {
 	// MARK: - Setup
 	func setupViews() {
 		setupTableView()
+		setupPriceView()
 	}
 	
 	func setupTableView() {
 		tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
 		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.tableFooterView = priceView
+	}
+	
+	func setupPriceView() {
+		subtotalLabel.text = viewModel.subtotalText
+		taxLabel.text = viewModel.taxText
+		totalLabel.text = viewModel.totalText
 	}
 	
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {

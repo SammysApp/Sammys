@@ -11,5 +11,6 @@ import UIKit
 class OrderPurchasableTableViewCell: UITableViewCell {
     @IBOutlet var quantityLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var priceLabel: UILabel!
+	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet var priceLabel: UILabel!
 }

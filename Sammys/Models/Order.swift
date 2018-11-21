@@ -71,7 +71,7 @@ extension Order {
 	var description: String {
 		guard let firstPurchasable = purchasableQuantities.first?.purchasable
 			else { return "" }
-		let othersQuantity = purchasableQuantities.totalQuantity - 1
+		let othersQuantity = purchasableQuantities.count - 1
 		return othersQuantity > 0 ?
 			firstPurchasable.title + " and \(othersQuantity) more items." :
 			firstPurchasable.title

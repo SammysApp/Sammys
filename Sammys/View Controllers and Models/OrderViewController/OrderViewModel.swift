@@ -30,6 +30,12 @@ class OrderViewModel {
 	
 	var numberOfSections: Int { return sections.count }
 	
+	private var tax: Double { return parcel.order.price.tax ?? 0 }
+	private var total: Double { return parcel.order.price.total }
+	var subtotalText: String { return (total - tax).priceString }
+	var taxText: String { return tax.priceString }
+	var totalText: String { return total.priceString }
+	
 	init(parcel: OrderViewModelParcel, viewDelegate: OrderViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
