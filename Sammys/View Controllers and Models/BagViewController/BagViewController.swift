@@ -9,17 +9,31 @@
 import UIKit
 
 class BagViewController: UIViewController {
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: BagViewModelParcel!
-	private lazy var viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self)
+	{ didSet { viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self); viewModel.bagPurchasableTableViewCellDelegate = self } }
+	var viewModel: BagViewModel!
 	
+	private var lastSelectedIndexPath: IndexPath?
+	
+	// MARK: - View Controllers
 	lazy var paymentViewController: PaymentViewController = {
 		let paymentViewController = PaymentViewController.storyboardInstance()
 		paymentViewController.delegate = self
 		return paymentViewController
 	}()
 	
-	private var lastSelectedIndexPath: IndexPath?
+	lazy var itemsViewController: ItemsViewController = {
+		let itemsViewController = ItemsViewController.storyboardInstance()
+		itemsViewController.delegate = self
+		return itemsViewController
+	}()
+	
+	lazy var builderViewController: BuilderViewController = {
+		let builderViewController = BuilderViewController.storyboardInstance()
+		builderViewController.delegate = self
+		return builderViewController
+	}()
 	
     // MARK: - IBOutlets
 	@IBOutlet var tableView: UITableView!
@@ -36,8 +50,6 @@ class BagViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel.bagPurchasableTableViewCellDelegate = self
-		
 		setupViews()
     }
 	
@@ -53,30 +65,21 @@ class BagViewController: UIViewController {
 	}
 	
 	func setupChildPaymentViewController() {
-		do {
-			try updatePaymentViewController()
-			add(asChildViewController: paymentViewController)
-			paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
-			paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
-		} catch { print(error) }
+		updatePaymentViewController()
+		add(asChildViewController: paymentViewController)
+		paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
+		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
 	}
 	
-	func updatePaymentViewController() throws {
-		do { paymentViewController.viewModelParcel = try viewModel.paymentViewModelParcel() }
-		catch { throw error }
+	// MARK: - Update
+	func updatePaymentViewController() {
+		paymentViewController.viewModelParcel = PaymentViewModelParcel(subtotal: viewModel.subtotal, tax: viewModel.tax, total: viewModel.total)
 	}
 	
+	// MARK: - Methods
 	func delete(at indexPath: IndexPath) {
 		do { try viewModel.delete(at: indexPath); tableView.deleteRows(at: [indexPath], with: .automatic) }
 		catch { print(error) }
-	}
-	
-	func itemsViewController(for indexPath: IndexPath) -> ItemsViewController? {
-		guard let viewModelParcel = viewModel.itemsViewModelParcel(for: indexPath) else { return nil }
-		let itemsViewController = ItemsViewController.storyboardInstance()
-		itemsViewController.viewModelParcel = viewModelParcel
-		itemsViewController.delegate = self
-		return itemsViewController
 	}
 
     // MARK: - IBActions
@@ -88,6 +91,15 @@ class BagViewController: UIViewController {
     @IBAction func didTapDone(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+	
+	// MARK: - Debug
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)."
+	}
+	
+	func cantDequeueCellMessage(forIdentifier identifier: String) -> String {
+		return "Can't dequeue reusable cell with identifier, \(identifier)."
+	}
 }
 
 // MARK: - Storyboardable
@@ -95,7 +107,7 @@ extension BagViewController: Storyboardable {}
 
 // MARK: - BagViewModelViewDelegate
 extension BagViewController: BagViewModelViewDelegate {
-	func cellHeight() -> Double { return 100 }
+	func cellHeight() -> Double { return Double(Constants.tableViewEstimatedRowHeight) }
 }
 
 // MARK: - UITableViewDataSource
@@ -109,8 +121,8 @@ extension BagViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError("No cell view model for index path, \(indexPath)") }
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier) else { fatalError("No cell for identifier, \(cellViewModel.identifier).") }
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier) else { fatalError(cantDequeueCellMessage(forIdentifier: cellViewModel.identifier)) }
 		cellViewModel.commands[.configuration]?.perform(parameters: TableViewCellCommandParameters(cell: cell))
         return cell
     }
@@ -120,7 +132,9 @@ extension BagViewController: UITableViewDataSource {
 extension BagViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		lastSelectedIndexPath = indexPath
-		if let itemsViewController = itemsViewController(for: indexPath) {
+		if let cellViewModel = viewModel.cellViewModel(for: indexPath),
+			let itemedPurchasable = cellViewModel.purchasableQuantity.purchasable as? ItemedPurchasable {
+			itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
 			navigationController?.pushViewController(itemsViewController, animated: true)
 		}
 	}
@@ -139,22 +153,28 @@ extension BagViewController: UITableViewDelegate {
 // MARK: - BagPurchasableTableViewCellDelegate
 extension BagViewController: BagPurchasableTableViewCellDelegate {
 	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didChangeQuantityTo quantity: Int, at indexPath: IndexPath) {
-		do { try viewModel.set(toQuantity: quantity, at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
+		do {
+			try viewModel.set(toQuantity: quantity, at: indexPath)
+			handleQuantityUpdate(in: cell, at: indexPath) }
 		catch { print(error) }
 	}
 	
 	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didDecrementQuantityAt indexPath: IndexPath) {
-		do { try viewModel.decrementQuantity(at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
-		catch { print(error) }
+		do {
+			try viewModel.decrementQuantity(at: indexPath)
+			handleQuantityUpdate(in: cell, at: indexPath)
+		} catch { print(error) }
 	}
 	
 	func bagPurchasableTableViewCell(_ cell: BagPurchasableTableViewCell, didIncrementQuantityAt indexPath: IndexPath) {
-		do { try viewModel.incrementQuantity(at: indexPath); handleQuantityUpdate(in: cell, at: indexPath) }
-		catch { print(error) }
+		do {
+			try viewModel.incrementQuantity(at: indexPath)
+			handleQuantityUpdate(in: cell, at: indexPath)
+		} catch { print(error) }
 	}
 	
 	private func handleQuantityUpdate(in cell: BagPurchasableTableViewCell, at indexPath: IndexPath) {
-		do { try updatePaymentViewController() } catch { print(error) }
+		updatePaymentViewController()
 		if let cellViewModel = viewModel.cellViewModel(for: indexPath) {
 			updateQuantityTextField(cell.quantityTextField, forQuantity: cellViewModel.purchasableQuantity.quantity)
 		}
@@ -178,11 +198,11 @@ extension BagViewController: PaymentViewControllerDelegate {
 // MARK: - ItemsViewControllerDelegate
 extension BagViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
-		let builderViewController = BuilderViewController.storyboardInstance()
-		builderViewController.viewModelParcel = BuilderViewModelParcel.instance(for: type(of: itemedPurchasable))
-		do { try builderViewController.viewModelParcel.builder.toggleExisting(from: itemedPurchasable) } catch { print(error); return }
-		builderViewController.delegate = self
-		itemsViewController.present(builderViewController, animated: true, completion: nil)
+		guard let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasable) else { return }
+		builderViewController.viewModelParcel = viewModelParcel
+		itemsViewController.present(builderViewController, animated: true) {
+			self.builderViewController.set(to: itemCategory)
+		}
 	}
 }
 
@@ -193,13 +213,13 @@ extension BagViewController: BuilderViewControllerDelegate {
 			itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: itemedPurchasable)
 			builderViewController.dismiss(animated: true, completion: nil)
 		}
+		
 		if let selectedIndexPath = lastSelectedIndexPath {
 			do {
 				try viewModel.updatePurchasable(at: selectedIndexPath, to: itemedPurchasable)
 				tableView.reloadData()
-				try updatePaymentViewController()
-			}
-			catch { print(error) }
+				updatePaymentViewController()
+			} catch { print(error) }
 		}
 	}
 }

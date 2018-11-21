@@ -60,7 +60,7 @@ class ItemsViewController: UIViewController {
 	
 	// MARK: - Debug
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
-		return "No cell view model for index path, \(indexPath)"
+		return "No cell view model for index path, \(indexPath)."
 	}
 }
 

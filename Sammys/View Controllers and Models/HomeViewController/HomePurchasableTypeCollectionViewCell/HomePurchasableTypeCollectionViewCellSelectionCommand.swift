@@ -14,8 +14,9 @@ struct HomePurchasableTypeCollectionViewCellSelectionCommand: CollectionViewCell
 	func perform(parameters: CollectionViewCellCommandParameters) {
 		guard let homeViewController = parameters.viewController as? HomeViewController
 			else { return }
-		if let itemedPurchasableType = purchasableType as? ItemedPurchasable.Type {
-			homeViewController.builderViewController.viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasableType)
+		if let itemedPurchasableType = purchasableType as? ItemedPurchasable.Type,
+			let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasableType) {
+			homeViewController.builderViewController.viewModelParcel = viewModelParcel
 			if homeViewController.isVisible { homeViewController.navigationController?.pushViewController(homeViewController.builderViewController, animated: true) }
 		}
 	}

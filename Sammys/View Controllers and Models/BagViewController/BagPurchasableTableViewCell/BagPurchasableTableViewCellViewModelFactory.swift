@@ -15,12 +15,13 @@ struct BagPurchasableTableViewCellViewModelFactory: TableViewCellViewModelFactor
 	let delegate: BagPurchasableTableViewCellDelegate?
 	
 	func create() -> BagPurchasableTableViewCellViewModel {
+		let configurationCommand = BagPurchasableTableViewCellConfigurationCommand(purchasableQuantity: purchasableQuantity, delegate: delegate)
 		return BagPurchasableTableViewCellViewModel(
 			purchasableQuantity: purchasableQuantity,
 			identifier: identifier,
 			height: height,
 			isEditable: true,
-			commands: [.configuration: BagPurchasableTableViewCellConfigurationCommand(purchasableQuantity: purchasableQuantity, delegate: delegate)]
+			commands: [.configuration: configurationCommand]
 		)
 	}
 }

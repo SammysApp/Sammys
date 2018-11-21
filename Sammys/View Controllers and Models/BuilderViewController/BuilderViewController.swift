@@ -25,7 +25,7 @@ class BuilderViewController: UIViewController {
 	/// Must be set for use of the view model.
 	var viewModelParcel: BuilderViewModelParcel!
 	{ didSet { viewModel = BuilderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: BuilderViewModel!
+	var viewModel: BuilderViewModel! { didSet { loadViews() } }
 	
 	var delegate: BuilderViewControllerDelegate?
 	
@@ -88,7 +88,7 @@ class BuilderViewController: UIViewController {
 	
 	// MARK: - Setup
 	func loadViews() {
-		collectionView.reloadData()
+		collectionView?.reloadData()
 	}
 	
 	func setupViews() {
@@ -174,6 +174,11 @@ class BuilderViewController: UIViewController {
 		}
 	}
 	
+	func set(to itemCategory: ItemCategory) {
+		viewModel.set(itemCategory)
+		handleUpdatedItemCategory(viewModel.currentItemCategory)
+	}
+	
 	func presentAddBagViewController(with itemedPurchasable: ItemedPurchasable) {
 		addBagViewController.viewModelParcel = AddBagViewModelParcel(itemedPurchasable: itemedPurchasable)
 		present(UINavigationController(rootViewController: addBagViewController), animated: true, completion: nil)
@@ -204,7 +209,7 @@ class BuilderViewController: UIViewController {
 	
 	// MARK: - Debug
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
-		return "No cell view model for index path, \(indexPath)"
+		return "No cell view model for index path, \(indexPath)."
 	}
 }
 
@@ -293,8 +298,7 @@ extension BuilderViewController: AddBagViewControllerDelegate {
 extension BuilderViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
 		itemsViewController.dismiss(animated: true, completion: nil)
-		viewModel.set(itemCategory)
-		handleUpdatedItemCategory(viewModel.currentItemCategory)
+		set(to: itemCategory)
 	}
 }
 

@@ -12,7 +12,7 @@ import PromiseKit
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
 	let fetcher: ItemsFetcher
-	var builder: ItemedPurchasableBuilder
+	let builder: ItemedPurchasableBuilder
 }
 
 protocol BuilderViewModelViewDelegate {
@@ -35,6 +35,7 @@ class BuilderViewModel {
 	private let viewDelegate: BuilderViewModelViewDelegate
 	
 	private(set) var currentItemCategory: ItemCategory
+	private lazy var builder = { parcel.builder }()
 	
 	// MARK: - Data
 	private var sections = [Section]()
@@ -93,9 +94,9 @@ class BuilderViewModel {
 		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func toggle(_ item: Item) throws { try parcel.builder.toggle(item) }
+	func toggle(_ item: Item) throws { try builder.toggle(item) }
 	
-	func build() throws -> ItemedPurchasable { return try parcel.builder.build() }
+	func build() throws -> ItemedPurchasable { return try builder.build() }
 }
 
 extension BuilderViewModelParcel {
@@ -107,6 +108,20 @@ extension BuilderViewModelParcel {
 			categories: itemedPurchasableType.allItemCategories,
 			fetcher: itemsFetchableType.fetcher,
 			builder: itemedPurchasableBuildableType.builder
+		)
+	}
+	
+	static func instance(for itemedPurchasable: ItemedPurchasable) -> BuilderViewModelParcel? {
+		let itemedPurchasableType = type(of: itemedPurchasable)
+		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
+			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
+			else { return nil }
+		var builder = itemedPurchasableBuildableType.builder
+		do { try builder.toggleExisting(from: itemedPurchasable) } catch { return nil }
+		return BuilderViewModelParcel(
+			categories: itemedPurchasableType.allItemCategories,
+			fetcher: itemsFetchableType.fetcher,
+			builder: builder
 		)
 	}
 }

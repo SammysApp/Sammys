@@ -38,11 +38,11 @@ class OrdersViewController: UIViewController {
 	
 	// MARK: - Debug
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
-		return "No cell view model for index path, \(indexPath)"
+		return "No cell view model for index path, \(indexPath)."
 	}
 	
 	func cantDequeueCellMessage(forIdentifier identifier: String) -> String {
-		return "Can't dequeue reusable cell with identifier: \(identifier)"
+		return "Can't dequeue reusable cell with identifier, \(identifier)."
 	}
 }
 
