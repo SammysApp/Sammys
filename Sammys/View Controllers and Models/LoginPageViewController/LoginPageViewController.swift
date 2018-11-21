@@ -14,11 +14,13 @@ protocol LoginPageViewControllerDelegate: LoginViewControllerDelegate {
 }
 
 class LoginPageViewController: UIViewController {
-    private let viewModel = LoginPageViewModel()
+    let viewModel = LoginPageViewModel()
     
     var delegate: LoginPageViewControllerDelegate?
-    
+	
+	// MARK: - View Controllers
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+	
 	private lazy var loginViewController: LoginViewController = {
 		let loginViewController = LoginViewController.storyboardInstance()
 		loginViewController.delegate = self
@@ -52,6 +54,7 @@ class LoginPageViewController: UIViewController {
 		setViewController(for: viewModel.currentPage)
 	}
 	
+	// MARK: - Methods
 	func signUpViewController(for page: LoginPage) -> SignUpViewController {
 		let signupViewController = SignUpViewController.storyboardInstance()
 		signupViewController.delegate = self

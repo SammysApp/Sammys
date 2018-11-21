@@ -9,8 +9,6 @@
 import Foundation
 import PromiseKit
 
-enum LoginPageViewModelError: Error { case missingSignUpFields }
-
 enum LoginPage: String {
     case login, name, email, password
 	
@@ -21,8 +19,10 @@ enum LoginPage: String {
 extension LoginPage: Hashable {}
 extension LoginPage: CaseIterable {}
 
+enum LoginPageViewModelError: Error { case missingSignUpFields }
+
 class LoginPageViewModel {
-	let userAPIManager = UserAPIManager()
+	private let userAPIManager = UserAPIManager()
 	
 	private var defaultPage = LoginPage.login
 	lazy var currentPage = defaultPage
