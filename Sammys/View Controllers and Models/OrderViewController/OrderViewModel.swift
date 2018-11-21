@@ -24,6 +24,7 @@ class OrderViewModel {
 	private let parcel: OrderViewModelParcel
 	private let viewDelegate: OrderViewModelViewDelegate
 	
+	// MARK: - Data
 	var sections: [Section] { return [
 		Section(cellViewModels: parcel.order.purchasableQuantities.map { OrderPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, identifier: OrderCellIdentifier.purchasableCell.rawValue, height: viewDelegate.cellHeight()).create() })
 	]}

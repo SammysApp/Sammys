@@ -9,9 +9,10 @@
 import UIKit
 
 class OrderViewController: UIViewController {
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: OrderViewModelParcel!
-    lazy var viewModel = OrderViewModel(parcel: viewModelParcel, viewDelegate: self)
+	{ didSet { viewModel = OrderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
+	var viewModel: OrderViewModel!
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -52,8 +53,13 @@ class OrderViewController: UIViewController {
 		totalLabel.text = viewModel.totalText
 	}
 	
+	// MARK: - Debug
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
 		return "No cell view model for index path, \(indexPath)"
+	}
+	
+	func cantDequeueCellMessage(forIdentifier identifier: String) -> String {
+		return "Can't dequeue reusable cell with identifier: \(identifier)"
 	}
 }
 
@@ -79,7 +85,7 @@ extension OrderViewController: UITableViewDataSource {
 		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
 			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier)
-			else { fatalError("No cell for identifier, \(cellViewModel.identifier).") }
+			else { fatalError(cantDequeueCellMessage(forIdentifier: cellViewModel.identifier)) }
 		cellViewModel.commands[.configuration]?.perform(parameters: TableViewCellCommandParameters(cell: cell))
 		return cell
 	}
