@@ -9,8 +9,6 @@
 import UIKit
 import PromiseKit
 
-enum LoginMethod { case login, reauthenticate }
-
 struct LoginViewModelParcel {
 	let method: LoginMethod
 }
@@ -19,6 +17,8 @@ struct LoginFields {
 	let email: String
 	let password: String
 }
+
+enum LoginMethod { case login, reauthenticate }
 
 class LoginViewModel {
 	private let parcel: LoginViewModelParcel

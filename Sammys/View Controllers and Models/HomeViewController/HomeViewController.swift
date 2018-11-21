@@ -10,9 +10,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
 	/// Must be set for use of the view model.
-	var viewModelParcel: HomeViewModelParcel!
+	var viewModelParcel = HomeViewModelParcel(userState: .noUser)
 	{ didSet { viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: HomeViewModel!
+	lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	// MARK: - View Controllers
 	lazy var builderViewController: BuilderViewController = {
@@ -56,9 +56,6 @@ class HomeViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		// Set parcel here since first view controller.
-		viewModelParcel = HomeViewModelParcel(userState: .noUser)
 		
 		setupViews()
     }
