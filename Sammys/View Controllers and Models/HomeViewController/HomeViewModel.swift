@@ -12,56 +12,49 @@ struct HomeViewModelParcel {
 	let userState: UserState
 }
 
-enum HomeViewState {
-    case home, faves
-}
-
-private struct HomeItem {
-	let title: String
-	let purchasableType: Purchasable.Type
-}
-
 protocol HomeViewModelViewDelegate {
 	func cellWidth(for state: HomeViewState) -> Double
 	func cellHeight(for state: HomeViewState) -> Double
 }
 
+enum HomeCellIdentifier: String {
+	case homePurchasableCell
+}
+
+enum HomeViewState {
+	case home, faves
+}
+
 class HomeViewModel {
-	typealias HomeCollectionViewSection = CollectionViewSection<DefaultCollectionViewCellViewModel>
+	typealias Section = AnyViewModelCollectionViewSection
 	
-	let parcel: HomeViewModelParcel
-	let viewDelegate: HomeViewModelViewDelegate
+	private let parcel: HomeViewModelParcel
+	private let viewDelegate: HomeViewModelViewDelegate
+	
 	private let bagModelController = BagModelController()
+	private let userAPIManager = UserAPIManager()
+	
+	var currentViewState = HomeViewState.home
+	lazy var userState = { parcel.userState }()
 	
 	// MARK: - Data
-	private let homeItems: [HomeItem] = [
-		HomeItem(title: "Salad", purchasableType: Salad.self)
-	]
-	
-	private var sections: [HomeCollectionViewSection] {
-		switch currentViewState.value {
+	private var sections: [Section] {
+		switch currentViewState {
 		case .home: return homeSections
 		case .faves: return []
 		}
 	}
 	
-	private var homeSections: [HomeCollectionViewSection] { return [
-		CollectionViewSection(cellViewModels: homeItems.map {
-			HomeItemCollectionViewCellViewModelFactory(
-				width: viewDelegate.cellWidth(for: currentViewState.value),
-				height: viewDelegate.cellHeight(for: currentViewState.value),
-				titleText: $0.title
+	private var homeSections: [Section] { return [
+		Section(cellViewModels: [
+			HomePurchasableTypeCollectionViewCellViewModelFactory(
+				purchasableType: Salad.self,
+				identifier: HomeCellIdentifier.homePurchasableCell.rawValue,
+				width: viewDelegate.cellWidth(for: currentViewState),
+				height: viewDelegate.cellHeight(for: currentViewState)
 			).create()
-		})
+		])
 	]}
-	
-	// MARK: - Dynamic Properties
-	private(set) var currentViewState = Dynamic(HomeViewState.home)
-	private(set) var favesButtonImage = Dynamic(HomeImage.heart)
-	private (set) var shouldHideNoFavesView = Dynamic(true)
-	
-	let userAPIManager = UserAPIManager()
-	lazy var userState = { parcel.userState }()
 	
 	var numberOfSections: Int {
 		return sections.count
@@ -71,43 +64,18 @@ class HomeViewModel {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 		
-		userAPIManager.currentUserState().get { self.userState = $0 }.catch { print($0) }
+		userAPIManager.currentUserState().get { self.userState = $0 }.cauterize()
     }
-	
-	func setCurrentViewState(to viewState: HomeViewState) {
-		currentViewState.value = viewState
-		setFavesButtonImage(for: viewState)
-	}
-	
-	func setFavesButtonImage(for viewState: HomeViewState) {
-		switch viewState {
-		case .home: favesButtonImage.value = .heart
-		case .faves: favesButtonImage.value = .home
-		}
-	}
     
     func numberOfItems(in section: Int) -> Int {
         return sections[section].cellViewModels.count
     }
     
-    func cellViewModel(for indexPath: IndexPath) -> CollectionViewCellViewModel {
-        return sections[indexPath.section].cellViewModels[indexPath.row]
+    func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel? {
+		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
     }
     
     func title(for section: Int) -> String? {
         return sections[section].title
     }
-	
-	func builderViewModelParcel(for indexPath: IndexPath) -> BuilderViewModelParcel? {
-		guard let itemedPurchasableType = homeItems[indexPath.section].purchasableType as? ItemedPurchasable.Type else { return nil }
-		return BuilderViewModelParcel.instance(for: itemedPurchasableType)
-	}
-	
-	func userViewModelParcel() -> UserViewModelParcel {
-		return UserViewModelParcel(userState: userState)
-	}
-	
-	func bagViewModelParcel() -> BagViewModelParcel {
-		return BagViewModelParcel(userState: userState)
-	}
 }

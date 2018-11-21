@@ -9,9 +9,16 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: HomeViewModelParcel!
-	private lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
+	{ didSet { viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self) } }
+	var viewModel: HomeViewModel!
+	
+	// MARK: - View Controllers
+	lazy var builderViewController: BuilderViewController = {
+		let builderViewController = BuilderViewController.storyboardInstance()
+		return builderViewController
+	}()
 	
 	lazy var userViewController: UserViewController = {
 		let userViewController = UserViewController.storyboardInstance()
@@ -34,13 +41,8 @@ class HomeViewController: UIViewController {
 	@IBOutlet var bagButtonContainerView: UIView!
     @IBOutlet var bagQuantityLabel: UILabel!
 	
-	@IBOutlet var noFavesView: UIView!
-	
 	// MARK: - Property Overrides
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    
+    override var prefersStatusBarHidden: Bool { return false }
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
     struct Constants {
@@ -55,6 +57,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		// Set parcel here since first view controller.
 		viewModelParcel = HomeViewModelParcel(userState: .noUser)
 		
 		setupViews()
@@ -77,10 +80,8 @@ class HomeViewController: UIViewController {
 	// MARK: - Setup
 	func setupViews() {
 		setupCollectionView()
-		setupFavesButton()
 		setupBagButton()
 		setupBagButtonContainerView()
-		setupNoFavesView()
 	}
 	
 	func setupCollectionView() {
@@ -116,50 +117,22 @@ class HomeViewController: UIViewController {
 		)
 	}
 	
-	func setupFavesButton() {
-		viewModel.favesButtonImage.bindAndRun { self.favesButton.setBackgroundImage($0.image, for: .normal) }
-	}
-    
-    func setupNoFavesView() {
-		// Insert as subview under the bag button so can use the button still.
-        view.insertSubview(noFavesView, belowSubview: bagButtonContainerView)
-		
-        noFavesView.layer.cornerRadius = Constants.collectionViewCornerRadius
-        noFavesView.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        noFavesView.translatesAutoresizingMaskIntoConstraints = false
-		
-        [noFavesView.leftAnchor.constraint(equalTo: collectionView.leftAnchor),
-		noFavesView.topAnchor.constraint(equalTo: collectionView.topAnchor),
-		noFavesView.rightAnchor.constraint(equalTo: collectionView.rightAnchor),
-		noFavesView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
-		].forEach { $0.isActive = true }
-		
-		viewModel.shouldHideNoFavesView.bindAndRun { self.noFavesView.isHidden = $0 }
-    }
-	
-	// MARK: - Methods
-    func didSelectItem(at indexPath: IndexPath) {
-		switch viewModel.currentViewState.value {
-		case .home:
-			guard let viewModelParcel = viewModel.builderViewModelParcel(for: indexPath) else { return }
-			let builderViewController = BuilderViewController.storyboardInstance()
-			builderViewController.viewModelParcel = viewModelParcel
-			navigationController?.pushViewController(builderViewController, animated: true)
-		case .faves: break
-		}
-	}
-    
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
-		userViewController.viewModelParcel = viewModel.userViewModelParcel()
+		userViewController.viewModelParcel = UserViewModelParcel(userState: viewModel.userState)
 		present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
 	}
     
     @IBAction func didTapFaves(_ sender: UIButton) {}
     
     @IBAction func didTapBag(_ sender: UIButton) {
-		bagViewController.viewModelParcel = viewModel.bagViewModelParcel()
+		bagViewController.viewModelParcel = BagViewModelParcel(userState: viewModel.userState)
 		present(UINavigationController(rootViewController: bagViewController), animated: true, completion: nil)
+	}
+	
+	// MARK: - Debug
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)"
 	}
 }
 
@@ -194,7 +167,8 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
         cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
         return cell
@@ -203,14 +177,14 @@ extension HomeViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		didSelectItem(at: indexPath)
-		viewModel.cellViewModel(for: indexPath).commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters())
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
+		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
-		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters(viewController: self))
 	}
 }
 
@@ -226,15 +200,4 @@ extension HomeViewController: LoginViewControllerDelegate {
 	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController) {}
 	
 	func loginViewControllerDidCancel(_ loginViewController: LoginViewController) {}
-}
-
-enum HomeImage {
-	case home, heart
-	
-	var image: UIImage {
-		switch self {
-		case .home: return #imageLiteral(resourceName: "Home.pdf")
-		case .heart: return #imageLiteral(resourceName: "Heart.pdf")
-		}
-	}
 }

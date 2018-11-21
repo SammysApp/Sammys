@@ -32,7 +32,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homeItemCell" id="mmR-z0-gvn" customClass="HomeItemCollectionViewCell" customModule="Sammys" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homePurchasableCell" id="mmR-z0-gvn" customClass="HomePurchasableTypeCollectionViewCell" customModule="Sammys" customModuleProvider="target">
                                                 <rect key="frame" x="12.666666666666666" y="0.0" width="340" height="200"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -170,28 +170,9 @@
                         <outlet property="collectionView" destination="L0z-ZL-j6i" id="yyF-T3-cdM"/>
                         <outlet property="collectionViewContainerView" destination="kHU-pB-VxL" id="nrT-4S-5Th"/>
                         <outlet property="favesButton" destination="7aX-hi-8p9" id="Nib-LX-Xml"/>
-                        <outlet property="noFavesView" destination="98U-Yx-Z12" id="HWE-uL-g0p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yi9-c9-vB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="98U-Yx-Z12">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a favorite! ❤️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykq-gi-ldk">
-                            <rect key="frame" x="9" y="47" width="222" height="34"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
-                            <color key="textColor" name="Espresso"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="Ykq-gi-ldk" firstAttribute="centerY" secondItem="98U-Yx-Z12" secondAttribute="centerY" id="FB0-o2-1jT"/>
-                        <constraint firstItem="Ykq-gi-ldk" firstAttribute="centerX" secondItem="98U-Yx-Z12" secondAttribute="centerX" id="mB8-Le-oBq"/>
-                    </constraints>
-                    <viewLayoutGuide key="safeArea" id="l88-Mg-RiE"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="-2111.1999999999998" y="-203.20197044334975"/>
         </scene>

@@ -19,9 +19,7 @@ struct Salad {
 
 // MARK: - Purchasable
 extension Salad: Purchasable {
-	var title: String {
-		return "\(size.name) Salad"
-	}
+	var title: String { return "\(size.name) Salad" }
 	
 	var description: String {
 		let itemNames = items(for: [.lettuce, .vegetable, .topping, .dressing, .extra] as [SaladItemCategory]).map { $0.name.lowercased() }

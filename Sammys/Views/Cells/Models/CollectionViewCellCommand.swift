@@ -10,9 +10,11 @@ import UIKit
 
 struct CollectionViewCellCommandParameters {
     let cell: UICollectionViewCell?
+	let viewController: UIViewController?
     
-    init(cell: UICollectionViewCell? = nil) {
+    init(cell: UICollectionViewCell? = nil, viewController: UIViewController? = nil) {
         self.cell = cell
+		self.viewController = viewController
     }
 }
 

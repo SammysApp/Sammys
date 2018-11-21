@@ -1,5 +1,5 @@
 //
-//  HomeItemCollectionViewCellConfigurationCommand.swift
+//  HomePurchasableTypeCollectionViewCellConfigurationCommand.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 5/4/18.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct HomeItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
-    let titleText: String
+struct HomePurchasableTypeCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
+    let purchasableType: Purchasable.Type
     
     private struct Constants {
         static let cornerRadius: CGFloat = 20
@@ -17,13 +17,20 @@ struct HomeItemCollectionViewCellConfigurationCommand: CollectionViewCellCommand
     }
     
     func perform(parameters: CollectionViewCellCommandParameters) {
-        guard let cell = parameters.cell as? HomeItemCollectionViewCell else { return }
-        cell.titleLabel.text = titleText
+        guard let cell = parameters.cell as? HomePurchasableTypeCollectionViewCell else { return }
+		
+        cell.titleLabel.text = purchasableType.title
+		
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .clear
         cell.contentView.layer.cornerRadius = Constants.cornerRadius
         cell.contentView.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.masksToBounds = false
-        cell.add(UIView.Shadow(path: UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath, opacity: Constants.shadowOpacity))
+        cell.add(
+			UIView.Shadow(
+				path: UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath,
+				opacity: Constants.shadowOpacity
+			)
+		)
     }
 }
