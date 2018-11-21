@@ -9,10 +9,6 @@
 import Foundation
 import PromiseKit
 
-enum OrdersCellIdentifier: String {
-	case orderCell
-}
-
 struct OrdersViewModelParcel {
 	let user: User
 }
@@ -21,8 +17,13 @@ protocol OrdersViewModelViewDelegate {
 	func cellHeight() -> Double
 }
 
+enum OrdersCellIdentifier: String {
+	case orderCell
+}
+
 class OrdersViewModel {
 	typealias Section = DefaultTableViewSection<OrderTableViewCellViewModel>
+	
 	private let parcel: OrdersViewModelParcel
 	private let viewDelegate: OrdersViewModelViewDelegate
 	
