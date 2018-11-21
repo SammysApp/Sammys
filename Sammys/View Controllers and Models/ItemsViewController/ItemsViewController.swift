@@ -13,10 +13,9 @@ protocol ItemsViewControllerDelegate {
 }
 
 class ItemsViewController: UIViewController {
-	/// Must be set for use by the view model.
-	var viewModelParcel: ItemsViewModelParcel! {
-		didSet { viewModel = ItemsViewModel(viewModelParcel, viewDelegate: self) }
-	}
+	/// Must be set for use of the view model.
+	var viewModelParcel: ItemsViewModelParcel!
+	{ didSet { viewModel = ItemsViewModel(parcel: viewModelParcel, viewDelegate: self) } }
 	var viewModel: ItemsViewModel! { didSet { loadViews() } }
 	
 	var delegate: ItemsViewControllerDelegate?
@@ -52,11 +51,16 @@ class ItemsViewController: UIViewController {
 	}
 	
 	func setupCollectionView() {
-		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsViewModel.ItemCellIdentifier.itemCell.rawValue)
+		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: ItemsCellIdentifier.itemCell.rawValue)
 		collectionView.register(ItemsCollectionViewSectionHeaderView.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: Constants.itemsCollectionViewSectionHeaderViewReuseIdentifier)
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		(collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: collectionView.frame.width, height: Constants.collectionViewHeaderHeight)
+	}
+	
+	// MARK: - Debug
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)"
 	}
 }
 
@@ -74,7 +78,8 @@ extension ItemsViewController: UICollectionViewDataSource {
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
 		cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
 		return cell
@@ -100,7 +105,8 @@ extension ItemsViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ItemsViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
 	}
 }
@@ -117,7 +123,7 @@ extension ItemsViewController: ItemsViewModelViewDelegate {
 
 // MARK: - ItemsCollectionViewSectionHeaderViewDelegate
 extension ItemsViewController: ItemsCollectionViewSectionHeaderViewDelegate {
-	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEdit editButton: UIButton) {
+	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEditButton button: UIButton) {
 		guard let section = supplementaryViewIndexPaths[itemsCollectionViewSectionHeaderView]?.section else { return }
 		let itemCategory = viewModel.itemCategory(forSection: section)
 		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchasable)

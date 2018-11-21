@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ItemsCollectionViewSectionHeaderViewDelegate {
-	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEdit editButton: UIButton)
+	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEditButton button: UIButton)
 }
 
 class ItemsCollectionViewSectionHeaderView: UICollectionReusableView {
@@ -20,7 +20,7 @@ class ItemsCollectionViewSectionHeaderView: UICollectionReusableView {
 	@IBOutlet var editButton: UIButton!
 	
 	// MARK: - IBAction
-	@IBAction func didTapEdit(_ sender: UIButton) { delegate?.itemsCollectionViewSectionHeaderView(self, didTapEdit: sender) }
+	@IBAction func didTapEdit(_ sender: UIButton) { delegate?.itemsCollectionViewSectionHeaderView(self, didTapEditButton: sender) }
 }
 
 // MARK: - Nibable

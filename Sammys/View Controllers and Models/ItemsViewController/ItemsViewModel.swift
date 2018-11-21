@@ -17,24 +17,29 @@ protocol ItemsViewModelViewDelegate {
 	func cellHeight() -> Double
 }
 
+enum ItemsCellIdentifier: String {
+	case itemCell
+}
+
 class ItemsViewModel {
 	typealias Section = CollectionViewSection<DefaultCollectionViewCellViewModel>
 	
 	private let parcel: ItemsViewModelParcel
 	private let viewDelegate: ItemsViewModelViewDelegate
 	
+	// MARK: - Data
 	var categorizedItems: [CategorizedItems] { return parcel.itemedPurchasable.categorizedItems }
 	var sections: [Section] {
 		return categorizedItems
 			.map { Section(title: $0.category.name, cellViewModels: $0.items
-				.map { ItemCollectionViewCellViewModelFactory(item: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
+				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
 	}
-	
-	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
 	
 	var numberOfSections: Int { return sections.count }
 	
-	init(_ parcel: ItemsViewModelParcel, viewDelegate: ItemsViewModelViewDelegate) {
+	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
+	
+	init(parcel: ItemsViewModelParcel, viewDelegate: ItemsViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}
@@ -43,8 +48,8 @@ class ItemsViewModel {
 		return sections[section].cellViewModels.count
 	}
 	
-	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
-		return sections[indexPath.section].cellViewModels[indexPath.item]
+	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel? {
+		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.item]
 	}
 	
 	func itemCategory(forSection section: Int) -> ItemCategory {

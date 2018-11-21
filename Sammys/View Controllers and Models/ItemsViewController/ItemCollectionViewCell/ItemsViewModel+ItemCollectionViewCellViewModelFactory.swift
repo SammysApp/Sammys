@@ -9,17 +9,15 @@
 import Foundation
 
 extension ItemsViewModel {
-	enum ItemCellIdentifier: String {
-		case itemCell
-	}
-
 	struct ItemCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
 		let item: Item
+		let identifier: String
 		let width: Double
 		let height: Double
 		
 		func create() -> DefaultCollectionViewCellViewModel {
-			return DefaultCollectionViewCellViewModel(identifier: ItemCellIdentifier.itemCell.rawValue, width: width, height: height, commands: [.configuration: ItemCollectionViewCellConfigurationCommand(item: item)])
+			let configurationCommand = ItemCollectionViewCellConfigurationCommand(item: item)
+			return DefaultCollectionViewCellViewModel(identifier: identifier, width: width, height: height, commands: [.configuration: configurationCommand])
 		}
 	}
 }

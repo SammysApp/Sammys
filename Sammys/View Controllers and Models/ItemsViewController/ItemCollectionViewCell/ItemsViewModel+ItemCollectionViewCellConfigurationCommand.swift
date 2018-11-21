@@ -18,15 +18,11 @@ extension ItemsViewModel {
 		
 		func perform(parameters: CollectionViewCellCommandParameters) {
 			guard let cell = parameters.cell as? ItemCollectionViewCell else { return }
-			
-			// Set style
 			cell.layer.cornerRadius = Constants.cornerRadius
 			cell.backgroundColor = .black
-			
-			// Set data
 			cell.titleLabel.text = item.name
 			if let pricedItem = item as? PricedItem {
-				cell.priceLabel.text = "$\(pricedItem.price)"
+				cell.priceLabel.text = pricedItem.price.priceString
 			}
 		}
 	}

@@ -14,6 +14,7 @@ protocol AddBagViewControllerDelegate: ItemsViewControllerDelegate {
 }
 
 class AddBagViewController: UIViewController {
+	/// Must be set for use of the view model.
 	var viewModelParcel: AddBagViewModelParcel!
 	{ didSet { viewModel = AddBagViewModel(viewModelParcel) } }
 	var viewModel: AddBagViewModel!
