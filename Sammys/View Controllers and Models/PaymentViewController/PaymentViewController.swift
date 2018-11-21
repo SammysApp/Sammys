@@ -14,9 +14,8 @@ protocol PaymentViewControllerDelegate {
 
 class PaymentViewController: UIViewController {
 	/// Must be set for use by the view model.
-	var viewModelParcel: PaymentViewModelParcel! {
-		didSet { viewModel = PaymentViewModel(viewModelParcel) }
-	}
+	var viewModelParcel: PaymentViewModelParcel!
+	{ didSet { viewModel = PaymentViewModel(viewModelParcel) } }
 	private var viewModel: PaymentViewModel! { didSet { loadViews() } }
 	
 	var delegate: PaymentViewControllerDelegate?
@@ -37,13 +36,13 @@ class PaymentViewController: UIViewController {
 		setupViews()
     }
 	
+	// MARK: - Setup
 	func loadViews() {
 		subtotalLabel?.text = viewModel.subtotalText
 		taxLabel?.text = viewModel.taxText
 		payButton?.setTitle(viewModel.payText, for: .normal)
 	}
 	
-	// MARK: - Setup
 	func setupViews() {
 		setupPayButton()
 		loadViews()
