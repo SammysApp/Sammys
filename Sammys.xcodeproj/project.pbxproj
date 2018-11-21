@@ -57,7 +57,6 @@
 		5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */; };
 		5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */; };
 		5B2950CA218CBEF1008B0E49 /* CollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */; };
-		5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */; };
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
 		5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */; };
 		5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
@@ -180,9 +179,7 @@
 		5B9B907520C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5B9B909A20CA037700FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909920CA037700FB6264 /* Alert.wav */; };
-		5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */; };
 		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
-		5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */; };
 		5BA01973213733870017A993 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA01972213733870017A993 /* APIManager.swift */; };
 		5BA1135B21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */; };
 		5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */; };
@@ -295,7 +292,6 @@
 		5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsFetcher.swift; sourceTree = "<group>"; };
 		5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemedPurchaseableBuilder.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* CollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSection.swift; sourceTree = "<group>"; };
-		5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewModel.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellCommand.swift; sourceTree = "<group>"; };
 		5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -391,9 +387,7 @@
 		5B9B907420C5E4ED00FB6264 /* FoodTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B9B909920CA037700FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
-		5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateViewController.swift; sourceTree = "<group>"; };
 		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
-		5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDateAvailabilityChecker.swift; sourceTree = "<group>"; };
 		5BA01972213733870017A993 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+LoginButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
 		5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
@@ -514,16 +508,6 @@
 				5B342AE420F79BE500A781E6 /* Sammys.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		5B0B739E20D810F400D757FD /* Pickup Date */ = {
-			isa = PBXGroup;
-			children = (
-				5B9B909B20CDB7F400FB6264 /* PickupDateViewController.swift */,
-				5B2DC37F20D411F3008FFA2D /* PickupDateViewModel.swift */,
-				5B9BCD6B20E3185200F774DD /* PickupDateAvailabilityChecker.swift */,
-			);
-			path = "Pickup Date";
 			sourceTree = "<group>";
 		};
 		5B10D58820C035F000BF05B2 /* Sammys Kitchen */ = {
@@ -960,7 +944,6 @@
 				5BD274F32063FAD800618128 /* SignUpViewController */,
 				5BB2968A208E5AD500520683 /* OrdersViewController */,
 				5BB296A0208FD42E00520683 /* Order */,
-				5B0B739E20D810F400D757FD /* Pickup Date */,
 			);
 			path = "View Controllers and Models";
 			sourceTree = "<group>";
@@ -1587,7 +1570,6 @@
 				5BEED53E206C6F70002240EB /* AddBagViewModel.swift in Sources */,
 				5B1CB08320158BDA0006235F /* ItemsViewController.swift in Sources */,
 				5B4DC2E2219B6CA8009BDA6D /* PaymentViewModel.swift in Sources */,
-				5B2DC38020D411F3008FFA2D /* PickupDateViewModel.swift in Sources */,
 				5B3A4AC521948C6E00F22F78 /* BagPurchasableTableViewCellViewModel.swift in Sources */,
 				5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
@@ -1649,7 +1631,6 @@
 				5B6A06961FFD54B500BAC480 /* Salad.swift in Sources */,
 				5BB29695208F8A6200520683 /* FoodOrderTableViewCell.swift in Sources */,
 				5B3A4B7B21961F4C00F22F78 /* PaymentViewController.swift in Sources */,
-				5B9B909C20CDB7F400FB6264 /* PickupDateViewController.swift in Sources */,
 				5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
 				5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */,
@@ -1689,7 +1670,6 @@
 				5BED77AB20B479A000232DD2 /* Extension+UINavigationController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
-				5B9BCD6C20E3185200F774DD /* PickupDateAvailabilityChecker.swift in Sources */,
 				5BC950382107D2B900AF1098 /* Customer.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,

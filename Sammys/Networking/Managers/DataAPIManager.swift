@@ -27,10 +27,6 @@ struct DataAPIManager: APIManager {
         case hours, foods
     }
     
-    static func getHours(apiService: APIService = AlamofireAPIService()) -> Promise<[Hours]> {
-        return get(.hours, apiService: apiService)
-    }
-    
 	static func getFoodItems<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
         return get(.foods, parameters: parameters, apiService: apiService)
     }

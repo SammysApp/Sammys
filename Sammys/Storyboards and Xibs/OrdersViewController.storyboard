@@ -38,7 +38,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="8t1-cP-c9j">
                                                     <rect key="frame" x="45.333333333333336" y="27" width="99.666666666666657" height="46"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-Zv-3Md">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-Zv-3Md">
                                                             <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
@@ -66,6 +66,7 @@
                                                 <constraint firstItem="BCc-CW-NI7" firstAttribute="centerY" secondItem="HaT-xo-6xz" secondAttribute="centerY" id="Sqq-p9-e0a"/>
                                                 <constraint firstItem="8t1-cP-c9j" firstAttribute="leading" secondItem="BCc-CW-NI7" secondAttribute="trailing" constant="15" id="p67-Ih-ATK"/>
                                                 <constraint firstItem="8t1-cP-c9j" firstAttribute="centerY" secondItem="HaT-xo-6xz" secondAttribute="centerY" id="rvD-uD-Kot"/>
+                                                <constraint firstItem="j3Z-rj-lXa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8t1-cP-c9j" secondAttribute="trailing" constant="15" id="zs2-3j-4DQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
