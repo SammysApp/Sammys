@@ -13,6 +13,10 @@ enum BagViewModelError: Error {
 	case badCellViewModelIndexPath
 }
 
+enum BagCellIdentifier: String {
+	case purchasableCell
+}
+
 struct BagViewModelParcel {
 	let userState: UserState
 }
@@ -44,7 +48,7 @@ class BagViewModel {
 	
 	private var sections: [Section] { return [
 		Section(cellViewModels: purchasableQuantities
-			.map { BagPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, height: viewDelegate.cellHeight(), delegate: bagPurchasableTableViewCellDelegate).create() }
+			.map { BagPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, identifier: BagCellIdentifier.purchasableCell.rawValue, height: viewDelegate.cellHeight(), delegate: bagPurchasableTableViewCellDelegate).create() }
 		)
 	]}
 	
@@ -100,7 +104,7 @@ class BagViewModel {
 			number: "\(number)",
 			user: Order.User(userName: user?.name ?? "no name", userID: user?.id),
 			purchasableQuantities: purchasableQuantities,
-			price: Price(taxPrice: tax, totalPrice: total)
+			price: Order.Price(taxPrice: tax, totalPrice: total)
 		)
 	}
 	

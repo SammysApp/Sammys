@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C7i-84-XNm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C7i-84-XNm">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,7 +24,7 @@
                                 <color key="backgroundColor" name="Almond"/>
                                 <color key="separatorColor" name="Sand"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" rowHeight="100" id="tQg-Qy-si1" customClass="FoodOrderTableViewCell" customModule="Sammys" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="purchasableCell" rowHeight="100" id="tQg-Qy-si1" customClass="OrderPurchasableTableViewCell" customModule="Sammys" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tQg-Qy-si1" id="Lqw-Jy-bII">
@@ -39,7 +38,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImA-ba-b3u">
-                                                    <rect key="frame" x="33" y="38" width="52" height="24"/>
+                                                    <rect key="frame" x="40" y="38" width="52" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -56,80 +55,14 @@
                                                 <constraint firstItem="guE-7m-46j" firstAttribute="trailing" secondItem="Lqw-Jy-bII" secondAttribute="trailingMargin" id="5nd-nG-ScQ"/>
                                                 <constraint firstItem="czM-bJ-IMP" firstAttribute="leading" secondItem="Lqw-Jy-bII" secondAttribute="leadingMargin" id="7ZZ-qE-AVt"/>
                                                 <constraint firstItem="ImA-ba-b3u" firstAttribute="centerY" secondItem="Lqw-Jy-bII" secondAttribute="centerY" id="90m-JX-oqd"/>
-                                                <constraint firstItem="ImA-ba-b3u" firstAttribute="leading" secondItem="czM-bJ-IMP" secondAttribute="trailing" constant="8" symbolic="YES" id="Lxw-lH-gFL"/>
+                                                <constraint firstItem="ImA-ba-b3u" firstAttribute="leading" secondItem="czM-bJ-IMP" secondAttribute="trailing" constant="15" id="Lxw-lH-gFL"/>
                                                 <constraint firstItem="czM-bJ-IMP" firstAttribute="centerY" secondItem="Lqw-Jy-bII" secondAttribute="centerY" id="bhR-Wu-xJv"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="nameLabel" destination="ImA-ba-b3u" id="zI9-G8-lQD"/>
                                             <outlet property="priceLabel" destination="guE-7m-46j" id="cWC-YA-kWv"/>
                                             <outlet property="quantityLabel" destination="czM-bJ-IMP" id="fJ3-W5-5Xb"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="totalCell" rowHeight="120" id="DWr-fh-2KG" customClass="TotalPriceTableViewCell" customModule="Sammys" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="155.33333333333334" width="375" height="120.00000000000003"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DWr-fh-2KG" id="6BP-uE-R0d">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.66666666666667"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYK-mf-Ffd">
-                                                    <rect key="frame" x="15" y="11" width="73" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJ8-g8-bec">
-                                                    <rect key="frame" x="302.33333333333331" y="11" width="57.666666666666686" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estimated Tax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxV-Z7-ftr">
-                                                    <rect key="frame" x="15" y="43" width="121" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8e-h7-d1D">
-                                                    <rect key="frame" x="302.33333333333331" y="43" width="57.666666666666686" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-e9-74H">
-                                                    <rect key="frame" x="15" y="85" width="43" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnc-22-4Tj">
-                                                    <rect key="frame" x="301" y="85" width="59" height="24"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                    <color key="textColor" name="Espresso"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="lxV-Z7-ftr" firstAttribute="top" secondItem="LYK-mf-Ffd" secondAttribute="bottom" constant="8" symbolic="YES" id="9nn-c6-fOI"/>
-                                                <constraint firstItem="LYK-mf-Ffd" firstAttribute="leading" secondItem="6BP-uE-R0d" secondAttribute="leadingMargin" id="GGT-Vy-tXa"/>
-                                                <constraint firstItem="Qnc-22-4Tj" firstAttribute="trailing" secondItem="6BP-uE-R0d" secondAttribute="trailingMargin" id="QAR-cm-tjx"/>
-                                                <constraint firstItem="D8e-h7-d1D" firstAttribute="trailing" secondItem="6BP-uE-R0d" secondAttribute="trailingMargin" id="T84-Zr-SXy"/>
-                                                <constraint firstItem="zJ8-g8-bec" firstAttribute="top" secondItem="6BP-uE-R0d" secondAttribute="topMargin" id="TB6-KX-fQR"/>
-                                                <constraint firstItem="2WS-e9-74H" firstAttribute="leading" secondItem="6BP-uE-R0d" secondAttribute="leadingMargin" id="WmW-NZ-n4a"/>
-                                                <constraint firstItem="lxV-Z7-ftr" firstAttribute="leading" secondItem="6BP-uE-R0d" secondAttribute="leadingMargin" id="Wy0-nr-spT"/>
-                                                <constraint firstItem="Qnc-22-4Tj" firstAttribute="bottom" secondItem="6BP-uE-R0d" secondAttribute="bottomMargin" id="ikZ-ZE-d9q"/>
-                                                <constraint firstItem="2WS-e9-74H" firstAttribute="bottom" secondItem="6BP-uE-R0d" secondAttribute="bottomMargin" id="qQb-W4-VvT"/>
-                                                <constraint firstItem="zJ8-g8-bec" firstAttribute="trailing" secondItem="6BP-uE-R0d" secondAttribute="trailingMargin" id="rUB-Lw-EkQ"/>
-                                                <constraint firstItem="LYK-mf-Ffd" firstAttribute="top" secondItem="6BP-uE-R0d" secondAttribute="topMargin" id="rY7-EC-4ZP"/>
-                                                <constraint firstItem="D8e-h7-d1D" firstAttribute="top" secondItem="zJ8-g8-bec" secondAttribute="bottom" constant="8" symbolic="YES" id="rfF-XC-lrf"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" name="Almond"/>
-                                        <connections>
-                                            <outlet property="subtotalLabel" destination="zJ8-g8-bec" id="ZDV-bW-FjM"/>
-                                            <outlet property="taxLabel" destination="D8e-h7-d1D" id="JTC-Zt-h1I"/>
-                                            <outlet property="totalLabel" destination="Qnc-22-4Tj" id="cTa-P2-iuX"/>
+                                            <outlet property="titleLabel" destination="ImA-ba-b3u" id="zI9-G8-lQD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -160,13 +93,10 @@
     </scenes>
     <resources>
         <namedColor name="Almond">
-            <color red="1" green="0.96862745098039216" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Espresso">
-            <color red="0.33333333333333331" green="0.30196078431372547" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.96899998188018799" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Sand">
-            <color red="0.8901960784313725" green="0.86274509803921573" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88999998569488525" green="0.86299997568130493" blue="0.83499997854232788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -1,5 +1,5 @@
 //
-//  FoodOrderTableViewCell.swift
+//  OrderPurchasableTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 4/24/18.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class FoodOrderTableViewCell: UITableViewCell {
+class OrderPurchasableTableViewCell: UITableViewCell {
     @IBOutlet var quantityLabel: UILabel!
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
 }

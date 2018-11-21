@@ -8,19 +8,16 @@
 
 import Foundation
 
-enum BagPurchasableCellIdentifier: String {
-    case purchasableCell
-}
-
 struct BagPurchasableTableViewCellViewModelFactory: TableViewCellViewModelFactory {
 	let purchasableQuantity: PurchasableQuantity
+	let identifier: String
 	let height: Double
 	let delegate: BagPurchasableTableViewCellDelegate?
 	
 	func create() -> BagPurchasableTableViewCellViewModel {
 		return BagPurchasableTableViewCellViewModel(
 			purchasableQuantity: purchasableQuantity,
-			identifier: BagPurchasableCellIdentifier.purchasableCell.rawValue,
+			identifier: identifier,
 			height: height,
 			isEditable: true,
 			commands: [.configuration: BagPurchasableTableViewCellConfigurationCommand(purchasableQuantity: purchasableQuantity, delegate: delegate)]

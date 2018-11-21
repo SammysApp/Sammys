@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-enum OrderCellIdentifier: String {
+enum OrdersCellIdentifier: String {
 	case orderCell
 }
 
@@ -22,7 +22,7 @@ protocol OrdersViewModelViewDelegate {
 }
 
 class OrdersViewModel {
-	typealias Section = TableViewSection<DefaultTableViewCellViewModel>
+	typealias Section = TableViewSection<OrderTableViewCellViewModel>
 	private let parcel: OrdersViewModelParcel
 	private let viewDelegate: OrdersViewModelViewDelegate
 	
@@ -30,7 +30,7 @@ class OrdersViewModel {
 	private var orders = [Order]()
 	
 	private var sections: [Section] { return [
-		Section(cellViewModels: orders.map { OrderTableViewCellViewModelFactory(identifier: OrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight(), order: $0).create() })
+		Section(cellViewModels: orders.map { OrderTableViewCellViewModelFactory(order: $0, identifier: OrdersCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight()).create() })
 	]}
 	
 	var numberOfSections: Int { return sections.count }

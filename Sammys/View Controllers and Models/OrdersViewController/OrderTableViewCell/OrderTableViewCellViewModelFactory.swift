@@ -9,12 +9,12 @@
 import Foundation
 
 struct OrderTableViewCellViewModelFactory: TableViewCellViewModelFactory {
+	let order: Order
 	let identifier: String
 	let height: Double
-	let order: Order
 	
-	func create() -> DefaultTableViewCellViewModel {
+	func create() -> OrderTableViewCellViewModel {
 		let configurationCommand = OrderTableViewCellConfigurationCommand(order: order)
-		return DefaultTableViewCellViewModel(identifier: identifier, height: height, commands: [.configuration: configurationCommand])
+		return OrderTableViewCellViewModel(order: order, identifier: identifier, height: height, commands: [.configuration: configurationCommand])
 	}
 }

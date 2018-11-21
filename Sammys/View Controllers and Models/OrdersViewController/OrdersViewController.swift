@@ -42,6 +42,11 @@ class OrdersViewController: UIViewController {
 // MARK: - Storyboardable
 extension OrdersViewController: Storyboardable {}
 
+// MARK: - OrdersViewModelViewDelegate
+extension OrdersViewController: OrdersViewModelViewDelegate {
+	func cellHeight() -> Double { return Constants.cellHeight }
+}
+
 // MARK: - UITableViewDataSource
 extension OrdersViewController: UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,9 +74,11 @@ extension OrdersViewController: UITableViewDelegate {
 			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		return CGFloat(cellViewModel.height)
 	}
-}
-
-// MARK: - OrdersViewModelViewDelegate
-extension OrdersViewController: OrdersViewModelViewDelegate {
-	func cellHeight() -> Double { return Constants.cellHeight }
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { return }
+		let orderViewController = OrderViewController.storyboardInstance()
+		orderViewController.viewModelParcel = OrderViewModelParcel(order: cellViewModel.order)
+		navigationController?.pushViewController(orderViewController, animated: true)
+	}
 }

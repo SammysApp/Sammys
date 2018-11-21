@@ -39,6 +39,18 @@ struct Order: Codable {
 		}
 	}
 	
+	struct Price: Codable {
+		let tax: Double?
+		let discount: Double?
+		let total: Double
+		
+		init(taxPrice: Double? = nil, discount: Double? = nil, totalPrice: Double) {
+			self.tax = taxPrice
+			self.discount = discount
+			self.total = totalPrice
+		}
+	}
+	
 	struct More: Codable {
 		let pickupDate: Date?
 		let note: String?
