@@ -9,10 +9,6 @@
 import Foundation
 import PromiseKit
 
-enum BuilderViewModelError: Error {
-	case nonAdjustable
-}
-
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
 	let fetcher: ItemsFetcher
@@ -24,17 +20,33 @@ protocol BuilderViewModelViewDelegate {
 	func cellHeight() -> Double
 }
 
+enum BuilderCellIdentifier: String {
+	case itemCell
+}
+
+enum BuilderViewModelError: Error {
+	case nonAdjustable
+}
+
 class BuilderViewModel {
 	typealias Section = CollectionViewSection<ItemCollectionViewCellViewModel>
 	
-	private let viewDelegate: BuilderViewModelViewDelegate
 	private var parcel: BuilderViewModelParcel
+	private let viewDelegate: BuilderViewModelViewDelegate
 	
-	private(set) var itemCategory: Dynamic<ItemCategory>
+	private(set) var currentItemCategory: ItemCategory
+	
+	// MARK: - Data
+	private var sections = [Section]()
+	private func sections(for items: [Item]) -> [Section] { return [
+		CollectionViewSection(cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: BuilderCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() })
+	]}
+	
+	var numberOfSections: Int { return sections.count }
 	
 	private var currentItemCategoryIndex: Int? {
 		return parcel.categories.firstIndex
-			{ self.itemCategory.value.rawValue == $0.rawValue }
+			{ self.currentItemCategory.isEqual(to: $0) }
 	}
 	
 	var isAtLastItemCategory: Bool {
@@ -42,72 +54,48 @@ class BuilderViewModel {
 		return currentIndex == parcel.categories.endIndex - 1
 	}
 	
-	private var items = [Item]() {
-		didSet { sections.value = sections(for: items) }
-	}
-	private(set) var sections = Dynamic([Section]())
-	
-	private(set) var centerCellViewModel: Dynamic<Section.CellViewModel?> = Dynamic(nil)
-	
-	var numberOfSections: Int { return sections.value.count }
-	
-	init(viewDelegate: BuilderViewModelViewDelegate, parcel: BuilderViewModelParcel) {
+	init(parcel: BuilderViewModelParcel, viewDelegate: BuilderViewModelViewDelegate) {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
 		
 		guard let firstItemCategory = parcel.categories.first
-			else { fatalError() }
-		self.itemCategory = Dynamic(firstItemCategory)
+			else { fatalError("Need item categories to build") }
+		currentItemCategory = firstItemCategory
 	}
 	
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
-		return parcel.fetcher.getItems(for: itemCategory)
-			.get { self.items = $0 }.asVoid()
+		return parcel.fetcher.items(for: itemCategory)
+			.get { self.sections = self.sections(for: $0) }.asVoid()
 	}
 	
-	func set(to itemCategory: ItemCategory) {
+	func set(_ itemCategory: ItemCategory) {
 		if parcel.categories
 			.map({ AnyEquatableProtocol($0) })
-			.contains(AnyEquatableProtocol(itemCategory)) { self.itemCategory.value = itemCategory }
+			.contains(AnyEquatableProtocol(itemCategory))
+		{ self.currentItemCategory = itemCategory }
 	}
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
 		guard let currentIndex = currentItemCategoryIndex,
 		let adjustedItemCategory = parcel.categories[safe: currentIndex + indexValue]
 			else { throw BuilderViewModelError.nonAdjustable }
-		itemCategory.value = adjustedItemCategory
+		currentItemCategory = adjustedItemCategory
 	}
 	
 	func incrementItemCategory() throws { try adjustItemCategory(byIndexValue: 1) }
 	func decrementItemCategory() throws { try adjustItemCategory(byIndexValue: -1) }
 	
-	func sections(for items: [Item]) -> [Section] {
-		return [CollectionViewSection(
-			cellViewModels: items.map { ItemCollectionViewCellViewModelFactory(item: $0, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
-		)]
-	}
-	
 	func numberOfItems(inSection section: Int) -> Int {
-		return sections.value[section].cellViewModels.count
+		return sections[section].cellViewModels.count
 	}
 	
-	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel {
-		return sections.value[indexPath.section].cellViewModels[indexPath.row]
+	func cellViewModel(for indexPath: IndexPath) -> Section.CellViewModel? {
+		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func didCenterCellViewModel(at indexPath: IndexPath) {
-		centerCellViewModel.value = sections.value[indexPath.section].cellViewModels[indexPath.item]
-	}
-	
-	func toggle(_ item: Item) throws {
-		try parcel.builder.toggle(item)
-	}
+	func toggle(_ item: Item) throws { try parcel.builder.toggle(item) }
 	
 	func build() throws -> ItemedPurchasable { return try parcel.builder.build() }
-	
-	func addBagViewModelParcel() throws -> AddBagViewModelParcel {
-		return AddBagViewModelParcel(itemedPurchasable: try build())
-	}
 }
 
 extension BuilderViewModelParcel {

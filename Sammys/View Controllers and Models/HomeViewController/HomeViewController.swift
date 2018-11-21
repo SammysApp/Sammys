@@ -184,7 +184,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters(viewController: self))
+		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters(cell: collectionView.cellForItem(at: indexPath), viewController: self))
 	}
 }
 

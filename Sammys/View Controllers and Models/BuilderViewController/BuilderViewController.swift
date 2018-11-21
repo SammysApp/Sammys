@@ -13,6 +13,12 @@ protocol BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable)
 }
 
+extension BuilderViewControllerDelegate {
+	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
+		builderViewController.presentAddBagViewController(with: itemedPurchasable)
+	}
+}
+
 enum BuilderViewLayoutState {
 	case horizontal, vertical
 }
@@ -22,23 +28,25 @@ protocol BuilderViewLayoutStateSpecifier {
 }
 
 class BuilderViewController: UIViewController {
-	typealias CellViewModel = BuilderViewModel.Section.CellViewModel
-	
-	/// Must be set for use by the view model.
+	/// Must be set for use of the view model.
 	var viewModelParcel: BuilderViewModelParcel!
-	private var viewModel: BuilderViewModel!
+	{ didSet { viewModel = BuilderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
+	var viewModel: BuilderViewModel!
 	
 	var delegate: BuilderViewControllerDelegate?
 	
-	let defaultViewLayoutState = BuilderViewLayoutState.horizontal
+	var currentViewLayoutState = BuilderViewLayoutState.horizontal
+	{ didSet { changeViewLayout(for: currentViewLayoutState) } }
+	
 	let animatedCardCollectionViewLayout = AnimatedCollectionViewLayout()
 	let flowCollectionViewLayout = UICollectionViewFlowLayout()
-	let modifierViewEffect = UIBlurEffect(style: .dark)
 	
-	var currentViewLayoutState: BuilderViewLayoutState {
-		guard let stateSpecifier = viewModel.itemCategory.value as? BuilderViewLayoutStateSpecifier else { return defaultViewLayoutState }
-		return stateSpecifier.state
-	}
+	// MARK: - View Controllers
+	lazy var addBagViewController: AddBagViewController = {
+		let addBagViewController = AddBagViewController.storyboardInstance()
+		addBagViewController.delegate = self
+		return addBagViewController
+	}()
 
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
@@ -60,6 +68,7 @@ class BuilderViewController: UIViewController {
 	
 	struct Constants {
 		static let collectionViewContentInset: CGFloat = 10
+		static let collectionViewNumberOfItemsPerRow = 2
 		
 		static let cardAnimatorItemSpacing: CGFloat = 0.4
 		static let cardAnimatorScaleRate: CGFloat = 0.75
@@ -73,15 +82,8 @@ class BuilderViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel = BuilderViewModel(viewDelegate: self, parcel: viewModelParcel)
-		
 		setupViews()
-		
-		viewModel.itemCategory.bindAndRun { self.didChangeItemCategory(with: $0) }
-		viewModel.sections.bindAndRun { _ in self.collectionView.reloadData() }
-		viewModel.centerCellViewModel.bindAndRun { cellViewModel in
-			if let cellViewModel = cellViewModel { self.didCenter(at: cellViewModel) }
-		}
+		handleUpdatedItemCategory(viewModel.currentItemCategory)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +91,10 @@ class BuilderViewController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+	
+	func loadViews() {
+		collectionView.reloadData()
+	}
 	
 	// MARK: - Setup
 	func setupViews() {
@@ -99,7 +105,7 @@ class BuilderViewController: UIViewController {
 	}
 	
 	func setupCollectionView() {
-		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: BuilderViewModel.ItemCellIdentifier.itemCell.rawValue)
+		collectionView.register(ItemCollectionViewCell.nib(), forCellWithReuseIdentifier: BuilderCellIdentifier.itemCell.rawValue)
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 	}
@@ -158,30 +164,23 @@ class BuilderViewController: UIViewController {
 		)
 	}
 	
-	func didChangeItemCategory(with itemCategory: ItemCategory) {
-		viewModel.setupData(for: itemCategory).catch { print($0) }
+	func handleUpdatedItemCategory(_ itemCategory: ItemCategory) {
+		viewModel.setupData(for: itemCategory).get { self.loadViews() }.catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
 		if let stateSpecifier = itemCategory as? BuilderViewLayoutStateSpecifier {
-			changeViewLayout(for: stateSpecifier.state)
-		} else { changeViewLayout(for: defaultViewLayoutState) }
-	}
-	
-	func didCenter(at cellViewModel: CellViewModel) {
-		itemNameLabel.text = cellViewModel.item.name
-		if let pricedItem = cellViewModel.item as? PricedItem {
-			itemPriceLabel.text = "\(pricedItem.price)"
+			currentViewLayoutState = stateSpecifier.state
 		}
 	}
 	
-	func didSelect(_ cellViewModel: CellViewModel) {
-		do { try viewModel.toggle(cellViewModel.item) }
-		catch { print(error) }
+	func handleCenter(at cellViewModel: BuilderViewModel.Section.CellViewModel) {
+		itemNameLabel.text = cellViewModel.item.name
+		if let pricedItem = cellViewModel.item as? PricedItem {
+			itemPriceLabel.text = pricedItem.price.priceString
+		}
 	}
 	
-	func presentAddBagViewController() throws {
-		let addBagViewController = AddBagViewController.storyboardInstance()
-		addBagViewController.viewModelParcel = try viewModel.addBagViewModelParcel()
-		addBagViewController.delegate = self
+	func presentAddBagViewController(with itemedPurchasable: ItemedPurchasable) {
+		addBagViewController.viewModelParcel = AddBagViewModelParcel(itemedPurchasable: itemedPurchasable)
 		present(UINavigationController(rootViewController: addBagViewController), animated: true, completion: nil)
 	}
 
@@ -189,20 +188,29 @@ class BuilderViewController: UIViewController {
     @IBAction func didTapNext(_ sender: UIButton) {
 		do {
 			if viewModel.isAtLastItemCategory {
-				if delegate == nil { try presentAddBagViewController() }
-				else { delegate?.builderViewController(self, didFinishBuilding: try viewModel.build()) }
-			} else { try viewModel.incrementItemCategory() }
+				let itemedPurchasable = try viewModel.build()
+				if delegate == nil { presentAddBagViewController(with: itemedPurchasable) }
+				else { delegate?.builderViewController(self, didFinishBuilding: itemedPurchasable) }
+			} else {
+				try viewModel.incrementItemCategory()
+				handleUpdatedItemCategory(viewModel.currentItemCategory)
+			}
 		} catch { print(error) }
     }
 
     @IBAction func didTapBack(_ sender: UIButton) {
-		do { try viewModel.decrementItemCategory() }
-		catch { print(error) }
+		do {
+			try viewModel.decrementItemCategory()
+			handleUpdatedItemCategory(viewModel.currentItemCategory)
+		} catch { print(error) }
     }
 
     @IBAction func didTapFinish(_ sender: UIButton) {}
-
-    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {}
+	
+	// MARK: - Debug
+	func noCellViewModelMessage(for indexPath: IndexPath) -> String {
+		return "No cell view model for index path, \(indexPath)"
+	}
 }
 
 // MARK: - Storyboardable
@@ -213,7 +221,10 @@ extension BuilderViewController: BuilderViewModelViewDelegate {
 	func cellWidth() -> Double {
 		switch currentViewLayoutState {
 		case .horizontal: return Double(collectionView.frame.width)
-		case .vertical: return Double(collectionView.frame.width / 2 - 15)
+		case .vertical:
+			let totalCellsWidth = collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right)
+			guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return Double(totalCellsWidth) / Double(Constants.collectionViewNumberOfItemsPerRow) }
+			return Double(totalCellsWidth - (layout.minimumInteritemSpacing * CGFloat(Constants.collectionViewNumberOfItemsPerRow - 1))) / Double(Constants.collectionViewNumberOfItemsPerRow)
 		}
 	}
 	
@@ -236,7 +247,8 @@ extension BuilderViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellViewModel.identifier, for: indexPath)
 		cellViewModel.commands[.configuration]?.perform(parameters: CollectionViewCellCommandParameters(cell: cell))
 		return cell
@@ -245,24 +257,28 @@ extension BuilderViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension BuilderViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
-		didSelect(cellViewModel)
-	}
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		guard let cellViewModel = viewModel.cellViewModel(for: indexPath)
+			else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		return CGSize(width: cellViewModel.width, height: cellViewModel.height)
     }
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: CollectionViewCellCommandParameters(cell: collectionView.cellForItem(at: indexPath), viewController: self))
+	}
+}
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateTopViews(forContentOffsetY: scrollView.contentOffset.y + view.safeAreaInsets.top)
-    }
+// MARK: - UIScrollViewDelegate
+extension BuilderViewController: UIScrollViewDelegate {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		updateTopViews(forContentOffsetY: scrollView.contentOffset.y + view.safeAreaInsets.top)
+	}
 	
 	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		let centerPoint = view.convert(view.center, to: collectionView)
-		if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint) {
-			viewModel.didCenterCellViewModel(at: centerIndexPath)
+		if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint),
+			let cellViewModel = viewModel.cellViewModel(for: centerIndexPath) {
+			handleCenter(at: cellViewModel)
 		}
 	}
 }
@@ -280,14 +296,8 @@ extension BuilderViewController: AddBagViewControllerDelegate {
 extension BuilderViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
 		itemsViewController.dismiss(animated: true, completion: nil)
-		viewModel.set(to: itemCategory)
-	}
-}
-
-extension BuilderViewControllerDelegate {
-	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
-		do { return try builderViewController.presentAddBagViewController() }
-		catch { print(error) }
+		viewModel.set(itemCategory)
+		handleUpdatedItemCategory(viewModel.currentItemCategory)
 	}
 }
 

@@ -1,5 +1,5 @@
 //
-//  ItemCollectionViewCellViewModel.swift
+//  BuilderViewModel+ItemCollectionViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/4/18.

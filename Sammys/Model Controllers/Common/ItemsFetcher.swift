@@ -14,5 +14,5 @@ protocol ItemsFetchable {
 }
 
 protocol ItemsFetcher {
-	func getItems(for itemCategory: ItemCategory) -> Promise<[Item]>
+	func items(for itemCategory: ItemCategory) -> Promise<[Item]>
 }

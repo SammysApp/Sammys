@@ -14,58 +14,58 @@ enum SaladItemsFetcherError: Error {
 }
 
 private struct SaladItemsFetcher: ItemsFetcher {
-	private func getSizes() -> Promise<[Size]> {
+	private func sizes() -> Promise<[Size]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.sizes.rawValue
 		])
 	}
 	
-	private func getLettuces() -> Promise<[Lettuce]> {
+	private func lettuces() -> Promise<[Lettuce]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.lettuces.rawValue
 		])
 	}
 	
-	private func getVegetables() -> Promise<[Vegetable]> {
+	private func vegetables() -> Promise<[Vegetable]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.vegetables.rawValue
 		])
 	}
 	
-	private func getToppings() -> Promise<[Topping]> {
+	private func toppings() -> Promise<[Topping]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.toppings.rawValue
 		])
 	}
 	
-	private func getDressings() -> Promise<[Dressing]> {
+	private func dressings() -> Promise<[Dressing]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.dressings.rawValue
 		])
 	}
 	
-	private func getExtras() -> Promise<[Extra]> {
+	private func extras() -> Promise<[Extra]> {
 		return DataAPIManager.getFoodItems(parameters: [
 			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
 			FoodAPIKey.items.rawValue: SaladAPIItems.extras.rawValue
 		])
 	}
 	
-	func getItems(for itemCategory: ItemCategory) -> Promise<[Item]> {
+	func items(for itemCategory: ItemCategory) -> Promise<[Item]> {
 		guard let saladItemCategory = SaladItemCategory(rawValue: itemCategory.rawValue)
 			else { return Promise(error: SaladItemsFetcherError.itemCategoryNotFound) }
 		switch saladItemCategory {
-		case .size: return getSizes().mapValues { $0 as Item }
-		case .lettuce: return getLettuces().mapValues { $0 as Item }
-		case .vegetable: return getVegetables().mapValues { $0 as Item }
-		case .topping: return getToppings().mapValues { $0 as Item }
-		case .dressing: return getDressings().mapValues { $0 as Item }
-		case .extra: return getExtras().mapValues { $0 as Item }
+		case .size: return sizes().mapValues { $0 as Item }
+		case .lettuce: return lettuces().mapValues { $0 as Item }
+		case .vegetable: return vegetables().mapValues { $0 as Item }
+		case .topping: return toppings().mapValues { $0 as Item }
+		case .dressing: return dressings().mapValues { $0 as Item }
+		case .extra: return extras().mapValues { $0 as Item }
 		}
 	}
 }
