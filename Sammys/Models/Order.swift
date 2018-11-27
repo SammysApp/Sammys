@@ -15,25 +15,37 @@ struct Order: Codable {
 	let user: User
 	let purchasableQuantities: [PurchasableQuantity]
 	let price: Price
+	let payment: Payment?
 	let more: More?
 	let status: Status
 	
-	init(id: String = UUID().uuidString, number: String, date: Date = Date(), user: User, purchasableQuantities: [PurchasableQuantity], price: Price, more: More? = nil, status: Status = Status()) {
+	init(
+		id: String = UUID().uuidString,
+		number: String,
+		date: Date = Date(),
+		user: User,
+		purchasableQuantities: [PurchasableQuantity],
+		price: Price,
+		payment: Payment? = nil,
+		more: More? = nil,
+		status: Status = Status()
+	) {
 		self.id = id
 		self.number = number
 		self.date = date
 		self.user = user
 		self.purchasableQuantities = purchasableQuantities
 		self.price = price
+		self.payment = payment
 		self.more = more
 		self.status = status
 	}
 	
 	struct User: Codable {
 		let userName: String
-		let userID: String?
+		let userID: String
 		
-		init(userName: String, userID: String? = nil) {
+		init(userName: String, userID: String) {
 			self.userName = userName
 			self.userID = userID
 		}
@@ -48,6 +60,17 @@ struct Order: Codable {
 			self.tax = taxPrice
 			self.discount = discount
 			self.total = totalPrice
+		}
+	}
+	
+	struct Payment: Codable {
+		let id: String
+		let service: PaymentService
+		let method: Method
+		
+		struct Method: Codable {
+			let id: String
+			let name: String
 		}
 	}
 	

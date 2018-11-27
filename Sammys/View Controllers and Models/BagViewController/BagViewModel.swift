@@ -22,7 +22,7 @@ enum BagCellIdentifier: String {
 }
 
 enum BagViewModelError: Error {
-	case badCellViewModelIndexPath
+	case badCellViewModelIndexPath, needsUser
 }
 
 class BagViewModel {
@@ -31,8 +31,9 @@ class BagViewModel {
 	private let parcel: BagViewModelParcel
 	private let viewDelegate: BagViewModelViewDelegate
 	
-	private let ordersAPIManager = OrdersAPIManager()
 	private let bagModelController = BagModelController()
+	private let ordersAPIManager = OrdersAPIManager()
+	private let stripeAPIManager = StripeAPIManager()
 	
 	var bagPurchasableTableViewCellDelegate: BagPurchasableTableViewCellDelegate?
 	
@@ -97,17 +98,34 @@ class BagViewModel {
 	
 	func clear() { bagModelController.clearAllPurchasables() }
 	
-	private func makeBagOrder(withNumber number: Int) -> Order {
+	func completePurchase() -> Promise<Void> {
+		return purchaseOrder().then { payment in
+			self.newOrderNumber()
+				.map { try self.makeBagOrder(withNumber: $0, payment: payment) }
+				.done(self.send)
+		}
+	}
+	
+	private func purchaseOrder(withSource source: String? = nil) -> Promise<Order.Payment> {
+		guard let user = user else { return Promise(error: BagViewModelError.needsUser) }
+		return stripeAPIManager.createCharge(amount: total.toCents(), source: source, customer: user.payment.id)
+			.map { Order.Payment(id: $0.id, service: .stripe, method: Order.Payment.Method(id: $0.source.id, name: $0.source.name)) }
+	}
+	
+	private func newOrderNumber() -> Promise<OrderNumber> {
+		return ordersAPIManager.generateOrderNumber()
+	}
+	
+	private func makeBagOrder(withNumber number: Int, payment: Order.Payment? = nil) throws -> Order {
+		guard let user = user else { throw BagViewModelError.needsUser }
 		return Order(
 			number: "\(number)",
-			user: Order.User(userName: user?.name ?? "no name", userID: user?.id),
+			user: Order.User(userName: user.name, userID: user.id),
 			purchasableQuantities: purchasableQuantities,
-			price: Order.Price(taxPrice: tax, totalPrice: total)
+			price: Order.Price(taxPrice: tax, totalPrice: total),
+			payment: payment
 		)
 	}
 	
-	func sendOrder() -> Promise<Void> {
-		return ordersAPIManager.generateOrderNumber()
-			.get { try self.ordersAPIManager.add(self.makeBagOrder(withNumber: $0)) }.asVoid()
-	}
+	private func send(_ order: Order) throws { try ordersAPIManager.add(order) }
 }

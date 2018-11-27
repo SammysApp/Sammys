@@ -135,7 +135,7 @@
 		5B44A82D2009292A00898FF0 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82C2009292A00898FF0 /* Item.swift */; };
 		5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A82E2009326000898FF0 /* AddBagViewController.swift */; };
 		5B44A831200932A800898FF0 /* AddBagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A830200932A800898FF0 /* AddBagViewController.storyboard */; };
-		5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A832200C006400898FF0 /* PaymentAPIManager.swift */; };
+		5B44A833200C006400898FF0 /* StripeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A832200C006400898FF0 /* StripeAPIManager.swift */; };
 		5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A834200EA4BE00898FF0 /* Topping.swift */; };
 		5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A836200EA4CA00898FF0 /* Dressing.swift */; };
 		5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */; };
@@ -179,6 +179,9 @@
 		5B9B909A20CA037700FB6264 /* Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909920CA037700FB6264 /* Alert.wav */; };
 		5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */; };
 		5B9DA45621A60AC800C94AF8 /* ItemsCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9DA45521A60AC800C94AF8 /* ItemsCollectionViewSection.swift */; };
+		5B9ED63721ADB67B00F79980 /* StripeCharge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9ED63621ADB67B00F79980 /* StripeCharge.swift */; };
+		5B9ED63921ADC43C00F79980 /* StripeSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9ED63821ADC43C00F79980 /* StripeSource.swift */; };
+		5B9ED63B21ADE35600F79980 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9ED63A21ADE35600F79980 /* PaymentService.swift */; };
 		5BA01973213733870017A993 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA01972213733870017A993 /* APIManager.swift */; };
 		5BA1135B21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */; };
 		5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */; };
@@ -212,8 +215,7 @@
 		5BB296D420A1F13C00520683 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB296D320A1F13C00520683 /* LoginViewModel.swift */; };
 		5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB60EF12069EA5200105E72 /* Storyboardable.swift */; };
 		5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */; };
-		5BC950382107D2B900AF1098 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* Customer.swift */; };
-		5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */; };
+		5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* StripeCustomer.swift */; };
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
 		5BD0C1DC21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */; };
@@ -347,7 +349,7 @@
 		5B44A82C2009292A00898FF0 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5B44A82E2009326000898FF0 /* AddBagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBagViewController.swift; sourceTree = "<group>"; };
 		5B44A830200932A800898FF0 /* AddBagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddBagViewController.storyboard; sourceTree = "<group>"; };
-		5B44A832200C006400898FF0 /* PaymentAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAPIManager.swift; sourceTree = "<group>"; };
+		5B44A832200C006400898FF0 /* StripeAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAPIManager.swift; sourceTree = "<group>"; };
 		5B44A834200EA4BE00898FF0 /* Topping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topping.swift; sourceTree = "<group>"; };
 		5B44A836200EA4CA00898FF0 /* Dressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dressing.swift; sourceTree = "<group>"; };
 		5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -387,6 +389,9 @@
 		5B9B909920CA037700FB6264 /* Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert.wav; sourceTree = "<group>"; };
 		5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickupDateViewController.storyboard; sourceTree = "<group>"; };
 		5B9DA45521A60AC800C94AF8 /* ItemsCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewSection.swift; sourceTree = "<group>"; };
+		5B9ED63621ADB67B00F79980 /* StripeCharge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCharge.swift; sourceTree = "<group>"; };
+		5B9ED63821ADC43C00F79980 /* StripeSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeSource.swift; sourceTree = "<group>"; };
+		5B9ED63A21ADE35600F79980 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
 		5BA01972213733870017A993 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		5BA1135A21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+LoginButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
 		5BA1135C21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift"; sourceTree = "<group>"; };
@@ -418,8 +423,7 @@
 		5BB296D320A1F13C00520683 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		5BB60EF12069EA5200105E72 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
 		5BC9503521079FD900AF1098 /* AlamofireAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireAPIService.swift; sourceTree = "<group>"; };
-		5BC950372107D2B900AF1098 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
-		5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EphemeralKeyProvider.swift; sourceTree = "<group>"; };
+		5BC950372107D2B900AF1098 /* StripeCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomer.swift; sourceTree = "<group>"; };
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModelCollectionViewSection.swift; sourceTree = "<group>"; };
@@ -661,11 +665,10 @@
 			isa = PBXGroup;
 			children = (
 				5B3F25ED210F83FD0080290E /* Common */,
-				5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */,
-				5B44A832200C006400898FF0 /* PaymentAPIManager.swift */,
-				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
 				5B44A8202007D31C00898FF0 /* UserAPIManager.swift */,
-				5BC9503B2108C7E200AF1098 /* EphemeralKeyProvider.swift */,
+				5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */,
+				5B44A832200C006400898FF0 /* StripeAPIManager.swift */,
+				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -911,10 +914,11 @@
 			isa = PBXGroup;
 			children = (
 				5B44A8282007F7DB00898FF0 /* User.swift */,
-				5BC950372107D2B900AF1098 /* Customer.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
+				5B9ED63A21ADE35600F79980 /* PaymentService.swift */,
 				5B6F63B82198BFE500189599 /* Purchasable */,
 				5BFC5732217820920002179B /* Salad */,
+				5B9ED63521AA4F1800F79980 /* Stripe */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1028,6 +1032,16 @@
 				5B4DC2E3219BA69F009BDA6D /* AnyViewModelTableViewSection.swift */,
 			);
 			path = UITableView;
+			sourceTree = "<group>";
+		};
+		5B9ED63521AA4F1800F79980 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				5BC950372107D2B900AF1098 /* StripeCustomer.swift */,
+				5B9ED63621ADB67B00F79980 /* StripeCharge.swift */,
+				5B9ED63821ADC43C00F79980 /* StripeSource.swift */,
+			);
+			path = Stripe;
 			sourceTree = "<group>";
 		};
 		5BB2256520DFDA3500DFE448 /* Images */ = {
@@ -1582,6 +1596,8 @@
 				5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
 				5B3A4ABE219226FA00F22F78 /* ItemsViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */,
+				5B9ED63921ADC43C00F79980 /* StripeSource.swift in Sources */,
+				5B9ED63B21ADE35600F79980 /* PaymentService.swift in Sources */,
 				5B3A4B672195F3E400F22F78 /* String.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
 				5B553A65206C774F00DD9689 /* ItemsViewModel.swift in Sources */,
@@ -1632,6 +1648,7 @@
 				5B9DA45621A60AC800C94AF8 /* ItemsCollectionViewSection.swift in Sources */,
 				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* ItemedPurchasable.swift in Sources */,
+				5B9ED63721ADB67B00F79980 /* StripeCharge.swift in Sources */,
 				5B44F1BF20AB918C00B3E0A5 /* OrdersAPIManager.swift in Sources */,
 				5BC9503621079FD900AF1098 /* AlamofireAPIService.swift in Sources */,
 				5BA1135B21A324E400FFF1CB /* UserViewModel+LoginButtonTableViewCellSelectionCommand.swift in Sources */,
@@ -1661,7 +1678,6 @@
 				5B883A7A21A50B7E004C3592 /* OrderPurchasableTableViewCellViewModel.swift in Sources */,
 				5BFC573D217C1AEF0002179B /* AnyHashableProtocol.swift in Sources */,
 				5B3A4AE02194CA3300F22F78 /* SaladItemCategory.swift in Sources */,
-				5BC9503C2108C7E200AF1098 /* EphemeralKeyProvider.swift in Sources */,
 				5B3176D12074079C00D83D12 /* BagPurchasableTableViewCellViewModelFactory.swift in Sources */,
 				5B2950BF218A3575008B0E49 /* SaladItemsFetcher.swift in Sources */,
 				5BFD2BD120217D36005C01BF /* UserViewModel.swift in Sources */,
@@ -1689,11 +1705,11 @@
 				5BD0C1DE21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* BuilderViewController.swift in Sources */,
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
-				5B44A833200C006400898FF0 /* PaymentAPIManager.swift in Sources */,
+				5B44A833200C006400898FF0 /* StripeAPIManager.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* Extension+UINavigationController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
-				5BC950382107D2B900AF1098 /* Customer.swift in Sources */,
+				5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */,
 				5B44A837200EA4CA00898FF0 /* Dressing.swift in Sources */,
 				5BB2256D20DFE7AD00DFE448 /* DefaultTableViewCellViewModel.swift in Sources */,

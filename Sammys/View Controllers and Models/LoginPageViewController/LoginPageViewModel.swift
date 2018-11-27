@@ -23,6 +23,7 @@ enum LoginPageViewModelError: Error { case missingSignUpFields }
 
 class LoginPageViewModel {
 	private let userAPIManager = UserAPIManager()
+	private let stripeAPIManager = StripeAPIManager()
 	
 	private var defaultPage = LoginPage.login
 	lazy var currentPage = defaultPage
@@ -53,6 +54,7 @@ class LoginPageViewModel {
 			let email = signUpFields[.email],
 			let password = signUpFields[.password]
 			else { return Promise(error: LoginPageViewModelError.missingSignUpFields) }
-		return userAPIManager.createUser(withName: name, email: email, password: password)
+		return stripeAPIManager.createCustomer(email: email)
+			.then { self.userAPIManager.createUser(withName: name, email: email, password: password, payment: User.Payment(id: $0.id)) }
 	}
 }

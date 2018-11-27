@@ -1,5 +1,5 @@
 //
-//  Customer.swift
+//  StripeCustomer.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 7/24/18.
@@ -8,7 +8,6 @@
 
 import Foundation
 
-struct Customer: Decodable {
+struct StripeCustomer: Codable {
     let id: String
-    let email: String
 }

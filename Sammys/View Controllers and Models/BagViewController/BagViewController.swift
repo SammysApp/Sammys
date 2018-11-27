@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class BagViewController: UIViewController {
 	/// Must be set for use of the view model.
@@ -189,9 +190,10 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 	}
 }
 
+// MARK: - PaymentViewControllerDelegate
 extension BagViewController: PaymentViewControllerDelegate {
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
-		viewModel.sendOrder().catch { print($0) }
+		viewModel.completePurchase().catch { print($0) }
 	}
 }
 

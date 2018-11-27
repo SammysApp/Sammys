@@ -54,7 +54,7 @@ class UserViewController: UIViewController {
 		if case .noUser = viewModel.userState {
 			viewModel.setupUserState()
 				.get { self.handleUpdatedUserState($0, shouldShowLoginIfNoUser: self.shouldShowLoginPageViewController) }
-				.catch { print($0) }
+				.catch { print($0); self.handleUpdatedUserState(.noUser, shouldShowLoginIfNoUser: self.shouldShowLoginPageViewController) }
 		}
 	}
 	

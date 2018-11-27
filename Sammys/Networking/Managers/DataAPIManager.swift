@@ -9,11 +9,11 @@
 import Foundation
 import PromiseKit
 
-enum FoodAPIKey: String {
-	case name, items
+enum PurchasableAPIKey: String {
+	case type, items
 }
 
-enum FoodAPIName: String {
+enum PurchasableAPIType: String {
 	case salad
 }
 
@@ -24,10 +24,17 @@ enum SaladAPIItems: String {
 struct DataAPIManager: APIManager {
     enum APIEndpoint: String, Endpoint {
 		static let baseURL = "http://api.sammys.app"
-        case hours, foods
+        case purchasables
     }
     
-	static func getFoodItems<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
-        return get(.foods, parameters: parameters, apiService: apiService)
+	private func getPurchasables<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
+        return get(.purchasables, parameters: parameters, apiService: apiService)
     }
+	
+	func getPurchasableItems<T: Decodable>(for type: PurchasableAPIType, items: String, apiService: APIService = AlamofireAPIService()) -> Promise<T> {
+		return getPurchasables(
+			parameters: [PurchasableAPIKey.type.rawValue: type, PurchasableAPIKey.items.rawValue: items],
+			apiService: apiService
+		)
+	}
 }

@@ -34,8 +34,8 @@ protocol APIParametersConvertible {
 }
 
 extension Dictionary: APIParametersConvertible where Key: RawRepresentable, Key.RawValue == String, Value: Any {
-    func asAPIParameters() -> Parameters {
-        let sequence: [(Parameters.Key, Parameters.Value)] = map { ($0.rawValue, $1) }
-        return Dictionary<Parameters.Key, Parameters.Value>(uniqueKeysWithValues: sequence)
-    }
+	func asAPIParameters() -> Parameters {
+		let sequence: [(Parameters.Key, Parameters.Value)] = map { ($0.rawValue, $1) }
+		return Dictionary<Parameters.Key, Parameters.Value>(uniqueKeysWithValues: sequence)
+	}
 }

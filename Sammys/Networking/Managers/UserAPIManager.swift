@@ -29,41 +29,41 @@ struct UserAPIManager: FirebaseAPIManager {
         return databaseReference(.users).child(firebaseUser.uid)
     }
 	
-	private func getUser(for firebaseUser: FirebaseUser) -> Promise<User> {
+	private func user(for firebaseUser: FirebaseUser) -> Promise<User> {
 		return Client.get(at: databaseReference(for: firebaseUser))
 	}
     
-    private func makeUser(fromFirebaseUser user: FirebaseUser, providers: [UserProvider] = []) throws -> User {
+	private func makeUser(fromFirebaseUser user: FirebaseUser, providers: [UserProvider] = [], payment: User.Payment) throws -> User {
         guard let email = user.email, let name = user.displayName else { throw UserAPIError.notEnoughDetails }
-        return User(id: user.uid, email: email, name: name, providers: providers)
+		return User(id: user.uid, email: email, name: name, providers: providers, payment: payment)
     }
 	
 	func currentUserState() -> Promise<UserState> {
 		guard let firebaseUser = Client.currentUser else { return Promise { $0.fulfill(.noUser) } }
-		return getUser(for: firebaseUser).map { .currentUser($0) }
+		return user(for: firebaseUser).map { .currentUser($0) }
 	}
     
-	func createUser(withName name: String, email: String, password: String) -> Promise<User> {
+	func createUser(withName name: String, email: String, password: String, payment: User.Payment) -> Promise<User> {
         return Client.createUser(withEmail: email, password: password)
 		.then { self.update($0, withName: name) }
-		.map { try self.makeUser(fromFirebaseUser: $0, providers: [.email]) }
+		.map { try self.makeUser(fromFirebaseUser: $0, providers: [.email], payment: payment) }
 		.get { try Client.set($0, at: self.databaseReference(for: $0)) }
     }
     
 	func signIn(withEmail email: String, password: String) -> Promise<User> {
-        return Client.signIn(withEmail: email, password: password).then(getUser)
+        return Client.signIn(withEmail: email, password: password).then(user)
     }
     
 	func signIn(withFacebookAccessToken accessToken: String) -> Promise<User> {
-        return Client.signIn(with: FacebookAuthProvider.credential(with: FacebookUserData(accessToken: accessToken))).then(getUser)
+        return Client.signIn(with: FacebookAuthProvider.credential(with: FacebookUserData(accessToken: accessToken))).then(user)
     }
     
 	func reauthenticate(_ user: FirebaseUser, withEmail email: String, password: String) -> Promise<User> {
-        return Client.reauthenticate(user, with: EmailUserData(email: email, password: password)).then(getUser)
+        return Client.reauthenticate(user, with: EmailUserData(email: email, password: password)).then(self.user)
     }
     
 	func reauthenticate(_ user: FirebaseUser, withFacebookAccessToken accessToken: String) -> Promise<User> {
-        return Client.reauthenticate(user, with: FacebookUserData(accessToken: accessToken), using: FacebookAuthProvider.self).then(getUser)
+        return Client.reauthenticate(user, with: FacebookUserData(accessToken: accessToken), using: FacebookAuthProvider.self).then(self.user)
     }
     
 	func update(_ user: FirebaseUser, withName name: String) -> Promise<FirebaseUser> {

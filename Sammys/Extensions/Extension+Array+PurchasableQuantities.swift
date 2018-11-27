@@ -13,7 +13,7 @@ extension Array where Element == PurchasableQuantity {
 	
 	var totalPrice: Double { return reduce(0) { $0 + $1.quantitativePrice } }
 	
-	var totalTaxPrice: Double { return filter { $0.purchasable.isTaxSubjected }.reduce(0) { $0 + $1.quantitativePrice.taxPrice } }
+	var totalTaxPrice: Double { return filter { $0.purchasable.isTaxSubjected }.reduce(0) { $0 + $1.quantitativePrice.taxPrice }.priceRounded() }
 	
 	var totalTaxedPrice: Double { return totalPrice + totalTaxPrice }
 }

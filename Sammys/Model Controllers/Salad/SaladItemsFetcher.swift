@@ -14,46 +14,30 @@ enum SaladItemsFetcherError: Error {
 }
 
 private struct SaladItemsFetcher: ItemsFetcher {
+	private let dataAPIManager = DataAPIManager()
+	
 	private func sizes() -> Promise<[Size]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.sizes.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.sizes.rawValue)
 	}
 	
 	private func lettuces() -> Promise<[Lettuce]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.lettuces.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.lettuces.rawValue)
 	}
 	
 	private func vegetables() -> Promise<[Vegetable]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.vegetables.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.vegetables.rawValue)
 	}
 	
 	private func toppings() -> Promise<[Topping]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.toppings.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.toppings.rawValue)
 	}
 	
 	private func dressings() -> Promise<[Dressing]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.dressings.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.dressings.rawValue)
 	}
 	
 	private func extras() -> Promise<[Extra]> {
-		return DataAPIManager.getFoodItems(parameters: [
-			FoodAPIKey.name.rawValue: FoodAPIName.salad.rawValue,
-			FoodAPIKey.items.rawValue: SaladAPIItems.extras.rawValue
-		])
+		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.extras.rawValue)
 	}
 	
 	func items(for itemCategory: ItemCategory) -> Promise<[Item]> {

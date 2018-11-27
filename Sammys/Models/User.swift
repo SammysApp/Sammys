@@ -16,15 +16,20 @@ extension UserProvider: Codable {}
 
 class User: Codable {
     var id: String
-	var customerID: String?
     var email: String
     var name: String
     var providers: [UserProvider]
+	var payment: Payment
     
-    init(id: String, email: String, name: String, providers: [UserProvider] = []) {
+	init(id: String, email: String, name: String, providers: [UserProvider] = [], payment: Payment) {
         self.id = id
         self.email = email
         self.name = name
         self.providers = providers
+		self.payment = payment
     }
+	
+	struct Payment: Codable {
+		var id: String
+	}
 }
