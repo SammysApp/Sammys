@@ -21,16 +21,8 @@ class UserViewController: UIViewController {
 	var shouldShowLoginPageViewController = true
 	
 	// MARK: - View Controllers
-	lazy var loginPageViewController: LoginPageViewController = {
-		let loginPageViewController = LoginPageViewController.storyboardInstance()
-		loginPageViewController.delegate = self
-		return loginPageViewController
-	}()
-	
-	lazy var ordersViewController: OrdersViewController = {
-		let ordersViewController = OrdersViewController.storyboardInstance()
-		return ordersViewController
-	}()
+	lazy var loginPageViewController: LoginPageViewController = { LoginPageViewController.storyboardInstance().settingDelegate(to: self) }()
+	lazy var ordersViewController = { OrdersViewController.storyboardInstance() }()
 	
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -99,6 +91,9 @@ class UserViewController: UIViewController {
 		return "Can't dequeue reusable cell with identifier, \(identifier)."
 	}
 }
+
+// MARK: - Delegatable
+extension UserViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension UserViewController: Storyboardable {}

@@ -15,22 +15,9 @@ class HomeViewController: UIViewController {
 	lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	// MARK: - View Controllers
-	lazy var builderViewController: BuilderViewController = {
-		let builderViewController = BuilderViewController.storyboardInstance()
-		return builderViewController
-	}()
-	
-	lazy var userViewController: UserViewController = {
-		let userViewController = UserViewController.storyboardInstance()
-		userViewController.delegate = self
-		return userViewController
-	}()
-	
-	lazy var bagViewController: BagViewController = {
-		let bagViewController = BagViewController.storyboardInstance()
-		bagViewController.delegate = self
-		return bagViewController
-	}()
+	lazy var builderViewController = { BuilderViewController.storyboardInstance() }()
+	lazy var userViewController = { UserViewController.storyboardInstance().settingDelegate(to: self) }()
+	lazy var bagViewController = { BagViewController.storyboardInstance().settingDelegate(to: self) }()
 	
     // MARK: - IBOutlets
 	@IBOutlet var collectionView: UICollectionView!

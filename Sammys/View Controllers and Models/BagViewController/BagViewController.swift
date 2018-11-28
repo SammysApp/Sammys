@@ -22,29 +22,10 @@ class BagViewController: UIViewController {
 	private var lastSelectedIndexPath: IndexPath?
 	
 	// MARK: - View Controllers
-	lazy var paymentViewController: PaymentViewController = {
-		let paymentViewController = PaymentViewController.storyboardInstance()
-		paymentViewController.delegate = self
-		return paymentViewController
-	}()
-	
-	lazy var itemsViewController: ItemsViewController = {
-		let itemsViewController = ItemsViewController.storyboardInstance()
-		itemsViewController.delegate = self
-		return itemsViewController
-	}()
-	
-	lazy var builderViewController: BuilderViewController = {
-		let builderViewController = BuilderViewController.storyboardInstance()
-		builderViewController.delegate = self
-		return builderViewController
-	}()
-	
-	lazy var loginViewController: LoginViewController = {
-		let loginViewController = LoginViewController.storyboardInstance()
-		loginViewController.delegate = self
-		return loginViewController
-	}()
+	lazy var paymentViewController = { PaymentViewController.storyboardInstance().settingDelegate(to: self) }()
+	lazy var itemsViewController = { ItemsViewController.storyboardInstance().settingDelegate(to: self) }()
+	lazy var builderViewController = { BuilderViewController.storyboardInstance().settingDelegate(to: self) }()
+	lazy var loginViewController = { LoginViewController.storyboardInstance().settingDelegate(to: self) }()
 	
     // MARK: - IBOutlets
 	@IBOutlet var tableView: UITableView!
@@ -112,6 +93,9 @@ class BagViewController: UIViewController {
 		return "Can't dequeue reusable cell with identifier, \(identifier)."
 	}
 }
+
+// MARK: - Delegatable
+extension BagViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension BagViewController: Storyboardable {}

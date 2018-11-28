@@ -36,11 +36,7 @@ class BuilderViewController: UIViewController {
 	let flowCollectionViewLayout = UICollectionViewFlowLayout()
 	
 	// MARK: - View Controllers
-	lazy var addBagViewController: AddBagViewController = {
-		let addBagViewController = AddBagViewController.storyboardInstance()
-		addBagViewController.delegate = self
-		return addBagViewController
-	}()
+	lazy var addBagViewController = { AddBagViewController.storyboardInstance().settingDelegate(to: self) }()
 
     // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
@@ -212,6 +208,9 @@ class BuilderViewController: UIViewController {
 		return "No cell view model for index path, \(indexPath)."
 	}
 }
+
+// MARK: - Delegatable
+extension BuilderViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension BuilderViewController: Storyboardable {}

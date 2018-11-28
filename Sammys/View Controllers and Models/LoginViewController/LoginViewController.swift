@@ -75,6 +75,9 @@ class LoginViewController: UIViewController {
     @IBAction func didTapCancel(_ sender: UIButton) { delegate?.loginViewControllerDidCancel(self) }
 }
 
+// MARK: - Delegatable
+extension LoginViewController: Delegatable {}
+
 // MARK: - Storyboardable
 extension LoginViewController: Storyboardable {}
 

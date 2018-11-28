@@ -22,11 +22,7 @@ class AddBagViewController: UIViewController {
 	var delegate: AddBagViewControllerDelegate?
 	
 	// MARK: - View Controllers
-	lazy var itemsViewController: ItemsViewController = {
-		let itemsViewController = ItemsViewController.storyboardInstance()
-		itemsViewController.delegate = delegate
-		return itemsViewController
-	}()
+	lazy var itemsViewController = { ItemsViewController.storyboardInstance().settingDelegate(to: delegate) }()
 
     // MARK: - IBOutlets
 	@IBOutlet var addButton: UIButton!
@@ -73,6 +69,9 @@ class AddBagViewController: UIViewController {
 		delegate?.addBagViewController(self, didAddItemedPurchasable: viewModel.itemedPurchasable)
 	}
 }
+
+// MARK: - Delegatable
+extension AddBagViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension AddBagViewController: Storyboardable {}

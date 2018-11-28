@@ -64,6 +64,9 @@ class ItemsViewController: UIViewController {
 	}
 }
 
+// MARK: - Delegatable
+extension ItemsViewController: Delegatable {}
+
 // MARK: - Storyboardable
 extension ItemsViewController: Storyboardable {}
 

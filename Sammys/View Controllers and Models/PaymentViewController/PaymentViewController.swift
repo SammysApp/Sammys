@@ -12,7 +12,7 @@ protocol PaymentViewControllerDelegate {
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton)
 }
 
-class PaymentViewController: UIViewController {
+class PaymentViewController: UIViewController, Delegatable {
 	/// Must be set for use of the view model.
 	var viewModelParcel: PaymentViewModelParcel!
 	{ didSet { viewModel = PaymentViewModel(viewModelParcel) } }

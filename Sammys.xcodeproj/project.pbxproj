@@ -231,6 +231,7 @@
 		5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */; };
 		5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274FA2064031400618128 /* CollectionViewCellViewModelFactory.swift */; };
 		5BD274FD206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274FC206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift */; };
+		5BEAA08521AEDF1500943427 /* Delegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAA08421AEDF1500943427 /* Delegatable.swift */; };
 		5BED77AB20B479A000232DD2 /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* Extension+UINavigationController.swift */; };
 		5BEED53E206C6F70002240EB /* AddBagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEED53D206C6F70002240EB /* AddBagViewModel.swift */; };
 		5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */; };
@@ -439,6 +440,7 @@
 		5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		5BD274FA2064031400618128 /* CollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BD274FC206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift"; sourceTree = "<group>"; };
+		5BEAA08421AEDF1500943427 /* Delegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegatable.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
 		5BEED53D206C6F70002240EB /* AddBagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBagViewModel.swift; sourceTree = "<group>"; };
 		5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 				5BB60EF12069EA5200105E72 /* Storyboardable.swift */,
 				5B2278552197B990003E3DE2 /* Nibable.swift */,
 				5B0B739A20D6413900D757FD /* Blurable.swift */,
+				5BEAA08421AEDF1500943427 /* Delegatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1624,6 +1627,7 @@
 				5B44A8212007D31C00898FF0 /* UserAPIManager.swift in Sources */,
 				5BFC5740217C308A0002179B /* Purchasable.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
+				5BEAA08521AEDF1500943427 /* Delegatable.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */,

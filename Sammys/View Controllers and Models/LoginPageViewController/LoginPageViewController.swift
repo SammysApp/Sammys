@@ -20,12 +20,7 @@ class LoginPageViewController: UIViewController {
 	
 	// MARK: - View Controllers
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-	
-	private lazy var loginViewController: LoginViewController = {
-		let loginViewController = LoginViewController.storyboardInstance()
-		loginViewController.delegate = self
-		return loginViewController
-	}()
+	private lazy var loginViewController = { LoginViewController.storyboardInstance().settingDelegate(to: self) }()
     
     // MARK: - IBOutlets
     @IBOutlet var nextButton: UIButton!
@@ -83,6 +78,9 @@ class LoginPageViewController: UIViewController {
 	
 	@IBAction func didTapBack(_ sender: UIButton) { viewModel.decrementCurrentPage(); setViewController(for: viewModel.currentPage, direction: .reverse, animated: true) }
 }
+
+// MARK: - Delegatable
+extension LoginPageViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension LoginPageViewController: Storyboardable {}
