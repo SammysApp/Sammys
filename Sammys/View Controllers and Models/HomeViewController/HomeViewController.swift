@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
 	
 	lazy var bagViewController: BagViewController = {
 		let bagViewController = BagViewController.storyboardInstance()
+		bagViewController.delegate = self
 		return bagViewController
 	}()
 	
@@ -186,7 +187,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 // MARK: - UserViewControllerDelegate
-extension HomeViewController: UserViewControllerDelegate {}
+extension HomeViewController: UserViewControllerDelegate {
+	// FIXME: Add method for logging out user.
+}
+
+// MARK: - BagViewControllerDelegate
+extension HomeViewController: BagViewControllerDelegate {}
 
 // MARK: - LoginViewControllerDelegate
 extension HomeViewController: LoginViewControllerDelegate {

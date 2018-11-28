@@ -27,7 +27,7 @@ extension Salad: Purchasable {
 	}
 	
 	var price: Double {
-		// FIXME: Account for priced modifiers
+		// FIXME: Account for priced modifiers.
 		return size.price + ([toppings ?? [], extras ?? []] as [[OptionallyPricedItem]])
 			.flatMap { $0 }
 			.compactMap { $0.price }

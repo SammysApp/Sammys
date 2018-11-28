@@ -51,7 +51,8 @@ class BagViewModel {
 		catch { print(error); return [] }
 	}
 	
-	var user: User? { guard case .currentUser(let user) = parcel.userState else { return nil }; return user }
+	lazy var userState = { parcel.userState }()
+	var user: User? { guard case .currentUser(let user) = userState else { return nil }; return user }
 	
 	var subtotal: Double { return purchasableQuantities.totalPrice }
 	var tax: Double { return purchasableQuantities.totalTaxPrice }

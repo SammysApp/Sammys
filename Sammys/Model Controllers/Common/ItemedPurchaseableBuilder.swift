@@ -40,7 +40,7 @@ extension ItemedPurchasableBuilder {
 	mutating func toggleExisting(from itemedPurchasable: ItemedPurchasable) throws {
 		for category in type(of: itemedPurchasable).allItemCategories {
 			for item in itemedPurchasable.items(for: category) {
-				// FIXME: Handle modifiable items
+				// FIXME: Handle modifiable items.
 				try toggle(item)
 			}
 		}

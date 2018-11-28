@@ -9,11 +9,15 @@
 import UIKit
 import PromiseKit
 
+protocol BagViewControllerDelegate: LoginViewControllerDelegate {}
+
 class BagViewController: UIViewController {
 	/// Must be set for use of the view model.
 	var viewModelParcel: BagViewModelParcel!
 	{ didSet { viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self); viewModel.bagPurchasableTableViewCellDelegate = self } }
 	var viewModel: BagViewModel!
+	
+	var delegate: BagViewControllerDelegate?
 	
 	private var lastSelectedIndexPath: IndexPath?
 	
@@ -34,6 +38,12 @@ class BagViewController: UIViewController {
 		let builderViewController = BuilderViewController.storyboardInstance()
 		builderViewController.delegate = self
 		return builderViewController
+	}()
+	
+	lazy var loginViewController: LoginViewController = {
+		let loginViewController = LoginViewController.storyboardInstance()
+		loginViewController.delegate = self
+		return loginViewController
 	}()
 	
     // MARK: - IBOutlets
@@ -193,7 +203,32 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 // MARK: - PaymentViewControllerDelegate
 extension BagViewController: PaymentViewControllerDelegate {
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
-		viewModel.completePurchase().catch { print($0) }
+		switch viewModel.userState {
+		case .noUser: present(loginViewController, animated: true, completion: nil)
+		case .currentUser: viewModel.completePurchase().catch { print($0) }
+		}
+	}
+}
+
+// MARK: - LoginViewControllerDelegate
+extension BagViewController: LoginViewControllerDelegate {
+	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
+		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
+		viewModel.userState = .currentUser(user)
+		loginViewController.dismiss(animated: true, completion: nil)
+	}
+	
+	func loginViewController(_ loginViewController: LoginViewController, couldNotLoginDueTo error: Error) {
+		delegate?.loginViewController(loginViewController, couldNotLoginDueTo: error)
+	}
+	
+	func loginViewControllerDidTapSignUp(_ loginViewController: LoginViewController) {
+		delegate?.loginViewControllerDidTapSignUp(loginViewController)
+	}
+	
+	func loginViewControllerDidCancel(_ loginViewController: LoginViewController) {
+		delegate?.loginViewControllerDidCancel(loginViewController)
+		loginViewController.dismiss(animated: true, completion: nil)
 	}
 }
 
