@@ -14,6 +14,7 @@ struct ActiveOrderMapTableViewCellViewModelFactory: TableViewCellViewModelFactor
 	
 	func create() -> DefaultTableViewCellViewModel {
 		let configurationCommand = ActiveOrderMapTableViewCellConfigurationCommand()
-		return DefaultTableViewCellViewModel(identifier: identifier, height: height, commands: [.configuration: configurationCommand])
+		let selectionCommand = ActiveOrderMapTableViewCellSelectionCommand()
+		return DefaultTableViewCellViewModel(identifier: identifier, height: height, commands: [.configuration: configurationCommand, .selection: selectionCommand])
 	}
 }

@@ -9,5 +9,8 @@
 import UIKit
 
 struct ActiveOrderMapTableViewCellSelectionCommand: TableViewCellCommand {
-    func perform(parameters: TableViewCellCommandParameters) {}
+    func perform(parameters: TableViewCellCommandParameters) {
+		guard let activeOrderViewController = parameters.viewController as? ActiveOrderViewController else { return }
+		do { try activeOrderViewController.presentNavigationAlert() } catch { print(error) }
+	}
 }

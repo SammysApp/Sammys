@@ -172,6 +172,8 @@
 		5B8E81A121B04E6B00C22CEA /* ActiveOrderMapTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A021B04E6A00C22CEA /* ActiveOrderMapTableViewCellViewModelFactory.swift */; };
 		5B8E81A421B0527500C22CEA /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A321B0527500C22CEA /* AppData.swift */; };
 		5B8E81A621B055CE00C22CEA /* AppData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B8E81A521B055CE00C22CEA /* AppData.plist */; };
+		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
+		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
 		5B942D922087E98F00BF991A /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B942D912087E98F00BF991A /* OrdersViewController.swift */; };
 		5B942D942087EA0600BF991A /* OrdersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B942D932087EA0600BF991A /* OrdersViewController.storyboard */; };
 		5B9865F620C58DAD004722D8 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A838200F035400898FF0 /* ItemCollectionViewCell.swift */; };
@@ -396,6 +398,8 @@
 		5B8E81A021B04E6A00C22CEA /* ActiveOrderMapTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveOrderMapTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B8E81A321B0527500C22CEA /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		5B8E81A521B055CE00C22CEA /* AppData.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppData.plist; sourceTree = "<group>"; };
+		5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		5B8E81A921B0696C00C22CEA /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		5B942D912087E98F00BF991A /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		5B942D932087EA0600BF991A /* OrdersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OrdersViewController.storyboard; sourceTree = "<group>"; };
 		5B9865FD20C5A347004722D8 /* SharedAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SharedAssets.xcassets; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 			children = (
 				5B7C0B31219A4BBD00EBC0EB /* Array.swift */,
 				5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */,
+				5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */,
 				5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */,
 				5B3A4B332195F3E300F22F78 /* Collection.swift */,
 				5B3A4B302195F3E300F22F78 /* Date.swift */,
@@ -629,6 +634,7 @@
 				5B3A4B322195F3E300F22F78 /* MKMapView.swift */,
 				5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */,
 				5B3A4B3F2195F3E300F22F78 /* String.swift */,
+				5B8E81A921B0696C00C22CEA /* UIAlertController.swift */,
 				5B3A4B412195F3E300F22F78 /* UIButton.swift */,
 				5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */,
 				5B3A4B362195F3E300F22F78 /* UIColor.swift */,
@@ -1670,6 +1676,7 @@
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5BD0C1E621A6084700C512C5 /* DefaultTableViewSection.swift in Sources */,
 				5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */,
+				5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */,
 				5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */,
 				5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */,
 				5B6A06BF1FFFF4BE00BAC480 /* LinearCardAttributesAnimator.swift in Sources */,
@@ -1803,6 +1810,7 @@
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
 				5B2278582197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift in Sources */,
+				5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */,
 				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,
 				5B3F25DA210F68160080290E /* Observable.swift in Sources */,
 				5B44A8292007F7DB00898FF0 /* User.swift in Sources */,

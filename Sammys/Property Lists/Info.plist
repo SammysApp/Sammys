@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Sammy's</string>
+	<string>Sammy&apos;s</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,9 +32,11 @@
 	<key>FacebookAppID</key>
 	<string>253469471362731</string>
 	<key>FacebookDisplayName</key>
-	<string>Sammy's</string>
+	<string>Sammy&apos;s</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>comgooglemaps</string>
+		<string>waze</string>
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>

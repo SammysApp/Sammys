@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ActiveOrderViewController: UIViewController {
 	/// Must be set for use of the view model.
@@ -22,6 +23,12 @@ class ActiveOrderViewController: UIViewController {
 	
 	struct Constants {
 		static let mapCellHeight: CGFloat = 150
+		static let wazeBaseURL = "waze://"
+		static let googleMapsBaseURL = "comgooglemaps://"
+		static let mapsActionTitle = "Maps"
+		static let googleMapsActionTitle = "Google Maps"
+		static let wazeActionTitle = "Waze"
+		static let mapsName = "Sammy's"
 	}
 	
 	// MARK: - Lifecycle
@@ -44,6 +51,37 @@ class ActiveOrderViewController: UIViewController {
 	func setupChildOrderViewController() {
 		addChildViewController(orderViewController)
 		orderViewController.view.translatesAutoresizingMaskIntoConstraints = false
+	}
+	
+	// MARK: - Methods
+	func openInMapsAction(for coordinates: CLLocationCoordinate2D) -> UIAlertAction {
+		return UIAlertAction(title: Constants.mapsActionTitle, style: .default) { _ in coordinates.openInMaps(withName: Constants.mapsName) }
+	}
+	
+	func openInGoogleMapsAction(for coordinates: CLLocationCoordinate2D) -> UIAlertAction? {
+		guard URL.canOpen(Constants.googleMapsBaseURL) else { return nil }
+		return UIAlertAction(title: Constants.googleMapsActionTitle, style: .default) { _ in coordinates.openInGoogleMaps() }
+	}
+	
+	func navigateInWazeAction(for coordinates: CLLocationCoordinate2D) -> UIAlertAction? {
+		guard URL.canOpen(Constants.wazeBaseURL) else { return nil }
+		return UIAlertAction(title: Constants.wazeActionTitle, style: .default) { _ in coordinates.navigateInWaze() }
+	}
+	
+	func cancelAction() -> UIAlertAction {
+		return UIAlertAction(title: "Cancel", style: .cancel) { _ in self.dismiss(animated: true, completion: nil) }
+	}
+	
+	func presentNavigationAlert() throws {
+		let navigationAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		let appData = try AppData.get()
+		let coordinates = CLLocationCoordinate2D(latitude: appData.sammys.latitude, longitude: appData.sammys.longitude)
+		[openInMapsAction(for: coordinates),
+		 openInGoogleMapsAction(for: coordinates),
+		 navigateInWazeAction(for: coordinates),
+		 cancelAction()].forEach
+			{ if let action = $0 { navigationAlertController.addAction(action) } }
+		present(navigationAlertController, animated: true, completion: nil)
 	}
 	
 	// MARK: - Debug
@@ -92,5 +130,12 @@ extension ActiveOrderViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		guard let cellViewModel = viewModel.cellViewModel(for: indexPath) else { fatalError(noCellViewModelMessage(for: indexPath)) }
 		return CGFloat(cellViewModel.height)
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		viewModel
+			.cellViewModel(for: indexPath)?
+			.commands[.selection]?
+			.perform(parameters: TableViewCellCommandParameters(viewController: self))
 	}
 }
