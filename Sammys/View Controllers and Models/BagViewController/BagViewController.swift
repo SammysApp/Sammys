@@ -12,10 +12,9 @@ import PromiseKit
 protocol BagViewControllerDelegate: LoginViewControllerDelegate {}
 
 class BagViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: BagViewModelParcel!
-	{ didSet { viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self); viewModel.bagPurchasableTableViewCellDelegate = self } }
-	var viewModel: BagViewModel!
+	var viewModelParcel: BagViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel ; viewModel.bagPurchasableTableViewCellDelegate = self } }
+	lazy var viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: BagViewControllerDelegate?
 	
@@ -200,12 +199,14 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 // MARK: - PaymentViewControllerDelegate
 extension BagViewController: PaymentViewControllerDelegate {
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
-		switch viewModel.userState {
-		case .noUser: present(loginViewController, animated: true, completion: nil)
-		case .currentUser:
-			viewModel.completeOrderPurchase()
-				.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear(); self.loadViews() } }
-				.catch { print($0) }
+		if let userState = viewModel.userState {
+			switch userState {
+			case .noUser: present(loginViewController, animated: true, completion: nil)
+			case .currentUser:
+				viewModel.completeOrderPurchase()
+					.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear(); self.loadViews() } }
+					.catch { print($0) }
+			}
 		}
 	}
 }

@@ -28,7 +28,7 @@ enum BagViewModelError: Error {
 class BagViewModel {
 	typealias Section = DefaultTableViewSection<BagPurchasableTableViewCellViewModel>
 	
-	private let parcel: BagViewModelParcel
+	var parcel: BagViewModelParcel?
 	private let viewDelegate: BagViewModelViewDelegate
 	
 	private let bagModelController = BagModelController()
@@ -51,14 +51,19 @@ class BagViewModel {
 		catch { print(error); return [] }
 	}
 	
-	lazy var userState = { parcel.userState }()
-	var user: User? { guard case .currentUser(let user) = userState else { return nil }; return user }
+	lazy var userState = { parcel?.userState }()
+	var user: User? {
+		guard let userState = userState,
+			case .currentUser(let user) = userState
+			else { return nil }
+		return user
+	}
 	
 	var subtotal: Double { return purchasableQuantities.totalPrice }
 	var tax: Double { return purchasableQuantities.totalTaxPrice }
 	var total: Double { return purchasableQuantities.totalTaxedPrice }
 	
-	init(parcel: BagViewModelParcel, viewDelegate: BagViewModelViewDelegate) {
+	init(parcel: BagViewModelParcel?, viewDelegate: BagViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

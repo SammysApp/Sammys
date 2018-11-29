@@ -28,14 +28,14 @@ enum HomeViewState {
 class HomeViewModel {
 	typealias Section = AnyViewModelCollectionViewSection
 	
-	private let parcel: HomeViewModelParcel
+	var parcel: HomeViewModelParcel?
 	private let viewDelegate: HomeViewModelViewDelegate
 	
 	private let bagModelController = BagModelController()
 	private let userAPIManager = UserAPIManager()
 	
 	var currentViewState = HomeViewState.home
-	lazy var userState = { parcel.userState }()
+	lazy var userState = { parcel?.userState ?? .noUser }()
 	
 	// MARK: - Data
 	private var sections: [Section] {
@@ -60,7 +60,7 @@ class HomeViewModel {
 		return sections.count
 	}
     
-	init(parcel: HomeViewModelParcel, viewDelegate: HomeViewModelViewDelegate) {
+	init(parcel: HomeViewModelParcel?, viewDelegate: HomeViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 		

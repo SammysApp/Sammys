@@ -23,21 +23,23 @@ enum ActiveOrderCellIdentifier: String {
 class ActiveOrderViewModel {
 	typealias Section = AnyViewModelTableViewSection
 	
-	private let parcel: ActiveOrderViewModelParcel
+	var parcel: ActiveOrderViewModelParcel?
 	private let viewDelegate: ActiveOrderViewModelViewDelegate
 	
-	private var sections: [Section] { return [
-		Section(cellViewModels: [
-			ActiveOrderMapTableViewCellViewModelFactory(identifier: ActiveOrderCellIdentifier.mapCell.rawValue, height: viewDelegate.cellHeight(for: .mapCell)).create()
-		]),
-		Section(cellViewModels: [
-			ActiveOrderOrderTableViewCellViewModelFactory(order: self.parcel.order, identifier: ActiveOrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight(for: .orderCell)).create()
-		])
+	private var sections: [Section] {
+		guard let order = parcel?.order else { return [] }
+		return [
+			Section(cellViewModels: [
+				ActiveOrderMapTableViewCellViewModelFactory(identifier: ActiveOrderCellIdentifier.mapCell.rawValue, height: viewDelegate.cellHeight(for: .mapCell)).create()
+			]),
+			Section(cellViewModels: [
+				ActiveOrderOrderTableViewCellViewModelFactory(order: order, identifier: ActiveOrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight(for: .orderCell)).create()
+			])
 	]}
 	
 	var numberOfSections: Int { return sections.count }
 	
-	init(parcel: ActiveOrderViewModelParcel, viewDelegate: ActiveOrderViewModelViewDelegate) {
+	init(parcel: ActiveOrderViewModelParcel?, viewDelegate: ActiveOrderViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

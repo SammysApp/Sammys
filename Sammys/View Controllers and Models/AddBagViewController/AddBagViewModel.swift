@@ -13,15 +13,18 @@ struct AddBagViewModelParcel {
 }
 
 class AddBagViewModel {
-	private let parcel: AddBagViewModelParcel
+	var parcel: AddBagViewModelParcel?
 	
 	private let bagModelController = BagModelController()
 	
-	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
+	var itemedPurchasable: ItemedPurchasable? { return parcel?.itemedPurchasable }
 	
-	init(_ parcel: AddBagViewModelParcel) {
+	init(_ parcel: AddBagViewModelParcel?) {
 		self.parcel = parcel
 	}
 	
-	func add() throws { try bagModelController.add(itemedPurchasable) }
+	func add() throws {
+		guard let itemedPurchasable = itemedPurchasable else { return }
+		try bagModelController.add(itemedPurchasable)
+	}
 }

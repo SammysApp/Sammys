@@ -22,10 +22,9 @@ protocol BuilderViewLayoutStateSpecifier {
 }
 
 class BuilderViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: BuilderViewModelParcel!
-	{ didSet { viewModel = BuilderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: BuilderViewModel! { didSet { loadViews() } }
+	var viewModelParcel: BuilderViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel; loadViews() } }
+	lazy var viewModel = BuilderViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: BuilderViewControllerDelegate?
 	

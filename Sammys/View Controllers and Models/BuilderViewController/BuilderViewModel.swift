@@ -25,17 +25,17 @@ enum BuilderCellIdentifier: String {
 }
 
 enum BuilderViewModelError: Error {
-	case nonAdjustable
+	case needsParcel, nonAdjustable
 }
 
 class BuilderViewModel {
 	typealias Section = DefaultCollectionViewSection<ItemCollectionViewCellViewModel>
 	
-	private var parcel: BuilderViewModelParcel
+	var parcel: BuilderViewModelParcel?
 	private let viewDelegate: BuilderViewModelViewDelegate
 	
 	private(set) var currentItemCategory: ItemCategory
-	private lazy var builder = { parcel.builder }()
+	private lazy var builder = { parcel?.builder }()
 	
 	// MARK: - Data
 	private var sections = [Section]()
@@ -46,16 +46,18 @@ class BuilderViewModel {
 	var numberOfSections: Int { return sections.count }
 	
 	private var currentItemCategoryIndex: Int? {
-		return parcel.categories.firstIndex
+		return parcel?.categories.firstIndex
 			{ self.currentItemCategory.isEqual(to: $0) }
 	}
 	
 	var isAtLastItemCategory: Bool {
-		guard let currentIndex = currentItemCategoryIndex else { return false }
-		return currentIndex == parcel.categories.endIndex - 1
+		guard let currentIndex = currentItemCategoryIndex,
+			let endIndex = parcel?.categories.endIndex
+			else { return false }
+		return currentIndex == endIndex - 1
 	}
 	
-	init(parcel: BuilderViewModelParcel, viewDelegate: BuilderViewModelViewDelegate) {
+	init(parcel: BuilderViewModelParcel?, viewDelegate: BuilderViewModelViewDelegate) {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
 		
@@ -65,11 +67,14 @@ class BuilderViewModel {
 	}
 	
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
+		guard let parcel = parcel
+			else { return Promise(error: BuilderViewModelError.needsParcel) }
 		return parcel.fetcher.items(for: itemCategory)
 			.get { self.sections = self.sections(for: $0) }.asVoid()
 	}
 	
 	func set(_ itemCategory: ItemCategory) {
+		guard let parcel = parcel else { return }
 		if parcel.categories
 			.map({ AnyEquatableProtocol($0) })
 			.contains(AnyEquatableProtocol(itemCategory))
@@ -78,7 +83,7 @@ class BuilderViewModel {
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
 		guard let currentIndex = currentItemCategoryIndex,
-		let adjustedItemCategory = parcel.categories[safe: currentIndex + indexValue]
+		let adjustedItemCategory = parcel?.categories[safe: currentIndex + indexValue]
 			else { throw BuilderViewModelError.nonAdjustable }
 		currentItemCategory = adjustedItemCategory
 	}
@@ -94,9 +99,12 @@ class BuilderViewModel {
 		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func toggle(_ item: Item) throws { try builder.toggle(item) }
+	func toggle(_ item: Item) throws { try builder?.toggle(item) }
 	
-	func build() throws -> ItemedPurchasable { return try builder.build() }
+	func build() throws -> ItemedPurchasable {
+		guard let builder = builder else { BuilderViewModelError.needsParcel }
+		return try builder.build()
+	}
 }
 
 extension BuilderViewModelParcel {

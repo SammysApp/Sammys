@@ -16,8 +16,8 @@ protocol LoginViewControllerDelegate {
 }
 
 class LoginViewController: UIViewController {
-	var viewModelParcel = LoginViewModelParcel(method: .login)
-	{ didSet { viewModel = LoginViewModel(viewModelParcel) } }
+	var viewModelParcel: LoginViewModelParcel? = LoginViewModelParcel(method: .login)
+		{ didSet { viewModel.parcel = viewModelParcel } }
     lazy var viewModel = LoginViewModel(viewModelParcel)
 	
 	var delegate: LoginViewControllerDelegate?

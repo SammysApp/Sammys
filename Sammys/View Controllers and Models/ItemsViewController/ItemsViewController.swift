@@ -13,10 +13,9 @@ protocol ItemsViewControllerDelegate {
 }
 
 class ItemsViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: ItemsViewModelParcel!
-	{ didSet { viewModel = ItemsViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: ItemsViewModel! { didSet { loadViews() } }
+	var viewModelParcel: ItemsViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel; loadViews()  } }
+	lazy var viewModel = ItemsViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: ItemsViewControllerDelegate?
 	
@@ -130,6 +129,7 @@ extension ItemsViewController: ItemsCollectionViewSectionHeaderViewDelegate {
 	func itemsCollectionViewSectionHeaderView(_ itemsCollectionViewSectionHeaderView: ItemsCollectionViewSectionHeaderView, didTapEditButton button: UIButton) {
 		guard let section = supplementaryViewIndexPaths[itemsCollectionViewSectionHeaderView]?.section else { return }
 		let itemCategory = viewModel.itemCategory(forSection: section)
-		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: viewModel.itemedPurchasable)
+		guard let itemedPurchasable = viewModel.itemedPurchasable else { return }
+		delegate?.itemsViewController(self, didSelectEdit: itemCategory, in: itemedPurchasable)
 	}
 }

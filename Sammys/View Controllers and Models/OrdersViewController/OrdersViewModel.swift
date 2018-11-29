@@ -21,10 +21,14 @@ enum OrdersCellIdentifier: String {
 	case orderCell
 }
 
+enum OrdersViewModelError: Error {
+	case needsParcel
+}
+
 class OrdersViewModel {
 	typealias Section = DefaultTableViewSection<OrderTableViewCellViewModel>
 	
-	private let parcel: OrdersViewModelParcel
+	var parcel: OrdersViewModelParcel?
 	private let viewDelegate: OrdersViewModelViewDelegate
 	
 	private let ordersAPIManager = OrdersAPIManager()
@@ -36,12 +40,13 @@ class OrdersViewModel {
 	
 	var numberOfSections: Int { return sections.count }
 	
-	init(parcel: OrdersViewModelParcel, viewDelegate: OrdersViewModelViewDelegate) {
+	init(parcel: OrdersViewModelParcel?, viewDelegate: OrdersViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}
 	
 	func setupData() -> Promise<Void> {
+		guard let parcel = parcel else { return Promise(error: OrdersViewModelError.needsParcel) }
 		return ordersAPIManager.orders(for: parcel.user)
 			.get { self.orders = $0 }.asVoid()
 	}

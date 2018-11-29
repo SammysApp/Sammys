@@ -11,10 +11,9 @@ import UIKit
 protocol UserViewControllerDelegate: LoginViewControllerDelegate {}
 
 class UserViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: UserViewModelParcel!
-	{ didSet { viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: UserViewModel!
+	var viewModelParcel: UserViewModelParcel?
+	{ didSet { viewModel.parcel = viewModelParcel } }
+	lazy var viewModel = UserViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: UserViewControllerDelegate?
 	
@@ -43,7 +42,7 @@ class UserViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		if case .noUser = viewModel.userState {
+		if let userState = viewModel.userState, case .noUser = userState {
 			viewModel.setupUserState()
 				.get { self.handleUpdatedUserState($0, shouldShowLoginIfNoUser: self.shouldShowLoginPageViewController) }
 				.catch { print($0); self.handleUpdatedUserState(.noUser, shouldShowLoginIfNoUser: self.shouldShowLoginPageViewController) }
@@ -138,7 +137,7 @@ extension UserViewController: UserViewModelViewDelegate {
 extension UserViewController: LoginPageViewControllerDelegate {
 	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User) {
 		viewModel.userState = .currentUser(user)
-		handleUpdatedUserState(viewModel.userState)
+		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
 		loginPageViewController.dismiss(animated: true, completion: nil)
 	}
 	
@@ -150,7 +149,7 @@ extension UserViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
 		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
 		viewModel.userState = .currentUser(user)
-		handleUpdatedUserState(viewModel.userState)
+		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	

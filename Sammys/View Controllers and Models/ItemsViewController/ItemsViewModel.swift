@@ -24,21 +24,21 @@ enum ItemsCellIdentifier: String {
 class ItemsViewModel {
 	typealias Section = ItemsCollectionViewSection
 	
-	private let parcel: ItemsViewModelParcel
+	var parcel: ItemsViewModelParcel?
 	private let viewDelegate: ItemsViewModelViewDelegate
 	
 	// MARK: - Data
 	private var sections: [Section] {
-		return parcel.itemedPurchasable.categorizedItems
+		return parcel?.itemedPurchasable.categorizedItems
 			.map { Section(category: $0.category, cellViewModels: $0.items
-				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) }
+				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) } ?? []
 	}
 	
 	var numberOfSections: Int { return sections.count }
 	
-	var itemedPurchasable: ItemedPurchasable { return parcel.itemedPurchasable }
+	var itemedPurchasable: ItemedPurchasable? { return parcel?.itemedPurchasable }
 	
-	init(parcel: ItemsViewModelParcel, viewDelegate: ItemsViewModelViewDelegate) {
+	init(parcel: ItemsViewModelParcel?, viewDelegate: ItemsViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

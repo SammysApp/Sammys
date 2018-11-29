@@ -21,11 +21,11 @@ struct LoginFields {
 enum LoginMethod { case login, reauthenticate }
 
 class LoginViewModel {
-	private let parcel: LoginViewModelParcel
+	var parcel: LoginViewModelParcel?
 	
 	private let userAPIManager = UserAPIManager()
 	
-	init(_ parcel: LoginViewModelParcel) {
+	init(_ parcel: LoginViewModelParcel?) {
 		self.parcel = parcel
 	}
 	

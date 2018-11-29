@@ -14,10 +14,9 @@ protocol ActiveOrderViewControllerDelegate {
 }
 
 class ActiveOrderViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: ActiveOrderViewModelParcel!
-		{ didSet { viewModel = ActiveOrderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: ActiveOrderViewModel!
+	var viewModelParcel: ActiveOrderViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel } }
+	lazy var viewModel = ActiveOrderViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: ActiveOrderViewControllerDelegate?
 	

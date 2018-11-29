@@ -15,13 +15,13 @@ struct PaymentViewModelParcel {
 }
 
 class PaymentViewModel {
-	private let parcel: PaymentViewModelParcel
+	var parcel: PaymentViewModelParcel?
 	
-	var subtotalText: String { return parcel.subtotal.priceString }
-	var taxText: String { return parcel.tax.priceString }
-	var payText: String { return "Pay \(parcel.total.priceString)" }
+	var subtotalText: String? { return parcel?.subtotal.priceString }
+	var taxText: String? { return parcel?.tax.priceString }
+	var payText: String? { guard let total = parcel?.total else { return nil }; return "Pay \(total.priceString)" }
 	
-	init(_ parcel: PaymentViewModelParcel) {
+	init(_ parcel: PaymentViewModelParcel?) {
 		self.parcel = parcel
 	}
 }

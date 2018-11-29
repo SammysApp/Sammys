@@ -22,14 +22,16 @@ enum UserCellIdentifier: String { case detailCell, buttonCell }
 class UserViewModel {
 	typealias Section = AnyViewModelTableViewSection
 	
-	private let parcel: UserViewModelParcel
+	var parcel: UserViewModelParcel?
 	private let viewDelegate: UserViewModelViewDelegate
 	
 	private let userAPIManager = UserAPIManager()
 	
-	lazy var userState: UserState = { parcel.userState }()
+	lazy var userState = { parcel?.userState }()
 	var user: User? {
-		guard case .currentUser(let user) = userState else { return nil }
+		guard let userState = userState,
+			case .currentUser(let user) = userState
+			else { return nil }
 		return user
 	}
 	
@@ -80,7 +82,7 @@ class UserViewModel {
 		static let logOutCellTitle = "Log Out"
 	}
 	
-	init(parcel: UserViewModelParcel, viewDelegate: UserViewModelViewDelegate) {
+	init(parcel: UserViewModelParcel?, viewDelegate: UserViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

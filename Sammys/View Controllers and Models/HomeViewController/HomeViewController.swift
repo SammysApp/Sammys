@@ -9,9 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel = HomeViewModelParcel(userState: .noUser)
-	{ didSet { viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self) } }
+	var viewModelParcel: HomeViewModelParcel? = HomeViewModelParcel(userState: .noUser)
+		{ didSet { viewModel.parcel = viewModelParcel } }
 	lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	// MARK: - View Controllers
