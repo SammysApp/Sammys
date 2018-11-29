@@ -61,8 +61,10 @@ extension ActiveOrderViewController: Storyboardable {}
 
 // MARK: - ActiveOrderViewModelViewDelegate
 extension ActiveOrderViewController: ActiveOrderViewModelViewDelegate {
-	func cellHeight() -> Double {
-		return Double(orderViewController.tableView.contentSize.height)
+	func cellHeight(for cellIdentifier: ActiveOrderCellIdentifier) -> Double {
+		switch cellIdentifier {
+		case .orderCell: return Double(orderViewController.tableView.contentSize.height)
+		}
 	}
 }
 

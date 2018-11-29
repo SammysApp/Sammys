@@ -13,7 +13,7 @@ struct ActiveOrderViewModelParcel {
 }
 
 protocol ActiveOrderViewModelViewDelegate {
-	func cellHeight() -> Double
+	func cellHeight(for cellIdentifier: ActiveOrderCellIdentifier) -> Double
 }
 
 enum ActiveOrderCellIdentifier: String {
@@ -28,7 +28,7 @@ class ActiveOrderViewModel {
 	
 	private var sections: [Section] { return [
 		Section(cellViewModels: [
-			ActiveOrderOrderTableViewCellViewModelFactory(order: self.parcel.order, identifier: ActiveOrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight()).create()
+			ActiveOrderOrderTableViewCellViewModelFactory(order: self.parcel.order, identifier: ActiveOrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight(for: .orderCell)).create()
 		])
 	]}
 	
