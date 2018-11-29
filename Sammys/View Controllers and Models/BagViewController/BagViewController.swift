@@ -77,7 +77,7 @@ class BagViewController: UIViewController {
 	func presentActiveOrderViewController(order: Order, completion: (() -> Void)? = nil) {
 		let activeOrderViewController = ActiveOrderViewController.storyboardInstance()
 		activeOrderViewController.viewModelParcel = ActiveOrderViewModelParcel(order: order)
-		present(activeOrderViewController, animated: true, completion: completion)
+		present(UINavigationController(rootViewController: activeOrderViewController), animated: true, completion: completion)
 	}
 
     // MARK: - IBActions
@@ -197,7 +197,7 @@ extension BagViewController: PaymentViewControllerDelegate {
 		case .noUser: present(loginViewController, animated: true, completion: nil)
 		case .currentUser:
 			viewModel.completeOrderPurchase()
-				.get { self.presentActiveOrderViewController(order: $0) }
+				.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear() } }
 				.catch { print($0) }
 		}
 	}

@@ -17,7 +17,7 @@ protocol ActiveOrderViewModelViewDelegate {
 }
 
 enum ActiveOrderCellIdentifier: String {
-	case orderCell
+	case orderCell, mapCell
 }
 
 class ActiveOrderViewModel {
@@ -27,6 +27,9 @@ class ActiveOrderViewModel {
 	private let viewDelegate: ActiveOrderViewModelViewDelegate
 	
 	private var sections: [Section] { return [
+		Section(cellViewModels: [
+			ActiveOrderMapTableViewCellViewModelFactory(identifier: ActiveOrderCellIdentifier.mapCell.rawValue, height: viewDelegate.cellHeight(for: .mapCell)).create()
+		]),
 		Section(cellViewModels: [
 			ActiveOrderOrderTableViewCellViewModelFactory(order: self.parcel.order, identifier: ActiveOrderCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight(for: .orderCell)).create()
 		])

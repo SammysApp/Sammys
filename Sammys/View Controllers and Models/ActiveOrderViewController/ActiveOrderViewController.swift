@@ -21,7 +21,7 @@ class ActiveOrderViewController: UIViewController {
 	@IBOutlet var tableView: UITableView!
 	
 	struct Constants {
-		static let tableViewEstimatedRowHeight: CGFloat = 100
+		static let mapCellHeight: CGFloat = 150
 	}
 	
 	// MARK: - Lifecycle
@@ -64,6 +64,7 @@ extension ActiveOrderViewController: ActiveOrderViewModelViewDelegate {
 	func cellHeight(for cellIdentifier: ActiveOrderCellIdentifier) -> Double {
 		switch cellIdentifier {
 		case .orderCell: return Double(orderViewController.tableView.contentSize.height)
+		default: return Double(Constants.mapCellHeight)
 		}
 	}
 }

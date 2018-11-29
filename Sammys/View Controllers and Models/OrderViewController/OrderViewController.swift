@@ -10,7 +10,7 @@ import UIKit
 
 class OrderViewController: UIViewController {
 	var viewModelParcel: OrderViewModelParcel?
-		{ didSet { viewModel.parcel = viewModelParcel } }
+		{ didSet { viewModel.parcel = viewModelParcel; loadViews() } }
 	lazy var viewModel = OrderViewModel(parcel: viewModelParcel, viewDelegate: self)
     
     // MARK: - IBOutlets
@@ -37,7 +37,7 @@ class OrderViewController: UIViewController {
 	// MARK: - Setup
 	func setupViews() {
 		setupTableView()
-		setupPriceView()
+		loadViews()
 	}
 	
 	func setupTableView() {
@@ -46,7 +46,12 @@ class OrderViewController: UIViewController {
 		tableView.tableFooterView = priceView
 	}
 	
-	func setupPriceView() {
+	// MARK: - Load
+	func loadViews() {
+		loadPriceView()
+	}
+	
+	func loadPriceView() {
 		subtotalLabel.text = viewModel.subtotalText
 		taxLabel.text = viewModel.taxText
 		totalLabel.text = viewModel.totalText
