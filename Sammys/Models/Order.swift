@@ -42,12 +42,12 @@ struct Order: Codable {
 	}
 	
 	struct User: Codable {
-		let userName: String
-		let userID: String
+		let id: String
+		let name: String
 		
-		init(userName: String, userID: String) {
-			self.userName = userName
-			self.userID = userID
+		init(id: String, name: String) {
+			self.id = id
+			self.name = name
 		}
 	}
 	

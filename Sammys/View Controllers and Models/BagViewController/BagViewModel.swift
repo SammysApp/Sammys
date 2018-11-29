@@ -99,11 +99,11 @@ class BagViewModel {
 	
 	func clear() { bagModelController.clearAllPurchasables() }
 	
-	func completePurchase() -> Promise<Void> {
+	func completeOrderPurchase() -> Promise<Order> {
 		return purchaseOrder().then { payment in
 			self.newOrderNumber()
 				.map { try self.makeBagOrder(withNumber: $0, payment: payment) }
-				.done(self.send)
+				.get(self.send)
 		}
 	}
 	
@@ -121,7 +121,7 @@ class BagViewModel {
 		guard let user = user else { throw BagViewModelError.needsUser }
 		return Order(
 			number: "\(number)",
-			user: Order.User(userName: user.name, userID: user.id),
+			user: Order.User(id: user.id, name: user.name),
 			purchasableQuantities: purchasableQuantities,
 			price: Order.Price(taxPrice: tax, totalPrice: total),
 			payment: payment

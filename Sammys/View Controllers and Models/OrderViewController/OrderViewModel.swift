@@ -21,23 +21,29 @@ enum OrderCellIdentifier: String { case purchasableCell }
 class OrderViewModel {
 	typealias Section = DefaultTableViewSection<OrderPurchasableTableViewCellViewModel>
 	
-	private let parcel: OrderViewModelParcel
+	var parcel: OrderViewModelParcel?
 	private let viewDelegate: OrderViewModelViewDelegate
 	
 	// MARK: - Data
-	var sections: [Section] { return [
-		Section(cellViewModels: parcel.order.purchasableQuantities.map { OrderPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, identifier: OrderCellIdentifier.purchasableCell.rawValue, height: viewDelegate.cellHeight()).create() })
-	]}
+	var sections: [Section] {
+		guard let order = parcel?.order else { return [] }
+		return [
+			Section(
+				cellViewModels: order.purchasableQuantities
+					.map { OrderPurchasableTableViewCellViewModelFactory(purchasableQuantity: $0, identifier: OrderCellIdentifier.purchasableCell.rawValue, height: viewDelegate.cellHeight()).create() }
+			)
+		]
+	}
 	
 	var numberOfSections: Int { return sections.count }
 	
-	private var tax: Double { return parcel.order.price.tax ?? 0 }
-	private var total: Double { return parcel.order.price.total }
+	private var tax: Double { return parcel?.order.price.tax ?? 0 }
+	private var total: Double { return parcel?.order.price.total ?? 0 }
 	var subtotalText: String { return (total - tax).priceString }
 	var taxText: String { return tax.priceString }
 	var totalText: String { return total.priceString }
 	
-	init(parcel: OrderViewModelParcel, viewDelegate: OrderViewModelViewDelegate) {
+	init(parcel: OrderViewModelParcel?, viewDelegate: OrderViewModelViewDelegate) {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 	}

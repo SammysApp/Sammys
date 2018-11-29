@@ -148,9 +148,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.3/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound/SwiftySound.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
@@ -158,9 +158,9 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.3/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound/SwiftySound.framework"
 fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
@@ -168,9 +168,9 @@ if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.3/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound/SwiftySound.framework"
 fi
 if [[ "$CONFIGURATION" == "Family" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS11.3/Alamofire.framework"
@@ -178,9 +178,9 @@ if [[ "$CONFIGURATION" == "Family" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-iOS11.3/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS11.3/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit-iOS11.3/PromiseKit.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS11.3/SwiftySound.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/leveldb-library-iOS11.3/leveldb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS11.3/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound/SwiftySound.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

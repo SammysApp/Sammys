@@ -73,6 +73,12 @@ class BagViewController: UIViewController {
 		do { try viewModel.delete(at: indexPath); tableView.deleteRows(at: [indexPath], with: .automatic) }
 		catch { print(error) }
 	}
+	
+	func presentActiveOrderViewController(order: Order, completion: (() -> Void)? = nil) {
+		let activeOrderViewController = ActiveOrderViewController.storyboardInstance()
+		activeOrderViewController.viewModelParcel = ActiveOrderViewModelParcel(order: order)
+		present(activeOrderViewController, animated: true, completion: completion)
+	}
 
     // MARK: - IBActions
     @IBAction func didTapClear(_ sender: UIBarButtonItem) {
@@ -189,7 +195,10 @@ extension BagViewController: PaymentViewControllerDelegate {
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
 		switch viewModel.userState {
 		case .noUser: present(loginViewController, animated: true, completion: nil)
-		case .currentUser: viewModel.completePurchase().catch { print($0) }
+		case .currentUser:
+			viewModel.completeOrderPurchase()
+				.get { self.presentActiveOrderViewController(order: $0) }
+				.catch { print($0) }
 		}
 	}
 }

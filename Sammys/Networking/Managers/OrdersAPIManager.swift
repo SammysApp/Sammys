@@ -17,7 +17,8 @@ typealias OrderNumber = Int
 struct OrdersAPIManager: FirebaseAPIManager {
     enum Path: String, PathStringRepresentable {
         case orders, numberCounter
-        case user, userID
+        case user
+		case id
     }
     
     private func ordersDatabaseReference(_ path: Path...) -> DatabaseReference {
@@ -26,7 +27,7 @@ struct OrdersAPIManager: FirebaseAPIManager {
 	
 	private func ordersDatabaseQuery(for user: User) -> DatabaseQuery {
 		return ordersDatabaseReference()
-			.queryOrdered(byChild: .user, .userID)
+			.queryOrdered(byChild: .user, .id)
 			.queryEqual(toValue: user.id)
 	}
 	

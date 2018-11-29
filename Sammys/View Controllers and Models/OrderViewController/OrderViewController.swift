@@ -9,10 +9,9 @@
 import UIKit
 
 class OrderViewController: UIViewController {
-	/// Must be set for use of the view model.
-	var viewModelParcel: OrderViewModelParcel!
-	{ didSet { viewModel = OrderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
-	var viewModel: OrderViewModel!
+	var viewModelParcel: OrderViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel } }
+	lazy var viewModel = OrderViewModel(parcel: viewModelParcel, viewDelegate: self)
     
     // MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
