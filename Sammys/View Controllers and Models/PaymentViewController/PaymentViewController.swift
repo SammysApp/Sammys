@@ -37,12 +37,6 @@ class PaymentViewController: UIViewController, Delegatable {
     }
 	
 	// MARK: - Setup
-	func loadViews() {
-		subtotalLabel?.text = viewModel.subtotalText
-		taxLabel?.text = viewModel.taxText
-		payButton?.setTitle(viewModel.payText, for: .normal)
-	}
-	
 	func setupViews() {
 		setupPayButton()
 		loadViews()
@@ -50,6 +44,13 @@ class PaymentViewController: UIViewController, Delegatable {
 	
 	func setupPayButton() {
 		payButton.layer.cornerRadius = Constants.payButtonCornerRadius
+	}
+	
+	// MARK: - Load
+	func loadViews() {
+		subtotalLabel?.text = viewModel.subtotalText
+		taxLabel?.text = viewModel.taxText
+		payButton?.setTitle(viewModel.payText, for: .normal)
 	}
 	
 	// MARK: - IBActions

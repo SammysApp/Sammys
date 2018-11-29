@@ -31,7 +31,7 @@ class OrdersViewController: UIViewController {
 		viewModel.setupData().get { self.loadViews() }.catch { print($0) }
     }
 	
-	// MARK: - Setup
+	// MARK: - Load
 	func loadViews() {
 		tableView.reloadData()
 	}

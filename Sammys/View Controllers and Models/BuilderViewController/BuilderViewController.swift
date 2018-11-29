@@ -83,10 +83,6 @@ class BuilderViewController: UIViewController {
     }
 	
 	// MARK: - Setup
-	func loadViews() {
-		collectionView?.reloadData()
-	}
-	
 	func setupViews() {
 		setupCollectionView()
 		setupAnimatedCardCollectionViewLayout()
@@ -116,6 +112,11 @@ class BuilderViewController: UIViewController {
 	
 	func setupNextButton() {
 		nextButton.layer.cornerRadius = Constants.bottomButtonsCornerRadius
+	}
+	
+	// MARK: - Load
+	func loadViews() {
+		collectionView?.reloadData()
 	}
 	
 	// MARK: - Update

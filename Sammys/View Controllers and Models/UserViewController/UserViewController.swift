@@ -50,7 +50,7 @@ class UserViewController: UIViewController {
 		}
 	}
 	
-	// MARK: - Setup
+	// MARK: - Load
 	func loadViews() {
 		tableView.reloadData()
 	}

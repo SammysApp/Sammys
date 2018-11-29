@@ -64,6 +64,7 @@ class BagViewController: UIViewController {
 		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
 	}
 	
+	// MARK: - Load
 	func loadViews() {
 		tableView.reloadData()
 	}

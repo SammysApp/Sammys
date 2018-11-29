@@ -40,10 +40,6 @@ class ItemsViewController: UIViewController {
 		setupViews()
 	}
 	
-	func loadViews() {
-		collectionView?.reloadData()
-	}
-	
 	// MARK: - Setup
 	func setupViews() {
 		setupCollectionView()
@@ -56,6 +52,11 @@ class ItemsViewController: UIViewController {
 		collectionView.contentInset.left = Constants.collectionViewContentInset
 		collectionView.contentInset.right = Constants.collectionViewContentInset
 		(collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: collectionView.frame.width, height: Constants.collectionViewHeaderHeight)
+	}
+	
+	// MARK: - Load
+	func loadViews() {
+		collectionView?.reloadData()
 	}
 	
 	// MARK: - Debug

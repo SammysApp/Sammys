@@ -42,10 +42,6 @@ class AddBagViewController: UIViewController {
     }
 	
 	// MARK: - Setup
-	func loadViews() {
-		itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: viewModel.itemedPurchasable)
-	}
-	
 	func setupViews() {
 		setupChildItemsViewController()
 		setupAddButton()
@@ -61,6 +57,11 @@ class AddBagViewController: UIViewController {
 	
 	func setupAddButton() {
 		addButton.layer.cornerRadius = Constants.addButtonCornerRadius
+	}
+	
+	// MARK: - Load
+	func loadViews() {
+		itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: viewModel.itemedPurchasable)
 	}
 	
 	// MARK: - IBActions
