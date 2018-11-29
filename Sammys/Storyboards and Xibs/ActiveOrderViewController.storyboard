@@ -61,6 +61,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ATT-sm-a1W"/>
                     </view>
+                    <navigationItem key="navigationItem" id="wBz-X4-Drp">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="yJP-6B-UT2">
+                            <color key="tintColor" name="Snow"/>
+                            <connections>
+                                <action selector="didTapDone:" destination="NjA-yj-jER" id="28Y-TH-Tfu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="TQj-RI-hyZ" id="y0H-o1-IkB"/>
                     </connections>
@@ -73,6 +82,9 @@
     <resources>
         <namedColor name="Almond">
             <color red="1" green="0.96899998188018799" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Snow">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

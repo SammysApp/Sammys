@@ -9,11 +9,17 @@
 import UIKit
 import CoreLocation
 
+protocol ActiveOrderViewControllerDelegate {
+	func activeOrderViewControllerDidTapDone(_ activeOrderViewController: ActiveOrderViewController)
+}
+
 class ActiveOrderViewController: UIViewController {
 	/// Must be set for use of the view model.
 	var viewModelParcel: ActiveOrderViewModelParcel!
 		{ didSet { viewModel = ActiveOrderViewModel(parcel: viewModelParcel, viewDelegate: self) } }
 	var viewModel: ActiveOrderViewModel!
+	
+	var delegate: ActiveOrderViewControllerDelegate?
 	
 	// MARK: - View Controllers
 	lazy var orderViewController = { OrderViewController.storyboardInstance() }()
@@ -68,8 +74,8 @@ class ActiveOrderViewController: UIViewController {
 		return UIAlertAction(title: Constants.wazeActionTitle, style: .default) { _ in coordinates.navigateInWaze() }
 	}
 	
-	func cancelAction() -> UIAlertAction {
-		return UIAlertAction(title: "Cancel", style: .cancel) { _ in self.dismiss(animated: true, completion: nil) }
+	func cancelAction(in alertController: UIAlertController) -> UIAlertAction {
+		return UIAlertAction(title: "Cancel", style: .cancel) { _ in alertController.dismiss(animated: true, completion: nil) }
 	}
 	
 	func presentNavigationAlert() throws {
@@ -79,9 +85,14 @@ class ActiveOrderViewController: UIViewController {
 		[openInMapsAction(for: coordinates),
 		 openInGoogleMapsAction(for: coordinates),
 		 navigateInWazeAction(for: coordinates),
-		 cancelAction()].forEach
+		 cancelAction(in: navigationAlertController)].forEach
 			{ if let action = $0 { navigationAlertController.addAction(action) } }
 		present(navigationAlertController, animated: true, completion: nil)
+	}
+	
+	// MARK: - IBActions
+	@IBAction func didTapDone(_ sender: UIBarButtonItem) {
+		delegate?.activeOrderViewControllerDidTapDone(self)
 	}
 	
 	// MARK: - Debug
@@ -93,6 +104,9 @@ class ActiveOrderViewController: UIViewController {
 		return "Can't dequeue reusable cell with identifier, \(identifier)."
 	}
 }
+
+// MARK: - ActiveOrderViewController
+extension ActiveOrderViewController: Delegatable {}
 
 // MARK: - Storyboardable
 extension ActiveOrderViewController: Storyboardable {}

@@ -49,6 +49,7 @@ class BagViewController: UIViewController {
 	func setupViews() {
 		setupTableView()
 		setupChildPaymentViewController()
+		loadViews()
 	}
 	
 	func setupTableView() {
@@ -61,6 +62,10 @@ class BagViewController: UIViewController {
 		add(asChildViewController: paymentViewController)
 		paymentViewController.view.translatesAutoresizingMaskIntoConstraints = false
 		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
+	}
+	
+	func loadViews() {
+		tableView.reloadData()
 	}
 	
 	// MARK: - Update
@@ -77,6 +82,7 @@ class BagViewController: UIViewController {
 	func presentActiveOrderViewController(order: Order, completion: (() -> Void)? = nil) {
 		let activeOrderViewController = ActiveOrderViewController.storyboardInstance()
 		activeOrderViewController.viewModelParcel = ActiveOrderViewModelParcel(order: order)
+		activeOrderViewController.delegate = self
 		present(UINavigationController(rootViewController: activeOrderViewController), animated: true, completion: completion)
 	}
 
@@ -197,7 +203,7 @@ extension BagViewController: PaymentViewControllerDelegate {
 		case .noUser: present(loginViewController, animated: true, completion: nil)
 		case .currentUser:
 			viewModel.completeOrderPurchase()
-				.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear() } }
+				.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear(); self.loadViews() } }
 				.catch { print($0) }
 		}
 	}
@@ -250,6 +256,14 @@ extension BagViewController: BuilderViewControllerDelegate {
 				tableView.reloadData()
 				updatePaymentViewController()
 			} catch { print(error) }
+		}
+	}
+}
+
+extension BagViewController: ActiveOrderViewControllerDelegate {
+	func activeOrderViewControllerDidTapDone(_ activeOrderViewController: ActiveOrderViewController) {
+		activeOrderViewController.dismiss(animated: true) {
+			self.dismiss(animated: true, completion: nil)
 		}
 	}
 }
