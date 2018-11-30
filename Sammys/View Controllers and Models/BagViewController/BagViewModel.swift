@@ -54,8 +54,7 @@ class BagViewModel {
 	
 	lazy var userState = { parcel?.userState }()
 	var user: User? {
-		guard let userState = userState,
-			case .currentUser(let user) = userState
+		guard let userState = userState, case .currentUser(let user) = userState
 			else { return nil }
 		return user
 	}
@@ -105,16 +104,17 @@ class BagViewModel {
 	
 	func clear() { bagModelController.clearAllPurchasables() }
 	
-	func completeOrderPurchase() -> Promise<Order> {
-		return purchaseOrder().then { payment in
+	func completeOrderPurchase(for user: User, withSource source: String? = nil) -> Promise<Order> {
+		return purchaseOrder(for: user, withSource: source).then { payment in
 			self.newOrderNumber()
-				.map { try self.makeBagOrder(withNumber: $0, payment: payment) }
+				.map { self.makeBagOrder(for: user, withNumber: $0, payment: payment) }
 				.get(self.send)
 		}
 	}
 	
-	private func purchaseOrder(withSource source: String? = nil) -> Promise<Order.Payment> {
-		guard let customer = user?.payment.ids[.stripe] else { return Promise(error: BagViewModelError.needsUser) }
+	private func purchaseOrder(for user: User, withSource source: String? = nil) -> Promise<Order.Payment> {
+		guard let customer = user.payment.ids[.stripe]
+			else { return Promise(error: BagViewModelError.needsStripeID) }
 		return stripeAPIManager.createCharge(amount: total.toCents(), source: source, customer: customer)
 			.map { Order.Payment(id: $0.id, service: .stripe, method: Order.Payment.Method(id: $0.source.id, name: $0.source.name)) }
 	}
@@ -123,8 +123,7 @@ class BagViewModel {
 		return ordersAPIManager.generateOrderNumber()
 	}
 	
-	private func makeBagOrder(withNumber number: Int, payment: Order.Payment? = nil) throws -> Order {
-		guard let user = user else { throw BagViewModelError.needsUser }
+	private func makeBagOrder(for user: User, withNumber number: Int, payment: Order.Payment? = nil) -> Order {
 		return Order(
 			number: "\(number)",
 			user: Order.User(id: user.id, name: user.name),
@@ -137,8 +136,12 @@ class BagViewModel {
 	private func send(_ order: Order) throws { try ordersAPIManager.add(order) }
 	
 	// MARK: - Stripe
-	func customerContext() throws -> STPCustomerContext {
-		guard let customer = user?.payment.ids[.stripe] else { throw BagViewModelError.needsUser }
+	func paymentContext(for user: User) throws -> STPPaymentContext {
+		return STPPaymentContext(customerContext: try customerContext(for: user))
+	}
+	
+	private func customerContext(for user: User) throws -> STPCustomerContext {
+		guard let customer = user.payment.ids[.stripe] else { throw BagViewModelError.needsStripeID }
 		return STPCustomerContext(keyProvider: EphemeralKeyProvider(customer: customer))
 	}
 }

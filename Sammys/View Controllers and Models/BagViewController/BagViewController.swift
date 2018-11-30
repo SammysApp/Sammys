@@ -19,6 +19,7 @@ class BagViewController: UIViewController {
 	
 	var delegate: BagViewControllerDelegate?
 	
+	var paymentContext: STPPaymentContext? { didSet { didSet(paymentContext) } }
 	private var lastSelectedIndexPath: IndexPath?
 	
 	// MARK: - View Controllers
@@ -43,6 +44,7 @@ class BagViewController: UIViewController {
         super.viewDidLoad()
 		
 		setupViews()
+		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
     }
 	
 	// MARK: - Setup
@@ -64,6 +66,12 @@ class BagViewController: UIViewController {
 		paymentViewController.view.fullViewConstraints(equalTo: paymentVisualEffectView).activateAll()
 	}
 	
+	func didSet(_ paymentContent: STPPaymentContext?) {
+		paymentContext?.delegate = self
+		paymentContext?.hostViewController = self
+		paymentContext?.paymentAmount = viewModel.total.toCents()
+	}
+	
 	// MARK: - Load
 	func loadViews() {
 		tableView.reloadData()
@@ -74,10 +82,33 @@ class BagViewController: UIViewController {
 		paymentViewController.viewModelParcel = PaymentViewModelParcel(subtotal: viewModel.subtotal, tax: viewModel.tax, total: viewModel.total)
 	}
 	
+	func handleUpdatedUserState(_ userState: UserState) {
+		switch userState {
+		case .currentUser(let user):
+			do { paymentContext = try viewModel.paymentContext(for: user) }
+			catch { print(error) }
+		case .noUser: paymentContext = nil
+		}
+	}
+	
+	func handleUpdatedTotal(_ total: Double) {
+		paymentContext?.paymentAmount = total.toCents()
+	}
+	
 	// MARK: - Methods
 	func delete(at indexPath: IndexPath) {
 		do { try viewModel.delete(at: indexPath); tableView.deleteRows(at: [indexPath], with: .automatic) }
 		catch { print(error) }
+	}
+	
+	func completeOrderPurchase() {
+		paymentContext?.requestPayment()
+	}
+	
+	func handleDidCompleteOrderPurchaseWithSuccess(_ order: Order) {
+		presentActiveOrderViewController(order: order)
+		viewModel.clear()
+		loadViews()
 	}
 	
 	func presentActiveOrderViewController(order: Order, completion: (() -> Void)? = nil) {
@@ -85,10 +116,6 @@ class BagViewController: UIViewController {
 		activeOrderViewController.viewModelParcel = ActiveOrderViewModelParcel(order: order)
 		activeOrderViewController.delegate = self
 		present(UINavigationController(rootViewController: activeOrderViewController), animated: true, completion: completion)
-	}
-	
-	func paymentMethodsViewController() throws -> STPPaymentMethodsViewController {
-		return STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: try viewModel.customerContext(), delegate: self)
 	}
 
     // MARK: - IBActions
@@ -187,6 +214,7 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 	
 	private func handleQuantityUpdate(in cell: BagPurchasableTableViewCell, at indexPath: IndexPath) {
 		updatePaymentViewController()
+		handleUpdatedTotal(viewModel.total)
 		if let cellViewModel = viewModel.cellViewModel(for: indexPath) {
 			updateQuantityTextField(cell.quantityTextField, forQuantity: cellViewModel.purchasableQuantity.quantity)
 		}
@@ -207,10 +235,7 @@ extension BagViewController: PaymentViewControllerDelegate {
 		if let userState = viewModel.userState {
 			switch userState {
 			case .noUser: present(loginViewController, animated: true, completion: nil)
-			case .currentUser:
-				viewModel.completeOrderPurchase()
-					.get { self.presentActiveOrderViewController(order: $0) { self.viewModel.clear(); self.loadViews() } }
-					.catch { print($0) }
+			case .currentUser: completeOrderPurchase()
 			}
 		}
 	}
@@ -221,6 +246,7 @@ extension BagViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
 		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
 		viewModel.userState = .currentUser(user)
+		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	
@@ -276,14 +302,19 @@ extension BagViewController: ActiveOrderViewControllerDelegate {
 	}
 }
 
-extension BagViewController: STPPaymentMethodsViewControllerDelegate {
-	func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didSelect paymentMethod: STPPaymentMethod) {
-		
+// MARK: - STPPaymentContextDelegate
+extension BagViewController: STPPaymentContextDelegate {
+	func paymentContextDidChange(_ paymentContext: STPPaymentContext) {}
+	
+	func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+		guard let user = viewModel.user
+			else { completion(BagViewModelError.needsUser); return }
+		viewModel.completeOrderPurchase(for: user, withSource: paymentResult.source.stripeID)
+			.get { completion(nil); self.handleDidCompleteOrderPurchaseWithSuccess($0) }
+			.catch { completion($0) }
 	}
 	
-	func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didFailToLoadWithError error: Error) {}
+	func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {}
 	
-	func paymentMethodsViewControllerDidFinish(_ paymentMethodsViewController: STPPaymentMethodsViewController) {}
-	
-	func paymentMethodsViewControllerDidCancel(_ paymentMethodsViewController: STPPaymentMethodsViewController) {}
+	func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {}
 }
