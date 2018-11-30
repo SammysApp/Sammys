@@ -30,6 +30,6 @@ class User: Codable {
     }
 	
 	struct Payment: Codable {
-		var id: String
+		var ids: [PaymentService : String]
 	}
 }

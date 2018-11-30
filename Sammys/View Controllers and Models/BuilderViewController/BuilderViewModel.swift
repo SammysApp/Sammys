@@ -34,7 +34,7 @@ class BuilderViewModel {
 	var parcel: BuilderViewModelParcel?
 	private let viewDelegate: BuilderViewModelViewDelegate
 	
-	private(set) var currentItemCategory: ItemCategory
+	private(set) lazy var currentItemCategory = { parcel?.categories.first }()
 	private lazy var builder = { parcel?.builder }()
 	
 	// MARK: - Data
@@ -47,7 +47,7 @@ class BuilderViewModel {
 	
 	private var currentItemCategoryIndex: Int? {
 		return parcel?.categories.firstIndex
-			{ self.currentItemCategory.isEqual(to: $0) }
+			{ self.currentItemCategory?.isEqual(to: $0) ?? false }
 	}
 	
 	var isAtLastItemCategory: Bool {
@@ -60,10 +60,6 @@ class BuilderViewModel {
 	init(parcel: BuilderViewModelParcel?, viewDelegate: BuilderViewModelViewDelegate) {
 		self.viewDelegate = viewDelegate
 		self.parcel = parcel
-		
-		guard let firstItemCategory = parcel.categories.first
-			else { fatalError("Need item categories to build") }
-		currentItemCategory = firstItemCategory
 	}
 	
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
@@ -102,7 +98,7 @@ class BuilderViewModel {
 	func toggle(_ item: Item) throws { try builder?.toggle(item) }
 	
 	func build() throws -> ItemedPurchasable {
-		guard let builder = builder else { BuilderViewModelError.needsParcel }
+		guard let builder = builder else { throw BuilderViewModelError.needsParcel }
 		return try builder.build()
 	}
 }

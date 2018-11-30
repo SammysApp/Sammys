@@ -60,13 +60,13 @@ class AddBagViewController: UIViewController {
 	
 	// MARK: - Load
 	func loadViews() {
-		itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: viewModel.itemedPurchasable)
+		if let itemedPurchasable = viewModel.itemedPurchasable { itemsViewController.viewModelParcel = ItemsViewModelParcel(itemedPurchasable: itemedPurchasable) }
 	}
 	
 	// MARK: - IBActions
 	@IBAction func didTapAdd(_ sender: UIButton) {
 		do { try viewModel.add() } catch { print(error) }
-		delegate?.addBagViewController(self, didAddItemedPurchasable: viewModel.itemedPurchasable)
+		if let itemedPurchasable = viewModel.itemedPurchasable { delegate?.addBagViewController(self, didAddItemedPurchasable: itemedPurchasable) }
 	}
 }
 

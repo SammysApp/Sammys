@@ -155,7 +155,8 @@ class BuilderViewController: UIViewController {
 		)
 	}
 	
-	func handleUpdatedItemCategory(_ itemCategory: ItemCategory) {
+	func handleUpdatedItemCategory(_ itemCategory: ItemCategory?) {
+		guard let itemCategory = itemCategory else { return }
 		viewModel.setupData(for: itemCategory).get { self.loadViews() }.catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
 		if let stateSpecifier = itemCategory as? BuilderViewLayoutStateSpecifier {

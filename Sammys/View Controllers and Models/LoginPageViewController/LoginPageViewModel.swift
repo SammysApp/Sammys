@@ -55,6 +55,6 @@ class LoginPageViewModel {
 			let password = signUpFields[.password]
 			else { return Promise(error: LoginPageViewModelError.missingSignUpFields) }
 		return stripeAPIManager.createCustomer(email: email)
-			.then { self.userAPIManager.createUser(withName: name, email: email, password: password, payment: User.Payment(id: $0.id)) }
+			.then { self.userAPIManager.createUser(withName: name, email: email, password: password, payment: User.Payment(ids: [.stripe: $0.id])) }
 	}
 }

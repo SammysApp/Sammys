@@ -8,6 +8,7 @@
 
 import UIKit
 import PromiseKit
+import Stripe
 
 protocol BagViewControllerDelegate: LoginViewControllerDelegate {}
 
@@ -84,6 +85,10 @@ class BagViewController: UIViewController {
 		activeOrderViewController.viewModelParcel = ActiveOrderViewModelParcel(order: order)
 		activeOrderViewController.delegate = self
 		present(UINavigationController(rootViewController: activeOrderViewController), animated: true, completion: completion)
+	}
+	
+	func paymentMethodsViewController() throws -> STPPaymentMethodsViewController {
+		return STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: try viewModel.customerContext(), delegate: self)
 	}
 
     // MARK: - IBActions
@@ -262,10 +267,23 @@ extension BagViewController: BuilderViewControllerDelegate {
 	}
 }
 
+// MARK: - ActiveOrderViewControllerDelegate
 extension BagViewController: ActiveOrderViewControllerDelegate {
 	func activeOrderViewControllerDidTapDone(_ activeOrderViewController: ActiveOrderViewController) {
 		activeOrderViewController.dismiss(animated: true) {
 			self.dismiss(animated: true, completion: nil)
 		}
 	}
+}
+
+extension BagViewController: STPPaymentMethodsViewControllerDelegate {
+	func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didSelect paymentMethod: STPPaymentMethod) {
+		
+	}
+	
+	func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didFailToLoadWithError error: Error) {}
+	
+	func paymentMethodsViewControllerDidFinish(_ paymentMethodsViewController: STPPaymentMethodsViewController) {}
+	
+	func paymentMethodsViewControllerDidCancel(_ paymentMethodsViewController: STPPaymentMethodsViewController) {}
 }

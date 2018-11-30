@@ -8,6 +8,7 @@
 
 import Foundation
 import PromiseKit
+import Stripe
 
 struct BagViewModelParcel {
 	let userState: UserState
@@ -22,7 +23,7 @@ enum BagCellIdentifier: String {
 }
 
 enum BagViewModelError: Error {
-	case badCellViewModelIndexPath, needsUser
+	case badCellViewModelIndexPath, needsUser, needsStripeID
 }
 
 class BagViewModel {
@@ -113,8 +114,8 @@ class BagViewModel {
 	}
 	
 	private func purchaseOrder(withSource source: String? = nil) -> Promise<Order.Payment> {
-		guard let user = user else { return Promise(error: BagViewModelError.needsUser) }
-		return stripeAPIManager.createCharge(amount: total.toCents(), source: source, customer: user.payment.id)
+		guard let customer = user?.payment.ids[.stripe] else { return Promise(error: BagViewModelError.needsUser) }
+		return stripeAPIManager.createCharge(amount: total.toCents(), source: source, customer: customer)
 			.map { Order.Payment(id: $0.id, service: .stripe, method: Order.Payment.Method(id: $0.source.id, name: $0.source.name)) }
 	}
 	
@@ -134,4 +135,24 @@ class BagViewModel {
 	}
 	
 	private func send(_ order: Order) throws { try ordersAPIManager.add(order) }
+	
+	// MARK: - Stripe
+	func customerContext() throws -> STPCustomerContext {
+		guard let customer = user?.payment.ids[.stripe] else { throw BagViewModelError.needsUser }
+		return STPCustomerContext(keyProvider: EphemeralKeyProvider(customer: customer))
+	}
+}
+
+private class EphemeralKeyProvider: NSObject, STPEphemeralKeyProvider {
+	private let customer: String
+	
+	init(customer: String) {
+		self.customer = customer
+		super.init()
+	}
+	
+	func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
+		StripeAPIManager().createEphemeralKey(customer: customer, version: apiVersion)
+			.get { completion($0, nil) }.catch { completion(nil, $0) }
+	}
 }
