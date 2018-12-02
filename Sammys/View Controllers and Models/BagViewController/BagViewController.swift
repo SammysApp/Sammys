@@ -79,7 +79,7 @@ class BagViewController: UIViewController {
 	
 	// MARK: - Update
 	func updatePaymentViewController() {
-		paymentViewController.viewModelParcel = PaymentViewModelParcel(subtotal: viewModel.subtotal, tax: viewModel.tax, total: viewModel.total)
+		paymentViewController.viewModelParcel = PaymentViewModelParcel(subtotal: viewModel.subtotal, tax: viewModel.tax, total: viewModel.total, paymentMethodName: viewModel.selectedPaymentMethod?.label)
 	}
 	
 	func handleUpdatedUserState(_ userState: UserState) {
@@ -231,6 +231,10 @@ extension BagViewController: BagPurchasableTableViewCellDelegate {
 
 // MARK: - PaymentViewControllerDelegate
 extension BagViewController: PaymentViewControllerDelegate {
+	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPaymentMethodButton button: UIButton) {
+		paymentContext?.presentPaymentMethodsViewController()
+	}
+	
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
 		if let userState = viewModel.userState {
 			switch userState {
@@ -304,7 +308,10 @@ extension BagViewController: ActiveOrderViewControllerDelegate {
 
 // MARK: - STPPaymentContextDelegate
 extension BagViewController: STPPaymentContextDelegate {
-	func paymentContextDidChange(_ paymentContext: STPPaymentContext) {}
+	func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+		viewModel.selectedPaymentMethod = paymentContext.selectedPaymentMethod
+		updatePaymentViewController()
+	}
 	
 	func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
 		guard let user = viewModel.user

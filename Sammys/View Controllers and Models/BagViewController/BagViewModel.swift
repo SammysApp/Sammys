@@ -59,6 +59,8 @@ class BagViewModel {
 		return user
 	}
 	
+	var selectedPaymentMethod: STPPaymentMethod?
+	
 	var subtotal: Double { return purchasableQuantities.totalPrice }
 	var tax: Double { return purchasableQuantities.totalTaxPrice }
 	var total: Double { return purchasableQuantities.totalTaxedPrice }
