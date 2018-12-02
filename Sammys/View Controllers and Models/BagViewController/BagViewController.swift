@@ -14,7 +14,7 @@ protocol BagViewControllerDelegate: LoginViewControllerDelegate {}
 
 class BagViewController: UIViewController {
 	var viewModelParcel: BagViewModelParcel?
-		{ didSet { viewModel.parcel = viewModelParcel ; viewModel.bagPurchasableTableViewCellDelegate = self } }
+		{ didSet { viewModel.parcel = viewModelParcel; viewModel.bagPurchasableTableViewCellDelegate = self } }
 	lazy var viewModel = BagViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: BagViewControllerDelegate?
@@ -47,6 +47,12 @@ class BagViewController: UIViewController {
 		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
     }
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		loadViews()
+	}
+	
 	// MARK: - Setup
 	func setupViews() {
 		setupTableView()
@@ -75,6 +81,7 @@ class BagViewController: UIViewController {
 	// MARK: - Load
 	func loadViews() {
 		tableView.reloadData()
+		updatePaymentViewController()
 	}
 	
 	// MARK: - Update
@@ -97,8 +104,11 @@ class BagViewController: UIViewController {
 	
 	// MARK: - Methods
 	func delete(at indexPath: IndexPath) {
-		do { try viewModel.delete(at: indexPath); tableView.deleteRows(at: [indexPath], with: .automatic) }
-		catch { print(error) }
+		do {
+			try viewModel.delete(at: indexPath)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+			updatePaymentViewController()
+		} catch { print(error) }
 	}
 	
 	func completeOrderPurchase() {
