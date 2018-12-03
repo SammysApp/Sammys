@@ -8,9 +8,10 @@
 
 import Foundation
 
-struct Modifier {
+struct Modifier: Skuable {
     let title: String
     let price: Double?
+	let sku: String
 }
 
 // MARK: - Hashable

@@ -53,19 +53,12 @@ class HomeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		// Run once correct collection view size.
-		setupCollectionViewContainerView()
-		collectionView.reloadData()
-	}
-	
 	// MARK: - Setup
 	func setupViews() {
 		setupCollectionView()
 		setupBagButton()
 		setupBagButtonContainerView()
+		setupCollectionViewContainerView()
 	}
 	
 	func setupCollectionView() {

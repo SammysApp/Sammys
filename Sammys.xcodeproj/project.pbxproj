@@ -118,6 +118,7 @@
 		5B3F25E4210F7A200080290E /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E3210F7A200080290E /* Method.swift */; };
 		5B3F25E6210F7A790080290E /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E5210F7A790080290E /* Request.swift */; };
 		5B3F25E8210F7F400080290E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3F25E7210F7F400080290E /* APIService.swift */; };
+		5B411E6A21B58479004E8028 /* Skuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B411E6921B58479004E8028 /* Skuable.swift */; };
 		5B44A7BC2004200000898FF0 /* BagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B44A7BB2004200000898FF0 /* BagViewController.storyboard */; };
 		5B44A7BE2004202E00898FF0 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7BD2004202E00898FF0 /* BagViewController.swift */; };
 		5B44A7C220047E5600898FF0 /* BagModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44A7C120047E5600898FF0 /* BagModelController.swift */; };
@@ -346,6 +347,7 @@
 		5B3F25E3210F7A200080290E /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		5B3F25E5210F7A790080290E /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		5B3F25E7210F7F400080290E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		5B411E6921B58479004E8028 /* Skuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skuable.swift; sourceTree = "<group>"; };
 		5B44A7BB2004200000898FF0 /* BagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BagViewController.storyboard; sourceTree = "<group>"; };
 		5B44A7BD2004202E00898FF0 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		5B44A7C120047E5600898FF0 /* BagModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagModelController.swift; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
 				5B9ED63A21ADE35600F79980 /* PaymentService.swift */,
+				5B411E6921B58479004E8028 /* Skuable.swift */,
 				5B6F63B82198BFE500189599 /* Purchasable */,
 				5BFC5732217820920002179B /* Salad */,
 				5B9ED63521AA4F1800F79980 /* Stripe */,
@@ -1795,6 +1798,7 @@
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */,
+				5B411E6A21B58479004E8028 /* Skuable.swift in Sources */,
 				5B724D8920DC98F300B9296E /* FileType.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */,

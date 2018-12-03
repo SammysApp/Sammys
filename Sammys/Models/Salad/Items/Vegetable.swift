@@ -12,6 +12,7 @@ struct Vegetable: Item {
 	static let category: ItemCategory = SaladItemCategory.vegetables
     let name: String
     let description: String
+	let sku: String
 }
 
 // MARK: - Hashable

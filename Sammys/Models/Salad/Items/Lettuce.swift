@@ -13,6 +13,7 @@ struct Lettuce: ModifiableItem {
     let name: String
     let description: String
     let modifiers: [Modifier]
+	let sku: String
 }
 
 // MARK: - Hashable
