@@ -15,41 +15,35 @@ enum SaladItemsFetcherError: Error {
 
 private struct SaladItemsFetcher: ItemsFetcher {
 	private let dataAPIManager = DataAPIManager()
+	private let saladType = Salad.title.lowercased()
 	
-	private func sizes() -> Promise<[Size]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.sizes.rawValue)
+	private func items<T: Item>(for itemCategory: ItemCategory) -> Promise<[T]> {
+		return dataAPIManager.purchasables(for: saladType, category: itemCategory.rawValue)
 	}
 	
-	private func lettuces() -> Promise<[Lettuce]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.lettuces.rawValue)
-	}
-	
-	private func vegetables() -> Promise<[Vegetable]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.vegetables.rawValue)
-	}
-	
-	private func toppings() -> Promise<[Topping]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.toppings.rawValue)
-	}
-	
-	private func dressings() -> Promise<[Dressing]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.dressings.rawValue)
-	}
-	
-	private func extras() -> Promise<[Extra]> {
-		return dataAPIManager.getPurchasableItems(for: .salad, items: SaladAPIItems.extras.rawValue)
-	}
+	private func sizes() -> Promise<[Size]>
+		{ return items(for: Size.category) }
+	private func lettuces() -> Promise<[Lettuce]>
+		{ return items(for: Lettuce.category) }
+	private func vegetables() -> Promise<[Vegetable]>
+		{ return items(for: Vegetable.category) }
+	private func toppings() -> Promise<[Topping]>
+		{ return items(for: Topping.category) }
+	private func dressings() -> Promise<[Dressing]>
+		{ return items(for: Dressing.category) }
+	private func extras() -> Promise<[Extra]>
+		{ return items(for: Extra.category) }
 	
 	func items(for itemCategory: ItemCategory) -> Promise<[Item]> {
 		guard let saladItemCategory = SaladItemCategory(rawValue: itemCategory.rawValue)
 			else { return Promise(error: SaladItemsFetcherError.itemCategoryNotFound) }
 		switch saladItemCategory {
-		case .size: return sizes().mapValues { $0 as Item }
-		case .lettuce: return lettuces().mapValues { $0 as Item }
-		case .vegetable: return vegetables().mapValues { $0 as Item }
-		case .topping: return toppings().mapValues { $0 as Item }
-		case .dressing: return dressings().mapValues { $0 as Item }
-		case .extra: return extras().mapValues { $0 as Item }
+		case .sizes: return sizes().mapValues { $0 as Item }
+		case .lettuces: return lettuces().mapValues { $0 as Item }
+		case .vegetables: return vegetables().mapValues { $0 as Item }
+		case .toppings: return toppings().mapValues { $0 as Item }
+		case .dressings: return dressings().mapValues { $0 as Item }
+		case .extras: return extras().mapValues { $0 as Item }
 		}
 	}
 }

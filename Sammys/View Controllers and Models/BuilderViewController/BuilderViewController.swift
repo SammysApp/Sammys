@@ -306,7 +306,7 @@ extension BuilderViewController: ItemsViewControllerDelegate {
 extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
 	var state: BuilderViewLayoutState {
 		switch self {
-		case .size, .lettuce: return .horizontal
+		case .sizes, .lettuces: return .horizontal
 		default: return .vertical
 		}
 	}

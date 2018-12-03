@@ -10,15 +10,7 @@ import Foundation
 import PromiseKit
 
 enum PurchasableAPIKey: String {
-	case type, items
-}
-
-enum PurchasableAPIType: String {
-	case salad
-}
-
-enum SaladAPIItems: String {
-	case sizes, lettuces, vegetables, toppings, dressings, extras
+	case type, category
 }
 
 struct DataAPIManager: APIManager {
@@ -27,14 +19,13 @@ struct DataAPIManager: APIManager {
         case purchasables
     }
     
-	private func getPurchasables<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
+	private func purchasables<T: Decodable>(parameters: [String : Any], apiService: APIService = AlamofireAPIService()) -> Promise<T> {
         return get(.purchasables, parameters: parameters, apiService: apiService)
     }
 	
-	func getPurchasableItems<T: Decodable>(for type: PurchasableAPIType, items: String, apiService: APIService = AlamofireAPIService()) -> Promise<T> {
-		return getPurchasables(
-			parameters: [PurchasableAPIKey.type.rawValue: type, PurchasableAPIKey.items.rawValue: items],
-			apiService: apiService
-		)
+	func purchasables<T: Decodable>(for type: String, category: String?, apiService: APIService = AlamofireAPIService()) -> Promise<T> {
+		var parameters = [PurchasableAPIKey.type.rawValue: type]
+		parameters[PurchasableAPIKey.category.rawValue] = category
+		return purchasables(parameters: parameters, apiService: apiService)
 	}
 }

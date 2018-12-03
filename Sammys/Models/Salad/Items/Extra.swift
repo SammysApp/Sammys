@@ -9,7 +9,7 @@
 import Foundation
 
 struct Extra: OptionallyModifiableItem, OptionallyPricedItem {
-	static let category: ItemCategory = SaladItemCategory.extra
+	static let category: ItemCategory = SaladItemCategory.extras
     let name: String
     let description: String
     let price: Double?

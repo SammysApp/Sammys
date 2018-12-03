@@ -16,4 +16,6 @@ protocol Purchasable: ProtocolHashable, ProtocolCodable {
 	var isTaxSubjected: Bool { get }
 }
 
-extension Purchasable { static var title: String { return String(describing: Self.self) } }
+extension Purchasable {
+	static var title: String { return String(describing: Self.self) }
+}

@@ -22,7 +22,7 @@ extension Salad: Purchasable {
 	var title: String { return "\(size.name) Salad" }
 	
 	var description: String {
-		let itemNames = items(for: [.lettuce, .vegetable, .topping, .dressing, .extra] as [SaladItemCategory]).map { $0.name.lowercased() }
+		let itemNames = items(for: [.lettuces, .vegetables, .toppings, .dressings, .extras] as [SaladItemCategory]).map { $0.name.lowercased() }
 		return "\(size.name) size salad" + (itemNames.isEmpty ? "" : " with \(itemNames.joined(separator: ", "))") + "."
 	}
 	
@@ -45,12 +45,12 @@ extension Salad: ItemedPurchasable {
 		guard let saladItemCategory = itemCategory as? SaladItemCategory
 			else { return [] }
 		switch saladItemCategory {
-		case .size: return [size]
-		case .lettuce: return lettuce ?? []
-		case .vegetable: return vegetables ?? []
-		case .topping: return toppings ?? []
-		case .dressing: return dressings ?? []
-		case .extra: return extras ?? []
+		case .sizes: return [size]
+		case .lettuces: return lettuce ?? []
+		case .vegetables: return vegetables ?? []
+		case .toppings: return toppings ?? []
+		case .dressings: return dressings ?? []
+		case .extras: return extras ?? []
 		}
 	}
 }

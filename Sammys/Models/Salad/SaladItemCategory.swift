@@ -9,7 +9,7 @@
 import Foundation
 
 enum SaladItemCategory: String, ItemCategory {
-	case size, lettuce, vegetable, topping, dressing, extra
+	case sizes, lettuces, vegetables, toppings, dressings, extras
 }
 
 // MARK: - Hashable
