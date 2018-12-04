@@ -13,6 +13,7 @@ struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
 	let fetcher: ItemsFetcher
 	let builder: ItemedPurchasableBuilder
+	let userState: UserState
 }
 
 protocol BuilderViewModelViewDelegate {
@@ -36,6 +37,7 @@ class BuilderViewModel {
 	
 	private(set) lazy var currentItemCategory = { parcel?.categories.first }()
 	private lazy var builder = { parcel?.builder }()
+	lazy var userState = { parcel?.userState ?? .noUser }()
 	
 	// MARK: - Data
 	private var sections = [Section]()
@@ -104,18 +106,19 @@ class BuilderViewModel {
 }
 
 extension BuilderViewModelParcel {
-	static func instance(for itemedPurchasableType: ItemedPurchasable.Type) -> BuilderViewModelParcel? {
+	static func instance(for itemedPurchasableType: ItemedPurchasable.Type, userState: UserState) -> BuilderViewModelParcel? {
 		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
 			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
 			else { return nil }
 		return BuilderViewModelParcel(
 			categories: itemedPurchasableType.allItemCategories,
 			fetcher: itemsFetchableType.fetcher,
-			builder: itemedPurchasableBuildableType.builder
+			builder: itemedPurchasableBuildableType.builder,
+			userState: userState
 		)
 	}
 	
-	static func instance(for itemedPurchasable: ItemedPurchasable) -> BuilderViewModelParcel? {
+	static func instance(for itemedPurchasable: ItemedPurchasable, userState: UserState) -> BuilderViewModelParcel? {
 		let itemedPurchasableType = type(of: itemedPurchasable)
 		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
 			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
@@ -125,7 +128,8 @@ extension BuilderViewModelParcel {
 		return BuilderViewModelParcel(
 			categories: itemedPurchasableType.allItemCategories,
 			fetcher: itemsFetchableType.fetcher,
-			builder: builder
+			builder: builder,
+			userState: userState
 		)
 	}
 }

@@ -8,13 +8,40 @@
 
 import Foundation
 
-struct Salad {
+struct Salad: Codable {
 	let size: Size
-	let lettuce: [Lettuce]?
-    let vegetables: [Vegetable]?
-    let toppings: [Topping]?
-    let dressings: [Dressing]?
-    let extras: [Extra]?
+	let lettuce: [Lettuce]
+    let vegetables: [Vegetable]
+    let toppings: [Topping]
+    let dressings: [Dressing]
+    let extras: [Extra]
+	
+	init(
+		size: Size,
+		lettuce: [Lettuce],
+		vegetables: [Vegetable],
+		toppings: [Topping],
+		dressings: [Dressing],
+		extras: [Extra]
+	) {
+		self.size = size
+		self.lettuce = lettuce
+		self.vegetables = vegetables
+		self.toppings = toppings
+		self.dressings = dressings
+		self.extras = extras
+	}
+	
+	init(from decoder: Decoder) throws {
+		let containter = try decoder.container(keyedBy: CodingKeys.self)
+		self.size =
+			try containter.decode(Size.self, forKey: .size)
+		self.lettuce = try containter.decodeIfPresent([Lettuce].self, forKey: .lettuce) ?? []
+		self.vegetables = try containter.decodeIfPresent([Vegetable].self, forKey: .vegetables) ?? []
+		self.toppings = try containter.decodeIfPresent([Topping].self, forKey: .toppings) ?? []
+		self.dressings = try containter.decodeIfPresent([Dressing].self, forKey: .dressings) ?? []
+		self.extras = try containter.decodeIfPresent([Extra].self, forKey: .extras) ?? []
+	}
 }
 
 // MARK: - Purchasable
@@ -28,7 +55,7 @@ extension Salad: Purchasable {
 	
 	var price: Double {
 		// FIXME: Account for priced modifiers.
-		return size.price + ([toppings ?? [], extras ?? []] as [[OptionallyPricedItem]])
+		return size.price + ([toppings, extras] as [[OptionallyPricedItem]])
 			.flatMap { $0 }
 			.compactMap { $0.price }
 			.reduce(0, +)
@@ -46,20 +73,20 @@ extension Salad: ItemedPurchasable {
 			else { return [] }
 		switch saladItemCategory {
 		case .sizes: return [size]
-		case .lettuces: return lettuce ?? []
-		case .vegetables: return vegetables ?? []
-		case .toppings: return toppings ?? []
-		case .dressings: return dressings ?? []
-		case .extras: return extras ?? []
+		case .lettuces: return lettuce
+		case .vegetables: return vegetables
+		case .toppings: return toppings
+		case .dressings: return dressings
+		case .extras: return extras
 		}
 	}
 }
 
+// MARK: - ProtocolCodable
+extension Salad: ProtocolCodable {}
+
 // MARK: - Hashable
 extension Salad: Hashable {}
-
-// MARK: - ProtocolCodable
-extension Salad { static var type = ProtocolCodableType.salad }
 
 private extension Salad {
 	func items(for itemCategories: [ItemCategory]) -> [Item] {

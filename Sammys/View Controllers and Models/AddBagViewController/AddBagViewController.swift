@@ -68,6 +68,15 @@ class AddBagViewController: UIViewController {
 		do { try viewModel.add() } catch { print(error) }
 		if let itemedPurchasable = viewModel.itemedPurchasable { delegate?.addBagViewController(self, didAddItemedPurchasable: itemedPurchasable) }
 	}
+	
+	@IBAction func didTapFavorite(_ sender: UIBarButtonItem) {
+		switch viewModel.userState {
+		// FIXME: Show login.
+		case .noUser: break
+		case .currentUser(let user):
+			do { try viewModel.favorite(for: user) } catch { print(error) }
+		}
+	}
 }
 
 // MARK: - Delegatable

@@ -18,6 +18,7 @@ struct UserAPIManager: FirebaseAPIManager {
     enum Path: String, PathStringRepresentable {
         case users
         case customerID
+		case purchasableFavorites
     }
     
     // MARK: - User
@@ -89,10 +90,29 @@ struct UserAPIManager: FirebaseAPIManager {
     
     // MARK: - Payment
 	func set(customerID: String, for user: User) throws {
-        try Client.set(customerID, at: databaseReference(for: user).child(Path.customerID))
+    	try Client.set(customerID, at: databaseReference(for: user).child(Path.customerID))
     }
-    
-	func getCustomerID(for user: User) -> Promise<String> {
-        return Client.get(at: databaseReference(for: user).child(Path.customerID))
-    }
+	
+	// MARK: - Purchasable Favorites
+	private func purchasableFavoritesDatabaseReference(for user: User) -> DatabaseReference {
+		return databaseReference(.purchasableFavorites).child(user.id)
+	}
+	
+	func purchasableFavorites(for user: User) -> Promise<[PurchasableFavorite]> {
+		return Client.get(at: purchasableFavoritesDatabaseReference(for: user))
+	}
+	
+	func set(_ purchasableFavorites: [PurchasableFavorite], for user: User) throws {
+		try Client.set(purchasableFavorites, at: purchasableFavoritesDatabaseReference(for: user))
+	}
+	
+	func add(_ purchasableFavorite: PurchasableFavorite, for user: User) -> Promise<[PurchasableFavorite]> {
+		return purchasableFavorites(for: user)
+			.recover { error -> Promise<[PurchasableFavorite]> in
+				if case FirebaseAPIError.snapshotDoesntExist = error
+				{ return .value([]) } else { throw error }
+			}
+			.map { $0.contains(purchasableFavorite) ? $0 : $0.appending(purchasableFavorite) }
+			.get { try self.set($0, for: user) }
+	}
 }

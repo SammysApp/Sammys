@@ -10,14 +10,17 @@ import UIKit
 
 struct AddBagViewModelParcel {
 	let itemedPurchasable: ItemedPurchasable
+	let userState: UserState
 }
 
 class AddBagViewModel {
 	var parcel: AddBagViewModelParcel?
 	
 	private let bagModelController = BagModelController()
+	private let userAPIManager = UserAPIManager()
 	
 	var itemedPurchasable: ItemedPurchasable? { return parcel?.itemedPurchasable }
+	lazy var userState = { parcel?.userState ?? .noUser }()
 	
 	init(_ parcel: AddBagViewModelParcel?) {
 		self.parcel = parcel
@@ -26,5 +29,11 @@ class AddBagViewModel {
 	func add() throws {
 		guard let itemedPurchasable = itemedPurchasable else { return }
 		try bagModelController.add(itemedPurchasable)
+	}
+	
+	func favorite(for user: User) throws {
+		guard let itemedPurchasable = itemedPurchasable else { return }
+		userAPIManager.add(PurchasableFavorite(itemedPurchasable), for: user)
+			.catch { print($0) }
 	}
 }

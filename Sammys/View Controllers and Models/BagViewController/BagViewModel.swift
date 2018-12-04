@@ -52,10 +52,9 @@ class BagViewModel {
 		catch { print(error); return [] }
 	}
 	
-	lazy var userState = { parcel?.userState }()
+	lazy var userState = { parcel?.userState ?? .noUser }()
 	var user: User? {
-		guard let userState = userState, case .currentUser(let user) = userState
-			else { return nil }
+		guard case .currentUser(let user) = userState else { return nil }
 		return user
 	}
 	

@@ -13,7 +13,7 @@ struct Dressing: ModifiableItem {
     let name: String
     let description: String
     let modifiers: [Modifier]
-	let sku: String
+	let id: String
 }
 
 // MARK: - Hashable

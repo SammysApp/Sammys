@@ -15,7 +15,7 @@ struct HomePurchasableTypeCollectionViewCellSelectionCommand: CollectionViewCell
 		guard let homeViewController = parameters.viewController as? HomeViewController
 			else { return }
 		if let itemedPurchasableType = purchasableType as? ItemedPurchasable.Type,
-			let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasableType) {
+			let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasableType, userState: homeViewController.viewModel.userState) {
 			homeViewController.builderViewController.viewModelParcel = viewModelParcel
 			if homeViewController.isVisible { homeViewController.navigationController?.pushViewController(homeViewController.builderViewController, animated: true) }
 		}

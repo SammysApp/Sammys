@@ -173,6 +173,13 @@ extension HomeViewController: UserViewControllerDelegate {
 // MARK: - BagViewControllerDelegate
 extension HomeViewController: BagViewControllerDelegate {}
 
+// MARK: - LoginPageViewControllerDelegate
+extension HomeViewController: LoginPageViewControllerDelegate {
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User) { viewModel.userState = .currentUser(user) }
+	
+	func loginPageViewController(_ loginPageViewController: LoginPageViewController, couldNotSignUpDueTo error: Error) { print(error) }
+}
+
 // MARK: - LoginViewControllerDelegate
 extension HomeViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) { viewModel.userState = .currentUser(user) }

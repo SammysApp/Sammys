@@ -28,11 +28,13 @@ struct AnyHashableProtocol {
 	}
 }
 
-extension AnyHashableProtocol: Hashable {
+extension AnyHashableProtocol: Equatable {
 	static func == (lhs: AnyHashableProtocol, rhs: AnyHashableProtocol) -> Bool {
 		return lhs.value.isEqual(to: rhs.value)
 	}
-	
+}
+
+extension AnyHashableProtocol: Hashable {
 	func hash(into hasher: inout Hasher) {
 		value.hashProtocol(into: &hasher)
 	}

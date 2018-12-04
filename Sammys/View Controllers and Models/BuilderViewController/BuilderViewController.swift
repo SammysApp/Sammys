@@ -177,7 +177,7 @@ class BuilderViewController: UIViewController {
 	}
 	
 	func presentAddBagViewController(with itemedPurchasable: ItemedPurchasable) {
-		addBagViewController.viewModelParcel = AddBagViewModelParcel(itemedPurchasable: itemedPurchasable)
+		addBagViewController.viewModelParcel = AddBagViewModelParcel(itemedPurchasable: itemedPurchasable, userState: viewModel.userState)
 		present(UINavigationController(rootViewController: addBagViewController), animated: true, completion: nil)
 	}
 

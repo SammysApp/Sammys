@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UserViewControllerDelegate: LoginViewControllerDelegate {}
+protocol UserViewControllerDelegate: LoginPageViewControllerDelegate {}
 
 class UserViewController: UIViewController {
 	var viewModelParcel: UserViewModelParcel?
@@ -136,6 +136,7 @@ extension UserViewController: UserViewModelViewDelegate {
 // MARK: - LoginPageViewControllerDelegate
 extension UserViewController: LoginPageViewControllerDelegate {
 	func loginPageViewController(_ loginPageViewController: LoginPageViewController, didSignUp user: User) {
+		delegate?.loginPageViewController(loginPageViewController, didSignUp: user)
 		viewModel.userState = .currentUser(user)
 		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
 		loginPageViewController.dismiss(animated: true, completion: nil)

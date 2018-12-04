@@ -48,6 +48,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Fave" image="Heart Bar" id="XUF-ks-en8">
                             <color key="tintColor" name="Snow"/>
+                            <connections>
+                                <action selector="didTapFavorite:" destination="VAb-Jt-u9r" id="ZOz-rv-VSf"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

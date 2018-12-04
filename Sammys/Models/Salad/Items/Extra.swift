@@ -14,7 +14,7 @@ struct Extra: OptionallyModifiableItem, OptionallyPricedItem {
     let description: String
     let price: Double?
 	let modifiers: [Modifier]?
-	let sku: String
+	let id: String
 }
 
 // MARK: - Hashable

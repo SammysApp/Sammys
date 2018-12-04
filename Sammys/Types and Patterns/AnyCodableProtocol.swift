@@ -9,12 +9,12 @@
 import Foundation
 
 enum ProtocolCodableType: String, Codable {
-	case salad
+	case anypurchasable, salad
 	
 	var metatype: ProtocolCodable.Type {
 		switch self {
-		case .salad:
-			return Salad.self
+		case .anypurchasable: return AnyPurchasable.self
+		case .salad: return Salad.self
 		}
 	}
 }
@@ -23,7 +23,7 @@ protocol ProtocolCodable: Codable {
 	/// A value of `ProtocolCodableType` representing the type that conforms to `ProtocolCodable`.
 	///
 	/// Implement this static property to conform to `ProtocolCodable`.
-	static var type: ProtocolCodableType { get }
+	static var codableType: ProtocolCodableType { get }
 }
 
 extension ProtocolCodable {
@@ -44,18 +44,18 @@ struct AnyCodableProtocol: Codable {
 	}
 	
 	private enum CodingKeys: CodingKey {
-		case type, value
+		case codableType, value
 	}
 	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
-		let type = try container.decode(ProtocolCodableType.self, forKey: .type)
+		let type = try container.decode(ProtocolCodableType.self, forKey: .codableType)
 		self.value = try type.metatype.init(from: container.superDecoder(forKey: .value))
 	}
 	
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(type(of: value).type, forKey: .type)
+		try container.encode(type(of: value).codableType, forKey: .codableType)
 		try value.encode(to: container.superEncoder(forKey: .value))
 	}
 }

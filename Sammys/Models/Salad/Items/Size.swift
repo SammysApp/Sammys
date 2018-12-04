@@ -13,7 +13,7 @@ struct Size: PricedItem {
     let name: String
     let description: String
     let price: Double
-	let sku: String
+	let id: String
 }
 
 // MARK: - Hashable

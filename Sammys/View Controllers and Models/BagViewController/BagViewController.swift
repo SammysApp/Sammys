@@ -44,7 +44,7 @@ class BagViewController: UIViewController {
         super.viewDidLoad()
 		
 		setupViews()
-		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
+		handleUpdatedUserState(viewModel.userState)
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -246,11 +246,9 @@ extension BagViewController: PaymentViewControllerDelegate {
 	}
 	
 	func paymentViewController(_ paymentViewController: PaymentViewController, didTapPayButton button: UIButton) {
-		if let userState = viewModel.userState {
-			switch userState {
-			case .noUser: present(loginViewController, animated: true, completion: nil)
-			case .currentUser: completeOrderPurchase()
-			}
+		switch viewModel.userState {
+		case .noUser: present(loginViewController, animated: true, completion: nil)
+		case .currentUser: completeOrderPurchase()
 		}
 	}
 }
@@ -260,7 +258,7 @@ extension BagViewController: LoginViewControllerDelegate {
 	func loginViewController(_ loginViewController: LoginViewController, didFinishLoggingIn user: User) {
 		delegate?.loginViewController(loginViewController, didFinishLoggingIn: user)
 		viewModel.userState = .currentUser(user)
-		if let userState = viewModel.userState { handleUpdatedUserState(userState) }
+		handleUpdatedUserState(viewModel.userState)
 		loginViewController.dismiss(animated: true, completion: nil)
 	}
 	
@@ -281,7 +279,7 @@ extension BagViewController: LoginViewControllerDelegate {
 // MARK: - ItemsViewControllerDelegate
 extension BagViewController: ItemsViewControllerDelegate {
 	func itemsViewController(_ itemsViewController: ItemsViewController, didSelectEdit itemCategory: ItemCategory, in itemedPurchasable: ItemedPurchasable) {
-		guard let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasable) else { return }
+		guard let viewModelParcel = BuilderViewModelParcel.instance(for: itemedPurchasable, userState: viewModel.userState) else { return }
 		builderViewController.viewModelParcel = viewModelParcel
 		itemsViewController.present(builderViewController, animated: true) {
 			self.builderViewController.set(to: itemCategory)
