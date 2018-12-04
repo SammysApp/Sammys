@@ -14,6 +14,9 @@ struct Modifier {
 	let id: String
 }
 
+// MARK: - Identifiable
+extension Modifier: Identifiable {}
+
 // MARK: - Hashable
 extension Modifier: Hashable {}
 

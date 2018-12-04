@@ -52,6 +52,7 @@
 		5B2278582197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278572197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift */; };
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B22785B2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
+		5B28C94121B6FF1A008B4136 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B28C94021B6FF1A008B4136 /* Identifiable.swift */; };
 		5B2950BF218A3575008B0E49 /* SaladItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950BE218A3575008B0E49 /* SaladItemsFetcher.swift */; };
 		5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* ItemCategory.swift */; };
 		5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */; };
@@ -304,6 +305,7 @@
 		5B2278552197B990003E3DE2 /* Nibable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nibable.swift; sourceTree = "<group>"; };
 		5B2278572197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewSectionHeaderView.swift; sourceTree = "<group>"; };
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
+		5B28C94021B6FF1A008B4136 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		5B2950BE218A3575008B0E49 /* SaladItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaladItemsFetcher.swift; sourceTree = "<group>"; };
 		5B2950C0218A361C008B0E49 /* ItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
 		5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsFetcher.swift; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 				5B44A8282007F7DB00898FF0 /* User.swift */,
 				5BB29688208E2D3500520683 /* Order.swift */,
 				5B9ED63A21ADE35600F79980 /* PaymentService.swift */,
+				5B28C94021B6FF1A008B4136 /* Identifiable.swift */,
 				5B6F63B82198BFE500189599 /* Purchasable */,
 				5BFC5732217820920002179B /* Salad */,
 				5B9ED63521AA4F1800F79980 /* Stripe */,
@@ -1780,6 +1783,7 @@
 				5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
+				5B28C94121B6FF1A008B4136 /* Identifiable.swift in Sources */,
 				5BC950402108DF0D00AF1098 /* Observer.swift in Sources */,
 				5BD0C1DE21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* BuilderViewController.swift in Sources */,
