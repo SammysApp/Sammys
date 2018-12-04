@@ -10,7 +10,7 @@ import Foundation
 
 struct Salad: Codable {
 	let size: Size
-	let lettuce: [Lettuce]
+	let lettuces: [Lettuce]
     let vegetables: [Vegetable]
     let toppings: [Topping]
     let dressings: [Dressing]
@@ -18,14 +18,14 @@ struct Salad: Codable {
 	
 	init(
 		size: Size,
-		lettuce: [Lettuce],
+		lettuces: [Lettuce],
 		vegetables: [Vegetable],
 		toppings: [Topping],
 		dressings: [Dressing],
 		extras: [Extra]
 	) {
 		self.size = size
-		self.lettuce = lettuce
+		self.lettuces = lettuces
 		self.vegetables = vegetables
 		self.toppings = toppings
 		self.dressings = dressings
@@ -36,7 +36,7 @@ struct Salad: Codable {
 		let containter = try decoder.container(keyedBy: CodingKeys.self)
 		self.size =
 			try containter.decode(Size.self, forKey: .size)
-		self.lettuce = try containter.decodeIfPresent([Lettuce].self, forKey: .lettuce) ?? []
+		self.lettuces = try containter.decodeIfPresent([Lettuce].self, forKey: .lettuces) ?? []
 		self.vegetables = try containter.decodeIfPresent([Vegetable].self, forKey: .vegetables) ?? []
 		self.toppings = try containter.decodeIfPresent([Topping].self, forKey: .toppings) ?? []
 		self.dressings = try containter.decodeIfPresent([Dressing].self, forKey: .dressings) ?? []
@@ -73,7 +73,7 @@ extension Salad: ItemedPurchasable {
 			else { return [] }
 		switch saladItemCategory {
 		case .sizes: return [size]
-		case .lettuces: return lettuce
+		case .lettuces: return lettuces
 		case .vegetables: return vegetables
 		case .toppings: return toppings
 		case .dressings: return dressings

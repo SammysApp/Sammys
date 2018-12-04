@@ -45,7 +45,7 @@ private struct SaladBuilder: ItemedPurchasableBuilder {
 	func build() throws -> ItemedPurchasable {
 		return Salad(
 			size: try buildSize(),
-			lettuce: buildLettuce(),
+			lettuces: buildLettuce(),
 			vegetables: buildVegetables(),
 			toppings: buildToppings(),
 			dressings: buildDressings(),
