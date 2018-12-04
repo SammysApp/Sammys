@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Item: Identifiable, ProtocolHashable, Codable {
-	static var category: ItemCategory { get }
+	var category: ItemCategory { get }
 	var name: String { get }
     var description: String { get }
 }

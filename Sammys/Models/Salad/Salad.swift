@@ -9,6 +9,8 @@
 import Foundation
 
 struct Salad: Codable {
+	static let category = PurchasableCategory.salad
+	
 	let size: Size
 	let lettuces: [Lettuce]
     let vegetables: [Vegetable]
@@ -46,6 +48,8 @@ struct Salad: Codable {
 
 // MARK: - Purchasable
 extension Salad: Purchasable {
+	var category: PurchasableCategory { return Salad.category }
+	
 	var title: String { return "\(size.name) Salad" }
 	
 	var description: String {

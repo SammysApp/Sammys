@@ -9,11 +9,11 @@
 import Foundation
 
 enum ProtocolCodableType: String, Codable {
-	case anypurchasable, salad
+	case anyPurchasable, salad
 	
 	var metatype: ProtocolCodable.Type {
 		switch self {
-		case .anypurchasable: return AnyPurchasable.self
+		case .anyPurchasable: return AnyPurchasable.self
 		case .salad: return Salad.self
 		}
 	}
@@ -43,8 +43,9 @@ struct AnyCodableProtocol: Codable {
 		self.value = value
 	}
 	
-	private enum CodingKeys: CodingKey {
-		case codableType, value
+	private enum CodingKeys: String, CodingKey {
+		case codableType = "type"
+		case value
 	}
 	
 	init(from decoder: Decoder) throws {

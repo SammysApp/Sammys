@@ -13,16 +13,12 @@ struct HomeViewModelParcel {
 }
 
 protocol HomeViewModelViewDelegate {
-	func cellWidth(for state: HomeViewState) -> Double
-	func cellHeight(for state: HomeViewState) -> Double
+	func cellWidth() -> Double
+	func cellHeight() -> Double
 }
 
 enum HomeCellIdentifier: String {
 	case homePurchasableCell
-}
-
-enum HomeViewState {
-	case home, faves
 }
 
 class HomeViewModel {
@@ -34,26 +30,21 @@ class HomeViewModel {
 	private let bagModelController = BagModelController()
 	private let userAPIManager = UserAPIManager()
 	
-	var currentViewState = HomeViewState.home
 	lazy var userState = { parcel?.userState ?? .noUser }()
 	
 	// MARK: - Data
-	private var sections: [Section] {
-		switch currentViewState {
-		case .home: return homeSections
-		case .faves: return []
-		}
-	}
+	private let categories: [PurchasableCategory] = [.salad]
 	
-	private var homeSections: [Section] { return [
-		Section(cellViewModels: [
+	private var sections: [Section] { return [
+		Section(cellViewModels: categories.map {
 			HomePurchasableTypeCollectionViewCellViewModelFactory(
-				purchasableType: Salad.self,
+				title: $0.name,
+				purchasableType: $0.purchasableType,
 				identifier: HomeCellIdentifier.homePurchasableCell.rawValue,
-				width: viewDelegate.cellWidth(for: currentViewState),
-				height: viewDelegate.cellHeight(for: currentViewState)
+				width: viewDelegate.cellWidth(),
+				height: viewDelegate.cellHeight()
 			).create()
-		])
+		})
 	]}
 	
 	var numberOfSections: Int {
@@ -64,7 +55,8 @@ class HomeViewModel {
 		self.parcel = parcel
 		self.viewDelegate = viewDelegate
 		
-		userAPIManager.currentUserState().get { self.userState = $0 }.catch { print($0) }
+		userAPIManager.currentUserState()
+			.get { self.userState = $0 }.catch { print($0) }
     }
     
     func numberOfItems(in section: Int) -> Int {

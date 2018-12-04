@@ -225,6 +225,7 @@
 		5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* StripeCustomer.swift */; };
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
+		5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */; };
 		5BD0C1DC21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */; };
 		5BD0C1DE21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DD21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift */; };
 		5BD0C1E021A5D5D900C512C5 /* HomePurchasableTypeCollectionViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DF21A5D5D900C512C5 /* HomePurchasableTypeCollectionViewCellSelectionCommand.swift */; };
@@ -450,6 +451,7 @@
 		5BC950372107D2B900AF1098 /* StripeCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomer.swift; sourceTree = "<group>"; };
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategory.swift; sourceTree = "<group>"; };
 		5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModelCollectionViewSection.swift; sourceTree = "<group>"; };
 		5BD0C1DD21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePurchasableTypeCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		5BD0C1DF21A5D5D900C512C5 /* HomePurchasableTypeCollectionViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePurchasableTypeCollectionViewCellSelectionCommand.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 			isa = PBXGroup;
 			children = (
 				5BFC573F217C308A0002179B /* Purchasable.swift */,
+				5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */,
 				5B411E6D21B628AE004E8028 /* AnyPurchasable.swift */,
 				5BFC5742217CC5050002179B /* PurchasableQuantity.swift */,
 				5B411E6B21B59006004E8028 /* PurchasableFavorite.swift */,
@@ -981,8 +984,8 @@
 				5B2950CB218CC02B008B0E49 /* Models */,
 				5BD274F12063FABF00618128 /* HomeViewController */,
 				5BD274F42063FAE300618128 /* BuilderViewController */,
-				5BEED53F206C72DD002240EB /* AddBagViewController */,
 				5B553A66206C9BED00DD9689 /* ItemsViewController */,
+				5BEED53F206C72DD002240EB /* AddBagViewController */,
 				5BD274F52063FAEE00618128 /* BagViewController */,
 				5B3A4B772196172F00F22F78 /* PaymentViewController */,
 				5BD274F22063FAC900618128 /* UserViewController */,
@@ -1693,6 +1696,7 @@
 				5BA1136321A4896400FFF1CB /* Extension+Array+PurchasableQuantities.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */,
+				5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */,
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* BagPurchasableTableViewCell.swift in Sources */,

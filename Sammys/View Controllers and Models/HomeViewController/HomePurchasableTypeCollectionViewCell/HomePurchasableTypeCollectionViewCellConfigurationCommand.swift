@@ -9,6 +9,7 @@
 import UIKit
 
 struct HomePurchasableTypeCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
+	let title: String
     let purchasableType: Purchasable.Type
     
     private struct Constants {
@@ -19,7 +20,7 @@ struct HomePurchasableTypeCollectionViewCellConfigurationCommand: CollectionView
     func perform(parameters: CollectionViewCellCommandParameters) {
         guard let cell = parameters.cell as? HomePurchasableTypeCollectionViewCell else { return }
 		
-        cell.titleLabel.text = purchasableType.title
+        cell.titleLabel.text = title
 		
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .clear

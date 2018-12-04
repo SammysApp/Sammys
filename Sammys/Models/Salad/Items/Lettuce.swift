@@ -9,7 +9,9 @@
 import Foundation
 
 struct Lettuce: ModifiableItem {
-	static let category: ItemCategory = SaladItemCategory.lettuces
+	static let category = SaladItemCategory.lettuces
+	var category: ItemCategory { return Lettuce.category }
+	
     let name: String
     let description: String
     let modifiers: [Modifier]

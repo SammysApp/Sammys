@@ -15,35 +15,23 @@ enum SaladItemsFetcherError: Error {
 
 private struct SaladItemsFetcher: ItemsFetcher {
 	private let dataAPIManager = DataAPIManager()
-	private let saladType = Salad.title.lowercased()
 	
-	private func items<T: Item>(for itemCategory: ItemCategory) -> Promise<[T]> {
-		return dataAPIManager.purchasables(for: saladType, category: itemCategory.rawValue)
+	private func items<T: Item>(for itemCategory: ItemCategory, of type: T.Type) -> Promise<[T]> {
+		return dataAPIManager.purchasables(for: Salad.category.rawValue, category: itemCategory.rawValue)
 	}
 	
-	private func sizes() -> Promise<[Size]>
-		{ return items(for: Size.category) }
-	private func lettuces() -> Promise<[Lettuce]>
-		{ return items(for: Lettuce.category) }
-	private func vegetables() -> Promise<[Vegetable]>
-		{ return items(for: Vegetable.category) }
-	private func toppings() -> Promise<[Topping]>
-		{ return items(for: Topping.category) }
-	private func dressings() -> Promise<[Dressing]>
-		{ return items(for: Dressing.category) }
-	private func extras() -> Promise<[Extra]>
-		{ return items(for: Extra.category) }
+	private func asItems(_ items: [Item]) -> [Item] { return items }
 	
 	func items(for itemCategory: ItemCategory) -> Promise<[Item]> {
 		guard let saladItemCategory = SaladItemCategory(rawValue: itemCategory.rawValue)
 			else { return Promise(error: SaladItemsFetcherError.itemCategoryNotFound) }
 		switch saladItemCategory {
-		case .sizes: return sizes().mapValues { $0 as Item }
-		case .lettuces: return lettuces().mapValues { $0 as Item }
-		case .vegetables: return vegetables().mapValues { $0 as Item }
-		case .toppings: return toppings().mapValues { $0 as Item }
-		case .dressings: return dressings().mapValues { $0 as Item }
-		case .extras: return extras().mapValues { $0 as Item }
+		case .sizes: return items(for: itemCategory, of: Size.self).map(asItems)
+		case .lettuces: return items(for: itemCategory, of: Lettuce.self).map(asItems)
+		case .vegetables: return items(for: itemCategory, of: Vegetable.self).map(asItems)
+		case .toppings: return items(for: itemCategory, of: Topping.self).map(asItems)
+		case .dressings: return items(for: itemCategory, of: Dressing.self).map(asItems)
+		case .extras: return items(for: itemCategory, of: Extra.self).map(asItems)
 		}
 	}
 }

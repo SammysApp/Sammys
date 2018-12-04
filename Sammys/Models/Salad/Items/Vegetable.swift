@@ -9,7 +9,9 @@
 import Foundation
 
 struct Vegetable: Item {
-	static let category: ItemCategory = SaladItemCategory.vegetables
+	static let category = SaladItemCategory.vegetables
+	var category: ItemCategory { return Vegetable.category }
+	
     let name: String
     let description: String
 	let id: String

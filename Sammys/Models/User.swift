@@ -15,11 +15,11 @@ enum UserProvider: String { case email, facebook }
 extension UserProvider: Codable {}
 
 class User: Codable {
-    var id: String
-    var email: String
-    var name: String
-    var providers: [UserProvider]
-	var payment: Payment
+    let id: String
+    let email: String
+    let name: String
+    let providers: [UserProvider]
+	let payment: Payment
     
 	init(id: String, email: String, name: String, providers: [UserProvider] = [], payment: Payment) {
         self.id = id

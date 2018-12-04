@@ -13,6 +13,7 @@ enum AnyPurchasableError: Error { case cantDecodePurchasableType }
 struct AnyPurchasable: Purchasable {
 	let purchasable: Purchasable
 	
+	var category: PurchasableCategory { return purchasable.category }
 	var title: String { return purchasable.title }
 	var description: String { return purchasable.description }
 	var price: Double { return purchasable.price }

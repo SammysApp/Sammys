@@ -9,7 +9,9 @@
 import Foundation
 
 struct Size: PricedItem {
-	static let category: ItemCategory = SaladItemCategory.sizes
+	static let category = SaladItemCategory.sizes
+	var category: ItemCategory { return Size.category }
+	
     let name: String
     let description: String
     let price: Double

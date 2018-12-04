@@ -118,19 +118,11 @@ extension HomeViewController: Storyboardable {}
 
 // MARK: - HomeViewModelDelegate
 extension HomeViewController: HomeViewModelViewDelegate {
-	func cellWidth(for state: HomeViewState) -> Double {
-		switch state {
-		case .home: return Double(collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right))
-		case .faves: return 0
-		}
+	func cellWidth() -> Double {
+		return Double(collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right))
 	}
 	
-	func cellHeight(for state: HomeViewState) -> Double {
-		switch state {
-		case .home: return Constants.homeCollectionViewCellHeight
-		case .faves: return 0
-		}
-	}
+	func cellHeight() -> Double { return Constants.homeCollectionViewCellHeight }
 }
 
 // MARK: - UICollectionViewDataSource

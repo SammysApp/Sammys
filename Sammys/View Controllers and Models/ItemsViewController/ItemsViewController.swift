@@ -14,7 +14,7 @@ protocol ItemsViewControllerDelegate {
 
 class ItemsViewController: UIViewController {
 	var viewModelParcel: ItemsViewModelParcel?
-		{ didSet { viewModel.parcel = viewModelParcel; loadViews()  } }
+		{ didSet { viewModel.parcel = viewModelParcel; loadViews() } }
 	lazy var viewModel = ItemsViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: ItemsViewControllerDelegate?
