@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
 	lazy var viewModel = HomeViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	// MARK: - View Controllers
+	lazy var purchasablesViewController = { PurchasablesViewController.storyboardInstance() }()
 	lazy var builderViewController = { BuilderViewController.storyboardInstance() }()
 	lazy var userViewController = { UserViewController.storyboardInstance().settingDelegate(to: self) }()
 	lazy var bagViewController = { BagViewController.storyboardInstance().settingDelegate(to: self) }()
@@ -33,11 +34,12 @@ class HomeViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
     
     struct Constants {
-		static var homeCollectionViewCellHeight: Double = 200
-		static var collectionViewContentInset: CGFloat = 10
-        static var collectionViewCornerRadius: CGFloat = 20
-        static var collectionViewShadowOpacity: Float = 0.4
-        static var bagButtonShadowOpacity: Float = 0.2
+		static let homeCollectionViewCellHeight: Double = 200
+		static let collectionViewContentInset: CGFloat = 10
+        static let collectionViewCornerRadius: CGFloat = 20
+        static let collectionViewShadowOpacity: Float = 0.4
+        static let bagButtonShadowOpacity: Float = 0.2
+		static let favoritesTitle = "Favorites"
     }
     
     // MARK: - Lifecycle
@@ -100,7 +102,12 @@ class HomeViewController: UIViewController {
 		present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
 	}
     
-    @IBAction func didTapFaves(_ sender: UIButton) {}
+    @IBAction func didTapFavorites(_ sender: UIButton) {
+		guard case .currentUser(let user) = viewModel.userState else { return }
+		purchasablesViewController.title = Constants.favoritesTitle
+		purchasablesViewController.viewModelParcel = PurchasablesViewModelParcel(purchasables: viewModel.purchasableFavorites(for: user), layout: .categorized)
+		present(UINavigationController(rootViewController: purchasablesViewController), animated: true, completion: nil)
+	}
     
     @IBAction func didTapBag(_ sender: UIButton) {
 		bagViewController.viewModelParcel = BagViewModelParcel(userState: viewModel.userState)

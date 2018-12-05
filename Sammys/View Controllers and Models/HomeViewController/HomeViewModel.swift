@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 struct HomeViewModelParcel {
 	let userState: UserState
@@ -70,4 +71,9 @@ class HomeViewModel {
     func title(for section: Int) -> String? {
         return sections[section].title
     }
+	
+	func purchasableFavorites(for user: User) -> Promise<[Purchasable]> {
+		return userAPIManager.purchasableFavorites(for: user)
+			.mapValues { $0.purchasable }
+	}
 }

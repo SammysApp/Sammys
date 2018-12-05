@@ -165,6 +165,14 @@
 		5B724D8920DC98F300B9296E /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B724D8820DC98F300B9296E /* FileType.swift */; };
 		5B724D8C20DC9C8D00B9296E /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B724D8B20DC9C8D00B9296E /* APIKeys.plist */; };
 		5B724D8D20DC9C8D00B9296E /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B724D8B20DC9C8D00B9296E /* APIKeys.plist */; };
+		5B76187921B82E3D00D30930 /* PurchasablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76187821B82E3D00D30930 /* PurchasablesViewController.swift */; };
+		5B76187B21B82E6600D30930 /* PurchasablesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76187A21B82E6600D30930 /* PurchasablesViewModel.swift */; };
+		5B76187E21B82EBE00D30930 /* PurchasablesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B76187D21B82EBE00D30930 /* PurchasablesViewController.storyboard */; };
+		5B76188021B8333100D30930 /* PurchasablesPurchasableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76187F21B8333100D30930 /* PurchasablesPurchasableTableViewCell.swift */; };
+		5B76188221B8336800D30930 /* PurchasablesPurchasableTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76188121B8336800D30930 /* PurchasablesPurchasableTableViewCellViewModel.swift */; };
+		5B76188421B833B800D30930 /* PurchasablesPurchasableTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76188321B833B800D30930 /* PurchasablesPurchasableTableViewCellConfigurationCommand.swift */; };
+		5B76188621B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76188521B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift */; };
+		5B76188921B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76188821B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift */; };
 		5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B7C0B33219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B883A7821A506B2004C3592 /* OrderTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B883A7721A506B2004C3592 /* OrderTableViewCellViewModel.swift */; };
@@ -396,6 +404,14 @@
 		5B724D8520DC967300B9296E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5B724D8820DC98F300B9296E /* FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		5B724D8B20DC9C8D00B9296E /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
+		5B76187821B82E3D00D30930 /* PurchasablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesViewController.swift; sourceTree = "<group>"; };
+		5B76187A21B82E6600D30930 /* PurchasablesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesViewModel.swift; sourceTree = "<group>"; };
+		5B76187D21B82EBE00D30930 /* PurchasablesViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PurchasablesViewController.storyboard; sourceTree = "<group>"; };
+		5B76187F21B8333100D30930 /* PurchasablesPurchasableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesPurchasableTableViewCell.swift; sourceTree = "<group>"; };
+		5B76188121B8336800D30930 /* PurchasablesPurchasableTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesPurchasableTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		5B76188321B833B800D30930 /* PurchasablesPurchasableTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesPurchasableTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5B76188521B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesPurchasableTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
+		5B76188821B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesCategorizedTableViewSection.swift; sourceTree = "<group>"; };
 		5B7C0B31219A4BBD00EBC0EB /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5B883A7721A506B2004C3592 /* OrderTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B8A3D0320AF157800790AF5 /* Salad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Salad.jpg; sourceTree = "<group>"; };
@@ -844,6 +860,28 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		5B76187C21B82E6B00D30930 /* PurchasablesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5B76187821B82E3D00D30930 /* PurchasablesViewController.swift */,
+				5B76187A21B82E6600D30930 /* PurchasablesViewModel.swift */,
+				5B76188821B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift */,
+				5B76188721B8341C00D30930 /* PurchasablesPurchasableTableViewCell */,
+			);
+			path = PurchasablesViewController;
+			sourceTree = "<group>";
+		};
+		5B76188721B8341C00D30930 /* PurchasablesPurchasableTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5B76187F21B8333100D30930 /* PurchasablesPurchasableTableViewCell.swift */,
+				5B76188121B8336800D30930 /* PurchasablesPurchasableTableViewCellViewModel.swift */,
+				5B76188321B833B800D30930 /* PurchasablesPurchasableTableViewCellConfigurationCommand.swift */,
+				5B76188521B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift */,
+			);
+			path = PurchasablesPurchasableTableViewCell;
+			sourceTree = "<group>";
+		};
 		5B7B14C120558D3100BFE0C8 /* AnimatedCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,6 +1021,7 @@
 			children = (
 				5B2950CB218CC02B008B0E49 /* Models */,
 				5BD274F12063FABF00618128 /* HomeViewController */,
+				5B76187C21B82E6B00D30930 /* PurchasablesViewController */,
 				5BD274F42063FAE300618128 /* BuilderViewController */,
 				5B553A66206C9BED00DD9689 /* ItemsViewController */,
 				5BEED53F206C72DD002240EB /* AddBagViewController */,
@@ -1035,6 +1074,7 @@
 				5BB29690208F7C3400520683 /* OrderViewController.storyboard */,
 				5B3A4B782196179800F22F78 /* PaymentViewController.storyboard */,
 				5B9B909D20CDB85000FB6264 /* PickupDateViewController.storyboard */,
+				5B76187D21B82EBE00D30930 /* PurchasablesViewController.storyboard */,
 				5BFD2BCC20211703005C01BF /* SignUpViewController.storyboard */,
 				5B44A81E2007BB9C00898FF0 /* UserViewController.storyboard */,
 			);
@@ -1463,6 +1503,7 @@
 				5BFC57302174E6540002179B /* ItemCollectionViewCell.xib in Resources */,
 				5BFD2BCF20214816005C01BF /* LoginPageViewController.storyboard in Resources */,
 				5B2278542197B7C2003E3DE2 /* ItemsCollectionViewSectionHeaderView.xib in Resources */,
+				5B76187E21B82EBE00D30930 /* PurchasablesViewController.storyboard in Resources */,
 				5B8E81A621B055CE00C22CEA /* AppData.plist in Resources */,
 				5B9B909E20CDB85000FB6264 /* PickupDateViewController.storyboard in Resources */,
 				5BB29691208F7C3400520683 /* OrderViewController.storyboard in Resources */,
@@ -1671,6 +1712,7 @@
 				5BFC57342179101D0002179B /* SaladBuilder.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
 				5B3A4ABE219226FA00F22F78 /* ItemsViewModel+ItemCollectionViewCellViewModelFactory.swift in Sources */,
+				5B76188621B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift in Sources */,
 				5B9ED63921ADC43C00F79980 /* StripeSource.swift in Sources */,
 				5B9ED63B21ADE35600F79980 /* PaymentService.swift in Sources */,
 				5B8E81A121B04E6B00C22CEA /* ActiveOrderMapTableViewCellViewModelFactory.swift in Sources */,
@@ -1697,6 +1739,7 @@
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */,
 				5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */,
+				5B76187921B82E3D00D30930 /* PurchasablesViewController.swift in Sources */,
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5BB296AF209CE0CB00520683 /* DetailTableViewCellViewModelFactory.swift in Sources */,
 				5BD274C5205EBDA500618128 /* BagPurchasableTableViewCell.swift in Sources */,
@@ -1777,6 +1820,7 @@
 				5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */,
 				5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */,
 				5BFC5743217CC5050002179B /* PurchasableQuantity.swift in Sources */,
+				5B76188221B8336800D30930 /* PurchasablesPurchasableTableViewCellViewModel.swift in Sources */,
 				5B8E819D21B04BDF00C22CEA /* ActiveOrderMapTableViewCell.swift in Sources */,
 				5BB29651208A461700520683 /* OrdersViewModel.swift in Sources */,
 				5B44A835200EA4BE00898FF0 /* Topping.swift in Sources */,
@@ -1787,6 +1831,7 @@
 				5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */,
 				5BB29653208A72AF00520683 /* OrderTableViewCellConfigurationCommand.swift in Sources */,
 				5B3F25E4210F7A200080290E /* Method.swift in Sources */,
+				5B76188421B833B800D30930 /* PurchasablesPurchasableTableViewCellConfigurationCommand.swift in Sources */,
 				5B28C94121B6FF1A008B4136 /* Identifiable.swift in Sources */,
 				5BC950402108DF0D00AF1098 /* Observer.swift in Sources */,
 				5BD0C1DE21A5D0E300C512C5 /* HomePurchasableTypeCollectionViewCellViewModel.swift in Sources */,
@@ -1810,12 +1855,14 @@
 				5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */,
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
+				5B76187B21B82E6600D30930 /* PurchasablesViewModel.swift in Sources */,
 				5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */,
 				5B724D8920DC98F300B9296E /* FileType.swift in Sources */,
 				5B6A06C32001B0CA00BAC480 /* LayoutAttributesAnimator.swift in Sources */,
 				5BD274EB2063F8E500618128 /* CollectionViewCellCommand.swift in Sources */,
 				5B4DC2E4219BA69F009BDA6D /* AnyViewModelTableViewSection.swift in Sources */,
 				5B6A068E1FFD52A000BAC480 /* Size.swift in Sources */,
+				5B76188021B8333100D30930 /* PurchasablesPurchasableTableViewCell.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B3F25DC210F68610080290E /* Variable.swift in Sources */,
 				5BB2968D208F794B00520683 /* OrderViewController.swift in Sources */,
@@ -1834,6 +1881,7 @@
 				5B3176CE206D3AFC00D83D12 /* BagPurchasableTableViewCellConfigurationCommand.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* Section.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
+				5B76188921B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

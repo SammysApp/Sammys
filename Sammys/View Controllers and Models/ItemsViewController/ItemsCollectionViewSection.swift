@@ -12,7 +12,7 @@ struct ItemsCollectionViewSection: Section {
 	typealias CellViewModel = DefaultCollectionViewCellViewModel
 	
 	let category: ItemCategory
-	let cellViewModels: [DefaultCollectionViewCellViewModel]
+	let cellViewModels: [CellViewModel]
 }
 
 extension ItemsCollectionViewSection {

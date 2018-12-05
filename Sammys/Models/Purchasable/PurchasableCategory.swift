@@ -28,3 +28,6 @@ extension PurchasableCategory {
 extension PurchasableCategory {
 	var name: String { return rawValue.capitalizingFirstLetter() }
 }
+
+// MARK: - Hashable
+extension PurchasableCategory: Hashable {}
