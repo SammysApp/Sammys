@@ -12,12 +12,8 @@ enum PurchasableCategory: String {
 	case salad
 }
 
-extension PurchasableCategory {
-	var name: String { return rawValue.capitalizingFirstLetter() }
-}
+// MARK: - Hashable
+extension PurchasableCategory: Hashable {}
 
 // MARK: - Codable
 extension PurchasableCategory: Codable {}
-
-// MARK: - Hashable
-extension PurchasableCategory: Hashable {}

@@ -8,30 +8,8 @@
 
 import Foundation
 
-enum ProtocolCodableType: String, Codable {
-	case salad, saladItemCategory
-	
-	var metatype: ProtocolCodable.Type {
-		switch self {
-		case .salad: return Salad.self
-		case .saladItemCategory: return SaladItemCategory.self
-		}
-	}
-}
-
 protocol ProtocolCodable: Codable {
-	/// A value of `ProtocolCodableType` representing the type that conforms to `ProtocolCodable`.
-	///
-	/// Implement this static property to conform to `ProtocolCodable`.
-	static var codableType: ProtocolCodableType { get }
-}
-
-extension ProtocolCodable {
-	static var codableType: ProtocolCodableType {
-		let selfString = String(describing: Self.self)
-		guard let codableType = ProtocolCodableType(rawValue: selfString.lowercased()) else { fatalError("Must add \(selfString) value to `CodableType` enum.") }
-		return codableType
-	}
+	
 }
 
 struct AnyCodableProtocol: Codable {

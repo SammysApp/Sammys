@@ -13,5 +13,4 @@ protocol Purchasable: ProtocolHashable, ProtocolCodable {
 	var title: String { get }
 	var description: String { get }
 	var price: Double { get }
-	var isTaxSubjected: Bool { get }
 }

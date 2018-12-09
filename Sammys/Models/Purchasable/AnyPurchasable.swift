@@ -15,7 +15,6 @@ struct AnyPurchasable: Purchasable {
 	var title: String { return purchasable.title }
 	var description: String { return purchasable.description }
 	var price: Double { return purchasable.price }
-	var isTaxSubjected: Bool { return purchasable.isTaxSubjected }
 	
 	init(_ purchasable: Purchasable) { self.purchasable = purchasable }
 }
@@ -32,8 +31,8 @@ extension AnyPurchasable: Encodable {
 extension AnyPurchasable: Decodable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.singleValueContainer()
-		let anyCodableProtocol = try container.decode(AnyCodableProtocol.self)
-		guard let purchasable = anyCodableProtocol.base as? Purchasable
+		guard let purchasable =
+			(try container.decode(AnyCodableProtocol.self)).base as? Purchasable
 			else { throw AnyPurchasableError.cantDecodePurchasable }
 		self.purchasable = purchasable
 	}

@@ -8,9 +8,14 @@
 
 import Foundation
 
-struct PurchasableQuantity: Codable {
+struct PurchasableQuantity: Purchasable {
 	let quantity: Int
 	private let anyPurchasable: AnyPurchasable
+	
+	var category: PurchasableCategory { return purchasable.category }
+	var title: String { return purchasable.title }
+	var description: String { return purchasable.description }
+	var price: Double { return purchasable.price }
 	
 	enum CodingKeys: String, CodingKey {
 		case quantity
@@ -25,5 +30,7 @@ struct PurchasableQuantity: Codable {
 
 extension PurchasableQuantity {
 	var purchasable: Purchasable { return anyPurchasable.purchasable }
-	var quantitativePrice: Double { return purchasable.price * Double(quantity) }
 }
+
+// MARK: - Hashable
+extension PurchasableQuantity: Hashable {}

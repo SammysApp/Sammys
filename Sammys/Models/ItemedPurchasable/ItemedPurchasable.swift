@@ -8,6 +8,13 @@
 
 import Foundation
 
-protocol ItemedPurchasable: Purchasable {
-	var items: [AnyItemCategory : [AnyItem]] { get }
+struct ItemedPurchasable: Purchasable {
+	let category: PurchasableCategory
+	let items: [ItemCategory : [Item]]
+	let title: String
+	let description: String
+	let price: Double
 }
+
+// MARK: - Hashable
+extension ItemedPurchasable: Hashable {}

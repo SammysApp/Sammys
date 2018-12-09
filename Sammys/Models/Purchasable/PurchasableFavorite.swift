@@ -8,14 +8,22 @@
 
 import Foundation
 
-struct PurchasableFavorite: Codable {
+struct PurchasableFavorite: Purchasable {
+	private let userTitle: String?
 	private let anyPurchasable: AnyPurchasable
 	
+	var category: PurchasableCategory { return purchasable.category }
+	var title: String { return userTitle ?? purchasable.title }
+	var description: String { return purchasable.description }
+	var price: Double { return purchasable.price }
+	
 	enum CodingKeys: String, CodingKey {
+		case userTitle = "title"
 		case anyPurchasable = "purchasable"
 	}
 	
-	init(_ purchasable: Purchasable) {
+	init(title: String, purchasable: Purchasable) {
+		self.userTitle = title
 		self.anyPurchasable = AnyPurchasable(purchasable)
 	}
 }

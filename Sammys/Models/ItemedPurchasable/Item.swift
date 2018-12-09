@@ -8,24 +8,20 @@
 
 import Foundation
 
-protocol Item: Identifiable, ProtocolHashable, ProtocolCodable {
-	var category: ItemCategory { get }
-	var name: String { get }
-    var description: String { get }
+struct Item {
+	let category: ItemCategory
+	let name: String
+    let description: String
+	let modifiers: [Modifier]?
+	let price: Double?
+	let id: String
 }
 
-protocol PricedItem: Item {
-	var price: Double { get }
-}
+// MARK: - Identifiable
+extension Item: Identifiable {}
 
-protocol OptionallyPricedItem: Item {
-	var price: Double? { get }
-}
+// MARK: - Hashable
+extension Item: Hashable {}
 
-protocol ModifiableItem: Item {
-	var modifiers: [Modifier] { get }
-}
-
-protocol OptionallyModifiableItem: Item {
-	var modifiers: [Modifier]? { get }
-}
+// MARK: - Codable
+extension Item: Codable {}
