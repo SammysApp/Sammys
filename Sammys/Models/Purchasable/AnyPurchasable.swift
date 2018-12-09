@@ -8,8 +8,6 @@
 
 import Foundation
 
-enum AnyPurchasableError: Error { case cantDecodePurchasableType }
-
 struct AnyPurchasable: Purchasable {
 	let purchasable: Purchasable
 	
@@ -19,26 +17,27 @@ struct AnyPurchasable: Purchasable {
 	var price: Double { return purchasable.price }
 	var isTaxSubjected: Bool { return purchasable.isTaxSubjected }
 	
-	init(_ purchasable: Purchasable) {
-		self.purchasable = purchasable
-	}
-	
-	init(from decoder: Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		let codablePurchasable = try container.decode(AnyCodableProtocol.self)
-		guard let purchasable = codablePurchasable.base as? Purchasable
-			else { throw AnyPurchasableError.cantDecodePurchasableType }
-		self.purchasable = purchasable
-	}
-	
+	init(_ purchasable: Purchasable) { self.purchasable = purchasable }
+}
+
+// MARK: - Encodable
+extension AnyPurchasable: Encodable {
 	func encode(to encoder: Encoder) throws {
-		var container = encoder.singleValueContainer()
-		try container.encode(AnyCodableProtocol(purchasable))
+		var cotainer = encoder.singleValueContainer()
+		try cotainer.encode(AnyCodableProtocol(purchasable))
 	}
 }
 
-// MARK: - ProtocolCodable
-extension AnyPurchasable: ProtocolCodable {}
+// MARK: - Decodable
+extension AnyPurchasable: Decodable {
+	init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		let anyCodableProtocol = try container.decode(AnyCodableProtocol.self)
+		guard let purchasable = anyCodableProtocol.base as? Purchasable
+			else { throw AnyPurchasableError.cantDecodePurchasable }
+		self.purchasable = purchasable
+	}
+}
 
 // MARK: - Equatable
 extension AnyPurchasable: Equatable {
@@ -53,3 +52,5 @@ extension AnyPurchasable: Hashable {
 		AnyHashableProtocol(purchasable).hash(into: &hasher)
 	}
 }
+
+enum AnyPurchasableError: Error { case cantDecodePurchasable }

@@ -10,20 +10,20 @@ import Foundation
 
 struct PurchasableQuantity: Codable {
 	let quantity: Int
-	private let codablePurchasable: AnyCodableProtocol
+	private let anyPurchasable: AnyPurchasable
 	
 	enum CodingKeys: String, CodingKey {
 		case quantity
-		case codablePurchasable = "purchasable"
+		case anyPurchasable = "purchasable"
 	}
 	
 	init(quantity: Int, purchasable: Purchasable) {
 		self.quantity = quantity
-		self.codablePurchasable = AnyCodableProtocol(purchasable)
+		self.anyPurchasable = AnyPurchasable(purchasable)
 	}
 }
 
 extension PurchasableQuantity {
-	var purchasable: Purchasable { return codablePurchasable.base as! Purchasable }
+	var purchasable: Purchasable { return anyPurchasable.purchasable }
 	var quantitativePrice: Double { return purchasable.price * Double(quantity) }
 }

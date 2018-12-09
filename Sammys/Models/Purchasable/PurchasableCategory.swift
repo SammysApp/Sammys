@@ -8,26 +8,16 @@
 
 import Foundation
 
-struct CategorizedPurchasables {
-	let category: PurchasableCategory
-	let purchasables: [Purchasable]
-}
-
 enum PurchasableCategory: String {
 	case salad
 }
 
 extension PurchasableCategory {
-	var purchasableType: Purchasable.Type {
-		switch self {
-		case .salad: return Salad.self
-		}
-	}
-}
-
-extension PurchasableCategory {
 	var name: String { return rawValue.capitalizingFirstLetter() }
 }
+
+// MARK: - Codable
+extension PurchasableCategory: Codable {}
 
 // MARK: - Hashable
 extension PurchasableCategory: Hashable {}

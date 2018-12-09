@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Item: Identifiable, ProtocolHashable, Codable {
+protocol Item: Identifiable, ProtocolHashable, ProtocolCodable {
 	var category: ItemCategory { get }
 	var name: String { get }
     var description: String { get }
