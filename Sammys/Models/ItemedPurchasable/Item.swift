@@ -20,6 +20,13 @@ struct Item {
 // MARK: - Identifiable
 extension Item: Identifiable {}
 
+// MARK: - Equatable
+extension Item: Equatable {
+	static func == (lhs: Item, rhs: Item) -> Bool {
+		return lhs.id == rhs.id && lhs.modifiers == rhs.modifiers
+	}
+}
+
 // MARK: - Hashable
 extension Item: Hashable {}
 

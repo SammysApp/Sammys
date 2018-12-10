@@ -17,11 +17,6 @@ struct PurchasableFavorite: Purchasable {
 	var description: String { return purchasable.description }
 	var price: Double { return purchasable.price }
 	
-	enum CodingKeys: String, CodingKey {
-		case userTitle = "title"
-		case anyPurchasable = "purchasable"
-	}
-	
 	init(title: String, purchasable: Purchasable) {
 		self.userTitle = title
 		self.anyPurchasable = AnyPurchasable(purchasable)
@@ -30,6 +25,13 @@ struct PurchasableFavorite: Purchasable {
 
 extension PurchasableFavorite {
 	var purchasable: Purchasable { return anyPurchasable.purchasable }
+}
+
+extension PurchasableFavorite {
+	enum CodingKeys: String, CodingKey {
+		case userTitle = "title"
+		case anyPurchasable = "purchasable"
+	}
 }
 
 // MARK: - Hashable

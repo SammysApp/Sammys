@@ -12,15 +12,16 @@ typealias URLRepresentable = String
 
 protocol Endpoint {
     static var baseURL: URLRepresentable { get }
+	var path: String { get }
     var fullURL: URLRepresentable { get }
 }
 
 extension Endpoint {
-    var fullURL: URLRepresentable { return Self.baseURL }
+    var fullURL: URLRepresentable { return Self.baseURL + path }
 }
 
 extension RawRepresentable where Self: Endpoint, RawValue == String {
-    var fullURL: URLRepresentable {
-        return Self.baseURL + "/" + rawValue
-    }
+    var path: String { return "/" + rawValue }
 }
+
+

@@ -18,8 +18,8 @@ protocol APIParameterNameable: APIManager {
 }
 
 extension APIManager {
-    func get<T: Decodable>(_ endpoint: APIEndpoint, parameters: Parameters = [:], apiService: APIService) -> Promise<T> {
-		return apiService.get(endpoint, parameters: parameters)
+    func get<T: Decodable>(_ endpoint: APIEndpoint, parameters: Parameters = [:], decoder: JSONDecoder = JSONDecoder(), apiService: APIService) -> Promise<T> {
+		return apiService.get(endpoint, parameters: parameters, decoder: decoder)
     }
     
     func post(_ endpoint: APIEndpoint, parameters: Parameters = [:], apiService: APIService) -> Promise<Void> {
@@ -30,8 +30,8 @@ extension APIManager {
         return apiService.post(endpoint, parameters: parameters)
     }
     
-    func post<T: Decodable>(_ endpoint: APIEndpoint, parameters: Parameters = [:],  apiService: APIService) -> Promise<T> {
-        return apiService.post(endpoint, parameters: parameters)
+    func post<T: Decodable>(_ endpoint: APIEndpoint, parameters: Parameters = [:], decoder: JSONDecoder = JSONDecoder(),  apiService: APIService) -> Promise<T> {
+		return apiService.post(endpoint, parameters: parameters, decoder: decoder)
     }
 }
 

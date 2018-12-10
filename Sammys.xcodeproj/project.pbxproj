@@ -47,7 +47,6 @@
 		5B22785B2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B28C94121B6FF1A008B4136 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B28C94021B6FF1A008B4136 /* Identifiable.swift */; };
 		5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* ItemCategory.swift */; };
-		5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */; };
 		5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */; };
 		5B2950CA218CBEF1008B0E49 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* Section.swift */; };
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
@@ -159,6 +158,7 @@
 		5B76188921B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B76188821B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift */; };
 		5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B7C0B33219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
+		5B7DAC2821BF0A8500FEC88F /* BasicPurchasable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7DAC2721BF0A8500FEC88F /* BasicPurchasable.swift */; };
 		5B883A7821A506B2004C3592 /* OrderTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B883A7721A506B2004C3592 /* OrderTableViewCellViewModel.swift */; };
 		5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B8A3D0320AF157800790AF5 /* Salad.jpg */; };
 		5B8E819D21B04BDF00C22CEA /* ActiveOrderMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E819921B04BDE00C22CEA /* ActiveOrderMapTableViewCell.swift */; };
@@ -190,7 +190,7 @@
 		5BA1135F21A458E700FFF1CB /* Extension+Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1135E21A458E700FFF1CB /* Extension+Double.swift */; };
 		5BA1136321A4896400FFF1CB /* Extension+Array+PurchasableQuantities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA1136221A4896400FFF1CB /* Extension+Array+PurchasableQuantities.swift */; };
 		5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD4D1D20B85FC3009201A4 /* Modifier.swift */; };
-		5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */; };
+		5BAE181C207D1F28009BCE65 /* PurchasablesAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAE181B207D1F28009BCE65 /* PurchasablesAPIManager.swift */; };
 		5BAEE6E620E4716A00607DFA /* BuilderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BAEE6E920E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
@@ -299,7 +299,6 @@
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		5B28C94021B6FF1A008B4136 /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		5B2950C0218A361C008B0E49 /* ItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
-		5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsFetcher.swift; sourceTree = "<group>"; };
 		5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemedPurchaseableBuilder.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -387,6 +386,7 @@
 		5B76188521B833F100D30930 /* PurchasablesPurchasableTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesPurchasableTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5B76188821B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesCategorizedTableViewSection.swift; sourceTree = "<group>"; };
 		5B7C0B31219A4BBD00EBC0EB /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		5B7DAC2721BF0A8500FEC88F /* BasicPurchasable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPurchasable.swift; sourceTree = "<group>"; };
 		5B883A7721A506B2004C3592 /* OrderTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B8A3D0320AF157800790AF5 /* Salad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Salad.jpg; sourceTree = "<group>"; };
 		5B8E819921B04BDE00C22CEA /* ActiveOrderMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveOrderMapTableViewCell.swift; sourceTree = "<group>"; };
@@ -416,7 +416,7 @@
 		5BA1135E21A458E700FFF1CB /* Extension+Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Double.swift"; sourceTree = "<group>"; };
 		5BA1136221A4896400FFF1CB /* Extension+Array+PurchasableQuantities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Array+PurchasableQuantities.swift"; sourceTree = "<group>"; };
 		5BAD4D1D20B85FC3009201A4 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
-		5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAPIManager.swift; sourceTree = "<group>"; };
+		5BAE181B207D1F28009BCE65 /* PurchasablesAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasablesAPIManager.swift; sourceTree = "<group>"; };
 		5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BuilderViewController.storyboard; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BB2256C20DFE7AC00DFE448 /* DefaultTableViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTableViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -544,15 +544,6 @@
 			path = "Sammys Kitchen";
 			sourceTree = "<group>";
 		};
-		5B2950C8218A404C008B0E49 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				5B2950C2218A3E86008B0E49 /* ItemsFetcher.swift */,
-				5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		5B2950CB218CC02B008B0E49 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,7 +664,7 @@
 			children = (
 				5B3F25ED210F83FD0080290E /* Common */,
 				5B44A8202007D31C00898FF0 /* UserAPIManager.swift */,
-				5BAE181B207D1F28009BCE65 /* DataAPIManager.swift */,
+				5BAE181B207D1F28009BCE65 /* PurchasablesAPIManager.swift */,
 				5B44A832200C006400898FF0 /* StripeAPIManager.swift */,
 				5B44F1BE20AB918C00B3E0A5 /* OrdersAPIManager.swift */,
 			);
@@ -783,6 +774,7 @@
 				5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */,
 				5BC5A80321B9F557006FC4D1 /* PurchasableCategoryNode.swift */,
 				5BFC573F217C308A0002179B /* Purchasable.swift */,
+				5B7DAC2721BF0A8500FEC88F /* BasicPurchasable.swift */,
 				5B411E6D21B628AE004E8028 /* AnyPurchasable.swift */,
 				5BFC5742217CC5050002179B /* PurchasableQuantity.swift */,
 				5B411E6B21B59006004E8028 /* PurchasableFavorite.swift */,
@@ -1319,7 +1311,7 @@
 		5BFD2189217D687C002D9A73 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5B2950C8218A404C008B0E49 /* Common */,
+				5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */,
 				5B44A7C120047E5600898FF0 /* BagModelController.swift */,
 			);
 			path = "Model Controllers";
@@ -1700,7 +1692,7 @@
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
 				5BD274ED2063FA1C00618128 /* BuilderViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B9DA45621A60AC800C94AF8 /* ItemsCollectionViewSection.swift in Sources */,
-				5BAE181C207D1F28009BCE65 /* DataAPIManager.swift in Sources */,
+				5BAE181C207D1F28009BCE65 /* PurchasablesAPIManager.swift in Sources */,
 				5B44A7C4200483E500898FF0 /* ItemedPurchasable.swift in Sources */,
 				5B9ED63721ADB67B00F79980 /* StripeCharge.swift in Sources */,
 				5B411E6C21B59006004E8028 /* PurchasableFavorite.swift in Sources */,
@@ -1738,12 +1730,12 @@
 				5B44A8252007ED9200898FF0 /* LoginViewController.swift in Sources */,
 				5BEAA0A221AF808800943427 /* OrderPurchasableTableViewCellConfigurationCommand.swift in Sources */,
 				5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */,
-				5B2950C3218A3E86008B0E49 /* ItemsFetcher.swift in Sources */,
 				5BD0C1DC21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift in Sources */,
 				5BA01973213733870017A993 /* APIManager.swift in Sources */,
 				5B8E81A421B0527500C22CEA /* AppData.swift in Sources */,
 				5BAD4D1E20B85FC3009201A4 /* Modifier.swift in Sources */,
 				5B44A7C220047E5600898FF0 /* BagModelController.swift in Sources */,
+				5B7DAC2821BF0A8500FEC88F /* BasicPurchasable.swift in Sources */,
 				5B44A839200F035400898FF0 /* ItemCollectionViewCell.swift in Sources */,
 				5BB296B4209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift in Sources */,
 				5BFC5743217CC5050002179B /* PurchasableQuantity.swift in Sources */,

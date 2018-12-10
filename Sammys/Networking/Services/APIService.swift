@@ -18,7 +18,7 @@ enum APIServiceError: Error {
 protocol APIService {
     func handle(_ request: Request) -> Promise<Void>
     func handle<T>(_ request: Request, decodingHandler: @escaping (Data) throws -> T) -> Promise<T>
-    func handle<T: Decodable>(_ request: DecodableRequest<T>) -> Promise<T>
+	func handle<T: Decodable>(_ request: DecodableRequest<T>, decoder: JSONDecoder) -> Promise<T>
 }
 
 // MARK: - Void
@@ -51,11 +51,11 @@ extension APIService {
 
 // MARK: Decodable
 extension APIService {
-    func get<E: Endpoint, T: Decodable>(_ endpoint: E, parameters: Parameters = [:]) -> Promise<T> {
-        return handle(DecodableRequest(endpoint: endpoint, method: .get, parameters: parameters, decodableType: T.self))
+	func get<E: Endpoint, T: Decodable>(_ endpoint: E, parameters: Parameters = [:], decoder: JSONDecoder = JSONDecoder()) -> Promise<T> {
+		return handle(DecodableRequest(endpoint: endpoint, method: .get, parameters: parameters, decodableType: T.self), decoder: decoder)
     }
     
-    func post<E: Endpoint, T: Decodable>(_ endpoint: E, parameters: Parameters = [:]) -> Promise<T> {
-        return handle(DecodableRequest(endpoint: endpoint, method: .post, parameters: parameters, decodableType: T.self))
+    func post<E: Endpoint, T: Decodable>(_ endpoint: E, parameters: Parameters = [:], decoder: JSONDecoder = JSONDecoder()) -> Promise<T> {
+		return handle(DecodableRequest(endpoint: endpoint, method: .post, parameters: parameters, decodableType: T.self), decoder: decoder)
     }
 }

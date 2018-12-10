@@ -17,11 +17,6 @@ struct PurchasableQuantity: Purchasable {
 	var description: String { return purchasable.description }
 	var price: Double { return purchasable.price }
 	
-	enum CodingKeys: String, CodingKey {
-		case quantity
-		case anyPurchasable = "purchasable"
-	}
-	
 	init(quantity: Int, purchasable: Purchasable) {
 		self.quantity = quantity
 		self.anyPurchasable = AnyPurchasable(purchasable)
@@ -30,6 +25,13 @@ struct PurchasableQuantity: Purchasable {
 
 extension PurchasableQuantity {
 	var purchasable: Purchasable { return anyPurchasable.purchasable }
+}
+
+extension PurchasableQuantity {
+	enum CodingKeys: String, CodingKey {
+		case quantity
+		case anyPurchasable = "purchasable"
+	}
 }
 
 // MARK: - Hashable

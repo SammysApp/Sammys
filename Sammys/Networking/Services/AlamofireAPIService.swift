@@ -22,9 +22,9 @@ struct AlamofireAPIService: APIService {
         .map { data, _ in try decodingHandler(data) }
     }
     
-    func handle<T: Decodable>(_ request: DecodableRequest<T>) -> Promise<T> {
+	func handle<T: Decodable>(_ request: DecodableRequest<T>, decoder: JSONDecoder = JSONDecoder()) -> Promise<T> {
         return alamofireRequest(request)
-        .responseDecodable(request.decodableType)
+        .responseDecodable(request.decodableType, decoder: decoder)
     }
     
     private func alamofireRequest(_ request: Request) -> DataRequest {
