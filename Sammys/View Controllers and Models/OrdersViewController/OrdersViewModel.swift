@@ -32,8 +32,8 @@ class OrdersViewModel {
 	private let viewDelegate: OrdersViewModelViewDelegate
 	
 	private let ordersAPIManager = OrdersAPIManager()
-	private var orders = [Order]()
 	
+	private var orders = [Order]()
 	private var sections: [Section] { return [
 		Section(cellViewModels: orders.map { OrderTableViewCellViewModelFactory(order: $0, identifier: OrdersCellIdentifier.orderCell.rawValue, height: viewDelegate.cellHeight()).create() })
 	]}

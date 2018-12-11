@@ -15,7 +15,7 @@ struct PurchasableCategoryNode {
 	let next: Next?
 	
 	enum Next {
-		case categoryNodes([PurchasableCategoryNode])
+		case categories([PurchasableCategoryNode])
 		case purchasables(Promise<[BasicPurchasable]>)
 		case itemedPurchasable([ItemCategory: Promise<[Item]>], ItemedPurchasableBuilder)
 	}
@@ -46,7 +46,7 @@ extension PurchasableCategoryNode.Next: Decodable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let purchasablesAPIManager = PurchasablesAPIManager()
 		do {
-			self = .categoryNodes(try container.decode([PurchasableCategoryNode].self, forKey: .categories))
+			self = .categories(try container.decode([PurchasableCategoryNode].self, forKey: .categories))
 		} catch {
 			do {
 				self = .purchasables(purchasablesAPIManager.purchasables(path: (try container.decode(PurchasableCategoryNode.PurchasablesData.self, forKey: .purchasables)).path))

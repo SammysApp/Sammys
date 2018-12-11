@@ -1,5 +1,5 @@
 //
-//  HomePurchasableTypeCollectionViewCell.swift
+//  HomePurchasableCategoryCollectionViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 1/10/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomePurchasableTypeCollectionViewCell: UICollectionViewCell {
+class HomePurchasableCategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
 }

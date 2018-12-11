@@ -27,13 +27,9 @@ class OrdersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		viewModel.setupData().get { self.loadViews() }.catch { print($0) }
+		viewModel.setupData()
+			.get { self.tableView.reloadData() }.catch { print($0) }
     }
-	
-	// MARK: - Load
-	func loadViews() {
-		tableView.reloadData()
-	}
 	
 	// MARK: - Debug
 	func noCellViewModelMessage(for indexPath: IndexPath) -> String {

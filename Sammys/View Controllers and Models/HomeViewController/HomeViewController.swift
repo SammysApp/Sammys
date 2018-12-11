@@ -47,6 +47,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 		
 		setupViews()
+		
+		viewModel.setupData()
+			.get { self.collectionView.reloadData() }.catch { print($0) }
     }
     
     override func viewWillAppear(_ animated: Bool) {

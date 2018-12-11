@@ -1,5 +1,5 @@
 //
-//  HomePurchasableTypeCollectionViewCellViewModel.swift
+//  HomePurchasableCategoryCollectionViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/21/18.
@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct HomePurchasableTypeCollectionViewCellViewModel: CollectionViewCellViewModel {
-	let purchasableType: Purchasable.Type
+struct HomePurchasableCategoryCollectionViewCellViewModel: CollectionViewCellViewModel {
 	let identifier: String
 	let width: Double
 	let height: Double

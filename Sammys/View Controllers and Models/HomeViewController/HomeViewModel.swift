@@ -19,7 +19,7 @@ protocol HomeViewModelViewDelegate {
 }
 
 enum HomeCellIdentifier: String {
-	case homePurchasableCell
+	case homePurchasableCategoryCell
 }
 
 class HomeViewModel {
@@ -28,24 +28,17 @@ class HomeViewModel {
 	var parcel: HomeViewModelParcel?
 	private let viewDelegate: HomeViewModelViewDelegate
 	
+	private let purchasablesAPIManager = PurchasablesAPIManager()
 	private let bagModelController = BagModelController()
 	private let userAPIManager = UserAPIManager()
 	
 	lazy var userState = { parcel?.userState ?? .noUser }()
 	
-	// MARK: - Data
-	private let categories: [PurchasableCategory] = [.salad]
-	
+	private var categories = [PurchasableCategoryNode]()
 	private var sections: [Section] { return [
-//		Section(cellViewModels: categories.map {
-//			HomePurchasableTypeCollectionViewCellViewModelFactory(
-//				title: $0.name,
-//				purchasableType: $0.purchasableType,
-//				identifier: HomeCellIdentifier.homePurchasableCell.rawValue,
-//				width: viewDelegate.cellWidth(),
-//				height: viewDelegate.cellHeight()
-//			).create()
-//		})
+		Section(cellViewModels: categories
+			.map { HomePurchasableCategoryCollectionViewCellViewModelFactory.init(title: $0.title, identifier: HomeCellIdentifier.homePurchasableCategoryCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
+		)
 	]}
 	
 	var numberOfSections: Int {
@@ -59,6 +52,11 @@ class HomeViewModel {
 		userAPIManager.currentUserState()
 			.get { self.userState = $0 }.catch { print($0) }
     }
+	
+	func setupData() -> Promise<Void> {
+		return purchasablesAPIManager.categories()
+			.get { self.categories = $0 }.asVoid()
+	}
     
     func numberOfItems(in section: Int) -> Int {
         return sections[section].cellViewModels.count

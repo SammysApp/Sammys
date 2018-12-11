@@ -1,5 +1,5 @@
 //
-//  HomePurchasableTypeCollectionViewCellConfigurationCommand.swift
+//  HomePurchasableCategoryCollectionViewCellConfigurationCommand.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 5/4/18.
@@ -8,9 +8,8 @@
 
 import UIKit
 
-struct HomePurchasableTypeCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
-	let title: String
-    let purchasableType: Purchasable.Type
+struct HomePurchasableCategoryCollectionViewCellConfigurationCommand: CollectionViewCellCommand {
+	let title: String?
     
     private struct Constants {
         static let cornerRadius: CGFloat = 20
@@ -18,7 +17,7 @@ struct HomePurchasableTypeCollectionViewCellConfigurationCommand: CollectionView
     }
     
     func perform(parameters: CollectionViewCellCommandParameters) {
-        guard let cell = parameters.cell as? HomePurchasableTypeCollectionViewCell else { return }
+        guard let cell = parameters.cell as? HomePurchasableCategoryCollectionViewCell else { return }
 		
         cell.titleLabel.text = title
 		
