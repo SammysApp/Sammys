@@ -9,14 +9,20 @@
 import Foundation
 
 struct HomePurchasableCategoryCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-	let title: String?
+	let node: PurchasableCategoryNode
 	let identifier: String
 	let width: Double
 	let height: Double
 	
     func create() -> HomePurchasableCategoryCollectionViewCellViewModel {
-		let configurationCommand = HomePurchasableCategoryCollectionViewCellConfigurationCommand(title: title)
-		let selectionCommand = HomePurchasableCategoryCollectionViewCellSelectionCommand()
-        return HomePurchasableCategoryCollectionViewCellViewModel(identifier: identifier, width: width, height: height, commands: [.configuration: configurationCommand, .selection: selectionCommand])
+		let configurationCommand = HomePurchasableCategoryCollectionViewCellConfigurationCommand(title: node.title)
+		let selectionCommand = HomePurchasableCategoryCollectionViewCellSelectionCommand(node: node)
+		return HomePurchasableCategoryCollectionViewCellViewModel(
+			node: node,
+			identifier: identifier,
+			width: width,
+			height: height,
+			commands: [.configuration: configurationCommand, .selection: selectionCommand]
+		)
     }
 }

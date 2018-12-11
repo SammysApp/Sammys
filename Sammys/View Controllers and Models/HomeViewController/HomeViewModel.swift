@@ -37,7 +37,13 @@ class HomeViewModel {
 	private var categories = [PurchasableCategoryNode]()
 	private var sections: [Section] { return [
 		Section(cellViewModels: categories
-			.map { HomePurchasableCategoryCollectionViewCellViewModelFactory.init(title: $0.title, identifier: HomeCellIdentifier.homePurchasableCategoryCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }
+			.map { HomePurchasableCategoryCollectionViewCellViewModelFactory(
+					node: $0,
+					identifier: HomeCellIdentifier.homePurchasableCategoryCell.rawValue,
+					width: viewDelegate.cellWidth(),
+					height: viewDelegate.cellHeight()
+				).create()
+			}
 		)
 	]}
 	
