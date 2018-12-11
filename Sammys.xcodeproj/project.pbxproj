@@ -218,6 +218,10 @@
 		5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC950372107D2B900AF1098 /* StripeCustomer.swift */; };
 		5BC9503E2108D76A00AF1098 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */; };
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
+		5BCDC3EA21C03A1C0020DEF5 /* CategoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BCDC3E921C03A1C0020DEF5 /* CategoryViewController.storyboard */; };
+		5BCDC3EE21C03B150020DEF5 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3ED21C03B150020DEF5 /* CategoryViewModel.swift */; };
+		5BCDC3F021C03B4C0020DEF5 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3EF21C03B4C0020DEF5 /* CategoryTableViewCell.swift */; };
+		5BCDC3F321C03C5D0020DEF5 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F221C03C5C0020DEF5 /* CategoryViewController.swift */; };
 		5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */; };
 		5BD0C1DC21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */; };
 		5BD0C1DE21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DD21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift */; };
@@ -442,6 +446,10 @@
 		5BC950372107D2B900AF1098 /* StripeCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomer.swift; sourceTree = "<group>"; };
 		5BC9503D2108D76A00AF1098 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		5BCDC3E921C03A1C0020DEF5 /* CategoryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryViewController.storyboard; sourceTree = "<group>"; };
+		5BCDC3ED21C03B150020DEF5 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		5BCDC3EF21C03B4C0020DEF5 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		5BCDC3F221C03C5C0020DEF5 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategory.swift; sourceTree = "<group>"; };
 		5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModelCollectionViewSection.swift; sourceTree = "<group>"; };
 		5BD0C1DD21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePurchasableCategoryCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -965,6 +973,7 @@
 			children = (
 				5B2950CB218CC02B008B0E49 /* Models */,
 				5BD274F12063FABF00618128 /* HomeViewController */,
+				5BCDC3F121C03C1B0020DEF5 /* CategoryViewController */,
 				5B76187C21B82E6B00D30930 /* PurchasablesViewController */,
 				5BD274F42063FAE300618128 /* BuilderViewController */,
 				5B553A66206C9BED00DD9689 /* ItemsViewController */,
@@ -1007,6 +1016,7 @@
 				5B44A830200932A800898FF0 /* AddBagViewController.storyboard */,
 				5B44A7BB2004200000898FF0 /* BagViewController.storyboard */,
 				5BAEE6E520E4716900607DFA /* BuilderViewController.storyboard */,
+				5BCDC3E921C03A1C0020DEF5 /* CategoryViewController.storyboard */,
 				5B44A8042006CEB200898FF0 /* HomeViewController.storyboard */,
 				5BFC572F2174E6540002179B /* ItemCollectionViewCell.xib */,
 				5B2278532197B7C2003E3DE2 /* ItemsCollectionViewSectionHeaderView.xib */,
@@ -1159,6 +1169,16 @@
 				5BB296B3209CE66A00520683 /* ButtonTableViewCellViewModelFactory.swift */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		5BCDC3F121C03C1B0020DEF5 /* CategoryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5BCDC3F221C03C5C0020DEF5 /* CategoryViewController.swift */,
+				5BCDC3ED21C03B150020DEF5 /* CategoryViewModel.swift */,
+				5BCDC3EF21C03B4C0020DEF5 /* CategoryTableViewCell.swift */,
+			);
+			path = CategoryViewController;
 			sourceTree = "<group>";
 		};
 		5BD0C1E721A608D100C512C5 /* Section */ = {
@@ -1446,6 +1466,7 @@
 				5B44A8272007EDB400898FF0 /* LoginViewController.storyboard in Resources */,
 				5B8A3D0420AF157800790AF5 /* Salad.jpg in Resources */,
 				5BAEE6E620E4716A00607DFA /* BuilderViewController.storyboard in Resources */,
+				5BCDC3EA21C03A1C0020DEF5 /* CategoryViewController.storyboard in Resources */,
 				5B9865FE20C5A347004722D8 /* SharedAssets.xcassets in Resources */,
 				5B44A8232007D58400898FF0 /* GoogleService-Info.plist in Resources */,
 				5B3A4B792196179800F22F78 /* PaymentViewController.storyboard in Resources */,
@@ -1708,6 +1729,7 @@
 				5BD274E92063F74600618128 /* BuilderViewModel.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */,
+				5BCDC3EE21C03B150020DEF5 /* CategoryViewModel.swift in Sources */,
 				5B3A4AC02192272400F22F78 /* ItemsViewModel+ItemCollectionViewCellConfigurationCommand.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B44A82D2009292A00898FF0 /* Item.swift in Sources */,
@@ -1758,6 +1780,7 @@
 				5B44A833200C006400898FF0 /* StripeAPIManager.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* Extension+UINavigationController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
+				5BCDC3F021C03B4C0020DEF5 /* CategoryTableViewCell.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */,
@@ -1797,6 +1820,7 @@
 				5B3176CE206D3AFC00D83D12 /* BagPurchasableTableViewCellConfigurationCommand.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* Section.swift in Sources */,
 				5BFD2BCB202116C0005C01BF /* SignUpViewController.swift in Sources */,
+				5BCDC3F321C03C5D0020DEF5 /* CategoryViewController.swift in Sources */,
 				5B76188921B836C400D30930 /* PurchasablesCategorizedTableViewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
