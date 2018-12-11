@@ -16,6 +16,6 @@ struct OrderPurchasableTableViewCellConfigurationCommand: TableViewCellCommand {
 		cell.quantityLabel.text = "\(purchasableQuantity.quantity)"
 		cell.titleLabel.text = purchasableQuantity.purchasable.title
 		cell.descriptionLabel.text = purchasableQuantity.purchasable.description
-		cell.priceLabel.text = purchasableQuantity.quantitativePrice.priceString
+		//cell.priceLabel.text = purchasableQuantity.quantitativePrice.priceString
 	}
 }

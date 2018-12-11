@@ -33,7 +33,7 @@ class AddBagViewModel {
 	
 	func favorite(for user: User) throws {
 		guard let itemedPurchasable = itemedPurchasable else { return }
-		userAPIManager.add(PurchasableFavorite(itemedPurchasable), for: user)
-			.catch { print($0) }
+//		userAPIManager.add(PurchasableFavorite(itemedPurchasable), for: user)
+//			.catch { print($0) }
 	}
 }

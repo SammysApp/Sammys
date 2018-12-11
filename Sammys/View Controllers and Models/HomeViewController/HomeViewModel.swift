@@ -37,15 +37,15 @@ class HomeViewModel {
 	private let categories: [PurchasableCategory] = [.salad]
 	
 	private var sections: [Section] { return [
-		Section(cellViewModels: categories.map {
-			HomePurchasableTypeCollectionViewCellViewModelFactory(
-				title: $0.name,
-				purchasableType: $0.purchasableType,
-				identifier: HomeCellIdentifier.homePurchasableCell.rawValue,
-				width: viewDelegate.cellWidth(),
-				height: viewDelegate.cellHeight()
-			).create()
-		})
+//		Section(cellViewModels: categories.map {
+//			HomePurchasableTypeCollectionViewCellViewModelFactory(
+//				title: $0.name,
+//				purchasableType: $0.purchasableType,
+//				identifier: HomeCellIdentifier.homePurchasableCell.rawValue,
+//				width: viewDelegate.cellWidth(),
+//				height: viewDelegate.cellHeight()
+//			).create()
+//		})
 	]}
 	
 	var numberOfSections: Int {

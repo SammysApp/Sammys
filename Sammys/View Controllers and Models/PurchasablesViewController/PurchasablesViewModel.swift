@@ -98,10 +98,11 @@ class PurchasablesViewModel {
 	}
 	
 	func title(forSection section: Int) -> String? {
-		switch layout {
-		case .basic: return sections[section].title
-		case .categorized: return categorizedSections[section].category.name
-		}
+		return nil
+//		switch layout {
+//		case .basic: return sections[section].title
+//		case .categorized: return categorizedSections[section].category.name
+//		}
 	}
 }
 

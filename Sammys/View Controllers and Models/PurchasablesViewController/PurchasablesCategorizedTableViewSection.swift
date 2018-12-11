@@ -16,5 +16,5 @@ struct PurchasablesCategorizedTableViewSection: Section {
 }
 
 extension PurchasablesCategorizedTableViewSection {
-	var title: String? { return category.name }
+	var title: String? { return nil }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 enum PurchasableCategory: String {
-	case salad
+	case salad, itemedSalad, standardSalads
 }
 
 // MARK: - Hashable

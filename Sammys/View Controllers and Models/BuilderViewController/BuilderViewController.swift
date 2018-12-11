@@ -166,9 +166,9 @@ class BuilderViewController: UIViewController {
 	
 	func handleCenter(at cellViewModel: BuilderViewModel.Section.CellViewModel) {
 		itemNameLabel.text = cellViewModel.item.name
-		if let pricedItem = cellViewModel.item as? PricedItem {
-			itemPriceLabel.text = pricedItem.price.priceString
-		}
+//		if let pricedItem = cellViewModel.item as? PricedItem {
+//			itemPriceLabel.text = pricedItem.price.priceString
+//		}
 	}
 	
 	func set(to itemCategory: ItemCategory) {
@@ -185,9 +185,9 @@ class BuilderViewController: UIViewController {
     @IBAction func didTapNext(_ sender: UIButton) {
 		do {
 			if viewModel.isAtLastItemCategory {
-				let itemedPurchasable = try viewModel.build()
-				if delegate == nil { presentAddBagViewController(with: itemedPurchasable) }
-				else { delegate?.builderViewController(self, didFinishBuilding: itemedPurchasable) }
+//				let itemedPurchasable = try viewModel.build()
+//				if delegate == nil { presentAddBagViewController(with: itemedPurchasable) }
+//				else { delegate?.builderViewController(self, didFinishBuilding: itemedPurchasable) }
 			} else {
 				try viewModel.incrementItemCategory()
 				handleUpdatedItemCategory(viewModel.currentItemCategory)
@@ -303,14 +303,14 @@ extension BuilderViewController: ItemsViewControllerDelegate {
 }
 
 // MARK: - SaladItemCategory+BuilderViewLayoutStateSpecifier
-extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
-	var state: BuilderViewLayoutState {
-		switch self {
-		case .sizes, .lettuces: return .horizontal
-		default: return .vertical
-		}
-	}
-}
+//extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
+//	var state: BuilderViewLayoutState {
+//		switch self {
+//		case .sizes, .lettuces: return .horizontal
+//		default: return .vertical
+//		}
+//	}
+//}
 
 extension BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {

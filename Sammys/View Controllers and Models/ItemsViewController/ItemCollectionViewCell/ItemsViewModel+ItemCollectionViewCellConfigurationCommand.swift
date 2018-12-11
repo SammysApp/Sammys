@@ -21,9 +21,9 @@ extension ItemsViewModel {
 			cell.layer.cornerRadius = Constants.cornerRadius
 			cell.backgroundColor = .black
 			cell.titleLabel.text = item.name
-			if let pricedItem = item as? PricedItem {
-				cell.priceLabel.text = pricedItem.price.priceString
-			}
+//			if let pricedItem = item as? PricedItem {
+//				cell.priceLabel.text = pricedItem.price.priceString
+//			}
 		}
 	}
 }

@@ -36,7 +36,7 @@ extension PurchasableCategoryNode: Decodable {}
 
 // MARK: - PurchasableCategoryNode.Next: Decodable
 extension PurchasableCategoryNode.Next: Decodable {
-	enum CodingKeys: String, CodingKey {
+	enum CodingKeys: CodingKey {
 		case categories
 		case purchasables
 		case itemedPurchasable
@@ -46,22 +46,22 @@ extension PurchasableCategoryNode.Next: Decodable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let purchasablesAPIManager = PurchasablesAPIManager()
 		do {
-			if let categoryNodes =
-				try? container.decode([PurchasableCategoryNode].self, forKey: .categories) {
-				self = .categoryNodes(categoryNodes)
-			} else if let purchasablesData =
-				try? container.decode(PurchasableCategoryNode.PurchasablesData.self, forKey: .purchasables) {
-				self = .purchasables(purchasablesAPIManager.purchasables(path: purchasablesData.path))
-			} else {
-				let itemedPurchasableData = try container.decode(PurchasableCategoryNode.ItemedPurchasableData.self, forKey: .itemedPurchasable)
-				self = .itemedPurchasable(itemCategoryPromises(purchasablesAPIManager: purchasablesAPIManager, path: itemedPurchasableData.itemsPath, categories: itemedPurchasableData.itemCategories), ItemedPurchasableBuilder())
+			self = .categoryNodes(try container.decode([PurchasableCategoryNode].self, forKey: .categories))
+		} catch {
+			do {
+				self = .purchasables(purchasablesAPIManager.purchasables(path: (try container.decode(PurchasableCategoryNode.PurchasablesData.self, forKey: .purchasables)).path))
+			} catch {
+				do {
+					let itemedPurchasableData = try container.decode(PurchasableCategoryNode.ItemedPurchasableData.self, forKey: .itemedPurchasable)
+					self = .itemedPurchasable(itemCategoryPromises(purchasablesAPIManager: purchasablesAPIManager, path: itemedPurchasableData.itemsPath, categories: itemedPurchasableData.itemCategories), ItemedPurchasableBuilder())
+				}
 			}
 		}
 	}
-	
-	func itemCategoryPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
-		var itemCategoryPromises = [ItemCategory: Promise<[Item]>]()
-		categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path) }
-		return itemCategoryPromises
-	}
+}
+
+func itemCategoryPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
+	var itemCategoryPromises = [ItemCategory: Promise<[Item]>]()
+	categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path) }
+	return itemCategoryPromises
 }

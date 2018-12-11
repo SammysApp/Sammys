@@ -14,28 +14,23 @@ enum PurchasableAPIKey: String {
 }
 
 struct PurchasablesAPIManager: APIManager {
-	let decoder: JSONDecoder = {
-		let decoder = JSONDecoder()
-		decoder.keyDecodingStrategy = .convertFromSnakeCase
-		return decoder
-	}()
-	
-    enum APIEndpoint: Endpoint {
+	enum APIEndpoint: Endpoint {
 		static let baseURL = "http://api.sammys.app"
-		case categories
+		case purchasables, categories
 		case custom(String)
+		case group([APIEndpoint])
     }
 	
 	func categories(apiService: APIService = AlamofireAPIService()) -> Promise<[PurchasableCategoryNode]> {
-		return get(.categories, decoder: decoder, apiService: apiService)
+		return get(.group([.purchasables, .categories]), apiService: apiService)
 	}
     
 	func purchasables<P: Purchasable>(path: String, apiService: APIService = AlamofireAPIService()) -> Promise<[P]> {
-        return get(.custom(path), decoder: decoder, apiService: apiService)
+        return get(.custom(path), apiService: apiService)
     }
 	
 	func items(path: String, apiService: APIService = AlamofireAPIService()) -> Promise<[Item]> {
-		return get(.custom(path), decoder: decoder, apiService: apiService)
+		return get(.custom(path), apiService: apiService)
 	}
 }
 
@@ -43,6 +38,7 @@ extension PurchasablesAPIManager.APIEndpoint {
 	var path: String {
 		switch self {
 		case .custom(let path): return path
+		case .group(let paths): return paths.reduce("") { $0 + $1.path }
 		default: return "/" + String(describing: self)
 		}
 	}

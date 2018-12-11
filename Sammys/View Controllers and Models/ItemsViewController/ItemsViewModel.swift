@@ -29,9 +29,10 @@ class ItemsViewModel {
 	
 	// MARK: - Data
 	private var sections: [Section] {
-		return parcel?.itemedPurchasable.categorizedItems
-			.map { Section(category: $0.category, cellViewModels: $0.items
-				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) } ?? []
+		return []
+//		return parcel?.itemedPurchasable.categorizedItems
+//			.map { Section(category: $0.category, cellViewModels: $0.items
+//				.map { ItemCollectionViewCellViewModelFactory(item: $0, identifier: ItemsCellIdentifier.itemCell.rawValue, width: viewDelegate.cellWidth(), height: viewDelegate.cellHeight()).create() }) } ?? []
 	}
 	
 	var numberOfSections: Int { return sections.count }

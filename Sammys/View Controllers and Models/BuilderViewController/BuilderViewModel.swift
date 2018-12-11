@@ -11,7 +11,7 @@ import PromiseKit
 
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
-	let fetcher: ItemsFetcher
+//	let fetcher: ItemsFetcher
 	let builder: ItemedPurchasableBuilder
 	let userState: UserState
 }
@@ -48,8 +48,9 @@ class BuilderViewModel {
 	var numberOfSections: Int { return sections.count }
 	
 	private var currentItemCategoryIndex: Int? {
-		return parcel?.categories.firstIndex
-			{ self.currentItemCategory?.isEqual(to: $0) ?? false }
+		return nil
+//		return parcel?.categories.firstIndex
+//			{ self.currentItemCategory?.isEqual(to: $0) ?? false }
 	}
 	
 	var isAtLastItemCategory: Bool {
@@ -67,16 +68,17 @@ class BuilderViewModel {
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
 		guard let parcel = parcel
 			else { return Promise(error: BuilderViewModelError.needsParcel) }
-		return parcel.fetcher.items(for: itemCategory)
-			.get { self.sections = self.sections(for: $0) }.asVoid()
+		return Promise<Void>()
+//		return parcel.fetcher.items(for: itemCategory)
+//			.get { self.sections = self.sections(for: $0) }.asVoid()
 	}
 	
 	func set(_ itemCategory: ItemCategory) {
 		guard let parcel = parcel else { return }
-		if parcel.categories
-			.map({ AnyEquatableProtocol($0) })
-			.contains(AnyEquatableProtocol(itemCategory))
-		{ self.currentItemCategory = itemCategory }
+//		if parcel.categories
+//			.map({ AnyEquatableProtocol($0) })
+//			.contains(AnyEquatableProtocol(itemCategory))
+//		{ self.currentItemCategory = itemCategory }
 	}
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
@@ -97,39 +99,43 @@ class BuilderViewModel {
 		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func toggle(_ item: Item) throws { try builder?.toggle(item) }
-	
-	func build() throws -> ItemedPurchasable {
-		guard let builder = builder else { throw BuilderViewModelError.needsParcel }
-		return try builder.build()
+	func toggle(_ item: Item) throws {
+//		try builder?.toggle(item)
 	}
+	
+//	func build() throws -> ItemedPurchasable {
+//		guard let builder = builder else { throw BuilderViewModelError.needsParcel }
+//		return try builder.build()
+//	}
 }
 
 extension BuilderViewModelParcel {
 	static func instance(for itemedPurchasableType: ItemedPurchasable.Type, userState: UserState) -> BuilderViewModelParcel? {
-		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
-			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
-			else { return nil }
-		return BuilderViewModelParcel(
-			categories: itemedPurchasableType.allItemCategories,
-			fetcher: itemsFetchableType.fetcher,
-			builder: itemedPurchasableBuildableType.builder,
-			userState: userState
-		)
+		return nil
+//		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
+//			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
+//			else { return nil }
+//		return BuilderViewModelParcel(
+//			categories: itemedPurchasableType.allItemCategories,
+//			fetcher: itemsFetchableType.fetcher,
+//			builder: itemedPurchasableBuildableType.builder,
+//			userState: userState
+//		)
 	}
 	
 	static func instance(for itemedPurchasable: ItemedPurchasable, userState: UserState) -> BuilderViewModelParcel? {
-		let itemedPurchasableType = type(of: itemedPurchasable)
-		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
-			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
-			else { return nil }
-		var builder = itemedPurchasableBuildableType.builder
-		do { try builder.toggleExisting(from: itemedPurchasable) } catch { return nil }
-		return BuilderViewModelParcel(
-			categories: itemedPurchasableType.allItemCategories,
-			fetcher: itemsFetchableType.fetcher,
-			builder: builder,
-			userState: userState
-		)
+		return nil
+//		let itemedPurchasableType = type(of: itemedPurchasable)
+//		guard let itemsFetchableType = itemedPurchasableType as? ItemsFetchable.Type,
+//			let itemedPurchasableBuildableType = itemedPurchasableType as? ItemedPurchasableBuildable.Type
+//			else { return nil }
+//		var builder = itemedPurchasableBuildableType.builder
+//		do { try builder.toggleExisting(from: itemedPurchasable) } catch { return nil }
+//		return BuilderViewModelParcel(
+//			categories: itemedPurchasableType.allItemCategories,
+//			fetcher: itemsFetchableType.fetcher,
+//			builder: builder,
+//			userState: userState
+//		)
 	}
 }
