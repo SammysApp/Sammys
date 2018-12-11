@@ -9,7 +9,7 @@
 import Foundation
 
 struct HomePurchasableCategoryCollectionViewCellViewModel: CollectionViewCellViewModel {
-	let node: PurchasableCategoryNode
+	let category: PurchasableCategoryNode
 	let identifier: String
 	let width: Double
 	let height: Double

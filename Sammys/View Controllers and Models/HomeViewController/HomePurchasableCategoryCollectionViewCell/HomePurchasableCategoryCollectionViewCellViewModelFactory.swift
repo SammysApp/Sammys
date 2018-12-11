@@ -9,16 +9,16 @@
 import Foundation
 
 struct HomePurchasableCategoryCollectionViewCellViewModelFactory: CollectionViewCellViewModelFactory {
-	let node: PurchasableCategoryNode
+	let category: PurchasableCategoryNode
 	let identifier: String
 	let width: Double
 	let height: Double
 	
     func create() -> HomePurchasableCategoryCollectionViewCellViewModel {
-		let configurationCommand = HomePurchasableCategoryCollectionViewCellConfigurationCommand(title: node.title)
-		let selectionCommand = HomePurchasableCategoryCollectionViewCellSelectionCommand(node: node)
+		let configurationCommand = HomePurchasableCategoryCollectionViewCellConfigurationCommand(title: category.title)
+		let selectionCommand = HomePurchasableCategoryCollectionViewCellSelectionCommand(category: category)
 		return HomePurchasableCategoryCollectionViewCellViewModel(
-			node: node,
+			category: category,
 			identifier: identifier,
 			width: width,
 			height: height,

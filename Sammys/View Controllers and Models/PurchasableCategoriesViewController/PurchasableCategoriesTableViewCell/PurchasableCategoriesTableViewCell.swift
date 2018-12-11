@@ -1,5 +1,5 @@
 //
-//  CategoryTableViewCell.swift
+//  PurchasableCategoriesTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 12/11/18.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class CategoryTableViewCell: UITableViewCell {
+class PurchasableCategoriesTableViewCell: UITableViewCell {
 	@IBOutlet var titleLabel: UILabel!
 }

@@ -30,7 +30,7 @@ class UserViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 	
 	struct Constants {
-		static let cellHeight: Double = 60
+		static let tableViewCellHeight: CGFloat = 60
 	}
 
     // MARK: - Lifecycle
@@ -97,6 +97,11 @@ extension UserViewController: Delegatable {}
 // MARK: - Storyboardable
 extension UserViewController: Storyboardable {}
 
+// MARK: - UserViewModelViewDelegate
+extension UserViewController: UserViewModelViewDelegate {
+	func cellHeight() -> Double { return Double(Constants.tableViewCellHeight) }
+}
+
 // MARK: - UITableViewDataSource
 extension UserViewController: UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -126,11 +131,6 @@ extension UserViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		viewModel.cellViewModel(for: indexPath)?.commands[.selection]?.perform(parameters: TableViewCellCommandParameters(cell: tableView.cellForRow(at: indexPath), viewController: self))
 	}
-}
-
-// MARK: - UserViewModelViewDelegate
-extension UserViewController: UserViewModelViewDelegate {
-	func cellHeight() -> Double { return Constants.cellHeight }
 }
 
 // MARK: - LoginPageViewControllerDelegate

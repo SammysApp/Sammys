@@ -38,7 +38,7 @@ class HomeViewModel {
 	private var sections: [Section] { return [
 		Section(cellViewModels: categories
 			.map { HomePurchasableCategoryCollectionViewCellViewModelFactory(
-					node: $0,
+					category: $0,
 					identifier: HomeCellIdentifier.homePurchasableCategoryCell.rawValue,
 					width: viewDelegate.cellWidth(),
 					height: viewDelegate.cellHeight()

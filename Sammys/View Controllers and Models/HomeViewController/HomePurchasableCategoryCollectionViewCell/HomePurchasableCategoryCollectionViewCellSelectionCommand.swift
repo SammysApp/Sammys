@@ -9,11 +9,11 @@
 import Foundation
 
 struct HomePurchasableCategoryCollectionViewCellSelectionCommand: CollectionViewCellCommand {
-	let node: PurchasableCategoryNode
+	let category: PurchasableCategoryNode
 	
 	func perform(parameters: CollectionViewCellCommandParameters) {
 		guard let homeViewController = parameters.viewController as? HomeViewController
 			else { return }
-		
+		homeViewController.pushNewPurchasableCategoriesViewController()
 	}
 }
