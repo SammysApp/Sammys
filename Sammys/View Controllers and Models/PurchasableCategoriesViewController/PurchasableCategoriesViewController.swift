@@ -10,6 +10,7 @@ import UIKit
 
 class PurchasableCategoriesViewController: UIViewController {
 	var viewModelParcel: PurchasableCategoriesViewModelParcel?
+		{ didSet { viewModel.parcel = viewModelParcel; tableView?.reloadData() } }
 	lazy var viewModel = PurchasableCategoriesViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	struct Constants {

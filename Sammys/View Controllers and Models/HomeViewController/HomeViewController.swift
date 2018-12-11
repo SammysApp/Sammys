@@ -99,11 +99,6 @@ class HomeViewController: UIViewController {
 		)
 	}
 	
-	func pushNewPurchasableCategoriesViewController() {
-		let purchasableCategoriesViewController = PurchasableCategoriesViewController.storyboardInstance()
-		navigationController?.pushViewController(purchasableCategoriesViewController, animated: true)
-	}
-	
     // MARK: - IBActions
     @IBAction func didTapAccount(_ sender: UIButton) {
 		userViewController.viewModelParcel = UserViewModelParcel(userState: viewModel.userState)

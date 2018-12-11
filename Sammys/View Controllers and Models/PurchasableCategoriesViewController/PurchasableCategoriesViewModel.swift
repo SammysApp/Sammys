@@ -16,14 +16,25 @@ protocol PurchasableCategoriesViewModelViewDelegate {
 	func cellHeight() -> Double
 }
 
+enum PurchasableCategoriesCellIdentifier: String {
+	case categoryCell
+}
+
 class PurchasableCategoriesViewModel {
-	typealias Section = DefaultTableViewSection<PurchasableCategoriesTableViewCellViewModel>
+	typealias Section = DefaultTableViewSection<PurchasableCategoryTableViewCellViewModel>
 	
 	var parcel: PurchasableCategoriesViewModelParcel?
 	private var viewDelegate: PurchasableCategoriesViewModelViewDelegate
 	
+	var categories: [PurchasableCategoryNode] { return parcel?.categories ?? [] }
 	var sections: [Section] { return [
-		
+		Section(cellViewModels: categories
+			.map { PurchasableCategoryTableViewCellViewModelFactory(
+					category: $0,
+					identifier: PurchasableCategoriesCellIdentifier.categoryCell.rawValue,
+					height: viewDelegate.cellHeight()
+				).create() }
+		)
 	]}
 	
 	var numberOfSections: Int { return sections.count }

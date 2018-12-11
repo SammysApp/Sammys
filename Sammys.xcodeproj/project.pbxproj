@@ -220,9 +220,11 @@
 		5BC950402108DF0D00AF1098 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC9503F2108DF0D00AF1098 /* Observer.swift */; };
 		5BCDC3EA21C03A1C0020DEF5 /* PurchasableCategoriesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BCDC3E921C03A1C0020DEF5 /* PurchasableCategoriesViewController.storyboard */; };
 		5BCDC3EE21C03B150020DEF5 /* PurchasableCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3ED21C03B150020DEF5 /* PurchasableCategoriesViewModel.swift */; };
-		5BCDC3F021C03B4C0020DEF5 /* PurchasableCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoriesTableViewCell.swift */; };
+		5BCDC3F021C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift */; };
 		5BCDC3F321C03C5D0020DEF5 /* PurchasableCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F221C03C5C0020DEF5 /* PurchasableCategoriesViewController.swift */; };
-		5BCDC3F521C049270020DEF5 /* PurchasableCategoriesTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F421C049270020DEF5 /* PurchasableCategoriesTableViewCellViewModel.swift */; };
+		5BCDC3F521C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F421C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift */; };
+		5BCDC3F821C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F721C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift */; };
+		5BCDC3FA21C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCDC3F921C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift */; };
 		5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */; };
 		5BD0C1DC21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */; };
 		5BD0C1DE21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD0C1DD21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift */; };
@@ -449,9 +451,11 @@
 		5BC9503F2108DF0D00AF1098 /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		5BCDC3E921C03A1C0020DEF5 /* PurchasableCategoriesViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PurchasableCategoriesViewController.storyboard; sourceTree = "<group>"; };
 		5BCDC3ED21C03B150020DEF5 /* PurchasableCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoriesViewModel.swift; sourceTree = "<group>"; };
-		5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		5BCDC3F221C03C5C0020DEF5 /* PurchasableCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasableCategoriesViewController.swift; sourceTree = "<group>"; };
-		5BCDC3F421C049270020DEF5 /* PurchasableCategoriesTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoriesTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		5BCDC3F421C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoryTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		5BCDC3F721C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoryTableViewCellConfigurationCommand.swift; sourceTree = "<group>"; };
+		5BCDC3F921C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoryTableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BCEC2CE21B722DF00ABD95B /* PurchasableCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategory.swift; sourceTree = "<group>"; };
 		5BD0C1DB21A5CF5400C512C5 /* AnyViewModelCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyViewModelCollectionViewSection.swift; sourceTree = "<group>"; };
 		5BD0C1DD21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePurchasableCategoryCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -1178,18 +1182,20 @@
 			children = (
 				5BCDC3F221C03C5C0020DEF5 /* PurchasableCategoriesViewController.swift */,
 				5BCDC3ED21C03B150020DEF5 /* PurchasableCategoriesViewModel.swift */,
-				5BCDC3F621C049A70020DEF5 /* PurchasableCategoriesTableViewCell */,
+				5BCDC3F621C049A70020DEF5 /* PurchasableCategoryTableViewCell */,
 			);
 			path = PurchasableCategoriesViewController;
 			sourceTree = "<group>";
 		};
-		5BCDC3F621C049A70020DEF5 /* PurchasableCategoriesTableViewCell */ = {
+		5BCDC3F621C049A70020DEF5 /* PurchasableCategoryTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoriesTableViewCell.swift */,
-				5BCDC3F421C049270020DEF5 /* PurchasableCategoriesTableViewCellViewModel.swift */,
+				5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift */,
+				5BCDC3F421C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift */,
+				5BCDC3F721C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift */,
+				5BCDC3F921C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift */,
 			);
-			path = PurchasableCategoriesTableViewCell;
+			path = PurchasableCategoryTableViewCell;
 			sourceTree = "<group>";
 		};
 		5BD0C1E721A608D100C512C5 /* Section */ = {
@@ -1703,7 +1709,7 @@
 				5BFC5740217C308A0002179B /* Purchasable.swift in Sources */,
 				5BB29689208E2D3500520683 /* Order.swift in Sources */,
 				5BEAA08521AEDF1500943427 /* Delegatable.swift in Sources */,
-				5BCDC3F521C049270020DEF5 /* PurchasableCategoriesTableViewCellViewModel.swift in Sources */,
+				5BCDC3F521C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5BA1135D21A330DC00FFF1CB /* UserViewModel+OrdersButtonTableViewCellSelectionCommand.swift in Sources */,
 				5BC5A80421B9F557006FC4D1 /* PurchasableCategoryNode.swift in Sources */,
@@ -1736,6 +1742,7 @@
 				5BFD2BC7201E35F8005C01BF /* BagViewModel.swift in Sources */,
 				5BEAA0A421AF808800943427 /* OrderPurchasableTableViewCellViewModel.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
+				5BCDC3FA21C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift in Sources */,
 				5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
 				5BD274E92063F74600618128 /* BuilderViewModel.swift in Sources */,
@@ -1792,7 +1799,7 @@
 				5B44A833200C006400898FF0 /* StripeAPIManager.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* Extension+UINavigationController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
-				5BCDC3F021C03B4C0020DEF5 /* PurchasableCategoriesTableViewCell.swift in Sources */,
+				5BCDC3F021C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5BC950382107D2B900AF1098 /* StripeCustomer.swift in Sources */,
 				5BB29655208A72C500520683 /* OrderTableViewCell.swift in Sources */,
@@ -1823,6 +1830,7 @@
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5BFD2BD3202277C5005C01BF /* HomeViewModel.swift in Sources */,
 				5BFC573A217C1AC10002179B /* AnyEquatableProtocol.swift in Sources */,
+				5BCDC3F821C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift in Sources */,
 				5B2278582197C030003E3DE2 /* ItemsCollectionViewSectionHeaderView.swift in Sources */,
 				5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */,
 				5B3F25D7210F66BE0080290E /* FirebaseAPIManager.swift in Sources */,

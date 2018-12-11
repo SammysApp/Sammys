@@ -14,6 +14,14 @@ struct HomePurchasableCategoryCollectionViewCellSelectionCommand: CollectionView
 	func perform(parameters: CollectionViewCellCommandParameters) {
 		guard let homeViewController = parameters.viewController as? HomeViewController
 			else { return }
-		homeViewController.pushNewPurchasableCategoriesViewController()
+		if let next = category.next {
+			switch next {
+			case .categories(let categories):
+				let purchasableCategoriesViewController = PurchasableCategoriesViewController.storyboardInstance()
+				purchasableCategoriesViewController.viewModelParcel = PurchasableCategoriesViewModelParcel(categories: categories)
+				homeViewController.navigationController?.pushViewController(purchasableCategoriesViewController, animated: true)
+			default: break
+			}
+		}
 	}
 }

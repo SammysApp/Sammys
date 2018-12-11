@@ -1,5 +1,5 @@
 //
-//  PurchasableCategoriesTableViewCellViewModel.swift
+//  PurchasableCategoryTableViewCellViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 12/11/18.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct PurchasableCategoriesTableViewCellViewModel: TableViewCellViewModel {
-	let category: PurchasableCategory
+struct PurchasableCategoryTableViewCellViewModel: TableViewCellViewModel {
+	let category: PurchasableCategoryNode
 	let identifier: String
 	let height: Double
 	let commands: [TableViewCommandActionKey : TableViewCellCommand]
