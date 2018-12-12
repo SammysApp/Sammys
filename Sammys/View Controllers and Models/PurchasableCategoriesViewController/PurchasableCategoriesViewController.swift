@@ -13,6 +13,9 @@ class PurchasableCategoriesViewController: UIViewController {
 		{ didSet { viewModel.parcel = viewModelParcel; tableView?.reloadData() } }
 	lazy var viewModel = PurchasableCategoriesViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
+	// MARK: - View Controllers
+	lazy var builderViewController = { BuilderViewController.storyboardInstance() }()
+	
 	struct Constants {
 		static let tableViewCellHeight: CGFloat = 120
 	}
@@ -63,5 +66,16 @@ extension PurchasableCategoriesViewController: UITableViewDataSource {
 extension PurchasableCategoriesViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return CGFloat(viewModel.cellViewModel(for: indexPath)?.height ?? 0)
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		viewModel.cellViewModel(for: indexPath)?
+			.commands[.selection]?
+			.perform(parameters:
+				TableViewCellCommandParameters(
+					cell: tableView.cellForRow(at: indexPath),
+					viewController: self
+				)
+			)
 	}
 }

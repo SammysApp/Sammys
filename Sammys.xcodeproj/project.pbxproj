@@ -49,6 +49,7 @@
 		5B2950C1218A361C008B0E49 /* ItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C0218A361C008B0E49 /* ItemCategory.swift */; };
 		5B2950C7218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */; };
 		5B2950CA218CBEF1008B0E49 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* Section.swift */; };
+		5B2AA30A21C14F9C0007FA89 /* PurchasableCategoryTableViewCellSelectionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2AA30921C14F9C0007FA89 /* PurchasableCategoryTableViewCellSelectionCommand.swift */; };
 		5B3176C8206D39A300D83D12 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */; };
 		5B3176CA206D39D300D83D12 /* TableViewCellCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */; };
 		5B3176CC206D3A0100D83D12 /* TableViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */; };
@@ -308,6 +309,7 @@
 		5B2950C0218A361C008B0E49 /* ItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
 		5B2950C6218A3FB7008B0E49 /* ItemedPurchaseableBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemedPurchaseableBuilder.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		5B2AA30921C14F9C0007FA89 /* PurchasableCategoryTableViewCellSelectionCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasableCategoryTableViewCellSelectionCommand.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3176C9206D39D300D83D12 /* TableViewCellCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellCommand.swift; sourceTree = "<group>"; };
 		5B3176CB206D3A0100D83D12 /* TableViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModelFactory.swift; sourceTree = "<group>"; };
@@ -1193,6 +1195,7 @@
 				5BCDC3EF21C03B4C0020DEF5 /* PurchasableCategoryTableViewCell.swift */,
 				5BCDC3F421C049270020DEF5 /* PurchasableCategoryTableViewCellViewModel.swift */,
 				5BCDC3F721C05E9C0020DEF5 /* PurchasableCategoryTableViewCellConfigurationCommand.swift */,
+				5B2AA30921C14F9C0007FA89 /* PurchasableCategoryTableViewCellSelectionCommand.swift */,
 				5BCDC3F921C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift */,
 			);
 			path = PurchasableCategoryTableViewCell;
@@ -1743,6 +1746,7 @@
 				5BEAA0A421AF808800943427 /* OrderPurchasableTableViewCellViewModel.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5BCDC3FA21C05F810020DEF5 /* PurchasableCategoryTableViewCellViewModelFactory.swift in Sources */,
+				5B2AA30A21C14F9C0007FA89 /* PurchasableCategoryTableViewCellSelectionCommand.swift in Sources */,
 				5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */,
 				5B6A06BE1FFFF4BE00BAC480 /* AnimatedCollectionViewLayout.swift in Sources */,
 				5BD274E92063F74600618128 /* BuilderViewModel.swift in Sources */,

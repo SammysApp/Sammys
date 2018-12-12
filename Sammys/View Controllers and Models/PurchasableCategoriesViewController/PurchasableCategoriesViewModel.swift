@@ -10,6 +10,7 @@ import Foundation
 
 struct PurchasableCategoriesViewModelParcel {
 	let categories: [PurchasableCategoryNode]
+	let userState: UserState
 }
 
 protocol PurchasableCategoriesViewModelViewDelegate {
@@ -25,6 +26,8 @@ class PurchasableCategoriesViewModel {
 	
 	var parcel: PurchasableCategoriesViewModelParcel?
 	private var viewDelegate: PurchasableCategoriesViewModelViewDelegate
+	
+	lazy var userState = { parcel?.userState ?? .noUser }()
 	
 	var categories: [PurchasableCategoryNode] { return parcel?.categories ?? [] }
 	var sections: [Section] { return [

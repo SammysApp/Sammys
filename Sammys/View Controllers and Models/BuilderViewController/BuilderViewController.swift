@@ -23,7 +23,7 @@ protocol BuilderViewLayoutStateSpecifier {
 
 class BuilderViewController: UIViewController {
 	var viewModelParcel: BuilderViewModelParcel?
-		{ didSet { viewModel.parcel = viewModelParcel; loadViews() } }
+		{ didSet { viewModel.parcel = viewModelParcel; collectionView?.reloadData() } }
 	lazy var viewModel = BuilderViewModel(parcel: viewModelParcel, viewDelegate: self)
 	
 	var delegate: BuilderViewControllerDelegate?
@@ -72,7 +72,7 @@ class BuilderViewController: UIViewController {
         super.viewDidLoad()
 		
 		setupViews()
-		handleUpdatedItemCategory(viewModel.currentItemCategory)
+		handleUpdatedItemCategory(viewModel.currentCategory)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +87,6 @@ class BuilderViewController: UIViewController {
 		setupAnimatedCardCollectionViewLayout()
 		setupBackButton()
 		setupNextButton()
-		loadViews()
 	}
 	
 	func setupCollectionView() {
@@ -111,11 +110,6 @@ class BuilderViewController: UIViewController {
 	
 	func setupNextButton() {
 		nextButton.layer.cornerRadius = Constants.bottomButtonsCornerRadius
-	}
-	
-	// MARK: - Load
-	func loadViews() {
-		collectionView?.reloadData()
 	}
 	
 	// MARK: - Update
@@ -157,7 +151,8 @@ class BuilderViewController: UIViewController {
 	
 	func handleUpdatedItemCategory(_ itemCategory: ItemCategory?) {
 		guard let itemCategory = itemCategory else { return }
-		viewModel.setupData(for: itemCategory).get { self.loadViews() }.catch { print($0) }
+		viewModel.setupData(for: itemCategory)
+			.get { self.collectionView?.reloadData() }.catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
 		if let stateSpecifier = itemCategory as? BuilderViewLayoutStateSpecifier {
 			currentViewLayoutState = stateSpecifier.state
@@ -173,7 +168,7 @@ class BuilderViewController: UIViewController {
 	
 	func set(to itemCategory: ItemCategory) {
 		viewModel.set(itemCategory)
-		handleUpdatedItemCategory(viewModel.currentItemCategory)
+		handleUpdatedItemCategory(viewModel.currentCategory)
 	}
 	
 	func presentAddBagViewController(with itemedPurchasable: ItemedPurchasable) {
@@ -190,7 +185,7 @@ class BuilderViewController: UIViewController {
 //				else { delegate?.builderViewController(self, didFinishBuilding: itemedPurchasable) }
 			} else {
 				try viewModel.incrementItemCategory()
-				handleUpdatedItemCategory(viewModel.currentItemCategory)
+				handleUpdatedItemCategory(viewModel.currentCategory)
 			}
 		} catch { print(error) }
     }
@@ -198,7 +193,7 @@ class BuilderViewController: UIViewController {
     @IBAction func didTapBack(_ sender: UIButton) {
 		do {
 			try viewModel.decrementItemCategory()
-			handleUpdatedItemCategory(viewModel.currentItemCategory)
+			handleUpdatedItemCategory(viewModel.currentCategory)
 		} catch { print(error) }
     }
 
@@ -301,16 +296,6 @@ extension BuilderViewController: ItemsViewControllerDelegate {
 		set(to: itemCategory)
 	}
 }
-
-// MARK: - SaladItemCategory+BuilderViewLayoutStateSpecifier
-//extension SaladItemCategory: BuilderViewLayoutStateSpecifier {
-//	var state: BuilderViewLayoutState {
-//		switch self {
-//		case .sizes, .lettuces: return .horizontal
-//		default: return .vertical
-//		}
-//	}
-//}
 
 extension BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {

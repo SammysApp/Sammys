@@ -9,7 +9,6 @@
 import Foundation
 
 struct Item {
-	let category: ItemCategory
 	let name: String
     let description: String
 	let modifiers: [Modifier]?

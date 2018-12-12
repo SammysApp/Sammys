@@ -62,6 +62,6 @@ extension PurchasableCategoryNode.Next: Decodable {
 
 func itemCategoryPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
 	var itemCategoryPromises = [ItemCategory: Promise<[Item]>]()
-	categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path) }
+	categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path + "/" + $0.rawValue) }
 	return itemCategoryPromises
 }

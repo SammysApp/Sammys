@@ -18,7 +18,7 @@ struct HomePurchasableCategoryCollectionViewCellSelectionCommand: CollectionView
 			switch next {
 			case .categories(let categories):
 				let purchasableCategoriesViewController = PurchasableCategoriesViewController.storyboardInstance()
-				purchasableCategoriesViewController.viewModelParcel = PurchasableCategoriesViewModelParcel(categories: categories)
+				purchasableCategoriesViewController.viewModelParcel = PurchasableCategoriesViewModelParcel(categories: categories, userState: homeViewController.viewModel.userState)
 				homeViewController.navigationController?.pushViewController(purchasableCategoriesViewController, animated: true)
 			default: break
 			}

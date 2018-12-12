@@ -15,11 +15,12 @@ struct PurchasableCategoryTableViewCellViewModelFactory: TableViewCellViewModelF
 	
 	func create() -> PurchasableCategoryTableViewCellViewModel {
 		let configurationCommand = PurchasableCategoryTableViewCellConfigurationCommand(title: category.title)
+		let selectionCommand = PurchasableCategoryTableViewCellSelectionCommand(category: category)
 		return PurchasableCategoryTableViewCellViewModel(
 			category: category,
 			identifier: identifier,
 			height: height,
-			commands: [.configuration: configurationCommand]
+			commands: [.configuration: configurationCommand, .selection: selectionCommand]
 		)
 	}
 }
