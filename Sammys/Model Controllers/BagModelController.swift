@@ -13,7 +13,7 @@ enum BagModelControllerError: Error {
 }
 
 struct BagModelController {
-    fileprivate typealias PurchasableQuantitiesDictionary = [AnyHashableProtocol : Int]
+    fileprivate typealias PurchasableQuantitiesDictionary = [AnyPurchasable : Int]
 	
 	private let userDefaults: UserDefaults
 	
@@ -26,10 +26,7 @@ struct BagModelController {
 
 extension BagModelController {
 	private func purchasableQuantities(for dictionary: PurchasableQuantitiesDictionary) -> [PurchasableQuantity] {
-		return dictionary.compactMap {
-			guard let purchasable = $0.key.base as? Purchasable else { return nil }
-			return PurchasableQuantity(quantity: $0.value, purchasable: purchasable)
-		}
+		return dictionary.map { PurchasableQuantity(quantity: $0.value, purchasable: $0.key.purchasable) }
 	}
 }
 
@@ -63,22 +60,22 @@ extension BagModelController {
 
 extension BagModelController {
 	func set(_ purchasable: Purchasable, toQuantity quantity: Int) throws {
-		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.settingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), to: quantity) } }
+		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.settingAndRemovingNonPositiveValued(AnyPurchasable(purchasable), to: quantity) } }
 		catch { throw error }
 	}
 	
 	func update(_ oldPurchasable: Purchasable, to newPurchasable: Purchasable) throws {
-		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.switchingKey(AnyHashableProtocol(oldPurchasable), to: AnyHashableProtocol(newPurchasable)) } }
+		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.switchingKey(AnyPurchasable(oldPurchasable), to: AnyPurchasable(newPurchasable)) } }
 		catch { throw error }
 	}
 	
 	func add(_ purchasable: Purchasable, quantity: UInt = 1) throws {
-		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyHashableProtocol(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
+		do { try storeModifiedStoredOrCreatedPurchasableQuantitiesDictionary { $0.setting(AnyPurchasable(purchasable), toInitialValue: quantity, orIncrementingBy: quantity) } }
 		catch { throw error }
 	}
 	
 	func remove(_ purchasable: Purchasable, quantity: Int) throws {
-		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.decrementingAndRemovingNonPositiveValued(AnyHashableProtocol(purchasable), by: quantity) } }
+		do { try storeModifiedStoredPurchasableQuantitiesDictionary { $0.decrementingAndRemovingNonPositiveValued(AnyPurchasable(purchasable), by: quantity) } }
 		catch { throw error }
 	}
 	
@@ -86,7 +83,7 @@ extension BagModelController {
 		do {
 			try storeModifiedStoredPurchasableQuantitiesDictionary {
 				var dictionary = $0
-				dictionary[AnyHashableProtocol(purchasable)] = nil
+				dictionary[AnyPurchasable(purchasable)] = nil
 				return dictionary
 			}
 		} catch { throw error }
@@ -99,25 +96,25 @@ extension BagModelController {
 
 private extension Array where Element == PurchasableQuantity {
 	func toDictionary() -> BagModelController.PurchasableQuantitiesDictionary {
-		return BagModelController.PurchasableQuantitiesDictionary(uniqueKeysWithValues: map { (AnyHashableProtocol($0.purchasable), $0.quantity) })
+		return BagModelController.PurchasableQuantitiesDictionary(uniqueKeysWithValues: map { (AnyPurchasable($0.purchasable), $0.quantity) })
 	}
 }
 
-private extension Dictionary where Key == AnyHashableProtocol, Value == Int {
-	func settingAndRemovingNonPositiveValued(_ key: AnyHashableProtocol, to value: Int) -> [AnyHashableProtocol : Int] {
+private extension Dictionary where Key == AnyPurchasable, Value == Int {
+	func settingAndRemovingNonPositiveValued(_ key: AnyPurchasable, to value: Int) -> [AnyPurchasable : Int] {
 		var dictionary = self
 		dictionary[key] = value > 0 ? value : nil
 		return dictionary
 	}
 	
-	func setting(_ key: AnyHashableProtocol, toInitialValue initialValue: UInt, orIncrementingBy incrementValue: UInt) -> [AnyHashableProtocol : Int] {
+	func setting(_ key: AnyPurchasable, toInitialValue initialValue: UInt, orIncrementingBy incrementValue: UInt) -> [AnyPurchasable : Int] {
 		var dictionary = self
 		if let currentValue = dictionary[key] { dictionary[key] = currentValue + Int(incrementValue) }
 		else { dictionary[key] = Int(initialValue) }
 		return dictionary
 	}
 	
-	func decrementingAndRemovingNonPositiveValued(_ key: AnyHashableProtocol, by value: Int) -> [AnyHashableProtocol : Int] {
+	func decrementingAndRemovingNonPositiveValued(_ key: AnyPurchasable, by value: Int) -> [AnyPurchasable : Int] {
 		let dictionary = self
 		if let currentValue = dictionary[key] {
 			return dictionary.settingAndRemovingNonPositiveValued(key, to: currentValue - value)
