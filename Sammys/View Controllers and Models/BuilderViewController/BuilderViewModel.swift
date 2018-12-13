@@ -10,6 +10,7 @@ import Foundation
 import PromiseKit
 
 struct BuilderViewModelParcel {
+	let categories: [ItemCategory]
 	let itemsPromises: [ItemCategory: Promise<[Item]>]
 	let builder: ItemedPurchasableBuilder
 	let userState: UserState
@@ -34,10 +35,7 @@ class BuilderViewModel {
 	var parcel: BuilderViewModelParcel?
 	private let viewDelegate: BuilderViewModelViewDelegate
 	
-	private var categories: [ItemCategory] {
-		guard let keys = parcel?.itemsPromises.keys else { return [] }
-		return Array(keys)
-	}
+	private var categories: [ItemCategory] { return parcel?.categories ?? [] }
 	private(set) lazy var currentCategory = { categories.first }()
 	private lazy var builder = { parcel?.builder }()
 	lazy var userState = { parcel?.userState ?? .noUser }()
@@ -70,13 +68,7 @@ class BuilderViewModel {
 		return itemsPromise.get { self.sections = self.sections(for: $0) }.asVoid()
 	}
 	
-	func set(_ itemCategory: ItemCategory) {
-		guard let parcel = parcel else { return }
-//		if parcel.categories
-//			.map({ AnyEquatableProtocol($0) })
-//			.contains(AnyEquatableProtocol(itemCategory))
-//		{ self.currentItemCategory = itemCategory }
-	}
+	func set(_ itemCategory: ItemCategory) { }
 	
 	private func adjustItemCategory(byIndexValue indexValue: Int) throws {
 		guard let currentIndex = currentCategoryIndex,
@@ -96,14 +88,7 @@ class BuilderViewModel {
 		return sections[safe: indexPath.section]?.cellViewModels[safe: indexPath.row]
 	}
 	
-	func toggle(_ item: Item) throws {
-//		try builder?.toggle(item)
-	}
-	
-//	func build() throws -> ItemedPurchasable {
-//		guard let builder = builder else { throw BuilderViewModelError.needsParcel }
-//		return try builder.build()
-//	}
+	func toggle(_ item: Item) throws { }
 }
 
 extension BuilderViewModelParcel {

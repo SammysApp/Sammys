@@ -17,17 +17,23 @@ struct PurchasableCategoryNode {
 	enum Next {
 		case categories([PurchasableCategoryNode])
 		case purchasables(Promise<[BasicPurchasable]>)
-		case itemedPurchasable([ItemCategory: Promise<[Item]>], ItemedPurchasableBuilder)
+		case itemedPurchasable(ItemedPurchasableData)
 	}
 	
-	struct PurchasablesData: Decodable {
+	fileprivate struct PurchasablesRawData: Decodable {
 		let path: String
 	}
 	
-	struct ItemedPurchasableData: Decodable {
+	fileprivate struct ItemedPurchasableRawData: Decodable {
 		let itemCategories: [ItemCategory]
 		let path: String
 		let itemsPath: String
+	}
+	
+	struct ItemedPurchasableData {
+		let categories: [ItemCategory]
+		let promises: [ItemCategory: Promise<[Item]>]
+		let builder: ItemedPurchasableBuilder
 	}
 }
 
@@ -49,18 +55,19 @@ extension PurchasableCategoryNode.Next: Decodable {
 			self = .categories(try container.decode([PurchasableCategoryNode].self, forKey: .categories))
 		} catch {
 			do {
-				self = .purchasables(purchasablesAPIManager.purchasables(path: (try container.decode(PurchasableCategoryNode.PurchasablesData.self, forKey: .purchasables)).path))
+				self = .purchasables(purchasablesAPIManager.purchasables(path: (try container.decode(PurchasableCategoryNode.PurchasablesRawData.self, forKey: .purchasables)).path))
 			} catch {
 				do {
-					let itemedPurchasableData = try container.decode(PurchasableCategoryNode.ItemedPurchasableData.self, forKey: .itemedPurchasable)
-					self = .itemedPurchasable(itemCategoryPromises(purchasablesAPIManager: purchasablesAPIManager, path: itemedPurchasableData.itemsPath, categories: itemedPurchasableData.itemCategories), ItemedPurchasableBuilder())
+					let itemedPurchasableData = try container.decode(PurchasableCategoryNode.ItemedPurchasableRawData.self, forKey: .itemedPurchasable)
+					let promises = itemsPromises(purchasablesAPIManager: purchasablesAPIManager, path: itemedPurchasableData.itemsPath, categories: itemedPurchasableData.itemCategories)
+					self = .itemedPurchasable(PurchasableCategoryNode.ItemedPurchasableData(categories: itemedPurchasableData.itemCategories, promises: promises, builder: ItemedPurchasableBuilder()))
 				}
 			}
 		}
 	}
 }
 
-func itemCategoryPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
+func itemsPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
 	var itemCategoryPromises = [ItemCategory: Promise<[Item]>]()
 	categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path + "/" + $0.rawValue) }
 	return itemCategoryPromises

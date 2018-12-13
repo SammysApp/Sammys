@@ -13,12 +13,12 @@ protocol BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable)
 }
 
-enum BuilderViewLayoutState {
+enum BuilderViewLayout {
 	case horizontal, vertical
 }
 
-protocol BuilderViewLayoutStateSpecifier {
-	var state: BuilderViewLayoutState { get }
+protocol BuilderViewLayoutSpecifier {
+	var layout: BuilderViewLayout { get }
 }
 
 class BuilderViewController: UIViewController {
@@ -28,7 +28,7 @@ class BuilderViewController: UIViewController {
 	
 	var delegate: BuilderViewControllerDelegate?
 	
-	var currentViewLayoutState = BuilderViewLayoutState.horizontal
+	var currentViewLayoutState = BuilderViewLayout.horizontal
 	{ didSet { changeViewLayout(for: currentViewLayoutState) } }
 	
 	let animatedCardCollectionViewLayout = AnimatedCollectionViewLayout()
@@ -113,7 +113,7 @@ class BuilderViewController: UIViewController {
 	}
 	
 	// MARK: - Update
-	func updateCollectionView(for state: BuilderViewLayoutState) {
+	func updateCollectionView(for state: BuilderViewLayout) {
         switch state {
         case .horizontal:
             collectionView.alwaysBounceHorizontal = true
@@ -134,7 +134,7 @@ class BuilderViewController: UIViewController {
     }
 	
 	// MARK: - Methods
-	func changeViewLayout(for state: BuilderViewLayoutState) {
+	func changeViewLayout(for state: BuilderViewLayout) {
 		itemDetailsStackView.isHidden = state == .vertical
 		updateCollectionView(for: state)
 	}
@@ -154,16 +154,11 @@ class BuilderViewController: UIViewController {
 		viewModel.setupData(for: itemCategory)
 			.get { self.collectionView?.reloadData() }.catch { print($0) }
 		itemCategoryLabel.text = itemCategory.name
-		if let stateSpecifier = itemCategory as? BuilderViewLayoutStateSpecifier {
-			currentViewLayoutState = stateSpecifier.state
-		}
+		currentViewLayoutState = itemCategory.layout
 	}
 	
 	func handleCenter(at cellViewModel: BuilderViewModel.Section.CellViewModel) {
 		itemNameLabel.text = cellViewModel.item.name
-//		if let pricedItem = cellViewModel.item as? PricedItem {
-//			itemPriceLabel.text = pricedItem.price.priceString
-//		}
 	}
 	
 	func set(to itemCategory: ItemCategory) {
@@ -180,9 +175,7 @@ class BuilderViewController: UIViewController {
     @IBAction func didTapNext(_ sender: UIButton) {
 		do {
 			if viewModel.isAtLastItemCategory {
-//				let itemedPurchasable = try viewModel.build()
-//				if delegate == nil { presentAddBagViewController(with: itemedPurchasable) }
-//				else { delegate?.builderViewController(self, didFinishBuilding: itemedPurchasable) }
+				
 			} else {
 				try viewModel.incrementItemCategory()
 				handleUpdatedItemCategory(viewModel.currentCategory)
@@ -300,5 +293,15 @@ extension BuilderViewController: ItemsViewControllerDelegate {
 extension BuilderViewControllerDelegate {
 	func builderViewController(_ builderViewController: BuilderViewController, didFinishBuilding itemedPurchasable: ItemedPurchasable) {
 		builderViewController.presentAddBagViewController(with: itemedPurchasable)
+	}
+}
+
+// MARK: - ItemCategory + BuilderViewLayoutSpecifier
+extension ItemCategory: BuilderViewLayoutSpecifier {
+	var layout: BuilderViewLayout {
+		switch self {
+		case .sizes, .lettuces: return .horizontal
+		default: return .vertical
+		}
 	}
 }

@@ -15,9 +15,9 @@ struct PurchasableCategoryTableViewCellSelectionCommand: TableViewCellCommand {
 		guard let purchasableCategoriesiewController = parameters.viewController as? PurchasableCategoriesViewController else { return }
 		if let next = category.next {
 			switch next {
-			case .itemedPurchasable(let itemsPromises, let builder):
+			case .itemedPurchasable(let data):
 				let builderViewController = purchasableCategoriesiewController.builderViewController
-				builderViewController.viewModelParcel = BuilderViewModelParcel(itemsPromises: itemsPromises, builder: builder, userState: purchasableCategoriesiewController.viewModel.userState)
+				builderViewController.viewModelParcel = BuilderViewModelParcel.init(categories: data.categories, itemsPromises: data.promises, builder: data.builder, userState: purchasableCategoriesiewController.viewModel.userState)
 				purchasableCategoriesiewController.navigationController?.pushViewController(builderViewController, animated: true)
 			default: break
 			}
