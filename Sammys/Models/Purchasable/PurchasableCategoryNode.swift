@@ -32,7 +32,7 @@ struct PurchasableCategoryNode {
 	
 	struct ItemedPurchasableData {
 		let categories: [ItemCategory]
-		let promises: [ItemCategory: Promise<[Item]>]
+		let promises: [ItemCategory: Promise<Items>]
 		let builder: ItemedPurchasableBuilder
 	}
 }
@@ -67,8 +67,8 @@ extension PurchasableCategoryNode.Next: Decodable {
 	}
 }
 
-func itemsPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<[Item]>] {
-	var itemCategoryPromises = [ItemCategory: Promise<[Item]>]()
+func itemsPromises(purchasablesAPIManager: PurchasablesAPIManager, path: String, categories: [ItemCategory]) -> [ItemCategory: Promise<Items>] {
+	var itemCategoryPromises = [ItemCategory: Promise<Items>]()
 	categories.forEach { itemCategoryPromises[$0] = purchasablesAPIManager.items(path: path + "/" + $0.rawValue) }
 	return itemCategoryPromises
 }

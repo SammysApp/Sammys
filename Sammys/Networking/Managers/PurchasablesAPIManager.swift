@@ -29,7 +29,7 @@ struct PurchasablesAPIManager: APIManager {
         return get(.custom(path), apiService: apiService)
     }
 	
-	func items(path: String, apiService: APIService = AlamofireAPIService()) -> Promise<[Item]> {
+	func items(path: String, apiService: APIService = AlamofireAPIService()) -> Promise<Items> {
 		return get(.custom(path), apiService: apiService)
 	}
 }

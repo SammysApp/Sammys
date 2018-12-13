@@ -240,6 +240,10 @@
 		5BD274F9206400CD00618128 /* CollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */; };
 		5BD274FB2064031400618128 /* CollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274FA2064031400618128 /* CollectionViewCellViewModelFactory.swift */; };
 		5BD274FD206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD274FC206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift */; };
+		5BD4836821C2BD2A00DD4980 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4836721C2BD2A00DD4980 /* Items.swift */; };
+		5BD4836A21C2BDE200DD4980 /* ItemsBuilderRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4836921C2BDE200DD4980 /* ItemsBuilderRules.swift */; };
+		5BD4836C21C2BED800DD4980 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4836B21C2BED800DD4980 /* Modifiers.swift */; };
+		5BD4836E21C2BF1D00DD4980 /* ModifiersBuilderRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4836D21C2BF1D00DD4980 /* ModifiersBuilderRules.swift */; };
 		5BEAA08521AEDF1500943427 /* Delegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAA08421AEDF1500943427 /* Delegatable.swift */; };
 		5BEAA08921AF74BE00943427 /* ActiveOrderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BEAA08821AF74BE00943427 /* ActiveOrderViewController.storyboard */; };
 		5BEAA08B21AF75EA00943427 /* ActiveOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAA08A21AF75EA00943427 /* ActiveOrderViewModel.swift */; };
@@ -472,6 +476,10 @@
 		5BD274F8206400CD00618128 /* CollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		5BD274FA2064031400618128 /* CollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellViewModelFactory.swift; sourceTree = "<group>"; };
 		5BD274FC206403E500618128 /* BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuilderViewModell+ItemCollectionViewCellViewModelFactory.swift"; sourceTree = "<group>"; };
+		5BD4836721C2BD2A00DD4980 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		5BD4836921C2BDE200DD4980 /* ItemsBuilderRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsBuilderRules.swift; sourceTree = "<group>"; };
+		5BD4836B21C2BED800DD4980 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		5BD4836D21C2BF1D00DD4980 /* ModifiersBuilderRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiersBuilderRules.swift; sourceTree = "<group>"; };
 		5BEAA08421AEDF1500943427 /* Delegatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegatable.swift; sourceTree = "<group>"; };
 		5BEAA08821AF74BE00943427 /* ActiveOrderViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActiveOrderViewController.storyboard; sourceTree = "<group>"; };
 		5BEAA08A21AF75EA00943427 /* ActiveOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveOrderViewModel.swift; sourceTree = "<group>"; };
@@ -803,7 +811,11 @@
 			children = (
 				5B2950C0218A361C008B0E49 /* ItemCategory.swift */,
 				5B44A82C2009292A00898FF0 /* Item.swift */,
+				5BD4836721C2BD2A00DD4980 /* Items.swift */,
+				5BD4836921C2BDE200DD4980 /* ItemsBuilderRules.swift */,
 				5BAD4D1D20B85FC3009201A4 /* Modifier.swift */,
+				5BD4836B21C2BED800DD4980 /* Modifiers.swift */,
+				5BD4836D21C2BF1D00DD4980 /* ModifiersBuilderRules.swift */,
 				5B44A7C3200483E500898FF0 /* ItemedPurchasable.swift */,
 			);
 			path = ItemedPurchasable;
@@ -1687,6 +1699,7 @@
 				5B553A65206C774F00DD9689 /* ItemsViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5BD0C1E021A5D5D900C512C5 /* HomePurchasableCategoryCollectionViewCellSelectionCommand.swift in Sources */,
+				5BD4836E21C2BF1D00DD4980 /* ModifiersBuilderRules.swift in Sources */,
 				5BEED53E206C6F70002240EB /* AddBagViewModel.swift in Sources */,
 				5B411E6E21B628AE004E8028 /* AnyPurchasable.swift in Sources */,
 				5B1CB08320158BDA0006235F /* ItemsViewController.swift in Sources */,
@@ -1703,6 +1716,7 @@
 				5BA1136321A4896400FFF1CB /* Extension+Array+PurchasableQuantities.swift in Sources */,
 				5B44A81D2007BB7000898FF0 /* UserViewController.swift in Sources */,
 				5B44A82F2009326000898FF0 /* AddBagViewController.swift in Sources */,
+				5BD4836821C2BD2A00DD4980 /* Items.swift in Sources */,
 				5BCEC2CF21B722DF00ABD95B /* PurchasableCategory.swift in Sources */,
 				5B76187921B82E3D00D30930 /* PurchasablesViewController.swift in Sources */,
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
@@ -1798,6 +1812,7 @@
 				5B28C94121B6FF1A008B4136 /* Identifiable.swift in Sources */,
 				5BC950402108DF0D00AF1098 /* Observer.swift in Sources */,
 				5BD0C1DE21A5D0E300C512C5 /* HomePurchasableCategoryCollectionViewCellViewModel.swift in Sources */,
+				5BD4836C21C2BED800DD4980 /* Modifiers.swift in Sources */,
 				5B6A06981FFE8B1300BAC480 /* BuilderViewController.swift in Sources */,
 				5BFD2BC9202112DE005C01BF /* LoginPageViewController.swift in Sources */,
 				5B44A833200C006400898FF0 /* StripeAPIManager.swift in Sources */,
@@ -1817,6 +1832,7 @@
 				5B2278562197B990003E3DE2 /* Nibable.swift in Sources */,
 				5BB296AD209CE01300520683 /* DetailTableViewCellConfigurationCommand.swift in Sources */,
 				5BB60EF22069EA5200105E72 /* Storyboardable.swift in Sources */,
+				5BD4836A21C2BDE200DD4980 /* ItemsBuilderRules.swift in Sources */,
 				5B44A8022006CE7F00898FF0 /* HomeViewController.swift in Sources */,
 				5B76187B21B82E6600D30930 /* PurchasablesViewModel.swift in Sources */,
 				5BB296A22093891100520683 /* LoginPageViewModel.swift in Sources */,

@@ -11,7 +11,7 @@ import PromiseKit
 
 struct BuilderViewModelParcel {
 	let categories: [ItemCategory]
-	let itemsPromises: [ItemCategory: Promise<[Item]>]
+	let itemsPromises: [ItemCategory: Promise<Items>]
 	let builder: ItemedPurchasableBuilder
 	let userState: UserState
 }
@@ -65,7 +65,7 @@ class BuilderViewModel {
 	func setupData(for itemCategory: ItemCategory) -> Promise<Void> {
 		guard let itemsPromise = parcel?.itemsPromises[itemCategory]
 			else { return Promise(error: BuilderViewModelError.needsParcel) }
-		return itemsPromise.get { self.sections = self.sections(for: $0) }.asVoid()
+		return itemsPromise.get { self.sections = self.sections(for: $0.items) }.asVoid()
 	}
 	
 	func set(_ itemCategory: ItemCategory) { }
