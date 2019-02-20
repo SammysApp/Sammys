@@ -9,9 +9,5 @@
 import Foundation
 
 enum AppEnvironment {
-    case debug, release, family
-    
-    var isLive: Bool {
-        return self == .release
-    }
+    case development, production
 }

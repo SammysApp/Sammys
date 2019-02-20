@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>380157188420-r0uor0qurcqsdsb83un67df82ojs1gan.apps.googleusercontent.com</string>
+	<string>379306285305-g0p9ku21piv5ta16bhpmlponi0sdh3dv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.380157188420-r0uor0qurcqsdsb83un67df82ojs1gan</string>
+	<string>com.googleusercontent.apps.379306285305-g0p9ku21piv5ta16bhpmlponi0sdh3dv</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA0MBpYs_T009RHlCHTPcZCArMoVWXRDqw</string>
+	<string>AIzaSyCVw1GRwdiE9ucjfNoi6Vgz8VIYsYVOfNs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>380157188420</string>
+	<string>379306285305</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.natanelniazoff.Sammys</string>
+	<string>com.natanelniazoff.sammys.dev</string>
 	<key>PROJECT_ID</key>
-	<string>sammys-73b4d</string>
+	<string>sammys-prog</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sammys-73b4d.appspot.com</string>
+	<string>sammys-prog.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:380157188420:ios:e35ca9ec130e8c29</string>
+	<string>1:379306285305:ios:31aabc4d37629d26</string>
 	<key>DATABASE_URL</key>
-	<string>https://sammys-73b4d.firebaseio.com</string>
+	<string>https://sammys-prog.firebaseio.com</string>
 </dict>
 </plist>
