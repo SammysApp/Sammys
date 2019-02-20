@@ -9,7 +9,7 @@
 import UIKit
 
 struct ButtonTableViewCellConfigurationCommand: TableViewCellCommand {
-	let text: String
+    let text: String
     
     func perform(cell: UITableViewCell?) {
         guard let cell = cell else { return }

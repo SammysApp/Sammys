@@ -9,7 +9,7 @@
 import Foundation
 
 protocol TableViewCellViewModelFactory {
-	associatedtype ViewModel: TableViewCellViewModel
-	
+    associatedtype ViewModel: TableViewCellViewModel
+    
     func create() -> ViewModel
 }

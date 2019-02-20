@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Stripe
 
 #if DEBUG
 let environment = AppEnvironment.development
@@ -19,7 +18,7 @@ let environment = AppEnvironment.production
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Configure Firebase
         FirebaseApp.configure()

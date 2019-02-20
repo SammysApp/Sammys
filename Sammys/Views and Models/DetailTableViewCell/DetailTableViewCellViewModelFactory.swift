@@ -9,7 +9,7 @@
 import Foundation
 
 struct DetailTableViewCellViewModelFactory: TableViewCellViewModelFactory {
-	let identifier: String
+    let identifier: String
     let height: Double
     
     let titleText: String
@@ -17,7 +17,7 @@ struct DetailTableViewCellViewModelFactory: TableViewCellViewModelFactory {
     
     func create() -> BasicTableViewCellViewModel {
         let configuration = DetailTableViewCellConfigurationCommand(titleText: titleText, detailText: detailText)
-		return BasicTableViewCellViewModel(
+        return BasicTableViewCellViewModel(
             identifier: identifier,
             height: height,
             commands: [.configuration: configuration]

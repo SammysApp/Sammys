@@ -9,7 +9,7 @@
 import Foundation
 
 struct ButtonTableViewCellViewModelFactory: TableViewCellViewModelFactory {
-	let identifier: String
+    let identifier: String
     let height: Double
     
     let text: String

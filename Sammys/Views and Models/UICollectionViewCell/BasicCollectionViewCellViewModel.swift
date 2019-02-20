@@ -9,8 +9,8 @@
 import Foundation
 
 struct BasicCollectionViewCellViewModel: CollectionViewCellViewModel {
-	let identifier: String
-	let width: Double
-	let height: Double
-	let commands: [CollectionViewCellCommandAction: CollectionViewCellCommand]
+    let identifier: String
+    let width: Double
+    let height: Double
+    let commands: [CollectionViewCellCommandAction: CollectionViewCellCommand]
 }

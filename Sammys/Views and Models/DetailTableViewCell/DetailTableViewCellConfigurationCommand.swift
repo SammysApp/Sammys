@@ -9,7 +9,7 @@
 import UIKit
 
 struct DetailTableViewCellConfigurationCommand: TableViewCellCommand {
-	let titleText: String
+    let titleText: String
     let detailText: String
     
     func perform(cell: UITableViewCell?) {

@@ -9,8 +9,8 @@
 import Foundation
 
 protocol CollectionViewCellViewModel {
-	var identifier: String { get }
-	var width: Double { get }
-	var height: Double { get }
-	var commands: [CollectionViewCellCommandAction: CollectionViewCellCommand] { get }
+    var identifier: String { get }
+    var width: Double { get }
+    var height: Double { get }
+    var commands: [CollectionViewCellCommandAction: CollectionViewCellCommand] { get }
 }

@@ -9,5 +9,5 @@
 import UIKit
 
 protocol TableViewCellCommand {
-	func perform(cell: UITableViewCell?)
+    func perform(cell: UITableViewCell?)
 }

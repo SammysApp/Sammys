@@ -15,13 +15,13 @@ protocol Storyboardable where Self: UIViewController {}
 extension Storyboardable {
     /// Returns a `UIViewController` instance of the same type with the initial view
     /// controller of the matching storyboard file in the given bundle.
-	static func storyboardInstance(bundle: Bundle = Bundle.main) -> Self {
+    static func storyboardInstance(bundle: Bundle = Bundle.main) -> Self {
         let typeName = String(describing: Self.self)
         let storyboard = UIStoryboard(name: typeName, bundle: bundle)
-		if let initialViewController =
+        if let initialViewController =
             storyboard.instantiateInitialViewController() as? Self {
-			return initialViewController
-		} else {
+            return initialViewController
+        } else {
             fatalError("Could not instantiate a \(typeName) instance from the storyboard.")
         }
     }
