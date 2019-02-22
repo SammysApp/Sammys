@@ -10,4 +10,5 @@ target 'Sammys' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Stripe'
+  pod 'TinyConstraints'
 end

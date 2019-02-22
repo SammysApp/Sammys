@@ -1,5 +1,5 @@
 //
-//  Section.swift
+//  TableViewSection.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 11/2/18.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Section<CellViewModel> {
+struct TableViewSection {
     let title: String?
-    let cellViewModels: [CellViewModel]
+    let cellViewModels: [TableViewCellViewModel]
     
     init(title: String? = nil,
-         cellViewModels: [CellViewModel]) {
+         cellViewModels: [TableViewCellViewModel]) {
         self.title = title
         self.cellViewModels = cellViewModels
     }

@@ -68,6 +68,7 @@ PODS:
   - PromiseKit/UIKit (6.8.3):
     - PromiseKit/CorePromise
   - Stripe (14.0.0)
+  - TinyConstraints (3.3.1)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - PromiseKit (~> 6.8)
   - PromiseKit/Foundation
   - Stripe
+  - TinyConstraints
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -90,6 +92,7 @@ SPEC REPOS:
     - nanopb
     - PromiseKit
     - Stripe
+    - TinyConstraints
 
 SPEC CHECKSUMS:
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
@@ -104,7 +107,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
   Stripe: db29ad197c74aca6fb981e4e8355cf7ebd0fca5a
+  TinyConstraints: dbf7519aefc01ea59d62244300c7718aec68e280
 
-PODFILE CHECKSUM: e585fd61e97b32c6d1ca6be33739d4427f9c1b97
+PODFILE CHECKSUM: 0c20fa6bf5aa782dcb53ea8babc02e1a58ccc55f
 
 COCOAPODS: 1.6.0

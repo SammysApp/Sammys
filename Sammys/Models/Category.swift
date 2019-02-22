@@ -9,6 +9,10 @@
 import Foundation
 
 struct Category: Codable {
-    let id: UUID
+    typealias ID = UUID
+    
+    let id: ID
     let name: String
+    let isParentCategory: Bool
+    let isConstructable: Bool
 }

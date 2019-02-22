@@ -27,10 +27,14 @@ struct APIClient {
     
     private enum Endpoints: HTTPEndpoint {
         case getCategories
+        case getSubcategories(Category.ID)
         
         var endpoint: (HTTPMethod, URLPath) {
             switch self {
-            case .getCategories: return (.GET, "/\(Constants.version)/categories")
+            case .getCategories:
+                return (.GET, "/\(Constants.version)/categories")
+            case .getSubcategories(let id):
+                return (.GET, "/\(Constants.version)/categories/\(id)/subcategories")
             }
         }
     }
@@ -40,7 +44,14 @@ struct APIClient {
     }
     
     func getCategories() throws -> Promise<[Category]> {
-        return try httpClient.send(Endpoints.getCategories, to: server).validate()
+        return try httpClient.send(Endpoints.getCategories, to: server)
+            .validate()
+            .map { try JSONDecoder().decode([Category].self, from: $0.data) }
+    }
+    
+    func getSubcategories(of categoryID: Category.ID) throws -> Promise<[Category]> {
+        return try httpClient.send(Endpoints.getSubcategories(categoryID), to: server)
+            .validate()
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
     }
 }

@@ -17,9 +17,16 @@ let environment = AppEnvironment.production
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+    let window = UIWindow(frame: UIScreen.main.bounds)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let tabViewController = UITabBarController()
+        let homeViewController = HomeViewController()
+        tabViewController.viewControllers = [homeViewController]
+        
+        window.rootViewController = UINavigationController(rootViewController: tabViewController)
+        window.makeKeyAndVisible()
+        
         // Configure Firebase
         FirebaseApp.configure()
         
