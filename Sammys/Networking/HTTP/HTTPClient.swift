@@ -10,13 +10,5 @@ import Foundation
 import PromiseKit
 
 protocol HTTPClient {
-    func send(_ request: URLRequest) throws -> Promise<HTTPResponse>
-}
-
-extension HTTPClient {
-    func send(_ endpoint: HTTPEndpoint, to server: HTTPServer, headers: [HTTPHeader] = [], data: Data? = nil) throws -> Promise<HTTPResponse> {
-        guard var request = URLRequest(server: server, endpoint: endpoint, headers: headers) else { fatalError("Can't create `URLRequest` from parameters.") }
-        request.httpBody = data
-        return try send(request)
-    }
+    func send(_ request: URLRequest) -> Promise<HTTPResponse>
 }

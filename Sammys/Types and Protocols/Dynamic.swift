@@ -8,13 +8,16 @@
 
 import Foundation
 
-class Dynamic<T> {
-    typealias Listener = (T) -> Void
+class Dynamic<Value> {
+    typealias Listener = (Value) -> Void
     
     private var listener: Listener?
-    var value: T { didSet { listener?(value) } }
     
-    init(_ value: T) {
+    var value: Value {
+        didSet { listener?(value) }
+    }
+    
+    init(_ value: Value) {
         self.value = value
     }
     
@@ -28,8 +31,8 @@ class Dynamic<T> {
     }
 }
 
-extension Dynamic: Equatable where T: Equatable {
-    static func == (lhs: Dynamic<T>, rhs: Dynamic<T>) -> Bool {
+extension Dynamic: Equatable where Value: Equatable {
+    static func == (lhs: Dynamic<Value>, rhs: Dynamic<Value>) -> Bool {
         return lhs.value == rhs.value
     }
 }

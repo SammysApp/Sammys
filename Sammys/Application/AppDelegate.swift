@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 
 #if DEBUG
-let environment = AppEnvironment.development
+let appEnvironment = AppEnvironment.development
 #else
-let environment = AppEnvironment.production
+let appEnvironment = AppEnvironment.production
 #endif
 
 @UIApplicationMain

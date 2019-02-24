@@ -12,7 +12,7 @@ import PromiseKit
 struct URLSessionHTTPClient: HTTPClient {
     private let session = URLSession.shared
     
-    func send(_ request: URLRequest) throws -> Promise<HTTPResponse> {
+    func send(_ request: URLRequest) -> Promise<HTTPResponse> {
         return session.dataTask(.promise, with: request).map(HTTPResponse.init)
     }
 }
