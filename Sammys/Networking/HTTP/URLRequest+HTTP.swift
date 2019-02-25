@@ -11,9 +11,15 @@ import Foundation
 extension URLRequest {
     init?(server: HTTPServer,
           endpoint: HTTPEndpoint,
+          queryItems: [URLQueryItem] = [],
           headers: [HTTPHeader] = []) {
-        guard let url = URL(string: server.urlString + endpoint.endpoint.1)
-            else { return nil }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = server.scheme.rawValue
+        urlComponents.host = server.host
+        urlComponents.port = server.port
+        urlComponents.path = endpoint.endpoint.1
+        urlComponents.queryItems = queryItems
+        guard let url = urlComponents.url else { return nil }
         self.init(url: url)
         self.set(endpoint.endpoint.0)
         headers.forEach { self.add($0) }

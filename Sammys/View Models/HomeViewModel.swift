@@ -8,17 +8,6 @@
 
 import Foundation
 
-enum Download<Source, Value> {
-    case willDownload(Source)
-    case downloading
-    case completed(Result)
-    
-    enum Result {
-        case success(Value)
-        case failure(Error)
-    }
-}
-
 class HomeViewModel {
     private typealias CategoriesDownload = Download<URLRequest, [Category]>
     
@@ -67,7 +56,7 @@ class HomeViewModel {
     }
     
     private func makeCategoriesDownload() -> CategoriesDownload {
-        return .willDownload(apiURLRequestFactory.makeGetCategoriesRequest())
+        return .willDownload(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: [URLQueryItem(name: "isRoot", value: "true")]))
     }
     
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
@@ -75,7 +64,8 @@ class HomeViewModel {
             identifier: HomeViewController.CellIdentifier.imageCell.rawValue,
             height: 100,
             actions: categoryImageTableViewCellViewModelActions,
-            configurationData: .init(text: category.name)
+            configurationData: .init(text: category.name),
+            selectionData: .init(id: category.id)
         )
     }
 }
@@ -86,9 +76,14 @@ extension HomeViewModel {
         let height: Double
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
+        let selectionData: SelectionData
         
         struct ConfigurationData {
             let text: String
+        }
+        
+        struct SelectionData {
+            let id: Category.ID
         }
     }
 }

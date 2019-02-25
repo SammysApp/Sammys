@@ -9,5 +9,20 @@
 import Foundation
 
 struct HTTPServer {
-    let urlString: String
+    let scheme: Scheme
+    let host: String
+    let port: Int
+    
+    init(scheme: Scheme = .http,
+         host: String,
+         port: Int = 80) {
+        self.scheme = scheme
+        self.host = host
+        self.port = port
+    }
+    
+    enum Scheme: String {
+        case http
+        case https
+    }
 }

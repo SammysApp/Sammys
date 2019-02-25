@@ -12,8 +12,8 @@ import PromiseKit
 struct APIURLRequestFactory {
     private let environment: AppEnvironment
     
-    private let developmentServer = HTTPServer(urlString: LocalConstants.developmentAPIServerURL)
-    private let productionServer = HTTPServer(urlString: "")
+    private let developmentServer = HTTPServer(host: LocalConstants.DevelopmentAPIServer.host, port: LocalConstants.DevelopmentAPIServer.port)
+    private let productionServer = HTTPServer(host: "")
     
     var server: HTTPServer {
         switch environment {
@@ -26,8 +26,8 @@ struct APIURLRequestFactory {
         self.environment = environment
     }
     
-    func makeGetCategoriesRequest() -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getCategories)!
+    func makeGetCategoriesRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getCategories, queryItems: queryItems)!
     }
     
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {

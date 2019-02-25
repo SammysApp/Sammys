@@ -24,7 +24,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.categoryImageTableViewCellViewModelActions = [
-            .configuration: categoryImageTableViewCellConfigurationHandler
+            .configuration: categoryImageTableViewCellConfigurationHandler,
+            .selection: categoryImageTableViewCellSelectionHandler
         ]
         
         [tableView]
@@ -48,5 +49,9 @@ class HomeViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }
         cell.textLabel.text = cellViewModel.configurationData.text
+    }
+    
+    private func categoryImageTableViewCellSelectionHandler(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
     }
 }

@@ -56,6 +56,7 @@
 		5B6E367D221F2611004D5310 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E367C221F2611004D5310 /* HomeViewModel.swift */; };
 		5B6E3683221F7111004D5310 /* UITableViewSectionModelsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */; };
 		5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */; };
+		5B6E391822236806004D5310 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391722236806004D5310 /* Download.swift */; };
 		5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
 		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
@@ -120,6 +121,7 @@
 		5B6E367C221F2611004D5310 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDataSource.swift; sourceTree = "<group>"; };
 		5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDelegate.swift; sourceTree = "<group>"; };
+		5B6E391722236806004D5310 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		5B7C0B31219A4BBD00EBC0EB /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		5B8E81A921B0696C00C22CEA /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		5B3F25D8210F67750080290E /* Types and Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				5B6E391722236806004D5310 /* Download.swift */,
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
 			);
 			path = "Types and Protocols";
@@ -498,6 +501,7 @@
 				5B01221A221DE4B80054AB7A /* HTTPEndpoint.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B012226221DF8930054AB7A /* URLRequest+HTTP.swift in Sources */,
+				5B6E391822236806004D5310 /* Download.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
@@ -648,7 +652,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C41B68A755EBE64CB5E58257 /* Pods-Sammys.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.dev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_BUILD = 1;
 				BUNDLE_ID_SUFFIX = .dev;
 				BUNDLE_VERSION = 1.0;
@@ -671,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 472F77DF5AB31A347444D92A /* Pods-Sammys.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.dev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_BUILD = 1;
 				BUNDLE_ID_SUFFIX = "";
 				BUNDLE_VERSION = 1.0;
@@ -747,7 +751,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96B0F2FCA8B8D841197F6153 /* Pods-Sammys.beta.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.dev;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUNDLE_BUILD = 2;
 				BUNDLE_ID_SUFFIX = .beta;
 				BUNDLE_VERSION = 1.0;
