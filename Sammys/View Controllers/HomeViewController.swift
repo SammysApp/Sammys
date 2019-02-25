@@ -20,26 +20,16 @@ class HomeViewController: UIViewController {
         case imageCell
     }
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addSubviews()
         configureTableView()
-        
-        viewModel.categoryImageTableViewCellViewModelActions = [
-            .configuration: categoryImageTableViewCellConfigurationHandler,
-            .selection: categoryImageTableViewCellSelectionHandler
-        ]
-        
-        viewModel.tableViewSectionModels.bind { sectionModels in
-            self.tableViewDataSource.sectionModels = sectionModels
-            self.tableViewDelegate.sectionModels = sectionModels
-            self.tableView.reloadData()
-        }
-        
-        viewModel.beginDownloads()
+        configureViewModel()
     }
     
+    // MARK: - Setup Methods
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
     }
@@ -51,12 +41,27 @@ class HomeViewController: UIViewController {
         tableView.edgesToSuperview()
     }
     
+    private func configureViewModel() {
+        viewModel.categoryImageTableViewCellViewModelActions = [
+            .configuration: categoryImageTableViewCellConfigurationHandler,
+            .selection: categoryImageTableViewCellSelectionHandler
+        ]
+        viewModel.tableViewSectionModels.bind { sectionModels in
+            self.tableViewDataSource.sectionModels = sectionModels
+            self.tableViewDelegate.sectionModels = sectionModels
+            self.tableView.reloadData()
+        }
+        viewModel.beginDownloads()
+    }
+    
+    // MARK: - Factory Methods
     private func makeCategoryViewController(parentCategoryID: Category.ID? = nil) -> CategoryViewController {
         let categoryViewController = CategoryViewController()
         categoryViewController.viewModel.parentCategoryID = parentCategoryID
         return categoryViewController
     }
     
+    // MARK: - UITableViewCellViewModel Actions
     private func categoryImageTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }

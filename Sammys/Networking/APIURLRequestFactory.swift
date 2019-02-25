@@ -27,24 +27,25 @@ struct APIURLRequestFactory {
     }
     
     func makeGetCategoriesRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getCategories, queryItems: queryItems)!
+        return URLRequest(server: server, endpoint: Endpoint.getCategories, queryItems: queryItems) ?? preconditionFailure()
     }
     
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getSubcategories(parentCategoryID))!
+        return URLRequest(server: server, endpoint: Endpoint.getSubcategories(parentCategoryID)) ?? preconditionFailure()
     }
     
-    func makeGetCategoryItemsRequest(categoryID: Category.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getCategoryItems(categoryID))!
+    func makeGetCategoryItemsRequest(id: Category.ID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getCategoryItems(id)) ?? preconditionFailure()
     }
     
     func makeGetItemModifiersRequest(categoryID: Category.ID, itemID: Item.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID))!
+        return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
 }
 
 extension APIURLRequestFactory {
     private enum Endpoint: HTTPEndpoint {
+        // MARK: - GET
         /// `/categories`
         case getCategories
         /// `/categories/:category/subcategories`

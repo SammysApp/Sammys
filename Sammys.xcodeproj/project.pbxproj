@@ -64,6 +64,9 @@
 		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
 		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
 		5B9865FE20C5A347004722D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9865FD20C5A347004722D8 /* Assets.xcassets */; };
+		5B9A8AB9222449AF00F5525D /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */; };
+		5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ABA22244C3500F5525D /* Optional.swift */; };
+		5B9A8ABD222450D100F5525D /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ABC222450D100F5525D /* ItemsViewController.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
@@ -132,6 +135,9 @@
 		5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		5B8E81A921B0696C00C22CEA /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		5B9865FD20C5A347004722D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
+		5B9A8ABA22244C3500F5525D /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
+		5B9A8ABC222450D100F5525D /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -185,6 +191,7 @@
 				5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */,
 				5B3A4B322195F3E300F22F78 /* MKMapView.swift */,
 				5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */,
+				5B9A8ABA22244C3500F5525D /* Optional.swift */,
 				5B3A4B3F2195F3E300F22F78 /* String.swift */,
 				5B8E81A921B0696C00C22CEA /* UIAlertController.swift */,
 				5B3A4B412195F3E300F22F78 /* UIButton.swift */,
@@ -282,6 +289,7 @@
 			children = (
 				5B6E367C221F2611004D5310 /* HomeViewModel.swift */,
 				5B6E391B2223831F004D5310 /* CategoryViewModel.swift */,
+				5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */,
 				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */,
 			);
@@ -302,6 +310,7 @@
 			children = (
 				5B6E3678221F1E74004D5310 /* HomeViewController.swift */,
 				5B6E391922238240004D5310 /* CategoryViewController.swift */,
+				5B9A8ABC222450D100F5525D /* ItemsViewController.swift */,
 				5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */,
 				5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */,
 			);
@@ -488,8 +497,10 @@
 				5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
 				5B3A4B672195F3E400F22F78 /* String.swift in Sources */,
+				5B9A8ABD222450D100F5525D /* ItemsViewController.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
 				5B6E391E2223955B004D5310 /* Item.swift in Sources */,
+				5B9A8AB9222449AF00F5525D /* ItemsViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B01221C221DE97F0054AB7A /* HTTPServer.swift in Sources */,
@@ -513,6 +524,7 @@
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B012226221DF8930054AB7A /* URLRequest+HTTP.swift in Sources */,
 				5B6E391822236806004D5310 /* Download.swift in Sources */,
+				5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
