@@ -20,16 +20,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let tabViewController = UITabBarController()
-        let homeViewController = HomeViewController()
-        tabViewController.viewControllers = [homeViewController]
-        
-        window.rootViewController = UINavigationController(rootViewController: tabViewController)
+        window.rootViewController = makeTabBarController()
         window.makeKeyAndVisible()
         
         // Configure Firebase
         FirebaseApp.configure()
         
         return true
+    }
+    
+    private func makeTabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        let homeViewController = HomeViewController()
+        homeViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 1)
+        tabBarController.viewControllers = [homeViewController].map { UINavigationController(rootViewController: $0) }
+        return tabBarController
     }
 }

@@ -1,19 +1,19 @@
 //
-//  Category.swift
+//  Item.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 2/20/19.
+//  Created by Natanel Niazoff on 2/24/19.
 //  Copyright © 2019 Natanel Niazoff. All rights reserved.
 //
 
 import Foundation
 
-struct Category: Codable {
+struct Item: Codable {
     typealias ID = UUID
     
     let id: ID
     let name: String
-    let isConstructable: Bool
     
-    let isParentCategory: Bool?
+    let categoryItemID: UUID?
+    let isModifiable: Bool?
 }

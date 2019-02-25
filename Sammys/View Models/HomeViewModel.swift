@@ -21,8 +21,9 @@ class HomeViewModel {
         }
     }
     
+    // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
-    var categoriesDownloadErrorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
@@ -32,13 +33,14 @@ class HomeViewModel {
         self.httpClient = httpClient
     }
     
-    func beginCategoriesDownload() {
+    func beginDownloads() {
         categoriesDownload = makeCategoriesDownload()
     }
     
     private func handleCategoriesDownload(_ download: CategoriesDownload) {
         switch download {
         case .willDownload(let request):
+            categoriesDownload = .downloading
             httpClient.send(request)
                 .map { try JSONDecoder().decode([Category].self, from: $0.data) }
                 .get { self.categoriesDownload = .completed(.success($0)) }
@@ -50,7 +52,7 @@ class HomeViewModel {
             switch result {
             case .success(let categories):
                 tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel)))
-            case .failure(let error): categoriesDownloadErrorHandler?(error)
+            case .failure(let error): errorHandler?(error)
             }
         }
     }

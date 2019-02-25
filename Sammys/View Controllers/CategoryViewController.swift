@@ -37,7 +37,7 @@ class CategoryViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        viewModel.beginCategoriesDownload()
+        viewModel.beginDownloads()
     }
     
     private func addSubviews() {

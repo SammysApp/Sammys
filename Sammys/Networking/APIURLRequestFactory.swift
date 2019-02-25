@@ -33,12 +33,26 @@ struct APIURLRequestFactory {
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {
         return URLRequest(server: server, endpoint: Endpoint.getSubcategories(parentCategoryID))!
     }
+    
+    func makeGetCategoryItemsRequest(categoryID: Category.ID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getCategoryItems(categoryID))!
+    }
+    
+    func makeGetItemModifiersRequest(categoryID: Category.ID, itemID: Item.ID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID))!
+    }
 }
 
 extension APIURLRequestFactory {
     private enum Endpoint: HTTPEndpoint {
+        /// `/categories`
         case getCategories
+        /// `/categories/:category/subcategories`
         case getSubcategories(Category.ID)
+        /// `/categories/:category/item`
+        case getCategoryItems(Category.ID)
+        /// `/categories/:category/item/:item/modifiers`
+        case getItemModifiers(Category.ID, Item.ID)
         
         private enum Version: String {
             case v1
@@ -52,6 +66,10 @@ extension APIURLRequestFactory {
                 return (.GET, "/\(version)/categories")
             case .getSubcategories(let id):
                 return (.GET, "/\(version)/categories/\(id)/subcategories")
+            case .getCategoryItems(let id):
+                return (.GET, "/\(version)/categories/\(id)/items")
+            case .getItemModifiers(let categoryID, let itemID):
+                return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
             }
         }
     }
