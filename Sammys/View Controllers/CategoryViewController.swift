@@ -1,23 +1,23 @@
 //
-//  HomeViewController.swift
+//  CategoryViewController.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 2/21/19.
+//  Created by Natanel Niazoff on 2/24/19.
 //  Copyright © 2019 Natanel Niazoff. All rights reserved.
 //
 
 import UIKit
 import TinyConstraints
 
-class HomeViewController: UIViewController {
-    let viewModel = HomeViewModel()
+class CategoryViewController: UIViewController {
+    let viewModel = CategoryViewModel()
     
     private let tableView = UITableView()
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     enum CellIdentifier: String {
-        case imageCell
+        case cell
     }
     
     override func viewDidLoad() {
@@ -26,9 +26,9 @@ class HomeViewController: UIViewController {
         addSubviews()
         configureTableView()
         
-        viewModel.categoryImageTableViewCellViewModelActions = [
-            .configuration: categoryImageTableViewCellConfigurationHandler,
-            .selection: categoryImageTableViewCellSelectionHandler
+        viewModel.categoryTableViewCellViewModelActions = [
+            .configuration: categoryTableViewCellConfigurationHandler,
+            .selection: categoryTableViewCellSelectionHandler
         ]
         
         viewModel.tableViewSectionModels.bind { sectionModels in
@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: CellIdentifier.imageCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.cell.rawValue)
         tableView.edgesToSuperview()
     }
     
@@ -57,14 +57,14 @@ class HomeViewController: UIViewController {
         return categoryViewController
     }
     
-    private func categoryImageTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
-            let cell = data.cell as? ImageTableViewCell else { return }
-        cell.textLabel.text = cellViewModel.configurationData.text
+    private func categoryTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
+            let cell = data.cell else { return }
+        cell.textLabel?.text = cellViewModel.configurationData.text
     }
     
-    private func categoryImageTableViewCellSelectionHandler(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
+    private func categoryTableViewCellSelectionHandler(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel else { return }
         navigationController?.pushViewController(
             makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id),
             animated: true

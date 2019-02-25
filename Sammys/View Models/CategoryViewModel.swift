@@ -1,14 +1,14 @@
 //
-//  HomeViewModel.swift
+//  CategoryViewModel.swift
 //  Sammys
 //
-//  Created by Natanel Niazoff on 2/21/19.
+//  Created by Natanel Niazoff on 2/24/19.
 //  Copyright © 2019 Natanel Niazoff. All rights reserved.
 //
 
 import Foundation
 
-class HomeViewModel {
+class CategoryViewModel {
     private typealias CategoriesDownload = Download<URLRequest, [Category]>
     
     private let httpClient: HTTPClient
@@ -21,7 +21,8 @@ class HomeViewModel {
         }
     }
     
-    var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var parentCategoryID: Category.ID?
+    var categoryTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var categoriesDownloadErrorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -49,29 +50,34 @@ class HomeViewModel {
             isCategoriesDownloading.value = false
             switch result {
             case .success(let categories):
-                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel)))
+                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels: categories.map(makeCategoryTableViewCellViewModel)))
             case .failure(let error): categoriesDownloadErrorHandler?(error)
             }
         }
     }
     
     private func makeCategoriesDownload() -> CategoriesDownload {
-        return .willDownload(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: [URLQueryItem(name: "isRoot", value: "true")]))
+        if let id = parentCategoryID {
+            return .willDownload(apiURLRequestFactory
+                .makeGetSubcategoriesRequest(parentCategoryID: id))
+        } else {
+            return .willDownload(apiURLRequestFactory.makeGetCategoriesRequest())
+        }
     }
     
-    private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
-        return CategoryImageTableViewCellViewModel(
-            identifier: HomeViewController.CellIdentifier.imageCell.rawValue,
+    private func makeCategoryTableViewCellViewModel(category: Category) -> CategoryTableViewCellViewModel {
+        return CategoryTableViewCellViewModel(
+            identifier: CategoryViewController.CellIdentifier.cell.rawValue,
             height: 100,
-            actions: categoryImageTableViewCellViewModelActions,
+            actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id)
         )
     }
 }
 
-extension HomeViewModel {
-    struct CategoryImageTableViewCellViewModel: UITableViewCellViewModel {
+extension CategoryViewModel {
+    struct CategoryTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: Double
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]

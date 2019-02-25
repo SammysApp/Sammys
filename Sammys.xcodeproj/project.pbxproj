@@ -57,6 +57,8 @@
 		5B6E3683221F7111004D5310 /* UITableViewSectionModelsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */; };
 		5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */; };
 		5B6E391822236806004D5310 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391722236806004D5310 /* Download.swift */; };
+		5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391922238240004D5310 /* CategoryViewController.swift */; };
+		5B6E391C2223831F004D5310 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391B2223831F004D5310 /* CategoryViewModel.swift */; };
 		5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
 		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
@@ -122,6 +124,8 @@
 		5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDataSource.swift; sourceTree = "<group>"; };
 		5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDelegate.swift; sourceTree = "<group>"; };
 		5B6E391722236806004D5310 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		5B6E391922238240004D5310 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		5B6E391B2223831F004D5310 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		5B7C0B31219A4BBD00EBC0EB /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		5B8E81A921B0696C00C22CEA /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6E367C221F2611004D5310 /* HomeViewModel.swift */,
+				5B6E391B2223831F004D5310 /* CategoryViewModel.swift */,
 				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */,
 			);
@@ -293,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6E3678221F1E74004D5310 /* HomeViewController.swift */,
+				5B6E391922238240004D5310 /* CategoryViewController.swift */,
 				5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */,
 				5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */,
 			);
@@ -492,6 +498,7 @@
 				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
+				5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */,
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5B0124B4221E2A740054AB7A /* HTTPClient.swift in Sources */,
 				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
@@ -522,6 +529,7 @@
 				5B6E3675221E4350004D5310 /* Category.swift in Sources */,
 				5B0124B6221E2B910054AB7A /* HTTPResponse.swift in Sources */,
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
+				5B6E391C2223831F004D5310 /* CategoryViewModel.swift in Sources */,
 				5B012222221DF3D20054AB7A /* HTTPHeaderValue.swift in Sources */,
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5B012224221DF46B0054AB7A /* HTTPHeader.swift in Sources */,
