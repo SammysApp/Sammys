@@ -70,6 +70,11 @@
 		5B9A8ABF2224878C00F5525D /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ABE2224878C00F5525D /* Modifier.swift */; };
 		5B9A8AC122248C2F00F5525D /* ConstructedItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */; };
 		5B9A8AC32224966E00F5525D /* ConstructedItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */; };
+		5B9A8AC52225B68A00F5525D /* UICollectionViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */; };
+		5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC62225B6EB00F5525D /* UICollectionViewCellViewModel.swift */; };
+		5B9A8AC92225C46A00F5525D /* RoundedTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */; };
+		5B9A8ACB2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */; };
+		5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
@@ -144,6 +149,11 @@
 		5B9A8ABE2224878C00F5525D /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 		5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewController.swift; sourceTree = "<group>"; };
 		5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewModel.swift; sourceTree = "<group>"; };
+		5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewSectionModel.swift; sourceTree = "<group>"; };
+		5B9A8AC62225B6EB00F5525D /* UICollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextCollectionViewCell.swift; sourceTree = "<group>"; };
+		5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewSectionModelsDataSource.swift; sourceTree = "<group>"; };
+		5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewSectionModelsDelegate.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -299,6 +309,8 @@
 				5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */,
 				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */,
+				5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */,
+				5B9A8AC62225B6EB00F5525D /* UICollectionViewCellViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -322,6 +334,8 @@
 				5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */,
 				5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */,
 				5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */,
+				5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */,
+				5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -330,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
+				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -509,7 +524,9 @@
 				5B9A8ABD222450D100F5525D /* ItemsViewController.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
 				5B6E391E2223955B004D5310 /* Item.swift in Sources */,
+				5B9A8AC92225C46A00F5525D /* RoundedTextCollectionViewCell.swift in Sources */,
 				5B9A8AB9222449AF00F5525D /* ItemsViewModel.swift in Sources */,
+				5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B01221C221DE97F0054AB7A /* HTTPServer.swift in Sources */,
@@ -548,10 +565,13 @@
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5B012216221DC4030054AB7A /* APIURLRequestFactory.swift in Sources */,
 				5B6E3683221F7111004D5310 /* UITableViewSectionModelsDataSource.swift in Sources */,
+				5B9A8ACB2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift in Sources */,
 				5B9A8ABF2224878C00F5525D /* Modifier.swift in Sources */,
+				5B9A8AC52225B68A00F5525D /* UICollectionViewSectionModel.swift in Sources */,
 				5B6E3673221E41FD004D5310 /* LocalConstants.swift in Sources */,
 				5B6E367D221F2611004D5310 /* HomeViewModel.swift in Sources */,
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
+				5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */,
 				5B6E3677221F0B09004D5310 /* ImageTableViewCell.swift in Sources */,
 				5B6E3675221E4350004D5310 /* Category.swift in Sources */,
 				5B0124B6221E2B910054AB7A /* HTTPResponse.swift in Sources */,

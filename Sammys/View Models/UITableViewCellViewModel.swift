@@ -42,9 +42,7 @@ extension UITableViewCellViewModel {
 }
 
 extension UITableViewCellViewModel {
-    func perform(_ action: UITableViewCellAction,
-                 indexPath: IndexPath? = nil,
-                 cell: UITableViewCell? = nil) {
+    func perform(_ action: UITableViewCellAction, indexPath: IndexPath? = nil, cell: UITableViewCell? = nil) {
         self.actions[action]?(.init(cellViewModel: self, indexPath: indexPath, cell: cell))
     }
 }

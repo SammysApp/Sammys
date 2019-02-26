@@ -23,10 +23,13 @@ class ConstructedItemViewModel {
     
     // MARK: - View Settable Properties
     var categoryID: Category.ID?
+    var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction : UICollectionViewCellActionHandler]()
+    var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
+    let categoryCollectionViewSectionModels = Dynamic([UICollectionViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
     
     init(httpClient: HTTPClient = URLSessionHTTPClient()) {
@@ -52,6 +55,7 @@ class ConstructedItemViewModel {
             switch result {
             case .success(let categories):
                 selectedCategoryID.value = categories.first?.id
+                categoryCollectionViewSectionModels.value = [UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))]
             case .failure(let error): errorHandler?(error)
             }
         }
@@ -59,5 +63,36 @@ class ConstructedItemViewModel {
     
     private func makeCategoriesDownload() -> CategoriesDownload {
         return .willDownload(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
+    }
+    
+    private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
+        var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
+            identifier: ConstructedItemViewController.CellIdentifier.roundedTextCell.rawValue,
+            size: nil,
+            actions: categoryRoundedTextCollectionViewCellViewModelActions,
+            configurationData: .init(text: category.name),
+            selectionData: .init()
+        )
+        if let size = categoryRoundedTextCollectionViewCellViewModelSize?(cellViewModel) {
+            cellViewModel.size = size
+        }
+        return cellViewModel
+    }
+}
+
+extension ConstructedItemViewModel {
+    struct CategoryRoundedTextCollectionViewCellViewModel: UICollectionViewCellViewModel {
+        let identifier: String
+        var size: (width: Double, height: Double)?
+        let actions: [UICollectionViewCellAction : UICollectionViewCellActionHandler]
+        
+        let configurationData: ConfigurationData
+        let selectionData: SelectionData
+        
+        struct ConfigurationData {
+            let text: String
+        }
+        
+        struct SelectionData {}
     }
 }

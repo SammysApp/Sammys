@@ -20,8 +20,13 @@ class ImageTableViewCell: UITableViewCell {
         static let textLabelOffest: CGFloat = 20
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUp()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         setUp()
     }
     
@@ -30,5 +35,6 @@ class ImageTableViewCell: UITableViewCell {
             .forEach { self.contentView.addSubview($0) }
         imageView.edgesToSuperview()
         textLabel.top(to: self.contentView, offset: Constants.textLabelOffest)
+        textLabel.centerX(to: self.contentView)
     }
 }

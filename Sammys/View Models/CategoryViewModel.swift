@@ -24,6 +24,12 @@ class CategoryViewModel {
             handleCategoriesDownload(download)
         }
     }
+    private var categoriesTableViewSectionModel: UITableViewSectionModel?
+    private var _tableViewSectionModels: [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let categoriesSectionModel = categoriesTableViewSectionModel { sectionModels.append(categoriesSectionModel) }
+        return sectionModels
+    }
     
     // MARK: - View Settable Properties
     var parentCategoryID: Category.ID?
@@ -56,8 +62,10 @@ class CategoryViewModel {
             isCategoriesDownloading.value = false
             switch result {
             case .success(let categories):
-                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels:
-                    categories.map(makeCategoryTableViewCellViewModel)))
+                categoriesTableViewSectionModel = UITableViewSectionModel(
+                    cellViewModels: categories.map(makeCategoryTableViewCellViewModel)
+                )
+                tableViewSectionModels.value = _tableViewSectionModels
             case .failure(let error): errorHandler?(error)
             }
         }

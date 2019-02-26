@@ -20,6 +20,12 @@ class HomeViewModel {
             handleCategoriesDownload(download)
         }
     }
+    private var categoriesTableViewSectionModel: UITableViewSectionModel?
+    private var _tableViewSectionModels: [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let categoriesSectionModel = categoriesTableViewSectionModel { sectionModels.append(categoriesSectionModel) }
+        return sectionModels
+    }
     
     // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
@@ -28,6 +34,10 @@ class HomeViewModel {
     // MARK: - Dynamic Properties
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
+    
+    private struct Constants {
+        static let categoryImageTableViewCellViewModel: Double = 100
+    }
     
     init(httpClient: HTTPClient = URLSessionHTTPClient()) {
         self.httpClient = httpClient
@@ -51,7 +61,10 @@ class HomeViewModel {
             isCategoriesDownloading.value = false
             switch result {
             case .success(let categories):
-                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel)))
+                categoriesTableViewSectionModel = UITableViewSectionModel(
+                    cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel)
+                )
+                tableViewSectionModels.value = _tableViewSectionModels
             case .failure(let error): errorHandler?(error)
             }
         }
@@ -64,7 +77,7 @@ class HomeViewModel {
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
         return CategoryImageTableViewCellViewModel(
             identifier: HomeViewController.CellIdentifier.imageCell.rawValue,
-            height: 100,
+            height: Constants.categoryImageTableViewCellViewModel,
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id)
