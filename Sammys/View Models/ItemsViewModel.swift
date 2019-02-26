@@ -30,6 +30,10 @@ class ItemsViewModel {
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isItemsDownloading = Dynamic(false)
     
+    private struct Constants {
+        static let itemTableViewCellViewModelHeight: Double = 60
+    }
+    
     init(httpClient: HTTPClient = URLSessionHTTPClient()) {
         self.httpClient = httpClient
     }
@@ -65,10 +69,10 @@ class ItemsViewModel {
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
             identifier: ItemsViewController.CellIdentifier.cell.rawValue,
-            height: 100,
+            height: Constants.itemTableViewCellViewModelHeight,
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name),
-            selectionData: .init()
+            selectionData: .init(categoryItemID: item.categoryItemID)
         )
     }
 }
@@ -86,6 +90,8 @@ extension ItemsViewModel {
             let text: String
         }
         
-        struct SelectionData {}
+        struct SelectionData {
+            let categoryItemID: UUID?
+        }
     }
 }

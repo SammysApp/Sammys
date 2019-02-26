@@ -43,8 +43,8 @@ class HomeViewController: UIViewController {
     
     private func configureViewModel() {
         viewModel.categoryImageTableViewCellViewModelActions = [
-            .configuration: categoryImageTableViewCellConfigurationHandler,
-            .selection: categoryImageTableViewCellSelectionHandler
+            .configuration: categoryImageTableViewCellConfigurationAction,
+            .selection: categoryImageTableViewCellSelectionAction
         ]
         viewModel.tableViewSectionModels.bind { sectionModels in
             self.tableViewDataSource.sectionModels = sectionModels
@@ -62,13 +62,13 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - UITableViewCellViewModel Actions
-    private func categoryImageTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
+    private func categoryImageTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }
         cell.textLabel.text = cellViewModel.configurationData.text
     }
     
-    private func categoryImageTableViewCellSelectionHandler(data: UITableViewCellActionHandlerData) {
+    private func categoryImageTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
         navigationController?.pushViewController(
             makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id),

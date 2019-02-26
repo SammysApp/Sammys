@@ -14,6 +14,10 @@ class CategoryViewModel {
     private let httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
     
+    private struct Constants {
+        static let categoryTableViewCellViewModelHeight: Double = 100
+    }
+    
     private var categoriesDownload: CategoriesDownload? {
         didSet {
             guard let download = categoriesDownload else { return }
@@ -52,7 +56,8 @@ class CategoryViewModel {
             isCategoriesDownloading.value = false
             switch result {
             case .success(let categories):
-                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels: categories.map(makeCategoryTableViewCellViewModel)))
+                tableViewSectionModels.value.append(UITableViewSectionModel(cellViewModels:
+                    categories.map(makeCategoryTableViewCellViewModel)))
             case .failure(let error): errorHandler?(error)
             }
         }
@@ -70,7 +75,7 @@ class CategoryViewModel {
     private func makeCategoryTableViewCellViewModel(category: Category) -> CategoryTableViewCellViewModel {
         return CategoryTableViewCellViewModel(
             identifier: CategoryViewController.CellIdentifier.cell.rawValue,
-            height: 100,
+            height: Constants.categoryTableViewCellViewModelHeight,
             actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id, isConstructable: category.isConstructable, isParentCategory: category.isParentCategory)

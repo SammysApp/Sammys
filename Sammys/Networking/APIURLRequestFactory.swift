@@ -41,24 +41,31 @@ struct APIURLRequestFactory {
     func makeGetItemModifiersRequest(categoryID: Category.ID, itemID: Item.ID) -> URLRequest {
         return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
+    
+    func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder) throws -> URLRequest {
+        var urlRequest = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        urlRequest.httpBody = try dataEncoder.encode(data)
+        return urlRequest
+    }
 }
 
-extension APIURLRequestFactory {
-    private enum Endpoint: HTTPEndpoint {
+private extension APIURLRequestFactory {
+    enum Endpoint: HTTPEndpoint {
         // MARK: - GET
-        /// `/categories`
+        /// GET `/categories`
         case getCategories
-        /// `/categories/:category/subcategories`
+        /// GET `/categories/:category/subcategories`
         case getSubcategories(Category.ID)
-        /// `/categories/:category/item`
+        /// GET `/categories/:category/item`
         case getCategoryItems(Category.ID)
-        /// `/categories/:category/item/:item/modifiers`
+        /// GET `/categories/:category/item/:item/modifiers`
         case getItemModifiers(Category.ID, Item.ID)
         
-        private enum Version: String {
-            case v1
-        }
+        // MARK: - POST
+        /// POST `/constructedItems`
+        case createConstructedItem
         
+        private enum Version: String { case v1 }
         private var version: Version { return .v1 }
         
         var endpoint: (HTTPMethod, URLPath) {
@@ -71,7 +78,23 @@ extension APIURLRequestFactory {
                 return (.GET, "/\(version)/categories/\(id)/items")
             case .getItemModifiers(let categoryID, let itemID):
                 return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
+            case .createConstructedItem:
+                return (.POST, "/\(version)/constructedItems")
             }
         }
+    }
+}
+
+struct CreateConstructedItemData: Codable {
+    let categoryID: Category.ID
+    let categoryItemIDs: [UUID]
+    let modifierIDs: [Modifier.ID]?
+    
+    init(categoryID: Category.ID,
+         categoryItemIDs: [UUID],
+         modifierIDs: [Modifier.ID]? = nil) {
+        self.categoryID = categoryID
+        self.categoryItemIDs = categoryItemIDs
+        self.modifierIDs = modifierIDs
     }
 }

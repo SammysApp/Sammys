@@ -43,8 +43,8 @@ class CategoryViewController: UIViewController {
     
     private func configureViewModel() {
         viewModel.categoryTableViewCellViewModelActions = [
-            .configuration: categoryTableViewCellConfigurationHandler,
-            .selection: categoryTableViewCellSelectionHandler
+            .configuration: categoryTableViewCellConfigurationAction,
+            .selection: categoryTableViewCellSelectionAction
         ]
         viewModel.tableViewSectionModels.bind { sectionModels in
             self.tableViewDataSource.sectionModels = sectionModels
@@ -67,18 +67,24 @@ class CategoryViewController: UIViewController {
         return itemsViewController
     }
     
+    private func makeConstructedItemViewController(categoryID: Category.ID) -> ConstructedItemViewController {
+        let constructedItemViewController = ConstructedItemViewController()
+        constructedItemViewController.viewModel.categoryID = categoryID
+        return constructedItemViewController
+    }
+    
     // MARK: - UITableViewCellViewModel Actions
-    private func categoryTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
+    private func categoryTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
     }
     
-    private func categoryTableViewCellSelectionHandler(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
-            let isParentCategory = cellViewModel.selectionData.isParentCategory
-            else { return }
-        if isParentCategory {
+    private func categoryTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel else { return }
+        if cellViewModel.selectionData.isConstructable {
+            navigationController?.pushViewController(makeConstructedItemViewController(categoryID: cellViewModel.selectionData.id), animated: true)
+        } else if let isParentCategory = cellViewModel.selectionData.isParentCategory, isParentCategory {
             navigationController?.pushViewController(makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id), animated: true)
         } else {
             navigationController?.pushViewController(makeItemsViewController(categoryID: cellViewModel.selectionData.id), animated: true)

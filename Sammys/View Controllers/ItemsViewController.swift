@@ -16,6 +16,8 @@ class ItemsViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    var categoryItemIDSelectionHandler: ((UUID) -> Void)?
+    
     enum CellIdentifier: String {
         case cell
     }
@@ -43,20 +45,30 @@ class ItemsViewController: UIViewController {
     
     private func configureViewModel() {
         viewModel.itemTableViewCellViewModelActions = [
-            .configuration: itemTableViewCellConfigurationHandler
+            .configuration: itemTableViewCellConfigurationAction,
+            .selection: itemTableViewCellSelectionAction
         ]
         viewModel.tableViewSectionModels.bind { sectionModels in
             self.tableViewDataSource.sectionModels = sectionModels
             self.tableViewDelegate.sectionModels = sectionModels
             self.tableView.reloadData()
         }
-        viewModel.beginDownloads()
     }
     
     // MARK: - UITableViewCellViewModel Actions
-    private func itemTableViewCellConfigurationHandler(data: UITableViewCellActionHandlerData) {
+    private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
+    }
+    
+    private func itemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
+            let indexPath = data.indexPath,
+            let cell = tableView.cellForRow(at: indexPath),
+            let id = cellViewModel.selectionData.categoryItemID
+            else { return }
+        cell.accessoryType = .checkmark
+        categoryItemIDSelectionHandler?(id)
     }
 }
