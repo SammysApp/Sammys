@@ -17,6 +17,11 @@ class ConstructedItemViewController: UIViewController {
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
     private let itemsViewController = ItemsViewController()
     
+    private struct Constants {
+        static let categoryCollectionViewInset: CGFloat = 10
+        static let categoryCollectionViewHeight: CGFloat = 40
+    }
+    
     enum CellIdentifier: String {
         case roundedTextCell
     }
@@ -45,8 +50,11 @@ class ConstructedItemViewController: UIViewController {
         categoryCollectionView.delegate = categoryCollectionViewDelegate
         categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.roundedTextCell.rawValue)
         categoryCollectionView.backgroundColor = .clear
-        categoryCollectionView.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
-        categoryCollectionView.height(60)
+        categoryCollectionView.showsHorizontalScrollIndicator = false
+        categoryCollectionView.contentInset.left = Constants.categoryCollectionViewInset
+        categoryCollectionView.contentInset.right = Constants.categoryCollectionViewInset
+        categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
+        categoryCollectionView.height(Constants.categoryCollectionViewHeight)
     }
     
     private func configureItemsViewController() {
@@ -62,7 +70,7 @@ class ConstructedItemViewController: UIViewController {
         ]
         viewModel.categoryRoundedTextCollectionViewCellViewModelSize = { cellViewModel in
             sizeCalculationLabel.text = cellViewModel.configurationData.text
-            return (Double(sizeCalculationLabel.intrinsicContentSize.width), Double(self.categoryCollectionView.frame.height))
+            return (Double(sizeCalculationLabel.intrinsicContentSize.width) + 20, Double(self.categoryCollectionView.frame.height))
         }
         viewModel.selectedCategoryID.bind { id in
             self.itemsViewController.viewModel.categoryID = id

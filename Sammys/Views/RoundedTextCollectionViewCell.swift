@@ -11,6 +11,9 @@ import TinyConstraints
 
 class RoundedTextCollectionViewCell: UICollectionViewCell {
     let textLabel = UILabel()
+    var cornerRadiusMultiplier: CGFloat = 0.2 {
+        didSet { update() }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +29,11 @@ class RoundedTextCollectionViewCell: UICollectionViewCell {
         self.addSubview(textLabel)
         textLabel.center(in: self.contentView)
         
-        backgroundColor = .lightGray
+        self.backgroundColor = .lightGray
+        update()
+    }
+    
+    private func update() {
+        self.layer.cornerRadius = self.frame.height * cornerRadiusMultiplier
     }
 }
