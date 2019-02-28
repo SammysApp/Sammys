@@ -11,4 +11,8 @@ target 'Sammys' do
   pod 'Firebase/Auth'
   pod 'Stripe'
   pod 'TinyConstraints'
+  
+  target 'SammysTests' do
+    inherit! :complete
+  end
 end

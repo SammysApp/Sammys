@@ -11,7 +11,7 @@ import Foundation
 extension URLRequest {
     init?(server: HTTPServer,
           endpoint: HTTPEndpoint,
-          queryItems: [URLQueryItem] = [],
+          queryItems: [URLQueryItem]? = nil,
           headers: [HTTPHeader] = []) {
         var urlComponents = URLComponents()
         urlComponents.scheme = server.scheme.rawValue

@@ -7,10 +7,22 @@
 //
 
 import Foundation
+import PromiseKit
 
 enum Download<Source, Value> {
     case willDownload(Source)
     case downloading
+    case completed(Result)
+    
+    enum Result {
+        case success(Value)
+        case failure(Error)
+    }
+}
+
+enum PromiseDownload<Source, Value> {
+    case willDownload(Source)
+    case downloading(Promise<Value>)
     case completed(Result)
     
     enum Result {

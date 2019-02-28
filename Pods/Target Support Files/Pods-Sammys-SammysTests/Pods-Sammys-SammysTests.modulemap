@@ -1,0 +1,6 @@
+framework module Pods_Sammys_SammysTests {
+  umbrella header "Pods-Sammys-SammysTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

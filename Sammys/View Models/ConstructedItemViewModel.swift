@@ -9,12 +9,12 @@
 import Foundation
 
 class ConstructedItemViewModel {
-    private typealias CategoriesDownload = Download<URLRequest, [Category]>
+    typealias CategoriesDownload = PromiseDownload<URLRequest, [Category]>
     
-    private let httpClient: HTTPClient
+    var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var categoriesDownload: CategoriesDownload? {
+    private(set) var categoriesDownload: CategoriesDownload? {
         didSet {
             guard let download = categoriesDownload else { return }
             handleCategoriesDownload(download)
@@ -32,10 +32,6 @@ class ConstructedItemViewModel {
     let categoryCollectionViewSectionModels = Dynamic([UICollectionViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
-        self.httpClient = httpClient
-    }
-    
     func beginDownloads() {
         categoriesDownload = makeCategoriesDownload()
     }
@@ -43,13 +39,12 @@ class ConstructedItemViewModel {
     private func handleCategoriesDownload(_ download: CategoriesDownload) {
         switch download {
         case .willDownload(let request):
-            categoriesDownload = .downloading
-            httpClient.send(request)
-                .map { try JSONDecoder().decode([Category].self, from: $0.data) }
-                .get { self.categoriesDownload = .completed(.success($0)) }
-                .catch { self.categoriesDownload = .completed(.failure($0)) }
-        case .downloading:
+            categoriesDownload = .downloading(httpClient.send(request)
+                .map { try JSONDecoder().decode([Category].self, from: $0.data) })
+        case .downloading(let promise):
             isCategoriesDownloading.value = true
+            promise.get { self.categoriesDownload = .completed(.success($0)) }
+                .catch { self.categoriesDownload = .completed(.failure($0)) }
         case .completed(let result):
             isCategoriesDownloading.value = false
             switch result {

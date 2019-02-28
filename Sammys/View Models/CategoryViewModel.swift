@@ -11,7 +11,7 @@ import Foundation
 class CategoryViewModel {
     private typealias CategoriesDownload = Download<URLRequest, [Category]>
     
-    private let httpClient: HTTPClient
+    var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     private struct Constants {
@@ -39,10 +39,6 @@ class CategoryViewModel {
     // MARK: - Dynamic Properties
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
-    
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
-        self.httpClient = httpClient
-    }
     
     func beginDownloads() {
         categoriesDownload = makeCategoriesDownload()

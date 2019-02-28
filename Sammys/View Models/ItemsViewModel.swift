@@ -11,7 +11,7 @@ import Foundation
 class ItemsViewModel {
     private typealias ItemsDownload = Download<URLRequest, [Item]>
     
-    private let httpClient: HTTPClient
+    var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     private var itemsDownload: ItemsDownload? {
@@ -39,10 +39,6 @@ class ItemsViewModel {
     
     private struct Constants {
         static let itemTableViewCellViewModelHeight: Double = 60
-    }
-    
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
-        self.httpClient = httpClient
     }
     
     func beginDownloads() {

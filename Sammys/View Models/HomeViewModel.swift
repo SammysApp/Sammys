@@ -11,7 +11,7 @@ import Foundation
 class HomeViewModel {
     private typealias CategoriesDownload = Download<URLRequest, [Category]>
     
-    private let httpClient: HTTPClient
+    var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     private var categoriesDownload: CategoriesDownload? {
@@ -37,10 +37,6 @@ class HomeViewModel {
     
     private struct Constants {
         static let categoryImageTableViewCellViewModel: Double = 100
-    }
-    
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
-        self.httpClient = httpClient
     }
     
     func beginDownloads() {

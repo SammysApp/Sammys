@@ -12,10 +12,10 @@ import TinyConstraints
 class ConstructedItemViewController: UIViewController {
     let viewModel = ConstructedItemViewModel()
     
-    private let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
-    private let itemsViewController = ItemsViewController()
+    let itemsViewController = ItemsViewController()
     
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
@@ -59,6 +59,7 @@ class ConstructedItemViewController: UIViewController {
     
     private func configureItemsViewController() {
         add(itemsViewController)
+        itemsViewController.viewModel.httpClient = viewModel.httpClient
         itemsViewController.view.edgesToSuperview(excluding: .top)
         itemsViewController.view.topToBottom(of: categoryCollectionView)
     }

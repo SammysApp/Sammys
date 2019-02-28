@@ -75,13 +75,28 @@
 		5B9A8AC92225C46A00F5525D /* RoundedTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */; };
 		5B9A8ACB2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */; };
 		5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */; };
+		5B9A8AD522282EB200F5525D /* ConstructedItemViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AD422282EB200F5525D /* ConstructedItemViewControllerTests.swift */; };
+		5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
 		AAFFECD418B8CBDD925F7860 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */; };
+		FDFBBD1BF634A9FC33C800A9 /* Pods_Sammys_SammysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5B9A8AD722282EB200F5525D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B6A06701FFD509A00BAC480 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B6A06771FFD509A00BAC480;
+			remoteInfo = Sammys;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1575F50D0F2726C504A5575B /* Pods-Sammys-SammysTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys-SammysTests.debug.xcconfig"; path = "Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2628B40B5BE008CCDF6E27AE /* Pods-Sammys-SammysTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys-SammysTests.beta.xcconfig"; path = "Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests.beta.xcconfig"; sourceTree = "<group>"; };
 		472F77DF5AB31A347444D92A /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 		49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B012215221DC4030054AB7A /* APIURLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLRequestFactory.swift; sourceTree = "<group>"; };
@@ -154,10 +169,16 @@
 		5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewSectionModelsDataSource.swift; sourceTree = "<group>"; };
 		5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewSectionModelsDelegate.swift; sourceTree = "<group>"; };
+		5B9A8AD222282EB200F5525D /* SammysTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SammysTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B9A8AD422282EB200F5525D /* ConstructedItemViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewControllerTests.swift; sourceTree = "<group>"; };
+		5B9A8AD622282EB200F5525D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
+		9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys_SammysTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B0F2FCA8B8D841197F6153 /* Pods-Sammys.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.beta.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.beta.xcconfig"; sourceTree = "<group>"; };
+		A4D5262F445A5279E2728E59 /* Pods-Sammys-SammysTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys-SammysTests.release.xcconfig"; path = "Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests.release.xcconfig"; sourceTree = "<group>"; };
 		C41B68A755EBE64CB5E58257 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +191,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B9A8ACF22282EB200F5525D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDFBBD1BF634A9FC33C800A9 /* Pods_Sammys_SammysTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -177,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */,
+				9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -250,6 +280,7 @@
 				5B6A067A1FFD509A00BAC480 /* Sammys */,
 				5B9865FD20C5A347004722D8 /* Assets.xcassets */,
 				5B3A4B2E2195F3E300F22F78 /* EasyExtensions */,
+				5B9A8AD322282EB200F5525D /* SammysTests */,
 				5B6A06791FFD509A00BAC480 /* Products */,
 				BA56C2C5DF9AE504CEA511B0 /* Pods */,
 				3CDCE6860D0D7EA6AFD76D54 /* Frameworks */,
@@ -260,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				5B6A06781FFD509A00BAC480 /* Sammys.app */,
+				5B9A8AD222282EB200F5525D /* SammysTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,6 +345,16 @@
 				5B9A8AC62225B6EB00F5525D /* UICollectionViewCellViewModel.swift */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		5B9A8AD322282EB200F5525D /* SammysTests */ = {
+			isa = PBXGroup;
+			children = (
+				5B9A8AD422282EB200F5525D /* ConstructedItemViewControllerTests.swift */,
+				5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */,
+				5B9A8AD622282EB200F5525D /* Info.plist */,
+			);
+			path = SammysTests;
 			sourceTree = "<group>";
 		};
 		5B9CD59C204CCA0500F59E4C /* Models */ = {
@@ -381,6 +423,9 @@
 				C41B68A755EBE64CB5E58257 /* Pods-Sammys.debug.xcconfig */,
 				472F77DF5AB31A347444D92A /* Pods-Sammys.release.xcconfig */,
 				96B0F2FCA8B8D841197F6153 /* Pods-Sammys.beta.xcconfig */,
+				1575F50D0F2726C504A5575B /* Pods-Sammys-SammysTests.debug.xcconfig */,
+				A4D5262F445A5279E2728E59 /* Pods-Sammys-SammysTests.release.xcconfig */,
+				2628B40B5BE008CCDF6E27AE /* Pods-Sammys-SammysTests.beta.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -407,13 +452,33 @@
 			productReference = 5B6A06781FFD509A00BAC480 /* Sammys.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5B9A8AD122282EB200F5525D /* SammysTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B9A8AD922282EB300F5525D /* Build configuration list for PBXNativeTarget "SammysTests" */;
+			buildPhases = (
+				F3E285D06314B53450DCD4A2 /* [CP] Check Pods Manifest.lock */,
+				5B9A8ACE22282EB200F5525D /* Sources */,
+				5B9A8ACF22282EB200F5525D /* Frameworks */,
+				5B9A8AD022282EB200F5525D /* Resources */,
+				F5C457EEE0953C1F0664B16E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B9A8AD822282EB200F5525D /* PBXTargetDependency */,
+			);
+			name = SammysTests;
+			productName = SammysTests;
+			productReference = 5B9A8AD222282EB200F5525D /* SammysTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5B6A06701FFD509A00BAC480 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Natanel Niazoff";
 				TargetAttributes = {
@@ -421,6 +486,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
+					};
+					5B9A8AD122282EB200F5525D = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5B6A06771FFD509A00BAC480;
 					};
 				};
 			};
@@ -438,6 +508,7 @@
 			projectRoot = "";
 			targets = (
 				5B6A06771FFD509A00BAC480 /* Sammys */,
+				5B9A8AD122282EB200F5525D /* SammysTests */,
 			);
 		};
 /* End PBXProject section */
@@ -451,6 +522,13 @@
 				5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */,
 				5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */,
 				5B9865FE20C5A347004722D8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B9A8AD022282EB200F5525D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +587,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3E285D06314B53450DCD4A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sammys-SammysTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5C457EEE0953C1F0664B16E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -588,7 +720,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B9A8ACE22282EB200F5525D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */,
+				5B9A8AD522282EB200F5525D /* ConstructedItemViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B9A8AD822282EB200F5525D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B6A06771FFD509A00BAC480 /* Sammys */;
+			targetProxy = 5B9A8AD722282EB200F5525D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5B6A06881FFD509A00BAC480 /* Debug */ = {
@@ -749,6 +898,67 @@
 			};
 			name = Release;
 		};
+		5B9A8ADA22282EB300F5525D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1575F50D0F2726C504A5575B /* Pods-Sammys-SammysTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = SammysTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
+			};
+			name = Debug;
+		};
+		5B9A8ADB22282EB300F5525D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4D5262F445A5279E2728E59 /* Pods-Sammys-SammysTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = SammysTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
+			};
+			name = Release;
+		};
+		5B9A8ADC22282EB300F5525D /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2628B40B5BE008CCDF6E27AE /* Pods-Sammys-SammysTests.beta.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LWC7S9F6VV;
+				INFOPLIST_FILE = SammysTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.natanelniazoff.SammysTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sammys.app/Sammys";
+			};
+			name = Beta;
+		};
 		5B9B908220C6595B00FB6264 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -845,6 +1055,16 @@
 				5B6A068B1FFD509A00BAC480 /* Debug */,
 				5B6A068C1FFD509A00BAC480 /* Release */,
 				5B9B908320C6595B00FB6264 /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B9A8AD922282EB300F5525D /* Build configuration list for PBXNativeTarget "SammysTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B9A8ADA22282EB300F5525D /* Debug */,
+				5B9A8ADB22282EB300F5525D /* Release */,
+				5B9A8ADC22282EB300F5525D /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
