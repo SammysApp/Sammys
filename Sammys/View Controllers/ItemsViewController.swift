@@ -60,6 +60,9 @@ class ItemsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
+        if let id = cellViewModel.selectionData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
+            cell.accessoryType = .checkmark
+        } else { cell.accessoryType = .none }
     }
     
     private func itemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
@@ -70,5 +73,6 @@ class ItemsViewController: UIViewController {
             else { return }
         cell.accessoryType = .checkmark
         categoryItemIDSelectionHandler?(id)
+        viewModel.selectedCategoryItemIDs.append(id)
     }
 }

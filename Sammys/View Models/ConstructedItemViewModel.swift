@@ -71,7 +71,7 @@ class ConstructedItemViewModel {
             size: nil,
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),
-            selectionData: .init()
+            selectionData: .init(categoryID: category.id)
         )
         if let size = categoryRoundedTextCollectionViewCellViewModelSize?(cellViewModel) {
             cellViewModel.size = size
@@ -93,6 +93,8 @@ extension ConstructedItemViewModel {
             let text: String
         }
         
-        struct SelectionData {}
+        struct SelectionData {
+            let categoryID: Category.ID
+        }
     }
 }

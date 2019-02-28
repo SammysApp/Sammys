@@ -66,7 +66,8 @@ class ConstructedItemViewController: UIViewController {
     private func configureViewModel() {
         let sizeCalculationLabel = UILabel()
         viewModel.categoryRoundedTextCollectionViewCellViewModelActions = [
-            .configuration: categoryRoundedTextCollectionViewCellConfigurationAction
+            .configuration: categoryRoundedTextCollectionViewCellConfigurationAction,
+            .selection: categoryRoundedTextCollectionViewCellSelectionAction
         ]
         viewModel.categoryRoundedTextCollectionViewCellViewModelSize = { cellViewModel in
             sizeCalculationLabel.text = cellViewModel.configurationData.text
@@ -89,5 +90,10 @@ class ConstructedItemViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel,
             let cell = data.cell as? RoundedTextCollectionViewCell else { return }
         cell.textLabel.text = cellViewModel.configurationData.text
+    }
+    
+    private func categoryRoundedTextCollectionViewCellSelectionAction(data: UICollectionViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel else { return }
+        viewModel.selectedCategoryID.value = cellViewModel.selectionData.categoryID
     }
 }

@@ -29,6 +29,7 @@ class ItemsViewModel {
     
     // MARK: - View Settable Properties
     var categoryID: Category.ID?
+    var selectedCategoryItemIDs = [UUID]()
     var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
@@ -78,7 +79,7 @@ class ItemsViewModel {
             identifier: ItemsViewController.CellIdentifier.cell.rawValue,
             height: Constants.itemTableViewCellViewModelHeight,
             actions: itemTableViewCellViewModelActions,
-            configurationData: .init(text: item.name),
+            configurationData: .init(text: item.name, categoryItemID: item.categoryItemID),
             selectionData: .init(categoryItemID: item.categoryItemID)
         )
     }
@@ -95,6 +96,7 @@ extension ItemsViewModel {
         
         struct ConfigurationData {
             let text: String
+            let categoryItemID: UUID?
         }
         
         struct SelectionData {
