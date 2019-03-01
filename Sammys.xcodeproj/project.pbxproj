@@ -77,6 +77,8 @@
 		5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */; };
 		5B9A8AD522282EB200F5525D /* ConstructedItemViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AD422282EB200F5525D /* ConstructedItemViewControllerTests.swift */; };
 		5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */; };
+		5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */; };
+		5B9A8AE22229AE5200F5525D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AE12229AE5200F5525D /* Queue.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
@@ -173,6 +175,8 @@
 		5B9A8AD422282EB200F5525D /* ConstructedItemViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewControllerTests.swift; sourceTree = "<group>"; };
 		5B9A8AD622282EB200F5525D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
+		5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItem.swift; sourceTree = "<group>"; };
+		5B9A8AE12229AE5200F5525D /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 			children = (
 				5B6E391722236806004D5310 /* Download.swift */,
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
+				5B9A8AE12229AE5200F5525D /* Queue.swift */,
 			);
 			path = "Types and Protocols";
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				5B6E3674221E4350004D5310 /* Category.swift */,
 				5B6E391D2223955B004D5310 /* Item.swift */,
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
+				5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -672,6 +678,7 @@
 				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
+				5B9A8AE22229AE5200F5525D /* Queue.swift in Sources */,
 				5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */,
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5B0124B4221E2A740054AB7A /* HTTPClient.swift in Sources */,
@@ -695,6 +702,7 @@
 				5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
+				5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */,
 				5B012216221DC4030054AB7A /* APIURLRequestFactory.swift in Sources */,
 				5B6E3683221F7111004D5310 /* UITableViewSectionModelsDataSource.swift in Sources */,
 				5B9A8ACB2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift in Sources */,

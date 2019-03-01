@@ -42,8 +42,14 @@ struct APIURLRequestFactory {
         return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
     
-    func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder) throws -> URLRequest {
+    func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var urlRequest = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        urlRequest.httpBody = try dataEncoder.encode(data)
+        return urlRequest
+    }
+    
+    func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var urlRequest = URLRequest(server: server, endpoint: Endpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         urlRequest.httpBody = try dataEncoder.encode(data)
         return urlRequest
     }
@@ -64,6 +70,8 @@ private extension APIURLRequestFactory {
         // MARK: - POST
         /// POST `/constructedItems`
         case createConstructedItem
+        /// POST `/constructedItems/:constructedItem/items`
+        case addConstructedItemItems(ConstructedItem.ID)
         
         private enum Version: String { case v1 }
         private var version: Version { return .v1 }
@@ -80,6 +88,8 @@ private extension APIURLRequestFactory {
                 return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
             case .createConstructedItem:
                 return (.POST, "/\(version)/constructedItems")
+            case .addConstructedItemItems(let id):
+                return (.POST, "/\(version)/constructedItems/\(id)/items")
             }
         }
     }
@@ -87,14 +97,18 @@ private extension APIURLRequestFactory {
 
 struct CreateConstructedItemData: Codable {
     let categoryID: Category.ID
-    let categoryItemIDs: [UUID]
+    let categoryItemIDs: [UUID]?
     let modifierIDs: [Modifier.ID]?
     
     init(categoryID: Category.ID,
-         categoryItemIDs: [UUID],
+         categoryItemIDs: [UUID]? = nil,
          modifierIDs: [Modifier.ID]? = nil) {
         self.categoryID = categoryID
         self.categoryItemIDs = categoryItemIDs
         self.modifierIDs = modifierIDs
     }
+}
+
+struct AddConstructedItemItemsData: Codable {
+    let categoryItemIDs: [UUID]
 }

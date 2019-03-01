@@ -58,8 +58,11 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func configureItemsViewController() {
-        add(itemsViewController)
         itemsViewController.viewModel.httpClient = viewModel.httpClient
+        itemsViewController.categoryItemIDSelectionHandler = { id in
+            self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [id])
+        }
+        add(itemsViewController)
         itemsViewController.view.edgesToSuperview(excluding: .top)
         itemsViewController.view.topToBottom(of: categoryCollectionView)
     }

@@ -9,7 +9,7 @@
 import Foundation
 
 class CategoryViewModel {
-    private typealias CategoriesDownload = Download<URLRequest, [Category]>
+    private typealias CategoriesDownload = DownloadState<URLRequest, Void, [Category]>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
@@ -47,7 +47,7 @@ class CategoryViewModel {
     private func handleCategoriesDownload(_ download: CategoriesDownload) {
         switch download {
         case .willDownload(let request):
-            categoriesDownload = .downloading
+            categoriesDownload = .downloading(())
             httpClient.send(request)
                 .map { try JSONDecoder().decode([Category].self, from: $0.data) }
                 .get { self.categoriesDownload = .completed(.success($0)) }

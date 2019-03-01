@@ -12,7 +12,7 @@ import TinyConstraints
 class ItemsViewController: UIViewController {
     let viewModel = ItemsViewModel()
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     

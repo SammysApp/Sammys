@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import PromiseKit
 
 class ConstructedItemViewModel {
-    typealias CategoriesDownload = PromiseDownload<URLRequest, [Category]>
+    typealias CategoriesDownload = DownloadState<URLRequest, Promise<[Category]>, [Category]>
+    typealias ConstructedItemDownload = DownloadState<URLRequest, Promise<ConstructedItem>, ConstructedItem>
+    typealias AddConstructedItemItemsDownload = Download<URLRequest, Promise<ConstructedItem>, ConstructedItem>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
@@ -21,7 +24,20 @@ class ConstructedItemViewModel {
         }
     }
     
+    private(set) var constructedItemDownload: ConstructedItemDownload? {
+        didSet {  }
+    }
+    
+    private(set) var addConstructedItemItemsDownloadQueue = Queue<AddConstructedItemItemsDownload>() {
+        didSet {
+            if let download = addConstructedItemItemsDownloadQueue.dequeue() {
+                handleNewAddConstructedItemItemsDownload(download)
+            }
+        }
+    }
+    
     // MARK: - View Settable Properties
+    var constructedItemID: UUID?
     var categoryID: Category.ID?
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction : UICollectionViewCellActionHandler]()
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
@@ -34,6 +50,11 @@ class ConstructedItemViewModel {
     
     func beginDownloads() {
         categoriesDownload = makeCategoriesDownload()
+    }
+    
+    func beginAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) {
+        do { addConstructedItemItemsDownloadQueue.enqueue(try makeAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs)) }
+        catch {  }
     }
     
     private func handleCategoriesDownload(_ download: CategoriesDownload) {
@@ -56,8 +77,30 @@ class ConstructedItemViewModel {
         }
     }
     
+    private func handleNewAddConstructedItemItemsDownload(_ download: AddConstructedItemItemsDownload) {
+        download.state.bindAndRun { state in
+            switch state {
+            case .willDownload(let request):
+                download.state.value = .downloading(self.httpClient.send(request)
+                    .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) })
+            case .downloading(let promise):
+                promise.get { download.state.value = .completed(.success($0)) }
+                    .catch { download.state.value = .completed(.failure($0)) }
+            case .completed(let result):
+                switch result {
+                case .success(let constructedItem): break
+                case .failure(let error): break
+                }
+            }
+        }
+    }
+    
     private func makeCategoriesDownload() -> CategoriesDownload {
         return .willDownload(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
+    }
+    
+    private func makeAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) throws -> AddConstructedItemItemsDownload {
+        return AddConstructedItemItemsDownload(source: try apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: AddConstructedItemItemsData(categoryItemIDs: categoryItemIDs)))
     }
     
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {

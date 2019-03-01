@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import PromiseKit
 
 class ItemsViewModel {
-    private typealias ItemsDownload = Download<URLRequest, [Item]>
+    typealias ItemsDownload = DownloadState<URLRequest, Promise<[Item]>, [Item]>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var itemsDownload: ItemsDownload? {
+    private(set) var itemsDownload: ItemsDownload? {
         didSet {
             guard let download = itemsDownload else { return }
             handleItemsDownload(download)
@@ -48,13 +49,12 @@ class ItemsViewModel {
     private func handleItemsDownload(_ download: ItemsDownload) {
         switch download {
         case .willDownload(let request):
-            itemsDownload = .downloading
-            httpClient.send(request)
-                .map { try JSONDecoder().decode([Item].self, from: $0.data) }
-                .get { self.itemsDownload = .completed(.success($0)) }
-                .catch { self.itemsDownload = .completed(.failure($0)) }
-        case .downloading:
+            itemsDownload = .downloading(httpClient.send(request)
+                .map { try JSONDecoder().decode([Item].self, from: $0.data) })
+        case .downloading(let promise):
             isItemsDownloading.value = true
+            promise.get { self.itemsDownload = .completed(.success($0)) }
+                .catch { self.itemsDownload = .completed(.failure($0)) }
         case .completed(let result):
             isItemsDownloading.value = false
             switch result {

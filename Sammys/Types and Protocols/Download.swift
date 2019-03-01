@@ -1,5 +1,5 @@
 //
-//  Download.swift
+//  DownloadState.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 2/24/19.
@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import PromiseKit
 
-enum Download<Source, Value> {
+enum DownloadState<Source, Download, Value> {
     case willDownload(Source)
-    case downloading
+    case downloading(Download)
     case completed(Result)
     
     enum Result {
@@ -20,13 +19,12 @@ enum Download<Source, Value> {
     }
 }
 
-enum PromiseDownload<Source, Value> {
-    case willDownload(Source)
-    case downloading(Promise<Value>)
-    case completed(Result)
+class Download<Source, Download, Value> {
+    let id: UUID
+    var state: Dynamic<DownloadState<Source, Download, Value>>
     
-    enum Result {
-        case success(Value)
-        case failure(Error)
+    init(id: UUID = UUID(), source: Source) {
+        self.id = id
+        self.state = Dynamic(.willDownload(source))
     }
 }
