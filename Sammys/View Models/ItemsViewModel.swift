@@ -15,17 +15,18 @@ class ItemsViewModel {
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private(set) var itemsDownload: ItemsDownload? {
-        didSet {
-            guard let download = itemsDownload else { return }
-            handleItemsDownload(download)
-        }
-    }
     private var itemsTableViewSectionModel: UITableViewSectionModel?
     private var _tableViewSectionModels: [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let itemsSectionModel = itemsTableViewSectionModel { sectionModels.append(itemsSectionModel) }
         return sectionModels
+    }
+    
+    private(set) var itemsDownload: ItemsDownload? {
+        didSet {
+            guard let download = itemsDownload else { return }
+            handleItemsDownload(download)
+        }
     }
     
     // MARK: - View Settable Properties

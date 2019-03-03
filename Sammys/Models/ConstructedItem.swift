@@ -12,4 +12,8 @@ struct ConstructedItem: Codable {
     typealias ID = UUID
     
     let id: ID
+    let categoryID: Category.ID
+    let isFavorite: Bool
+    
+    let totalPrice: Int?
 }

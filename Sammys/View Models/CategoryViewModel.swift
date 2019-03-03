@@ -9,26 +9,23 @@
 import Foundation
 
 class CategoryViewModel {
-    private typealias CategoriesDownload = DownloadState<URLRequest, Void, [Category]>
+    typealias CategoriesDownload = DownloadState<URLRequest, Void, [Category]>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private struct Constants {
-        static let categoryTableViewCellViewModelHeight: Double = 100
-    }
-    
-    private var categoriesDownload: CategoriesDownload? {
-        didSet {
-            guard let download = categoriesDownload else { return }
-            handleCategoriesDownload(download)
-        }
-    }
     private var categoriesTableViewSectionModel: UITableViewSectionModel?
     private var _tableViewSectionModels: [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let categoriesSectionModel = categoriesTableViewSectionModel { sectionModels.append(categoriesSectionModel) }
         return sectionModels
+    }
+    
+    private(set) var categoriesDownload: CategoriesDownload? {
+        didSet {
+            guard let download = categoriesDownload else { return }
+            handleCategoriesDownload(download)
+        }
     }
     
     // MARK: - View Settable Properties
@@ -39,6 +36,10 @@ class CategoryViewModel {
     // MARK: - Dynamic Properties
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
+    
+    private struct Constants {
+        static let categoryTableViewCellViewModelHeight: Double = 100
+    }
     
     func beginDownloads() {
         categoriesDownload = makeCategoriesDownload()

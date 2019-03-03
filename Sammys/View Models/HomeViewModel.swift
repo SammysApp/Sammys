@@ -9,22 +9,23 @@
 import Foundation
 
 class HomeViewModel {
-    private typealias CategoriesDownload = DownloadState<URLRequest, Void, [Category]>
+    typealias CategoriesDownload = DownloadState<URLRequest, Void, [Category]>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var categoriesDownload: CategoriesDownload? {
-        didSet {
-            guard let download = categoriesDownload else { return }
-            handleCategoriesDownload(download)
-        }
-    }
     private var categoriesTableViewSectionModel: UITableViewSectionModel?
     private var _tableViewSectionModels: [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let categoriesSectionModel = categoriesTableViewSectionModel { sectionModels.append(categoriesSectionModel) }
         return sectionModels
+    }
+    
+    private(set) var categoriesDownload: CategoriesDownload? {
+        didSet {
+            guard let download = categoriesDownload else { return }
+            handleCategoriesDownload(download)
+        }
     }
     
     // MARK: - View Settable Properties

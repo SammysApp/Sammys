@@ -97,15 +97,9 @@ private extension APIURLRequestFactory {
 
 struct CreateConstructedItemData: Codable {
     let categoryID: Category.ID
-    let categoryItemIDs: [UUID]?
-    let modifierIDs: [Modifier.ID]?
     
-    init(categoryID: Category.ID,
-         categoryItemIDs: [UUID]? = nil,
-         modifierIDs: [Modifier.ID]? = nil) {
+    init(categoryID: Category.ID) {
         self.categoryID = categoryID
-        self.categoryItemIDs = categoryItemIDs
-        self.modifierIDs = modifierIDs
     }
 }
 

@@ -19,7 +19,7 @@ enum DownloadState<Source, Download, Value> {
     }
 }
 
-class Download<Source, Download, Value> {
+struct Download<Source, Download, Value> {
     let id: UUID
     var state: Dynamic<DownloadState<Source, Download, Value>>
     

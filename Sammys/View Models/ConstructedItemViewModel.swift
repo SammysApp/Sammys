@@ -10,24 +10,26 @@ import Foundation
 import PromiseKit
 
 class ConstructedItemViewModel {
+    typealias CreateConstructedItemDownload = Download<URLRequest, Promise<ConstructedItem>, ConstructedItem>
     typealias CategoriesDownload = DownloadState<URLRequest, Promise<[Category]>, [Category]>
-    typealias ConstructedItemDownload = DownloadState<URLRequest, Promise<ConstructedItem>, ConstructedItem>
     typealias AddConstructedItemItemsDownload = Download<URLRequest, Promise<ConstructedItem>, ConstructedItem>
     
     var httpClient: HTTPClient = URLSessionHTTPClient()
     private let apiURLRequestFactory = APIURLRequestFactory()
     
+    // MARK: - Downloads
+    private(set) var createConstructedItemDownload: CreateConstructedItemDownload? {
+        didSet {
+            guard let download = createConstructedItemDownload else { return }
+            handleCreateConstructedItemDownload(download)
+        }
+    }
     private(set) var categoriesDownload: CategoriesDownload? {
         didSet {
             guard let download = categoriesDownload else { return }
             handleCategoriesDownload(download)
         }
     }
-    
-    private(set) var constructedItemDownload: ConstructedItemDownload? {
-        didSet {  }
-    }
-    
     private(set) var addConstructedItemItemsDownloadQueue = Queue<AddConstructedItemItemsDownload>() {
         didSet {
             if let download = addConstructedItemItemsDownloadQueue.dequeue() {
@@ -49,12 +51,32 @@ class ConstructedItemViewModel {
     let isCategoriesDownloading = Dynamic(false)
     
     func beginDownloads() {
+        do { createConstructedItemDownload = try makeCreateConstructedItemDownload() }
+        catch { preconditionFailure(error.localizedDescription) }
         categoriesDownload = makeCategoriesDownload()
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) {
         do { addConstructedItemItemsDownloadQueue.enqueue(try makeAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs)) }
-        catch {  }
+        catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func handleCreateConstructedItemDownload(_ download: CreateConstructedItemDownload) {
+        download.state.bindAndRun { state in
+            switch state {
+            case .willDownload(let request):
+                download.state.value = .downloading(self.httpClient.send(request)
+                    .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) })
+            case .downloading(let promise):
+                promise.get { download.state.value = .completed(.success($0)) }
+                    .catch { download.state.value = .completed(.failure($0)) }
+            case .completed(let result):
+                switch result {
+                case .success(let constructedItem): self.constructedItemID = constructedItem.id
+                case .failure(let error): break
+                }
+            }
+        }
     }
     
     private func handleCategoriesDownload(_ download: CategoriesDownload) {
@@ -95,12 +117,16 @@ class ConstructedItemViewModel {
         }
     }
     
+    private func makeCreateConstructedItemDownload() throws -> CreateConstructedItemDownload {
+        return CreateConstructedItemDownload(source: try apiURLRequestFactory.makeCreateConstructedItemRequest(data: .init(categoryID: categoryID ?? preconditionFailure())))
+    }
+    
     private func makeCategoriesDownload() -> CategoriesDownload {
         return .willDownload(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
     }
     
     private func makeAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) throws -> AddConstructedItemItemsDownload {
-        return AddConstructedItemItemsDownload(source: try apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: AddConstructedItemItemsData(categoryItemIDs: categoryItemIDs)))
+        return AddConstructedItemItemsDownload(source: try apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs)))
     }
     
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
