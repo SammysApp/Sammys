@@ -12,7 +12,8 @@ import TinyConstraints
 class HomeViewController: UIViewController {
     let viewModel = HomeViewModel()
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -61,7 +62,7 @@ class HomeViewController: UIViewController {
         return categoryViewController
     }
     
-    // MARK: - UITableViewCellViewModel Actions
+    // MARK: - Cell Actions
     private func categoryImageTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }

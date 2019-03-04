@@ -31,13 +31,12 @@ enum UICollectionViewCellAction {
 
 protocol UICollectionViewCellViewModel {
     var identifier: String { get }
-    var size: (width: Double, height: Double)? { get }
+    var size: (width: Double, height: Double) { get }
     var isSelectable: Bool { get }
     var actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler] { get }
 }
 
 extension UICollectionViewCellViewModel {
-    var size: (width: Double, height: Double)? { return nil }
     var isSelectable: Bool { return true }
     var actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler] { return [:] }
 }

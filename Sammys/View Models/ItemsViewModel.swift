@@ -10,28 +10,25 @@ import Foundation
 import PromiseKit
 
 class ItemsViewModel {
-    typealias ItemsDownload = DownloadState<URLRequest, Promise<[Item]>, [Item]>
+    private typealias GetItemsDownload = Download<URLRequest, Promise<[Item]>, [Item]>
     
-    var httpClient: HTTPClient = URLSessionHTTPClient()
+    var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var itemsTableViewSectionModel: UITableViewSectionModel?
+    // MARK: - Section Model Properties
     private var _tableViewSectionModels: [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let itemsSectionModel = itemsTableViewSectionModel { sectionModels.append(itemsSectionModel) }
         return sectionModels
     }
-    
-    private(set) var itemsDownload: ItemsDownload? {
-        didSet {
-            guard let download = itemsDownload else { return }
-            handleItemsDownload(download)
-        }
-    }
+    private var itemsTableViewSectionModel: UITableViewSectionModel?
     
     // MARK: - View Settable Properties
+    /// The category ID of the items to present. Required to be non-`nil`.
     var categoryID: Category.ID?
+    /// The selected items` category item IDs.
     var selectedCategoryItemIDs = [UUID]()
+    
     var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
@@ -43,34 +40,44 @@ class ItemsViewModel {
         static let itemTableViewCellViewModelHeight: Double = 60
     }
     
-    func beginDownloads() {
-        itemsDownload = makeItemsDownload()
+    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
+        self.httpClient = httpClient
     }
     
-    private func handleItemsDownload(_ download: ItemsDownload) {
-        switch download {
-        case .willDownload(let request):
-            itemsDownload = .downloading(httpClient.send(request)
-                .map { try JSONDecoder().decode([Item].self, from: $0.data) })
-        case .downloading(let promise):
-            isItemsDownloading.value = true
-            promise.get { self.itemsDownload = .completed(.success($0)) }
-                .catch { self.itemsDownload = .completed(.failure($0)) }
-        case .completed(let result):
-            isItemsDownloading.value = false
-            switch result {
-            case .success(let items):
-                itemsTableViewSectionModel = UITableViewSectionModel(cellViewModels: items.map(makeItemTableViewCellViewModel))
-                tableViewSectionModels.value = _tableViewSectionModels
-            case .failure(let error): errorHandler?(error)
+    // MARK: - Download Methods
+    func beginDownloads() {
+        bindAndRunStateUpdate(to: makeGetItemsDownload())
+    }
+    
+    private func makeGetItemsDownload() -> GetItemsDownload {
+        return GetItemsDownload(source: apiURLRequestFactory.makeGetCategoryItemsRequest(id: categoryID ?? preconditionFailure()))
+    }
+    
+    private func bindAndRunStateUpdate(to download: GetItemsDownload) {
+        download.state.bindAndRun { state in
+            switch state {
+            case .willDownload(let request):
+                download.state.value = .downloading(self.httpClient.send(request)
+                    .map { try JSONDecoder().decode([Item].self, from: $0.data) })
+            case .downloading(let itemsPromise):
+                self.isItemsDownloading.value = true
+                itemsPromise.get { download.state.value = .completed(.success($0)) }
+                    .catch { download.state.value = .completed(.failure($0)) }
+            case .completed(let result):
+                self.isItemsDownloading.value = false
+                switch result {
+                case .success(let items):
+                    self.itemsTableViewSectionModel = UITableViewSectionModel(
+                        cellViewModels: items.map(self.makeItemTableViewCellViewModel)
+                    )
+                    self.tableViewSectionModels.value = self._tableViewSectionModels
+                case .failure(let error): self.errorHandler?(error)
+                }
             }
         }
     }
     
-    private func makeItemsDownload() -> ItemsDownload {
-        return .willDownload(apiURLRequestFactory.makeGetCategoryItemsRequest(id: categoryID ?? preconditionFailure()))
-    }
-    
+    // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
             identifier: ItemsViewController.CellIdentifier.cell.rawValue,

@@ -23,7 +23,7 @@ class UICollectionViewSectionModelsDelegate: NSObject, UICollectionViewDelegate 
 
 class UICollectionViewSectionModelsDelegateFlowLayout: UICollectionViewSectionModelsDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let size = sectionModels.cellViewModel(for: indexPath).size else { return .zero }
+        let size = sectionModels.cellViewModel(for: indexPath).size
         return CGSize(width: size.width, height: size.height)
     }
 }

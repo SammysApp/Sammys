@@ -12,7 +12,8 @@ import TinyConstraints
 class CategoryViewController: UIViewController {
     let viewModel = CategoryViewModel()
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -70,10 +71,12 @@ class CategoryViewController: UIViewController {
     private func makeConstructedItemViewController(categoryID: Category.ID) -> ConstructedItemViewController {
         let constructedItemViewController = ConstructedItemViewController()
         constructedItemViewController.viewModel.categoryID = categoryID
+        // Create a new constructed item.
+        constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
         return constructedItemViewController
     }
     
-    // MARK: - UITableViewCellViewModel Actions
+    // MARK: - Cell Actions
     private func categoryTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
             let cell = data.cell else { return }

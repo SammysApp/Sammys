@@ -13,9 +13,10 @@ class ConstructedItemViewController: UIViewController {
     let viewModel = ConstructedItemViewModel()
     
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let itemsViewController = ItemsViewController()
+    
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
-    let itemsViewController = ItemsViewController()
     
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
@@ -28,8 +29,7 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
-        self.view.backgroundColor = .white
-        
+        setUpView()
         addSubviews()
         configureCategoryCollectionView()
         configureItemsViewController()
@@ -37,6 +37,10 @@ class ConstructedItemViewController: UIViewController {
     }
     
     // MARK: - Setup Methods
+    private func setUpView() {
+        self.view.backgroundColor = .white
+    }
+    
     private func addSubviews() {
         [categoryCollectionView]
             .forEach { self.view.addSubview($0) }
@@ -59,8 +63,8 @@ class ConstructedItemViewController: UIViewController {
     
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
-        itemsViewController.categoryItemIDSelectionHandler = { id in
-            self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [id])
+        itemsViewController.itemSelectionHandler = { data in
+            self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
         add(itemsViewController)
         itemsViewController.view.edgesToSuperview(excluding: .top)
@@ -89,7 +93,7 @@ class ConstructedItemViewController: UIViewController {
         viewModel.beginDownloads()
     }
     
-    // MARK: - UITableViewCellViewModel Actions
+    // MARK: - Cell Actions
     private func categoryRoundedTextCollectionViewCellConfigurationAction(data: UICollectionViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel,
             let cell = data.cell as? RoundedTextCollectionViewCell else { return }

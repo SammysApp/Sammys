@@ -13,13 +13,19 @@ class ItemsViewController: UIViewController {
     let viewModel = ItemsViewModel()
     
     let tableView = UITableView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    var categoryItemIDSelectionHandler: ((UUID) -> Void)?
+    /// Gets called when an item is selected.
+    var itemSelectionHandler: ((ItemSelectionData) -> Void)?
     
     enum CellIdentifier: String {
         case cell
+    }
+    
+    struct ItemSelectionData {
+        let categoryItemID: UUID
     }
     
     // MARK: - Lifecycle Methods
@@ -55,12 +61,12 @@ class ItemsViewController: UIViewController {
         }
     }
     
-    // MARK: - UITableViewCellViewModel Actions
+    // MARK: - Cell Actions
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
-        if let id = cellViewModel.selectionData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
+        if let id = cellViewModel.configurationData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
             cell.accessoryType = .checkmark
         } else { cell.accessoryType = .none }
     }
@@ -72,7 +78,7 @@ class ItemsViewController: UIViewController {
             let id = cellViewModel.selectionData.categoryItemID
             else { return }
         cell.accessoryType = .checkmark
-        categoryItemIDSelectionHandler?(id)
         viewModel.selectedCategoryItemIDs.append(id)
+        itemSelectionHandler?(.init(categoryItemID: id))
     }
 }
