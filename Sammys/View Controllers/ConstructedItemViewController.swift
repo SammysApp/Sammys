@@ -14,13 +14,18 @@ class ConstructedItemViewController: UIViewController {
     
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let itemsViewController = ItemsViewController()
+    let addToBagRoundedButton = RoundedButton()
     
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
     
+    private lazy var addToBagRoundedButtonTarget = UIControl.Target(action: addToBagRoundedButtonAction)
+    
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
         static let categoryCollectionViewHeight: CGFloat = 40
+        static let addToBagRoundedButtonTitleLabelText = "Add to Bag"
+        static let addToBagRoundedButtonHeight: CGFloat = 40
     }
     
     enum CellIdentifier: String {
@@ -29,20 +34,22 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
+        super.viewDidLoad()
         setUpView()
-        addSubviews()
         configureCategoryCollectionView()
         configureItemsViewController()
+        configureAddToBagRoundedButton()
         configureViewModel()
     }
     
     // MARK: - Setup Methods
     private func setUpView() {
         self.view.backgroundColor = .white
+        addSubviews()
     }
     
     private func addSubviews() {
-        [categoryCollectionView]
+        [categoryCollectionView, addToBagRoundedButton]
             .forEach { self.view.addSubview($0) }
     }
     
@@ -67,8 +74,19 @@ class ConstructedItemViewController: UIViewController {
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
         add(itemsViewController)
-        itemsViewController.view.edgesToSuperview(excluding: .top)
-        itemsViewController.view.topToBottom(of: categoryCollectionView)
+        view.sendSubviewToBack(itemsViewController.view)
+        itemsViewController.tableView.contentInset.top =
+            Constants.categoryCollectionViewHeight + (Constants.categoryCollectionViewInset * 2)
+        itemsViewController.tableView.scrollIndicatorInsets.top = itemsViewController.tableView.contentInset.top
+        itemsViewController.view.edgesToSuperview(usingSafeArea: true)
+    }
+    
+    private func configureAddToBagRoundedButton() {
+        addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText
+        addToBagRoundedButton.add(addToBagRoundedButtonTarget, for: .touchUpInside)
+        addToBagRoundedButton.height(Constants.addToBagRoundedButtonHeight)
+        addToBagRoundedButton.centerX(to: self.view)
+        addToBagRoundedButton.bottom(to: self.view.safeAreaLayoutGuide)
     }
     
     private func configureViewModel() {
@@ -90,7 +108,17 @@ class ConstructedItemViewController: UIViewController {
             self.categoryCollectionViewDelegate.sectionModels = sectionModels
             self.categoryCollectionView.reloadData()
         }
+        viewModel.totalPriceText.bind { text in
+            if let text = text {
+                self.addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText + " " + text
+            } else { self.addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText }
+        }
         viewModel.beginDownloads()
+    }
+    
+    // MARK: - Target Actions
+    private func addToBagRoundedButtonAction() {
+        
     }
     
     // MARK: - Cell Actions

@@ -31,7 +31,6 @@ class ItemsViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addSubviews()
         configureTableView()
         configureViewModel()

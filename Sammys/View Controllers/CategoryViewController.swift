@@ -24,7 +24,6 @@ class CategoryViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addSubviews()
         configureTableView()
         configureViewModel()
@@ -73,6 +72,7 @@ class CategoryViewController: UIViewController {
         constructedItemViewController.viewModel.categoryID = categoryID
         // Create a new constructed item.
         constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
+        constructedItemViewController.hidesBottomBarWhenPushed = true
         return constructedItemViewController
     }
     

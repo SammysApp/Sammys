@@ -23,6 +23,7 @@
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B2950CA218CBEF1008B0E49 /* UITableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
+		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */; };
 		5B3A4B492195F3E400F22F78 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B302195F3E300F22F78 /* Date.swift */; };
 		5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B312195F3E300F22F78 /* UIView.swift */; };
@@ -38,7 +39,7 @@
 		5B3A4B652195F3E400F22F78 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3E2195F3E300F22F78 /* URL.swift */; };
 		5B3A4B672195F3E400F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3F2195F3E300F22F78 /* String.swift */; };
 		5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B402195F3E300F22F78 /* UIResponder.swift */; };
-		5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B412195F3E300F22F78 /* UIButton.swift */; };
+		5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B412195F3E300F22F78 /* UIControl.swift */; };
 		5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B422195F3E300F22F78 /* UIImage.swift */; };
 		5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B432195F3E300F22F78 /* UIViewController.swift */; };
 		5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B442195F3E300F22F78 /* DateFormatter.swift */; };
@@ -117,6 +118,7 @@
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModel.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
+		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		5B3A4B302195F3E300F22F78 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5B3A4B312195F3E300F22F78 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -132,7 +134,7 @@
 		5B3A4B3E2195F3E300F22F78 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		5B3A4B3F2195F3E300F22F78 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5B3A4B402195F3E300F22F78 /* UIResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResponder.swift; sourceTree = "<group>"; };
-		5B3A4B412195F3E300F22F78 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		5B3A4B412195F3E300F22F78 /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		5B3A4B422195F3E300F22F78 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		5B3A4B432195F3E300F22F78 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		5B3A4B442195F3E300F22F78 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -242,9 +244,9 @@
 				5B9A8ABA22244C3500F5525D /* Optional.swift */,
 				5B3A4B3F2195F3E300F22F78 /* String.swift */,
 				5B8E81A921B0696C00C22CEA /* UIAlertController.swift */,
-				5B3A4B412195F3E300F22F78 /* UIButton.swift */,
 				5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */,
 				5B3A4B362195F3E300F22F78 /* UIColor.swift */,
+				5B3A4B412195F3E300F22F78 /* UIControl.swift */,
 				5B3A4B422195F3E300F22F78 /* UIImage.swift */,
 				5B3A4B402195F3E300F22F78 /* UIResponder.swift */,
 				5B3A4B2F2195F3E300F22F78 /* UIScrollView.swift */,
@@ -388,6 +390,7 @@
 		5B9CD59F204CCAA500F59E4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
 			);
@@ -664,6 +667,7 @@
 				5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
+				5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */,
 				5B01221C221DE97F0054AB7A /* HTTPServer.swift in Sources */,
 				5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */,
 				5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */,
@@ -695,7 +699,7 @@
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
 				5B012220221DF3A40054AB7A /* HTTPHeaderName.swift in Sources */,
 				5B012218221DC72E0054AB7A /* HTTPMethod.swift in Sources */,
-				5B3A4B6B2195F3E400F22F78 /* UIButton.swift in Sources */,
+				5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,

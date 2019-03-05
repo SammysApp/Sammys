@@ -25,10 +25,7 @@ class ImageTableViewCell: UITableViewCell {
         setUp()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setUp()
-    }
+    required init?(coder aDecoder: NSCoder) { fatalError() }
     
     private func setUp() {
         [imageView, textLabel]

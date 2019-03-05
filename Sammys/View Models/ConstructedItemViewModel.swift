@@ -38,6 +38,7 @@ class ConstructedItemViewModel {
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
     let categoryCollectionViewSectionModels = Dynamic([UICollectionViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
+    let totalPriceText: Dynamic<String?> = Dynamic(nil)
     
     init(httpClient: HTTPClient = URLSessionHTTPClient()) {
         self.httpClient = httpClient
@@ -129,7 +130,10 @@ class ConstructedItemViewModel {
                 switch result {
                 case .success(let constructedItem):
                     if self.activeAddConstructedItemItemsDownloads.isEmpty {
-                        print(constructedItem)
+                        if let totalPrice = constructedItem.totalPrice {
+                            if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                            else { self.totalPriceText.value = nil }
+                        }
                     }
                 case .failure(let error): self.errorHandler?(error)
                 }
