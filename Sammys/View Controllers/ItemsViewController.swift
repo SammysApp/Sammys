@@ -17,14 +17,14 @@ class ItemsViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    /// Gets called when an item is selected.
-    var itemSelectionHandler: ((ItemSelectionData) -> Void)?
+    var addItemHandler: ((ItemData) -> Void)?
+    var removeItemHandler: ((ItemData) -> Void)?
     
     enum CellIdentifier: String {
         case cell
     }
     
-    struct ItemSelectionData {
+    struct ItemData {
         let categoryItemID: UUID
     }
     
@@ -76,8 +76,14 @@ class ItemsViewController: UIViewController {
             let cell = tableView.cellForRow(at: indexPath),
             let id = cellViewModel.selectionData.categoryItemID
             else { return }
-        cell.accessoryType = .checkmark
-        viewModel.selectedCategoryItemIDs.append(id)
-        itemSelectionHandler?(.init(categoryItemID: id))
+        if !viewModel.selectedCategoryItemIDs.contains(id) {
+            cell.accessoryType = .checkmark
+            viewModel.selectedCategoryItemIDs.append(id)
+            addItemHandler?(.init(categoryItemID: id))
+        } else {
+            cell.accessoryType = .none
+            viewModel.selectedCategoryItemIDs.remove(id)
+            removeItemHandler?(.init(categoryItemID: id))
+        }
     }
 }

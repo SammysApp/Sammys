@@ -70,7 +70,7 @@ class ConstructedItemViewController: UIViewController {
     
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
-        itemsViewController.itemSelectionHandler = { data in
+        itemsViewController.addItemHandler = { data in
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
         add(itemsViewController)
