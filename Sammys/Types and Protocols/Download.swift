@@ -27,4 +27,5 @@ struct Download<Source, Download, Value> {
         self.id = id
         self.state = Dynamic(.willDownload(source))
     }
+    
 }

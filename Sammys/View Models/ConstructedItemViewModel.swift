@@ -18,7 +18,7 @@ class ConstructedItemViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Download Properties
-    private var addConstructedItemItemsDownloadQueue = Queue<AddConstructedItemItemsDownload>()
+    private var activeAddConstructedItemItemsDownloads = [AddConstructedItemItemsDownload]()
     
     // MARK: - View Settable Properties
     /// The category ID of the presented constructed item. Required to be non-`nil`.
@@ -55,7 +55,7 @@ class ConstructedItemViewModel {
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) {
         let download = makeAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs)
         bindAndRunStateUpdate(toAddConstructedItemItemsDownload: download)
-        addConstructedItemItemsDownloadQueue.enqueue(download)
+        activeAddConstructedItemItemsDownloads.append(download)
     }
     
     private func makeGetCategoriesDownload() -> GetCategoriesDownload {
@@ -124,10 +124,12 @@ class ConstructedItemViewModel {
                 constructedItemPromise.get { download.state.value = .completed(.success($0)) }
                     .catch { download.state.value = .completed(.failure($0)) }
             case .completed(let result):
+                self.activeAddConstructedItemItemsDownloads =
+                    self.activeAddConstructedItemItemsDownloads.filter { $0.id != download.id }
                 switch result {
                 case .success(let constructedItem):
-                    if self.addConstructedItemItemsDownloadQueue.isEmpty {
-                        
+                    if self.activeAddConstructedItemItemsDownloads.isEmpty {
+                        print(constructedItem)
                     }
                 case .failure(let error): self.errorHandler?(error)
                 }
