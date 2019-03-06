@@ -118,7 +118,7 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Target Actions
     private func bottomRoundedButtonTouchUpInsideAction() {
-        
+        viewModel.beginAddToOutstandingOrderDownload()
     }
     
     // MARK: - Cell Actions

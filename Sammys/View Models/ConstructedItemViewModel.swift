@@ -76,6 +76,13 @@ class ConstructedItemViewModel {
             }.catch { self.errorHandler?($0) }
     }
     
+    func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+        createOutstandingOrder()
+            .then { self.addOutstandingOrderConstructedItems(outstandingOrderID: $0.id, constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]) }.asVoid()
+            .done { successfulCompletionHandler?() }
+            .catch { self.errorHandler?($0) }
+    }
+    
     private func getCategories() -> Promise<[Category]> {
         return httpClient.send(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
@@ -92,6 +99,20 @@ class ConstructedItemViewModel {
         do {
             return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs))).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func createOutstandingOrder() -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: .init()))
+                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, constructedItemIDs: [ConstructedItem.ID]) -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: .init(ids: constructedItemIDs)))
+                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
