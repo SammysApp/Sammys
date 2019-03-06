@@ -59,7 +59,7 @@ class CategoryViewModel {
         download.state.bindAndRun { state in
             switch state {
             case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request)
+                download.state.value = .downloading(self.httpClient.send(request).validate()
                     .map { try JSONDecoder().decode([Category].self, from: $0.data) })
             case .downloading(let categoriesPromise):
                 self.isCategoriesDownloading.value = true

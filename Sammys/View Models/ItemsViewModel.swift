@@ -57,7 +57,7 @@ class ItemsViewModel {
         download.state.bindAndRun { state in
             switch state {
             case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request)
+                download.state.value = .downloading(self.httpClient.send(request).validate()
                     .map { try JSONDecoder().decode([Item].self, from: $0.data) })
             case .downloading(let itemsPromise):
                 self.isItemsDownloading.value = true

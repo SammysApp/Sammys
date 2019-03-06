@@ -43,15 +43,27 @@ struct APIURLRequestFactory {
     }
     
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var urlRequest = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
-        urlRequest.httpBody = try dataEncoder.encode(data)
-        return urlRequest
+        var request = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
     }
     
     func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var urlRequest = URLRequest(server: server, endpoint: Endpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
-        urlRequest.httpBody = try dataEncoder.encode(data)
-        return urlRequest
+        var request = URLRequest(server: server, endpoint: Endpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
+    func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: Endpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
+    func makeAddOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: Endpoint.addOutstandingOrderConstructedItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
     }
 }
 
@@ -72,6 +84,10 @@ private extension APIURLRequestFactory {
         case createConstructedItem
         /// POST `/constructedItems/:constructedItem/items`
         case addConstructedItemItems(ConstructedItem.ID)
+        /// POST `/outstandingOrders`
+        case createOutstandingOrder
+        /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
+        case addOutstandingOrderConstructedItems(OutstandingOrder.ID)
         
         private enum Version: String { case v1 }
         private var version: Version { return .v1 }
@@ -90,6 +106,10 @@ private extension APIURLRequestFactory {
                 return (.POST, "/\(version)/constructedItems")
             case .addConstructedItemItems(let id):
                 return (.POST, "/\(version)/constructedItems/\(id)/items")
+            case .createOutstandingOrder:
+                return (.POST, "/\(version)/outstandingOrders")
+            case .addOutstandingOrderConstructedItems(let id):
+                return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
             }
         }
     }
@@ -105,4 +125,10 @@ struct CreateConstructedItemData: Codable {
 
 struct AddConstructedItemItemsData: Codable {
     let categoryItemIDs: [UUID]
+}
+
+struct CreateOutstandingOrderData: Codable {}
+
+struct AddOutstandingOrderConstructedItemsData: Codable {
+    let ids: [ConstructedItem.ID]
 }

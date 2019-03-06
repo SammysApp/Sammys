@@ -14,18 +14,18 @@ class ConstructedItemViewController: UIViewController {
     
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let itemsViewController = ItemsViewController()
-    let addToBagRoundedButton = RoundedButton()
+    let bottomRoundedButton = RoundedButton()
     
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
     
-    private lazy var addToBagRoundedButtonTarget = UIControl.Target(action: addToBagRoundedButtonAction)
+    private lazy var bottomRoundedButtonTouchUpInsideTarget = UIControl.Target(action: bottomRoundedButtonTouchUpInsideAction)
     
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
         static let categoryCollectionViewHeight: CGFloat = 40
-        static let addToBagRoundedButtonTitleLabelText = "Add to Bag"
-        static let addToBagRoundedButtonHeight: CGFloat = 40
+        static let bottomRoundedButtonHeight: CGFloat = 40
+        static let bottomRoundedButtonTitleLabelText = "Add to Bag"
     }
     
     enum CellIdentifier: String {
@@ -38,7 +38,7 @@ class ConstructedItemViewController: UIViewController {
         setUpView()
         configureCategoryCollectionView()
         configureItemsViewController()
-        configureAddToBagRoundedButton()
+        configureBottomRoundedButton()
         configureViewModel()
     }
     
@@ -49,7 +49,7 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [categoryCollectionView, addToBagRoundedButton]
+        [categoryCollectionView, bottomRoundedButton]
             .forEach { self.view.addSubview($0) }
     }
     
@@ -81,12 +81,12 @@ class ConstructedItemViewController: UIViewController {
         itemsViewController.view.edgesToSuperview(usingSafeArea: true)
     }
     
-    private func configureAddToBagRoundedButton() {
-        addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText
-        addToBagRoundedButton.add(addToBagRoundedButtonTarget, for: .touchUpInside)
-        addToBagRoundedButton.height(Constants.addToBagRoundedButtonHeight)
-        addToBagRoundedButton.centerX(to: self.view)
-        addToBagRoundedButton.bottom(to: self.view.safeAreaLayoutGuide)
+    private func configureBottomRoundedButton() {
+        bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText
+        bottomRoundedButton.add(bottomRoundedButtonTouchUpInsideTarget, for: .touchUpInside)
+        bottomRoundedButton.height(Constants.bottomRoundedButtonHeight)
+        bottomRoundedButton.centerX(to: self.view)
+        bottomRoundedButton.bottom(to: self.view.safeAreaLayoutGuide)
     }
     
     private func configureViewModel() {
@@ -110,14 +110,14 @@ class ConstructedItemViewController: UIViewController {
         }
         viewModel.totalPriceText.bind { text in
             if let text = text {
-                self.addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText + " " + text
-            } else { self.addToBagRoundedButton.titleLabel.text = Constants.addToBagRoundedButtonTitleLabelText }
+                self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText + " " + text
+            } else { self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText }
         }
         viewModel.beginDownloads()
     }
     
     // MARK: - Target Actions
-    private func addToBagRoundedButtonAction() {
+    private func bottomRoundedButtonTouchUpInsideAction() {
         
     }
     
