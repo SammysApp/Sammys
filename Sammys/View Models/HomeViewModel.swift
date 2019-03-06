@@ -10,18 +10,13 @@ import Foundation
 import PromiseKit
 
 class HomeViewModel {
-    private typealias GetCategoriesDownload = Download<URLRequest, Promise<[Category]>, [Category]>
-    
     var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Section Model Properties
-    private var _tableViewSectionModels: [UITableViewSectionModel] {
-        var sectionModels = [UITableViewSectionModel]()
-        if let categoriesSectionModel = categoriesTableViewSectionModel { sectionModels.append(categoriesSectionModel) }
-        return sectionModels
+    private var categoriesTableViewSectionModel: UITableViewSectionModel? {
+        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
     }
-    private var categoriesTableViewSectionModel: UITableViewSectionModel?
     
     // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
@@ -41,36 +36,32 @@ class HomeViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        bindAndRunStateUpdate(to: makeGetCategoriesDownload())
+        beginCategoriesDownload()
     }
     
-    private func makeGetCategoriesDownload() -> GetCategoriesDownload {
+    private func beginCategoriesDownload() {
+        isCategoriesDownloading.value = true
+        getCategories()
+            .done { self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: $0) }
+            .ensure { self.isCategoriesDownloading.value = false }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    private func getCategories() -> Promise<[Category]> {
         let queryItems = [URLQueryItem(name: "isRoot", value: String(true))]
-        return GetCategoriesDownload(source: apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems))
+        return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems)).validate()
+            .map { try JSONDecoder().decode([Category].self, from: $0.data) }
     }
     
-    private func bindAndRunStateUpdate(to download: GetCategoriesDownload) {
-        download.state.bindAndRun { state in
-            switch state {
-            case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request).validate()
-                    .map { try JSONDecoder().decode([Category].self, from: $0.data) })
-            case .downloading(let categoriesPromise):
-                self.isCategoriesDownloading.value = true
-                categoriesPromise.get { download.state.value = .completed(.success($0)) }
-                    .catch { download.state.value = .completed(.failure($0)) }
-            case .completed(let result):
-                self.isCategoriesDownloading.value = false
-                switch result {
-                case .success(let categories):
-                    self.categoriesTableViewSectionModel = UITableViewSectionModel(
-                        cellViewModels: categories.map(self.makeCategoryImageTableViewCellViewModel)
-                    )
-                    self.tableViewSectionModels.value = self._tableViewSectionModels
-                case .failure(let error): self.errorHandler?(error)
-                }
-            }
-        }
+    // MARK: - Section Model Methods
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let categoriesModel = categoriesTableViewSectionModel { sectionModels.append(categoriesModel) }
+        return sectionModels
+    }
+    
+    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

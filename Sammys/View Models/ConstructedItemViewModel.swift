@@ -10,15 +10,11 @@ import Foundation
 import PromiseKit
 
 class ConstructedItemViewModel {
-    private typealias CreateConstructedItemDownload = Download<URLRequest, Promise<ConstructedItem>, ConstructedItem>
-    private typealias GetCategoriesDownload = Download<URLRequest, Promise<[Category]>, [Category]>
-    private typealias AddConstructedItemItemsDownload = Download<URLRequest, Promise<ConstructedItem>, ConstructedItem>
-    
     var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Download Properties
-    private var activeAddConstructedItemItemsDownloads = [AddConstructedItemItemsDownload]()
+    private var activeAddConstructedItemItemsDownloadPromises = [UUID: Promise<ConstructedItem>]()
     
     // MARK: - View Settable Properties
     /// The category ID of the presented constructed item. Required to be non-`nil`.
@@ -46,99 +42,62 @@ class ConstructedItemViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        bindAndRunStateUpdate(to: makeGetCategoriesDownload())
+        beginCategoriesDownload()
+    }
+    
+    private func beginCategoriesDownload() {
+        isCategoriesDownloading.value = true
+        getCategories()
+            .done { categories in
+                self.selectedCategoryID.value = categories.first?.id
+                self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
+            }.ensure { self.isCategoriesDownloading.value = false }
+            .catch { self.errorHandler?($0) }
     }
     
     func beginCreateConstructedItemDownload() {
-        bindAndRunStateUpdate(toCreateConstructedItemDownload: makeCreateConstructedItemDownload())
+        createConstructedItem()
+            .done { self.constructedItemID = $0.id }
+            .catch { self.errorHandler?($0) }
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) {
-        let download = makeAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs)
-        bindAndRunStateUpdate(toAddConstructedItemItemsDownload: download)
-        activeAddConstructedItemItemsDownloads.append(download)
-    }
-    
-    private func makeGetCategoriesDownload() -> GetCategoriesDownload {
-        return GetCategoriesDownload(source: apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
-    }
-    
-    private func makeCreateConstructedItemDownload() -> CreateConstructedItemDownload {
-        do { return try CreateConstructedItemDownload(source: apiURLRequestFactory.makeCreateConstructedItemRequest(data: .init(categoryID: categoryID ?? preconditionFailure()))) }
-        catch { preconditionFailure(error.localizedDescription) }
-    }
-    
-    private func makeAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) -> AddConstructedItemItemsDownload {
-        do { return try AddConstructedItemItemsDownload(source: apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs))) }
-        catch { preconditionFailure(error.localizedDescription) }
-    }
-    
-    private func bindAndRunStateUpdate(to download: GetCategoriesDownload) {
-        download.state.bindAndRun { state in
-            switch state {
-            case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request).validate()
-                    .map { try JSONDecoder().decode([Category].self, from: $0.data) })
-            case .downloading(let categoriesPromise):
-                self.isCategoriesDownloading.value = true
-                categoriesPromise.get { download.state.value = .completed(.success($0)) }
-                    .catch { download.state.value = .completed(.failure($0)) }
-            case .completed(let result):
-                self.isCategoriesDownloading.value = false
-                switch result {
-                case .success(let categories):
-                    self.selectedCategoryID.value = categories.first?.id
-                    self.categoryCollectionViewSectionModels.value = [UICollectionViewSectionModel(
-                        cellViewModels: categories.map(self.makeCategoryRoundedTextCollectionViewCellViewModel)
-                    )]
-                case .failure(let error): self.errorHandler?(error)
-                }
-            }
-        }
-    }
-    
-    private func bindAndRunStateUpdate(toCreateConstructedItemDownload download: CreateConstructedItemDownload) {
-        download.state.bindAndRun { state in
-            switch state {
-            case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request).validate()
-                    .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) })
-            case .downloading(let constructedItemPromise):
-                constructedItemPromise.get { download.state.value = .completed(.success($0)) }
-                    .catch { download.state.value = .completed(.failure($0)) }
-            case .completed(let result):
-                switch result {
-                case .success(let constructedItem): self.constructedItemID = constructedItem.id
-                case .failure(let error): self.errorHandler?(error)
-                }
-            }
-        }
-    }
-    
-    private func bindAndRunStateUpdate(toAddConstructedItemItemsDownload download: AddConstructedItemItemsDownload) {
-        download.state.bindAndRun { state in
-            switch state {
-            case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request).validate()
-                    .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) })
-            case .downloading(let constructedItemPromise):
-                constructedItemPromise.get { download.state.value = .completed(.success($0)) }
-                    .catch { download.state.value = .completed(.failure($0)) }
-            case .completed(let result):
-                self.activeAddConstructedItemItemsDownloads =
-                    self.activeAddConstructedItemItemsDownloads.filter { $0.id != download.id }
-                switch result {
-                case .success(let constructedItem):
-                    if self.activeAddConstructedItemItemsDownloads.isEmpty {
-                        if let totalPrice = constructedItem.totalPrice {
-                            if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
-                            else { self.totalPriceText.value = nil }
-                        }
+        let promiseID = UUID()
+        let promise = addConstructedItemItems(categoryItemIDs: categoryItemIDs)
+        activeAddConstructedItemItemsDownloadPromises[promiseID] = promise
+        promise.ensure { self.activeAddConstructedItemItemsDownloadPromises[promiseID] = nil }
+            .done { constructedItem in
+                if self.activeAddConstructedItemItemsDownloadPromises.isEmpty {
+                    if let totalPrice = constructedItem.totalPrice {
+                        if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                        else { self.totalPriceText.value = nil }
                     }
-                case .failure(let error): self.errorHandler?(error)
                 }
-            }
-        }
+            }.catch { self.errorHandler?($0) }
+    }
+    
+    private func getCategories() -> Promise<[Category]> {
+        return httpClient.send(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
+            .map { try JSONDecoder().decode([Category].self, from: $0.data) }
+    }
+    
+    private func createConstructedItem() -> Promise<ConstructedItem> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeCreateConstructedItemRequest(data: .init(categoryID: categoryID ?? preconditionFailure()))).validate()
+                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func addConstructedItemItems(categoryItemIDs: [UUID]) -> Promise<ConstructedItem> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs))).validate()
+                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    // MARK: - Section Model Methods
+    private func makeCategoryCollectionViewSectionModels(categories: [Category]) -> [UICollectionViewSectionModel] {
+        return [UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))]
     }
     
     // MARK: - Cell View Model Methods

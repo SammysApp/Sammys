@@ -10,18 +10,13 @@ import Foundation
 import PromiseKit
 
 class ItemsViewModel {
-    private typealias GetItemsDownload = Download<URLRequest, Promise<[Item]>, [Item]>
-    
     var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Section Model Properties
-    private var _tableViewSectionModels: [UITableViewSectionModel] {
-        var sectionModels = [UITableViewSectionModel]()
-        if let itemsSectionModel = itemsTableViewSectionModel { sectionModels.append(itemsSectionModel) }
-        return sectionModels
+    private var itemsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
     }
-    private var itemsTableViewSectionModel: UITableViewSectionModel?
     
     // MARK: - View Settable Properties
     /// The category ID of the items to present. Required to be non-`nil`.
@@ -46,35 +41,31 @@ class ItemsViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        bindAndRunStateUpdate(to: makeGetItemsDownload())
+        beginItemsDownload()
     }
     
-    private func makeGetItemsDownload() -> GetItemsDownload {
-        return GetItemsDownload(source: apiURLRequestFactory.makeGetCategoryItemsRequest(id: categoryID ?? preconditionFailure()))
+    private func beginItemsDownload() {
+        isItemsDownloading.value = true
+        getItems()
+            .done { self.itemsTableViewSectionModel = self.makeItemsTableViewSectionModel(items: $0) }
+            .ensure { self.isItemsDownloading.value = false }
+            .catch { self.errorHandler?($0) }
     }
     
-    private func bindAndRunStateUpdate(to download: GetItemsDownload) {
-        download.state.bindAndRun { state in
-            switch state {
-            case .willDownload(let request):
-                download.state.value = .downloading(self.httpClient.send(request).validate()
-                    .map { try JSONDecoder().decode([Item].self, from: $0.data) })
-            case .downloading(let itemsPromise):
-                self.isItemsDownloading.value = true
-                itemsPromise.get { download.state.value = .completed(.success($0)) }
-                    .catch { download.state.value = .completed(.failure($0)) }
-            case .completed(let result):
-                self.isItemsDownloading.value = false
-                switch result {
-                case .success(let items):
-                    self.itemsTableViewSectionModel = UITableViewSectionModel(
-                        cellViewModels: items.map(self.makeItemTableViewCellViewModel)
-                    )
-                    self.tableViewSectionModels.value = self._tableViewSectionModels
-                case .failure(let error): self.errorHandler?(error)
-                }
-            }
-        }
+    private func getItems() -> Promise<[Item]> {
+        return httpClient.send(apiURLRequestFactory.makeGetCategoryItemsRequest(id: categoryID ?? preconditionFailure())).validate()
+            .map { try JSONDecoder().decode([Item].self, from: $0.data) }
+    }
+    
+    // MARK: - Section Model Methods
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let itemsModel = itemsTableViewSectionModel { sectionModels.append(itemsModel) }
+        return sectionModels
+    }
+    
+    private func makeItemsTableViewSectionModel(items: [Item]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: items.map(makeItemTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

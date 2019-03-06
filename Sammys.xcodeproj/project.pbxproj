@@ -58,7 +58,6 @@
 		5B6E367D221F2611004D5310 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E367C221F2611004D5310 /* HomeViewModel.swift */; };
 		5B6E3683221F7111004D5310 /* UITableViewSectionModelsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */; };
 		5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */; };
-		5B6E391822236806004D5310 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391722236806004D5310 /* Download.swift */; };
 		5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391922238240004D5310 /* CategoryViewController.swift */; };
 		5B6E391C2223831F004D5310 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391B2223831F004D5310 /* CategoryViewModel.swift */; };
 		5B6E391E2223955B004D5310 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391D2223955B004D5310 /* Item.swift */; };
@@ -79,7 +78,6 @@
 		5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ACC2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift */; };
 		5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */; };
 		5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */; };
-		5B9A8AE22229AE5200F5525D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AE12229AE5200F5525D /* Queue.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
@@ -155,7 +153,6 @@
 		5B6E367C221F2611004D5310 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDataSource.swift; sourceTree = "<group>"; };
 		5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModelsDelegate.swift; sourceTree = "<group>"; };
-		5B6E391722236806004D5310 /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		5B6E391922238240004D5310 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5B6E391B2223831F004D5310 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		5B6E391D2223955B004D5310 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 		5B9A8AD622282EB200F5525D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItem.swift; sourceTree = "<group>"; };
-		5B9A8AE12229AE5200F5525D /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -264,9 +260,7 @@
 		5B3F25D8210F67750080290E /* Types and Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5B6E391722236806004D5310 /* Download.swift */,
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
-				5B9A8AE12229AE5200F5525D /* Queue.swift */,
 			);
 			path = "Types and Protocols";
 			sourceTree = "<group>";
@@ -682,7 +676,6 @@
 				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
-				5B9A8AE22229AE5200F5525D /* Queue.swift in Sources */,
 				5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */,
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5B0124B4221E2A740054AB7A /* HTTPClient.swift in Sources */,
@@ -694,7 +687,6 @@
 				5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
 				5B012226221DF8930054AB7A /* URLRequest+HTTP.swift in Sources */,
-				5B6E391822236806004D5310 /* Download.swift in Sources */,
 				5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
