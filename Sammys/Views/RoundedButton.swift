@@ -22,13 +22,11 @@ class RoundedButton: UIControl {
         static let titleLabelInset: CGFloat = 10
     }
     
-    init() {
-        super.init(frame: .zero)
-        setUp()
-    }
+    override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
-    private override init(frame: CGRect) { super.init(frame: frame) }
     required init?(coder aDecoder: NSCoder) { fatalError() }
+    
+    convenience init() { self.init(frame: .zero) }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -39,6 +37,8 @@ class RoundedButton: UIControl {
         self.layer.addSublayer(roundedLayer)
         [titleLabel]
             .forEach { self.addSubview($0) }
+        
+        titleLabel.textAlignment = .center
         titleLabel.center(in: self)
         titleLabel.left(to: self, offset: Constants.titleLabelInset, priority: .required)
         titleLabel.right(to: self, offset: -Constants.titleLabelInset, priority: .required)

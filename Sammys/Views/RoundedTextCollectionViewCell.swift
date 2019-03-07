@@ -16,10 +16,7 @@ class RoundedTextCollectionViewCell: UICollectionViewCell {
         didSet { update() }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
+    override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
     

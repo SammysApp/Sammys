@@ -51,6 +51,7 @@
 		5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */; };
 		5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */; };
 		5B4F7F132230CC3500F95C04 /* ConstructedItemViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F122230CC3500F95C04 /* ConstructedItemViewModelTests.swift */; };
+		5B4F7F1522317AC800F95C04 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1422317AC800F95C04 /* CounterView.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CD5FF216ACDF000E30780 /* Dynamic.swift */; };
 		5B6E366C221E346B004D5310 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E366B221E346B004D5310 /* URLSessionHTTPClient.swift */; };
@@ -149,6 +150,7 @@
 		5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+KeyValueStore.swift"; sourceTree = "<group>"; };
 		5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoreKeys.swift; sourceTree = "<group>"; };
 		5B4F7F122230CC3500F95C04 /* ConstructedItemViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewModelTests.swift; sourceTree = "<group>"; };
+		5B4F7F1422317AC800F95C04 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6CD5FF216ACDF000E30780 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 		5B9CD59F204CCAA500F59E4C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5B4F7F1422317AC800F95C04 /* CounterView.swift */,
 				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
@@ -667,6 +670,7 @@
 			files = (
 				5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
+				5B4F7F1522317AC800F95C04 /* CounterView.swift in Sources */,
 				5B3A4B672195F3E400F22F78 /* String.swift in Sources */,
 				5B9A8ABD222450D100F5525D /* ItemsViewController.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
