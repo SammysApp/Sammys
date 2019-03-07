@@ -83,13 +83,13 @@ class ConstructedItemViewModel {
     }
     
     func beginOutstandingOrdersDownload(successfulCompletionHandler: @escaping ([OutstandingOrder.ID]) -> Void) {
-        if let storedOutstandingOrders = keyValueStore.array(of: OutstandingOrder.ID.self, forKey: KeyValueStoreKeys.outstandingOrders) {
-            successfulCompletionHandler(storedOutstandingOrders)
+        if let storedOutstandingOrderIDStrings = keyValueStore.array(of: String.self, forKey: KeyValueStoreKeys.outstandingOrders) {
+            successfulCompletionHandler(storedOutstandingOrderIDStrings.compactMap(OutstandingOrder.ID.init))
         } else {
             createOutstandingOrder()
                 .done {
                     let ids = [$0.id]
-                    self.keyValueStore.set(ids, forKey: KeyValueStoreKeys.outstandingOrders)
+                    self.keyValueStore.set(ids.map { $0.uuidString }, forKey: KeyValueStoreKeys.outstandingOrders)
                     successfulCompletionHandler(ids)
                 }.catch { self.errorHandler?($0) }
         }

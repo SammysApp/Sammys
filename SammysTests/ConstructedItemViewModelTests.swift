@@ -67,7 +67,7 @@ private struct MockReturnStoredOutstandingOrdersKeyValueStore: KeyValueStore {
     func set<Element>(_ value: [Element], forKey key: KeyValueStoreKey) {}
     
     func array<Element>(of elementType: Element.Type, forKey key: KeyValueStoreKey) -> [Element]? {
-        guard let elements = storedIDs as? [Element] else { XCTFail(); fatalError() }
+        guard let elements = (storedIDs.map { $0.uuidString }) as? [Element] else { XCTFail(); fatalError() }
         return elements
     }
 }
@@ -76,8 +76,8 @@ private struct MockCreateNewOutstandingOrdersKeyValueStore: KeyValueStore {
     let newID: OutstandingOrder.ID
     
     func set<Element>(_ value: [Element], forKey key: KeyValueStoreKey) {
-        if let outstandingOrderIDs = value as? [OutstandingOrder.ID] {
-            XCTAssertEqual(outstandingOrderIDs, [newID])
+        if let outstandingOrderIDStrings = value as? [String] {
+            XCTAssertEqual(outstandingOrderIDStrings.compactMap(OutstandingOrder.ID.init), [newID])
         } else { XCTFail() }
     }
     
