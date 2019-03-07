@@ -13,10 +13,6 @@ import PromiseKit
 struct MockHTTPClient: HTTPClient {
     let requestHandler: (URLRequest) -> HTTPResponse
     
-    init(requestHandler: @escaping (URLRequest) -> HTTPResponse) {
-        self.requestHandler = requestHandler
-    }
-    
     func send(_ request: URLRequest) -> Promise<HTTPResponse> {
         return Promise { $0.fulfill(requestHandler(request)) }
     }

@@ -10,8 +10,10 @@ import Foundation
 import PromiseKit
 
 class HomeViewModel {
-    var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
+    
+    // MARK: - Dependencies
+    var httpClient: HTTPClient
     
     // MARK: - Section Model Properties
     private var categoriesTableViewSectionModel: UITableViewSectionModel? {

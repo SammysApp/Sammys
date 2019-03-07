@@ -10,8 +10,11 @@ import Foundation
 import PromiseKit
 
 class ConstructedItemViewModel {
-    var httpClient: HTTPClient
     private let apiURLRequestFactory = APIURLRequestFactory()
+    
+    // MARK: - Dependencies
+    var httpClient: HTTPClient
+    var keyValueStore: KeyValueStore
     
     // MARK: - Download Properties
     private var activeAddConstructedItemItemsDownloadPromises = [UUID: Promise<ConstructedItem>]()
@@ -36,8 +39,10 @@ class ConstructedItemViewModel {
     let isCategoriesDownloading = Dynamic(false)
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
+    init(httpClient: HTTPClient = URLSessionHTTPClient(),
+         keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
+        self.keyValueStore = keyValueStore
     }
     
     // MARK: - Download Methods
@@ -65,6 +70,7 @@ class ConstructedItemViewModel {
         let promiseID = UUID()
         let promise = addConstructedItemItems(categoryItemIDs: categoryItemIDs)
         activeAddConstructedItemItemsDownloadPromises[promiseID] = promise
+        // FIXME: Might not happen in order. Last one can be earlier promise. Consider queue.
         promise.ensure { self.activeAddConstructedItemItemsDownloadPromises[promiseID] = nil }
             .done { constructedItem in
                 if self.activeAddConstructedItemItemsDownloadPromises.isEmpty {
@@ -76,9 +82,21 @@ class ConstructedItemViewModel {
             }.catch { self.errorHandler?($0) }
     }
     
-    func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
-        createOutstandingOrder()
-            .then { self.addOutstandingOrderConstructedItems(outstandingOrderID: $0.id, constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]) }.asVoid()
+    func beginOutstandingOrdersDownload(successfulCompletionHandler: @escaping ([OutstandingOrder.ID]) -> Void) {
+        if let storedOutstandingOrders = keyValueStore.array(of: OutstandingOrder.ID.self, forKey: KeyValueStoreKeys.outstandingOrders) {
+            successfulCompletionHandler(storedOutstandingOrders)
+        } else {
+            createOutstandingOrder()
+                .done {
+                    let ids = [$0.id]
+                    self.keyValueStore.set(ids, forKey: KeyValueStoreKeys.outstandingOrders)
+                    successfulCompletionHandler(ids)
+                }.catch { self.errorHandler?($0) }
+        }
+    }
+    
+    func beginAddToOutstandingOrderDownload(outstandingOrderID: OutstandingOrder.ID, successfulCompletionHandler: (() -> Void)? = nil) {
+        addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID, constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
             .done { successfulCompletionHandler?() }
             .catch { self.errorHandler?($0) }
     }
@@ -125,6 +143,7 @@ class ConstructedItemViewModel {
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
         var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
             identifier: ConstructedItemViewController.CellIdentifier.roundedTextCell.rawValue,
+            // FIXME: Change to enum.
             size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),
