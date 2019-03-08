@@ -9,11 +9,11 @@
 import Foundation
 
 extension UserDefaults: KeyValueStore {
-    func set<Element>(_ value: [Element], forKey key: KeyValueStoreKey) {
-        set(value as Any, forKey: key.rawValue)
+    func set<T>(_ value: T, forKey key: KeyValueStoreKey) {
+        self.set(value as Any, forKey: key.rawValue)
     }
     
-    func array<Element>(of elementType: Element.Type, forKey key: KeyValueStoreKey) -> [Element]? {
-        return array(forKey: key.rawValue) as? [Element]
+    func value<T>(of type: T.Type, forKey key: KeyValueStoreKey) -> T? {
+        return self.object(forKey: key.rawValue) as? T
     }
 }

@@ -9,6 +9,5 @@
 import Foundation
 
 enum KeyValueStoreKeys: String, KeyValueStoreKey {
-    /// An array of outstanding orders.
-    case outstandingOrders
+    case outstandingOrder
 }

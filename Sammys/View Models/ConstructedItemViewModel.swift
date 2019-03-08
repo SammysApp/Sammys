@@ -26,7 +26,11 @@ class ConstructedItemViewModel {
     var categoryID: Category.ID?
     /// The presented constructed item's ID. Required to be non-`nil`.
     /// Call `beginCreateConstructedItemDownload()` to create a new one.
-    var constructedItemID: UUID?
+    var constructedItemID: ConstructedItem.ID?
+    /// The ID of the outstanding order to add the constructed item to.
+    /// If not set, will attempt to set when
+    /// beginAddToOutstandingOrderDownload() is called.
+    var outstandingOrderID: OutstandingOrder.ID?
     
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction : UICollectionViewCellActionHandler]()
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
@@ -39,7 +43,7 @@ class ConstructedItemViewModel {
     let isCategoriesDownloading = Dynamic(false)
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient(),
+    init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
         self.keyValueStore = keyValueStore
@@ -48,16 +52,6 @@ class ConstructedItemViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         beginCategoriesDownload()
-    }
-    
-    private func beginCategoriesDownload() {
-        isCategoriesDownloading.value = true
-        getCategories()
-            .done { categories in
-                self.selectedCategoryID.value = categories.first?.id
-                self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
-            }.ensure { self.isCategoriesDownloading.value = false }
-            .catch { self.errorHandler?($0) }
     }
     
     func beginCreateConstructedItemDownload() {
@@ -82,21 +76,42 @@ class ConstructedItemViewModel {
             }.catch { self.errorHandler?($0) }
     }
     
-    func beginOutstandingOrdersDownload(successfulCompletionHandler: @escaping ([OutstandingOrder.ID]) -> Void) {
-        if let storedOutstandingOrderIDStrings = keyValueStore.array(of: String.self, forKey: KeyValueStoreKeys.outstandingOrders) {
-            successfulCompletionHandler(storedOutstandingOrderIDStrings.compactMap(OutstandingOrder.ID.init))
+    func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+        if outstandingOrderID != nil {
+            _beginAddToOutstandingOrderDownload(successfulCompletionHandler: successfulCompletionHandler)
+        } else {
+            beginOutstandingOrderDownload {
+                self._beginAddToOutstandingOrderDownload(successfulCompletionHandler: successfulCompletionHandler)
+            }
+        }
+    }
+    
+    private func beginCategoriesDownload() {
+        isCategoriesDownloading.value = true
+        getCategories()
+            .done { categories in
+                self.selectedCategoryID.value = categories.first?.id
+                self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
+            }.ensure { self.isCategoriesDownloading.value = false }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    private func beginOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+        if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.outstandingOrder) {
+            outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
+            successfulCompletionHandler?()
         } else {
             createOutstandingOrder()
                 .done {
-                    let ids = [$0.id]
-                    self.keyValueStore.set(ids.map { $0.uuidString }, forKey: KeyValueStoreKeys.outstandingOrders)
-                    successfulCompletionHandler(ids)
+                    self.outstandingOrderID = $0.id
+                    self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
+                    successfulCompletionHandler?()
                 }.catch { self.errorHandler?($0) }
         }
     }
     
-    func beginAddToOutstandingOrderDownload(outstandingOrderID: OutstandingOrder.ID, successfulCompletionHandler: (() -> Void)? = nil) {
-        addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID, constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
+    private func _beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+        addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
             .done { successfulCompletionHandler?() }
             .catch { self.errorHandler?($0) }
     }

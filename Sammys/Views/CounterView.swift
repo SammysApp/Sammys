@@ -10,11 +10,11 @@ import UIKit
 import TinyConstraints
 
 class CounterView: UIView {
-    private var stackView: UIStackView!
+    private var stackView = UIStackView()
     
+    let counterTextField = UITextField()
     let decrementButton = RoundedButton()
     let incrementButton = RoundedButton()
-    let counterTextField = UITextField()
     
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
@@ -22,18 +22,21 @@ class CounterView: UIView {
     
     convenience init() { self.init(frame: .zero) }
     
-    func setUp() {
+    private func setUp() {
         counterTextField.textAlignment = .center
         
         decrementButton.titleLabel.text = "-"
         incrementButton.titleLabel.text = "+"
         
         let stackViewViews = [decrementButton, counterTextField, incrementButton]
-        stackViewViews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        stackView = UIStackView(arrangedSubviews: stackViewViews)
+        stackViewViews.forEach { view in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.stackView.addArrangedSubview(view)
+        }
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
+        
         self.addSubview(stackView)
         stackView.edgesToSuperview()
     }

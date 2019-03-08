@@ -50,11 +50,13 @@
 		5B4F7F0B2230BFC100F95C04 /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */; };
 		5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */; };
 		5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */; };
-		5B4F7F132230CC3500F95C04 /* ConstructedItemViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F122230CC3500F95C04 /* ConstructedItemViewModelTests.swift */; };
 		5B4F7F1522317AC800F95C04 /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1422317AC800F95C04 /* CounterView.swift */; };
+		5B4F7F1722319AD900F95C04 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */; };
+		5B4F7F1B2231A3D600F95C04 /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1A2231A3D600F95C04 /* BagViewController.swift */; };
+		5B4F7F1D2231B34C00F95C04 /* BagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1C2231B34C00F95C04 /* BagViewModel.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CD5FF216ACDF000E30780 /* Dynamic.swift */; };
-		5B6E366C221E346B004D5310 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E366B221E346B004D5310 /* URLSessionHTTPClient.swift */; };
+		5B6E366C221E346B004D5310 /* URLSession+HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E366B221E346B004D5310 /* URLSession+HTTPClient.swift */; };
 		5B6E366E221E38F6004D5310 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E366D221E38F6004D5310 /* HTTPError.swift */; };
 		5B6E3673221E41FD004D5310 /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
 		5B6E3675221E4350004D5310 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3674221E4350004D5310 /* Category.swift */; };
@@ -149,12 +151,14 @@
 		5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
 		5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+KeyValueStore.swift"; sourceTree = "<group>"; };
 		5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoreKeys.swift; sourceTree = "<group>"; };
-		5B4F7F122230CC3500F95C04 /* ConstructedItemViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemViewModelTests.swift; sourceTree = "<group>"; };
 		5B4F7F1422317AC800F95C04 /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
+		5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
+		5B4F7F1A2231A3D600F95C04 /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
+		5B4F7F1C2231B34C00F95C04 /* BagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewModel.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6CD5FF216ACDF000E30780 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
-		5B6E366B221E346B004D5310 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		5B6E366B221E346B004D5310 /* URLSession+HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+HTTPClient.swift"; sourceTree = "<group>"; };
 		5B6E366D221E38F6004D5310 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
 		5B6E3672221E41FD004D5310 /* LocalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalConstants.swift; sourceTree = "<group>"; };
 		5B6E3674221E4350004D5310 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -340,7 +344,7 @@
 				5B0124B5221E2B910054AB7A /* HTTPResponse.swift */,
 				5B01221B221DE97F0054AB7A /* HTTPServer.swift */,
 				5B012225221DF8930054AB7A /* URLRequest+HTTP.swift */,
-				5B6E366B221E346B004D5310 /* URLSessionHTTPClient.swift */,
+				5B6E366B221E346B004D5310 /* URLSession+HTTPClient.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -352,6 +356,7 @@
 				5B6E391B2223831F004D5310 /* CategoryViewModel.swift */,
 				5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */,
 				5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */,
+				5B4F7F1C2231B34C00F95C04 /* BagViewModel.swift */,
 				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */,
 				5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */,
@@ -364,7 +369,6 @@
 			isa = PBXGroup;
 			children = (
 				5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */,
-				5B4F7F122230CC3500F95C04 /* ConstructedItemViewModelTests.swift */,
 				5B9A8AD622282EB200F5525D /* Info.plist */,
 			);
 			path = SammysTests;
@@ -389,6 +393,7 @@
 				5B6E391922238240004D5310 /* CategoryViewController.swift */,
 				5B9A8ABC222450D100F5525D /* ItemsViewController.swift */,
 				5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */,
+				5B4F7F1A2231A3D600F95C04 /* BagViewController.swift */,
 				5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */,
 				5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */,
 				5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */,
@@ -401,8 +406,9 @@
 			isa = PBXGroup;
 			children = (
 				5B4F7F1422317AC800F95C04 /* CounterView.swift */,
-				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
+				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
+				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -691,12 +697,14 @@
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */,
 				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
+				5B4F7F1D2231B34C00F95C04 /* BagViewModel.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
 				5B6E391A22238240004D5310 /* CategoryViewController.swift in Sources */,
 				5B3A4B492195F3E400F22F78 /* Date.swift in Sources */,
 				5B0124B4221E2A740054AB7A /* HTTPClient.swift in Sources */,
 				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
+				5B4F7F1722319AD900F95C04 /* StackTableViewCell.swift in Sources */,
 				5B6E366E221E38F6004D5310 /* HTTPError.swift in Sources */,
 				5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */,
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
@@ -738,8 +746,9 @@
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5B012224221DF46B0054AB7A /* HTTPHeader.swift in Sources */,
 				5B6E3679221F1E74004D5310 /* HomeViewController.swift in Sources */,
-				5B6E366C221E346B004D5310 /* URLSessionHTTPClient.swift in Sources */,
+				5B6E366C221E346B004D5310 /* URLSession+HTTPClient.swift in Sources */,
 				5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */,
+				5B4F7F1B2231A3D600F95C04 /* BagViewController.swift in Sources */,
 				5B2950CA218CBEF1008B0E49 /* UITableViewSectionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,7 +757,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B4F7F132230CC3500F95C04 /* ConstructedItemViewModelTests.swift in Sources */,
 				5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

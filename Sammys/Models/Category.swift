@@ -16,14 +16,4 @@ struct Category: Codable {
     let isConstructable: Bool
     
     let isParentCategory: Bool?
-    
-    init(id: ID,
-         name: String,
-         isConstructable: Bool,
-         isParentCategory: Bool? = nil) {
-        self.id = id
-        self.name = name
-        self.isConstructable = isConstructable
-        self.isParentCategory = isParentCategory
-    }
 }

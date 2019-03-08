@@ -36,7 +36,7 @@ class CategoryViewModel {
         static let categoryTableViewCellViewModelHeight: Double = 100
     }
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
+    init(httpClient: HTTPClient = URLSession.shared) {
         self.httpClient = httpClient
     }
     

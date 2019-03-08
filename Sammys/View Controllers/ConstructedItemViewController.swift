@@ -118,11 +118,8 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Target Actions
     private func bottomRoundedButtonTouchUpInsideAction() {
-        viewModel.beginOutstandingOrdersDownload { ids in
-            guard let id = ids.last else { return }
-            self.viewModel.beginAddToOutstandingOrderDownload(outstandingOrderID: id) {
-                self.navigationController?.popToRootViewController(animated: true)
-            }
+        viewModel.beginAddToOutstandingOrderDownload() {
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     

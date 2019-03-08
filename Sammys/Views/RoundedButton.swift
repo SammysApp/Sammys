@@ -33,7 +33,7 @@ class RoundedButton: UIControl {
         update()
     }
     
-    func setUp() {
+    private func setUp() {
         self.layer.addSublayer(roundedLayer)
         [titleLabel]
             .forEach { self.addSubview($0) }
@@ -44,7 +44,7 @@ class RoundedButton: UIControl {
         titleLabel.right(to: self, offset: -Constants.titleLabelInset, priority: .required)
     }
     
-    func update() {
+    private func update() {
         roundedLayer.fillColor = UIColor.lightGray.cgColor
         roundedLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: titleLabel.frame.width + (Constants.titleLabelInset * 2), height: self.frame.height), cornerRadius: self.frame.height * cornerRadiusMultiplier).cgPath
     }

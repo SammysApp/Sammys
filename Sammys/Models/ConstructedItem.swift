@@ -16,4 +16,5 @@ struct ConstructedItem: Codable {
     let isFavorite: Bool
     
     let totalPrice: Int?
+    let quantity: Int?
 }

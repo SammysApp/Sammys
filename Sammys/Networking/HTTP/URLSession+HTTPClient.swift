@@ -9,15 +9,9 @@
 import Foundation
 import PromiseKit
 
-struct URLSessionHTTPClient: HTTPClient {
-    private let session: URLSession
-    
-    init(session: URLSession = .shared) {
-        self.session = session
-    }
-    
+extension URLSession: HTTPClient {
     func send(_ request: URLRequest) -> Promise<HTTPResponse> {
-        return session.dataTask(.promise, with: request).map(HTTPResponse.init)
+        return self.dataTask(.promise, with: request).map(HTTPResponse.init)
     }
 }
 

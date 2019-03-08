@@ -16,14 +16,4 @@ struct Item: Codable {
     
     let categoryItemID: UUID?
     let isModifiable: Bool?
-    
-    init(id: ID,
-         name: String,
-         categoryItemID: UUID? = nil,
-         isModifiable: Bool? = nil) {
-        self.id = id
-        self.name = name
-        self.categoryItemID = categoryItemID
-        self.isModifiable = isModifiable
-    }
 }

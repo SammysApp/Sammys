@@ -37,7 +37,7 @@ class ItemsViewModel {
         static let itemTableViewCellViewModelHeight: Double = 60
     }
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
+    init(httpClient: HTTPClient = URLSession.shared) {
         self.httpClient = httpClient
     }
     

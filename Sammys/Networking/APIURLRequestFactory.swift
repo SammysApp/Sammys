@@ -42,6 +42,14 @@ struct APIURLRequestFactory {
         return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
     
+    func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getOutstandingOrder(id)) ?? preconditionFailure()
+    }
+    
+    func makeGetOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
+    }
+    
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -79,11 +87,17 @@ private extension APIURLRequestFactory {
         /// GET `/categories/:category/item/:item/modifiers`
         case getItemModifiers(Category.ID, Item.ID)
         
+        /// GET /outstandingOrders/:outstandingOrder
+        case getOutstandingOrder(OutstandingOrder.ID)
+        /// GET /outstandingOrders/:outstandingOrder/constructedItems
+        case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
+        
         // MARK: - POST
         /// POST `/constructedItems`
         case createConstructedItem
         /// POST `/constructedItems/:constructedItem/items`
         case addConstructedItemItems(ConstructedItem.ID)
+        
         /// POST `/outstandingOrders`
         case createOutstandingOrder
         /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
@@ -102,10 +116,17 @@ private extension APIURLRequestFactory {
                 return (.GET, "/\(version)/categories/\(id)/items")
             case .getItemModifiers(let categoryID, let itemID):
                 return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
+                
+            case .getOutstandingOrder(let id):
+                return (.GET, "/\(version)/outstandingOrders/\(id)")
+            case .getOutstandingOrderConstructedItems(let id):
+                return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
+                
             case .createConstructedItem:
                 return (.POST, "/\(version)/constructedItems")
             case .addConstructedItemItems(let id):
                 return (.POST, "/\(version)/constructedItems/\(id)/items")
+                
             case .createOutstandingOrder:
                 return (.POST, "/\(version)/outstandingOrders")
             case .addOutstandingOrderConstructedItems(let id):

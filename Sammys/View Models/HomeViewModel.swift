@@ -32,7 +32,7 @@ class HomeViewModel {
         static let categoryImageTableViewCellViewModelHeight: Double = 100
     }
     
-    init(httpClient: HTTPClient = URLSessionHTTPClient()) {
+    init(httpClient: HTTPClient = URLSession.shared) {
         self.httpClient = httpClient
     }
     
