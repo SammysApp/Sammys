@@ -37,7 +37,7 @@ class BagViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.stackCell.rawValue)
+        tableView.register(StackTableViewCell.self, forCellReuseIdentifier: CellIdentifier.stackCell.rawValue)
         tableView.edgesToSuperview()
     }
     

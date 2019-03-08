@@ -378,9 +378,9 @@
 			isa = PBXGroup;
 			children = (
 				5B6E3674221E4350004D5310 /* Category.swift */,
+				5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */,
 				5B6E391D2223955B004D5310 /* Item.swift */,
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
-				5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */,
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
 			);
 			path = Models;
