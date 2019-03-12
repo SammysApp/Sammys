@@ -48,7 +48,8 @@ class ConstructedItemViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        beginCategoriesDownload()
+        firstly { beginCategoriesDownload() }
+            .catch { self.errorHandler?($0) }
     }
     
     func beginCreateConstructedItemDownload() {
@@ -76,43 +77,39 @@ class ConstructedItemViewModel {
     }
     
     func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+        let promise: Promise<Void>
         if outstandingOrderID != nil {
-            _beginAddToOutstandingOrderDownload(successfulCompletionHandler: successfulCompletionHandler)
+            promise = _beginAddToOutstandingOrderDownload()
         } else {
-            beginOutstandingOrderDownload {
-                self._beginAddToOutstandingOrderDownload(successfulCompletionHandler: successfulCompletionHandler)
-            }
+            promise = beginOutstandingOrderDownload()
+                .then { self._beginAddToOutstandingOrderDownload() }
         }
-    }
-    
-    private func beginCategoriesDownload() {
-        isCategoriesDownloading.value = true
-        getCategories()
-            .done { categories in
-                self.selectedCategoryID.value = categories.first?.id
-                self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
-            }.ensure { self.isCategoriesDownloading.value = false }
+        promise.done { successfulCompletionHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
-    private func beginOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+    private func beginCategoriesDownload() -> Promise<Void> {
+        isCategoriesDownloading.value = true
+        return getCategories().done { categories in
+            self.selectedCategoryID.value = categories.first?.id
+            self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
+        }.ensure { self.isCategoriesDownloading.value = false }.asVoid()
+    }
+    
+    private func beginOutstandingOrderDownload() -> Promise<Void> {
         if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.outstandingOrder) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
-            successfulCompletionHandler?()
+            return Promise { $0.fulfill(()) }
         } else {
-            createOutstandingOrder()
-                .done {
-                    self.outstandingOrderID = $0.id
-                    self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
-                    successfulCompletionHandler?()
-                }.catch { self.errorHandler?($0) }
+            return createOutstandingOrder().done {
+                self.outstandingOrderID = $0.id
+                self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
+            }.asVoid()
         }
     }
     
-    private func _beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
-        addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
-            .done { successfulCompletionHandler?() }
-            .catch { self.errorHandler?($0) }
+    private func _beginAddToOutstandingOrderDownload() -> Promise<Void> {
+        return addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
     }
     
     private func getCategories() -> Promise<[Category]> {

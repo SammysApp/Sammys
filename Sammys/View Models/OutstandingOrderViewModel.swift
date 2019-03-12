@@ -1,5 +1,5 @@
 //
-//  BagViewModel.swift
+//  OutstandingOrderViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/7/19.
@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-class BagViewModel {
+class OutstandingOrderViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Dependencies

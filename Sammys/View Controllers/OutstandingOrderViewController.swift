@@ -1,5 +1,5 @@
 //
-//  BagViewController.swift
+//  OutstandingOrderViewController.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 3/7/19.
@@ -9,8 +9,8 @@
 import UIKit
 import TinyConstraints
 
-class BagViewController: UIViewController {
-    let viewModel = BagViewModel()
+class OutstandingOrderViewController: UIViewController {
+    let viewModel = OutstandingOrderViewModel()
     
     let tableView = UITableView()
     
