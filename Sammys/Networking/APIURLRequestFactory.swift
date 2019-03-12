@@ -62,6 +62,10 @@ struct APIURLRequestFactory {
         return request
     }
     
+    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID) -> URLRequest {
+        return URLRequest(server: server, endpoint: Endpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
+    }
+    
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: Endpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -103,6 +107,9 @@ private extension APIURLRequestFactory {
         /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
         case addOutstandingOrderConstructedItems(OutstandingOrder.ID)
         
+        /// DELETE `/constructedItems/:constructedItem/items/:categoryItem`
+        case removeConstructedItemItem(ConstructedItem.ID, Item.CategoryItemID)
+        
         private enum Version: String { case v1 }
         private var version: Version { return .v1 }
         
@@ -131,6 +138,9 @@ private extension APIURLRequestFactory {
                 return (.POST, "/\(version)/outstandingOrders")
             case .addOutstandingOrderConstructedItems(let id):
                 return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
+                
+            case .removeConstructedItemItem(let constructedItemID, let categoryItemID):
+                return (.DELETE, "/\(version)/constructedItems/\(constructedItemID)/items/\(categoryItemID)")
             }
         }
     }

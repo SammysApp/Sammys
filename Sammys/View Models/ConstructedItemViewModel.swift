@@ -16,9 +16,6 @@ class ConstructedItemViewModel {
     var httpClient: HTTPClient
     var keyValueStore: KeyValueStore
     
-    // MARK: - Download Properties
-    private var activeAddConstructedItemItemsDownloadPromises = [UUID: Promise<ConstructedItem>]()
-    
     // MARK: - View Settable Properties
     /// The category ID of the presented constructed item. Required to be non-`nil`.
     /// Used to get the available categories of the constructed item,
@@ -60,20 +57,22 @@ class ConstructedItemViewModel {
             .catch { self.errorHandler?($0) }
     }
     
-    func beginAddConstructedItemItemsDownload(categoryItemIDs: [UUID]) {
-        let promiseID = UUID()
-        let promise = addConstructedItemItems(categoryItemIDs: categoryItemIDs)
-        activeAddConstructedItemItemsDownloadPromises[promiseID] = promise
-        // FIXME: Might not happen in order. Last one can be earlier promise. Consider queue.
-        promise.ensure { self.activeAddConstructedItemItemsDownloadPromises[promiseID] = nil }
-            .done { constructedItem in
-                if self.activeAddConstructedItemItemsDownloadPromises.isEmpty {
-                    if let totalPrice = constructedItem.totalPrice {
-                        if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
-                        else { self.totalPriceText.value = nil }
-                    }
-                }
-            }.catch { self.errorHandler?($0) }
+    func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
+        addConstructedItemItems(categoryItemIDs: categoryItemIDs).done { constructedItem in
+            if let totalPrice = constructedItem.totalPrice {
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                else { self.totalPriceText.value = nil }
+            }
+        }.catch { self.errorHandler?($0) }
+    }
+    
+    func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID) {
+        removeConstructedItemItem(categoryItemID: categoryItemID).done { constructedItem in
+            if let totalPrice = constructedItem.totalPrice {
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                else { self.totalPriceText.value = nil }
+            }
+        }.catch { self.errorHandler?($0) }
     }
     
     func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
@@ -128,11 +127,16 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addConstructedItemItems(categoryItemIDs: [UUID]) -> Promise<ConstructedItem> {
+    private func addConstructedItemItems(categoryItemIDs: [Item.CategoryItemID]) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs))).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func removeConstructedItemItem(categoryItemID: Item.CategoryItemID) -> Promise<ConstructedItem> {
+        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemsRequest(constructedItemID: constructedItemID ?? preconditionFailure(), categoryItemID: categoryItemID)).validate()
+                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
     }
     
     private func createOutstandingOrder() -> Promise<OutstandingOrder> {

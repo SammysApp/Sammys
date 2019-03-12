@@ -73,6 +73,9 @@ class ConstructedItemViewController: UIViewController {
         itemsViewController.addItemHandler = { data in
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
+        itemsViewController.removeItemHandler = { data in
+            self.viewModel.beginRemoveConstructedItemItemsDownload(categoryItemID: data.categoryItemID)
+        }
         add(itemsViewController)
         view.sendSubviewToBack(itemsViewController.view)
         itemsViewController.tableView.contentInset.top =

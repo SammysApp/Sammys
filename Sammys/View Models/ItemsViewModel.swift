@@ -24,7 +24,7 @@ class ItemsViewModel {
     /// The category ID of the items to present. Required to be non-`nil`.
     var categoryID: Category.ID?
     /// The selected items` category item IDs.
-    var selectedCategoryItemIDs = [UUID]()
+    var selectedCategoryItemIDs = [Item.CategoryItemID]()
     
     var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
@@ -93,11 +93,11 @@ extension ItemsViewModel {
         
         struct ConfigurationData {
             let text: String
-            let categoryItemID: UUID?
+            let categoryItemID: Item.CategoryItemID?
         }
         
         struct SelectionData {
-            let categoryItemID: UUID?
+            let categoryItemID: Item.CategoryItemID?
         }
     }
 }

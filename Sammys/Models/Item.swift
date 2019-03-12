@@ -10,10 +10,11 @@ import Foundation
 
 struct Item: Codable {
     typealias ID = UUID
+    typealias CategoryItemID = UUID
     
     let id: ID
     let name: String
     
-    let categoryItemID: UUID?
+    let categoryItemID: CategoryItemID?
     let isModifiable: Bool?
 }
