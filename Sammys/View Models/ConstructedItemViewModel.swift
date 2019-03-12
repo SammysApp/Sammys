@@ -29,7 +29,7 @@ class ConstructedItemViewModel {
     /// beginAddToOutstandingOrderDownload() is called.
     var outstandingOrderID: OutstandingOrder.ID?
     
-    var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction : UICollectionViewCellActionHandler]()
+    var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction: UICollectionViewCellActionHandler]()
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
     var errorHandler: ((Error) -> Void)?
     
@@ -77,14 +77,14 @@ class ConstructedItemViewModel {
     }
     
     func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
-        let promise: Promise<Void>
+        let outstandingOrderPromise: Promise<Void>
         if outstandingOrderID != nil {
-            promise = _beginAddToOutstandingOrderDownload()
+            outstandingOrderPromise = _beginAddToOutstandingOrderDownload()
         } else {
-            promise = beginOutstandingOrderDownload()
+            outstandingOrderPromise = beginOutstandingOrderDownload()
                 .then { self._beginAddToOutstandingOrderDownload() }
         }
-        promise.done { successfulCompletionHandler?() }
+        outstandingOrderPromise.done { successfulCompletionHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
@@ -93,7 +93,7 @@ class ConstructedItemViewModel {
         return getCategories().done { categories in
             self.selectedCategoryID.value = categories.first?.id
             self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
-        }.ensure { self.isCategoriesDownloading.value = false }.asVoid()
+        }.ensure { self.isCategoriesDownloading.value = false }
     }
     
     private func beginOutstandingOrderDownload() -> Promise<Void> {
@@ -104,7 +104,7 @@ class ConstructedItemViewModel {
             return createOutstandingOrder().done {
                 self.outstandingOrderID = $0.id
                 self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
-            }.asVoid()
+            }
         }
     }
     
@@ -176,7 +176,7 @@ extension ConstructedItemViewModel {
     struct CategoryRoundedTextCollectionViewCellViewModel: UICollectionViewCellViewModel {
         let identifier: String
         var size: (width: Double, height: Double)
-        let actions: [UICollectionViewCellAction : UICollectionViewCellActionHandler]
+        let actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler]
         
         let configurationData: ConfigurationData
         let selectionData: SelectionData

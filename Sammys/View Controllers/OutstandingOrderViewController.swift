@@ -42,6 +42,27 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     private func configureViewModel() {
+        viewModel.constructedItemStackCellViewModelActions = [
+            .configuration: constructedItemStackCellConfigurationAction
+        ]
+        viewModel.tableViewSectionModels.bind { sectionModels in
+            self.tableViewDataSource.sectionModels = sectionModels
+            self.tableViewDelegate.sectionModels = sectionModels
+            self.tableView.reloadData()
+        }
         viewModel.beginDownloads()
+    }
+    
+    // MARK: - Cell Actions
+    private func constructedItemStackCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackCellViewModel,
+            let cell = data.cell as? StackTableViewCell else { return }
+        let priceLabel = UILabel()
+        priceLabel.text = cellViewModel.configurationData.priceText
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
+        rightStackView.axis = .vertical
+        cell.contentStackView.axis = .horizontal
+        cell.contentStackView.addArrangedSubview(rightStackView)
     }
 }

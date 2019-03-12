@@ -16,11 +16,17 @@ class OutstandingOrderViewModel {
     var httpClient: HTTPClient
     var keyValueStore: KeyValueStore
     
+    // MARK: - Section Model Properties
+    private var constructedItemsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+    }
+    
     // MARK: - View Settable Properties
     /// The bag's outstanding order's ID.
     /// Calling `beginDownloads()` will first attempt to get one if not set.
     var outstandingOrderID: OutstandingOrder.ID?
     
+    var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -28,37 +34,88 @@ class OutstandingOrderViewModel {
     let isOutstandingOrderDownloading = Dynamic(false)
     let isItemsDownloading = Dynamic(false)
     
+    private struct Constants {
+        static let constructedItemStackCellViewModelHeight: Double = 100
+    }
+    
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
         self.keyValueStore = keyValueStore
     }
     
-    // MARK: - Download Method
+    // MARK: - Download Methods
     func beginDownloads() {
+        let outstandingOrderPromise: Promise<Void>
         if outstandingOrderID == nil {
             if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.outstandingOrder),
                 let id = OutstandingOrder.ID(uuidString: idString) {
                 outstandingOrderID = id
-                beginOutstandingOrderDownload()
-            } else { errorHandler?(BagViewModelError.noOutstandingOrders); return }
+                outstandingOrderPromise = beginOutstandingOrderDownload()
+            } else { errorHandler?(OutstandingOrderViewModelError.noOutstandingOrders); return }
         } else {
-            beginOutstandingOrderDownload()
+            outstandingOrderPromise = beginOutstandingOrderDownload()
         }
+        outstandingOrderPromise.catch { self.errorHandler?($0) }
     }
     
-    private func beginOutstandingOrderDownload() {
-        getOutstandingOrder().done { outstandingOrder in
-            
-        }.catch { self.errorHandler?($0) }
+    private func beginOutstandingOrderDownload() -> Promise<Void> {
+        return getOutstandingOrder().done { self.outstandingOrderID = $0.id }
+            .then { self.beginOutstandingOrderConstructedItemsDownload() }
+    }
+    
+    private func beginOutstandingOrderConstructedItemsDownload() -> Promise<Void> {
+        isItemsDownloading.value = true
+        return getOutstandingOrderConstructedItems()
+            .done { self.constructedItemsTableViewSectionModel = self.makeConstructedItemsTableViewSectionModel(constructedItems: $0) }
+            .ensure { self.isItemsDownloading.value = false }
     }
     
     private func getOutstandingOrder() -> Promise<OutstandingOrder> {
         return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure()))
             .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
     }
+    
+    private func getOutstandingOrderConstructedItems() -> Promise<[ConstructedItem]> {
+        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderConstructedItemsRequest(id: outstandingOrderID ?? preconditionFailure()))
+            .map { try JSONDecoder().decode([ConstructedItem].self, from: $0.data) }
+    }
+    
+    // MARK: - Section Model Methods
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let constructedItemsModel = constructedItemsTableViewSectionModel { sectionModels.append(constructedItemsModel) }
+        return sectionModels
+    }
+    
+    private func makeConstructedItemsTableViewSectionModel(constructedItems: [ConstructedItem]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackCellViewModel(constructedItem: $0) })
+    }
+    
+    // MARK: - Cell View Model Methods
+    private func makeConstructedItemStackCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
+        return ConstructedItemStackCellViewModel(
+            identifier: OutstandingOrderViewController.CellIdentifier.stackCell.rawValue,
+            height: Constants.constructedItemStackCellViewModelHeight,
+            actions: constructedItemStackCellViewModelActions,
+            configurationData: .init(priceText: constructedItem.totalPrice?.toDollarUnits().priceString)
+        )
+    }
 }
 
-enum BagViewModelError: Error {
+extension OutstandingOrderViewModel {
+    struct ConstructedItemStackCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: Double
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let priceText: String?
+        }
+    }
+}
+
+enum OutstandingOrderViewModelError: Error {
     case noOutstandingOrders
 }

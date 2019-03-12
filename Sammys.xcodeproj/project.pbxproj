@@ -88,6 +88,7 @@
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
+		5BF912B9223826E000E2C29A /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF912B8223826E000E2C29A /* IntExtensions.swift */; };
 		AAFFECD418B8CBDD925F7860 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */; };
 		FDFBBD1BF634A9FC33C800A9 /* Pods_Sammys_SammysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */; };
 /* End PBXBuildFile section */
@@ -192,6 +193,7 @@
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
+		5BF912B8223826E000E2C29A /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys_SammysTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B0F2FCA8B8D841197F6153 /* Pods-Sammys.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.beta.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.beta.xcconfig"; sourceTree = "<group>"; };
 		A4D5262F445A5279E2728E59 /* Pods-Sammys-SammysTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys-SammysTests.release.xcconfig"; path = "Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 		5BED77A920B4798100232DD2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5BF912B8223826E000E2C29A /* IntExtensions.swift */,
 				5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */,
 				5B05C7B420E4652800BDFBF4 /* UISplitViewControllerExtensions.swift */,
 				5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */,
@@ -744,6 +747,7 @@
 				5B6E391C2223831F004D5310 /* CategoryViewModel.swift in Sources */,
 				5B012222221DF3D20054AB7A /* HTTPHeaderValue.swift in Sources */,
 				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
+				5BF912B9223826E000E2C29A /* IntExtensions.swift in Sources */,
 				5B012224221DF46B0054AB7A /* HTTPHeader.swift in Sources */,
 				5B6E3679221F1E74004D5310 /* HomeViewController.swift in Sources */,
 				5B6E366C221E346B004D5310 /* URLSession+HTTPClient.swift in Sources */,

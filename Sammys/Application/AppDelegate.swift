@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let homeViewController = HomeViewController()
         homeViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 0)
-        let bagViewController = BagViewController()
+        let bagViewController = OutstandingOrderViewController()
         bagViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 1)
         tabBarController.viewControllers = [homeViewController, bagViewController]
             .map { UINavigationController(rootViewController: $0) }
