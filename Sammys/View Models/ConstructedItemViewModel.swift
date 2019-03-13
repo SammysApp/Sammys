@@ -163,7 +163,6 @@ class ConstructedItemViewModel {
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
         var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
             identifier: ConstructedItemViewController.CellIdentifier.roundedTextCollectionViewCell.rawValue,
-            // FIXME: Change to enum.
             size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),

@@ -21,7 +21,10 @@ class UITableViewSectionModelsDelegate: NSObject, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(sectionModels.cellViewModel(for: indexPath).height)
+        switch sectionModels.cellViewModel(for: indexPath).height {
+        case .automatic: return UITableView.automaticDimension
+        case .fixed(let height): return CGFloat(height)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

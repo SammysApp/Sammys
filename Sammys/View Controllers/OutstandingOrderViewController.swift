@@ -21,6 +21,10 @@ class OutstandingOrderViewController: UIViewController {
         case constructedItemStackTableViewCell
     }
     
+    private struct Constants {
+        static let tableViewEstimatedRowHeight: CGFloat = 100
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +42,7 @@ class OutstandingOrderViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: CellIdentifier.constructedItemStackTableViewCell.rawValue)
+        tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
         tableView.edgesToSuperview()
     }
     
@@ -58,6 +63,7 @@ class OutstandingOrderViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackTableViewCellViewModel,
             let cell = data.cell as? ConstructedItemStackTableViewCell else { return }
         cell.nameLabel.text = cellViewModel.configurationData.nameText
+        cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
         cell.quantityViewDecrementHandler = { quantityView in
@@ -76,16 +82,17 @@ class OutstandingOrderViewController: UIViewController {
 private extension OutstandingOrderViewController {
     class ConstructedItemStackTableViewCell: StackTableViewCell {
         let nameLabel = UILabel()
+        let descriptionLabel = UILabel()
         let priceLabel = UILabel()
         let quantityView = CounterView()
         
-        var quantityViewDecrementHandler: (CounterView) -> Void = { _ in} {
+        var quantityViewDecrementHandler: (CounterView) -> Void = { _ in } {
             didSet {
                 quantityViewDecrementButtonTouchUpInsideTarget.action =
                     { self.quantityViewDecrementHandler(self.quantityView) }
             }
         }
-        var quantityViewIncrementHandler: (CounterView) -> Void = { _ in} {
+        var quantityViewIncrementHandler: (CounterView) -> Void = { _ in } {
             didSet {
                 quantityViewIncrementButtonTouchUpInsideTarget.action =
                     { self.quantityViewIncrementHandler(self.quantityView) }
@@ -109,11 +116,16 @@ private extension OutstandingOrderViewController {
         required init?(coder aDecoder: NSCoder) { fatalError() }
         
         func setUp() {
+            nameLabel.text = "Name"
+            
+            descriptionLabel.text = "Description"
+            descriptionLabel.numberOfLines = 0
+            
             quantityView.height(Constants.quantityViewHeight)
             quantityView.decrementButton.add(quantityViewDecrementButtonTouchUpInsideTarget, for: .touchUpInside)
             quantityView.incrementButton.add(quantityViewIncrementButtonTouchUpInsideTarget, for: .touchUpInside)
             
-            let leftStackView = UIStackView(arrangedSubviews: [nameLabel])
+            let leftStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
             leftStackView.axis = .vertical
             
             let rightStackView = UIStackView(arrangedSubviews: [priceLabel])

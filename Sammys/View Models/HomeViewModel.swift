@@ -70,7 +70,7 @@ class HomeViewModel {
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
         return CategoryImageTableViewCellViewModel(
             identifier: HomeViewController.CellIdentifier.imageTableViewCell.rawValue,
-            height: Constants.categoryImageTableViewCellViewModelHeight,
+            height: .fixed(Constants.categoryImageTableViewCellViewModelHeight),
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id)
@@ -81,7 +81,7 @@ class HomeViewModel {
 extension HomeViewModel {
     struct CategoryImageTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
-        let height: Double
+        let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         
         let configurationData: ConfigurationData

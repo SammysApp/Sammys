@@ -29,9 +29,14 @@ enum UITableViewCellAction {
     case selection
 }
 
+enum UITableViewCellViewModelHeight {
+    case automatic
+    case fixed(Double)
+}
+
 protocol UITableViewCellViewModel {
     var identifier: String { get }
-    var height: Double { get }
+    var height: UITableViewCellViewModelHeight { get }
     var isSelectable: Bool { get }
     var actions: [UITableViewCellAction: UITableViewCellActionHandler] { get }
 }

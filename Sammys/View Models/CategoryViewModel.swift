@@ -79,7 +79,7 @@ class CategoryViewModel {
     private func makeCategoryTableViewCellViewModel(category: Category) -> CategoryTableViewCellViewModel {
         return CategoryTableViewCellViewModel(
             identifier: CategoryViewController.CellIdentifier.tableViewCell.rawValue,
-            height: Constants.categoryTableViewCellViewModelHeight,
+            height: .fixed(Constants.categoryTableViewCellViewModelHeight),
             actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id, isConstructable: category.isConstructable, isParentCategory: category.isParentCategory)
@@ -90,7 +90,7 @@ class CategoryViewModel {
 extension CategoryViewModel {
     struct CategoryTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
-        let height: Double
+        let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         
         let configurationData: ConfigurationData

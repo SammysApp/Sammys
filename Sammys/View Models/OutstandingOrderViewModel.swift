@@ -34,10 +34,6 @@ class OutstandingOrderViewModel {
     let isOutstandingOrderDownloading = Dynamic(false)
     let isItemsDownloading = Dynamic(false)
     
-    private struct Constants {
-        static let constructedItemStackCellViewModelHeight: Double = 100
-    }
-    
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
@@ -123,10 +119,11 @@ class OutstandingOrderViewModel {
     private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
         return ConstructedItemStackTableViewCellViewModel(
             identifier: OutstandingOrderViewController.CellIdentifier.constructedItemStackTableViewCell.rawValue,
-            height: Constants.constructedItemStackCellViewModelHeight,
+            height: .automatic,
             actions: constructedItemStackCellViewModelActions,
             configurationData: .init(
                 nameText: constructedItem.name,
+                descriptionText: constructedItem.description,
                 priceText: constructedItem.totalPrice?.toDollarUnits().priceString,
                 quantityText: constructedItem.quantity?.toString(),
                 constructedItemID: constructedItem.id
@@ -138,12 +135,13 @@ class OutstandingOrderViewModel {
 extension OutstandingOrderViewModel {
     struct ConstructedItemStackTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
-        let height: Double
+        let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
             let nameText: String?
+            let descriptionText: String?
             let priceText: String?
             let quantityText: String?
             let constructedItemID: ConstructedItem.ID

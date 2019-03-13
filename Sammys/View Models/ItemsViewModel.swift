@@ -74,7 +74,7 @@ class ItemsViewModel {
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
             identifier: ItemsViewController.CellIdentifier.tableViewCell.rawValue,
-            height: Constants.itemTableViewCellViewModelHeight,
+            height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, categoryItemID: item.categoryItemID),
             selectionData: .init(categoryItemID: item.categoryItemID)
@@ -85,7 +85,7 @@ class ItemsViewModel {
 extension ItemsViewModel {
     struct ItemTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
-        let height: Double
+        let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         
         let configurationData: ConfigurationData
