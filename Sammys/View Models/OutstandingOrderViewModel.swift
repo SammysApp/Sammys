@@ -60,8 +60,13 @@ class OutstandingOrderViewModel {
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
-        partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: constructedItemID, data: .init(quantity: quantity)).asVoid()
-            .then { self.getOutstandingOrderConstructedItems() }
+        let quantityUpdatePromise: Promise<Void>
+        if quantity > 0 {
+            quantityUpdatePromise = partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: constructedItemID, data: .init(quantity: quantity)).asVoid()
+        } else {
+            quantityUpdatePromise = removeOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemID: constructedItemID).asVoid()
+        }
+        quantityUpdatePromise.then { self.getOutstandingOrderConstructedItems() }
             .done { self.constructedItemsTableViewSectionModel = self.makeConstructedItemsTableViewSectionModel(constructedItems: $0) }
             .catch { self.errorHandler?($0) }
     }
@@ -96,6 +101,11 @@ class OutstandingOrderViewModel {
                 data: data
             )).validate().map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func removeOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID) -> Promise<OutstandingOrder> {
+        return httpClient.send(apiURLRequestFactory.makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID, constructedItemID: constructedItemID)).validate()
+            .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods
