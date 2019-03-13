@@ -60,6 +60,11 @@ class OutstandingOrderViewController: UIViewController {
         cell.nameLabel.text = cellViewModel.configurationData.nameText
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
+        cell.quantityViewDecrementHandler = { quantityView in
+            guard let currentQuantityText = quantityView.counterTextField.text,
+                let currentQuantity = Int(currentQuantityText) else { return }
+            self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: currentQuantity - 1)
+        }
         cell.quantityViewIncrementHandler = { quantityView in
             guard let currentQuantityText = quantityView.counterTextField.text,
                 let currentQuantity = Int(currentQuantityText) else { return }
