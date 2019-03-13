@@ -78,7 +78,7 @@ class CategoryViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryTableViewCellViewModel(category: Category) -> CategoryTableViewCellViewModel {
         return CategoryTableViewCellViewModel(
-            identifier: CategoryViewController.CellIdentifier.cell.rawValue,
+            identifier: CategoryViewController.CellIdentifier.tableViewCell.rawValue,
             height: Constants.categoryTableViewCellViewModelHeight,
             actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),

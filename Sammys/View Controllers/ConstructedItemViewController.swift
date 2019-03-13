@@ -29,7 +29,7 @@ class ConstructedItemViewController: UIViewController {
     }
     
     enum CellIdentifier: String {
-        case roundedTextCell
+        case roundedTextCollectionViewCell
     }
     
     // MARK: - Lifecycle Methods
@@ -59,7 +59,7 @@ class ConstructedItemViewController: UIViewController {
         }
         categoryCollectionView.dataSource = categoryCollectionViewDataSource
         categoryCollectionView.delegate = categoryCollectionViewDelegate
-        categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.roundedTextCell.rawValue)
+        categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.roundedTextCollectionViewCell.rawValue)
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.showsHorizontalScrollIndicator = false
         categoryCollectionView.contentInset.left = Constants.categoryCollectionViewInset

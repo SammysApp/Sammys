@@ -21,7 +21,7 @@ class ItemsViewController: UIViewController {
     var removeItemHandler: ((ItemData) -> Void)?
     
     enum CellIdentifier: String {
-        case cell
+        case tableViewCell
     }
     
     struct ItemData {
@@ -44,7 +44,7 @@ class ItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.cell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.tableViewCell.rawValue)
         tableView.edgesToSuperview()
     }
     

@@ -37,7 +37,7 @@ enum APIEndpoint: HTTPEndpoint {
     
     // MARK: - PATCH
     /// PATCH `/outstandingOrders/:outstandingOrder/constructedItems/:constructedItem`
-    case updateOutstandingOrderConstructedItem(OutstandingOrder.ID, ConstructedItem.ID)
+    case partiallyUpdateOutstandingOrderConstructedItem(OutstandingOrder.ID, ConstructedItem.ID)
     
     // MARK: - DELETE
     /// DELETE `/constructedItems/:constructedItem/items/:categoryItem`
@@ -72,7 +72,7 @@ enum APIEndpoint: HTTPEndpoint {
         case .addOutstandingOrderConstructedItems(let id):
             return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
             
-        case .updateOutstandingOrderConstructedItem(let outstandingOrderID, let constructedItemID):
+        case .partiallyUpdateOutstandingOrderConstructedItem(let outstandingOrderID, let constructedItemID):
             return (.PATCH, "/\(version)/outstandingOrders/\(outstandingOrderID)/constructedItems/\(constructedItemID)")
             
         case .removeConstructedItemItem(let constructedItemID, let categoryItemID):

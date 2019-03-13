@@ -73,7 +73,7 @@ class ItemsViewModel {
     // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
-            identifier: ItemsViewController.CellIdentifier.cell.rawValue,
+            identifier: ItemsViewController.CellIdentifier.tableViewCell.rawValue,
             height: Constants.itemTableViewCellViewModelHeight,
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, categoryItemID: item.categoryItemID),

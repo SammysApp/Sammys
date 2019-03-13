@@ -25,6 +25,7 @@ struct APIURLRequestFactory {
         self.environment = environment
     }
     
+    // MARK: - GET
     func makeGetCategoriesRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
         return URLRequest(server: server, endpoint: APIEndpoint.getCategories, queryItems: queryItems) ?? preconditionFailure()
     }
@@ -49,6 +50,7 @@ struct APIURLRequestFactory {
         return URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
     }
     
+    // MARK: - POST
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -61,10 +63,6 @@ struct APIURLRequestFactory {
         return request
     }
     
-    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
-    }
-    
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -75,6 +73,18 @@ struct APIURLRequestFactory {
         var request = URLRequest(server: server, endpoint: APIEndpoint.addOutstandingOrderConstructedItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
+    }
+    
+    // MARK: - PATCH
+    func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
+    // MARK: - DELETE
+    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID) -> URLRequest {
+        return URLRequest(server: server, endpoint: APIEndpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
     }
 }
 
@@ -94,4 +104,8 @@ struct CreateOutstandingOrderData: Codable {}
 
 struct AddOutstandingOrderConstructedItemsData: Codable {
     let ids: [ConstructedItem.ID]
+}
+
+struct PartiallyUpdateOutstandingOrderConstructedItemData: Codable {
+    let quantity: Int?
 }

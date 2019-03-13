@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     enum CellIdentifier: String {
-        case imageCell
+        case imageTableViewCell
     }
     
     // MARK: - Lifecycle Methods
@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: CellIdentifier.imageCell.rawValue)
+        tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: CellIdentifier.imageTableViewCell.rawValue)
         tableView.edgesToSuperview()
     }
     

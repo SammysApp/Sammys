@@ -59,7 +59,7 @@ class ConstructedItemViewModel {
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
-        addConstructedItemItems(categoryItemIDs: categoryItemIDs).done { constructedItem in
+        addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs)).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
                 if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
                 else { self.totalPriceText.value = nil }
@@ -101,7 +101,7 @@ class ConstructedItemViewModel {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
             return Promise { $0.fulfill(()) }
         } else {
-            return createOutstandingOrder().done {
+            return createOutstandingOrder(data: .init()).done {
                 self.outstandingOrderID = $0.id
                 self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
             }
@@ -109,7 +109,9 @@ class ConstructedItemViewModel {
     }
     
     private func _beginAddToOutstandingOrderDownload() -> Promise<Void> {
-        return addOutstandingOrderConstructedItems(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemIDs: [self.constructedItemID ?? preconditionFailure()]).asVoid()
+        return addOutstandingOrderConstructedItems(
+            outstandingOrderID: outstandingOrderID ?? preconditionFailure(), data: .init(ids: [self.constructedItemID ?? preconditionFailure()])
+        ).asVoid()
     }
     
     private func getCategories() -> Promise<[Category]> {
@@ -124,28 +126,30 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addConstructedItemItems(categoryItemIDs: [Item.CategoryItemID]) -> Promise<ConstructedItem> {
+    private func addConstructedItemItems(data: AddConstructedItemItemsData) -> Promise<ConstructedItem> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: .init(categoryItemIDs: categoryItemIDs))).validate()
+            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: data)).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func removeConstructedItemItem(categoryItemID: Item.CategoryItemID) -> Promise<ConstructedItem> {
-        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemsRequest(constructedItemID: constructedItemID ?? preconditionFailure(), categoryItemID: categoryItemID)).validate()
-                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemsRequest(
+            constructedItemID: constructedItemID ?? preconditionFailure(),
+            categoryItemID: categoryItemID)
+        ).validate().map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
     }
     
-    private func createOutstandingOrder() -> Promise<OutstandingOrder> {
+    private func createOutstandingOrder(data: CreateOutstandingOrderData) -> Promise<OutstandingOrder> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: .init()))
+            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data))
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, constructedItemIDs: [ConstructedItem.ID]) -> Promise<OutstandingOrder> {
+    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData) -> Promise<OutstandingOrder> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: .init(ids: constructedItemIDs)))
+            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data))
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
@@ -158,7 +162,7 @@ class ConstructedItemViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
         var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
-            identifier: ConstructedItemViewController.CellIdentifier.roundedTextCell.rawValue,
+            identifier: ConstructedItemViewController.CellIdentifier.roundedTextCollectionViewCell.rawValue,
             // FIXME: Change to enum.
             size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,

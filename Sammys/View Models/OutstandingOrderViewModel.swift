@@ -59,6 +59,13 @@ class OutstandingOrderViewModel {
         outstandingOrderPromise.catch { self.errorHandler?($0) }
     }
     
+    func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
+        partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: constructedItemID, data: .init(quantity: quantity)).asVoid()
+            .then { self.getOutstandingOrderConstructedItems() }
+            .done { self.constructedItemsTableViewSectionModel = self.makeConstructedItemsTableViewSectionModel(constructedItems: $0) }
+            .catch { self.errorHandler?($0) }
+    }
+    
     private func beginOutstandingOrderDownload() -> Promise<Void> {
         return getOutstandingOrder().done { self.outstandingOrderID = $0.id }
             .then { self.beginOutstandingOrderConstructedItemsDownload() }
@@ -81,6 +88,16 @@ class OutstandingOrderViewModel {
             .map { try JSONDecoder().decode([ConstructedItem].self, from: $0.data) }
     }
     
+    private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData) -> Promise<ConstructedItem> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makePartiallyUpdateOutstandingOrderConstructedItemRequest(
+                outstandingOrderID: outstandingOrderID ?? preconditionFailure(),
+                constructedItemID: constructedItemID,
+                data: data
+            )).validate().map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
     // MARK: - Section Model Methods
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
@@ -89,26 +106,27 @@ class OutstandingOrderViewModel {
     }
     
     private func makeConstructedItemsTableViewSectionModel(constructedItems: [ConstructedItem]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackCellViewModel(constructedItem: $0) })
+        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackTableViewCellViewModel(constructedItem: $0) })
     }
     
     // MARK: - Cell View Model Methods
-    private func makeConstructedItemStackCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
-        return ConstructedItemStackCellViewModel(
-            identifier: OutstandingOrderViewController.CellIdentifier.stackCell.rawValue,
+    private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
+        return ConstructedItemStackTableViewCellViewModel(
+            identifier: OutstandingOrderViewController.CellIdentifier.constructedItemStackTableViewCell.rawValue,
             height: Constants.constructedItemStackCellViewModelHeight,
             actions: constructedItemStackCellViewModelActions,
             configurationData: .init(
                 nameText: constructedItem.name,
                 priceText: constructedItem.totalPrice?.toDollarUnits().priceString,
-                quantityText: constructedItem.quantity?.toString()
+                quantityText: constructedItem.quantity?.toString(),
+                constructedItemID: constructedItem.id
             )
         )
     }
 }
 
 extension OutstandingOrderViewModel {
-    struct ConstructedItemStackCellViewModel: UITableViewCellViewModel {
+    struct ConstructedItemStackTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: Double
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
@@ -118,6 +136,7 @@ extension OutstandingOrderViewModel {
             let nameText: String?
             let priceText: String?
             let quantityText: String?
+            let constructedItemID: ConstructedItem.ID
         }
     }
 }

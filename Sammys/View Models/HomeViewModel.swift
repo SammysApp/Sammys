@@ -69,7 +69,7 @@ class HomeViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
         return CategoryImageTableViewCellViewModel(
-            identifier: HomeViewController.CellIdentifier.imageCell.rawValue,
+            identifier: HomeViewController.CellIdentifier.imageTableViewCell.rawValue,
             height: Constants.categoryImageTableViewCellViewModelHeight,
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),

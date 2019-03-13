@@ -18,7 +18,7 @@ class CategoryViewController: UIViewController {
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     enum CellIdentifier: String {
-        case cell
+        case tableViewCell
     }
     
     // MARK: - Lifecycle Methods
@@ -37,7 +37,7 @@ class CategoryViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.cell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.tableViewCell.rawValue)
         tableView.edgesToSuperview()
     }
     
