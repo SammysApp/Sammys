@@ -98,7 +98,10 @@ class OutstandingOrderViewModel {
             identifier: OutstandingOrderViewController.CellIdentifier.stackCell.rawValue,
             height: Constants.constructedItemStackCellViewModelHeight,
             actions: constructedItemStackCellViewModelActions,
-            configurationData: .init(priceText: constructedItem.totalPrice?.toDollarUnits().priceString)
+            configurationData: .init(
+                priceText: constructedItem.totalPrice?.toDollarUnits().priceString,
+                quantityText: constructedItem.quantity?.toString()
+            )
         )
     }
 }
@@ -112,6 +115,7 @@ extension OutstandingOrderViewModel {
         
         struct ConfigurationData {
             let priceText: String?
+            let quantityText: String?
         }
     }
 }

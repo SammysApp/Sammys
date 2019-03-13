@@ -21,6 +21,10 @@ class OutstandingOrderViewController: UIViewController {
         case stackCell
     }
     
+    private struct Constants {
+        static let constructedItemStackCellQuantityViewHeight: CGFloat = 40
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +64,19 @@ class OutstandingOrderViewController: UIViewController {
         let priceLabel = UILabel()
         priceLabel.text = cellViewModel.configurationData.priceText
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let quantityView = CounterView()
+        quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
+        quantityView.height(Constants.constructedItemStackCellQuantityViewHeight)
+        
         let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
         rightStackView.axis = .vertical
-        cell.contentStackView.axis = .horizontal
-        cell.contentStackView.addArrangedSubview(rightStackView)
+        
+        let splitStackView = UIStackView(arrangedSubviews: [rightStackView])
+        
+        cell.contentStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        cell.contentStackView.axis = .vertical
+        cell.contentStackView.addArrangedSubview(splitStackView)
+        cell.contentStackView.addArrangedSubview(quantityView)
     }
 }

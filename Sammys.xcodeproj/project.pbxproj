@@ -30,14 +30,11 @@
 		5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B312195F3E300F22F78 /* UIView.swift */; };
 		5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B322195F3E300F22F78 /* MKMapView.swift */; };
 		5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B332195F3E300F22F78 /* Collection.swift */; };
-		5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */; };
-		5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B362195F3E300F22F78 /* UIColor.swift */; };
+		5B3A4B532195F3E400F22F78 /* NSLayoutConstraintArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B352195F3E300F22F78 /* NSLayoutConstraintArray.swift */; };
 		5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */; };
-		5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */; };
 		5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B392195F3E300F22F78 /* Int.swift */; };
 		5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3B2195F3E300F22F78 /* UITableView.swift */; };
 		5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */; };
-		5B3A4B652195F3E400F22F78 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3E2195F3E300F22F78 /* URL.swift */; };
 		5B3A4B672195F3E400F22F78 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B3F2195F3E300F22F78 /* String.swift */; };
 		5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B402195F3E300F22F78 /* UIResponder.swift */; };
 		5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3A4B412195F3E300F22F78 /* UIControl.swift */; };
@@ -132,14 +129,11 @@
 		5B3A4B312195F3E300F22F78 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		5B3A4B322195F3E300F22F78 /* MKMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapView.swift; sourceTree = "<group>"; };
 		5B3A4B332195F3E300F22F78 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
-		5B3A4B362195F3E300F22F78 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		5B3A4B352195F3E300F22F78 /* NSLayoutConstraintArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintArray.swift; sourceTree = "<group>"; };
 		5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
-		5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationDistance.swift; sourceTree = "<group>"; };
 		5B3A4B392195F3E300F22F78 /* Int.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		5B3A4B3B2195F3E300F22F78 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
-		5B3A4B3E2195F3E300F22F78 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		5B3A4B3F2195F3E300F22F78 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5B3A4B402195F3E300F22F78 /* UIResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIResponder.swift; sourceTree = "<group>"; };
 		5B3A4B412195F3E300F22F78 /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
@@ -245,7 +239,6 @@
 				5B7C0B31219A4BBD00EBC0EB /* Array.swift */,
 				5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */,
 				5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */,
-				5B3A4B382195F3E300F22F78 /* CLLocationDistance.swift */,
 				5B3A4B332195F3E300F22F78 /* Collection.swift */,
 				5B3A4B302195F3E300F22F78 /* Date.swift */,
 				5B3A4B442195F3E300F22F78 /* DateFormatter.swift */,
@@ -254,12 +247,11 @@
 				5B3A4B392195F3E300F22F78 /* Int.swift */,
 				5B3A4B372195F3E300F22F78 /* JSONDecoder.swift */,
 				5B3A4B322195F3E300F22F78 /* MKMapView.swift */,
-				5B3A4B352195F3E300F22F78 /* NSLayoutConstraint.swift */,
+				5B3A4B352195F3E300F22F78 /* NSLayoutConstraintArray.swift */,
 				5B9A8ABA22244C3500F5525D /* Optional.swift */,
 				5B3A4B3F2195F3E300F22F78 /* String.swift */,
 				5B8E81A921B0696C00C22CEA /* UIAlertController.swift */,
 				5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */,
-				5B3A4B362195F3E300F22F78 /* UIColor.swift */,
 				5B3A4B412195F3E300F22F78 /* UIControl.swift */,
 				5B3A4B422195F3E300F22F78 /* UIImage.swift */,
 				5B3A4B402195F3E300F22F78 /* UIResponder.swift */,
@@ -268,7 +260,6 @@
 				5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */,
 				5B3A4B312195F3E300F22F78 /* UIView.swift */,
 				5B3A4B432195F3E300F22F78 /* UIViewController.swift */,
-				5B3A4B3E2195F3E300F22F78 /* URL.swift */,
 			);
 			path = EasyExtensions;
 			sourceTree = "<group>";
@@ -699,7 +690,6 @@
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */,
-				5B3A4B592195F3E400F22F78 /* CLLocationDistance.swift in Sources */,
 				5B4F7F1D2231B34C00F95C04 /* OutstandingOrderViewModel.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,
 				5B3A4B572195F3E400F22F78 /* JSONDecoder.swift in Sources */,
@@ -713,14 +703,13 @@
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
 				5B01221A221DE4B80054AB7A /* HTTPEndpoint.swift in Sources */,
 				5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */,
-				5B3A4B532195F3E400F22F78 /* NSLayoutConstraint.swift in Sources */,
+				5B3A4B532195F3E400F22F78 /* NSLayoutConstraintArray.swift in Sources */,
 				5B012226221DF8930054AB7A /* URLRequest+HTTP.swift in Sources */,
 				5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */,
 				5B4F7F0B2230BFC100F95C04 /* KeyValueStore.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
-				5B3A4B552195F3E400F22F78 /* UIColor.swift in Sources */,
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
 				5B012220221DF3A40054AB7A /* HTTPHeaderName.swift in Sources */,
 				5B012218221DC72E0054AB7A /* HTTPMethod.swift in Sources */,
@@ -746,7 +735,6 @@
 				5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */,
 				5B6E391C2223831F004D5310 /* CategoryViewModel.swift in Sources */,
 				5B012222221DF3D20054AB7A /* HTTPHeaderValue.swift in Sources */,
-				5B3A4B652195F3E400F22F78 /* URL.swift in Sources */,
 				5BF912B9223826E000E2C29A /* IntExtensions.swift in Sources */,
 				5B012224221DF46B0054AB7A /* HTTPHeader.swift in Sources */,
 				5B6E3679221F1E74004D5310 /* HomeViewController.swift in Sources */,
