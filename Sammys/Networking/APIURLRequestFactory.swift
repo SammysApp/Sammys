@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import PromiseKit
 
 struct APIURLRequestFactory {
     private let environment: AppEnvironment
@@ -27,122 +26,55 @@ struct APIURLRequestFactory {
     }
     
     func makeGetCategoriesRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getCategories, queryItems: queryItems) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getCategories, queryItems: queryItems) ?? preconditionFailure()
     }
     
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getSubcategories(parentCategoryID)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getSubcategories(parentCategoryID)) ?? preconditionFailure()
     }
     
     func makeGetCategoryItemsRequest(id: Category.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getCategoryItems(id)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getCategoryItems(id)) ?? preconditionFailure()
     }
     
     func makeGetItemModifiersRequest(categoryID: Category.ID, itemID: Item.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
     
     func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getOutstandingOrder(id)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrder(id)) ?? preconditionFailure()
     }
     
     func makeGetOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
     }
     
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: Endpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: Endpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(server: server, endpoint: APIEndpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID) -> URLRequest {
-        return URLRequest(server: server, endpoint: Endpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
+        return URLRequest(server: server, endpoint: APIEndpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
     }
     
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: Endpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(server: server, endpoint: APIEndpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     func makeAddOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: Endpoint.addOutstandingOrderConstructedItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(server: server, endpoint: APIEndpoint.addOutstandingOrderConstructedItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
-    }
-}
-
-private extension APIURLRequestFactory {
-    enum Endpoint: HTTPEndpoint {
-        // MARK: - GET
-        /// GET `/categories`
-        case getCategories
-        /// GET `/categories/:category/subcategories`
-        case getSubcategories(Category.ID)
-        /// GET `/categories/:category/item`
-        case getCategoryItems(Category.ID)
-        /// GET `/categories/:category/item/:item/modifiers`
-        case getItemModifiers(Category.ID, Item.ID)
-        
-        /// GET /outstandingOrders/:outstandingOrder
-        case getOutstandingOrder(OutstandingOrder.ID)
-        /// GET /outstandingOrders/:outstandingOrder/constructedItems
-        case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
-        
-        // MARK: - POST
-        /// POST `/constructedItems`
-        case createConstructedItem
-        /// POST `/constructedItems/:constructedItem/items`
-        case addConstructedItemItems(ConstructedItem.ID)
-        
-        /// POST `/outstandingOrders`
-        case createOutstandingOrder
-        /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
-        case addOutstandingOrderConstructedItems(OutstandingOrder.ID)
-        
-        /// DELETE `/constructedItems/:constructedItem/items/:categoryItem`
-        case removeConstructedItemItem(ConstructedItem.ID, Item.CategoryItemID)
-        
-        private enum Version: String { case v1 }
-        private var version: Version { return .v1 }
-        
-        var endpoint: (HTTPMethod, URLPath) {
-            switch self {
-            case .getCategories:
-                return (.GET, "/\(version)/categories")
-            case .getSubcategories(let id):
-                return (.GET, "/\(version)/categories/\(id)/subcategories")
-            case .getCategoryItems(let id):
-                return (.GET, "/\(version)/categories/\(id)/items")
-            case .getItemModifiers(let categoryID, let itemID):
-                return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
-                
-            case .getOutstandingOrder(let id):
-                return (.GET, "/\(version)/outstandingOrders/\(id)")
-            case .getOutstandingOrderConstructedItems(let id):
-                return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
-                
-            case .createConstructedItem:
-                return (.POST, "/\(version)/constructedItems")
-            case .addConstructedItemItems(let id):
-                return (.POST, "/\(version)/constructedItems/\(id)/items")
-                
-            case .createOutstandingOrder:
-                return (.POST, "/\(version)/outstandingOrders")
-            case .addOutstandingOrderConstructedItems(let id):
-                return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
-                
-            case .removeConstructedItemItem(let constructedItemID, let categoryItemID):
-                return (.DELETE, "/\(version)/constructedItems/\(constructedItemID)/items/\(categoryItemID)")
-            }
-        }
     }
 }
 
