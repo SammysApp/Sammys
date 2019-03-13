@@ -61,6 +61,10 @@ class OutstandingOrderViewController: UIViewController {
     private func constructedItemStackCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackCellViewModel,
             let cell = data.cell as? StackTableViewCell else { return }
+        let nameLabel = UILabel()
+        nameLabel.text = cellViewModel.configurationData.nameText
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         let priceLabel = UILabel()
         priceLabel.text = cellViewModel.configurationData.priceText
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -69,10 +73,13 @@ class OutstandingOrderViewController: UIViewController {
         quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
         quantityView.height(Constants.constructedItemStackCellQuantityViewHeight)
         
+        let leftStackView = UIStackView(arrangedSubviews: [nameLabel])
+        leftStackView.axis = .vertical
+        
         let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
         rightStackView.axis = .vertical
         
-        let splitStackView = UIStackView(arrangedSubviews: [rightStackView])
+        let splitStackView = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
         
         cell.contentStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.contentStackView.axis = .vertical
