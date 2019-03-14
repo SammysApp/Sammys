@@ -29,6 +29,8 @@ class Dynamic<Value> {
         self.listener = listener
         listener(value)
     }
+    
+    func unbind() { listener = nil }
 }
 
 extension Dynamic: Equatable where Value: Equatable {

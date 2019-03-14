@@ -13,10 +13,9 @@ struct ConstructedItem: Codable {
     
     let id: ID
     let categoryID: Category.ID
-    let isFavorite: Bool
-    
     let name: String?
     let description: String?
-    let totalPrice: Int?
     let quantity: Int?
+    let totalPrice: Int?
+    let isFavorite: Bool
 }

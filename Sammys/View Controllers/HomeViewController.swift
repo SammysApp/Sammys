@@ -66,6 +66,13 @@ class HomeViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }
         cell.textLabel.text = cellViewModel.configurationData.text
+        cell.imageView.clipsToBounds = true
+        cell.imageView.contentMode = .scaleAspectFill
+        cellViewModel.configurationData.imageData.bindAndRun { data in
+            guard let data = data else { return }
+            cell.imageView.image = UIImage(data: data)
+        }
+        cell.prepareForReuseHandler = { cellViewModel.configurationData.imageData.unbind() }
     }
     
     private func categoryImageTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {

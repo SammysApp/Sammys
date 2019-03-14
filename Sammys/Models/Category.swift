@@ -13,7 +13,7 @@ struct Category: Codable {
     
     let id: ID
     let name: String
-    let isConstructable: Bool
-    
+    let imageURL: String?
     let isParentCategory: Bool?
+    let isConstructable: Bool
 }

@@ -16,6 +16,8 @@ class ImageTableViewCell: UITableViewCell {
     override var imageView: UIImageView { get { return _imageView } }
     override var textLabel: UILabel { get { return _textLabel } }
     
+    var prepareForReuseHandler: (() -> Void)?
+    
     private struct Constants {
         static let textLabelOffest: CGFloat = 20
     }
@@ -26,6 +28,8 @@ class ImageTableViewCell: UITableViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
+    
+    override func prepareForReuse() { prepareForReuseHandler?() }
     
     private func setUp() {
         [imageView, textLabel]

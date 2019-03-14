@@ -29,7 +29,7 @@ class HomeViewModel {
     let isCategoriesDownloading = Dynamic(false)
     
     private struct Constants {
-        static let categoryImageTableViewCellViewModelHeight: Double = 100
+        static let categoryImageTableViewCellViewModelHeight: Double = 200
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
@@ -53,6 +53,7 @@ class HomeViewModel {
         let queryItems = [URLQueryItem(name: "isRoot", value: String(true))]
         return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems)).validate()
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
+            .map { return $0 + Array(repeating: (), count: 100).map { Category.init(id: Category.ID(), name: "Test", imageURL: nil, isParentCategory: nil, isConstructable: false) } }
     }
     
     // MARK: - Section Model Methods
@@ -68,13 +69,20 @@ class HomeViewModel {
     
     // MARK: - Cell View Model Methods
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
-        return CategoryImageTableViewCellViewModel(
+        let model = CategoryImageTableViewCellViewModel(
             identifier: HomeViewController.CellIdentifier.imageTableViewCell.rawValue,
             height: .fixed(Constants.categoryImageTableViewCellViewModelHeight),
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id)
         )
+        if let imageURLString = category.imageURL,
+            let imageURL = URL(string: imageURLString) {
+            httpClient.send(URLRequest(url: imageURL))
+                .done { model.configurationData.imageData.value = $0.data }
+                .catch { print($0) }
+        }
+        return model
     }
 }
 
@@ -89,6 +97,7 @@ extension HomeViewModel {
         
         struct ConfigurationData {
             let text: String
+            let imageData = Dynamic<Data?>(nil)
         }
         
         struct SelectionData {

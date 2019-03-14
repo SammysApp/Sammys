@@ -13,8 +13,7 @@ struct Item: Codable {
     typealias CategoryItemID = UUID
     
     let id: ID
-    let name: String
-    
     let categoryItemID: CategoryItemID?
+    let name: String
     let isModifiable: Bool?
 }
