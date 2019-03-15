@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private struct Constants {
         static let homeTabBarItemTitle = "Home"
+        static let bagTabBarItemTitle = "Bag"
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -40,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let homeViewController = HomeViewController()
         homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: #imageLiteral(resourceName: "Home"), tag: 0)
         let bagViewController = OutstandingOrderViewController()
-        bagViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 1)
+        bagViewController.tabBarItem = .init(title: Constants.bagTabBarItemTitle, image: #imageLiteral(resourceName: "Bag"), tag: 1)
         tabBarController.viewControllers = [homeViewController, bagViewController]
             .map { UINavigationController(rootViewController: $0) }
         return tabBarController
