@@ -53,7 +53,6 @@ class HomeViewModel {
         let queryItems = [URLQueryItem(name: "isRoot", value: String(true))]
         return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems)).validate()
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
-            .map { return $0 + Array(repeating: (), count: 100).map { Category.init(id: Category.ID(), name: "Test", imageURL: nil, isParentCategory: nil, isConstructable: false) } }
     }
     
     // MARK: - Section Model Methods

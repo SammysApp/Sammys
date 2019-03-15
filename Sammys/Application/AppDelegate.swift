@@ -19,6 +19,10 @@ let appEnvironment = AppEnvironment.production
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
+    private struct Constants {
+        static let homeTabBarItemTitle = "Home"
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         configureWindow()
         FirebaseApp.configure()
@@ -32,10 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func makeTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
+        tabBarController.tabBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         let homeViewController = HomeViewController()
-        let homeNormalTabBarItemImage = #imageLiteral(resourceName: "HomeNormal").withRenderingMode(.alwaysOriginal)
-        let homeSelectedTabBarItemImage = #imageLiteral(resourceName: "HomeSelected").withRenderingMode(.alwaysOriginal)
-        homeViewController.tabBarItem = .init(title: nil, image: homeNormalTabBarItemImage, selectedImage: homeSelectedTabBarItemImage)
+        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: #imageLiteral(resourceName: "Home"), tag: 0)
         let bagViewController = OutstandingOrderViewController()
         bagViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 1)
         tabBarController.viewControllers = [homeViewController, bagViewController]
