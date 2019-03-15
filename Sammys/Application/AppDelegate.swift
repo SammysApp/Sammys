@@ -33,7 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func makeTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
         let homeViewController = HomeViewController()
-        homeViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 0)
+        let homeNormalTabBarItemImage = #imageLiteral(resourceName: "HomeNormal").withRenderingMode(.alwaysOriginal)
+        let homeSelectedTabBarItemImage = #imageLiteral(resourceName: "HomeSelected").withRenderingMode(.alwaysOriginal)
+        homeViewController.tabBarItem = .init(title: nil, image: homeNormalTabBarItemImage, selectedImage: homeSelectedTabBarItemImage)
         let bagViewController = OutstandingOrderViewController()
         bagViewController.tabBarItem = .init(tabBarSystemItem: .topRated, tag: 1)
         tabBarController.viewControllers = [homeViewController, bagViewController]
