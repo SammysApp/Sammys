@@ -68,6 +68,7 @@ class ItemsViewController: UIViewController {
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
+        cell.tintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
         cell.textLabel?.text = cellViewModel.configurationData.text
         if let id = cellViewModel.configurationData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
             cell.accessoryType = .checkmark

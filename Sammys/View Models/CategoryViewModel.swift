@@ -82,7 +82,7 @@ class CategoryViewModel {
             height: .fixed(Constants.categoryTableViewCellViewModelHeight),
             actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
-            selectionData: .init(id: category.id, isConstructable: category.isConstructable, isParentCategory: category.isParentCategory)
+            selectionData: .init(id: category.id, title: category.name, isConstructable: category.isConstructable, isParentCategory: category.isParentCategory)
         )
     }
 }
@@ -102,6 +102,7 @@ extension CategoryViewModel {
         
         struct SelectionData {
             let id: Category.ID
+            let title: String?
             let isConstructable: Bool
             let isParentCategory: Bool?
         }

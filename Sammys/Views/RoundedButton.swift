@@ -13,6 +13,14 @@ class RoundedButton: UIControl {
     let titleLabel = UILabel()
     
     private let roundedLayer = CAShapeLayer()
+    private var _backgroundColor: UIColor? {
+        didSet { update() }
+    }
+    
+    override var backgroundColor: UIColor? {
+        get { return _backgroundColor }
+        set { _backgroundColor = newValue }
+    }
     
     var cornerRadiusMultiplier: CGFloat = 0.2 {
         didSet { update() }
@@ -45,7 +53,7 @@ class RoundedButton: UIControl {
     }
     
     private func update() {
-        roundedLayer.fillColor = UIColor.lightGray.cgColor
+        roundedLayer.fillColor = backgroundColor?.cgColor
         roundedLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: titleLabel.frame.width + (Constants.titleLabelInset * 2), height: self.frame.height), cornerRadius: self.frame.height * cornerRadiusMultiplier).cgPath
     }
 }

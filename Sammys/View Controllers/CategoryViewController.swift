@@ -21,6 +21,10 @@ class CategoryViewController: UIViewController {
         case tableViewCell
     }
     
+    private struct Constants {
+        static let categoryTableViewCellTextLabelFontSize: CGFloat = 20
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +75,9 @@ class CategoryViewController: UIViewController {
         return itemsViewController
     }
     
-    private func makeConstructedItemViewController(categoryID: Category.ID) -> ConstructedItemViewController {
+    private func makeConstructedItemViewController(categoryID: Category.ID, title: String? = nil) -> ConstructedItemViewController {
         let constructedItemViewController = ConstructedItemViewController()
+        constructedItemViewController.title = title
         constructedItemViewController.viewModel.categoryID = categoryID
         // Create a new constructed item.
         constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
@@ -85,12 +90,13 @@ class CategoryViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.textLabel?.font = .systemFont(ofSize: Constants.categoryTableViewCellTextLabelFontSize)
     }
     
     private func categoryTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel else { return }
         if cellViewModel.selectionData.isConstructable {
-            navigationController?.pushViewController(makeConstructedItemViewController(categoryID: cellViewModel.selectionData.id), animated: true)
+            navigationController?.pushViewController(makeConstructedItemViewController(categoryID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title), animated: true)
         } else if let isParentCategory = cellViewModel.selectionData.isParentCategory, isParentCategory {
             navigationController?.pushViewController(makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id), animated: true)
         } else {

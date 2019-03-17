@@ -73,7 +73,7 @@ class HomeViewModel {
             height: .fixed(Constants.categoryImageTableViewCellViewModelHeight),
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),
-            selectionData: .init(id: category.id)
+            selectionData: .init(id: category.id, title: category.name)
         )
         if let imageURLString = category.imageURL,
             let imageURL = URL(string: imageURLString) {
@@ -101,6 +101,7 @@ extension HomeViewModel {
         
         struct SelectionData {
             let id: Category.ID
+            let title: String
         }
     }
 }

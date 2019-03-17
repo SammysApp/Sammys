@@ -27,7 +27,6 @@ class RoundedTextCollectionViewCell: UICollectionViewCell {
     }
     
     private func update() {
-        self.backgroundColor = .lightGray
         self.layer.cornerRadius = self.frame.height * cornerRadiusMultiplier
     }
 }

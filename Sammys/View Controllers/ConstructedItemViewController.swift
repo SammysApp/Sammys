@@ -85,6 +85,7 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func configureBottomRoundedButton() {
+        bottomRoundedButton.backgroundColor = #colorLiteral(red: 0.4509803922, green: 0.9803921569, blue: 0.4745098039, alpha: 1)
         bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText
         bottomRoundedButton.add(bottomRoundedButtonTouchUpInsideTarget, for: .touchUpInside)
         bottomRoundedButton.height(Constants.bottomRoundedButtonHeight)
@@ -130,6 +131,8 @@ class ConstructedItemViewController: UIViewController {
     private func categoryRoundedTextCollectionViewCellConfigurationAction(data: UICollectionViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel,
             let cell = data.cell as? RoundedTextCollectionViewCell else { return }
+        cell.backgroundColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        cell.textLabel.textColor = .white
         cell.textLabel.text = cellViewModel.configurationData.text
     }
     

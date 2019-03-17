@@ -21,6 +21,10 @@ class HomeViewController: UIViewController {
         case imageTableViewCell
     }
     
+    private struct Constants {
+        static let categoryImageTableViewCellTextLabelFontSize: CGFloat = 28
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +73,9 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeCategoryViewController(parentCategoryID: Category.ID? = nil) -> CategoryViewController {
+    private func makeCategoryViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoryViewController {
         let categoryViewController = CategoryViewController()
+        categoryViewController.title = title
         categoryViewController.viewModel.parentCategoryID = parentCategoryID
         return categoryViewController
     }
@@ -80,6 +85,7 @@ class HomeViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }
         cell.textLabel.text = cellViewModel.configurationData.text
+        cell.textLabel.font = .systemFont(ofSize: Constants.categoryImageTableViewCellTextLabelFontSize, weight: .medium)
         cell.imageView.clipsToBounds = true
         cell.imageView.contentMode = .scaleAspectFill
         cellViewModel.configurationData.imageData.bindAndRun { data in
@@ -92,7 +98,7 @@ class HomeViewController: UIViewController {
     private func categoryImageTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
         navigationController?.pushViewController(
-            makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id),
+            makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title),
             animated: true
         )
     }
