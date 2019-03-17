@@ -41,6 +41,10 @@ class HomeViewController: UIViewController {
     
     private func configureNavigation() {
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        let titleImage = #imageLiteral(resourceName: "Title").withRenderingMode(.alwaysTemplate)
+        let titleImageView = UIImageView(image: titleImage)
+        titleImageView.tintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
+        self.navigationItem.titleView = titleImageView
         self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "User"), style: .plain, target: nil, action: nil)
     }
     
