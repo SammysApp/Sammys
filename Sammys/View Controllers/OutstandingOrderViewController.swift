@@ -28,12 +28,16 @@ class OutstandingOrderViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
+        setUpView()
         configureTableView()
         configureViewModel()
     }
     
     // MARK: - Setup Methods
+    private func setUpView() {
+        addSubviews()
+    }
+    
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
     }

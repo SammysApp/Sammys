@@ -24,14 +24,24 @@ class HomeViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
+        setUpView()
+        configureNavigation()
         configureTableView()
         configureViewModel()
     }
     
     // MARK: - Setup Methods
+    private func setUpView() {
+        addSubviews()
+    }
+    
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
+    }
+    
+    private func configureNavigation() {
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "User"), style: .plain, target: nil, action: nil)
     }
     
     private func configureTableView() {
