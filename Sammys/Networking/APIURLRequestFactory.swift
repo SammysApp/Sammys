@@ -75,7 +75,20 @@ struct APIURLRequestFactory {
         return request
     }
     
+    // MARK: - PUT
+    func makeUpdateConstructedItemRequest(id: ConstructedItem.ID, data: ConstructedItem, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.updateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
     // MARK: - PATCH
+    func makePartiallyUpdateConstructedItemRequest(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
     func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -108,6 +121,10 @@ struct CreateOutstandingOrderData: Codable {}
 
 struct AddOutstandingOrderConstructedItemsData: Codable {
     let ids: [ConstructedItem.ID]
+}
+
+struct PartiallyUpdateConstructedItemData: Codable {
+    let isFavorite: Bool?
 }
 
 struct PartiallyUpdateOutstandingOrderConstructedItemData: Codable {

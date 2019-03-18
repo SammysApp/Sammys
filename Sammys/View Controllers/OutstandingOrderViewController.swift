@@ -54,9 +54,9 @@ class OutstandingOrderViewController: UIViewController {
         viewModel.constructedItemStackCellViewModelActions = [
             .configuration: constructedItemStackTableViewCellConfigurationAction
         ]
-        viewModel.tableViewSectionModels.bind { sectionModels in
-            self.tableViewDataSource.sectionModels = sectionModels
-            self.tableViewDelegate.sectionModels = sectionModels
+        viewModel.tableViewSectionModels.bind { value in
+            self.tableViewDataSource.sectionModels = value
+            self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
         viewModel.beginDownloads()
@@ -104,9 +104,9 @@ private extension OutstandingOrderViewController {
         }
         
         private lazy var quantityViewDecrementButtonTouchUpInsideTarget =
-            UIControl.Target(action: { self.quantityViewDecrementHandler(self.quantityView) })
+            Target { self.quantityViewDecrementHandler(self.quantityView) }
         private lazy var quantityViewIncrementButtonTouchUpInsideTarget =
-            UIControl.Target(action: { self.quantityViewIncrementHandler(self.quantityView) })
+            Target { self.quantityViewIncrementHandler(self.quantityView) }
         
         private struct Constants {
             static let quantityViewHeight: CGFloat = 40

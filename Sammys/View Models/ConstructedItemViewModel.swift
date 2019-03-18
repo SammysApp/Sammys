@@ -36,9 +36,11 @@ class ConstructedItemViewModel {
     // MARK: - Dynamic Properties
     /// The selected category ID to present its items.
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
+    let selectedCategoryName: Dynamic<String?> = Dynamic(nil)
     let categoryCollectionViewSectionModels = Dynamic([UICollectionViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
+    let isFavorite: Dynamic<Bool?> = Dynamic(false)
     
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
@@ -61,7 +63,7 @@ class ConstructedItemViewModel {
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
         addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs)).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
                 else { self.totalPriceText.value = nil }
             }
         }.catch { self.errorHandler?($0) }
@@ -70,7 +72,7 @@ class ConstructedItemViewModel {
     func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID) {
         removeConstructedItemItem(categoryItemID: categoryItemID).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice) }
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
                 else { self.totalPriceText.value = nil }
             }
         }.catch { self.errorHandler?($0) }
@@ -88,10 +90,17 @@ class ConstructedItemViewModel {
             .catch { self.errorHandler?($0) }
     }
     
+    func beginFavoriteDownload(isFavorite: Bool) {
+        partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite))
+            .done { self.isFavorite.value = $0.isFavorite }
+            .catch { self.errorHandler?($0) }
+    }
+    
     private func beginCategoriesDownload() -> Promise<Void> {
         isCategoriesDownloading.value = true
         return getCategories().done { categories in
             self.selectedCategoryID.value = categories.first?.id
+            self.selectedCategoryName.value = categories.first?.name
             self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
         }.ensure { self.isCategoriesDownloading.value = false }
     }
@@ -142,15 +151,22 @@ class ConstructedItemViewModel {
     
     private func createOutstandingOrder(data: CreateOutstandingOrderData) -> Promise<OutstandingOrder> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data))
+            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data)).validate()
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData) -> Promise<OutstandingOrder> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data))
+            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data)).validate()
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemData) -> Promise<ConstructedItem> {
+        do {
+            return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data)).validate()
+            .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
@@ -166,7 +182,7 @@ class ConstructedItemViewModel {
             size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),
-            selectionData: .init(categoryID: category.id)
+            selectionData: .init(categoryID: category.id, categoryName: category.name)
         )
         if let size = categoryRoundedTextCollectionViewCellViewModelSize?(cellViewModel) {
             cellViewModel.size = size
@@ -190,6 +206,7 @@ extension ConstructedItemViewModel {
         
         struct SelectionData {
             let categoryID: Category.ID
+            let categoryName: String
         }
     }
 }

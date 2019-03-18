@@ -45,11 +45,11 @@ class HomeViewController: UIViewController {
     
     private func configureNavigation() {
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
-        let titleImage = #imageLiteral(resourceName: "Title").withRenderingMode(.alwaysTemplate)
+        let titleImage = #imageLiteral(resourceName: "NavBar.Title").withRenderingMode(.alwaysTemplate)
         let titleImageView = UIImageView(image: titleImage)
         titleImageView.tintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
         self.navigationItem.titleView = titleImageView
-        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "User"), style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "NavBar.User"), style: .plain, target: nil, action: nil)
     }
     
     private func configureTableView() {
@@ -64,9 +64,9 @@ class HomeViewController: UIViewController {
             .configuration: categoryImageTableViewCellConfigurationAction,
             .selection: categoryImageTableViewCellSelectionAction
         ]
-        viewModel.tableViewSectionModels.bind { sectionModels in
-            self.tableViewDataSource.sectionModels = sectionModels
-            self.tableViewDelegate.sectionModels = sectionModels
+        viewModel.tableViewSectionModels.bind { value in
+            self.tableViewDataSource.sectionModels = value
+            self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
         viewModel.beginDownloads()

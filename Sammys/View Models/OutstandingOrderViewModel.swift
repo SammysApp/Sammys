@@ -124,7 +124,7 @@ class OutstandingOrderViewModel {
             configurationData: .init(
                 nameText: constructedItem.name,
                 descriptionText: constructedItem.description,
-                priceText: constructedItem.totalPrice?.toDollarUnits().priceString,
+                priceText: constructedItem.totalPrice?.toDollarUnits().toPriceString(),
                 quantityText: constructedItem.quantity?.toString(),
                 constructedItemID: constructedItem.id
             )

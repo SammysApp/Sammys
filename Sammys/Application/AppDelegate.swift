@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private struct Constants {
         static let homeTabBarItemTitle = "Home"
+        static let favoritesTabBarItemTitle = "Favorites"
         static let bagTabBarItemTitle = "Bag"
     }
     
@@ -39,10 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         let homeViewController = HomeViewController()
-        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: #imageLiteral(resourceName: "Home"), tag: 0)
+        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: #imageLiteral(resourceName: "TabBar.Home"), tag: 0)
+        let favoritesViewController = UIViewController()
+        favoritesViewController.tabBarItem = .init(title: Constants.favoritesTabBarItemTitle, image: #imageLiteral(resourceName: "TabBar.Heart"), tag: 1)
         let bagViewController = OutstandingOrderViewController()
-        bagViewController.tabBarItem = .init(title: Constants.bagTabBarItemTitle, image: #imageLiteral(resourceName: "Bag"), tag: 1)
-        tabBarController.viewControllers = [homeViewController, bagViewController]
+        bagViewController.tabBarItem = .init(title: Constants.bagTabBarItemTitle, image: #imageLiteral(resourceName: "TabBar.Bag"), tag: 2)
+        tabBarController.viewControllers = [homeViewController, favoritesViewController, bagViewController]
             .map { UINavigationController(rootViewController: $0) }
         return tabBarController
     }

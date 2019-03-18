@@ -28,6 +28,10 @@ class ItemsViewController: UIViewController {
         let categoryItemID: UUID
     }
     
+    private struct Constants {
+        static let itemTableViewCellTextLabelFontSize: CGFloat = 18
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +61,9 @@ class ItemsViewController: UIViewController {
             .configuration: itemTableViewCellConfigurationAction,
             .selection: itemTableViewCellSelectionAction
         ]
-        viewModel.tableViewSectionModels.bind { sectionModels in
-            self.tableViewDataSource.sectionModels = sectionModels
-            self.tableViewDelegate.sectionModels = sectionModels
+        viewModel.tableViewSectionModels.bind { value in
+            self.tableViewDataSource.sectionModels = value
+            self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
     }
@@ -69,6 +73,7 @@ class ItemsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.tintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        cell.textLabel?.font = .systemFont(ofSize: Constants.itemTableViewCellTextLabelFontSize)
         cell.textLabel?.text = cellViewModel.configurationData.text
         if let id = cellViewModel.configurationData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
             cell.accessoryType = .checkmark

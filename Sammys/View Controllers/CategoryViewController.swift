@@ -22,7 +22,7 @@ class CategoryViewController: UIViewController {
     }
     
     private struct Constants {
-        static let categoryTableViewCellTextLabelFontSize: CGFloat = 20
+        static let categoryTableViewCellTextLabelFontSize: CGFloat = 18
     }
     
     // MARK: - Lifecycle Methods
@@ -54,9 +54,9 @@ class CategoryViewController: UIViewController {
             .configuration: categoryTableViewCellConfigurationAction,
             .selection: categoryTableViewCellSelectionAction
         ]
-        viewModel.tableViewSectionModels.bind { sectionModels in
-            self.tableViewDataSource.sectionModels = sectionModels
-            self.tableViewDelegate.sectionModels = sectionModels
+        viewModel.tableViewSectionModels.bind { value in
+            self.tableViewDataSource.sectionModels = value
+            self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
         viewModel.beginDownloads()
