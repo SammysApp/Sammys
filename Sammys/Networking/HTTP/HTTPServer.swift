@@ -11,11 +11,11 @@ import Foundation
 struct HTTPServer {
     let scheme: Scheme
     let host: String
-    let port: Int
+    let port: Int?
     
     init(scheme: Scheme = .http,
          host: String,
-         port: Int = 80) {
+         port: Int? = nil) {
         self.scheme = scheme
         self.host = host
         self.port = port

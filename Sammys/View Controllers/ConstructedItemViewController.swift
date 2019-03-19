@@ -129,7 +129,7 @@ class ConstructedItemViewController: UIViewController {
         }
         viewModel.totalPriceText.bind { value in
             if let text = value {
-                self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText + " " + text
+                self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText + " | " + text
             } else { self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText }
         }
         viewModel.isFavorite.bind { value in
