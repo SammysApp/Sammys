@@ -51,6 +51,12 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - POST
+    func makeCreateUserRequest(data: CreateUserData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.createUser, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        request.httpBody = try dataEncoder.encode(data)
+        return request
+    }
+    
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
@@ -103,6 +109,12 @@ struct APIURLRequestFactory {
     func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID) -> URLRequest {
         return URLRequest(server: server, endpoint: APIEndpoint.removeOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID)) ?? preconditionFailure()
     }
+}
+
+struct CreateUserData: Codable {
+    let email: String
+    let firstName: String
+    let lastName: String
 }
 
 struct CreateConstructedItemData: Codable {

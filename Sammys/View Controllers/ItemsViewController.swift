@@ -36,8 +36,8 @@ class ItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        configureTableView()
         configureViewModel()
+        configureTableView()
     }
     
     // MARK: - Setup Methods

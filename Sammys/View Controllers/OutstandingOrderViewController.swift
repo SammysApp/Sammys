@@ -29,8 +29,9 @@ class OutstandingOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        configureTableView()
         configureViewModel()
+        configureTableView()
+        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -59,7 +60,6 @@ class OutstandingOrderViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
-        viewModel.beginDownloads()
     }
     
     // MARK: - Cell Actions

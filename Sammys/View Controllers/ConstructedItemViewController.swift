@@ -40,11 +40,12 @@ class ConstructedItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        configureViewModel()
         configureNavigation()
         configureCategoryCollectionView()
         configureItemsViewController()
         configureBottomRoundedButton()
-        configureViewModel()
+        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -136,7 +137,6 @@ class ConstructedItemViewController: UIViewController {
             guard let value = value else { return }
             self.favoriteBarButtonItem.image = value ? #imageLiteral(resourceName: "NavBar.Heart") : #imageLiteral(resourceName: "NavBar.HeartOutline")
         }
-        viewModel.beginDownloads()
     }
     
     // MARK: - Target Actions

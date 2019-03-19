@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemTargetAction)
+    
     enum CellIdentifier: String {
         case imageTableViewCell
     }
@@ -29,9 +31,10 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        configureViewModel()
         configureNavigation()
         configureTableView()
-        configureViewModel()
+        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -49,7 +52,7 @@ class HomeViewController: UIViewController {
         let titleImageView = UIImageView(image: titleImage)
         titleImageView.tintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
         self.navigationItem.titleView = titleImageView
-        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "NavBar.User"), style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "NavBar.User"), style: .plain, target: userBarButtonItemTarget)
     }
     
     private func configureTableView() {
@@ -69,7 +72,6 @@ class HomeViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
-        viewModel.beginDownloads()
     }
     
     // MARK: - Factory Methods
@@ -78,6 +80,11 @@ class HomeViewController: UIViewController {
         categoryViewController.title = title
         categoryViewController.viewModel.parentCategoryID = parentCategoryID
         return categoryViewController
+    }
+    
+    // MARK: - Target Actions
+    private func userBarButtonItemTargetAction() {
+        self.present(UINavigationController(rootViewController: UserAuthViewController()), animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions
