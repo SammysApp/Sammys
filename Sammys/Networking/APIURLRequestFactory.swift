@@ -51,9 +51,10 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - POST
-    func makeCreateUserRequest(data: CreateUserData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    func makeCreateUserRequest(data: CreateUserData, dataEncoder: JSONEncoder = JSONEncoder(), jwt: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.createUser, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
+        if let jwt = jwt { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(jwt))) }
         return request
     }
     

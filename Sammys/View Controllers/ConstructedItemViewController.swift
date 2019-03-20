@@ -15,20 +15,20 @@ class ConstructedItemViewController: UIViewController {
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let itemsViewController = ItemsViewController()
     private(set) lazy var favoriteBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "NavBar.HeartOutline"), style: .plain, target: favoriteBarButtonItemTarget)
-    let bottomRoundedButton = RoundedButton()
+    let completeButton = RoundedButton()
     
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
     
     private lazy var favoriteBarButtonItemTarget = Target(action: favoriteBarButtonItemTargetAction)
-    private lazy var bottomRoundedButtonTouchUpInsideTarget = Target(action: bottomRoundedButtonTouchUpInsideAction)
+    private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
         static let categoryCollectionViewHeight: CGFloat = 30
-        static let bottomRoundedButtonHeight: CGFloat = 40
-        static let bottomRoundedButtonTitleLabelTextFontSize: CGFloat = 18
-        static let bottomRoundedButtonTitleLabelText = "Add to Bag"
+        static let completeButtonHeight: CGFloat = 40
+        static let completeButtonTitleLabelTextFontSize: CGFloat = 18
+        static let completeButtonTitleLabelText = "Add to Bag"
         static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
     }
     
@@ -44,7 +44,7 @@ class ConstructedItemViewController: UIViewController {
         configureNavigation()
         configureCategoryCollectionView()
         configureItemsViewController()
-        configureBottomRoundedButton()
+        configureCompleteButton()
         viewModel.beginDownloads()
     }
     
@@ -55,7 +55,7 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [categoryCollectionView, bottomRoundedButton]
+        [categoryCollectionView, completeButton]
             .forEach { self.view.addSubview($0) }
     }
     
@@ -95,15 +95,15 @@ class ConstructedItemViewController: UIViewController {
         itemsViewController.view.edgesToSuperview(usingSafeArea: true)
     }
     
-    private func configureBottomRoundedButton() {
-        bottomRoundedButton.backgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
-        bottomRoundedButton.titleLabel.textColor = .white
-        bottomRoundedButton.titleLabel.font = .systemFont(ofSize: Constants.bottomRoundedButtonTitleLabelTextFontSize, weight: .medium)
-        bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText
-        bottomRoundedButton.add(bottomRoundedButtonTouchUpInsideTarget, for: .touchUpInside)
-        bottomRoundedButton.height(Constants.bottomRoundedButtonHeight)
-        bottomRoundedButton.centerX(to: self.view)
-        bottomRoundedButton.bottom(to: self.view.safeAreaLayoutGuide)
+    private func configureCompleteButton() {
+        completeButton.backgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
+        completeButton.titleLabel.textColor = .white
+        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: .medium)
+        completeButton.titleLabel.text = Constants.completeButtonTitleLabelText
+        completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
+        completeButton.height(Constants.completeButtonHeight)
+        completeButton.centerX(to: self.view)
+        completeButton.bottom(to: self.view.safeAreaLayoutGuide)
     }
     
     private func configureViewModel() {
@@ -130,8 +130,8 @@ class ConstructedItemViewController: UIViewController {
         }
         viewModel.totalPriceText.bind { value in
             if let text = value {
-                self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText + " | " + text
-            } else { self.bottomRoundedButton.titleLabel.text = Constants.bottomRoundedButtonTitleLabelText }
+                self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText + " | " + text
+            } else { self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText }
         }
         viewModel.isFavorite.bind { value in
             guard let value = value else { return }
@@ -146,7 +146,7 @@ class ConstructedItemViewController: UIViewController {
         }
     }
     
-    private func bottomRoundedButtonTouchUpInsideAction() {
+    private func completeButtonTouchUpInsideAction() {
         viewModel.beginAddToOutstandingOrderDownload() {
             self.navigationController?.popToRootViewController(animated: true)
         }

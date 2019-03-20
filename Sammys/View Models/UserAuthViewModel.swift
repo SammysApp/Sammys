@@ -8,6 +8,7 @@
 
 import Foundation
 import PromiseKit
+import FirebaseAuth
 
 class UserAuthViewModel {
     private var userData = UserData()
@@ -22,17 +23,46 @@ class UserAuthViewModel {
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
+    var userAuthManager: UserAuthManager
     
     // MARK: - View Settable Properties
     var textFieldTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
+    // MARK: - View Gettable Properties
+    var completedButtonText: String { return "Sign Up" }
+    
     private struct Constants {
         static let textFieldTableViewCellViewModelHeight: Double = 50
     }
     
-    init(httpClient: HTTPClient = URLSession.shared) {
+    init(httpClient: HTTPClient = URLSession.shared,
+         userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
+        self.userAuthManager = userAuthManager
+    }
+    
+    // MARK: - Download Methods
+    func beginCompleteDownload() {
+        beginCreateUserDownload()
+    }
+    
+    private func beginCreateUserDownload() {
+        guard let firstName = userData.firstName else { return }
+        guard let lastName = userData.lastName else { return }
+        guard let email = userData.email else { return }
+        guard let password = userData.password else { return }
+        userAuthManager.createAndSignInUser(email: email, password: password)
+            .then { self.userAuthManager.getCurrentUserIDJWT() }
+            .then { self.createUser(data: .init(email: email, firstName: firstName, lastName: lastName), jwt: $0) }
+            .done { _ in }.catch { self.errorHandler?($0) }
+    }
+    
+    private func createUser(data: CreateUserData, jwt: JWT) -> Promise<User> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeCreateUserRequest(data: data, jwt: jwt)).validate()
+                .map { try JSONDecoder().decode(User.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
     }
     
     // MARK: - Section Model Methods

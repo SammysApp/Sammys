@@ -13,15 +13,19 @@ class UserAuthViewController: UIViewController {
     let viewModel = UserAuthViewModel()
     
     let tableView = UITableView(frame: .zero, style: .grouped)
+    let completeButton = RoundedButton()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
+    
+    private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     enum CellIdentifier: String {
         case textFieldTableViewCell
     }
     
     private struct Constants {
+        static let tableViewTableFooterViewHeight: CGFloat = 60
         static let textFieldTableViewCellTitleLabelWidth: CGFloat = 120
     }
     
@@ -31,6 +35,7 @@ class UserAuthViewController: UIViewController {
         setUpView()
         configureViewModel()
         configureTableView()
+        configureCompleteButton()
     }
     
     // MARK: - Setup Methods
@@ -47,16 +52,37 @@ class UserAuthViewController: UIViewController {
         tableView.delegate = tableViewDelegate
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: CellIdentifier.textFieldTableViewCell.rawValue)
         tableView.edgesToSuperview()
+        let footerView = makeTableViewTableFooterView()
+        tableView.tableFooterView = footerView
         let sectionModels = viewModel.makeTableViewSectionModels()
         tableViewDataSource.sectionModels = sectionModels
         tableViewDelegate.sectionModels = sectionModels
         tableView.reloadData()
     }
     
+    private func configureCompleteButton() {
+        completeButton.backgroundColor = .gray
+        completeButton.titleLabel.text = viewModel.completedButtonText
+        completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
+    }
+    
     private func configureViewModel() {
         viewModel.textFieldTableViewCellViewModelActions = [
             .configuration: textFieldTableViewCellConfigurationAction
         ]
+    }
+    
+    // MARK: - Factory Methods
+    private func makeTableViewTableFooterView() -> UIView {
+        let footerView = UIView(frame: .init(x: 0, y: 0, width: tableView.frame.width, height: Constants.tableViewTableFooterViewHeight))
+        footerView.addSubview(completeButton)
+        completeButton.edgesToSuperview()
+        return footerView
+    }
+    
+    // MARK: - Target Actions
+    func completeButtonTouchUpInsideAction() {
+        viewModel.beginCompleteDownload()
     }
     
     // MARK: - Cell Actions

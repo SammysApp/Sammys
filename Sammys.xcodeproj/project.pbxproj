@@ -26,6 +26,9 @@
 		5B2C3C8A22415ED8006BE7B3 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */; };
 		5B2C3C8C224160FA006BE7B3 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8B224160FA006BE7B3 /* TextFieldTableViewCell.swift */; };
 		5B2C3C8E2241662C006BE7B3 /* UserAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8D2241662C006BE7B3 /* UserAuthViewModel.swift */; };
+		5B2C3C902241B03F006BE7B3 /* UserAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8F2241B03F006BE7B3 /* UserAuthManager.swift */; };
+		5B2C3C9222428378006BE7B3 /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C9122428378006BE7B3 /* JWT.swift */; };
+		5B2C3C94224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C93224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */; };
@@ -132,6 +135,9 @@
 		5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
 		5B2C3C8B224160FA006BE7B3 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		5B2C3C8D2241662C006BE7B3 /* UserAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewModel.swift; sourceTree = "<group>"; };
+		5B2C3C8F2241B03F006BE7B3 /* UserAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthManager.swift; sourceTree = "<group>"; };
+		5B2C3C9122428378006BE7B3 /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
+		5B2C3C93224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseAuth+UserAuthManager.swift"; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrder.swift; sourceTree = "<group>"; };
@@ -286,6 +292,7 @@
 				5B6CD5FF216ACDF000E30780 /* Dynamic.swift */,
 				5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */,
 				5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */,
+				5B2C3C8F2241B03F006BE7B3 /* UserAuthManager.swift */,
 			);
 			path = "Types and Protocols";
 			sourceTree = "<group>";
@@ -352,6 +359,7 @@
 				5B012217221DC72E0054AB7A /* HTTPMethod.swift */,
 				5B0124B5221E2B910054AB7A /* HTTPResponse.swift */,
 				5B01221B221DE97F0054AB7A /* HTTPServer.swift */,
+				5B2C3C9122428378006BE7B3 /* JWT.swift */,
 				5B012225221DF8930054AB7A /* URLRequest+HTTP.swift */,
 				5B6E366B221E346B004D5310 /* URLSession+HTTPClient.swift */,
 			);
@@ -452,6 +460,7 @@
 				5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */,
 				5B05C7B420E4652800BDFBF4 /* UISplitViewControllerExtensions.swift */,
 				5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */,
+				5B2C3C93224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -696,6 +705,7 @@
 				5B9A8ABD222450D100F5525D /* ItemsViewController.swift in Sources */,
 				5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */,
 				5B6E391E2223955B004D5310 /* Item.swift in Sources */,
+				5B2C3C94224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift in Sources */,
 				5B9A8AC92225C46A00F5525D /* RoundedTextCollectionViewCell.swift in Sources */,
 				5B9A8AB9222449AF00F5525D /* ItemsViewModel.swift in Sources */,
 				5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */,
@@ -730,6 +740,7 @@
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
 				5B01221A221DE4B80054AB7A /* HTTPEndpoint.swift in Sources */,
 				5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */,
+				5B2C3C9222428378006BE7B3 /* JWT.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraintArray.swift in Sources */,
 				5B012226221DF8930054AB7A /* URLRequest+HTTP.swift in Sources */,
 				5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */,
@@ -743,6 +754,7 @@
 				5B012218221DC72E0054AB7A /* HTTPMethod.swift in Sources */,
 				5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */,
+				5B2C3C902241B03F006BE7B3 /* UserAuthManager.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,
 				5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */,
