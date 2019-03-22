@@ -17,15 +17,16 @@ class UserViewModel {
     var httpClient: HTTPClient
     var userAuthManager: UserAuthManager
     
-    private var userID: User.ID?
-    
     // MARK: - Section Model Properties
     private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
         didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
-    var needsUserAuthHandler: (() -> Void)?
+    /// Required to be non-`nil`. Calling `beginUserDownload()` will
+    /// try getting the current user and setting this property.
+    var userID: User.ID?
+    
     var userDetailTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
@@ -48,11 +49,7 @@ class UserViewModel {
     }
     
     // MARK: - Download Methods
-    func beginDownloads() {
-        beginUserDownload()
-    }
-    
-    private func beginUserDownload() {
+    func beginUserDownload() {
         isUserDownloading.value = true
         let userPromise: Promise<User>
         if userID == nil {
@@ -65,12 +62,7 @@ class UserViewModel {
         }
         userPromise.ensure { self.isUserDownloading.value = false }.done { user in
                 self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(userDetails: self.makeUserDetails(user: user))
-            }.catch { error in
-                switch error {
-                case UserAuthManagerError.noCurrentUser: self.needsUserAuthHandler?()
-                default: self.errorHandler?(error)
-                }
-            }
+            }.catch { self.errorHandler?($0) }
     }
     
     private func getUser(token: JWT) -> Promise<User> {

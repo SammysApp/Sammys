@@ -22,7 +22,7 @@ class UserViewController: UIViewController {
         configureTableView()
         setUpView()
         configureViewModel()
-        viewModel.beginDownloads()
+        viewModel.beginUserDownload()
     }
     
     // MARK: - Setup Methods
@@ -50,10 +50,30 @@ class UserViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        viewModel.errorHandler = { error in
+            switch error {
+            case UserAuthManagerError.noCurrentUser:
+                self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
+            default: break
+            }
+        }
+    }
+    
+    // MARK: - Factory Methods
+    private func makeUserAuthPageViewController() -> UserAuthPageViewController {
+        let viewController = UserAuthPageViewController()
+        let userDidSignInHandler: (User.ID) -> Void = { id in
+            self.viewModel.userID = id
+            self.viewModel.beginUserDownload()
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        viewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        viewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        return viewController
     }
     
     // MARK: - Cell Actions
-    func userDetailTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
+    private func userDetailTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? UserViewModel.UserDetailTableViewCellViewModel,
             let cell = data.cell else { return }
         cell.textLabel?.text = cellViewModel.configurationData.text
