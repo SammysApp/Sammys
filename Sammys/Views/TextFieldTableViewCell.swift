@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class TextFieldTableViewCell: UITableViewCell {
     let titleLabel = UILabel()

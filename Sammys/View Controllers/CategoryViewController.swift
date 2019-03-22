@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class CategoryViewController: UIViewController {
     let viewModel = CategoryViewModel()

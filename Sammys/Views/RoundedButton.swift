@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class RoundedButton: UIControl {
     let titleLabel = UILabel()

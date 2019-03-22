@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class OutstandingOrderViewController: UIViewController {
     let viewModel = OutstandingOrderViewModel()

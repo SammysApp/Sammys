@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class CounterView: UIView {
     private var stackView = UIStackView()

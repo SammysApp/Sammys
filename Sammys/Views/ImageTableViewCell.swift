@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class ImageTableViewCell: UITableViewCell {
     private let _imageView = UIImageView()

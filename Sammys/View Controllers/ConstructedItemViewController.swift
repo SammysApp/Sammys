@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class ConstructedItemViewController: UIViewController {
     let viewModel = ConstructedItemViewModel()

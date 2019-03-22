@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class UserAuthViewController: UIViewController {
     let viewModel = UserAuthViewModel()

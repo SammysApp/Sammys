@@ -127,7 +127,7 @@ class UserAuthViewModel {
             identifier: CellIdentifier.textFieldTableViewCell.rawValue,
             height: .fixed(Constants.textFieldTableViewCellViewModelHeight),
             actions: textFieldTableViewCellViewModelActions,
-            configurationData: .init(title: cellModel.title) { self.userData[keyPath: cellModel.userDataKey] = $0; print(self.userData) }
+            configurationData: .init(title: cellModel.title) { self.userData[keyPath: cellModel.userDataKey] = $0 }
         )
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class StackTableViewCell: UITableViewCell {
     let contentStackView = UIStackView()

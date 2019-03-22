@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class RoundedTextCollectionViewCell: UICollectionViewCell {
     let textLabel = UILabel()

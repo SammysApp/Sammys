@@ -58,7 +58,7 @@ class UserViewController: UIViewController {
             switch error {
             case UserAuthManagerError.noCurrentUser:
                 self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
-            default: break
+            default: print(error)
             }
         }
     }

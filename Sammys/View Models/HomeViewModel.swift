@@ -83,7 +83,7 @@ class HomeViewModel {
             let imageURL = URL(string: imageURLString) {
             httpClient.send(URLRequest(url: imageURL))
                 .done { model.configurationData.imageData.value = $0.data }
-                .catch { print($0) }
+                .catch { self.errorHandler?($0) }
         }
         return model
     }
