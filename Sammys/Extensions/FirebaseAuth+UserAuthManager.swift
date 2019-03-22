@@ -38,4 +38,6 @@ extension Auth: UserAuthManager {
             }
         }
     }
+    
+    func signOutCurrentUser() throws { try self.signOut() }
 }

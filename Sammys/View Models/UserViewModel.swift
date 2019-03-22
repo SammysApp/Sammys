@@ -21,6 +21,9 @@ class UserViewModel {
     private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
         didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
     }
+    private var buttonsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+    }
     
     // MARK: - View Settable Properties
     /// Required to be non-`nil`. Calling `beginUserDownload()` will
@@ -28,6 +31,9 @@ class UserViewModel {
     var userID: User.ID?
     
     var userDetailTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]()
+    var buttonTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]() {
+        didSet { update() }
+    }
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -40,12 +46,18 @@ class UserViewModel {
     
     private struct Constants {
         static let userDetailTableViewCellViewModelHeight: Double = 60
+        static let buttonTableViewCellViewModelHeight: Double = 60
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
          userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
         self.userAuthManager = userAuthManager
+    }
+    
+    // MARK: - Setup Methods
+    func update() {
+        buttonsTableViewSectionModel = makeButtonsTableViewSectionModel(cellModels: makeButtonTableViewCellModels())
     }
     
     // MARK: - Download Methods
@@ -61,7 +73,7 @@ class UserViewModel {
                 .then { self.getUser(token: $0) }
         }
         userPromise.ensure { self.isUserDownloading.value = false }.done { user in
-                self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(userDetails: self.makeUserDetails(user: user))
+                self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(cellModels: self.makeUserDetailTableViewCellModels(user: user))
             }.catch { self.errorHandler?($0) }
     }
     
@@ -75,40 +87,79 @@ class UserViewModel {
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
+    func logOut() throws { try userAuthManager.signOutCurrentUser() }
+    
     // MARK: - Factory Methods
-    private func makeUserDetails(user: User) -> [UserDetail] {
+    private func makeUserDetailTableViewCellModels(user: User) -> [UserDetailTableViewCellModel] {
         return [
-            UserDetail(title: "Name", text: user.firstName + " " + user.lastName),
-            UserDetail(title: "Email", text: user.email)
+            UserDetailTableViewCellModel(title: "Name", text: user.firstName + " " + user.lastName),
+            UserDetailTableViewCellModel(title: "Email", text: user.email)
         ]
+    }
+    
+    private func makeButtonTableViewCellModels() -> [ButtonTableViewCellModel] {
+        return Button.allCases.map(ButtonTableViewCellModel.init)
     }
     
     // MARK: - Section Model Methods
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let userDetailsModel = userDetailsTableViewSectionModel { sectionModels.append(userDetailsModel) }
+        if let buttonsModel = buttonsTableViewSectionModel { sectionModels.append(buttonsModel) }
         return sectionModels
     }
     
-    private func makeUserDetailsTableViewSectionModel(userDetails: [UserDetail]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: userDetails.map(makeUserDetailTableViewCellViewModel))
+    private func makeUserDetailsTableViewSectionModel(cellModels: [UserDetailTableViewCellModel]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: cellModels.map(makeUserDetailTableViewCellViewModel))
+    }
+    
+    private func makeButtonsTableViewSectionModel(cellModels: [ButtonTableViewCellModel]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: cellModels.map(makeButtonTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods
-    private func makeUserDetailTableViewCellViewModel(userDetail: UserDetail) -> UserDetailTableViewCellViewModel {
+    private func makeUserDetailTableViewCellViewModel(cellModel: UserDetailTableViewCellModel) -> UserDetailTableViewCellViewModel {
         return UserDetailTableViewCellViewModel(
             identifier: CellIdentifier.tableViewCell.rawValue,
             height: .fixed(Constants.userDetailTableViewCellViewModelHeight),
             actions: userDetailTableViewCellViewModelActions,
-            configurationData: .init(text: userDetail.text)
+            configurationData: .init(text: cellModel.text)
+        )
+    }
+    
+    private func makeButtonTableViewCellViewModel(cellModel: ButtonTableViewCellModel) -> ButtonTableViewCellViewModel {
+        return ButtonTableViewCellViewModel(
+            identifier: CellIdentifier.tableViewCell.rawValue,
+            height: .fixed(Constants.buttonTableViewCellViewModelHeight),
+            actions: buttonTableViewCellViewModelActions,
+            configurationData: .init(title: cellModel.button.title),
+            selectionData: .init(button: cellModel.button)
         )
     }
 }
 
 private extension UserViewModel {
-    struct UserDetail {
+    struct UserDetailTableViewCellModel {
         let title: String
         let text: String
+    }
+}
+
+extension UserViewModel {
+    enum Button: CaseIterable {
+        case logOut
+        
+        var title: String {
+            switch self {
+            case .logOut: return "Log Out"
+            }
+        }
+    }
+}
+
+private extension UserViewModel {
+    struct ButtonTableViewCellModel {
+        let button: Button
     }
 }
 
@@ -121,6 +172,24 @@ extension UserViewModel {
         
         struct ConfigurationData {
             let text: String
+        }
+    }
+}
+
+extension UserViewModel {
+    struct ButtonTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let actions: [UITableViewCellAction : UITableViewCellActionHandler]
+        let configurationData: ConfigurationData
+        let selectionData: SelectionData
+        
+        struct ConfigurationData {
+            let title: String
+        }
+        
+        struct SelectionData {
+            let button: Button
         }
     }
 }

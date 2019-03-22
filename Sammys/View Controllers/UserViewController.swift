@@ -45,7 +45,11 @@ class UserViewController: UIViewController {
         viewModel.userDetailTableViewCellViewModelActions = [
             .configuration: userDetailTableViewCellConfigrationAction
         ]
-        viewModel.tableViewSectionModels.bind { value in
+        viewModel.buttonTableViewCellViewModelActions = [
+            .configuration: buttonTableViewCellConfigrationAction,
+            .selection: buttonTableViewCellSelectionAction
+        ]
+        viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
@@ -76,6 +80,22 @@ class UserViewController: UIViewController {
     private func userDetailTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? UserViewModel.UserDetailTableViewCellViewModel,
             let cell = data.cell else { return }
+        cell.textLabel?.textAlignment = .natural
         cell.textLabel?.text = cellViewModel.configurationData.text
+    }
+    
+    private func buttonTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? UserViewModel.ButtonTableViewCellViewModel,
+            let cell = data.cell else { return }
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.text = cellViewModel.configurationData.title
+    }
+    
+    private func buttonTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? UserViewModel.ButtonTableViewCellViewModel else { return }
+        switch cellViewModel.selectionData.button {
+        case .logOut:
+            do { try viewModel.logOut(); self.dismiss(animated: true, completion: nil) } catch {  }
+        }
     }
 }

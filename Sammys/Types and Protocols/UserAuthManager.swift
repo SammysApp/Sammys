@@ -13,6 +13,7 @@ protocol UserAuthManager {
     func createAndSignInUser(email: String, password: String) -> Promise<Void>
     func signInUser(email: String, password: String) -> Promise<Void>
     func getCurrentUserIDToken() -> Promise<JWT>
+    func signOutCurrentUser() throws
 }
 
 enum UserAuthManagerError: Error {

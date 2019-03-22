@@ -122,12 +122,12 @@ class UserAuthViewModel {
     }
     
     // MARK: - Cell View Model Methods
-    private func makeTextFieldTableViewCellViewModel(model: TextFieldTableViewCellModel) -> TextFieldTableViewCellViewModel {
+    private func makeTextFieldTableViewCellViewModel(cellModel: TextFieldTableViewCellModel) -> TextFieldTableViewCellViewModel {
         return TextFieldTableViewCellViewModel(
             identifier: CellIdentifier.textFieldTableViewCell.rawValue,
             height: .fixed(Constants.textFieldTableViewCellViewModelHeight),
             actions: textFieldTableViewCellViewModelActions,
-            configurationData: .init(title: model.title) { self.userData[keyPath: model.userDataKey] = $0; print(self.userData) }
+            configurationData: .init(title: cellModel.title) { self.userData[keyPath: cellModel.userDataKey] = $0; print(self.userData) }
         )
     }
 }
