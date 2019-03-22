@@ -11,8 +11,8 @@ import PromiseKit
 
 protocol UserAuthManager {
     func createAndSignInUser(email: String, password: String) -> Promise<Void>
-    
-    func getCurrentUserIDJWT() -> Promise<JWT>
+    func signInUser(email: String, password: String) -> Promise<Void>
+    func getCurrentUserIDToken() -> Promise<JWT>
 }
 
 enum UserAuthManagerError: Error {

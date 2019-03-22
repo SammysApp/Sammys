@@ -30,10 +30,10 @@ class HomeViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
-        configureViewModel()
-        configureNavigation()
         configureTableView()
+        configureNavigation()
+        configureViewModel()
+        setUpView()
         viewModel.beginDownloads()
     }
     
@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
     
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
+        tableView.edgesToSuperview()
     }
     
     private func configureNavigation() {
@@ -59,7 +60,6 @@ class HomeViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: CellIdentifier.imageTableViewCell.rawValue)
-        tableView.edgesToSuperview()
     }
     
     private func configureViewModel() {
@@ -84,7 +84,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Target Actions
     private func userBarButtonItemTargetAction() {
-        self.present(UINavigationController(rootViewController: UserAuthViewController()), animated: true, completion: nil)
+        self.present(UINavigationController(rootViewController: UserAuthPageViewController()), animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions

@@ -10,6 +10,10 @@ import Foundation
 
 enum APIEndpoint: HTTPEndpoint {
     // MARK: - GET
+    /// GET `/users/:user`
+    case getUser(User.ID)
+    /// GET `/users/tokenUser`
+    case getTokenUser
     /// GET `/categories`
     case getCategories
     /// GET `/categories/:category/subcategories`
@@ -56,6 +60,10 @@ enum APIEndpoint: HTTPEndpoint {
     
     var endpoint: (HTTPMethod, URLPath) {
         switch self {
+        case .getUser(let id):
+            return (.GET, "/\(version)/users/\(id)")
+        case .getTokenUser:
+            return (.GET, "/\(version)/users/tokenUser")
         case .getCategories:
             return (.GET, "/\(version)/categories")
         case .getSubcategories(let id):

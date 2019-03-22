@@ -35,9 +35,9 @@ class ItemsViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
-        configureViewModel()
         configureTableView()
+        configureViewModel()
+        setUpView()
     }
     
     // MARK: - Setup Methods
@@ -47,13 +47,13 @@ class ItemsViewController: UIViewController {
     
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
+        tableView.edgesToSuperview()
     }
     
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.tableViewCell.rawValue)
-        tableView.edgesToSuperview()
     }
     
     private func configureViewModel() {

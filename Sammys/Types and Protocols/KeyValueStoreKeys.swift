@@ -9,5 +9,6 @@
 import Foundation
 
 enum KeyValueStoreKeys: String, KeyValueStoreKey {
-    case outstandingOrder
+    case currentUserID = "sammys.currentUserID"
+    case currentOutstandingOrderID = "sammys.currentOutstandingOrderID"
 }

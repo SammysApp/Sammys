@@ -39,12 +39,13 @@ class ConstructedItemViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
-        configureViewModel()
-        configureNavigation()
         configureCategoryCollectionView()
         configureItemsViewController()
         configureCompleteButton()
+        configureNavigation()
+        configureViewModel()
+        setUpView()
+        addChildren()
         viewModel.beginDownloads()
     }
     
@@ -57,6 +58,15 @@ class ConstructedItemViewController: UIViewController {
     private func addSubviews() {
         [categoryCollectionView, completeButton]
             .forEach { self.view.addSubview($0) }
+        categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
+        completeButton.centerX(to: self.view)
+        completeButton.bottom(to: self.view.safeAreaLayoutGuide)
+    }
+    
+    private func addChildren() {
+        add(itemsViewController)
+        view.sendSubviewToBack(itemsViewController.view)
+        itemsViewController.view.edgesToSuperview(usingSafeArea: true)
     }
     
     private func configureNavigation() {
@@ -75,7 +85,6 @@ class ConstructedItemViewController: UIViewController {
         categoryCollectionView.showsHorizontalScrollIndicator = false
         categoryCollectionView.contentInset.left = Constants.categoryCollectionViewInset
         categoryCollectionView.contentInset.right = Constants.categoryCollectionViewInset
-        categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
         categoryCollectionView.height(Constants.categoryCollectionViewHeight)
     }
     
@@ -87,12 +96,9 @@ class ConstructedItemViewController: UIViewController {
         itemsViewController.removeItemHandler = { data in
             self.viewModel.beginRemoveConstructedItemItemsDownload(categoryItemID: data.categoryItemID)
         }
-        add(itemsViewController)
-        view.sendSubviewToBack(itemsViewController.view)
         itemsViewController.tableView.contentInset.top =
             Constants.categoryCollectionViewHeight + (Constants.categoryCollectionViewInset * 2)
         itemsViewController.tableView.scrollIndicatorInsets.top = itemsViewController.tableView.contentInset.top
-        itemsViewController.view.edgesToSuperview(usingSafeArea: true)
     }
     
     private func configureCompleteButton() {
@@ -102,8 +108,6 @@ class ConstructedItemViewController: UIViewController {
         completeButton.titleLabel.text = Constants.completeButtonTitleLabelText
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
         completeButton.height(Constants.completeButtonHeight)
-        completeButton.centerX(to: self.view)
-        completeButton.bottom(to: self.view.safeAreaLayoutGuide)
     }
     
     private func configureViewModel() {

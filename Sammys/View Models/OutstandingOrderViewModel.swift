@@ -44,7 +44,7 @@ class OutstandingOrderViewModel {
     func beginDownloads() {
         let outstandingOrderPromise: Promise<Void>
         if outstandingOrderID == nil {
-            if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.outstandingOrder),
+            if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
                 let id = OutstandingOrder.ID(uuidString: idString) {
                 outstandingOrderID = id
                 outstandingOrderPromise = beginOutstandingOrderDownload()

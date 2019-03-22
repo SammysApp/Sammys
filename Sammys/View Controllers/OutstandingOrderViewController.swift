@@ -28,9 +28,9 @@ class OutstandingOrderViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
-        configureViewModel()
         configureTableView()
+        configureViewModel()
+        setUpView()
         viewModel.beginDownloads()
     }
     
@@ -41,6 +41,7 @@ class OutstandingOrderViewController: UIViewController {
     
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
+        tableView.edgesToSuperview()
     }
     
     private func configureTableView() {
@@ -48,7 +49,6 @@ class OutstandingOrderViewController: UIViewController {
         tableView.delegate = tableViewDelegate
         tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: CellIdentifier.constructedItemStackTableViewCell.rawValue)
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
-        tableView.edgesToSuperview()
     }
     
     private func configureViewModel() {

@@ -106,13 +106,13 @@ class ConstructedItemViewModel {
     }
     
     private func beginOutstandingOrderDownload() -> Promise<Void> {
-        if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.outstandingOrder) {
+        if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
             return Promise { $0.fulfill(()) }
         } else {
             return createOutstandingOrder(data: .init()).done {
                 self.outstandingOrderID = $0.id
-                self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.outstandingOrder)
+                self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
             }
         }
     }

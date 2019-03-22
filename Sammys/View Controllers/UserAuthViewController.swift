@@ -32,10 +32,11 @@ class UserAuthViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
-        configureViewModel()
         configureTableView()
         configureCompleteButton()
+        configureViewModel()
+        setUpView()
+        update()
     }
     
     // MARK: - Setup Methods
@@ -45,24 +46,20 @@ class UserAuthViewController: UIViewController {
     
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
+        tableView.edgesToSuperview()
     }
     
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: CellIdentifier.textFieldTableViewCell.rawValue)
-        tableView.edgesToSuperview()
         let footerView = makeTableViewTableFooterView()
         tableView.tableFooterView = footerView
-        let sectionModels = viewModel.makeTableViewSectionModels()
-        tableViewDataSource.sectionModels = sectionModels
-        tableViewDelegate.sectionModels = sectionModels
-        tableView.reloadData()
     }
     
     private func configureCompleteButton() {
-        completeButton.backgroundColor = .gray
-        completeButton.titleLabel.text = viewModel.completedButtonText
+        completeButton.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        completeButton.titleLabel.textColor = .white
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
@@ -70,6 +67,22 @@ class UserAuthViewController: UIViewController {
         viewModel.textFieldTableViewCellViewModelActions = [
             .configuration: textFieldTableViewCellConfigurationAction
         ]
+    }
+    
+    func update() {
+        updateTableView()
+        updateCompleteButton()
+    }
+    
+    private func updateTableView() {
+        let sectionModels = viewModel.tableViewSectionModels
+        tableViewDataSource.sectionModels = sectionModels
+        tableViewDelegate.sectionModels = sectionModels
+        tableView.reloadData()
+    }
+    
+    private func updateCompleteButton() {
+        completeButton.titleLabel.text = viewModel.completedButtonText
     }
     
     // MARK: - Factory Methods

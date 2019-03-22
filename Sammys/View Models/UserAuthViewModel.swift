@@ -12,39 +12,65 @@ import FirebaseAuth
 
 class UserAuthViewModel {
     private var userData = UserData()
-    private let textFieldTableViewCellModels = [
+    
+    private let newUserTextFieldTableViewCellModels = [
         TextFieldTableViewCellModel(title: "First Name", userDataKey: \.firstName),
         TextFieldTableViewCellModel(title: "Last Name", userDataKey: \.lastName),
         TextFieldTableViewCellModel(title: "Email", userDataKey: \.email),
         TextFieldTableViewCellModel(title: "Password", userDataKey: \.password)
     ]
+    private let existingUserTextFieldTableViewCellModels = [
+        TextFieldTableViewCellModel(title: "Email", userDataKey: \.email),
+        TextFieldTableViewCellModel(title: "Password", userDataKey: \.password)
+    ]
+    private var textFieldTableViewCellModels: [TextFieldTableViewCellModel] {
+        switch userStatus {
+        case .new: return newUserTextFieldTableViewCellModels
+        case .existing: return existingUserTextFieldTableViewCellModels
+        }
+    }
     
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
+    var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
     // MARK: - View Settable Properties
+    var userStatus: UserStatus = .new
     var textFieldTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - View Gettable Properties
-    var completedButtonText: String { return "Sign Up" }
+    var tableViewSectionModels: [UITableViewSectionModel] {
+        return makeTableViewSectionModels()
+    }
+    var completedButtonText: String {
+        switch userStatus {
+        case .new: return "Sign Up"
+        case .existing: return "Sign In"
+        }
+    }
     
     private struct Constants {
         static let textFieldTableViewCellViewModelHeight: Double = 50
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
+         keyValueStore: KeyValueStore = UserDefaults.standard,
          userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
+        self.keyValueStore = keyValueStore
         self.userAuthManager = userAuthManager
     }
     
     // MARK: - Download Methods
     func beginCompleteDownload() {
-        beginCreateUserDownload()
+        switch userStatus {
+        case .new: beginCreateUserDownload()
+        case .existing: beginSignInUserDownload()
+        }
     }
     
     private func beginCreateUserDownload() {
@@ -53,20 +79,36 @@ class UserAuthViewModel {
         guard let email = userData.email else { return }
         guard let password = userData.password else { return }
         userAuthManager.createAndSignInUser(email: email, password: password)
-            .then { self.userAuthManager.getCurrentUserIDJWT() }
-            .then { self.createUser(data: .init(email: email, firstName: firstName, lastName: lastName), jwt: $0) }
-            .done { _ in }.catch { self.errorHandler?($0) }
+            .then { self.userAuthManager.getCurrentUserIDToken() }
+            .then { self.createUser(data: .init(email: email, firstName: firstName, lastName: lastName), token: $0) }
+            .done { self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentUserID) }
+            .catch { self.errorHandler?($0) }
     }
     
-    private func createUser(data: CreateUserData, jwt: JWT) -> Promise<User> {
+    private func beginSignInUserDownload() {
+        guard let email = userData.email else { return }
+        guard let password = userData.password else { return }
+        userAuthManager.signInUser(email: email, password: password)
+            .then { self.userAuthManager.getCurrentUserIDToken() }
+            .then { self.getUser(token: $0) }
+            .done { print($0.id); self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentUserID) }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    private func createUser(data: CreateUserData, token: JWT) -> Promise<User> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateUserRequest(data: data, jwt: jwt)).validate()
+            return try httpClient.send(apiURLRequestFactory.makeCreateUserRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(User.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
+    private func getUser(token: JWT) -> Promise<User> {
+        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token))
+            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+    }
+    
     // MARK: - Section Model Methods
-    func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         return [makeTextFieldTableViewSectionModel()]
     }
     
@@ -82,6 +124,12 @@ class UserAuthViewModel {
             actions: textFieldTableViewCellViewModelActions,
             configurationData: .init(title: model.title) { self.userData[keyPath: model.userDataKey] = $0; print(self.userData) }
         )
+    }
+}
+
+extension UserAuthViewModel {
+    enum UserStatus {
+        case new, existing
     }
 }
 
