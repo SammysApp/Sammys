@@ -20,10 +20,6 @@ class ItemsViewController: UIViewController {
     var addItemHandler: ((ItemData) -> Void)?
     var removeItemHandler: ((ItemData) -> Void)?
     
-    enum CellIdentifier: String {
-        case tableViewCell
-    }
-    
     struct ItemData {
         let categoryItemID: UUID
     }
@@ -36,8 +32,8 @@ class ItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        configureViewModel()
         setUpView()
+        configureViewModel()
     }
     
     // MARK: - Setup Methods
@@ -53,7 +49,7 @@ class ItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.tableViewCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.tableViewCell.rawValue)
     }
     
     private func configureViewModel() {

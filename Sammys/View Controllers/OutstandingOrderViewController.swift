@@ -17,10 +17,6 @@ class OutstandingOrderViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    enum CellIdentifier: String {
-        case constructedItemStackTableViewCell
-    }
-    
     private struct Constants {
         static let tableViewEstimatedRowHeight: CGFloat = 100
     }
@@ -29,8 +25,8 @@ class OutstandingOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        configureViewModel()
         setUpView()
+        configureViewModel()
         viewModel.beginDownloads()
     }
     
@@ -47,7 +43,7 @@ class OutstandingOrderViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: CellIdentifier.constructedItemStackTableViewCell.rawValue)
+        tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.constructedItemStackTableViewCell.rawValue)
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
     }
     

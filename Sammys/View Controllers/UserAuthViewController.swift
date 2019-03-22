@@ -20,10 +20,6 @@ class UserAuthViewController: UIViewController {
     
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
-    enum CellIdentifier: String {
-        case textFieldTableViewCell
-    }
-    
     private struct Constants {
         static let tableViewTableFooterViewHeight: CGFloat = 60
         static let textFieldTableViewCellTitleLabelWidth: CGFloat = 120
@@ -34,8 +30,8 @@ class UserAuthViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureCompleteButton()
-        configureViewModel()
         setUpView()
+        configureViewModel()
         update()
     }
     
@@ -52,7 +48,7 @@ class UserAuthViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: CellIdentifier.textFieldTableViewCell.rawValue)
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: UserAuthViewModel.CellIdentifier.textFieldTableViewCell.rawValue)
         let footerView = makeTableViewTableFooterView()
         tableView.tableFooterView = footerView
     }

@@ -32,10 +32,6 @@ class ConstructedItemViewController: UIViewController {
         static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
     }
     
-    enum CellIdentifier: String {
-        case roundedTextCollectionViewCell
-    }
-    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +39,9 @@ class ConstructedItemViewController: UIViewController {
         configureItemsViewController()
         configureCompleteButton()
         configureNavigation()
-        configureViewModel()
         setUpView()
         addChildren()
+        configureViewModel()
         viewModel.beginDownloads()
     }
     
@@ -80,7 +76,7 @@ class ConstructedItemViewController: UIViewController {
         }
         categoryCollectionView.dataSource = categoryCollectionViewDataSource
         categoryCollectionView.delegate = categoryCollectionViewDelegate
-        categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.roundedTextCollectionViewCell.rawValue)
+        categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: ConstructedItemViewModel.CellIdentifier.roundedTextCollectionViewCell.rawValue)
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.showsHorizontalScrollIndicator = false
         categoryCollectionView.contentInset.left = Constants.categoryCollectionViewInset

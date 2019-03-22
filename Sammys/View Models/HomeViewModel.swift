@@ -28,6 +28,10 @@ class HomeViewModel {
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
     
+    enum CellIdentifier: String {
+        case imageTableViewCell
+    }
+    
     private struct Constants {
         static let categoryImageTableViewCellViewModelHeight: Double = 200
     }
@@ -69,7 +73,7 @@ class HomeViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryImageTableViewCellViewModel(category: Category) -> CategoryImageTableViewCellViewModel {
         let model = CategoryImageTableViewCellViewModel(
-            identifier: HomeViewController.CellIdentifier.imageTableViewCell.rawValue,
+            identifier: CellIdentifier.imageTableViewCell.rawValue,
             height: .fixed(Constants.categoryImageTableViewCellViewModelHeight),
             actions: categoryImageTableViewCellViewModelActions,
             configurationData: .init(text: category.name),

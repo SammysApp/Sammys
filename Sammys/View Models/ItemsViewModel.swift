@@ -33,6 +33,10 @@ class ItemsViewModel {
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isItemsDownloading = Dynamic(false)
     
+    enum CellIdentifier: String {
+        case tableViewCell
+    }
+    
     private struct Constants {
         static let itemTableViewCellViewModelHeight: Double = 60
     }
@@ -73,7 +77,7 @@ class ItemsViewModel {
     // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
-            identifier: ItemsViewController.CellIdentifier.tableViewCell.rawValue,
+            identifier: CellIdentifier.tableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, categoryItemID: item.categoryItemID),

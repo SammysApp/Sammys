@@ -40,6 +40,7 @@ class UserAuthViewModel {
     // MARK: - View Settable Properties
     var userStatus: UserStatus = .new
     var textFieldTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var userDidSignInHandler: ((User.ID) -> Void)?
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - View Gettable Properties
@@ -51,6 +52,10 @@ class UserAuthViewModel {
         case .new: return "Sign Up"
         case .existing: return "Sign In"
         }
+    }
+    
+    enum CellIdentifier: String {
+        case textFieldTableViewCell
     }
     
     private struct Constants {
@@ -81,7 +86,7 @@ class UserAuthViewModel {
         userAuthManager.createAndSignInUser(email: email, password: password)
             .then { self.userAuthManager.getCurrentUserIDToken() }
             .then { self.createUser(data: .init(email: email, firstName: firstName, lastName: lastName), token: $0) }
-            .done { self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentUserID) }
+            .done { self.userDidSignInHandler?($0.id) }
             .catch { self.errorHandler?($0) }
     }
     
@@ -90,8 +95,8 @@ class UserAuthViewModel {
         guard let password = userData.password else { return }
         userAuthManager.signInUser(email: email, password: password)
             .then { self.userAuthManager.getCurrentUserIDToken() }
-            .then { self.getUser(token: $0) }
-            .done { print($0.id); self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentUserID) }
+            .then { self.getTokenUser(token: $0) }
+            .done { self.userDidSignInHandler?($0.id) }
             .catch { self.errorHandler?($0) }
     }
     
@@ -102,7 +107,7 @@ class UserAuthViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func getUser(token: JWT) -> Promise<User> {
+    private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token))
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
@@ -119,7 +124,7 @@ class UserAuthViewModel {
     // MARK: - Cell View Model Methods
     private func makeTextFieldTableViewCellViewModel(model: TextFieldTableViewCellModel) -> TextFieldTableViewCellViewModel {
         return TextFieldTableViewCellViewModel(
-            identifier: UserAuthViewController.CellIdentifier.textFieldTableViewCell.rawValue,
+            identifier: CellIdentifier.textFieldTableViewCell.rawValue,
             height: .fixed(Constants.textFieldTableViewCellViewModelHeight),
             actions: textFieldTableViewCellViewModelActions,
             configurationData: .init(title: model.title) { self.userData[keyPath: model.userDataKey] = $0; print(self.userData) }

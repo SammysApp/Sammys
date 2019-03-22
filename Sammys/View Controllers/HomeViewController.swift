@@ -19,10 +19,6 @@ class HomeViewController: UIViewController {
     
     private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemTargetAction)
     
-    enum CellIdentifier: String {
-        case imageTableViewCell
-    }
-    
     private struct Constants {
         static let categoryImageTableViewCellTextLabelFontSize: CGFloat = 28
     }
@@ -32,8 +28,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureNavigation()
-        configureViewModel()
         setUpView()
+        configureViewModel()
         viewModel.beginDownloads()
     }
     
@@ -59,7 +55,7 @@ class HomeViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: CellIdentifier.imageTableViewCell.rawValue)
+        tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.imageTableViewCell.rawValue)
     }
     
     private func configureViewModel() {
@@ -84,7 +80,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Target Actions
     private func userBarButtonItemTargetAction() {
-        self.present(UINavigationController(rootViewController: UserAuthPageViewController()), animated: true, completion: nil)
+        self.present(UINavigationController(rootViewController: UserViewController()), animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions

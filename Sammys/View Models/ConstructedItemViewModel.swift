@@ -42,6 +42,10 @@ class ConstructedItemViewModel {
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     let isFavorite: Dynamic<Bool?> = Dynamic(false)
     
+    enum CellIdentifier: String {
+        case roundedTextCollectionViewCell
+    }
+    
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
@@ -178,7 +182,7 @@ class ConstructedItemViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
         var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
-            identifier: ConstructedItemViewController.CellIdentifier.roundedTextCollectionViewCell.rawValue,
+            identifier: CellIdentifier.roundedTextCollectionViewCell.rawValue,
             size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),

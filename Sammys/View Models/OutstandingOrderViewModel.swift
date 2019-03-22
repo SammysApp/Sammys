@@ -34,6 +34,10 @@ class OutstandingOrderViewModel {
     let isOutstandingOrderDownloading = Dynamic(false)
     let isItemsDownloading = Dynamic(false)
     
+    enum CellIdentifier: String {
+        case constructedItemStackTableViewCell
+    }
+    
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard) {
         self.httpClient = httpClient
@@ -118,7 +122,7 @@ class OutstandingOrderViewModel {
     // MARK: - Cell View Model Methods
     private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
         return ConstructedItemStackTableViewCellViewModel(
-            identifier: OutstandingOrderViewController.CellIdentifier.constructedItemStackTableViewCell.rawValue,
+            identifier: CellIdentifier.constructedItemStackTableViewCell.rawValue,
             height: .automatic,
             actions: constructedItemStackCellViewModelActions,
             configurationData: .init(

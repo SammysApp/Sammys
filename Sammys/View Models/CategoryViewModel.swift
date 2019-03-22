@@ -32,6 +32,10 @@ class CategoryViewModel {
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isCategoriesDownloading = Dynamic(false)
     
+    enum CellIdentifier: String {
+        case tableViewCell
+    }
+    
     private struct Constants {
         static let categoryTableViewCellViewModelHeight: Double = 100
     }
@@ -78,7 +82,7 @@ class CategoryViewModel {
     // MARK: - Cell View Model Methods
     private func makeCategoryTableViewCellViewModel(category: Category) -> CategoryTableViewCellViewModel {
         return CategoryTableViewCellViewModel(
-            identifier: CategoryViewController.CellIdentifier.tableViewCell.rawValue,
+            identifier: CellIdentifier.tableViewCell.rawValue,
             height: .fixed(Constants.categoryTableViewCellViewModelHeight),
             actions: categoryTableViewCellViewModelActions,
             configurationData: .init(text: category.name),

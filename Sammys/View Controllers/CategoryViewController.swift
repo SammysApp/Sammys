@@ -17,10 +17,6 @@ class CategoryViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    enum CellIdentifier: String {
-        case tableViewCell
-    }
-    
     private struct Constants {
         static let categoryTableViewCellTextLabelFontSize: CGFloat = 18
     }
@@ -29,8 +25,8 @@ class CategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
-        configureViewModel()
         setUpView()
+        configureViewModel()
         viewModel.beginDownloads()
     }
     
@@ -47,7 +43,7 @@ class CategoryViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier.tableViewCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategoryViewModel.CellIdentifier.tableViewCell.rawValue)
     }
     
     private func configureViewModel() {
