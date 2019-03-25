@@ -74,8 +74,12 @@ class CategoryViewController: UIViewController {
         let constructedItemViewController = ConstructedItemViewController()
         constructedItemViewController.title = title
         constructedItemViewController.viewModel.categoryID = categoryID
-        // Create a new constructed item.
-        constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
+        // Create a new constructed item after downloading potential signed in user.
+        if constructedItemViewController.viewModel.isUserSignedIn {
+            constructedItemViewController.viewModel.beginUserDownload {
+                constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
+            }
+        } else { constructedItemViewController.viewModel.beginCreateConstructedItemDownload() }
         constructedItemViewController.hidesBottomBarWhenPushed = true
         return constructedItemViewController
     }

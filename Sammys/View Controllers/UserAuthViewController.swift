@@ -24,7 +24,7 @@ class UserAuthViewController: UIViewController {
         static let textFieldTableViewCellTitleLabelWidth: CGFloat = 120
     }
     
-    // MARK: - Lifecycle
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()

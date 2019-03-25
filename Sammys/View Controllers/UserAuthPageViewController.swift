@@ -26,7 +26,7 @@ class UserAuthPageViewController: UIViewController {
         static let newUserStatusSegmentedControlSegmentTitle = "Sign Up"
     }
     
-    // MARK: - Lifecycle
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureExistingUserAuthViewController()

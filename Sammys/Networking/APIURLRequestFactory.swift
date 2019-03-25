@@ -76,9 +76,8 @@ struct APIURLRequestFactory {
     }
     
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
-        var headers = [HTTPHeader(name: .contentType, value: .json)]
-        if let token = token { headers.append(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
-        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: headers) ?? preconditionFailure()
+        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -109,8 +108,9 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - PATCH
-    func makePartiallyUpdateConstructedItemRequest(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    func makePartiallyUpdateConstructedItemRequest(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }

@@ -36,6 +36,9 @@ class ConstructedItemViewModel {
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
     var errorHandler: ((Error) -> Void)?
     
+    // MARK: - View Gettable Properties
+    var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
+    
     // MARK: - Dynamic Properties
     /// The selected category ID to present its items.
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
@@ -65,10 +68,11 @@ class ConstructedItemViewModel {
     
     func beginCreateConstructedItemDownload() {
         let constructedItemPromise: Promise<ConstructedItem>
-        if userAuthManager.isUserSignedIn {
-            constructedItemPromise = beginUserDownload()
-                .then { self.userAuthManager.getCurrentUserIDToken() }
-                .then { token in self.getUser(token: token).then { self.createConstructedItem(data: .init(categoryID: self.categoryID ?? preconditionFailure(), userID: $0.id), token: token) } }
+        if userID != nil {
+            constructedItemPromise = userAuthManager.getCurrentUserIDToken().then { token in
+                self.getUser(token: token)
+                    .then { self.createConstructedItem(data: .init(categoryID: self.categoryID ?? preconditionFailure(), userID: $0.id), token: token) }
+            }
         } else {
             constructedItemPromise = createConstructedItem(data: .init(categoryID: categoryID ?? preconditionFailure()))
         }
@@ -108,8 +112,17 @@ class ConstructedItemViewModel {
     }
     
     func beginFavoriteDownload(isFavorite: Bool) {
+        
         partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite))
             .done { self.isFavorite.value = $0.isFavorite }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    func beginUserDownload(successHandler: (() -> Void)? = nil) {
+        userAuthManager.getCurrentUserIDToken()
+            .then { self.getTokenUser(token: $0) }
+            .get { self.userID = $0.id }.asVoid()
+            .done { successHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
@@ -138,13 +151,6 @@ class ConstructedItemViewModel {
         return addOutstandingOrderConstructedItems(
             outstandingOrderID: outstandingOrderID ?? preconditionFailure(), data: .init(ids: [self.constructedItemID ?? preconditionFailure()])
         ).asVoid()
-    }
-    
-    private func beginUserDownload() -> Promise<Void> {
-        guard userID == nil else { return Promise { $0.fulfill(()) } }
-        return userAuthManager.getCurrentUserIDToken()
-            .then { self.getTokenUser(token: $0) }
-            .get { self.userID = $0.id }.asVoid()
     }
     
     private func getCategories() -> Promise<[Category]> {
