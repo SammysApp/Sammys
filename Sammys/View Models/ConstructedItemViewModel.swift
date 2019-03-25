@@ -8,6 +8,7 @@
 
 import Foundation
 import PromiseKit
+import FirebaseAuth
 
 class ConstructedItemViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
@@ -15,6 +16,7 @@ class ConstructedItemViewModel {
     // MARK: - Dependencies
     var httpClient: HTTPClient
     var keyValueStore: KeyValueStore
+    var userAuthManager: UserAuthManager
     
     // MARK: - View Settable Properties
     /// The category ID of the presented constructed item. Required to be non-`nil`.
@@ -28,6 +30,7 @@ class ConstructedItemViewModel {
     /// If not set, will attempt to set when
     /// beginAddToOutstandingOrderDownload() is called.
     var outstandingOrderID: OutstandingOrder.ID?
+    var userID: User.ID?
     
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction: UICollectionViewCellActionHandler]()
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
@@ -47,9 +50,11 @@ class ConstructedItemViewModel {
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
-         keyValueStore: KeyValueStore = UserDefaults.standard) {
+         keyValueStore: KeyValueStore = UserDefaults.standard,
+         userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
         self.keyValueStore = keyValueStore
+        self.userAuthManager = userAuthManager
     }
     
     // MARK: - Download Methods
@@ -59,7 +64,15 @@ class ConstructedItemViewModel {
     }
     
     func beginCreateConstructedItemDownload() {
-        createConstructedItem()
+        let constructedItemPromise: Promise<ConstructedItem>
+        if userAuthManager.isUserSignedIn {
+            constructedItemPromise = beginUserDownload()
+                .then { self.userAuthManager.getCurrentUserIDToken() }
+                .then { token in self.getUser(token: token).then { self.createConstructedItem(data: .init(categoryID: self.categoryID ?? preconditionFailure(), userID: $0.id), token: token) } }
+        } else {
+            constructedItemPromise = createConstructedItem(data: .init(categoryID: categoryID ?? preconditionFailure()))
+        }
+        constructedItemPromise
             .done { self.constructedItemID = $0.id }
             .catch { self.errorHandler?($0) }
     }
@@ -82,7 +95,7 @@ class ConstructedItemViewModel {
         }.catch { self.errorHandler?($0) }
     }
     
-    func beginAddToOutstandingOrderDownload(successfulCompletionHandler: (() -> Void)? = nil) {
+    func beginAddToOutstandingOrderDownload(successHandler: (() -> Void)? = nil) {
         let outstandingOrderPromise: Promise<Void>
         if outstandingOrderID != nil {
             outstandingOrderPromise = _beginAddToOutstandingOrderDownload()
@@ -90,7 +103,7 @@ class ConstructedItemViewModel {
             outstandingOrderPromise = beginOutstandingOrderDownload()
                 .then { self._beginAddToOutstandingOrderDownload() }
         }
-        outstandingOrderPromise.done { successfulCompletionHandler?() }
+        outstandingOrderPromise.done { successHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
@@ -127,14 +140,21 @@ class ConstructedItemViewModel {
         ).asVoid()
     }
     
+    private func beginUserDownload() -> Promise<Void> {
+        guard userID == nil else { return Promise { $0.fulfill(()) } }
+        return userAuthManager.getCurrentUserIDToken()
+            .then { self.getTokenUser(token: $0) }
+            .get { self.userID = $0.id }.asVoid()
+    }
+    
     private func getCategories() -> Promise<[Category]> {
         return httpClient.send(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
     }
     
-    private func createConstructedItem() -> Promise<ConstructedItem> {
+    private func createConstructedItem(data: CreateConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateConstructedItemRequest(data: .init(categoryID: categoryID ?? preconditionFailure()))).validate()
+            return try httpClient.send(apiURLRequestFactory.makeCreateConstructedItemRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
@@ -172,6 +192,16 @@ class ConstructedItemViewModel {
             return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data)).validate()
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func getUser(token: JWT) -> Promise<User> {
+        return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token)).validate()
+            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+    }
+    
+    private func getTokenUser(token: JWT) -> Promise<User> {
+        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
+            .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods

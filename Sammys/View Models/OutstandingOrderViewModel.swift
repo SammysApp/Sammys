@@ -84,12 +84,12 @@ class OutstandingOrderViewModel {
     }
     
     private func getOutstandingOrder() -> Promise<OutstandingOrder> {
-        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure()))
+        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure())).validate()
             .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
     }
     
     private func getOutstandingOrderConstructedItems() -> Promise<[ConstructedItem]> {
-        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderConstructedItemsRequest(id: outstandingOrderID ?? preconditionFailure()))
+        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderConstructedItemsRequest(id: outstandingOrderID ?? preconditionFailure())).validate()
             .map { try JSONDecoder().decode([ConstructedItem].self, from: $0.data) }
     }
     

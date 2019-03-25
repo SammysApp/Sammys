@@ -11,6 +11,8 @@ import PromiseKit
 import FirebaseAuth
 
 extension Auth: UserAuthManager {
+    var isUserSignedIn: Bool { return self.currentUser != nil }
+    
     func createAndSignInUser(email: String, password: String) -> Promise<Void> {
         return Promise { resolver in
             self.createUser(withEmail: email, password: password) { _, error in

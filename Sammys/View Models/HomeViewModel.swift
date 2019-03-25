@@ -47,13 +47,13 @@ class HomeViewModel {
     
     private func beginCategoriesDownload() {
         isCategoriesDownloading.value = true
-        getCategories()
+        getRootCategories()
             .done { self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: $0) }
             .ensure { self.isCategoriesDownloading.value = false }
             .catch { self.errorHandler?($0) }
     }
     
-    private func getCategories() -> Promise<[Category]> {
+    private func getRootCategories() -> Promise<[Category]> {
         let queryItems = [URLQueryItem(name: "isRoot", value: String(true))]
         return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems)).validate()
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }

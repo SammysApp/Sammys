@@ -10,9 +10,14 @@ import Foundation
 import PromiseKit
 
 protocol UserAuthManager {
+    var isUserSignedIn: Bool { get }
+    
     func createAndSignInUser(email: String, password: String) -> Promise<Void>
+    
     func signInUser(email: String, password: String) -> Promise<Void>
+    
     func getCurrentUserIDToken() -> Promise<JWT>
+    
     func signOutCurrentUser() throws
 }
 

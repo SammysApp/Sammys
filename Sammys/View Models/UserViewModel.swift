@@ -78,12 +78,12 @@ class UserViewModel {
     }
     
     private func getUser(token: JWT) -> Promise<User> {
-        return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token))
+        return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token)).validate()
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
-        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token))
+        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     

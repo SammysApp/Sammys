@@ -11,7 +11,10 @@ import Foundation
 struct APIURLRequestFactory {
     private let environment: AppEnvironment
     
-    private let developmentServer = HTTPServer(host: LocalConstants.DevelopmentAPIServer.host, port: LocalConstants.DevelopmentAPIServer.port)
+    private let developmentServer = HTTPServer(
+        host: LocalConstants.DevelopmentAPIServer.host,
+        port: LocalConstants.DevelopmentAPIServer.port
+    )
     private let productionServer = HTTPServer(host: "")
     
     var server: HTTPServer {
@@ -60,13 +63,22 @@ struct APIURLRequestFactory {
     
     // MARK: - POST
     func makeCreateUserRequest(data: CreateUserData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.createUser, headers: [HTTPHeader(name: .contentType, value: .json), HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.createUser,
+            headers: [
+                HTTPHeader(name: .contentType, value: .json),
+                HTTPHeader(name: .authorization, value: .bearerAuthentication(token))
+            ]
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
-    func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+    func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
+        var headers = [HTTPHeader(name: .contentType, value: .json)]
+        if let token = token { headers.append(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
+        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: headers) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -104,7 +116,11 @@ struct APIURLRequestFactory {
     }
     
     func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID),
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -127,9 +143,12 @@ struct CreateUserData: Codable {
 
 struct CreateConstructedItemData: Codable {
     let categoryID: Category.ID
+    let userID: User.ID?
     
-    init(categoryID: Category.ID) {
+    init(categoryID: Category.ID,
+         userID: User.ID? = nil) {
         self.categoryID = categoryID
+        self.userID = userID
     }
 }
 

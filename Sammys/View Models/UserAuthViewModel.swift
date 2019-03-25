@@ -108,7 +108,7 @@ class UserAuthViewModel {
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
-        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token))
+        return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
