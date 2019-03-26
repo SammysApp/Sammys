@@ -160,14 +160,20 @@ class ConstructedItemViewModel {
     }
     
     private func beginOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
+        let outstandingOrderPromise: Promise<OutstandingOrder>
         if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
             return Promise { $0.fulfill(()) }
-        } else {
-            return createOutstandingOrder(data: .init(userID: userID), token: token).done {
-                self.outstandingOrderID = $0.id
-                self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+        } else if userID != nil {
+            guard let token = token else { preconditionFailure() }
+            outstandingOrderPromise = getUserOutstandingOrders(token: token).then { outstandingOrders -> Promise<OutstandingOrder> in
+                guard let outstandingOrder = outstandingOrders.first else { return self.createOutstandingOrder(data: .init(userID: self.userID), token: token) }
+                return Promise { $0.fulfill(outstandingOrder) }
             }
+        } else { outstandingOrderPromise = createOutstandingOrder() }
+        return outstandingOrderPromise.done {
+            self.outstandingOrderID = $0.id
+            self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
         }
     }
     
@@ -177,7 +183,7 @@ class ConstructedItemViewModel {
         ).asVoid()
     }
     
-    func beginOutstandingOrderAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
+    private func beginOutstandingOrderAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
         let promise: Promise<Void>
         if outstandingOrderID != nil {
             promise = beginAddToOutstandingOrderDownload(token: token)
@@ -219,7 +225,12 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func createOutstandingOrder(data: CreateOutstandingOrderData, token: JWT? = nil) -> Promise<OutstandingOrder> {
+    private func getUserOutstandingOrders(token: JWT) -> Promise<[OutstandingOrder]> {
+        return httpClient.send(apiURLRequestFactory.makeGetUserOutstandingOrdersRequest(id: userID ?? preconditionFailure(), token: token)).validate()
+            .map { try JSONDecoder().decode([OutstandingOrder].self, from: $0.data) }
+    }
+    
+    private func createOutstandingOrder(data: CreateOutstandingOrderData = .init(), token: JWT? = nil) -> Promise<OutstandingOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }

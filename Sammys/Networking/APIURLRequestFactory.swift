@@ -37,6 +37,10 @@ struct APIURLRequestFactory {
         return URLRequest(server: server, endpoint: APIEndpoint.getTokenUser, headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
     }
     
+    func makeGetUserOutstandingOrdersRequest(id: User.ID, token: JWT) -> URLRequest {
+        return URLRequest(server: server, endpoint: APIEndpoint.getUserOutstandingOrders(id), headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
+    }
+    
     func makeGetCategoriesRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
         return URLRequest(server: server, endpoint: APIEndpoint.getCategories, queryItems: queryItems) ?? preconditionFailure()
     }
@@ -89,7 +93,7 @@ struct APIURLRequestFactory {
         return request
     }
     
-    func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
+    func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData = .init(), dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
@@ -163,6 +167,10 @@ struct AddConstructedItemItemsData: Codable {
 
 struct CreateOutstandingOrderData: Codable {
     let userID: User.ID?
+    
+    init(userID: User.ID? = nil) {
+        self.userID = userID
+    }
 }
 
 struct AddOutstandingOrderConstructedItemsData: Codable {
