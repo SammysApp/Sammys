@@ -85,9 +85,9 @@ class ConstructedItemViewModel {
         let promise: Promise<Void>
         if userID != nil {
             promise = userAuthManager.getCurrentUserIDToken()
-                .then { self._beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs, token: $0)  }
+                .then { self.beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs, token: $0)  }
         }
-        else { promise = _beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs) }
+        else { promise = beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs) }
         promise.catch { self.errorHandler?($0) }
     }
     
@@ -95,22 +95,10 @@ class ConstructedItemViewModel {
         let promise: Promise<Void>
         if userID != nil {
             promise = userAuthManager.getCurrentUserIDToken()
-                .then { self._beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID, token: $0)  }
+                .then { self.beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID, token: $0)  }
         }
-        else { promise = _beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID) }
+        else { promise = beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID) }
         promise.catch { self.errorHandler?($0) }
-    }
-    
-    func beginAddToOutstandingOrderDownload(successHandler: (() -> Void)? = nil) {
-        let outstandingOrderPromise: Promise<Void>
-        if outstandingOrderID != nil {
-            outstandingOrderPromise = _beginAddToOutstandingOrderDownload()
-        } else {
-            outstandingOrderPromise = beginOutstandingOrderDownload()
-                .then { self._beginAddToOutstandingOrderDownload() }
-        }
-        outstandingOrderPromise.done { successHandler?() }
-            .catch { self.errorHandler?($0) }
     }
     
     func beginFavoriteDownload(isFavorite: Bool) {
@@ -123,6 +111,16 @@ class ConstructedItemViewModel {
     func beginUpdateConstructedItemUserDownload() {
         userAuthManager.getCurrentUserIDToken()
             .then { self.partiallyUpdateConstructedItem(data: .init(userID: self.userID ?? preconditionFailure()), token: $0) }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    func beginAddToOutstandingOrderDownload(successHandler: (() -> Void)? = nil) {
+        let promise: Promise<Void>
+        if userID != nil {
+            promise = userAuthManager.getCurrentUserIDToken()
+                .then { self.beginOutstandingOrderAndAddToOutstandingOrderDownload(token: $0) }
+        } else { promise = self.beginOutstandingOrderAndAddToOutstandingOrderDownload() }
+        promise.done { successHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
@@ -143,7 +141,7 @@ class ConstructedItemViewModel {
         }.ensure { self.isCategoriesDownloading.value = false }
     }
     
-    private func _beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
+    private func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
         return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
                 if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
@@ -152,7 +150,7 @@ class ConstructedItemViewModel {
         }
     }
     
-    private func _beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
+    private func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
         return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
                 if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
@@ -161,22 +159,33 @@ class ConstructedItemViewModel {
         }
     }
     
-    private func beginOutstandingOrderDownload() -> Promise<Void> {
+    private func beginOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
         if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
             return Promise { $0.fulfill(()) }
         } else {
-            return createOutstandingOrder(data: .init()).done {
+            return createOutstandingOrder(data: .init(userID: userID), token: token).done {
                 self.outstandingOrderID = $0.id
                 self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
             }
         }
     }
     
-    private func _beginAddToOutstandingOrderDownload() -> Promise<Void> {
+    private func beginAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
         return addOutstandingOrderConstructedItems(
-            outstandingOrderID: outstandingOrderID ?? preconditionFailure(), data: .init(ids: [self.constructedItemID ?? preconditionFailure()])
+            outstandingOrderID: outstandingOrderID ?? preconditionFailure(), data: .init(ids: [self.constructedItemID ?? preconditionFailure()]), token: token
         ).asVoid()
+    }
+    
+    func beginOutstandingOrderAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
+        let promise: Promise<Void>
+        if outstandingOrderID != nil {
+            promise = beginAddToOutstandingOrderDownload(token: token)
+        } else {
+            promise = beginOutstandingOrderDownload(token: token)
+                .then { self.beginAddToOutstandingOrderDownload(token: token) }
+        }
+        return promise
     }
     
     private func getCategories() -> Promise<[Category]> {
@@ -203,24 +212,24 @@ class ConstructedItemViewModel {
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
     }
     
-    private func createOutstandingOrder(data: CreateOutstandingOrderData) -> Promise<OutstandingOrder> {
-        do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data)).validate()
-                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
-        } catch { preconditionFailure(error.localizedDescription) }
-    }
-    
-    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData) -> Promise<OutstandingOrder> {
-        do {
-            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data)).validate()
-                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
-        } catch { preconditionFailure(error.localizedDescription) }
-    }
-    
     private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func createOutstandingOrder(data: CreateOutstandingOrderData, token: JWT? = nil) -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data, token: token)).validate()
+                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData, token: JWT? = nil) -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data, token: token)).validate()
+                .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
