@@ -112,8 +112,8 @@ class ConstructedItemViewModel {
     }
     
     func beginFavoriteDownload(isFavorite: Bool) {
-        
-        partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite))
+        userAuthManager.getCurrentUserIDToken()
+            .then { self.partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite), token: $0) }
             .done { self.isFavorite.value = $0.isFavorite }
             .catch { self.errorHandler?($0) }
     }
@@ -193,9 +193,9 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemData) -> Promise<ConstructedItem> {
+    private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
-            return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data)).validate()
+            return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
