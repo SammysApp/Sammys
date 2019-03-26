@@ -20,6 +20,7 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureNavigation()
         setUpView()
         configureViewModel()
         viewModel.beginUserDownload()
@@ -33,6 +34,10 @@ class UserViewController: UIViewController {
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+    }
+    
+    private func configureNavigation() {
+        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .done, target: nil, action: nil)
     }
     
     private func configureTableView() {

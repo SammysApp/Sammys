@@ -118,6 +118,12 @@ class ConstructedItemViewModel {
             .catch { self.errorHandler?($0) }
     }
     
+    func beginUpdateConstructedItemUserDownload() {
+        userAuthManager.getCurrentUserIDToken()
+            .then { self.partiallyUpdateConstructedItem(data: .init(userID: self.userID ?? preconditionFailure()), token: $0) }
+            .catch { self.errorHandler?($0) }
+    }
+    
     func beginUserDownload(successHandler: (() -> Void)? = nil) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }

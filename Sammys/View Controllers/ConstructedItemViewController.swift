@@ -136,6 +136,26 @@ class ConstructedItemViewController: UIViewController {
             guard let value = value else { return }
             self.favoriteBarButtonItem.image = value ? #imageLiteral(resourceName: "NavBar.Heart") : #imageLiteral(resourceName: "NavBar.HeartOutline")
         }
+        viewModel.errorHandler = { error in
+            switch error {
+            case UserAuthManagerError.noCurrentUser:
+                self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
+            default: print(error.localizedDescription)
+            }
+        }
+    }
+    
+    // MARK: - Factory Methods
+    private func makeUserAuthPageViewController() -> UserAuthPageViewController {
+        let viewController = UserAuthPageViewController()
+        let userDidSignInHandler: (User.ID) -> Void = { id in
+            self.viewModel.userID = id
+            self.viewModel.beginUpdateConstructedItemUserDownload()
+            viewController.dismiss(animated: true, completion: nil)
+        }
+        viewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        viewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        return viewController
     }
     
     // MARK: - Target Actions

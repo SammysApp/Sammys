@@ -163,7 +163,14 @@ struct AddOutstandingOrderConstructedItemsData: Codable {
 }
 
 struct PartiallyUpdateConstructedItemData: Codable {
+    let userID: User.ID?
     let isFavorite: Bool?
+    
+    init(userID: User.ID? = nil,
+         isFavorite: Bool? = nil) {
+        self.userID = userID
+        self.isFavorite = isFavorite
+    }
 }
 
 struct PartiallyUpdateOutstandingOrderConstructedItemData: Codable {
