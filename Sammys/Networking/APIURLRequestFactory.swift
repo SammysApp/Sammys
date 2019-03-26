@@ -82,8 +82,9 @@ struct APIURLRequestFactory {
         return request
     }
     
-    func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -126,8 +127,10 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - DELETE
-    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
+    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.removeConstructedItemItem(constructedItemID, categoryItemID)) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
+        return request
     }
     
     func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID) -> URLRequest {

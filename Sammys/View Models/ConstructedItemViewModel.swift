@@ -82,21 +82,23 @@ class ConstructedItemViewModel {
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
-        addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs)).done { constructedItem in
-            if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
-                else { self.totalPriceText.value = nil }
-            }
-        }.catch { self.errorHandler?($0) }
+        let promise: Promise<Void>
+        if userID != nil {
+            promise = userAuthManager.getCurrentUserIDToken()
+                .then { self._beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs, token: $0)  }
+        }
+        else { promise = _beginAddConstructedItemItemsDownload(categoryItemIDs: categoryItemIDs) }
+        promise.catch { self.errorHandler?($0) }
     }
     
     func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID) {
-        removeConstructedItemItem(categoryItemID: categoryItemID).done { constructedItem in
-            if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
-                else { self.totalPriceText.value = nil }
-            }
-        }.catch { self.errorHandler?($0) }
+        let promise: Promise<Void>
+        if userID != nil {
+            promise = userAuthManager.getCurrentUserIDToken()
+                .then { self._beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID, token: $0)  }
+        }
+        else { promise = _beginRemoveConstructedItemItemsDownload(categoryItemID: categoryItemID) }
+        promise.catch { self.errorHandler?($0) }
     }
     
     func beginAddToOutstandingOrderDownload(successHandler: (() -> Void)? = nil) {
@@ -141,6 +143,24 @@ class ConstructedItemViewModel {
         }.ensure { self.isCategoriesDownloading.value = false }
     }
     
+    private func _beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
+        return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { constructedItem in
+            if let totalPrice = constructedItem.totalPrice {
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
+                else { self.totalPriceText.value = nil }
+            }
+        }
+    }
+    
+    private func _beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
+        return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { constructedItem in
+            if let totalPrice = constructedItem.totalPrice {
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
+                else { self.totalPriceText.value = nil }
+            }
+        }
+    }
+    
     private func beginOutstandingOrderDownload() -> Promise<Void> {
         if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
@@ -171,18 +191,16 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addConstructedItemItems(data: AddConstructedItemItemsData) -> Promise<ConstructedItem> {
+    private func addConstructedItemItems(data: AddConstructedItemItemsData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: data)).validate()
+            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func removeConstructedItemItem(categoryItemID: Item.CategoryItemID) -> Promise<ConstructedItem> {
-        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemsRequest(
-            constructedItemID: constructedItemID ?? preconditionFailure(),
-            categoryItemID: categoryItemID)
-        ).validate().map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+    private func removeConstructedItemItem(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<ConstructedItem> {
+        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemsRequest(constructedItemID: constructedItemID ?? preconditionFailure(), categoryItemID: categoryItemID, token: token)).validate()
+            .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
     }
     
     private func createOutstandingOrder(data: CreateOutstandingOrderData) -> Promise<OutstandingOrder> {
