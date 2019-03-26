@@ -15,6 +15,7 @@ class UserViewModel {
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
+    var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
     // MARK: - Section Model Properties
@@ -50,8 +51,10 @@ class UserViewModel {
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
+         keyValueStore: KeyValueStore = UserDefaults.standard,
          userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
+        self.keyValueStore = keyValueStore
         self.userAuthManager = userAuthManager
     }
     
@@ -87,7 +90,10 @@ class UserViewModel {
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
-    func logOut() throws { try userAuthManager.signOutCurrentUser() }
+    func logOut() throws {
+        try userAuthManager.signOutCurrentUser()
+        keyValueStore.set(Optional<String>(nil), forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+    }
     
     // MARK: - Factory Methods
     private func makeUserDetailTableViewCellModels(user: User) -> [UserDetailTableViewCellModel] {

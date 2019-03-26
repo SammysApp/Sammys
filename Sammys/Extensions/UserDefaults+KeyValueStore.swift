@@ -9,7 +9,7 @@
 import Foundation
 
 extension UserDefaults: KeyValueStore {
-    func set<T>(_ value: T, forKey key: KeyValueStoreKey) {
+    func set<T>(_ value: T?, forKey key: KeyValueStoreKey) {
         self.set(value as Any, forKey: key.rawValue)
     }
     

@@ -13,7 +13,7 @@ protocol KeyValueStoreKey {
 }
 
 protocol KeyValueStore {
-    func set<T>(_ value: T, forKey key: KeyValueStoreKey)
+    func set<T>(_ value: T?, forKey key: KeyValueStoreKey)
     
     func value<T>(of type: T.Type, forKey key: KeyValueStoreKey) -> T?
 }
