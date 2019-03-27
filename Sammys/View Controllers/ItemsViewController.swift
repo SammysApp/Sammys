@@ -48,7 +48,7 @@ class ItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.tableViewCell.rawValue)
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.tableViewCell.rawValue)
     }
     
     private func configureViewModel() {
@@ -66,10 +66,11 @@ class ItemsViewController: UIViewController {
     // MARK: - Cell Actions
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
-            let cell = data.cell else { return }
+            let cell = data.cell as? SubtitleTableViewCell else { return }
         cell.tintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
         cell.textLabel?.font = .systemFont(ofSize: Constants.itemTableViewCellTextLabelFontSize)
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
         if let id = cellViewModel.configurationData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
             cell.accessoryType = .checkmark
         } else { cell.accessoryType = .none }

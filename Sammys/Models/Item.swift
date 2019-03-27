@@ -15,5 +15,6 @@ struct Item: Codable {
     let id: ID
     let categoryItemID: CategoryItemID?
     let name: String
+    let price: Int?
     let isModifiable: Bool?
 }
