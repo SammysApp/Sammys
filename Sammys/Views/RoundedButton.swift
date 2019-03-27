@@ -25,6 +25,10 @@ class RoundedButton: UIControl {
         didSet { update() }
     }
     
+    private struct Constants {
+        static let titleLabelInset: CGFloat = 10
+    }
+    
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
@@ -42,13 +46,11 @@ class RoundedButton: UIControl {
             .forEach { self.addSubview($0) }
         
         titleLabel.textAlignment = .center
-        titleLabel.center(in: self)
-        titleLabel.left(to: self, priority: .required)
-        titleLabel.right(to: self, priority: .required)
+        titleLabel.edgesToSuperview(insets: .init(top: Constants.titleLabelInset, left: Constants.titleLabelInset, bottom: Constants.titleLabelInset, right: Constants.titleLabelInset))
     }
     
     private func update() {
         roundedLayer.fillColor = backgroundColor?.cgColor
-        roundedLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: titleLabel.frame.width, height: self.frame.height), cornerRadius: self.frame.height * cornerRadiusMultiplier).cgPath
+        roundedLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: self.frame.height * cornerRadiusMultiplier).cgPath
     }
 }

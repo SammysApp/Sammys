@@ -13,7 +13,7 @@ class ConstructedItemViewController: UIViewController {
     
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let itemsViewController = ItemsViewController()
-    private(set) lazy var favoriteBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "NavBar.HeartOutline"), style: .plain, target: favoriteBarButtonItemTarget)
+    private(set) lazy var favoriteBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "NavBar.Heart"), style: .plain, target: favoriteBarButtonItemTarget)
     let completeButton = RoundedButton()
     
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
@@ -25,7 +25,6 @@ class ConstructedItemViewController: UIViewController {
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
         static let categoryCollectionViewHeight: CGFloat = 30
-        static let completeButtonHeight: CGFloat = 40
         static let completeButtonTitleLabelTextFontSize: CGFloat = 18
         static let completeButtonTitleLabelText = "Add to Bag"
         static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
@@ -99,10 +98,9 @@ class ConstructedItemViewController: UIViewController {
     private func configureCompleteButton() {
         completeButton.backgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
         completeButton.titleLabel.textColor = .white
-        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: .medium)
+        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: .semibold)
         completeButton.titleLabel.text = Constants.completeButtonTitleLabelText
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
-        completeButton.height(Constants.completeButtonHeight)
     }
     
     private func configureViewModel() {
@@ -132,9 +130,9 @@ class ConstructedItemViewController: UIViewController {
                 self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText + " | " + text
             } else { self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText }
         }
-        viewModel.isFavorite.bind { value in
+        viewModel.isFavorite.bindAndRun { value in
             guard let value = value else { return }
-            self.favoriteBarButtonItem.image = value ? #imageLiteral(resourceName: "NavBar.Heart") : #imageLiteral(resourceName: "NavBar.HeartOutline")
+            self.favoriteBarButtonItem.tintColor = value ? #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1) : .lightGray
         }
         viewModel.errorHandler = { error in
             switch error {
