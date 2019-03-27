@@ -57,12 +57,16 @@ struct APIURLRequestFactory {
         return URLRequest(server: server, endpoint: APIEndpoint.getItemModifiers(categoryID, itemID)) ?? preconditionFailure()
     }
     
-    func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrder(id)) ?? preconditionFailure()
+    func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrder(id)) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
+        return request
     }
     
-    func makeGetOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
+    func makeGetOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.getOutstandingOrderConstructedItems(id)) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
+        return request
     }
     
     // MARK: - POST
@@ -115,19 +119,29 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - PATCH
-    func makePartiallyUpdateConstructedItemRequest(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
+    func makePartiallyUpdateConstructedItemRequest(
+        id: ConstructedItem.ID,
+        data: PartiallyUpdateConstructedItemData,
+        dataEncoder: JSONEncoder = JSONEncoder(),
+        token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
-    func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    func makePartiallyUpdateOutstandingOrderConstructedItemRequest(
+        outstandingOrderID: OutstandingOrder.ID,
+        constructedItemID: ConstructedItem.ID,
+        data: PartiallyUpdateOutstandingOrderConstructedItemData,
+        dataEncoder: JSONEncoder = JSONEncoder(),
+        token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(
             server: server,
             endpoint: APIEndpoint.partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID),
             headers: [HTTPHeader(name: .contentType, value: .json)]
         ) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -139,8 +153,10 @@ struct APIURLRequestFactory {
         return request
     }
     
-    func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.removeOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID)) ?? preconditionFailure()
+    func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> URLRequest {
+        var request = URLRequest(server: server, endpoint: APIEndpoint.removeOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID)) ?? preconditionFailure()
+        if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
+        return request
     }
 }
 

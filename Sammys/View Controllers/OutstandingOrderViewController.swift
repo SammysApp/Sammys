@@ -26,7 +26,9 @@ class OutstandingOrderViewController: UIViewController {
         configureTableView()
         setUpView()
         configureViewModel()
-        viewModel.beginDownloads()
+        if viewModel.isUserSignedIn {
+            viewModel.beginUserDownload { self.viewModel.beginDownloads() }
+        } else { viewModel.beginDownloads() }
     }
     
     // MARK: - Setup Methods
