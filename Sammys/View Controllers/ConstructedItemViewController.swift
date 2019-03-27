@@ -118,7 +118,8 @@ class ConstructedItemViewController: UIViewController {
             self.itemsViewController.viewModel.beginDownloads()
         }
         viewModel.selectedCategoryName.bind { value in
-            self.title = value
+            guard let name = value else { return }
+            self.title = "Choose \(name)"
         }
         viewModel.categoryCollectionViewSectionModels.bind { value in
             self.categoryCollectionViewDataSource.sectionModels = value
