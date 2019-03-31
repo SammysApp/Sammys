@@ -33,6 +33,8 @@
 		5B2C3C982245382F006BE7B3 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C972245382F006BE7B3 /* UserViewController.swift */; };
 		5B2C3C9A2245387D006BE7B3 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C992245387D006BE7B3 /* UserViewModel.swift */; };
 		5B2D536A22510AB3006FDFF2 /* CheckoutSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */; };
+		5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */; };
+		5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */; };
@@ -147,6 +149,8 @@
 		5B2C3C972245382F006BE7B3 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		5B2C3C992245387D006BE7B3 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutSheetViewController.swift; sourceTree = "<group>"; };
+		5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
+		5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrder.swift; sourceTree = "<group>"; };
@@ -383,6 +387,7 @@
 				5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */,
 				5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */,
 				5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */,
+				5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */,
 				5B2C3C992245387D006BE7B3 /* UserViewModel.swift */,
 				5B2C3C8D2241662C006BE7B3 /* UserAuthViewModel.swift */,
 				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
@@ -425,6 +430,7 @@
 				5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */,
 				5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */,
 				5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */,
+				5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */,
 				5B2C3C972245382F006BE7B3 /* UserViewController.swift */,
 				5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */,
 				5B2C3C9522442DEE006BE7B3 /* UserAuthPageViewController.swift */,
@@ -728,6 +734,7 @@
 				5B9A8AB9222449AF00F5525D /* ItemsViewModel.swift in Sources */,
 				5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
+				5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */,
 				5B01221C221DE97F0054AB7A /* HTTPServer.swift in Sources */,
@@ -742,6 +749,7 @@
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */,
+				5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */,
 				5B4F7F1D2231B34C00F95C04 /* OutstandingOrderViewModel.swift in Sources */,
 				5B2C3C8A22415ED8006BE7B3 /* UserAuthViewController.swift in Sources */,
 				5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */,

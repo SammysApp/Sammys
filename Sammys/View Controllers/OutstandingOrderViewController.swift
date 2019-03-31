@@ -28,6 +28,7 @@ class OutstandingOrderViewController: UIViewController {
         configureTableView()
         configureCheckoutSheetViewController()
         setUpView()
+        addChildren()
         configureViewModel()
         if viewModel.isUserSignedIn {
             viewModel.beginUserDownload { self.viewModel.beginDownloads() }
@@ -42,7 +43,12 @@ class OutstandingOrderViewController: UIViewController {
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
-        self.view.sendSubviewToBack(tableView)
+    }
+    
+    private func addChildren() {
+        self.add(checkoutSheetViewController)
+        checkoutSheetViewController.view.height(Constants.checkoutSheetViewControllerViewHeight)
+        checkoutSheetViewController.view.edgesToSuperview(excluding: .top, usingSafeArea: true)
     }
     
     private func configureTableView() {
@@ -53,10 +59,10 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     private func configureCheckoutSheetViewController() {
-        self.add(checkoutSheetViewController)
         checkoutSheetViewController.view.backgroundColor = .white
-        checkoutSheetViewController.view.height(Constants.checkoutSheetViewControllerViewHeight)
-        checkoutSheetViewController.view.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        checkoutSheetViewController.checkoutButtonTouchUpInsideHandler = {
+            self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
+        }
     }
     
     private func configureViewModel() {
@@ -70,6 +76,13 @@ class OutstandingOrderViewController: UIViewController {
         }
         viewModel.taxPriceText.bind { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
         viewModel.subtotalPriceText.bind { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
+    }
+    
+    // MARK: - Factory Methods
+    private func makeCheckoutViewController() -> CheckoutViewController {
+        let checkoutViewController = CheckoutViewController()
+        checkoutViewController.hidesBottomBarWhenPushed = true
+        return checkoutViewController
     }
     
     // MARK: - Cell Actions
