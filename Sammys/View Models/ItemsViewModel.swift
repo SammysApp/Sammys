@@ -80,7 +80,7 @@ class ItemsViewModel {
             identifier: CellIdentifier.tableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
-            configurationData: .init(text: item.name, detailText: item.price?.toDollarUnits().toPriceString(), categoryItemID: item.categoryItemID),
+            configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), categoryItemID: item.categoryItemID),
             selectionData: .init(categoryItemID: item.categoryItemID)
         )
     }

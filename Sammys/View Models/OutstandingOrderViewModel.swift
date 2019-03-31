@@ -39,6 +39,8 @@ class OutstandingOrderViewModel {
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
     let isOutstandingOrderDownloading = Dynamic(false)
     let isItemsDownloading = Dynamic(false)
+    let taxPriceText: Dynamic<String?> = Dynamic(nil)
+    let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
     
     enum CellIdentifier: String {
         case constructedItemStackTableViewCell
@@ -94,7 +96,11 @@ class OutstandingOrderViewModel {
                 .then { self.getOutstandingOrder(token: $0) }
             // TODO: Ensure order has this userID or set it.
         } else { outstandingOrderPromise = getOutstandingOrder() }
-        return outstandingOrderPromise.done { self.outstandingOrderID = $0.id }.then { () -> Promise<Void> in
+        return outstandingOrderPromise.done { outstandingOrder in
+            self.outstandingOrderID = outstandingOrder.id
+            self.taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
+            self.subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
+        }.then { () -> Promise<Void> in
             self.isItemsDownloading.value = true
             return self.beginOutstandingOrderConstructedItemsDownload()
                 .ensure { self.isItemsDownloading.value = false }
@@ -176,7 +182,7 @@ class OutstandingOrderViewModel {
             configurationData: .init(
                 nameText: constructedItem.name,
                 descriptionText: constructedItem.description,
-                priceText: constructedItem.totalPrice?.toDollarUnits().toPriceString(),
+                priceText: constructedItem.totalPrice?.toUSDUnits().toPriceString(),
                 quantityText: constructedItem.quantity?.toString(),
                 constructedItemID: constructedItem.id
             )

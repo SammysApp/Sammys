@@ -12,4 +12,6 @@ struct OutstandingOrder: Codable {
     typealias ID = UUID
     
     let id: ID
+    let totalPrice: Int?
+    let taxPrice: Int?
 }

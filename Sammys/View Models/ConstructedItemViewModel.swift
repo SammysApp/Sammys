@@ -144,7 +144,7 @@ class ConstructedItemViewModel {
     private func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
         return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString()) }
                 else { self.totalPriceText.value = nil }
             }
         }
@@ -153,7 +153,7 @@ class ConstructedItemViewModel {
     private func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
         return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { constructedItem in
             if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toDollarUnits().toPriceString()) }
+                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString()) }
                 else { self.totalPriceText.value = nil }
             }
         }

@@ -9,7 +9,7 @@
 import Foundation
 
 extension Int {
-    func toDollarUnits() -> Double {
+    func toUSDUnits() -> Double {
         return Double(self)/100
     }
 }

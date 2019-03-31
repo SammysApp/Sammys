@@ -12,18 +12,21 @@ class OutstandingOrderViewController: UIViewController {
     let viewModel = OutstandingOrderViewModel()
     
     let tableView = UITableView()
+    let checkoutSheetViewController = CheckoutSheetViewController()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
         static let tableViewEstimatedRowHeight: CGFloat = 100
+        static let checkoutSheetViewControllerViewHeight: CGFloat = 120
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureCheckoutSheetViewController()
         setUpView()
         configureViewModel()
         if viewModel.isUserSignedIn {
@@ -39,6 +42,7 @@ class OutstandingOrderViewController: UIViewController {
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        self.view.sendSubviewToBack(tableView)
     }
     
     private func configureTableView() {
@@ -46,6 +50,13 @@ class OutstandingOrderViewController: UIViewController {
         tableView.delegate = tableViewDelegate
         tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.constructedItemStackTableViewCell.rawValue)
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
+    }
+    
+    private func configureCheckoutSheetViewController() {
+        self.add(checkoutSheetViewController)
+        checkoutSheetViewController.view.backgroundColor = .white
+        checkoutSheetViewController.view.height(Constants.checkoutSheetViewControllerViewHeight)
+        checkoutSheetViewController.view.edgesToSuperview(excluding: .top, usingSafeArea: true)
     }
     
     private func configureViewModel() {
@@ -57,6 +68,8 @@ class OutstandingOrderViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        viewModel.taxPriceText.bind { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
+        viewModel.subtotalPriceText.bind { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
     }
     
     // MARK: - Cell Actions
