@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SquareInAppPaymentsSDK
 
 class CheckoutViewController: UIViewController {
     let viewModel = CheckoutViewModel()
@@ -16,6 +17,8 @@ class CheckoutViewController: UIViewController {
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
+    
+    private lazy var payButtonTouchUpInsideTarget = Target(action: payButtonTouchUpInsideAction)
     
     private struct Constants {
         static let payButtonTitleLabelText = "Pay"
@@ -50,5 +53,35 @@ class CheckoutViewController: UIViewController {
         payButton.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         payButton.titleLabel.textColor = .white
         payButton.titleLabel.text = Constants.payButtonTitleLabelText
+        payButton.add(payButtonTouchUpInsideTarget, for: .touchUpInside)
+    }
+    
+    // MARK: - Target Actions
+    private func payButtonTouchUpInsideAction() {
+        self.present(UINavigationController(rootViewController: makeCardEntryViewController()), animated: true, completion: nil)
+    }
+    
+    // MARK: - Factory Methods
+    private func makeCardEntryViewController() -> SQIPCardEntryViewController {
+        let theme = SQIPTheme()
+        let cardEntryViewController = SQIPCardEntryViewController(theme: theme)
+        cardEntryViewController.delegate = self
+        return cardEntryViewController
+    }
+}
+
+extension CheckoutViewController: SQIPCardEntryViewControllerDelegate {
+    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didObtain cardDetails: SQIPCardDetails, completionHandler: @escaping (Error?) -> Void) {
+        viewModel.beginCreatePurchasedOrderDownload(cardNonce: cardDetails.nonce) { result in
+            switch result {
+            case .fulfilled(_):
+                completionHandler(nil)
+            case .rejected(let error): completionHandler(error)
+            }
+        }
+    }
+    
+    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didCompleteWith status: SQIPCardEntryCompletionStatus) {
+        
     }
 }

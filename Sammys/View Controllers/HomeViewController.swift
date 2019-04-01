@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemTargetAction)
+    private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemAction)
     
     private struct Constants {
         static let categoryImageTableViewCellTextLabelFontSize: CGFloat = 28
@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Target Actions
-    private func userBarButtonItemTargetAction() {
+    private func userBarButtonItemAction() {
         self.present(UINavigationController(rootViewController: UserViewController()), animated: true, completion: nil)
     }
     

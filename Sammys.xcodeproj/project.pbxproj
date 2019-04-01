@@ -35,6 +35,7 @@
 		5B2D536A22510AB3006FDFF2 /* CheckoutSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */; };
 		5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */; };
 		5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */; };
+		5B2D55882251679A006FDFF2 /* PurchasedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */; };
@@ -151,6 +152,7 @@
 		5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutSheetViewController.swift; sourceTree = "<group>"; };
 		5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
+		5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrder.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrder.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				5B6E391D2223955B004D5310 /* Item.swift */,
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
+				5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */,
 				5B2C3C8522415B4A006BE7B3 /* User.swift */,
 			);
 			path = Models;
@@ -638,6 +641,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${PODS_ROOT}/SquareInAppPaymentsSDK/SquareInAppPaymentsSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -649,6 +653,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SquareInAppPaymentsSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -692,6 +697,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${PODS_ROOT}/SquareInAppPaymentsSDK/SquareInAppPaymentsSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -703,6 +709,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SquareInAppPaymentsSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -742,6 +749,7 @@
 				5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */,
 				5B9A8AC32224966E00F5525D /* ConstructedItemViewModel.swift in Sources */,
 				5B3A4B712195F3E400F22F78 /* DateFormatter.swift in Sources */,
+				5B2D55882251679A006FDFF2 /* PurchasedOrder.swift in Sources */,
 				5B39AF4A22400D2E00D2BE22 /* UIBarButtonItem.swift in Sources */,
 				5B2C3C8C224160FA006BE7B3 /* TextFieldTableViewCell.swift in Sources */,
 				5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */,

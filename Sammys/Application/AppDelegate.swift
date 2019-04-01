@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SquareInAppPaymentsSDK
 
 #if DEBUG
 let appEnvironment = AppEnvironment.development
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
     private struct Constants {
+        static let squareApplicationID = "sq0idp-uGmV90aWUn6nFGhNYL6ICw"
         static let homeTabBarItemTitle = "Home"
         static let favoritesTabBarItemTitle = "Favorites"
         static let outstandingOrderTitle = "Bag"
@@ -27,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        SQIPInAppPaymentsSDK.squareApplicationID = Constants.squareApplicationID
         configureWindow()
         return true
     }

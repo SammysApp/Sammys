@@ -19,7 +19,7 @@ class ConstructedItemViewController: UIViewController {
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
     
-    private lazy var favoriteBarButtonItemTarget = Target(action: favoriteBarButtonItemTargetAction)
+    private lazy var favoriteBarButtonItemTarget = Target(action: favoriteBarButtonItemAction)
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
@@ -158,7 +158,7 @@ class ConstructedItemViewController: UIViewController {
     }
     
     // MARK: - Target Actions
-    private func favoriteBarButtonItemTargetAction() {
+    private func favoriteBarButtonItemAction() {
         if let isFavorite = viewModel.isFavorite.value {
             viewModel.beginFavoriteDownload(isFavorite: !isFavorite)
         }

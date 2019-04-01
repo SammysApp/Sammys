@@ -68,6 +68,7 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.8.3):
     - PromiseKit/CorePromise
+  - SquareInAppPaymentsSDK (1.1.1)
   - Stripe (15.0.0)
   - TinyConstraints (3.3.1)
 
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - Firebase/Core
   - PromiseKit (~> 6.8)
   - PromiseKit/Foundation
+  - SquareInAppPaymentsSDK
   - Stripe
   - TinyConstraints
 
@@ -92,6 +94,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromiseKit
+    - SquareInAppPaymentsSDK
     - Stripe
     - TinyConstraints
 
@@ -107,9 +110,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
+  SquareInAppPaymentsSDK: 38ab02659ee1fe8445fef0e4e15026fc31a106f4
   Stripe: 312b22a67af9fa55c246d26148b3f3a9636a0ff2
   TinyConstraints: dbf7519aefc01ea59d62244300c7718aec68e280
 
-PODFILE CHECKSUM: 328bdaa08b25d697b8b5739b3ea323982d5afa86
+PODFILE CHECKSUM: 4f930fd36e66c967fcc65247e991a3ba299cb969
 
 COCOAPODS: 1.6.0

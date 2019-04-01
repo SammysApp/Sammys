@@ -81,6 +81,8 @@ class OutstandingOrderViewController: UIViewController {
     // MARK: - Factory Methods
     private func makeCheckoutViewController() -> CheckoutViewController {
         let checkoutViewController = CheckoutViewController()
+        checkoutViewController.viewModel.outstandingOrderID = viewModel.outstandingOrderID
+        checkoutViewController.viewModel.userID = viewModel.userID
         checkoutViewController.hidesBottomBarWhenPushed = true
         return checkoutViewController
     }
