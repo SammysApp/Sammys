@@ -9,9 +9,8 @@ target 'Sammys' do
   pod 'PromiseKit/Foundation'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-  pod 'Stripe'
-  pod 'TinyConstraints'
   pod 'SquareInAppPaymentsSDK'
+  pod 'TinyConstraints'
   
   target 'SammysTests' do
     inherit! :complete

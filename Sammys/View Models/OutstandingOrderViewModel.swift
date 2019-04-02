@@ -25,7 +25,7 @@ class OutstandingOrderViewModel {
     
     // MARK: - View Settable Properties
     /// The bag's outstanding order's ID.
-    /// Calling `beginDownloads()` will first attempt to get one if not set.
+    /// Calling `beginDownloads()` will first attempt to set it if not already set.
     var outstandingOrderID: OutstandingOrder.ID?
     var userID: User.ID?
     
@@ -37,8 +37,6 @@ class OutstandingOrderViewModel {
     
     // MARK: - Dynamic Properties
     let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
-    let isOutstandingOrderDownloading = Dynamic(false)
-    let isItemsDownloading = Dynamic(false)
     let taxPriceText: Dynamic<String?> = Dynamic(nil)
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
     
@@ -58,17 +56,12 @@ class OutstandingOrderViewModel {
     func beginDownloads() {
         let outstandingOrderPromise: Promise<Void>
         if outstandingOrderID == nil {
-            if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
-                let id = OutstandingOrder.ID(uuidString: idString) {
-                outstandingOrderID = id
-                outstandingOrderPromise = beginOutstandingOrderDownload()
-            } else { errorHandler?(OutstandingOrderViewModelError.noOutstandingOrders); return }
-        }
-        // TODO: Check if user has order.
-        else {
-            outstandingOrderPromise = beginOutstandingOrderDownload()
-        }
-        outstandingOrderPromise.catch { self.errorHandler?($0) }
+            outstandingOrderPromise = beginSetOutstandingOrderIDDownload()
+                .then { self.beginOutstandingOrderDownload() }
+        } else { outstandingOrderPromise = beginOutstandingOrderDownload() }
+        outstandingOrderPromise
+            .then { self.beginOutstandingOrderConstructedItemsDownload() }
+            .catch { self.errorHandler?($0) }
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
@@ -78,15 +71,27 @@ class OutstandingOrderViewModel {
                 .then { self.beginUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity, token: $0) }
         } else { promise = beginUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity) }
         promise.then { self.beginOutstandingOrderConstructedItemsDownload() }
+            .then { self.beginOutstandingOrderDownload() }
             .catch { self.errorHandler?($0) }
     }
     
-    func beginUserDownload(successHandler: (() -> Void)? = nil) {
+    func beginSetUserIDDownload(successHandler: (() -> Void)? = nil) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()
             .done { successHandler?() }
             .catch { self.errorHandler?($0) }
+    }
+    
+    private func beginSetOutstandingOrderIDDownload() -> Promise<Void> {
+        // TODO: Check if user has order.
+        let promise: Promise<Void>
+        if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
+            let id = OutstandingOrder.ID(uuidString: idString) {
+            outstandingOrderID = id
+            promise = Promise { $0.fulfill(()) }
+        } else { promise = Promise(error: OutstandingOrderViewModelError.noOutstandingOrders) }
+        return promise
     }
     
     private func beginOutstandingOrderDownload() -> Promise<Void> {
@@ -97,13 +102,8 @@ class OutstandingOrderViewModel {
             // TODO: Ensure order has this userID or set it.
         } else { outstandingOrderPromise = getOutstandingOrder() }
         return outstandingOrderPromise.done { outstandingOrder in
-            self.outstandingOrderID = outstandingOrder.id
             self.taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
             self.subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
-        }.then { () -> Promise<Void> in
-            self.isItemsDownloading.value = true
-            return self.beginOutstandingOrderConstructedItemsDownload()
-                .ensure { self.isItemsDownloading.value = false }
         }
     }
     

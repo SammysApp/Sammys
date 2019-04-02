@@ -16,6 +16,8 @@ class UserViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private lazy var doneBarButtonItemTarget = Target(action: doneBarButtonItemAction)
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,7 @@ class UserViewController: UIViewController {
     }
     
     private func configureNavigation() {
-        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .done, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .done, target: doneBarButtonItemTarget)
     }
     
     private func configureTableView() {
@@ -79,6 +81,11 @@ class UserViewController: UIViewController {
         viewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
         viewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
         return viewController
+    }
+    
+    // MARK: - Target Actions
+    private func doneBarButtonItemAction() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions

@@ -31,7 +31,7 @@ class OutstandingOrderViewController: UIViewController {
         addChildren()
         configureViewModel()
         if viewModel.isUserSignedIn {
-            viewModel.beginUserDownload { self.viewModel.beginDownloads() }
+            viewModel.beginSetUserIDDownload { self.viewModel.beginDownloads() }
         } else { viewModel.beginDownloads() }
     }
     

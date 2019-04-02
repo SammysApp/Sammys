@@ -58,41 +58,69 @@ struct APIURLRequestFactory {
     }
     
     func makeGetUserRequest(id: User.ID, token: JWT) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.getUser(id), headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
+        return URLRequest(
+            server: server,
+            endpoint: APIEndpoint.getUser(id),
+            headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]
+        ) ?? preconditionFailure()
     }
     
     func makeGetTokenUserRequest(token: JWT) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.getTokenUser, headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
+        return URLRequest(
+            server: server,
+            endpoint: APIEndpoint.getTokenUser,
+            headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]
+        ) ?? preconditionFailure()
     }
     
     func makeGetUserOutstandingOrdersRequest(id: User.ID, token: JWT) -> URLRequest {
-        return URLRequest(server: server, endpoint: APIEndpoint.getUserOutstandingOrders(id), headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]) ?? preconditionFailure()
+        return URLRequest(
+            server: server,
+            endpoint: APIEndpoint.getUserOutstandingOrders(id),
+            headers: [HTTPHeader(name: .authorization, value: .bearerAuthentication(token))]
+        ) ?? preconditionFailure()
     }
     
     // MARK: - POST
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.createConstructedItem, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.createConstructedItem,
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.addConstructedItemItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.addConstructedItemItems(id),
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderData = .init(), dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.createOutstandingOrder, headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.createOutstandingOrder,
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         return request
     }
     
     func makeAddOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.addOutstandingOrderConstructedItems(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.addOutstandingOrderConstructedItems(id),
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         return request
@@ -119,14 +147,18 @@ struct APIURLRequestFactory {
                 HTTPHeader(name: .contentType, value: .json),
                 HTTPHeader(name: .authorization, value: .bearerAuthentication(token))
             ]
-            ) ?? preconditionFailure()
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
     
     // MARK: - PUT
     func makeUpdateConstructedItemRequest(id: ConstructedItem.ID, data: ConstructedItem, dataEncoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.updateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.updateConstructedItem(id),
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         request.httpBody = try dataEncoder.encode(data)
         return request
     }
@@ -137,7 +169,11 @@ struct APIURLRequestFactory {
         data: PartiallyUpdateConstructedItemData,
         dataEncoder: JSONEncoder = JSONEncoder(),
         token: JWT? = nil) throws -> URLRequest {
-        var request = URLRequest(server: server, endpoint: APIEndpoint.partiallyUpdateConstructedItem(id), headers: [HTTPHeader(name: .contentType, value: .json)]) ?? preconditionFailure()
+        var request = URLRequest(
+            server: server,
+            endpoint: APIEndpoint.partiallyUpdateConstructedItem(id),
+            headers: [HTTPHeader(name: .contentType, value: .json)]
+        ) ?? preconditionFailure()
         if let token = token { request.add(HTTPHeader(name: .authorization, value: .bearerAuthentication(token))) }
         request.httpBody = try dataEncoder.encode(data)
         return request
