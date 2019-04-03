@@ -81,6 +81,10 @@ struct APIURLRequestFactory {
         ) ?? preconditionFailure()
     }
     
+    func makeStoreHoursRequest(queryItems: [URLQueryItem] = []) -> URLRequest {
+        return URLRequest(server: server, endpoint: APIEndpoint.getStoreHours, queryItems: queryItems) ?? preconditionFailure()
+    }
+    
     // MARK: - POST
     func makeCreateConstructedItemRequest(data: CreateConstructedItemData, dataEncoder: JSONEncoder = JSONEncoder(), token: JWT? = nil) throws -> URLRequest {
         var request = URLRequest(

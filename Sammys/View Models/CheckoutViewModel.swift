@@ -31,7 +31,8 @@ class CheckoutViewModel {
     
     func beginCreatePurchasedOrderDownload(cardNonce: String, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void) {
         userAuthManager.getCurrentUserIDToken()
-            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: cardNonce, customerCardID: nil), token: $0) }
+            // FIXME: Actually use `cardNonce` in production.
+            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: "fake-card-nonce-ok", customerCardID: nil), token: $0) }
             .done { completionHandler(.fulfilled($0.id)) }
             .catch { completionHandler(.rejected($0)) }
     }

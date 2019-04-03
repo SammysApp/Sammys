@@ -12,7 +12,7 @@ import SquareInAppPaymentsSDK
 class CheckoutViewController: UIViewController {
     let viewModel = CheckoutViewModel()
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     let payButton = RoundedButton()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
