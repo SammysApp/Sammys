@@ -48,7 +48,7 @@ class ItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.tableViewCell.rawValue)
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
     }
     
     private func configureViewModel() {

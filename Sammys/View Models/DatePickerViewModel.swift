@@ -9,6 +9,8 @@
 import Foundation
 
 class DatePickerViewModel {
+    private let calendar = Calendar.current
+    
     private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = Constants.dateFormat
@@ -61,7 +63,7 @@ class DatePickerViewModel {
         var dates = [Date]()
         while date <= maximumDate {
             dates.append(date)
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: date) else { break }
+            guard let newDate = calendar.date(byAdding: .minute, value: minuteInterval, to: date) else { break }
             date = newDate
         }
         return dates
@@ -101,7 +103,7 @@ extension DatePickerViewModel {
     struct DateTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
-        let actions: [UITableViewCellAction : UITableViewCellActionHandler]
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         let selectionData: SelectionData
         

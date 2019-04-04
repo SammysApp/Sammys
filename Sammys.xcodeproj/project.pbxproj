@@ -36,6 +36,7 @@
 		5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */; };
 		5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */; };
 		5B2D55882251679A006FDFF2 /* PurchasedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */; };
+		5B2FC337225649EC005FBC70 /* StoreHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreHours.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */; };
@@ -155,6 +156,7 @@
 		5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrder.swift; sourceTree = "<group>"; };
+		5B2FC336225649EC005FBC70 /* StoreHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHours.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrder.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
 				5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */,
 				5B2C3C8522415B4A006BE7B3 /* User.swift */,
+				5B2FC336225649EC005FBC70 /* StoreHours.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
 				5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */,
 				5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */,
+				5B2FC337225649EC005FBC70 /* StoreHours.swift in Sources */,
 				5B6E3677221F0B09004D5310 /* ImageTableViewCell.swift in Sources */,
 				5B6E3675221E4350004D5310 /* Category.swift in Sources */,
 				5B0124B6221E2B910054AB7A /* HTTPResponse.swift in Sources */,

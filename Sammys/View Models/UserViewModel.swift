@@ -31,8 +31,8 @@ class UserViewModel {
     /// try getting the current user and setting this property.
     var userID: User.ID?
     
-    var userDetailTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]()
-    var buttonTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]() {
+    var userDetailTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var buttonTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { update() }
     }
     var errorHandler: ((Error) -> Void)?
@@ -173,7 +173,7 @@ extension UserViewModel {
     struct UserDetailTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
-        let actions: [UITableViewCellAction : UITableViewCellActionHandler]
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         
         struct ConfigurationData {

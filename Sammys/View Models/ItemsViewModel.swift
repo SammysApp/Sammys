@@ -34,7 +34,7 @@ class ItemsViewModel {
     let isItemsDownloading = Dynamic(false)
     
     enum CellIdentifier: String {
-        case tableViewCell
+        case subtitleTableViewCell
     }
     
     private struct Constants {
@@ -77,7 +77,7 @@ class ItemsViewModel {
     // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
-            identifier: CellIdentifier.tableViewCell.rawValue,
+            identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), categoryItemID: item.categoryItemID),

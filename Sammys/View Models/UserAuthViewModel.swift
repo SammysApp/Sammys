@@ -158,7 +158,7 @@ extension UserAuthViewModel {
     struct TextFieldTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
-        let actions: [UITableViewCellAction : UITableViewCellActionHandler]
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
