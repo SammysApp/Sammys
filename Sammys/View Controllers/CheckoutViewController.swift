@@ -82,12 +82,19 @@ class CheckoutViewController: UIViewController {
         if let date = viewModel.pickupDate {
             datePickerViewController.viewModel.selectedDate = .date(date)
         }
-        datePickerViewController.viewModel.minuteInterval = 15
         viewModel.minimumPickupDate.bindAndRun {
             datePickerViewController.viewModel.minimumDate = $0
         }
         viewModel.maximumPickupDate.bindAndRun {
             datePickerViewController.viewModel.maximumDate = $0
+        }
+        datePickerViewController.viewModel.minuteInterval = 15
+        datePickerViewController.didSelectDate = { date in
+            switch date {
+            case .asap: self.viewModel.pickupDate = nil
+            case .date(let date): self.viewModel.pickupDate = date
+            }
+            self.navigationController?.popViewController(animated: true)
         }
         return datePickerViewController
     }

@@ -29,7 +29,9 @@ class CheckoutViewModel {
     /// Required to be non-`nil`.
     var userID: User.ID?
     
-    var pickupDate: Date?
+    var pickupDate: Date? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     var pickupDateTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { updateTableViewSectionModels() }

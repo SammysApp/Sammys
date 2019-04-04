@@ -16,6 +16,8 @@ class DatePickerViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    var didSelectDate: ((DatePickerViewModel.PickerDate) -> Void)?
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +64,9 @@ class DatePickerViewController: UIViewController {
     
     private func dateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? DatePickerViewModel.DateTableViewCellViewModel  else { return }
-        viewModel.selectedDate = cellViewModel.selectionData.date
+        let date = cellViewModel.selectionData.date
+        didSelectDate?(date)
+        viewModel.selectedDate = date
+        tableView.reloadData()
     }
 }
