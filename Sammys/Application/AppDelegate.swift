@@ -22,9 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private struct Constants {
         static let squareApplicationID = "sq0idp-uGmV90aWUn6nFGhNYL6ICw"
+        
+        static let tabBarControllerTabBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
         static let homeTabBarItemTitle = "Home"
         static let favoritesTabBarItemTitle = "Favorites"
         static let outstandingOrderTitle = "Bag"
+        
+        static let homeTabBarItemImage = #imageLiteral(resourceName: "TabBar.Home")
+        static let favoritesTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
+        static let outstandingOrderTabBarItemImage = #imageLiteral(resourceName: "TabBar.Bag")
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -41,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func makeTabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        tabBarController.tabBar.tintColor = Constants.tabBarControllerTabBarTintColor
         
         let homeViewController = HomeViewController()
-        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: #imageLiteral(resourceName: "TabBar.Home"), tag: 0)
+        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: Constants.homeTabBarItemImage , tag: 0)
         
         let favoritesViewController = UIViewController()
-        favoritesViewController.tabBarItem = .init(title: Constants.favoritesTabBarItemTitle, image: #imageLiteral(resourceName: "TabBar.Heart"), tag: 1)
+        favoritesViewController.tabBarItem = .init(title: Constants.favoritesTabBarItemTitle, image: Constants.favoritesTabBarItemImage, tag: 1)
         
         let outstandingOrderViewController = OutstandingOrderViewController()
         outstandingOrderViewController.title = Constants.outstandingOrderTitle
-        outstandingOrderViewController.tabBarItem = .init(title: Constants.outstandingOrderTitle, image: #imageLiteral(resourceName: "TabBar.Bag"), tag: 2)
+        outstandingOrderViewController.tabBarItem = .init(title: Constants.outstandingOrderTitle, image: Constants.outstandingOrderTabBarItemImage, tag: 2)
         
         tabBarController.viewControllers = [homeViewController, favoritesViewController, outstandingOrderViewController]
             .map { UINavigationController(rootViewController: $0) }

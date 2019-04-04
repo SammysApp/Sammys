@@ -136,7 +136,7 @@ class OutstandingOrderViewModel {
             .map { try JSONDecoder().decode([ConstructedItem].self, from: $0.data) }
     }
     
-    private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
+    private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makePartiallyUpdateOutstandingOrderConstructedItemRequest(
                 outstandingOrderID: outstandingOrderID ?? preconditionFailure(),

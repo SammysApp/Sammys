@@ -11,7 +11,7 @@ import UIKit
 class RoundedTextCollectionViewCell: UICollectionViewCell {
     let textLabel = UILabel()
     
-    var cornerRadiusMultiplier: CGFloat = 0.2 {
+    var cornerRadiusMultiplier: CGFloat = 0.25 {
         didSet { update() }
     }
     

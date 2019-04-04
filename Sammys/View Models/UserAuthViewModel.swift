@@ -100,7 +100,7 @@ class UserAuthViewModel {
             .catch { self.errorHandler?($0) }
     }
     
-    private func createUser(data: CreateUserData, token: JWT) -> Promise<User> {
+    private func createUser(data: CreateUserRequestData, token: JWT) -> Promise<User> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateUserRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(User.self, from: $0.data) }

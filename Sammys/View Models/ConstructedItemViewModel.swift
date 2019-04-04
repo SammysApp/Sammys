@@ -199,14 +199,14 @@ class ConstructedItemViewModel {
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
     }
     
-    private func createConstructedItem(data: CreateConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
+    private func createConstructedItem(data: CreateConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateConstructedItemRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addConstructedItemItems(data: AddConstructedItemItemsData, token: JWT? = nil) -> Promise<ConstructedItem> {
+    private func addConstructedItemItems(data: AddConstructedItemItemsRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemItemsRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
@@ -218,7 +218,7 @@ class ConstructedItemViewModel {
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
     }
     
-    private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemData, token: JWT? = nil) -> Promise<ConstructedItem> {
+    private func partiallyUpdateConstructedItem(data: PartiallyUpdateConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
             .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
@@ -230,14 +230,14 @@ class ConstructedItemViewModel {
             .map { try JSONDecoder().decode([OutstandingOrder].self, from: $0.data) }
     }
     
-    private func createOutstandingOrder(data: CreateOutstandingOrderData = .init(), token: JWT? = nil) -> Promise<OutstandingOrder> {
+    private func createOutstandingOrder(data: CreateOutstandingOrderRequestData = .init(), token: JWT? = nil) -> Promise<OutstandingOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateOutstandingOrderRequest(data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsData, token: JWT? = nil) -> Promise<OutstandingOrder> {
+    private func addOutstandingOrderConstructedItems(outstandingOrderID: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsRequestData, token: JWT? = nil) -> Promise<OutstandingOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderConstructedItemsRequest(id: outstandingOrderID, data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }

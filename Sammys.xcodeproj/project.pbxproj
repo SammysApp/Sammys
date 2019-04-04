@@ -426,8 +426,8 @@
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
 				5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */,
-				5B2C3C8522415B4A006BE7B3 /* User.swift */,
 				5B2FC336225649EC005FBC70 /* StoreHours.swift */,
+				5B2C3C8522415B4A006BE7B3 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -459,11 +459,11 @@
 			children = (
 				5B4F7F1422317AC800F95C04 /* CounterView.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
-				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
 				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
-				5B2C3C8B224160FA006BE7B3 /* TextFieldTableViewCell.swift */,
+				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
 				5BB45595224BD2BC00EE8488 /* SubtitleTableViewCell.swift */,
+				5B2C3C8B224160FA006BE7B3 /* TextFieldTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

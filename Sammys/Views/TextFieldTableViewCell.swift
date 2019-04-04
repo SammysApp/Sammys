@@ -12,14 +12,15 @@ class TextFieldTableViewCell: UITableViewCell {
     let titleLabel = UILabel()
     let textField = UITextField()
     
-    private lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, textField])
-    private var titleLabelWidthConstraint: NSLayoutConstraint?
-    private lazy var textFieldEditingChangedTarget = Target { self.textFieldTextUpdateHandler(self.textField.text) }
-    
     var titleLabelWidth: CGFloat = 0 {
         didSet { update() }
     }
     var textFieldTextUpdateHandler: (String?) -> Void = { _ in }
+    
+    private lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, textField])
+    
+    private var titleLabelWidthConstraint: NSLayoutConstraint?
+    private lazy var textFieldEditingChangedTarget = Target { self.textFieldTextUpdateHandler(self.textField.text) }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

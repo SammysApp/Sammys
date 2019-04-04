@@ -10,6 +10,14 @@ import Foundation
 
 enum APIEndpoint: HTTPEndpoint {
     // MARK: - GET
+    /// GET `/users/tokenUser`
+    case getTokenUser
+    /// GET `/users/:user`
+    case getUser(User.ID)
+    /// GET `/users/:user/outstandingOrders`
+    case getUserOutstandingOrders(User.ID)
+    /// GET `/storeHours`
+    case getStoreHours
     /// GET `/categories`
     case getCategories
     /// GET `/categories/:category/subcategories`
@@ -22,16 +30,12 @@ enum APIEndpoint: HTTPEndpoint {
     case getOutstandingOrder(OutstandingOrder.ID)
     /// GET `/outstandingOrders/:outstandingOrder/constructedItems`
     case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
-    /// GET `/users/:user`
-    case getUser(User.ID)
-    /// GET `/users/tokenUser`
-    case getTokenUser
-    /// GET `/users/:user/outstandingOrders`
-    case getUserOutstandingOrders(User.ID)
-    /// GET `/storeHours`
-    case getStoreHours
     
     // MARK: - POST
+    /// POST `/users`
+    case createUser
+    /// POST `/users/:user/purchasedOrders`
+    case createUserPurchasedOrder(User.ID)
     /// POST `/constructedItems`
     case createConstructedItem
     /// POST `/constructedItems/:constructedItem/items`
@@ -40,10 +44,6 @@ enum APIEndpoint: HTTPEndpoint {
     case createOutstandingOrder
     /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
     case addOutstandingOrderConstructedItems(OutstandingOrder.ID)
-    /// POST `/users`
-    case createUser
-    /// POST `/users/:user/purchasedOrders`
-    case createUserPurchasedOrder(User.ID)
     
     // MARK: - PUT
     /// PUT `/constructedItems/:constructedItem`
@@ -66,6 +66,14 @@ enum APIEndpoint: HTTPEndpoint {
     
     var endpoint: (HTTPMethod, URLPath) {
         switch self {
+        case .getTokenUser:
+            return (.GET, "/\(version)/users/tokenUser")
+        case .getUser(let id):
+            return (.GET, "/\(version)/users/\(id)")
+        case .getUserOutstandingOrders(let id):
+            return (.GET, "/\(version)/users/\(id)/outstandingOrders")
+        case .getStoreHours:
+            return (.GET, "/\(version)/storeHours")
         case .getCategories:
             return (.GET, "/\(version)/categories")
         case .getSubcategories(let id):
@@ -78,15 +86,11 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/outstandingOrders/\(id)")
         case .getOutstandingOrderConstructedItems(let id):
             return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
-        case .getUser(let id):
-            return (.GET, "/\(version)/users/\(id)")
-        case .getTokenUser:
-            return (.GET, "/\(version)/users/tokenUser")
-        case .getUserOutstandingOrders(let id):
-            return (.GET, "/\(version)/users/\(id)/outstandingOrders")
-        case .getStoreHours:
-            return (.GET, "/\(version)/storeHours")
         
+        case .createUser:
+            return (.POST, "/\(version)/users")
+        case .createUserPurchasedOrder(let id):
+            return (.POST, "/\(version)/users/\(id)/purchasedOrders")
         case .createConstructedItem:
             return (.POST, "/\(version)/constructedItems")
         case .addConstructedItemItems(let id):
@@ -95,10 +99,6 @@ enum APIEndpoint: HTTPEndpoint {
             return (.POST, "/\(version)/outstandingOrders")
         case .addOutstandingOrderConstructedItems(let id):
             return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
-        case .createUser:
-            return (.POST, "/\(version)/users")
-        case .createUserPurchasedOrder(let id):
-            return (.POST, "/\(version)/users/\(id)/purchasedOrders")
             
         case .updateConstructedItem(let id):
             return (.PUT, "/\(version)/constructedItems/\(id)")

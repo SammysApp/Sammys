@@ -13,7 +13,7 @@ enum HTTPError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .badStatusCode(let code): return "Bad status code \(code)"
+        case .badStatusCode(let code): return "Bad status code: \(code)"
         }
     }
 }

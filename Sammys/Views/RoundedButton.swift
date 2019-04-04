@@ -21,7 +21,7 @@ class RoundedButton: UIControl {
         set { _backgroundColor = newValue }
     }
     
-    var cornerRadiusMultiplier: CGFloat = 0.2 {
+    var cornerRadiusMultiplier: CGFloat = 0.25 {
         didSet { update() }
     }
     
@@ -42,8 +42,7 @@ class RoundedButton: UIControl {
     
     private func setUp() {
         self.layer.addSublayer(roundedLayer)
-        [titleLabel]
-            .forEach { self.addSubview($0) }
+        [titleLabel].forEach { self.addSubview($0) }
         
         titleLabel.textAlignment = .center
         titleLabel.edgesToSuperview(insets: .init(top: Constants.titleLabelInset, left: Constants.titleLabelInset, bottom: Constants.titleLabelInset, right: Constants.titleLabelInset))

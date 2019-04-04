@@ -88,7 +88,7 @@ class CheckoutViewModel {
             .map { try decoder.decode(StoreHours.self, from: $0.data) }
     }
     
-    private func createPurchasedOrder(data: CreateUserPurchasedOrderData, token: JWT) -> Promise<PurchasedOrder> {
+    private func createPurchasedOrder(data: CreateUserPurchasedOrderRequestData, token: JWT) -> Promise<PurchasedOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateUserPurchasedOrdersRequest(id: userID ?? preconditionFailure(), data: data, token: token)).validate()
                 .map { try JSONDecoder().decode(PurchasedOrder.self, from: $0.data) }

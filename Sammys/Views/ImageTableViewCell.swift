@@ -12,10 +12,10 @@ class ImageTableViewCell: UITableViewCell {
     private let _imageView = UIImageView()
     private let _textLabel = UILabel()
     
+    var prepareForReuseHandler: (() -> Void)?
+    
     override var imageView: UIImageView { get { return _imageView } }
     override var textLabel: UILabel { get { return _textLabel } }
-    
-    var prepareForReuseHandler: (() -> Void)?
     
     private struct Constants {
         static let textLabelOffest: CGFloat = 20

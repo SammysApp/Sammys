@@ -9,11 +9,11 @@
 import UIKit
 
 class CounterView: UIView {
-    private var stackView = UIStackView()
-    
     let counterTextField = UITextField()
     let decrementButton = RoundedButton()
     let incrementButton = RoundedButton()
+    
+    private var stackView = UIStackView()
     
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
