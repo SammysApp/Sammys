@@ -18,33 +18,45 @@ class ConstructedItemViewModel {
     var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
+    // MARK: - Section Model Properties
+    private var categoriesCollectionViewSectionModel: UICollectionViewSectionModel? {
+        didSet { updateCategoryCollectionViewSectionModels() }
+    }
+    
     // MARK: - View Settable Properties
-    /// The category ID of the presented constructed item. Required to be non-`nil`.
+    /// The category ID of the presented constructed item.
+    /// Required to be non-`nil` before beginning downloads.
     /// Used to get the available categories of the constructed item,
     /// the subcategories of this category.
     var categoryID: Category.ID?
-    /// The presented constructed item's ID. Required to be non-`nil`.
-    /// Call `beginCreateConstructedItemDownload()` to create a new one.
+    /// The presented constructed item's ID.
+    /// Required to be non-`nil` for many downloads.
+    /// Call `beginCreateConstructedItemDownload()` to create a new one
+    /// and have this property set.
     var constructedItemID: ConstructedItem.ID?
     /// The ID of the outstanding order to add the constructed item to.
-    /// If not set, will attempt to set when
-    /// beginAddToOutstandingOrderDownload() is called.
+    /// If not set, will attempt to set
+    /// when `beginAddToOutstandingOrderDownload()` is called.
     var outstandingOrderID: OutstandingOrder.ID?
+    /// Allowed to be `nil`. Required for some downloads.
+    /// Use beginUserIDDownload() to attempt to set.
     var userID: User.ID?
     
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction: UICollectionViewCellActionHandler]()
     var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - View Gettable Properties
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
     
     // MARK: - Dynamic Properties
+    private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
+    
     /// The selected category ID to present its items.
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
     let selectedCategoryName: Dynamic<String?> = Dynamic(nil)
-    let categoryCollectionViewSectionModels = Dynamic([UICollectionViewSectionModel]())
-    let isCategoriesDownloading = Dynamic(false)
+    
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     let isFavorite: Dynamic<Bool?> = Dynamic(false)
     
@@ -60,6 +72,18 @@ class ConstructedItemViewModel {
         self.userAuthManager = userAuthManager
     }
     
+    // MARK: - Setup Methods
+    private func setUp(for constructedItem: ConstructedItem) {
+        if let totalPrice = constructedItem.totalPrice {
+            if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString()) }
+            else { self.totalPriceText.value = nil }
+        }
+    }
+    
+    private func updateCategoryCollectionViewSectionModels() {
+        categoryCollectionViewSectionModels.value = makeCategoryCollectionViewSectionModels()
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         firstly { beginCategoriesDownload() }
@@ -68,10 +92,9 @@ class ConstructedItemViewModel {
     
     func beginCreateConstructedItemDownload() {
         let constructedItemPromise: Promise<ConstructedItem>
-        if userID != nil {
-            constructedItemPromise = userAuthManager.getCurrentUserIDToken().then { token in
-                self.getUser(token: token)
-                    .then { self.createConstructedItem(data: .init(categoryID: self.categoryID ?? preconditionFailure(), userID: $0.id), token: token) }
+        if let userID = userID {
+            constructedItemPromise = userAuthManager.getCurrentUserIDToken().then {
+                self.createConstructedItem(data: .init(categoryID: self.categoryID ?? preconditionFailure(), userID: userID), token: $0)
             }
         } else {
             constructedItemPromise = createConstructedItem(data: .init(categoryID: categoryID ?? preconditionFailure()))
@@ -118,13 +141,13 @@ class ConstructedItemViewModel {
         let promise: Promise<Void>
         if userID != nil {
             promise = userAuthManager.getCurrentUserIDToken()
-                .then { self.beginOutstandingOrderAndAddToOutstandingOrderDownload(token: $0) }
-        } else { promise = self.beginOutstandingOrderAndAddToOutstandingOrderDownload() }
+                .then { self.beginOutstandingOrderIDAndAddToOutstandingOrderDownload(token: $0) }
+        } else { promise = self.beginOutstandingOrderIDAndAddToOutstandingOrderDownload() }
         promise.done { successHandler?() }
             .catch { self.errorHandler?($0) }
     }
     
-    func beginUserDownload(successHandler: (() -> Void)? = nil) {
+    func beginUserIDDownload(successHandler: (() -> Void)? = nil) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()
@@ -133,33 +156,33 @@ class ConstructedItemViewModel {
     }
     
     private func beginCategoriesDownload() -> Promise<Void> {
-        isCategoriesDownloading.value = true
         return getCategories().done { categories in
             self.selectedCategoryID.value = categories.first?.id
             self.selectedCategoryName.value = categories.first?.name
-            self.categoryCollectionViewSectionModels.value = self.makeCategoryCollectionViewSectionModels(categories: categories)
-        }.ensure { self.isCategoriesDownloading.value = false }
+            self.categoriesCollectionViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: categories)
+        }
     }
     
     private func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
-        return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { constructedItem in
-            if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString()) }
-                else { self.totalPriceText.value = nil }
-            }
-        }
+        return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { self.setUp(for: $0) }
     }
     
     private func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
-        return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { constructedItem in
-            if let totalPrice = constructedItem.totalPrice {
-                if totalPrice > 0 { self.totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString()) }
-                else { self.totalPriceText.value = nil }
-            }
-        }
+        return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { self.setUp(for: $0) }
     }
     
-    private func beginOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
+    private func beginOutstandingOrderIDAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
+        let promise: Promise<Void>
+        if outstandingOrderID != nil {
+            promise = beginAddToOutstandingOrderDownload(token: token)
+        } else {
+            promise = beginOutstandingOrderIDDownload(token: token)
+                .then { self.beginAddToOutstandingOrderDownload(token: token) }
+        }
+        return promise
+    }
+    
+    private func beginOutstandingOrderIDDownload(token: JWT? = nil) -> Promise<Void> {
         let outstandingOrderPromise: Promise<OutstandingOrder>
         if let storedOutstandingOrderIDString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID) {
             outstandingOrderID = OutstandingOrder.ID(uuidString: storedOutstandingOrderIDString)
@@ -167,13 +190,14 @@ class ConstructedItemViewModel {
         } else if userID != nil {
             guard let token = token else { preconditionFailure() }
             outstandingOrderPromise = getUserOutstandingOrders(token: token).then { outstandingOrders -> Promise<OutstandingOrder> in
-                guard let outstandingOrder = outstandingOrders.first else { return self.createOutstandingOrder(data: .init(userID: self.userID), token: token) }
+                guard let outstandingOrder = outstandingOrders.first
+                    else { return self.createOutstandingOrder(data: .init(userID: self.userID), token: token) }
                 return Promise { $0.fulfill(outstandingOrder) }
             }
         } else { outstandingOrderPromise = createOutstandingOrder() }
-        return outstandingOrderPromise.done {
-            self.outstandingOrderID = $0.id
-            self.keyValueStore.set($0.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+        return outstandingOrderPromise.done { outstandingOrder in
+            self.outstandingOrderID = outstandingOrder.id
+            self.keyValueStore.set(outstandingOrder.id.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
         }
     }
     
@@ -181,17 +205,6 @@ class ConstructedItemViewModel {
         return addOutstandingOrderConstructedItems(
             outstandingOrderID: outstandingOrderID ?? preconditionFailure(), data: .init(ids: [self.constructedItemID ?? preconditionFailure()]), token: token
         ).asVoid()
-    }
-    
-    private func beginOutstandingOrderAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
-        let promise: Promise<Void>
-        if outstandingOrderID != nil {
-            promise = beginAddToOutstandingOrderDownload(token: token)
-        } else {
-            promise = beginOutstandingOrderDownload(token: token)
-                .then { self.beginAddToOutstandingOrderDownload(token: token) }
-        }
-        return promise
     }
     
     private func getCategories() -> Promise<[Category]> {
@@ -244,19 +257,22 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func getUser(token: JWT) -> Promise<User> {
-        return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
-    }
-    
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods
-    private func makeCategoryCollectionViewSectionModels(categories: [Category]) -> [UICollectionViewSectionModel] {
-        return [UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))]
+    private func makeCategoryCollectionViewSectionModels() -> [UICollectionViewSectionModel] {
+        var sectionModels = [UICollectionViewSectionModel]()
+        if let categoriesModel = categoriesCollectionViewSectionModel {
+            sectionModels.append(categoriesModel)
+        }
+        return sectionModels
+    }
+    
+    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UICollectionViewSectionModel {
+        return UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

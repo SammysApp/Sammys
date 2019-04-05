@@ -20,16 +20,25 @@ class HomeViewController: UIViewController {
     private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemAction)
     
     private struct Constants {
-        static let categoryImageTableViewCellTextLabelFontSize: CGFloat = 28
+        static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
+        static let navigationItemTitleImage = #imageLiteral(resourceName: "NavBar.Title")
+        static let navigationItemTitleViewTintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
+        static let navigationItemRightBarButtonItemImage = #imageLiteral(resourceName: "NavBar.User")
+        
+        static let categoryImageTableViewCellTextLabelFontWeight = UIFont.Weight.medium
+        static let categoryImageTableViewCellTextLabelFontSize = CGFloat(28)
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
-        configureNavigation()
         setUpView()
+        configureNavigation()
         configureViewModel()
+        
         viewModel.beginDownloads()
     }
     
@@ -44,12 +53,12 @@ class HomeViewController: UIViewController {
     }
     
     private func configureNavigation() {
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
-        let titleImage = #imageLiteral(resourceName: "NavBar.Title").withRenderingMode(.alwaysTemplate)
+        self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
+        let titleImage = Constants.navigationItemTitleImage.withRenderingMode(.alwaysTemplate)
         let titleImageView = UIImageView(image: titleImage)
-        titleImageView.tintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
         self.navigationItem.titleView = titleImageView
-        self.navigationItem.rightBarButtonItem = .init(image: #imageLiteral(resourceName: "NavBar.User"), style: .plain, target: userBarButtonItemTarget)
+        self.navigationItem.titleView?.tintColor = Constants.navigationItemTitleViewTintColor
+        self.navigationItem.rightBarButtonItem = .init(image: Constants.navigationItemRightBarButtonItemImage, style: .plain, target: userBarButtonItemTarget)
     }
     
     private func configureTableView() {
@@ -63,7 +72,7 @@ class HomeViewController: UIViewController {
             .configuration: categoryImageTableViewCellConfigurationAction,
             .selection: categoryImageTableViewCellSelectionAction
         ]
-        viewModel.tableViewSectionModels.bind { value in
+        viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
@@ -80,26 +89,33 @@ class HomeViewController: UIViewController {
     
     // MARK: - Target Actions
     private func userBarButtonItemAction() {
-        self.present(UINavigationController(rootViewController: UserViewController()), animated: true, completion: nil)
+        let userViewController = UserViewController()
+        self.present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions
     private func categoryImageTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }
+        
+        cell.textLabel.font = .systemFont(ofSize: Constants.categoryImageTableViewCellTextLabelFontSize, weight: Constants.categoryImageTableViewCellTextLabelFontWeight)
         cell.textLabel.text = cellViewModel.configurationData.text
-        cell.textLabel.font = .systemFont(ofSize: Constants.categoryImageTableViewCellTextLabelFontSize, weight: .medium)
+        
         cell.imageView.clipsToBounds = true
         cell.imageView.contentMode = .scaleAspectFill
         cellViewModel.configurationData.imageData.bindAndRun { data in
             guard let data = data else { return }
             cell.imageView.image = UIImage(data: data)
         }
+        
+        // Unbind the image data from the reused cell's image to
+        // avoid the wrong image being set.
         cell.prepareForReuseHandler = { cellViewModel.configurationData.imageData.unbind() }
     }
     
     private func categoryImageTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
+        
         navigationController?.pushViewController(
             makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title),
             animated: true

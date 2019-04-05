@@ -24,12 +24,14 @@ class ItemsViewController: UIViewController {
     }
     
     private struct Constants {
-        static let itemTableViewCellTextLabelFontSize: CGFloat = 18
+        static let itemTableViewCellTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        static let itemTableViewCellTextLabelFontSize = CGFloat(18)
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
         setUpView()
         configureViewModel()
@@ -56,7 +58,7 @@ class ItemsViewController: UIViewController {
             .configuration: itemTableViewCellConfigurationAction,
             .selection: itemTableViewCellSelectionAction
         ]
-        viewModel.tableViewSectionModels.bind { value in
+        viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
@@ -67,29 +69,28 @@ class ItemsViewController: UIViewController {
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }
-        cell.tintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        
+        cell.tintColor = Constants.itemTableViewCellTintColor
         cell.textLabel?.font = .systemFont(ofSize: Constants.itemTableViewCellTextLabelFontSize)
         cell.textLabel?.text = cellViewModel.configurationData.text
         cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
-        if let id = cellViewModel.configurationData.categoryItemID, viewModel.selectedCategoryItemIDs.contains(id) {
-            cell.accessoryType = .checkmark
-        } else { cell.accessoryType = .none }
+        cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
     }
     
     private func itemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let indexPath = data.indexPath,
             let cell = tableView.cellForRow(at: indexPath),
-            let id = cellViewModel.selectionData.categoryItemID
-            else { return }
-        if !viewModel.selectedCategoryItemIDs.contains(id) {
-            cell.accessoryType = .checkmark
-            viewModel.selectedCategoryItemIDs.append(id)
-            addItemHandler?(.init(categoryItemID: id))
-        } else {
-            cell.accessoryType = .none
+            let id = cellViewModel.selectionData.categoryItemID else { return }
+        
+        let isSelected = cellViewModel.selectionData.isSelected()
+        cell.accessoryType = isSelected ? .none : .checkmark
+        if isSelected {
             viewModel.selectedCategoryItemIDs.remove(id)
             removeItemHandler?(.init(categoryItemID: id))
+        } else {
+            viewModel.selectedCategoryItemIDs.append(id)
+            addItemHandler?(.init(categoryItemID: id))
         }
     }
 }

@@ -17,7 +17,7 @@ class CategoryViewModel {
     
     // MARK: - Section Model Properties
     private var categoriesTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
@@ -29,8 +29,7 @@ class CategoryViewModel {
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
-    let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
-    let isCategoriesDownloading = Dynamic(false)
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum CellIdentifier: String {
         case tableViewCell
@@ -44,17 +43,20 @@ class CategoryViewModel {
         self.httpClient = httpClient
     }
     
+    // MARK: - Setup Methods
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         beginCategoriesDownload()
     }
     
     private func beginCategoriesDownload() {
-        isCategoriesDownloading.value = true
-        getCategories()
-            .done { self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: $0) }
-            .ensure { self.isCategoriesDownloading.value = false }
-            .catch { self.errorHandler?($0) }
+        getCategories().done { categories in
+            self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: categories) }
+        .catch { self.errorHandler?($0) }
     }
     
     private func getCategories() -> Promise<[Category]> {

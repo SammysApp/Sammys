@@ -17,12 +17,14 @@ class ItemsViewModel {
     
     // MARK: - Section Model Properties
     private var itemsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
-    /// The category ID of the items to present. Required to be non-`nil`.
+    /// The category ID of the items to present.
+    /// Required to be non-`nil` before beginning downloads.
     var categoryID: Category.ID?
+    
     /// The selected items` category item IDs.
     var selectedCategoryItemIDs = [Item.CategoryItemID]()
     
@@ -30,8 +32,7 @@ class ItemsViewModel {
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
-    let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
-    let isItemsDownloading = Dynamic(false)
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum CellIdentifier: String {
         case subtitleTableViewCell
@@ -45,17 +46,20 @@ class ItemsViewModel {
         self.httpClient = httpClient
     }
     
+    // MARK: - Setup Methods
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         beginItemsDownload()
     }
     
     private func beginItemsDownload() {
-        isItemsDownloading.value = true
-        getItems()
-            .done { self.itemsTableViewSectionModel = self.makeItemsTableViewSectionModel(items: $0) }
-            .ensure { self.isItemsDownloading.value = false }
-            .catch { self.errorHandler?($0) }
+        getItems().done { items in
+            self.itemsTableViewSectionModel = self.makeItemsTableViewSectionModel(items: items) }
+        .catch { self.errorHandler?($0) }
     }
     
     private func getItems() -> Promise<[Item]> {
@@ -76,12 +80,16 @@ class ItemsViewModel {
     
     // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModel(item: Item) -> ItemTableViewCellViewModel {
+        let isSelected: () -> Bool = {
+            guard let id = item.categoryItemID else { return false }
+            return self.selectedCategoryItemIDs.contains(id)
+        }
         return ItemTableViewCellViewModel(
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
-            configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), categoryItemID: item.categoryItemID),
-            selectionData: .init(categoryItemID: item.categoryItemID)
+            configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), isSelected: isSelected()),
+            selectionData: .init(categoryItemID: item.categoryItemID, isSelected: isSelected)
         )
     }
 }
@@ -98,11 +106,12 @@ extension ItemsViewModel {
         struct ConfigurationData {
             let text: String
             let detailText: String?
-            let categoryItemID: Item.CategoryItemID?
+            let isSelected: Bool
         }
         
         struct SelectionData {
             let categoryItemID: Item.CategoryItemID?
+            let isSelected: () -> Bool
         }
     }
 }

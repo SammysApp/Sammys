@@ -17,7 +17,7 @@ class HomeViewModel {
     
     // MARK: - Section Model Properties
     private var categoriesTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
@@ -25,8 +25,7 @@ class HomeViewModel {
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
-    let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
-    let isCategoriesDownloading = Dynamic(false)
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum CellIdentifier: String {
         case imageTableViewCell
@@ -40,22 +39,24 @@ class HomeViewModel {
         self.httpClient = httpClient
     }
     
+    // MARK: - Setup Methods
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         beginCategoriesDownload()
     }
     
     private func beginCategoriesDownload() {
-        isCategoriesDownloading.value = true
-        getRootCategories()
-            .done { self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: $0) }
-            .ensure { self.isCategoriesDownloading.value = false }
-            .catch { self.errorHandler?($0) }
+        getRootCategories().done { categories in
+            self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: categories)
+        }.catch { self.errorHandler?($0) }
     }
     
     private func getRootCategories() -> Promise<[Category]> {
-        let queryItems = [URLQueryItem(name: "isRoot", value: String(true))]
-        return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryItems: queryItems)).validate()
+        return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryData: .init(isRoot: true))).validate()
             .map { try JSONDecoder().decode([Category].self, from: $0.data) }
     }
     

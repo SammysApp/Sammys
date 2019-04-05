@@ -13,6 +13,7 @@ class ConstructedItemViewController: UIViewController {
     
     let categoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let itemsViewController = ItemsViewController()
+    
     private(set) lazy var favoriteBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "NavBar.Heart"), style: .plain, target: favoriteBarButtonItemTarget)
     let completeButton = RoundedButton()
     
@@ -25,21 +26,35 @@ class ConstructedItemViewController: UIViewController {
     private struct Constants {
         static let categoryCollectionViewInset: CGFloat = 10
         static let categoryCollectionViewHeight: CGFloat = 30
+        
+        static let categoryRoundedTextCollectionViewCellBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        static let categoryRoundedTextCollectionViewCellTextLabelInset = 10
+        static let categoryRoundedTextCollectionViewCellTextLabelColor = UIColor.white
+        static let categoryRoundedTextCollectionViewCellTextLabelFontWeight = UIFont.Weight.bold
+        static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
+        
+        static let favoriteBarButtonItemDefaultColor = UIColor.lightGray
+        static let favoriteBarButtonItemSelectedColor = #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1)
+        
+        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
+        static let completeButtonTitleLabelColor = UIColor.white
+        static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelTextFontSize: CGFloat = 18
         static let completeButtonTitleLabelText = "Add to Bag"
-        static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureCategoryCollectionView()
         configureItemsViewController()
         configureCompleteButton()
-        configureNavigation()
         setUpView()
         addChildren()
+        configureNavigation()
         configureViewModel()
+        
         viewModel.beginDownloads()
     }
     
@@ -64,7 +79,6 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func configureNavigation() {
-        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         self.navigationItem.rightBarButtonItem = favoriteBarButtonItem
     }
     
@@ -72,9 +86,11 @@ class ConstructedItemViewController: UIViewController {
         if let layout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
         }
+        
         categoryCollectionView.dataSource = categoryCollectionViewDataSource
         categoryCollectionView.delegate = categoryCollectionViewDelegate
         categoryCollectionView.register(RoundedTextCollectionViewCell.self, forCellWithReuseIdentifier: ConstructedItemViewModel.CellIdentifier.roundedTextCollectionViewCell.rawValue)
+        
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.showsHorizontalScrollIndicator = false
         categoryCollectionView.contentInset.left = Constants.categoryCollectionViewInset
@@ -84,57 +100,65 @@ class ConstructedItemViewController: UIViewController {
     
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
+        
         itemsViewController.addItemHandler = { data in
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
         itemsViewController.removeItemHandler = { data in
             self.viewModel.beginRemoveConstructedItemItemsDownload(categoryItemID: data.categoryItemID)
         }
+        
         itemsViewController.tableView.contentInset.top =
             Constants.categoryCollectionViewHeight + (Constants.categoryCollectionViewInset * 2)
         itemsViewController.tableView.scrollIndicatorInsets.top = itemsViewController.tableView.contentInset.top
     }
     
     private func configureCompleteButton() {
-        completeButton.backgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
-        completeButton.titleLabel.textColor = .white
-        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: .semibold)
-        completeButton.titleLabel.text = Constants.completeButtonTitleLabelText
+        completeButton.backgroundColor = Constants.completeButtonBackgroundColor
+        completeButton.titleLabel.textColor = Constants.completeButtonTitleLabelColor
+        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: Constants.completeButtonTitleLabelFontWeight)
+        
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
     private func configureViewModel() {
         let sizeCalculationLabel = UILabel()
+        
         viewModel.categoryRoundedTextCollectionViewCellViewModelActions = [
             .configuration: categoryRoundedTextCollectionViewCellConfigurationAction,
             .selection: categoryRoundedTextCollectionViewCellSelectionAction
         ]
         viewModel.categoryRoundedTextCollectionViewCellViewModelSize = { cellViewModel in
             sizeCalculationLabel.text = cellViewModel.configurationData.text
-            return (Double(sizeCalculationLabel.intrinsicContentSize.width) + 20, Double(self.categoryCollectionView.frame.height))
+            return (Double(sizeCalculationLabel.intrinsicContentSize.width) + (Double(Constants.categoryRoundedTextCollectionViewCellTextLabelInset) * 2), Double(self.categoryCollectionView.frame.height))
         }
-        viewModel.selectedCategoryID.bind { value in
-            self.itemsViewController.viewModel.categoryID = value
+        
+        viewModel.selectedCategoryID.bindAndRun { value in
+            guard let id = value else { return }
+            self.itemsViewController.viewModel.categoryID = id
             self.itemsViewController.viewModel.beginDownloads()
         }
-        viewModel.selectedCategoryName.bind { value in
+        viewModel.selectedCategoryName.bindAndRun { value in
             guard let name = value else { return }
             self.title = "Choose \(name)"
         }
-        viewModel.categoryCollectionViewSectionModels.bind { value in
+        
+        viewModel.categoryCollectionViewSectionModels.bindAndRun { value in
             self.categoryCollectionViewDataSource.sectionModels = value
             self.categoryCollectionViewDelegate.sectionModels = value
             self.categoryCollectionView.reloadData()
         }
-        viewModel.totalPriceText.bind { value in
+        
+        viewModel.totalPriceText.bindAndRun { value in
             if let text = value {
                 self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText + " | " + text
             } else { self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText }
         }
         viewModel.isFavorite.bindAndRun { value in
             guard let value = value else { return }
-            self.favoriteBarButtonItem.tintColor = value ? #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1) : .lightGray
+            self.favoriteBarButtonItem.tintColor = value ? Constants.favoriteBarButtonItemSelectedColor : Constants.favoriteBarButtonItemDefaultColor
         }
+        
         viewModel.errorHandler = { error in
             switch error {
             case UserAuthManagerError.noCurrentUser:
@@ -146,15 +170,15 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
-        let viewController = UserAuthPageViewController()
+        let userAuthPageViewController = UserAuthPageViewController()
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginUpdateConstructedItemUserDownload()
-            viewController.dismiss(animated: true, completion: nil)
+            userAuthPageViewController.dismiss(animated: true, completion: nil)
         }
-        viewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
-        viewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
-        return viewController
+        userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        userAuthPageViewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        return userAuthPageViewController
     }
     
     // MARK: - Target Actions
@@ -174,14 +198,16 @@ class ConstructedItemViewController: UIViewController {
     private func categoryRoundedTextCollectionViewCellConfigurationAction(data: UICollectionViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel,
             let cell = data.cell as? RoundedTextCollectionViewCell else { return }
-        cell.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        cell.textLabel.textColor = .white
-        cell.textLabel.font = .systemFont(ofSize: Constants.categoryRoundedTextCollectionViewCellTextLabelFontSize, weight: .bold)
+        
+        cell.backgroundColor = Constants.categoryRoundedTextCollectionViewCellBackgroundColor
+        cell.textLabel.textColor = Constants.categoryRoundedTextCollectionViewCellTextLabelColor
+        cell.textLabel.font = .systemFont(ofSize: Constants.categoryRoundedTextCollectionViewCellTextLabelFontSize, weight: Constants.categoryRoundedTextCollectionViewCellTextLabelFontWeight)
         cell.textLabel.text = cellViewModel.configurationData.text.uppercased()
     }
     
     private func categoryRoundedTextCollectionViewCellSelectionAction(data: UICollectionViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemViewModel.CategoryRoundedTextCollectionViewCellViewModel else { return }
+        
         viewModel.selectedCategoryID.value = cellViewModel.selectionData.categoryID
         viewModel.selectedCategoryName.value = cellViewModel.selectionData.categoryName
     }

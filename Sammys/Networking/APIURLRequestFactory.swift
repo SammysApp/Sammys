@@ -56,12 +56,12 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getUserOutstandingOrders(id), token: token)
     }
     
-    func makeStoreHoursRequest(queryItems: [URLQueryItem]? = nil) -> URLRequest {
-        return makeRequest(endpoint: .getStoreHours, queryItems: queryItems)
+    func makeStoreHoursRequest() -> URLRequest {
+        return makeRequest(endpoint: .getStoreHours)
     }
     
-    func makeGetCategoriesRequest(queryItems: [URLQueryItem]? = nil) -> URLRequest {
-        return makeRequest(endpoint: .getCategories, queryItems: queryItems)
+    func makeGetCategoriesRequest(queryData: GetCategoriesRequestQueryData? = nil) -> URLRequest {
+        return makeRequest(endpoint: .getCategories, queryItems: queryData?.toQueryItems())
     }
     
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {
@@ -130,6 +130,22 @@ struct APIURLRequestFactory {
     
     func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .removeOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), token: token)
+    }
+}
+
+struct GetCategoriesRequestQueryData {
+    var isRoot: Bool?
+    
+    init(isRoot: Bool? = nil) {
+        self.isRoot = isRoot
+    }
+    
+    func toQueryItems() -> [URLQueryItem] {
+        var queryItems = [URLQueryItem]()
+        if let isRoot = isRoot {
+            queryItems.append(URLQueryItem(name: "isRoot", value: String(isRoot)))
+        }
+        return queryItems
     }
 }
 
