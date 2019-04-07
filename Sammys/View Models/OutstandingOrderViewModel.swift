@@ -20,28 +20,35 @@ class OutstandingOrderViewModel {
     
     // MARK: - Section Model Properties
     private var constructedItemsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
-    /// The bag's outstanding order's ID.
-    /// Calling `beginDownloads()` will first attempt to set it if not already set.
+    /// Required to be non-`nil` before beginning downloads.
+    /// If not set, calling `beginDownloads()` will first attempt to set.
     var outstandingOrderID: OutstandingOrder.ID?
+    
+    /// Allowed to be `nil`. Use `beginUserIDDownload()` to attempt to set.
+    /// Must be set to the outstanding order's user's ID before beginning downloads.
+    /// If set and verifiable, calling `beginDownloads()` will set the
+    /// outstanding order's user to the one specified if necessary.
     var userID: User.ID?
     
     var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - View Gettable Properties
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
     
     // MARK: - Dynamic Properties
-    let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
     let taxPriceText: Dynamic<String?> = Dynamic(nil)
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
     
     enum CellIdentifier: String {
-        case constructedItemStackTableViewCell
+        case itemStackTableViewCell
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -52,14 +59,19 @@ class OutstandingOrderViewModel {
         self.userAuthManager = userAuthManager
     }
     
+    // MARK: - Setup Methods
+    private func setUp(for outstandingOrder: OutstandingOrder) {
+        taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
+        subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
+    }
+    
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
-        let outstandingOrderPromise: Promise<Void>
-        if outstandingOrderID == nil {
-            outstandingOrderPromise = beginSetOutstandingOrderIDDownload()
-                .then { self.beginOutstandingOrderDownload() }
-        } else { outstandingOrderPromise = beginOutstandingOrderDownload() }
-        outstandingOrderPromise
+        firstly { self.beginOutstandingOrderIDAndOutstandingOrderDownload() }
             .then { self.beginOutstandingOrderConstructedItemsDownload() }
             .catch { self.errorHandler?($0) }
     }
@@ -75,7 +87,7 @@ class OutstandingOrderViewModel {
             .catch { self.errorHandler?($0) }
     }
     
-    func beginSetUserIDDownload(successHandler: (() -> Void)? = nil) {
+    func beginUserIDDownload(successHandler: (() -> Void)? = nil) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()
@@ -83,14 +95,23 @@ class OutstandingOrderViewModel {
             .catch { self.errorHandler?($0) }
     }
     
-    private func beginSetOutstandingOrderIDDownload() -> Promise<Void> {
+    private func beginOutstandingOrderIDAndOutstandingOrderDownload() -> Promise<Void> {
+        let promise: Promise<Void>
+        if outstandingOrderID == nil {
+            promise = beginOutstandingOrderIDDownload()
+                .then { self.beginOutstandingOrderDownload() }
+        } else { promise = beginOutstandingOrderDownload() }
+        return promise
+    }
+    
+    private func beginOutstandingOrderIDDownload() -> Promise<Void> {
         // TODO: Check if user has order.
         let promise: Promise<Void>
         if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
             let id = OutstandingOrder.ID(uuidString: idString) {
             outstandingOrderID = id
             promise = Promise { $0.fulfill(()) }
-        } else { promise = Promise(error: OutstandingOrderViewModelError.noOutstandingOrders) }
+        } else { promise = Promise(error: OutstandingOrderViewModelError.noOutstandingOrderFound) }
         return promise
     }
     
@@ -101,10 +122,7 @@ class OutstandingOrderViewModel {
                 .then { self.getOutstandingOrder(token: $0) }
             // TODO: Ensure order has this userID or set it.
         } else { outstandingOrderPromise = getOutstandingOrder() }
-        return outstandingOrderPromise.done { outstandingOrder in
-            self.taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
-            self.subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
-        }
+        return outstandingOrderPromise.done(setUp)
     }
     
     private func beginOutstandingOrderConstructedItemsDownload() -> Promise<Void> {
@@ -139,22 +157,14 @@ class OutstandingOrderViewModel {
     private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makePartiallyUpdateOutstandingOrderConstructedItemRequest(
-                outstandingOrderID: outstandingOrderID ?? preconditionFailure(),
-                constructedItemID: constructedItemID,
-                data: data,
-                token: token
-            )).validate().map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+                outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemID: constructedItemID, data: data, token: token)).validate()
+                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func removeOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> Promise<OutstandingOrder> {
         return httpClient.send(apiURLRequestFactory.makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID, constructedItemID: constructedItemID, token: token)).validate()
             .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
-    }
-    
-    private func getUser(token: JWT) -> Promise<User> {
-        return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
@@ -176,7 +186,7 @@ class OutstandingOrderViewModel {
     // MARK: - Cell View Model Methods
     private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
         return ConstructedItemStackTableViewCellViewModel(
-            identifier: CellIdentifier.constructedItemStackTableViewCell.rawValue,
+            identifier: CellIdentifier.itemStackTableViewCell.rawValue,
             height: .automatic,
             actions: constructedItemStackCellViewModelActions,
             configurationData: .init(
@@ -208,5 +218,5 @@ extension OutstandingOrderViewModel {
 }
 
 enum OutstandingOrderViewModelError: Error {
-    case noOutstandingOrders
+    case noOutstandingOrderFound
 }

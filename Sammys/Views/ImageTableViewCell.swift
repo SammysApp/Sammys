@@ -18,7 +18,7 @@ class ImageTableViewCell: UITableViewCell {
     override var textLabel: UILabel { get { return _textLabel } }
     
     private struct Constants {
-        static let textLabelOffest: CGFloat = 20
+        static let textLabelOffest = CGFloat(20)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

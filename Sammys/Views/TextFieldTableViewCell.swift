@@ -12,7 +12,7 @@ class TextFieldTableViewCell: UITableViewCell {
     let titleLabel = UILabel()
     let textField = UITextField()
     
-    var titleLabelWidth: CGFloat = 0 {
+    var titleLabelWidth = CGFloat(0) {
         didSet { update() }
     }
     var textFieldTextUpdateHandler: (String?) -> Void = { _ in }

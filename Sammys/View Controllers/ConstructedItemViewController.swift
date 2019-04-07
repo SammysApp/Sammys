@@ -18,28 +18,27 @@ class ConstructedItemViewController: UIViewController {
     let completeButton = RoundedButton()
     
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
-    private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegateFlowLayout()
+    private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegate()
     
     private lazy var favoriteBarButtonItemTarget = Target(action: favoriteBarButtonItemAction)
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
-        static let categoryCollectionViewInset: CGFloat = 10
-        static let categoryCollectionViewHeight: CGFloat = 30
+        static let categoryCollectionViewInset = CGFloat(10)
+        static let categoryCollectionViewHeight = CGFloat(40)
         
         static let categoryRoundedTextCollectionViewCellBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
-        static let categoryRoundedTextCollectionViewCellTextLabelInset = 10
-        static let categoryRoundedTextCollectionViewCellTextLabelColor = UIColor.white
+        static let categoryRoundedTextCollectionViewCellTextLabelTextColor = UIColor.white
         static let categoryRoundedTextCollectionViewCellTextLabelFontWeight = UIFont.Weight.bold
-        static let categoryRoundedTextCollectionViewCellTextLabelFontSize: CGFloat = 12
+        static let categoryRoundedTextCollectionViewCellTextLabelFontSize = CGFloat(12)
         
         static let favoriteBarButtonItemDefaultColor = UIColor.lightGray
         static let favoriteBarButtonItemSelectedColor = #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1)
         
         static let completeButtonBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
-        static let completeButtonTitleLabelColor = UIColor.white
+        static let completeButtonTitleLabelTextColor = UIColor.white
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
-        static let completeButtonTitleLabelTextFontSize: CGFloat = 18
+        static let completeButtonTitleLabelTextFontSize = CGFloat(18)
         static let completeButtonTitleLabelText = "Add to Bag"
     }
     
@@ -85,6 +84,7 @@ class ConstructedItemViewController: UIViewController {
     private func configureCategoryCollectionView() {
         if let layout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
+            layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         }
         
         categoryCollectionView.dataSource = categoryCollectionViewDataSource
@@ -115,23 +115,17 @@ class ConstructedItemViewController: UIViewController {
     
     private func configureCompleteButton() {
         completeButton.backgroundColor = Constants.completeButtonBackgroundColor
-        completeButton.titleLabel.textColor = Constants.completeButtonTitleLabelColor
+        completeButton.titleLabel.textColor = Constants.completeButtonTitleLabelTextColor
         completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: Constants.completeButtonTitleLabelFontWeight)
         
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
     private func configureViewModel() {
-        let sizeCalculationLabel = UILabel()
-        
         viewModel.categoryRoundedTextCollectionViewCellViewModelActions = [
             .configuration: categoryRoundedTextCollectionViewCellConfigurationAction,
             .selection: categoryRoundedTextCollectionViewCellSelectionAction
         ]
-        viewModel.categoryRoundedTextCollectionViewCellViewModelSize = { cellViewModel in
-            sizeCalculationLabel.text = cellViewModel.configurationData.text
-            return (Double(sizeCalculationLabel.intrinsicContentSize.width) + (Double(Constants.categoryRoundedTextCollectionViewCellTextLabelInset) * 2), Double(self.categoryCollectionView.frame.height))
-        }
         
         viewModel.selectedCategoryID.bindAndRun { value in
             guard let id = value else { return }
@@ -200,7 +194,7 @@ class ConstructedItemViewController: UIViewController {
             let cell = data.cell as? RoundedTextCollectionViewCell else { return }
         
         cell.backgroundColor = Constants.categoryRoundedTextCollectionViewCellBackgroundColor
-        cell.textLabel.textColor = Constants.categoryRoundedTextCollectionViewCellTextLabelColor
+        cell.textLabel.textColor = Constants.categoryRoundedTextCollectionViewCellTextLabelTextColor
         cell.textLabel.font = .systemFont(ofSize: Constants.categoryRoundedTextCollectionViewCellTextLabelFontSize, weight: Constants.categoryRoundedTextCollectionViewCellTextLabelFontWeight)
         cell.textLabel.text = cellViewModel.configurationData.text.uppercased()
     }

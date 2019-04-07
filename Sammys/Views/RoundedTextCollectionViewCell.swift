@@ -11,8 +11,12 @@ import UIKit
 class RoundedTextCollectionViewCell: UICollectionViewCell {
     let textLabel = UILabel()
     
-    var cornerRadiusMultiplier: CGFloat = 0.25 {
+    var cornerRadiusMultiplier = CGFloat(0.2) {
         didSet { update() }
+    }
+    
+    private struct Constants {
+        static let textLabelInset = CGFloat(10)
     }
     
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
@@ -21,7 +25,7 @@ class RoundedTextCollectionViewCell: UICollectionViewCell {
     
     private func setUp() {
         self.addSubview(textLabel)
-        textLabel.center(in: self.contentView)
+        textLabel.edgesToSuperview(insets: .uniform(Constants.textLabelInset))
         update()
     }
     

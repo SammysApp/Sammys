@@ -13,6 +13,7 @@ class CheckoutViewController: UIViewController {
     let viewModel = CheckoutViewModel()
     
     let tableView = UITableView(frame: .zero, style: .grouped)
+    
     let payButton = RoundedButton()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
@@ -22,16 +23,22 @@ class CheckoutViewController: UIViewController {
     
     private struct Constants {
         static let pickupDateTableViewCellTextLabelText = "Pickup"
+        
+        static let payButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        static let payButtonTitleLabelTextColor = UIColor.white
         static let payButtonTitleLabelText = "Pay"
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
         configurePayButton()
         setUpView()
         configureViewModel()
+        
+        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -53,8 +60,8 @@ class CheckoutViewController: UIViewController {
     }
     
     private func configurePayButton() {
-        payButton.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
-        payButton.titleLabel.textColor = .white
+        payButton.backgroundColor = Constants.payButtonBackgroundColor
+        payButton.titleLabel.textColor = Constants.payButtonTitleLabelTextColor
         payButton.titleLabel.text = Constants.payButtonTitleLabelText
         payButton.add(payButtonTouchUpInsideTarget, for: .touchUpInside)
     }
@@ -64,6 +71,7 @@ class CheckoutViewController: UIViewController {
             .configuration: pickupDateTableViewCellConfigurationAction,
             .selection: pickupDateTableViewCellSelectionAction
         ]
+        
         viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
@@ -79,21 +87,21 @@ class CheckoutViewController: UIViewController {
     // MARK: - Factory Methods
     private func makePickupDatePickerViewController() -> DatePickerViewController {
         let datePickerViewController = DatePickerViewController()
+        datePickerViewController.viewModel.minuteInterval = 15
+        
+        viewModel.minimumPickupDate.bindAndRun { datePickerViewController.viewModel.minimumDate = $0 }
+        viewModel.maximumPickupDate.bindAndRun { datePickerViewController.viewModel.maximumDate = $0 }
+        
         if let date = viewModel.pickupDate {
             datePickerViewController.viewModel.selectedDate = .date(date)
         }
-        viewModel.minimumPickupDate.bindAndRun {
-            datePickerViewController.viewModel.minimumDate = $0
-        }
-        viewModel.maximumPickupDate.bindAndRun {
-            datePickerViewController.viewModel.maximumDate = $0
-        }
-        datePickerViewController.viewModel.minuteInterval = 15
-        datePickerViewController.didSelectDate = { date in
+        
+        datePickerViewController.didSelectDateHandler = { date in
             switch date {
             case .asap: self.viewModel.pickupDate = nil
             case .date(let date): self.viewModel.pickupDate = date
             }
+            
             self.navigationController?.popViewController(animated: true)
         }
         return datePickerViewController
@@ -110,13 +118,13 @@ class CheckoutViewController: UIViewController {
     private func pickupDateTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.PickupDateTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }
+        
         cell.textLabel?.text = Constants.pickupDateTableViewCellTextLabelText
         cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
     }
     
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         self.navigationController?.pushViewController(makePickupDatePickerViewController(), animated: true)
-        viewModel.beginStoreHoursDownload()
     }
 }
 
@@ -124,14 +132,11 @@ extension CheckoutViewController: SQIPCardEntryViewControllerDelegate {
     func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didObtain cardDetails: SQIPCardDetails, completionHandler: @escaping (Error?) -> Void) {
         viewModel.beginCreatePurchasedOrderDownload(cardNonce: cardDetails.nonce) { result in
             switch result {
-            case .fulfilled(_):
-                completionHandler(nil)
+            case .fulfilled(_): completionHandler(nil)
             case .rejected(let error): completionHandler(error)
             }
         }
     }
     
-    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didCompleteWith status: SQIPCardEntryCompletionStatus) {
-        
-    }
+    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didCompleteWith status: SQIPCardEntryCompletionStatus) {}
 }

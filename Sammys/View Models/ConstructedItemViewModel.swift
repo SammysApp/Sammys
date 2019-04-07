@@ -29,21 +29,25 @@ class ConstructedItemViewModel {
     /// Used to get the available categories of the constructed item,
     /// the subcategories of this category.
     var categoryID: Category.ID?
+    
     /// The presented constructed item's ID.
     /// Required to be non-`nil` for many downloads.
     /// Call `beginCreateConstructedItemDownload()` to create a new one
     /// and have this property set.
     var constructedItemID: ConstructedItem.ID?
+    
     /// The ID of the outstanding order to add the constructed item to.
     /// If not set, will attempt to set
     /// when `beginAddToOutstandingOrderDownload()` is called.
     var outstandingOrderID: OutstandingOrder.ID?
-    /// Allowed to be `nil`. Required for some downloads.
-    /// Use beginUserIDDownload() to attempt to set.
+    
+    /// Allowed to be `nil`. Use `beginUserIDDownload()` to attempt to set.
+    /// Must be set to the constructed item's user's ID before beginning downloads.
+    /// If set and verifiable, calling `beginCreateConstructedItemDownload()`
+    /// will set the constructed item's user to the one specified.
     var userID: User.ID?
     
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction: UICollectionViewCellActionHandler]()
-    var categoryRoundedTextCollectionViewCellViewModelSize: ((CategoryRoundedTextCollectionViewCellViewModel) -> (width: Double, height: Double))?
     
     var errorHandler: ((Error) -> Void)?
     
@@ -164,11 +168,11 @@ class ConstructedItemViewModel {
     }
     
     private func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID], token: JWT? = nil) -> Promise<Void> {
-        return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done { self.setUp(for: $0) }
+        return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs), token: token).done(setUp)
     }
     
     private func beginRemoveConstructedItemItemsDownload(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<Void> {
-        return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done { self.setUp(for: $0) }
+        return removeConstructedItemItem(categoryItemID: categoryItemID, token: token).done(setUp)
     }
     
     private func beginOutstandingOrderIDAndAddToOutstandingOrderDownload(token: JWT? = nil) -> Promise<Void> {
@@ -277,24 +281,18 @@ class ConstructedItemViewModel {
     
     // MARK: - Cell View Model Methods
     private func makeCategoryRoundedTextCollectionViewCellViewModel(category: Category) -> CategoryRoundedTextCollectionViewCellViewModel {
-        var cellViewModel = CategoryRoundedTextCollectionViewCellViewModel(
+        return CategoryRoundedTextCollectionViewCellViewModel(
             identifier: CellIdentifier.roundedTextCollectionViewCell.rawValue,
-            size: (0, 0),
             actions: categoryRoundedTextCollectionViewCellViewModelActions,
             configurationData: .init(text: category.name),
             selectionData: .init(categoryID: category.id, categoryName: category.name)
         )
-        if let size = categoryRoundedTextCollectionViewCellViewModelSize?(cellViewModel) {
-            cellViewModel.size = size
-        }
-        return cellViewModel
     }
 }
 
 extension ConstructedItemViewModel {
     struct CategoryRoundedTextCollectionViewCellViewModel: UICollectionViewCellViewModel {
         let identifier: String
-        var size: (width: Double, height: Double)
         let actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler]
         
         let configurationData: ConfigurationData

@@ -52,6 +52,7 @@ class CategoryViewController: UIViewController {
             .configuration: categoryTableViewCellConfigurationAction,
             .selection: categoryTableViewCellSelectionAction
         ]
+        
         viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value

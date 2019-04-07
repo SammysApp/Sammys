@@ -20,34 +20,41 @@ class UserViewModel {
     
     // MARK: - Section Model Properties
     private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     private var buttonsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - View Settable Properties
-    /// Required to be non-`nil`. Calling `beginUserDownload()` will
-    /// try getting the current user and setting this property.
+    /// Required to be non-`nil`. Calling `beginDownloads()`
+    /// will attempt to get the current user and set this property.
     var userID: User.ID?
     
     var userDetailTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var buttonTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
-        didSet { update() }
+        didSet { updateButtonsTableViewSectionModel() }
     }
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
-    let tableViewSectionModels = Dynamic([UITableViewSectionModel]())
-    let isUserDownloading = Dynamic(false)
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum CellIdentifier: String {
         case tableViewCell
     }
     
     private struct Constants {
-        static let userDetailTableViewCellViewModelHeight: Double = 60
-        static let buttonTableViewCellViewModelHeight: Double = 60
+        static let userDetailTableViewCellModelNameTitle = "Name"
+        static let userDetailTableViewCellModelEmailTitle = "Email"
+        
+        static let userDetailTableViewCellViewModelHeight = Double(60)
+        
+        static let logOutButtonTitle = "Log Out"
+        
+        static let buttonTableViewCellViewModelHeight = Double(60)
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -59,13 +66,21 @@ class UserViewModel {
     }
     
     // MARK: - Setup Methods
-    func update() {
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
+    private func updateButtonsTableViewSectionModel() {
         buttonsTableViewSectionModel = makeButtonsTableViewSectionModel(cellModels: makeButtonTableViewCellModels())
     }
     
     // MARK: - Download Methods
-    func beginUserDownload() {
-        isUserDownloading.value = true
+    func beginDownloads() {
+        firstly { self.beginUserDownload() }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    private func beginUserDownload() -> Promise<Void> {
         let userPromise: Promise<User>
         if userID == nil {
             userPromise = userAuthManager.getCurrentUserIDToken()
@@ -75,9 +90,9 @@ class UserViewModel {
             userPromise = userAuthManager.getCurrentUserIDToken()
                 .then { self.getUser(token: $0) }
         }
-        userPromise.ensure { self.isUserDownloading.value = false }.done { user in
-                self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(cellModels: self.makeUserDetailTableViewCellModels(user: user))
-            }.catch { self.errorHandler?($0) }
+        return userPromise.done { user in
+            self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(cellModels: self.makeUserDetailTableViewCellModels(user: user))
+        }
     }
     
     private func getUser(token: JWT) -> Promise<User> {
@@ -90,21 +105,10 @@ class UserViewModel {
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
     }
     
+    // MARK: - Methods
     func logOut() throws {
         try userAuthManager.signOutCurrentUser()
         keyValueStore.set(Optional<String>(nil), forKey: KeyValueStoreKeys.currentOutstandingOrderID)
-    }
-    
-    // MARK: - Factory Methods
-    private func makeUserDetailTableViewCellModels(user: User) -> [UserDetailTableViewCellModel] {
-        return [
-            UserDetailTableViewCellModel(title: "Name", text: user.firstName + " " + user.lastName),
-            UserDetailTableViewCellModel(title: "Email", text: user.email)
-        ]
-    }
-    
-    private func makeButtonTableViewCellModels() -> [ButtonTableViewCellModel] {
-        return Button.allCases.map(ButtonTableViewCellModel.init)
     }
     
     // MARK: - Section Model Methods
@@ -121,6 +125,18 @@ class UserViewModel {
     
     private func makeButtonsTableViewSectionModel(cellModels: [ButtonTableViewCellModel]) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: cellModels.map(makeButtonTableViewCellViewModel))
+    }
+    
+    // MARK: - Cell Model Methods
+    private func makeUserDetailTableViewCellModels(user: User) -> [UserDetailTableViewCellModel] {
+        return [
+            UserDetailTableViewCellModel(title: Constants.userDetailTableViewCellModelNameTitle, text: user.firstName + " " + user.lastName),
+            UserDetailTableViewCellModel(title: Constants.userDetailTableViewCellModelEmailTitle, text: user.email)
+        ]
+    }
+    
+    private func makeButtonTableViewCellModels() -> [ButtonTableViewCellModel] {
+        return Button.allCases.map(ButtonTableViewCellModel.init)
     }
     
     // MARK: - Cell View Model Methods
@@ -157,13 +173,11 @@ extension UserViewModel {
         
         var title: String {
             switch self {
-            case .logOut: return "Log Out"
+            case .logOut: return Constants.logOutButtonTitle
             }
         }
     }
-}
-
-private extension UserViewModel {
+    
     struct ButtonTableViewCellModel {
         let button: Button
     }

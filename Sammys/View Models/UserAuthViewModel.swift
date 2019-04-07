@@ -11,18 +11,23 @@ import PromiseKit
 import FirebaseAuth
 
 class UserAuthViewModel {
+    private let apiURLRequestFactory = APIURLRequestFactory()
+    
     private var userData = UserData()
     
+    // MARK: - Cell Model Properties
     private let newUserTextFieldTableViewCellModels = [
-        TextFieldTableViewCellModel(title: "First Name", userDataKey: \.firstName),
-        TextFieldTableViewCellModel(title: "Last Name", userDataKey: \.lastName),
-        TextFieldTableViewCellModel(title: "Email", userDataKey: \.email),
-        TextFieldTableViewCellModel(title: "Password", userDataKey: \.password)
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelFirstNameTitle, userDataKey: \.firstName),
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelLastNameTitle, userDataKey: \.lastName),
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelEmailTitle, userDataKey: \.email),
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelPasswordTitle, userDataKey: \.password)
     ]
+    
     private let existingUserTextFieldTableViewCellModels = [
-        TextFieldTableViewCellModel(title: "Email", userDataKey: \.email),
-        TextFieldTableViewCellModel(title: "Password", userDataKey: \.password)
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelEmailTitle, userDataKey: \.email),
+        TextFieldTableViewCellModel(title: Constants.textFieldTableViewCellModelPasswordTitle, userDataKey: \.password)
     ]
+    
     private var textFieldTableViewCellModels: [TextFieldTableViewCellModel] {
         switch userStatus {
         case .new: return newUserTextFieldTableViewCellModels
@@ -30,36 +35,43 @@ class UserAuthViewModel {
         }
     }
     
-    private let apiURLRequestFactory = APIURLRequestFactory()
-    
     // MARK: - Dependencies
     var httpClient: HTTPClient
     var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
     // MARK: - View Settable Properties
-    var userStatus: UserStatus = .new
-    var textFieldTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var userStatus: UserStatus = .new {
+        didSet { update() }
+    }
+    
+    var textFieldTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateTableViewSectionModels() }
+    }
+    
     var userDidSignInHandler: ((User.ID) -> Void)?
+    
     var errorHandler: ((Error) -> Void)?
     
-    // MARK: - View Gettable Properties
-    var tableViewSectionModels: [UITableViewSectionModel] {
-        return makeTableViewSectionModels()
-    }
-    var completedButtonText: String {
-        switch userStatus {
-        case .new: return "Sign Up"
-        case .existing: return "Sign In"
-        }
-    }
+    // MARK: - Dynamic Properties
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    private(set) lazy var completedButtonText = Dynamic(makeCompletedButtonText())
     
     enum CellIdentifier: String {
         case textFieldTableViewCell
     }
     
     private struct Constants {
-        static let textFieldTableViewCellViewModelHeight: Double = 50
+        static let textFieldTableViewCellModelFirstNameTitle = "First Name"
+        static let textFieldTableViewCellModelLastNameTitle = "Last Name"
+        static let textFieldTableViewCellModelEmailTitle = "Email"
+        static let textFieldTableViewCellModelPasswordTitle = "Password"
+        
+        static let textFieldTableViewCellViewModelHeight = Double(50)
+        
+        static let completedButtonNewUserStatusText = "Sign Up"
+        static let completedButtonExistingUserStatusText = "Sign In"
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -68,6 +80,20 @@ class UserAuthViewModel {
         self.httpClient = httpClient
         self.keyValueStore = keyValueStore
         self.userAuthManager = userAuthManager
+    }
+    
+    // MARK: - Setup Methods
+    private func update() {
+        updateTableViewSectionModels()
+        updateCompletedButtonText()
+    }
+    
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
+    private func updateCompletedButtonText() {
+        completedButtonText.value = makeCompletedButtonText()
     }
     
     // MARK: - Download Methods
@@ -110,6 +136,14 @@ class UserAuthViewModel {
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try JSONDecoder().decode(User.self, from: $0.data) }
+    }
+    
+    // MARK: - Factory Methods
+    func makeCompletedButtonText() -> String {
+        switch userStatus {
+        case .new: return Constants.completedButtonNewUserStatusText
+        case .existing: return Constants.completedButtonExistingUserStatusText
+        }
     }
     
     // MARK: - Section Model Methods
@@ -163,7 +197,7 @@ extension UserAuthViewModel {
         
         struct ConfigurationData {
             let title: String
-            let textFieldTextUpdateHandler: (String?) -> Void
+            let textFieldTextDidUpdateHandler: (String?) -> Void
         }
     }
 }

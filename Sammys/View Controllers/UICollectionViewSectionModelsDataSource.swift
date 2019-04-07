@@ -11,8 +11,8 @@ import UIKit
 class UICollectionViewSectionModelsDataSource: NSObject, UICollectionViewDataSource {
     var sectionModels: [UICollectionViewSectionModel]
     
-    init(sections: [UICollectionViewSectionModel] = []) {
-        self.sectionModels = sections
+    init(sectionModels: [UICollectionViewSectionModel] = []) {
+        self.sectionModels = sectionModels
         super.init()
     }
     

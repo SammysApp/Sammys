@@ -21,12 +21,12 @@ class RoundedButton: UIControl {
         set { _backgroundColor = newValue }
     }
     
-    var cornerRadiusMultiplier: CGFloat = 0.25 {
+    var cornerRadiusMultiplier = CGFloat(0.25) {
         didSet { update() }
     }
     
     private struct Constants {
-        static let titleLabelInset: CGFloat = 10
+        static let titleLabelInset = CGFloat(10)
     }
     
     override init(frame: CGRect) { super.init(frame: frame); setUp() }

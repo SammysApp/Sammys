@@ -10,6 +10,23 @@ import UIKit
 
 typealias UITableViewCellActionHandler = (UITableViewCellActionHandlerData) -> ()
 
+protocol UITableViewCellViewModel {
+    var identifier: String { get }
+    var height: UITableViewCellViewModelHeight { get }
+    var isSelectable: Bool { get }
+    var actions: [UITableViewCellAction: UITableViewCellActionHandler] { get }
+}
+
+enum UITableViewCellViewModelHeight {
+    case automatic
+    case fixed(Double)
+}
+
+enum UITableViewCellAction {
+    case configuration
+    case selection
+}
+
 struct UITableViewCellActionHandlerData {
     let cellViewModel: UITableViewCellViewModel?
     let indexPath: IndexPath?
@@ -22,23 +39,6 @@ struct UITableViewCellActionHandlerData {
         self.indexPath = indexPath
         self.cell = cell
     }
-}
-
-enum UITableViewCellAction {
-    case configuration
-    case selection
-}
-
-enum UITableViewCellViewModelHeight {
-    case automatic
-    case fixed(Double)
-}
-
-protocol UITableViewCellViewModel {
-    var identifier: String { get }
-    var height: UITableViewCellViewModelHeight { get }
-    var isSelectable: Bool { get }
-    var actions: [UITableViewCellAction: UITableViewCellActionHandler] { get }
 }
 
 extension UITableViewCellViewModel {

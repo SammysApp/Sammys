@@ -22,6 +22,7 @@ class HomeViewModel {
     
     // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -32,7 +33,7 @@ class HomeViewModel {
     }
     
     private struct Constants {
-        static let categoryImageTableViewCellViewModelHeight: Double = 200
+        static let categoryImageTableViewCellViewModelHeight = Double(200)
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
@@ -80,12 +81,14 @@ class HomeViewModel {
             configurationData: .init(text: category.name),
             selectionData: .init(id: category.id, title: category.name)
         )
+        
         if let imageURLString = category.imageURL,
             let imageURL = URL(string: imageURLString) {
             httpClient.send(URLRequest(url: imageURL))
                 .done { model.configurationData.imageData.value = $0.data }
                 .catch { self.errorHandler?($0) }
         }
+        
         return model
     }
 }

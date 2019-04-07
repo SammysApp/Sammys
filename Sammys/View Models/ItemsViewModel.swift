@@ -29,6 +29,7 @@ class ItemsViewModel {
     var selectedCategoryItemIDs = [Item.CategoryItemID]()
     
     var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -39,7 +40,7 @@ class ItemsViewModel {
     }
     
     private struct Constants {
-        static let itemTableViewCellViewModelHeight: Double = 60
+        static let itemTableViewCellViewModelHeight = Double(60)
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
@@ -84,6 +85,7 @@ class ItemsViewModel {
             guard let id = item.categoryItemID else { return false }
             return self.selectedCategoryItemIDs.contains(id)
         }
+        
         return ItemTableViewCellViewModel(
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),

@@ -18,20 +18,24 @@ class OutstandingOrderViewController: UIViewController {
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
-        static let tableViewEstimatedRowHeight: CGFloat = 100
-        static let checkoutSheetViewControllerViewHeight: CGFloat = 120
+        static let tableViewEstimatedRowHeight = CGFloat(100)
+        
+        static let checkoutSheetViewControllerViewBackgroundColor = UIColor.white
+        static let checkoutSheetViewControllerViewHeight = CGFloat(120)
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
         configureCheckoutSheetViewController()
         setUpView()
         addChildren()
         configureViewModel()
+        
         if viewModel.isUserSignedIn {
-            viewModel.beginSetUserIDDownload { self.viewModel.beginDownloads() }
+            viewModel.beginUserIDDownload { self.viewModel.beginDownloads() }
         } else { viewModel.beginDownloads() }
     }
     
@@ -54,12 +58,12 @@ class OutstandingOrderViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ConstructedItemStackTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.constructedItemStackTableViewCell.rawValue)
+        tableView.register(ItemStackTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.itemStackTableViewCell.rawValue)
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
     }
     
     private func configureCheckoutSheetViewController() {
-        checkoutSheetViewController.view.backgroundColor = .white
+        checkoutSheetViewController.view.backgroundColor = Constants.checkoutSheetViewControllerViewBackgroundColor
         checkoutSheetViewController.checkoutButtonTouchUpInsideHandler = {
             self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
         }
@@ -69,72 +73,78 @@ class OutstandingOrderViewController: UIViewController {
         viewModel.constructedItemStackCellViewModelActions = [
             .configuration: constructedItemStackTableViewCellConfigurationAction
         ]
-        viewModel.tableViewSectionModels.bind { value in
+        
+        viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
-        viewModel.taxPriceText.bind { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
-        viewModel.subtotalPriceText.bind { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
+        
+        viewModel.taxPriceText.bindAndRun { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
+        viewModel.subtotalPriceText.bindAndRun { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
     }
     
     // MARK: - Factory Methods
     private func makeCheckoutViewController() -> CheckoutViewController {
         let checkoutViewController = CheckoutViewController()
+        checkoutViewController.hidesBottomBarWhenPushed = true
         checkoutViewController.viewModel.outstandingOrderID = viewModel.outstandingOrderID
         checkoutViewController.viewModel.userID = viewModel.userID
-        checkoutViewController.hidesBottomBarWhenPushed = true
         return checkoutViewController
     }
     
     // MARK: - Cell Actions
     private func constructedItemStackTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackTableViewCellViewModel,
-            let cell = data.cell as? ConstructedItemStackTableViewCell else { return }
+            let cell = data.cell as? ItemStackTableViewCell else { return }
+        
         cell.nameLabel.text = cellViewModel.configurationData.nameText
         cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
-        cell.quantityViewDecrementHandler = { quantityView in
+        
+        cell.quantityViewDidDecrementHandler = { quantityView in
             guard let currentQuantityText = quantityView.counterTextField.text,
                 let currentQuantity = Int(currentQuantityText) else { return }
+            
             self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: currentQuantity - 1)
         }
-        cell.quantityViewIncrementHandler = { quantityView in
+        cell.quantityViewDidIncrementHandler = { quantityView in
             guard let currentQuantityText = quantityView.counterTextField.text,
                 let currentQuantity = Int(currentQuantityText) else { return }
+            
             self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: currentQuantity + 1)
         }
     }
 }
 
 private extension OutstandingOrderViewController {
-    class ConstructedItemStackTableViewCell: StackTableViewCell {
+    class ItemStackTableViewCell: StackTableViewCell {
         let nameLabel = UILabel()
         let descriptionLabel = UILabel()
         let priceLabel = UILabel()
         let quantityView = CounterView()
         
-        var quantityViewDecrementHandler: (CounterView) -> Void = { _ in } {
+        var quantityViewDidDecrementHandler: (CounterView) -> Void = { _ in } {
             didSet {
                 quantityViewDecrementButtonTouchUpInsideTarget.action =
-                    { self.quantityViewDecrementHandler(self.quantityView) }
+                    { self.quantityViewDidDecrementHandler(self.quantityView) }
             }
         }
-        var quantityViewIncrementHandler: (CounterView) -> Void = { _ in } {
+        var quantityViewDidIncrementHandler: (CounterView) -> Void = { _ in } {
             didSet {
                 quantityViewIncrementButtonTouchUpInsideTarget.action =
-                    { self.quantityViewIncrementHandler(self.quantityView) }
+                    { self.quantityViewDidIncrementHandler(self.quantityView) }
             }
         }
         
         private lazy var quantityViewDecrementButtonTouchUpInsideTarget =
-            Target { self.quantityViewDecrementHandler(self.quantityView) }
+            Target { self.quantityViewDidDecrementHandler(self.quantityView) }
         private lazy var quantityViewIncrementButtonTouchUpInsideTarget =
-            Target { self.quantityViewIncrementHandler(self.quantityView) }
+            Target { self.quantityViewDidIncrementHandler(self.quantityView) }
         
         private struct Constants {
-            static let quantityViewHeight: CGFloat = 40
+            static let quantityViewHeight = CGFloat(40)
         }
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

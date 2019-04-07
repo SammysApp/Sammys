@@ -11,8 +11,8 @@ import UIKit
 class UITableViewSectionModelsDataSource: NSObject, UITableViewDataSource {
     var sectionModels: [UITableViewSectionModel]
     
-    init(sections: [UITableViewSectionModel] = []) {
-        self.sectionModels = sections
+    init(sectionModels: [UITableViewSectionModel] = []) {
+        self.sectionModels = sectionModels
         super.init()
     }
     

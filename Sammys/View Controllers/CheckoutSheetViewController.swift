@@ -28,14 +28,22 @@ class CheckoutSheetViewController: UIViewController {
     private struct Constants {
         static let taxLabelText = "TAX"
         static let subtotalLabelText = "SUBTOTAL"
+        
+        static let priceLabelsFontWeight = UIFont.Weight.semibold
+        static let priceLabelsFontSize = CGFloat(20)
+        
+        static let labelsFontWeight = UIFont.Weight.bold
+        static let labelsFontSize = CGFloat(12)
+        
+        static let checkoutButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        static let checkoutButtonTitleLabelTextColor = UIColor.white
         static let checkoutButtonTitleLabelDefaultText = "Checkout"
-        static let priceLabelFontSize: CGFloat = 20
-        static let labelFontSize: CGFloat = 12
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTaxPriceLabel()
         configureTaxLabel()
         configureSubtotalPriceLabel()
@@ -73,29 +81,29 @@ class CheckoutSheetViewController: UIViewController {
     
     private func configureTaxPriceLabel() {
         taxPriceLabel.textAlignment = .center
-        taxPriceLabel.font = .systemFont(ofSize: Constants.priceLabelFontSize, weight: .semibold)
+        taxPriceLabel.font = .systemFont(ofSize: Constants.priceLabelsFontSize, weight: Constants.priceLabelsFontWeight)
     }
     
     private func configureTaxLabel() {
         taxLabel.textAlignment = .center
-        taxLabel.font = .systemFont(ofSize: Constants.labelFontSize, weight: .bold)
+        taxLabel.font = .systemFont(ofSize: Constants.labelsFontSize, weight: Constants.labelsFontWeight)
         taxLabel.text = Constants.taxLabelText
     }
     
     private func configureSubtotalPriceLabel() {
         subtotalPriceLabel.textAlignment = .center
-        subtotalPriceLabel.font = .systemFont(ofSize: Constants.priceLabelFontSize, weight: .semibold)
+        subtotalPriceLabel.font = .systemFont(ofSize: Constants.priceLabelsFontSize, weight: Constants.priceLabelsFontWeight)
     }
     
     private func configureSubtotalLabel() {
         subtotalLabel.textAlignment = .center
-        subtotalLabel.font = .systemFont(ofSize: Constants.labelFontSize, weight: .bold)
+        subtotalLabel.font = .systemFont(ofSize: Constants.labelsFontSize, weight: Constants.labelsFontWeight)
         subtotalLabel.text = Constants.subtotalLabelText
     }
     
     private func configureCheckoutButton() {
-        checkoutButton.backgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
-        checkoutButton.titleLabel.textColor = .white
+        checkoutButton.backgroundColor = Constants.checkoutButtonBackgroundColor
+        checkoutButton.titleLabel.textColor = Constants.checkoutButtonTitleLabelTextColor
         checkoutButton.add(checkoutButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     

@@ -21,11 +21,13 @@ class UserViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureTableView()
-        configureNavigation()
         setUpView()
+        configureNavigation()
         configureViewModel()
-        viewModel.beginUserDownload()
+        
+        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -52,15 +54,18 @@ class UserViewController: UIViewController {
         viewModel.userDetailTableViewCellViewModelActions = [
             .configuration: userDetailTableViewCellConfigrationAction
         ]
+        
         viewModel.buttonTableViewCellViewModelActions = [
             .configuration: buttonTableViewCellConfigrationAction,
             .selection: buttonTableViewCellSelectionAction
         ]
+        
         viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        
         viewModel.errorHandler = { error in
             switch error {
             case UserAuthManagerError.noCurrentUser:
@@ -72,15 +77,17 @@ class UserViewController: UIViewController {
     
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
-        let viewController = UserAuthPageViewController()
+        let userAuthPageViewController = UserAuthPageViewController()
+        
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
-            self.viewModel.beginUserDownload()
-            viewController.dismiss(animated: true, completion: nil)
+            self.viewModel.beginDownloads()
+            userAuthPageViewController.dismiss(animated: true, completion: nil)
         }
-        viewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
-        viewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
-        return viewController
+        
+        userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        userAuthPageViewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        return userAuthPageViewController
     }
     
     // MARK: - Target Actions
@@ -92,6 +99,7 @@ class UserViewController: UIViewController {
     private func userDetailTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? UserViewModel.UserDetailTableViewCellViewModel,
             let cell = data.cell else { return }
+        
         cell.textLabel?.textAlignment = .natural
         cell.textLabel?.text = cellViewModel.configurationData.text
     }
@@ -99,15 +107,22 @@ class UserViewController: UIViewController {
     private func buttonTableViewCellConfigrationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? UserViewModel.ButtonTableViewCellViewModel,
             let cell = data.cell else { return }
+        
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.text = cellViewModel.configurationData.title
     }
     
     private func buttonTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? UserViewModel.ButtonTableViewCellViewModel else { return }
+        
         switch cellViewModel.selectionData.button {
         case .logOut:
-            do { try viewModel.logOut(); self.dismiss(animated: true, completion: nil) } catch {  }
+            do {
+                try viewModel.logOut()
+                self.dismiss(animated: true, completion: nil)
+            }
+            // FIXME: Present error message.
+            catch { print(error.localizedDescription) }
         }
     }
 }

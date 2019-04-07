@@ -9,17 +9,18 @@
 import UIKit
 
 class UserAuthPageViewController: UIViewController {
-    var selectedUserStatusSegmentedControlSegment: UserStatusSegmentedControlSegment = .existing {
-        didSet { update() }
-    }
+    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    
+    let userStatusSegmentedControl = UISegmentedControl()
     
     let existingUserAuthViewController = UserAuthViewController()
     let newUserAuthViewController = UserAuthViewController()
     
-    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-    private let userStatusSegmentedControl = UISegmentedControl()
-    
     private lazy var userStatusSegmentedControlValueChangedTarget = Target(action: userStatusSegmentedControlValueChangedTargetAction)
+    
+    var selectedUserStatusSegmentedControlSegment: UserStatusSegmentedControlSegment = .existing {
+        didSet { update() }
+    }
     
     private struct Constants {
         static let existingUserStatusSegmentedControlSegmentTitle = "Sign In"
@@ -29,12 +30,14 @@ class UserAuthPageViewController: UIViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureUserStatusSegmentedControl()
         configureExistingUserAuthViewController()
         configureNewUserAuthViewController()
-        configureUserStatusSegmentedControl()
-        configureNavigation()
         addChildren()
+        configureNavigation()
         update()
+        
         setViewController()
     }
     
@@ -48,18 +51,18 @@ class UserAuthPageViewController: UIViewController {
         self.navigationItem.titleView = userStatusSegmentedControl
     }
     
+    private func configureUserStatusSegmentedControl() {
+        UserStatusSegmentedControlSegment.allCases
+            .forEach { self.userStatusSegmentedControl.insertSegment(withTitle: $0.title, at: $0.rawValue, animated: false) }
+        userStatusSegmentedControl.add(userStatusSegmentedControlValueChangedTarget, for: .valueChanged)
+    }
+    
     private func configureExistingUserAuthViewController() {
         existingUserAuthViewController.viewModel.userStatus = .existing
     }
     
     private func configureNewUserAuthViewController() {
         newUserAuthViewController.viewModel.userStatus = .new
-    }
-    
-    private func configureUserStatusSegmentedControl() {
-        UserStatusSegmentedControlSegment.allCases
-            .forEach { self.userStatusSegmentedControl.insertSegment(withTitle: $0.title, at: $0.rawValue, animated: false) }
-        userStatusSegmentedControl.add(userStatusSegmentedControlValueChangedTarget, for: .valueChanged)
     }
     
     func update() {
@@ -75,8 +78,8 @@ class UserAuthPageViewController: UIViewController {
     
     // MARK: - Target Actions
     private func userStatusSegmentedControlValueChangedTargetAction() {
-        guard let segment = UserStatusSegmentedControlSegment(rawValue: userStatusSegmentedControl.selectedSegmentIndex)
-            else { return }
+        guard let segment = UserStatusSegmentedControlSegment(rawValue: userStatusSegmentedControl.selectedSegmentIndex) else { return }
+        
         selectedUserStatusSegmentedControlSegment = segment
         setViewController(animated: true)
     }

@@ -72,6 +72,7 @@ class HomeViewController: UIViewController {
             .configuration: categoryImageTableViewCellConfigurationAction,
             .selection: categoryImageTableViewCellSelectionAction
         ]
+        
         viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value

@@ -58,6 +58,7 @@ class ItemsViewController: UIViewController {
             .configuration: itemTableViewCellConfigurationAction,
             .selection: itemTableViewCellSelectionAction
         ]
+        
         viewModel.tableViewSectionModels.bindAndRun { value in
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value

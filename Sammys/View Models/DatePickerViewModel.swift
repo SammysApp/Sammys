@@ -11,48 +11,55 @@ import Foundation
 class DatePickerViewModel {
     private let calendar = Calendar.current
     
-    private var dateFormatter: DateFormatter = {
+    private var dateTableViewCellViewModelTextDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = Constants.dateFormat
+        formatter.dateFormat = Constants.dateTableViewCellViewModelTextDateFormat
         return formatter
     }()
     
     // MARK: - View Settable Properties
-    var selectedDate = PickerDate.asap
+    var selectedDate = PickerDate.asap {
+        didSet { updateTableViewSectionModels() }
+    }
     
     var isASAPAvailable = true {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
-    }
-    var minimumDate: Date? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
-    }
-    var maximumDate: Date? {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     var minuteInterval = 1 {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
+    }
+    var minimumDate: Date? {
+        didSet { updateTableViewSectionModels() }
+    }
+    var maximumDate: Date? {
+        didSet { updateTableViewSectionModels() }
     }
     
     var dateTableViewCellViewModelActions = [UITableViewCellAction : UITableViewCellActionHandler]() {
-        didSet { tableViewSectionModels.value = makeTableViewSectionModels() }
+        didSet { updateTableViewSectionModels() }
     }
     
     // MARK: - Dynamic Properties
-    lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
-    
-    enum CellIdentifier: String {
-        case tableViewCell
-    }
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum PickerDate: Equatable {
         case asap
         case date(Date)
     }
     
+    enum CellIdentifier: String {
+        case tableViewCell
+    }
+    
     private struct Constants {
-        static let dateFormat = "h:mm a"
-        static let dateTableViewCellViewModelHeight: Double = 60
-        static let asapText = "ASAP"
+        static let dateTableViewCellViewModelTextDateFormat = "h:mm a"
+        static let dateTableViewCellViewModelASAPText = "ASAP"
+        static let dateTableViewCellViewModelHeight = Double(60)
+    }
+    
+    // MARK: - Setup Methods
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
     }
     
     // MARK: - Factory Methods
@@ -75,7 +82,7 @@ class DatePickerViewModel {
     }
     
     private func makeDatesTableViewSectionModel() -> UITableViewSectionModel {
-        var cellViewModels = makeDates().map { PickerDate.date($0) }.map(makeDateTableViewCellViewModel)
+        var cellViewModels = makeDates().map(PickerDate.date).map(makeDateTableViewCellViewModel)
         if isASAPAvailable {
             cellViewModels.insert(makeDateTableViewCellViewModel(date: .asap), at: 0)
         }
@@ -86,8 +93,8 @@ class DatePickerViewModel {
     private func makeDateTableViewCellViewModel(date: PickerDate) -> DateTableViewCellViewModel {
         let text: String
         switch date {
-        case .asap: text = Constants.asapText
-        case .date(let date): text = dateFormatter.string(from: date)
+        case .asap: text = Constants.dateTableViewCellViewModelASAPText
+        case .date(let date): text = dateTableViewCellViewModelTextDateFormatter.string(from: date)
         }
         return DateTableViewCellViewModel(
             identifier: CellIdentifier.tableViewCell.rawValue,

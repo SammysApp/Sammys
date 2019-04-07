@@ -13,9 +13,15 @@ import FirebaseAuth
 class CheckoutViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var dateFormatter: DateFormatter = {
+    private var storeHoursDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
+    
+    private var pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = Constants.dateFormat
+        formatter.dateFormat = Constants.pickupDateTableViewCellViewModelDetailTextDateFormat
         return formatter
     }()
     
@@ -24,9 +30,10 @@ class CheckoutViewModel {
     var userAuthManager: UserAuthManager
     
     // MARK: - View Settable Properties
-    /// Required to be non-`nil`.
+    /// Required to be non-`nil` before beginning downloads.
     var outstandingOrderID: OutstandingOrder.ID?
-    /// Required to be non-`nil`.
+    
+    /// Required to be non-`nil` before beginning downloads.
     var userID: User.ID?
     
     var pickupDate: Date? {
@@ -40,7 +47,8 @@ class CheckoutViewModel {
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
-    lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
     let minimumPickupDate: Dynamic<Date?> = Dynamic(nil)
     let maximumPickupDate: Dynamic<Date?> = Dynamic(nil)
     
@@ -49,9 +57,9 @@ class CheckoutViewModel {
     }
     
     private struct Constants {
-        static let dateFormat = "h:mm a"
-        static let pickupDateTableViewCellViewModelHeight: Double = 60
+        static let pickupDateTableViewCellViewModelHeight = Double(60)
         static let pickupDateTableViewCellViewModelDefaultDetailText = "ASAP"
+        static let pickupDateTableViewCellViewModelDetailTextDateFormat = "h:mm a"
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -66,26 +74,28 @@ class CheckoutViewModel {
     }
     
     // MARK: - Download Methods
-    func beginStoreHoursDownload() {
-        getStoreHours().done { storeHours in
-            self.minimumPickupDate.value = storeHours.openingDate
-            self.maximumPickupDate.value = storeHours.closingDate
-        }.catch { self.errorHandler?($0) }
+    func beginDownloads() {
+        firstly { self.beginStoreHoursDownload() }
+            .catch { self.errorHandler?($0) }
     }
     
     func beginCreatePurchasedOrderDownload(cardNonce: String, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void) {
         userAuthManager.getCurrentUserIDToken()
-            // FIXME: Actually use `cardNonce` in production.
-            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: "fake-card-nonce-ok", customerCardID: nil), token: $0) }
+            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: cardNonce, customerCardID: nil), token: $0) }
             .done { completionHandler(.fulfilled($0.id)) }
             .catch { completionHandler(.rejected($0)) }
     }
     
+    private func beginStoreHoursDownload() -> Promise<Void> {
+        return getStoreHours().done { storeHours in
+            self.minimumPickupDate.value = storeHours.openingDate
+            self.maximumPickupDate.value = storeHours.closingDate
+        }
+    }
+    
     private func getStoreHours() -> Promise<StoreHours> {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
         return httpClient.send(apiURLRequestFactory.makeStoreHoursRequest()).validate()
-            .map { try decoder.decode(StoreHours.self, from: $0.data) }
+            .map { try self.storeHoursDecoder.decode(StoreHours.self, from: $0.data) }
     }
     
     private func createPurchasedOrder(data: CreateUserPurchasedOrderRequestData, token: JWT) -> Promise<PurchasedOrder> {
@@ -103,8 +113,9 @@ class CheckoutViewModel {
     
     private func makePickupDateTableViewCellViewModel() -> PickupDateTableViewCellViewModel {
         let detailText: String
-        if let date = pickupDate { detailText = dateFormatter.string(from: date) }
+        if let date = pickupDate { detailText = pickupDateTableViewCellViewModelDetailTextDateFormatter.string(from: date) }
         else { detailText = Constants.pickupDateTableViewCellViewModelDefaultDetailText }
+        
         return PickupDateTableViewCellViewModel(
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.pickupDateTableViewCellViewModelHeight),

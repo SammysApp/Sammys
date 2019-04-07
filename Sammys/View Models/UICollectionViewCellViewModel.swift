@@ -8,7 +8,33 @@
 
 import UIKit
 
+typealias UICollectionViewCellSizeHandler = (UICollectionViewCellSizeHandlerData) -> UICollectionViewCellViewModelSize
 typealias UICollectionViewCellActionHandler = (UICollectionViewCellActionHandlerData) -> ()
+
+protocol UICollectionViewCellViewModel {
+    var identifier: String { get }
+    var size: UICollectionViewCellViewModelSize { get }
+    var sizeHandler: UICollectionViewCellSizeHandler? { get }
+    var isSelectable: Bool { get }
+    var actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler] { get }
+}
+
+struct UICollectionViewCellViewModelSize {
+    let width: Double
+    let height: Double
+    
+    static var zero: UICollectionViewCellViewModelSize { return .init(width: 0, height: 0) }
+}
+
+struct UICollectionViewCellSizeHandlerData {
+    let cellViewModel: UICollectionViewCellViewModel
+    let indexPath: IndexPath
+}
+
+enum UICollectionViewCellAction {
+    case configuration
+    case selection
+}
 
 struct UICollectionViewCellActionHandlerData {
     let cellViewModel: UICollectionViewCellViewModel?
@@ -24,19 +50,9 @@ struct UICollectionViewCellActionHandlerData {
     }
 }
 
-enum UICollectionViewCellAction {
-    case configuration
-    case selection
-}
-
-protocol UICollectionViewCellViewModel {
-    var identifier: String { get }
-    var size: (width: Double, height: Double) { get }
-    var isSelectable: Bool { get }
-    var actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler] { get }
-}
-
 extension UICollectionViewCellViewModel {
+    var size: UICollectionViewCellViewModelSize { return .zero }
+    var sizeHandler: UICollectionViewCellSizeHandler? { return nil }
     var isSelectable: Bool { return true }
     var actions: [UICollectionViewCellAction: UICollectionViewCellActionHandler] { return [:] }
 }

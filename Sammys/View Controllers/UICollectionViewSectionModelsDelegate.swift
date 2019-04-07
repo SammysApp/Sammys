@@ -11,8 +11,8 @@ import UIKit
 class UICollectionViewSectionModelsDelegate: NSObject, UICollectionViewDelegate {
     var sectionModels: [UICollectionViewSectionModel]
     
-    init(sections: [UICollectionViewSectionModel] = []) {
-        self.sectionModels = sections
+    init(sectionModels: [UICollectionViewSectionModel] = []) {
+        self.sectionModels = sectionModels
         super.init()
     }
     
@@ -23,7 +23,8 @@ class UICollectionViewSectionModelsDelegate: NSObject, UICollectionViewDelegate 
 
 class UICollectionViewSectionModelsDelegateFlowLayout: UICollectionViewSectionModelsDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = sectionModels.cellViewModel(for: indexPath).size
+        let cellViewModel = sectionModels.cellViewModel(for: indexPath)
+        let size = cellViewModel.sizeHandler?(.init(cellViewModel: cellViewModel, indexPath: indexPath)) ?? cellViewModel.size
         return CGSize(width: size.width, height: size.height)
     }
 }

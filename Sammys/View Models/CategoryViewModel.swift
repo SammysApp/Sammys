@@ -26,6 +26,7 @@ class CategoryViewModel {
     var parentCategoryID: Category.ID?
     
     var categoryTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var errorHandler: ((Error) -> Void)?
     
     // MARK: - Dynamic Properties
@@ -36,7 +37,7 @@ class CategoryViewModel {
     }
     
     private struct Constants {
-        static let categoryTableViewCellViewModelHeight: Double = 100
+        static let categoryTableViewCellViewModelHeight = Double(100)
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
