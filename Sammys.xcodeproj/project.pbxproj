@@ -36,6 +36,7 @@
 		5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */; };
 		5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */; };
 		5B2D55882251679A006FDFF2 /* PurchasedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */; };
+		5B2E17F1225D1E48005DC635 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F0225D1E48005DC635 /* Date.swift */; };
 		5B2FC337225649EC005FBC70 /* StoreDateHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreDateHours.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
@@ -156,6 +157,7 @@
 		5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrder.swift; sourceTree = "<group>"; };
+		5B2E17F0225D1E48005DC635 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5B2FC336225649EC005FBC70 /* StoreDateHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDateHours.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				5B3A4B462195F3E300F22F78 /* Array+Equatable.swift */,
 				5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */,
 				5B3A4B332195F3E300F22F78 /* Collection.swift */,
+				5B2E17F0225D1E48005DC635 /* Date.swift */,
 				5B3A4B442195F3E300F22F78 /* DateFormatter.swift */,
 				5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */,
 				5B3A4B452195F3E300F22F78 /* Double.swift */,
@@ -747,6 +750,7 @@
 				5B9A8AC72225B6EB00F5525D /* UICollectionViewCellViewModel.swift in Sources */,
 				5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */,
 				5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */,
+				5B2E17F1225D1E48005DC635 /* Date.swift in Sources */,
 				5B3A4B6F2195F3E400F22F78 /* UIViewController.swift in Sources */,
 				5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */,
 				5B01221C221DE97F0054AB7A /* HTTPServer.swift in Sources */,

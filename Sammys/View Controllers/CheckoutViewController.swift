@@ -136,6 +136,7 @@ class CheckoutViewController: UIViewController {
     }
     
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        viewModel.beginStoreHoursDownload()
         self.navigationController?.pushViewController(datePickerViewController, animated: true)
     }
 }

@@ -11,6 +11,8 @@ import PromiseKit
 import FirebaseAuth
 
 class CheckoutViewModel {
+    private let calendar = Calendar.current
+    
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     private var pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
@@ -67,7 +69,11 @@ class CheckoutViewModel {
     }
     
     private func setUp(for storeDateHours: StoreDateHours) {
-        minimumPickupDate.value = storeDateHours.openingDate
+        let currentDate = Date()
+        if let openingDate = storeDateHours.openingDate,
+            let minimumPickupDate = max(currentDate, openingDate).roundedToNextQuarterHour(calendar: calendar) {
+            self.minimumPickupDate.value = minimumPickupDate
+        }
         maximumPickupDate.value = storeDateHours.closingDate
     }
     
@@ -77,12 +83,22 @@ class CheckoutViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        beginStoreHoursDownload()
         firstly { self.beginOutstandingOrderDownload() }
-            .then { self.beginStoreHoursDownload() }
+            .catch { self.errorHandler?($0) }
+    }
+    
+    func beginStoreHoursDownload() {
+        getStoreHours().done(setUp)
             .catch { self.errorHandler?($0) }
     }
     
     func beginUpdateOutstandingOrderPreparedForDateDownload(date: Date?) {
+        let currentDate = Date()
+        if let date = date {
+            guard date > currentDate
+                else { errorHandler?(CheckoutViewModelError.invalidPickupDate); return }
+        }
         userAuthManager.getCurrentUserIDToken()
             .then { self.getOutstandingOrder(token: $0) }.get { outstandingOrder in
                 outstandingOrder.preparedForDate = date
@@ -104,10 +120,6 @@ class CheckoutViewModel {
     private func beginUpdateOutstandingOrder(data: OutstandingOrder) -> Promise<Void> {
         return userAuthManager.getCurrentUserIDToken()
             .then { self.updateOutstandingOrder(data: data, token: $0) }.done(setUp)
-    }
-    
-    private func beginStoreHoursDownload() -> Promise<Void> {
-        return getStoreHours().done(setUp)
     }
     
     private func getOutstandingOrder(token: JWT) -> Promise<OutstandingOrder> {
@@ -165,4 +177,8 @@ extension CheckoutViewModel {
             let detailText: String
         }
     }
+}
+
+enum CheckoutViewModelError: Error {
+    case invalidPickupDate
 }
