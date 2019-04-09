@@ -58,6 +58,12 @@ class CategoryViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        
+        viewModel.errorHandler = { value in
+            switch value {
+            default: print(value.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Factory Methods

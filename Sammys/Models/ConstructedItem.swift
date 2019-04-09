@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ConstructedItem: Codable {
+final class ConstructedItem: Codable {
     typealias ID = UUID
     
     let id: ID

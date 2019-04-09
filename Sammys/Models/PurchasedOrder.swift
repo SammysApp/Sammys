@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PurchasedOrder: Codable {
+final class PurchasedOrder: Codable {
     typealias ID = UUID
     
     let id: ID

@@ -78,6 +78,12 @@ class HomeViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        
+        viewModel.errorHandler = { value in
+            switch value {
+            default: print(value.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Factory Methods
@@ -111,7 +117,7 @@ class HomeViewController: UIViewController {
         
         // Unbind the image data from the reused cell's image to
         // avoid the wrong image being set.
-        cell.prepareForReuseHandler = { cellViewModel.configurationData.imageData.unbind() }
+        cell.prepareForReuseHandler = { cellViewModel.configurationData.imageData.unbindAll() }
     }
     
     private func categoryImageTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {

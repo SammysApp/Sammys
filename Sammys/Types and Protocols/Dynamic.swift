@@ -9,28 +9,37 @@
 import Foundation
 
 class Dynamic<Value> {
+    typealias ListenerID = UUID
     typealias Listener = (Value) -> Void
     
-    private var listener: Listener?
+    private var listeners = [ListenerID: Listener]()
     
     var value: Value {
-        didSet { listener?(value) }
+        didSet { runAll() }
     }
     
     init(_ value: Value) {
         self.value = value
     }
     
-    func bind(_ listener: @escaping Listener) {
-        self.listener = listener
+    private func runAll() { listeners.values.forEach { $0(value) } }
+    
+    @discardableResult
+    func bind(id: ListenerID = .init(), _ listener: @escaping Listener) -> ListenerID {
+        listeners[id] = listener
+        return id
     }
     
-    func bindAndRun(_ listener: @escaping Listener) {
-        self.listener = listener
-        listener(value)
+    @discardableResult
+    func bindAndRun(id: ListenerID = .init(), _ listener: @escaping Listener) -> ListenerID {
+        listeners[id] = listener
+        runAll()
+        return id
     }
     
-    func unbind() { listener = nil }
+    func unbind(_ id: ListenerID) { listeners[id] = nil }
+    
+    func unbindAll() { listeners = [:] }
 }
 
 extension Dynamic: Equatable where Value: Equatable {

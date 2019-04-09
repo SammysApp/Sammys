@@ -1,5 +1,5 @@
 //
-//  StoreHours.swift
+//  StoreDateHours.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 4/4/19.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct StoreHours: Codable {
-    let openingDate: Date
-    let closingDate: Date
+struct StoreDateHours: Codable {
+    let openingDate: Date?
+    let closingDate: Date?
     let isOpen: Bool
 }

@@ -36,7 +36,7 @@
 		5B2D558422515C78006FDFF2 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */; };
 		5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */; };
 		5B2D55882251679A006FDFF2 /* PurchasedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */; };
-		5B2FC337225649EC005FBC70 /* StoreHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreHours.swift */; };
+		5B2FC337225649EC005FBC70 /* StoreDateHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreDateHours.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */; };
@@ -156,7 +156,7 @@
 		5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrder.swift; sourceTree = "<group>"; };
-		5B2FC336225649EC005FBC70 /* StoreHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHours.swift; sourceTree = "<group>"; };
+		5B2FC336225649EC005FBC70 /* StoreDateHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDateHours.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrder.swift; sourceTree = "<group>"; };
@@ -399,8 +399,8 @@
 				5B2C3C992245387D006BE7B3 /* UserViewModel.swift */,
 				5B2C3C8D2241662C006BE7B3 /* UserAuthViewModel.swift */,
 				5B7D704B22553AA40014D664 /* DatePickerViewModel.swift */,
-				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */,
+				5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */,
 				5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */,
 				5B9A8AC62225B6EB00F5525D /* UICollectionViewCellViewModel.swift */,
 			);
@@ -426,7 +426,7 @@
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
 				5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */,
-				5B2FC336225649EC005FBC70 /* StoreHours.swift */,
+				5B2FC336225649EC005FBC70 /* StoreDateHours.swift */,
 				5B2C3C8522415B4A006BE7B3 /* User.swift */,
 			);
 			path = Models;
@@ -444,8 +444,8 @@
 				5B2C3C972245382F006BE7B3 /* UserViewController.swift */,
 				5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */,
 				5B2C3C9522442DEE006BE7B3 /* UserAuthPageViewController.swift */,
-				5B7D704922553A720014D664 /* DatePickerViewController.swift */,
 				5B2D536922510AB3006FDFF2 /* CheckoutSheetViewController.swift */,
+				5B7D704922553A720014D664 /* DatePickerViewController.swift */,
 				5B6E3682221F7111004D5310 /* UITableViewSectionModelsDataSource.swift */,
 				5B6E368422204928004D5310 /* UITableViewSectionModelsDelegate.swift */,
 				5B9A8ACA2225CFED00F5525D /* UICollectionViewSectionModelsDataSource.swift */,
@@ -810,7 +810,7 @@
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
 				5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */,
 				5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */,
-				5B2FC337225649EC005FBC70 /* StoreHours.swift in Sources */,
+				5B2FC337225649EC005FBC70 /* StoreDateHours.swift in Sources */,
 				5B6E3677221F0B09004D5310 /* ImageTableViewCell.swift in Sources */,
 				5B6E3675221E4350004D5310 /* Category.swift in Sources */,
 				5B0124B6221E2B910054AB7A /* HTTPResponse.swift in Sources */,

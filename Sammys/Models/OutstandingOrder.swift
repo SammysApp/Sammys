@@ -8,10 +8,13 @@
 
 import Foundation
 
-struct OutstandingOrder: Codable {
+final class OutstandingOrder: Codable {
     typealias ID = UUID
     
     let id: ID
+    let userID: User.ID?
+    var preparedForDate: Date?
+    var note: String?
     let totalPrice: Int?
     let taxPrice: Int?
 }

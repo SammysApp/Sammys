@@ -73,6 +73,12 @@ class UserAuthViewController: UIViewController {
         }
         
         viewModel.completedButtonText.bindAndRun { self.completeButton.titleLabel.text = $0 }
+        
+        viewModel.errorHandler = { value in
+            switch value {
+            default: print(value.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Factory Methods

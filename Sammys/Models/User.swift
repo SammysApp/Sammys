@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct User: Codable {
+final class User: Codable {
     typealias ID = UUID
     typealias UID = String
     
     let id: ID
     let uid: UID
-    var email: String
-    var firstName: String
-    var lastName: String
+    let email: String
+    let firstName: String
+    let lastName: String
 }

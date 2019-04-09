@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Item: Codable {
+final class Item: Codable {
     typealias ID = UUID
     typealias CategoryItemID = UUID
     

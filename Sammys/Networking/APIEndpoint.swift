@@ -48,6 +48,8 @@ enum APIEndpoint: HTTPEndpoint {
     // MARK: - PUT
     /// PUT `/constructedItems/:constructedItem`
     case updateConstructedItem(ConstructedItem.ID)
+    /// PUT `/outstandingOrders/:outstandingOrder`
+    case updateOutstandingOrder(OutstandingOrder.ID)
     
     // MARK: - PATCH
     /// PATCH `/constructedItems/:constructedItem`
@@ -102,6 +104,8 @@ enum APIEndpoint: HTTPEndpoint {
             
         case .updateConstructedItem(let id):
             return (.PUT, "/\(version)/constructedItems/\(id)")
+        case .updateOutstandingOrder(let id):
+            return (.PUT, "/\(version)/outstandingOrders/\(id)")
             
         case .partiallyUpdateConstructedItem(let id):
             return (.PATCH, "/\(version)/constructedItems/\(id)")

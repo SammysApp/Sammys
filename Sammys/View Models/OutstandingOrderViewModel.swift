@@ -105,7 +105,6 @@ class OutstandingOrderViewModel {
     }
     
     private func beginOutstandingOrderIDDownload() -> Promise<Void> {
-        // TODO: Check if user has order.
         let promise: Promise<Void>
         if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
             let id = OutstandingOrder.ID(uuidString: idString) {
@@ -120,7 +119,6 @@ class OutstandingOrderViewModel {
         if userID != nil {
             outstandingOrderPromise = userAuthManager.getCurrentUserIDToken()
                 .then { self.getOutstandingOrder(token: $0) }
-            // TODO: Ensure order has this userID or set it.
         } else { outstandingOrderPromise = getOutstandingOrder() }
         return outstandingOrderPromise.done(setUp)
     }
@@ -146,7 +144,7 @@ class OutstandingOrderViewModel {
     
     private func getOutstandingOrder(token: JWT? = nil) -> Promise<OutstandingOrder> {
         return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure(), token: token)).validate()
-            .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
     }
     
     private func getOutstandingOrderConstructedItems(token: JWT? = nil) -> Promise<[ConstructedItem]> {

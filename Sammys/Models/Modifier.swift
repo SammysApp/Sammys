@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Modifier: Codable {
+final class Modifier: Codable {
     typealias ID = UUID
     
     let id: ID

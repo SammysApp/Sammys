@@ -82,6 +82,12 @@ class OutstandingOrderViewController: UIViewController {
         
         viewModel.taxPriceText.bindAndRun { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
         viewModel.subtotalPriceText.bindAndRun { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
+        
+        viewModel.errorHandler = { value in
+            switch value {
+            default: print(value.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Factory Methods

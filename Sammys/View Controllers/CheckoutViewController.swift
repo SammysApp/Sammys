@@ -16,6 +16,8 @@ class CheckoutViewController: UIViewController {
     
     let payButton = RoundedButton()
     
+    private(set) lazy var datePickerViewController = DatePickerViewController()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -27,6 +29,8 @@ class CheckoutViewController: UIViewController {
         static let payButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let payButtonTitleLabelTextColor = UIColor.white
         static let payButtonTitleLabelText = "Pay"
+        
+        static let datePickerViewControllerMinuteInterval = 15
     }
     
     // MARK: - Lifecycle Methods
@@ -35,6 +39,7 @@ class CheckoutViewController: UIViewController {
         
         configureTableView()
         configurePayButton()
+        configureDatePickerViewController()
         setUpView()
         configureViewModel()
         
@@ -66,6 +71,21 @@ class CheckoutViewController: UIViewController {
         payButton.add(payButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
+    private func configureDatePickerViewController() {
+        datePickerViewController.viewModel.minuteInterval = Constants.datePickerViewControllerMinuteInterval
+        
+        datePickerViewController.didSelectDateHandler = { date in
+            switch date {
+            case .asap:
+                self.viewModel.beginUpdateOutstandingOrderPreparedForDateDownload(date: nil)
+            case .date(let date):
+                self.viewModel.beginUpdateOutstandingOrderPreparedForDateDownload(date: date)
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     private func configureViewModel() {
         viewModel.pickupDateTableViewCellViewModelActions = [
             .configuration: pickupDateTableViewCellConfigurationAction,
@@ -77,6 +97,20 @@ class CheckoutViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
+        
+        viewModel.pickupDate.bindAndRun { value in
+            guard let date = value else { return }
+            self.datePickerViewController.viewModel.selectedDate = .date(date)
+        }
+        
+        viewModel.minimumPickupDate.bindAndRun { self.datePickerViewController.viewModel.minimumDate = $0 }
+        viewModel.maximumPickupDate.bindAndRun { self.datePickerViewController.viewModel.maximumDate = $0 }
+        
+        viewModel.errorHandler = { value in
+            switch value {
+            default: print(value.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Target Actions
@@ -85,28 +119,6 @@ class CheckoutViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makePickupDatePickerViewController() -> DatePickerViewController {
-        let datePickerViewController = DatePickerViewController()
-        datePickerViewController.viewModel.minuteInterval = 15
-        
-        viewModel.minimumPickupDate.bindAndRun { datePickerViewController.viewModel.minimumDate = $0 }
-        viewModel.maximumPickupDate.bindAndRun { datePickerViewController.viewModel.maximumDate = $0 }
-        
-        if let date = viewModel.pickupDate {
-            datePickerViewController.viewModel.selectedDate = .date(date)
-        }
-        
-        datePickerViewController.didSelectDateHandler = { date in
-            switch date {
-            case .asap: self.viewModel.pickupDate = nil
-            case .date(let date): self.viewModel.pickupDate = date
-            }
-            
-            self.navigationController?.popViewController(animated: true)
-        }
-        return datePickerViewController
-    }
-    
     private func makeCardEntryViewController() -> SQIPCardEntryViewController {
         let theme = SQIPTheme()
         let cardEntryViewController = SQIPCardEntryViewController(theme: theme)
@@ -124,7 +136,7 @@ class CheckoutViewController: UIViewController {
     }
     
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
-        self.navigationController?.pushViewController(makePickupDatePickerViewController(), animated: true)
+        self.navigationController?.pushViewController(datePickerViewController, animated: true)
     }
 }
 

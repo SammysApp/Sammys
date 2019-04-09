@@ -120,9 +120,7 @@ class UserViewController: UIViewController {
             do {
                 try viewModel.logOut()
                 self.dismiss(animated: true, completion: nil)
-            }
-            // FIXME: Present error message.
-            catch { print(error.localizedDescription) }
+            } catch { print(error.localizedDescription) }
         }
     }
 }
