@@ -21,7 +21,7 @@ class RoundedButton: UIControl {
         set { _backgroundColor = newValue }
     }
     
-    var cornerRadiusMultiplier = CGFloat(0.25) {
+    var cornerRadiusMultiplier = CGFloat(0.2) {
         didSet { update() }
     }
     

@@ -105,7 +105,7 @@ class ConstructedItemViewController: UIViewController {
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
         }
         itemsViewController.removeItemHandler = { data in
-            self.viewModel.beginRemoveConstructedItemItemsDownload(categoryItemID: data.categoryItemID)
+            self.viewModel.beginRemoveConstructedItemItemDownload(categoryItemID: data.categoryItemID)
         }
         
         itemsViewController.tableView.contentInset.top =
@@ -178,7 +178,7 @@ class ConstructedItemViewController: UIViewController {
     // MARK: - Target Actions
     private func favoriteBarButtonItemAction() {
         if let isFavorite = viewModel.isFavorite.value {
-            viewModel.beginFavoriteDownload(isFavorite: !isFavorite)
+            viewModel.beginUpdateConstructedItemDownload(isFavorite: !isFavorite)
         }
     }
     

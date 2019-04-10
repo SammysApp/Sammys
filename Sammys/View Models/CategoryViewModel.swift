@@ -27,7 +27,7 @@ class CategoryViewModel {
     
     var categoryTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void)  = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -45,6 +45,10 @@ class CategoryViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for categories: [Category]) {
+        categoriesTableViewSectionModel = makeCategoriesTableViewSectionModel(categories: categories)
+    }
+    
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
@@ -52,17 +56,16 @@ class CategoryViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         beginCategoriesDownload()
+            .catch(errorHandler)
     }
     
-    private func beginCategoriesDownload() {
-        getCategories().done { categories in
-            self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: categories) }
-        .catch { self.errorHandler?($0) }
+    private func beginCategoriesDownload() -> Promise<Void> {
+        return getCategories().done(setUp)
     }
     
     private func getCategories() -> Promise<[Category]> {
         return httpClient.send(makeGetCategoriesRequest()).validate()
-            .map { try JSONDecoder().decode([Category].self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Category].self, from: $0.data) }
     }
     
     private func makeGetCategoriesRequest() -> URLRequest {

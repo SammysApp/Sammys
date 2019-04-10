@@ -16,8 +16,8 @@ class ItemsViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    var addItemHandler: ((ItemData) -> Void)?
-    var removeItemHandler: ((ItemData) -> Void)?
+    var addItemHandler: ((ItemData) -> Void) = { _ in }
+    var removeItemHandler: ((ItemData) -> Void) = { _ in }
     
     struct ItemData {
         let categoryItemID: UUID
@@ -94,10 +94,10 @@ class ItemsViewController: UIViewController {
         cell.accessoryType = isSelected ? .none : .checkmark
         if isSelected {
             viewModel.selectedCategoryItemIDs.remove(id)
-            removeItemHandler?(.init(categoryItemID: id))
+            removeItemHandler(.init(categoryItemID: id))
         } else {
             viewModel.selectedCategoryItemIDs.append(id)
-            addItemHandler?(.init(categoryItemID: id))
+            addItemHandler(.init(categoryItemID: id))
         }
     }
 }

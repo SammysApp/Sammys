@@ -37,7 +37,7 @@ class UserViewModel {
         didSet { updateButtonsTableViewSectionModel() }
     }
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -66,6 +66,10 @@ class UserViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for user: User) {
+        userDetailsTableViewSectionModel = makeUserDetailsTableViewSectionModel(cellModels: makeUserDetailTableViewCellModels(user: user))
+    }
+    
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
@@ -76,33 +80,33 @@ class UserViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        firstly { self.beginUserDownload() }
-            .catch { self.errorHandler?($0) }
+        beginUserDownload()
+            .catch { self.errorHandler($0) }
     }
     
     private func beginUserDownload() -> Promise<Void> {
-        let userPromise: Promise<User>
+        return makeUserDownload().done(setUp)
+    }
+    
+    private func makeUserDownload() -> Promise<User> {
         if userID == nil {
-            userPromise = userAuthManager.getCurrentUserIDToken()
+            return userAuthManager.getCurrentUserIDToken()
                 .then { self.getTokenUser(token: $0) }
                 .get { self.userID = $0.id }
         } else {
-            userPromise = userAuthManager.getCurrentUserIDToken()
+            return userAuthManager.getCurrentUserIDToken()
                 .then { self.getUser(token: $0) }
-        }
-        return userPromise.done { user in
-            self.userDetailsTableViewSectionModel = self.makeUserDetailsTableViewSectionModel(cellModels: self.makeUserDetailTableViewCellModels(user: user))
         }
     }
     
     private func getUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetUserRequest(id: userID ?? preconditionFailure(), token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
     }
     
     // MARK: - Methods

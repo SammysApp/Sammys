@@ -12,7 +12,7 @@ class ImageTableViewCell: UITableViewCell {
     private let _imageView = UIImageView()
     private let _textLabel = UILabel()
     
-    var prepareForReuseHandler: (() -> Void)?
+    var prepareForReuseHandler: (() -> Void) = {}
     
     override var imageView: UIImageView { get { return _imageView } }
     override var textLabel: UILabel { get { return _textLabel } }
@@ -28,7 +28,7 @@ class ImageTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
     
-    override func prepareForReuse() { prepareForReuseHandler?() }
+    override func prepareForReuse() { prepareForReuseHandler() }
     
     private func setUp() {
         [imageView, textLabel]

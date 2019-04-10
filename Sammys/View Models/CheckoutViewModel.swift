@@ -9,13 +9,15 @@
 import Foundation
 import PromiseKit
 import FirebaseAuth
+import PassKit
+import SquareInAppPaymentsSDK
 
 class CheckoutViewModel {
     private let calendar = Calendar.current
     
     private let apiURLRequestFactory = APIURLRequestFactory()
     
-    private var pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
+    private let pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = Constants.pickupDateTableViewCellViewModelDetailTextDateFormat
         return formatter
@@ -36,7 +38,7 @@ class CheckoutViewModel {
         didSet { updateTableViewSectionModels() }
     }
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -46,6 +48,8 @@ class CheckoutViewModel {
     let minimumPickupDate: Dynamic<Date?> = Dynamic(nil)
     let maximumPickupDate: Dynamic<Date?> = Dynamic(nil)
     
+    let isApplePayAvailable = Dynamic(SQIPInAppPaymentsSDK.canUseApplePay)
+    
     enum CellIdentifier: String {
         case subtitleTableViewCell
     }
@@ -54,6 +58,8 @@ class CheckoutViewModel {
         static let pickupDateTableViewCellViewModelHeight = Double(60)
         static let pickupDateTableViewCellViewModelDefaultDetailText = "ASAP"
         static let pickupDateTableViewCellViewModelDetailTextDateFormat = "h:mm a"
+        
+        static let paymentSummaryItemLabel = "Sammy's"
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -83,33 +89,54 @@ class CheckoutViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        beginStoreHoursDownload()
-        firstly { self.beginOutstandingOrderDownload() }
-            .catch { self.errorHandler?($0) }
+        when(fulfilled: [
+            beginOutstandingOrderDownload(),
+            _beginStoreHoursDownload()
+        ]).catch { self.errorHandler($0) }
     }
     
     func beginStoreHoursDownload() {
         getStoreHours().done(setUp)
-            .catch { self.errorHandler?($0) }
+            .catch { self.errorHandler($0) }
     }
     
-    func beginUpdateOutstandingOrderPreparedForDateDownload(date: Date?) {
+    func beginUpdateOutstandingOrderDownload(preparedForDate: Date?) {
         let currentDate = Date()
-        if let date = date {
+        if let date = preparedForDate {
             guard date > currentDate
-                else { errorHandler?(CheckoutViewModelError.invalidPickupDate); return }
+                else { errorHandler(CheckoutViewModelError.invalidPickupDate); return }
         }
         userAuthManager.getCurrentUserIDToken()
             .then { self.getOutstandingOrder(token: $0) }.get { outstandingOrder in
-                outstandingOrder.preparedForDate = date
-        }.then(beginUpdateOutstandingOrder).catch { self.errorHandler?($0) }
+                outstandingOrder.preparedForDate = preparedForDate
+        }.then(beginUpdateOutstandingOrder).catch { self.errorHandler($0) }
     }
     
-    func beginCreatePurchasedOrderDownload(cardNonce: String, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void) {
+    func beginPaymentRequestDownload(successHandler: @escaping (PKPaymentRequest) -> Void = { _ in }) {
+        guard isApplePayAvailable.value
+            else { errorHandler(CheckoutViewModelError.applePayNotAvailable); return }
         userAuthManager.getCurrentUserIDToken()
-            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: cardNonce, customerCardID: nil), token: $0) }
+            .then(getOutstandingOrder)
+            .map(makePaymentRequest)
+            .done(successHandler)
+            .catch(errorHandler)
+    }
+    
+    func beginCreatePurchasedOrderDownload(cardNonce: String, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void = { _ in }) {
+        beginCreatePurchasedOrderDownload(cardNonce: cardNonce)
             .done { completionHandler(.fulfilled($0.id)) }
             .catch { completionHandler(.rejected($0)) }
+    }
+    
+    func beginCreatePurchasedOrderDownload(payment: PKPayment, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void = { _ in }) {
+        beginApplePayNonceDownload(payment: payment)
+            .then { self.beginCreatePurchasedOrderDownload(cardNonce: $0.nonce) }
+            .done { completionHandler(.fulfilled($0.id)) }
+            .catch { completionHandler(.rejected($0)) }
+    }
+    
+    private func _beginStoreHoursDownload() -> Promise<Void> {
+        return getStoreHours().done(setUp)
     }
     
     private func beginOutstandingOrderDownload() -> Promise<Void> {
@@ -120,6 +147,20 @@ class CheckoutViewModel {
     private func beginUpdateOutstandingOrder(data: OutstandingOrder) -> Promise<Void> {
         return userAuthManager.getCurrentUserIDToken()
             .then { self.updateOutstandingOrder(data: data, token: $0) }.done(setUp)
+    }
+    
+    private func beginApplePayNonceDownload(payment: PKPayment) -> Promise<SQIPCardDetails> {
+        return Promise { resolver in
+            SQIPApplePayNonceRequest(payment: payment).perform { details, error in
+                if let details = details { resolver.fulfill(details) }
+                else if let error = error { resolver.reject(error) }
+            }
+        }
+    }
+    
+    private func beginCreatePurchasedOrderDownload(cardNonce: String) -> Promise<PurchasedOrder> {
+        return userAuthManager.getCurrentUserIDToken()
+            .then { self.createPurchasedOrder(data: .init(outstandingOrderID: self.outstandingOrderID ?? preconditionFailure(), cardNonce: cardNonce, customerCardID: nil), token: $0) }
     }
     
     private func getOutstandingOrder(token: JWT) -> Promise<OutstandingOrder> {
@@ -142,8 +183,25 @@ class CheckoutViewModel {
     private func createPurchasedOrder(data: CreateUserPurchasedOrderRequestData, token: JWT) -> Promise<PurchasedOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateUserPurchasedOrdersRequest(id: userID ?? preconditionFailure(), data: data, token: token)).validate()
-                .map { try JSONDecoder().decode(PurchasedOrder.self, from: $0.data) }
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(PurchasedOrder.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
+    // MARK: - Factory Methods
+    func makeOutstandingOrderTotalPrice(outstandingOrder: OutstandingOrder) -> Int {
+        guard let subtotalPrice = outstandingOrder.totalPrice,
+            let taxPrice = outstandingOrder.taxPrice else { return 0 }
+        return subtotalPrice + taxPrice
+    }
+    
+    func makePaymentRequest(outstandingOrder: OutstandingOrder) -> PKPaymentRequest {
+        let request = PKPaymentRequest.squarePaymentRequest(
+            merchantIdentifier: AppConstants.ApplePay.merchantID,
+            countryCode: AppConstants.ApplePay.countryCode,
+            currencyCode: AppConstants.ApplePay.currencyCode
+        )
+        request.paymentSummaryItems = [PKPaymentSummaryItem(label: Constants.paymentSummaryItemLabel, amount: NSDecimalNumber(value: makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder).toUSDUnits()))]
+        return request
     }
     
     // MARK: - Section Model Methods
@@ -181,4 +239,5 @@ extension CheckoutViewModel {
 
 enum CheckoutViewModelError: Error {
     case invalidPickupDate
+    case applePayNotAvailable
 }

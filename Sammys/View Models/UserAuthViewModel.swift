@@ -49,9 +49,9 @@ class UserAuthViewModel {
         didSet { updateTableViewSectionModels() }
     }
     
-    var userDidSignInHandler: ((User.ID) -> Void)?
+    var userDidSignInHandler: ((User.ID) -> Void) = { _ in }
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -98,44 +98,54 @@ class UserAuthViewModel {
     
     // MARK: - Download Methods
     func beginCompleteDownload() {
-        switch userStatus {
-        case .new: beginCreateUserDownload()
-        case .existing: beginSignInUserDownload()
-        }
+        do {
+            try beginSignInUserDownload()
+                .done { self.userDidSignInHandler($0.id) }
+                .catch { self.errorHandler($0) }
+        } catch { errorHandler(error) }
     }
     
-    private func beginCreateUserDownload() {
-        guard let firstName = userData.firstName else { return }
-        guard let lastName = userData.lastName else { return }
-        guard let email = userData.email else { return }
-        guard let password = userData.password else { return }
-        userAuthManager.createAndSignInUser(email: email, password: password)
+    private func beginCreateAndSignInUserDownload() throws -> Promise<User> {
+        guard let firstName = userData.firstName
+            else { throw UserAuthViewModelError.needFirstName }
+        guard let lastName = userData.lastName
+            else { throw UserAuthViewModelError.needLastName }
+        guard let email = userData.email
+            else { throw UserAuthViewModelError.needEmail }
+        guard let password = userData.password
+            else { throw UserAuthViewModelError.needPassword }
+        return userAuthManager.createAndSignInUser(email: email, password: password)
             .then { self.userAuthManager.getCurrentUserIDToken() }
             .then { self.createUser(data: .init(email: email, firstName: firstName, lastName: lastName), token: $0) }
-            .done { self.userDidSignInHandler?($0.id) }
-            .catch { self.errorHandler?($0) }
     }
     
-    private func beginSignInUserDownload() {
-        guard let email = userData.email else { return }
-        guard let password = userData.password else { return }
-        userAuthManager.signInUser(email: email, password: password)
+    private func beginSignInUserDownload() throws -> Promise<User> {
+        guard let email = userData.email
+            else { throw UserAuthViewModelError.needEmail }
+        guard let password = userData.password
+            else { throw UserAuthViewModelError.needPassword }
+        return userAuthManager.signInUser(email: email, password: password)
             .then { self.userAuthManager.getCurrentUserIDToken() }
             .then { self.getTokenUser(token: $0) }
-            .done { self.userDidSignInHandler?($0.id) }
-            .catch { self.errorHandler?($0) }
+    }
+    
+    private func makeSignInUserDownload() throws -> Promise<User> {
+        switch userStatus {
+        case .new: return try beginCreateAndSignInUserDownload()
+        case .existing: return try beginSignInUserDownload()
+        }
     }
     
     private func createUser(data: CreateUserRequestData, token: JWT) -> Promise<User> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateUserRequest(data: data, token: token)).validate()
-                .map { try JSONDecoder().decode(User.self, from: $0.data) }
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
     }
     
     // MARK: - Factory Methods
@@ -200,4 +210,11 @@ extension UserAuthViewModel {
             let textFieldTextDidUpdateHandler: (String?) -> Void
         }
     }
+}
+
+enum UserAuthViewModelError: Error {
+    case needFirstName
+    case needLastName
+    case needEmail
+    case needPassword
 }

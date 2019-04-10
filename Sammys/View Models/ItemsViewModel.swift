@@ -30,7 +30,7 @@ class ItemsViewModel {
     
     var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -48,6 +48,10 @@ class ItemsViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for items: [Item]) {
+        itemsTableViewSectionModel = makeItemsTableViewSectionModel(items: items)
+    }
+    
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
@@ -55,17 +59,16 @@ class ItemsViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         beginItemsDownload()
+            .catch(errorHandler)
     }
     
-    private func beginItemsDownload() {
-        getItems().done { items in
-            self.itemsTableViewSectionModel = self.makeItemsTableViewSectionModel(items: items) }
-        .catch { self.errorHandler?($0) }
+    private func beginItemsDownload() -> Promise<Void> {
+        return getItems().done(setUp)
     }
     
     private func getItems() -> Promise<[Item]> {
         return httpClient.send(apiURLRequestFactory.makeGetCategoryItemsRequest(id: categoryID ?? preconditionFailure())).validate()
-            .map { try JSONDecoder().decode([Item].self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Item].self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods

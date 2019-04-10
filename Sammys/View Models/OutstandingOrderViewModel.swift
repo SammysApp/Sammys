@@ -36,7 +36,7 @@ class OutstandingOrderViewModel {
     
     var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - View Gettable Properties
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
@@ -60,9 +60,18 @@ class OutstandingOrderViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for outstandingOrderID: OutstandingOrder.ID) {
+        self.outstandingOrderID = outstandingOrderID
+        keyValueStore.set(outstandingOrderID.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+    }
+    
     private func setUp(for outstandingOrder: OutstandingOrder) {
         taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
         subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
+    }
+    
+    private func setUp(for constructedItems: [ConstructedItem]) {
+        constructedItemsTableViewSectionModel = makeConstructedItemsTableViewSectionModel(constructedItems: constructedItems)
     }
     
     private func updateTableViewSectionModels() {
@@ -71,75 +80,95 @@ class OutstandingOrderViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        firstly { self.beginOutstandingOrderIDAndOutstandingOrderDownload() }
-            .then { self.beginOutstandingOrderConstructedItemsDownload() }
-            .catch { self.errorHandler?($0) }
+        firstly { self.beginOutstandingOrderIDDownload() }.then {
+            when(fulfilled: [
+                self.beginOutstandingOrderDownload(),
+                self.beginOutstandingOrderConstructedItemsDownload()
+            ])
+        }.catch(errorHandler)
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
-        let promise: Promise<Void>
-        if userID != nil {
-            promise = userAuthManager.getCurrentUserIDToken()
-                .then { self.beginUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity, token: $0) }
-        } else { promise = beginUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity) }
-        promise.then { self.beginOutstandingOrderConstructedItemsDownload() }
+        makeUpdateConstructedItemQuantityDownload(constructedItemID: constructedItemID, quantity: quantity)
+            .then { self.beginOutstandingOrderConstructedItemsDownload() }
             .then { self.beginOutstandingOrderDownload() }
-            .catch { self.errorHandler?($0) }
+            .catch(errorHandler)
     }
     
-    func beginUserIDDownload(successHandler: (() -> Void)? = nil) {
+    func beginUserIDDownload(successHandler: @escaping (() -> Void) = {}) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()
-            .done { successHandler?() }
-            .catch { self.errorHandler?($0) }
-    }
-    
-    private func beginOutstandingOrderIDAndOutstandingOrderDownload() -> Promise<Void> {
-        let promise: Promise<Void>
-        if outstandingOrderID == nil {
-            promise = beginOutstandingOrderIDDownload()
-                .then { self.beginOutstandingOrderDownload() }
-        } else { promise = beginOutstandingOrderDownload() }
-        return promise
+            .done(successHandler)
+            .catch(errorHandler)
     }
     
     private func beginOutstandingOrderIDDownload() -> Promise<Void> {
-        let promise: Promise<Void>
-        if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
-            let id = OutstandingOrder.ID(uuidString: idString) {
-            outstandingOrderID = id
-            promise = Promise { $0.fulfill(()) }
-        } else { promise = Promise(error: OutstandingOrderViewModelError.noOutstandingOrderFound) }
-        return promise
+        return makeOutstandingOrderIDDownload().done(setUp)
     }
     
     private func beginOutstandingOrderDownload() -> Promise<Void> {
-        let outstandingOrderPromise: Promise<OutstandingOrder>
-        if userID != nil {
-            outstandingOrderPromise = userAuthManager.getCurrentUserIDToken()
-                .then { self.getOutstandingOrder(token: $0) }
-        } else { outstandingOrderPromise = getOutstandingOrder() }
-        return outstandingOrderPromise.done(setUp)
+        return makeOutstandingOrderDownload().done(setUp)
     }
     
     private func beginOutstandingOrderConstructedItemsDownload() -> Promise<Void> {
-        let constructedItemsPromise: Promise<[ConstructedItem]>
-        if userID != nil {
-            constructedItemsPromise = userAuthManager.getCurrentUserIDToken()
-                .then { self.getOutstandingOrderConstructedItems(token: $0) }
-        } else { constructedItemsPromise = getOutstandingOrderConstructedItems() }
-        return constructedItemsPromise.done { self.constructedItemsTableViewSectionModel = self.makeConstructedItemsTableViewSectionModel(constructedItems: $0) }
+        return makeOutstandingOrderConstructedItemsDownload().done(setUp)
     }
     
-    private func beginUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: ConstructedItem.ID, quantity: Int, token: JWT? = nil) -> Promise<Void> {
-        let promise: Promise<Void>
+    private func makeOutstandingOrderIDDownload() -> Promise<OutstandingOrder.ID> {
+        if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
+            let id = OutstandingOrder.ID(uuidString: idString) {
+            return Promise { $0.fulfill(id) }
+        } else if userID != nil {
+            return userAuthManager.getCurrentUserIDToken()
+                .then(getUserOutstandingOrders).map { outstandingOrders in
+                    guard let outstandingOrder = outstandingOrders.first
+                        else { throw OutstandingOrderViewModelError.noOutstandingOrderFound }
+                    return outstandingOrder.id
+            }
+        } else { return Promise(error: OutstandingOrderViewModelError.noOutstandingOrderFound) }
+    }
+    
+    private func makeTokenAndOutstandingOrderDownload() -> Promise<OutstandingOrder> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken()
+                .then { self.getOutstandingOrder(token: $0) }
+        } else { return getOutstandingOrder() }
+    }
+    
+    private func makeOutstandingOrderDownload() -> Promise<OutstandingOrder> {
+        if outstandingOrderID == nil {
+            return beginOutstandingOrderIDDownload()
+                .then { self.makeTokenAndOutstandingOrderDownload() }
+        } else { return makeTokenAndOutstandingOrderDownload() }
+    }
+    
+    private func makeOutstandingOrderConstructedItemsDownload() -> Promise<[ConstructedItem]> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken()
+                .then { self.getOutstandingOrderConstructedItems(token: $0) }
+        } else { return getOutstandingOrderConstructedItems() }
+    }
+    
+    private func makeUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: ConstructedItem.ID, quantity: Int, token: JWT? = nil) -> Promise<Void> {
         if quantity > 0 {
-            promise = partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: constructedItemID, data: .init(quantity: quantity), token: token).asVoid()
+            return partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: constructedItemID, data: .init(quantity: quantity), token: token).asVoid()
         } else {
-            promise = removeOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemID: constructedItemID, token: token).asVoid()
+            return removeOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemID: constructedItemID, token: token).asVoid()
         }
-        return promise
+    }
+    
+    private func makeUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) -> Promise<Void> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken().then { token in
+                self.makeUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity, token: token)
+            }
+        } else { return makeUpdateConstructedItemQuantityOrRemoveDownload(constructedItemID: constructedItemID, quantity: quantity) }
+    }
+    
+    private func getUserOutstandingOrders(token: JWT) -> Promise<[OutstandingOrder]> {
+        return httpClient.send(apiURLRequestFactory.makeGetUserOutstandingOrdersRequest(id: userID ?? preconditionFailure(), token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([OutstandingOrder].self, from: $0.data) }
     }
     
     private func getOutstandingOrder(token: JWT? = nil) -> Promise<OutstandingOrder> {
@@ -149,25 +178,25 @@ class OutstandingOrderViewModel {
     
     private func getOutstandingOrderConstructedItems(token: JWT? = nil) -> Promise<[ConstructedItem]> {
         return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderConstructedItemsRequest(id: outstandingOrderID ?? preconditionFailure(), token: token)).validate()
-            .map { try JSONDecoder().decode([ConstructedItem].self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([ConstructedItem].self, from: $0.data) }
     }
     
     private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makePartiallyUpdateOutstandingOrderConstructedItemRequest(
                 outstandingOrderID: outstandingOrderID ?? preconditionFailure(), constructedItemID: constructedItemID, data: data, token: token)).validate()
-                .map { try JSONDecoder().decode(ConstructedItem.self, from: $0.data) }
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(ConstructedItem.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func removeOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> Promise<OutstandingOrder> {
         return httpClient.send(apiURLRequestFactory.makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: outstandingOrderID, constructedItemID: constructedItemID, token: token)).validate()
-            .map { try JSONDecoder().decode(OutstandingOrder.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
     }
     
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
-            .map { try JSONDecoder().decode(User.self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods

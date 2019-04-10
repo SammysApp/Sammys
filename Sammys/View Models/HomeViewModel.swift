@@ -23,7 +23,7 @@ class HomeViewModel {
     // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void)?
+    var errorHandler: ((Error) -> Void) = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -41,6 +41,10 @@ class HomeViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for categories: [Category]) {
+        categoriesTableViewSectionModel = makeCategoriesTableViewSectionModel(categories: categories)
+    }
+    
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
@@ -48,17 +52,16 @@ class HomeViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         beginCategoriesDownload()
+            .catch(errorHandler)
     }
     
-    private func beginCategoriesDownload() {
-        getRootCategories().done { categories in
-            self.categoriesTableViewSectionModel = self.makeCategoriesTableViewSectionModel(categories: categories)
-        }.catch { self.errorHandler?($0) }
+    private func beginCategoriesDownload() -> Promise<Void> {
+        return getRootCategories().done(setUp)
     }
     
     private func getRootCategories() -> Promise<[Category]> {
         return httpClient.send(apiURLRequestFactory.makeGetCategoriesRequest(queryData: .init(isRoot: true))).validate()
-            .map { try JSONDecoder().decode([Category].self, from: $0.data) }
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Category].self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods
@@ -86,7 +89,7 @@ class HomeViewModel {
             let imageURL = URL(string: imageURLString) {
             httpClient.send(URLRequest(url: imageURL))
                 .done { model.configurationData.imageData.value = $0.data }
-                .catch { self.errorHandler?($0) }
+                .catch { self.errorHandler($0) }
         }
         
         return model
