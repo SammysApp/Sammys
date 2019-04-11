@@ -12,7 +12,7 @@ final class OutstandingOrder: Codable {
     typealias ID = UUID
     
     let id: ID
-    let userID: User.ID?
+    var userID: User.ID?
     var preparedForDate: Date?
     var note: String?
     let totalPrice: Int?

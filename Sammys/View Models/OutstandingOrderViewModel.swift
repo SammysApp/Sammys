@@ -80,12 +80,16 @@ class OutstandingOrderViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        firstly { self.beginOutstandingOrderIDDownload() }.then {
-            when(fulfilled: [
-                self.beginOutstandingOrderDownload(),
-                self.beginOutstandingOrderConstructedItemsDownload()
-            ])
-        }.catch(errorHandler)
+        makeDownloads().catch(errorHandler)
+    }
+    
+    func beginUpdateOutstandingOrderUserDownload(successHandler: @escaping (() -> Void) = {}) {
+        userAuthManager.getCurrentUserIDToken().then { token in
+            self.getOutstandingOrder(token: token).then { outstandingOrder -> Promise<OutstandingOrder> in
+                outstandingOrder.userID = self.userID
+                return self.updateOutstandingOrder(data: outstandingOrder, token: token)
+            }
+        }.done(setUp).catch(errorHandler)
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
@@ -115,6 +119,16 @@ class OutstandingOrderViewModel {
         return makeOutstandingOrderConstructedItemsDownload().done(setUp)
     }
     
+    private func makeDownloads() -> Promise<Void> {
+        let downloads = when(fulfilled: [
+            self.beginOutstandingOrderDownload(),
+            self.beginOutstandingOrderConstructedItemsDownload()
+            ])
+        if outstandingOrderID == nil {
+            return beginOutstandingOrderIDDownload().then { downloads }
+        } else { return downloads }
+    }
+    
     private func makeOutstandingOrderIDDownload() -> Promise<OutstandingOrder.ID> {
         if let idString = keyValueStore.value(of: String.self, forKey: KeyValueStoreKeys.currentOutstandingOrderID),
             let id = OutstandingOrder.ID(uuidString: idString) {
@@ -129,18 +143,11 @@ class OutstandingOrderViewModel {
         } else { return Promise(error: OutstandingOrderViewModelError.noOutstandingOrderFound) }
     }
     
-    private func makeTokenAndOutstandingOrderDownload() -> Promise<OutstandingOrder> {
+    private func makeOutstandingOrderDownload() -> Promise<OutstandingOrder> {
         if userID != nil {
             return userAuthManager.getCurrentUserIDToken()
                 .then { self.getOutstandingOrder(token: $0) }
         } else { return getOutstandingOrder() }
-    }
-    
-    private func makeOutstandingOrderDownload() -> Promise<OutstandingOrder> {
-        if outstandingOrderID == nil {
-            return beginOutstandingOrderIDDownload()
-                .then { self.makeTokenAndOutstandingOrderDownload() }
-        } else { return makeTokenAndOutstandingOrderDownload() }
     }
     
     private func makeOutstandingOrderConstructedItemsDownload() -> Promise<[ConstructedItem]> {
@@ -179,6 +186,13 @@ class OutstandingOrderViewModel {
     private func getOutstandingOrderConstructedItems(token: JWT? = nil) -> Promise<[ConstructedItem]> {
         return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderConstructedItemsRequest(id: outstandingOrderID ?? preconditionFailure(), token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([ConstructedItem].self, from: $0.data) }
+    }
+    
+    private func updateOutstandingOrder(data: OutstandingOrder, token: JWT) -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeUpdateOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure(), data: data, token: token)).validate()
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func partiallyUpdateOutstandingOrderConstructedItem(constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
