@@ -120,13 +120,14 @@ class OutstandingOrderViewModel {
     }
     
     private func makeDownloads() -> Promise<Void> {
-        let downloads = when(fulfilled: [
-            self.beginOutstandingOrderDownload(),
-            self.beginOutstandingOrderConstructedItemsDownload()
-            ])
+        let downloads = [
+            beginOutstandingOrderDownload,
+            beginOutstandingOrderConstructedItemsDownload
+         ]
         if outstandingOrderID == nil {
-            return beginOutstandingOrderIDDownload().then { downloads }
-        } else { return downloads }
+            return beginOutstandingOrderIDDownload()
+                .then { when(fulfilled: downloads.map { $0() }) }
+        } else { return when(fulfilled: when(fulfilled: downloads.map { $0() })) }
     }
     
     private func makeOutstandingOrderIDDownload() -> Promise<OutstandingOrder.ID> {

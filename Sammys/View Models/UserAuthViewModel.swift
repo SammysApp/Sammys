@@ -99,7 +99,7 @@ class UserAuthViewModel {
     // MARK: - Download Methods
     func beginCompleteDownload() {
         do {
-            try beginSignInUserDownload()
+            try makeSignInUserDownload()
                 .done { self.userDidSignInHandler($0.id) }
                 .catch { self.errorHandler($0) }
         } catch { errorHandler(error) }

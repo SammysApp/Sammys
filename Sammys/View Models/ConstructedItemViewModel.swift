@@ -60,7 +60,8 @@ class ConstructedItemViewModel {
     let selectedCategoryName: Dynamic<String?> = Dynamic(nil)
     
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
-    let isFavorite: Dynamic<Bool?> = Dynamic(false)
+    let isFavorite = Dynamic(false)
+    let isOutstandingOrderAddable = Dynamic(false)
     
     private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
     
@@ -86,12 +87,14 @@ class ConstructedItemViewModel {
     }
     
     private func setUp(for constructedItem: ConstructedItem) {
-        isFavorite.value = constructedItem.isFavorite
         if let totalPrice = constructedItem.totalPrice {
             if totalPrice > 0 {
                 totalPriceText.value = String(totalPrice.toUSDUnits().toPriceString())
             } else { totalPriceText.value = nil }
         }
+        
+        isFavorite.value = constructedItem.isFavorite
+        isOutstandingOrderAddable.value = constructedItem.isRequirementsSatisfied ?? false
     }
     
     private func setUp(for outstandingOrderID: OutstandingOrder.ID) {

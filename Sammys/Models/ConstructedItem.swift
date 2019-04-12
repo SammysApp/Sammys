@@ -18,4 +18,5 @@ final class ConstructedItem: Codable {
     let quantity: Int?
     let totalPrice: Int?
     let isFavorite: Bool
+    let isRequirementsSatisfied: Bool?
 }

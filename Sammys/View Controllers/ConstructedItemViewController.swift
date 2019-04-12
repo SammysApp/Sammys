@@ -35,7 +35,8 @@ class ConstructedItemViewController: UIViewController {
         static let favoriteBarButtonItemDefaultColor = UIColor.lightGray
         static let favoriteBarButtonItemSelectedColor = #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1)
         
-        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
+        static let completeButtonDisabledBackgroundColor = UIColor.lightGray
+        static let completeButtonEnabledBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
         static let completeButtonTitleLabelTextColor = UIColor.white
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelTextFontSize = CGFloat(18)
@@ -114,7 +115,6 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func configureCompleteButton() {
-        completeButton.backgroundColor = Constants.completeButtonBackgroundColor
         completeButton.titleLabel.textColor = Constants.completeButtonTitleLabelTextColor
         completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelTextFontSize, weight: Constants.completeButtonTitleLabelFontWeight)
         
@@ -143,8 +143,11 @@ class ConstructedItemViewController: UIViewController {
             } else { self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText }
         }
         viewModel.isFavorite.bindAndRun { value in
-            guard let value = value else { return }
             self.favoriteBarButtonItem.tintColor = value ? Constants.favoriteBarButtonItemSelectedColor : Constants.favoriteBarButtonItemDefaultColor
+        }
+        viewModel.isOutstandingOrderAddable.bindAndRun { value in
+            self.completeButton.backgroundColor = value ? Constants.completeButtonEnabledBackgroundColor : Constants.completeButtonDisabledBackgroundColor
+            self.completeButton.isEnabled = value
         }
         
         viewModel.categoryCollectionViewSectionModels.bindAndRun { value in
@@ -181,9 +184,7 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Target Actions
     private func favoriteBarButtonItemAction() {
-        if let isFavorite = viewModel.isFavorite.value {
-            viewModel.beginUpdateConstructedItemDownload(isFavorite: !isFavorite)
-        }
+        viewModel.beginUpdateConstructedItemDownload(isFavorite: !viewModel.isFavorite.value)
     }
     
     private func completeButtonTouchUpInsideAction() {
