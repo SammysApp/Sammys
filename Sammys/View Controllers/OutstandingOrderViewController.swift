@@ -22,6 +22,8 @@ class OutstandingOrderViewController: UIViewController {
         
         static let checkoutSheetViewControllerViewBackgroundColor = UIColor.white
         static let checkoutSheetViewControllerViewHeight = CGFloat(120)
+        static let checkoutSheetCheckoutButtonTitleLabelDefaultText = "Checkout"
+        static let checkoutSheetCheckoutButtonTitleLabelSignInText = "Sign In to Checkout"
     }
     
     // MARK: - Lifecycle Methods
@@ -69,7 +71,11 @@ class OutstandingOrderViewController: UIViewController {
     private func configureCheckoutSheetViewController() {
         checkoutSheetViewController.view.backgroundColor = Constants.checkoutSheetViewControllerViewBackgroundColor
         checkoutSheetViewController.checkoutButtonTouchUpInsideHandler = {
-            self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
+            if self.viewModel.isUserSet.value {
+                self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
+            } else {
+                self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
+            }
         }
     }
     
@@ -87,6 +93,10 @@ class OutstandingOrderViewController: UIViewController {
         viewModel.taxPriceText.bindAndRun { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
         viewModel.subtotalPriceText.bindAndRun { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
         
+        viewModel.isUserSet.bindAndRun { value in
+            self.checkoutSheetViewController.checkoutButton.titleLabel.text = value ? Constants.checkoutSheetCheckoutButtonTitleLabelDefaultText : Constants.checkoutSheetCheckoutButtonTitleLabelSignInText
+        }
+        
         viewModel.errorHandler = { value in
             switch value {
             default: print(value.localizedDescription)
@@ -95,6 +105,21 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
+    private func makeUserAuthPageViewController() -> UserAuthPageViewController {
+        let userAuthPageViewController = UserAuthPageViewController()
+        
+        let userDidSignInHandler: (User.ID) -> Void = { id in
+            self.viewModel.userID = id
+            self.viewModel.beginUpdateOutstandingOrderUserDownload() {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        userAuthPageViewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
+        return userAuthPageViewController
+    }
+    
     private func makeCheckoutViewController() -> CheckoutViewController {
         let checkoutViewController = CheckoutViewController()
         checkoutViewController.hidesBottomBarWhenPushed = true

@@ -82,7 +82,7 @@ class UserViewController: UIViewController {
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginDownloads()
-            userAuthPageViewController.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         
         userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler

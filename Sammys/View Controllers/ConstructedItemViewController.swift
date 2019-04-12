@@ -175,7 +175,7 @@ class ConstructedItemViewController: UIViewController {
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginUpdateConstructedItemUserDownload()
-            userAuthPageViewController.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
         userAuthPageViewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler

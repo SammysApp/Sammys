@@ -32,7 +32,9 @@ class OutstandingOrderViewModel {
     /// Must be set to the outstanding order's user's ID before beginning downloads.
     /// If set and verifiable, calling `beginDownloads()` will set the
     /// outstanding order's user to the one specified if necessary.
-    var userID: User.ID?
+    var userID: User.ID? {
+        didSet { isUserSet.value = userID != nil }
+    }
     
     var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
@@ -46,6 +48,8 @@ class OutstandingOrderViewModel {
     
     let taxPriceText: Dynamic<String?> = Dynamic(nil)
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
+    
+    private(set) lazy var isUserSet = Dynamic(userID != nil)
     
     enum CellIdentifier: String {
         case itemStackTableViewCell
@@ -89,7 +93,9 @@ class OutstandingOrderViewModel {
                 outstandingOrder.userID = self.userID
                 return self.updateOutstandingOrder(data: outstandingOrder, token: token)
             }
-        }.done(setUp).catch(errorHandler)
+        }.done(setUp)
+            .done { successHandler() }
+            .catch(errorHandler)
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
