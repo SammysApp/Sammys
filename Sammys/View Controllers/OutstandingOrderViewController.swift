@@ -38,8 +38,6 @@ class OutstandingOrderViewController: UIViewController {
         
         if viewModel.isUserSignedIn {
             viewModel.beginUserIDDownload {
-                // Update the outstanding order's user in case was created without one.
-                self.viewModel.beginUpdateOutstandingOrderUserDownload()
                 self.viewModel.beginDownloads()
             }
         } else { viewModel.beginDownloads() }

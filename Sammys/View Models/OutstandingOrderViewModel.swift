@@ -88,13 +88,8 @@ class OutstandingOrderViewModel {
     }
     
     func beginUpdateOutstandingOrderUserDownload(successHandler: @escaping (() -> Void) = {}) {
-        userAuthManager.getCurrentUserIDToken().then { token in
-            self.getOutstandingOrder(token: token).then { outstandingOrder -> Promise<OutstandingOrder> in
-                outstandingOrder.userID = self.userID
-                return self.updateOutstandingOrder(data: outstandingOrder, token: token)
-            }
-        }.done(setUp)
-            .done { successHandler() }
+        _beginUpdateOutstandingOrderUserDownload()
+            .done(successHandler)
             .catch(errorHandler)
     }
     
@@ -125,11 +120,21 @@ class OutstandingOrderViewModel {
         return makeOutstandingOrderConstructedItemsDownload().done(setUp)
     }
     
+    private func _beginUpdateOutstandingOrderUserDownload() -> Promise<Void> {
+        return userAuthManager.getCurrentUserIDToken().then { token in
+            self.getOutstandingOrder(token: token).then { outstandingOrder -> Promise<OutstandingOrder> in
+                outstandingOrder.userID = self.userID
+                return self.updateOutstandingOrder(data: outstandingOrder, token: token)
+            }
+        }.done(setUp)
+    }
+    
     private func makeDownloads() -> Promise<Void> {
-        let downloads = [
+        var downloads = [
             beginOutstandingOrderDownload,
             beginOutstandingOrderConstructedItemsDownload
-         ]
+        ]
+        if userID != nil { downloads.append(_beginUpdateOutstandingOrderUserDownload) }
         if outstandingOrderID == nil {
             return beginOutstandingOrderIDDownload()
                 .then { when(fulfilled: downloads.map { $0() }) }
