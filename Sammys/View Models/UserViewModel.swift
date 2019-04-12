@@ -78,6 +78,12 @@ class UserViewModel {
         buttonsTableViewSectionModel = makeButtonsTableViewSectionModel(cellModels: makeButtonTableViewCellModels())
     }
     
+    // MARK: - Methods
+    func logOut() throws {
+        try userAuthManager.signOutCurrentUser()
+        keyValueStore.set(Optional<String>(nil), forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         beginUserDownload()
@@ -107,12 +113,6 @@ class UserViewModel {
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
-    }
-    
-    // MARK: - Methods
-    func logOut() throws {
-        try userAuthManager.signOutCurrentUser()
-        keyValueStore.set(Optional<String>(nil), forKey: KeyValueStoreKeys.currentOutstandingOrderID)
     }
     
     // MARK: - Section Model Methods

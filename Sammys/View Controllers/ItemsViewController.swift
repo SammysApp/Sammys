@@ -16,13 +16,6 @@ class ItemsViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
-    var addItemHandler: ((ItemData) -> Void) = { _ in }
-    var removeItemHandler: ((ItemData) -> Void) = { _ in }
-    
-    struct ItemData {
-        let categoryItemID: UUID
-    }
-    
     private struct Constants {
         static let itemTableViewCellTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
         static let itemTableViewCellTextLabelFontSize = CGFloat(18)
@@ -86,18 +79,9 @@ class ItemsViewController: UIViewController {
     
     private func itemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
-            let indexPath = data.indexPath,
-            let cell = tableView.cellForRow(at: indexPath),
             let id = cellViewModel.selectionData.categoryItemID else { return }
         
-        let isSelected = cellViewModel.selectionData.isSelected()
-        cell.accessoryType = isSelected ? .none : .checkmark
-        if isSelected {
-            viewModel.selectedCategoryItemIDs.remove(id)
-            removeItemHandler(.init(categoryItemID: id))
-        } else {
-            viewModel.selectedCategoryItemIDs.append(id)
-            addItemHandler(.init(categoryItemID: id))
-        }
+        if cellViewModel.selectionData.isSelected { viewModel.remove(id) }
+        else { viewModel.add(id) }
     }
 }

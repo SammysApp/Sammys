@@ -55,14 +55,16 @@ class ConstructedItemViewModel {
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
     
     // MARK: - Dynamic Properties
-    private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
-    
     /// The selected category ID to present its items.
     let selectedCategoryID: Dynamic<Category.ID?> = Dynamic(nil)
     let selectedCategoryName: Dynamic<String?> = Dynamic(nil)
     
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     let isFavorite: Dynamic<Bool?> = Dynamic(false)
+    
+    private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
+    
+    let selectedCategoryItemIDs = Dynamic([Item.CategoryItemID]())
     
     enum CellIdentifier: String {
         case roundedTextCollectionViewCell
@@ -112,6 +114,12 @@ class ConstructedItemViewModel {
             .get { self.constructedItemID = $0.id }
             .done(setUp)
             .catch(errorHandler)
+    }
+    
+    func beginSelectedCategoryItemIDsDownload() {
+        makeSelectedCategoryItemIDsDownload().done { items in
+            self.selectedCategoryItemIDs.value =  items.compactMap { $0.categoryItemID }
+        }.catch(errorHandler)
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
@@ -173,6 +181,13 @@ class ConstructedItemViewModel {
         } else { return createConstructedItem(data: .init(categoryID: categoryID ?? preconditionFailure())) }
     }
     
+    private func makeSelectedCategoryItemIDsDownload() -> Promise<[Item]> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken()
+                .then { self.getConstructedItemItems(token: $0) }
+        } else { return getConstructedItemItems() }
+    }
+    
     private func makeAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) -> Promise<ConstructedItem> {
         if userID != nil {
             return userAuthManager.getCurrentUserIDToken().then { token in
@@ -221,6 +236,11 @@ class ConstructedItemViewModel {
     private func getCategories() -> Promise<[Category]> {
         return httpClient.send(apiURLRequestFactory.makeGetSubcategoriesRequest(parentCategoryID: categoryID ?? preconditionFailure()))
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Category].self, from: $0.data) }
+    }
+    
+    private func getConstructedItemItems(token: JWT? = nil) -> Promise<[Item]> {
+        return httpClient.send(apiURLRequestFactory.makeGetConstructedItemItems(id: constructedItemID ?? preconditionFailure(), queryData: .init(categoryID: selectedCategoryID.value), token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Item].self, from: $0.data) }
     }
     
     private func createConstructedItem(data: CreateConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {

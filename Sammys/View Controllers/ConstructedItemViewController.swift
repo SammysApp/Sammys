@@ -101,11 +101,11 @@ class ConstructedItemViewController: UIViewController {
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
         
-        itemsViewController.addItemHandler = { data in
-            self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [data.categoryItemID])
+        itemsViewController.viewModel.addItemHandler = { categoryItemID in
+            self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [categoryItemID])
         }
-        itemsViewController.removeItemHandler = { data in
-            self.viewModel.beginRemoveConstructedItemItemDownload(categoryItemID: data.categoryItemID)
+        itemsViewController.viewModel.removeItemHandler = { categoryItemID in
+            self.viewModel.beginRemoveConstructedItemItemDownload(categoryItemID: categoryItemID)
         }
         
         itemsViewController.tableView.contentInset.top =
@@ -137,12 +137,6 @@ class ConstructedItemViewController: UIViewController {
             self.title = "Choose \(name)"
         }
         
-        viewModel.categoryCollectionViewSectionModels.bindAndRun { value in
-            self.categoryCollectionViewDataSource.sectionModels = value
-            self.categoryCollectionViewDelegate.sectionModels = value
-            self.categoryCollectionView.reloadData()
-        }
-        
         viewModel.totalPriceText.bindAndRun { value in
             if let text = value {
                 self.completeButton.titleLabel.text = Constants.completeButtonTitleLabelText + " | " + text
@@ -151,6 +145,16 @@ class ConstructedItemViewController: UIViewController {
         viewModel.isFavorite.bindAndRun { value in
             guard let value = value else { return }
             self.favoriteBarButtonItem.tintColor = value ? Constants.favoriteBarButtonItemSelectedColor : Constants.favoriteBarButtonItemDefaultColor
+        }
+        
+        viewModel.categoryCollectionViewSectionModels.bindAndRun { value in
+            self.categoryCollectionViewDataSource.sectionModels = value
+            self.categoryCollectionViewDelegate.sectionModels = value
+            self.categoryCollectionView.reloadData()
+        }
+        
+        viewModel.selectedCategoryItemIDs.bindAndRun { value in
+            self.itemsViewController.viewModel.selectedCategoryItemIDs = value
         }
         
         viewModel.errorHandler = { error in
@@ -204,5 +208,7 @@ class ConstructedItemViewController: UIViewController {
         
         viewModel.selectedCategoryID.value = cellViewModel.selectionData.categoryID
         viewModel.selectedCategoryName.value = cellViewModel.selectionData.categoryName
+        
+        viewModel.beginSelectedCategoryItemIDsDownload()
     }
 }

@@ -76,6 +76,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getCategories, queryItems: queryData?.toQueryItems())
     }
     
+    func makeGetCategoryRequest(id: Category.ID) -> URLRequest {
+        return makeRequest(endpoint: .getCategory(id))
+    }
+    
     func makeGetSubcategoriesRequest(parentCategoryID: Category.ID) -> URLRequest {
         return makeRequest(endpoint: .getSubcategories(parentCategoryID))
     }
@@ -86,6 +90,10 @@ struct APIURLRequestFactory {
     
     func makeGetItemModifiersRequest(categoryID: Category.ID, itemID: Item.ID) -> URLRequest {
         return makeRequest(endpoint: .getItemModifiers(categoryID, itemID))
+    }
+    
+    func makeGetConstructedItemItems(id: ConstructedItem.ID, queryData: GetConstructedItemItemsRequestQueryData? = nil, token: JWT? = nil) -> URLRequest {
+        return makeRequest(endpoint: .getConstructedItemItems(id), queryItems: queryData?.toQueryItems(), token: token)
     }
     
     func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
@@ -160,6 +168,22 @@ struct GetCategoriesRequestQueryData {
         var queryItems = [URLQueryItem]()
         if let isRoot = isRoot {
             queryItems.append(URLQueryItem(name: "isRoot", value: String(isRoot)))
+        }
+        return queryItems
+    }
+}
+
+struct GetConstructedItemItemsRequestQueryData {
+    var categoryID: Category.ID?
+    
+    init(categoryID: Category.ID? = nil) {
+        self.categoryID = categoryID
+    }
+    
+    func toQueryItems() -> [URLQueryItem] {
+        var queryItems = [URLQueryItem]()
+        if let categoryID = categoryID {
+            queryItems.append(URLQueryItem(name: "categoryID", value: categoryID.uuidString))
         }
         return queryItems
     }

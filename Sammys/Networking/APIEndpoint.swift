@@ -20,12 +20,16 @@ enum APIEndpoint: HTTPEndpoint {
     case getStoreHours
     /// GET `/categories`
     case getCategories
+    /// GET `/categories/:category`
+    case getCategory(Category.ID)
     /// GET `/categories/:category/subcategories`
     case getSubcategories(Category.ID)
     /// GET `/categories/:category/item`
     case getCategoryItems(Category.ID)
     /// GET `/categories/:category/item/:item/modifiers`
     case getItemModifiers(Category.ID, Item.ID)
+    /// GET `/constructedItems/:constructedItem/items`
+    case getConstructedItemItems(ConstructedItem.ID)
     /// GET `/outstandingOrders/:outstandingOrder`
     case getOutstandingOrder(OutstandingOrder.ID)
     /// GET `/outstandingOrders/:outstandingOrder/constructedItems`
@@ -78,12 +82,16 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/storeHours")
         case .getCategories:
             return (.GET, "/\(version)/categories")
+        case .getCategory(let id):
+            return (.GET, "/\(version)/categories/\(id)")
         case .getSubcategories(let id):
             return (.GET, "/\(version)/categories/\(id)/subcategories")
         case .getCategoryItems(let id):
             return (.GET, "/\(version)/categories/\(id)/items")
         case .getItemModifiers(let categoryID, let itemID):
             return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
+        case .getConstructedItemItems(let id):
+            return (.GET, "/\(version)/constructedItems/\(id)/items")
         case .getOutstandingOrder(let id):
             return (.GET, "/\(version)/outstandingOrders/\(id)")
         case .getOutstandingOrderConstructedItems(let id):

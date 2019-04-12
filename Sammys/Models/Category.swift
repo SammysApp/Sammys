@@ -14,6 +14,8 @@ final class Category: Codable {
     let id: ID
     let name: String
     let imageURL: String?
+    let minimumItems: Int?
+    let maximumItems: Int?
     let isParentCategory: Bool?
     let isConstructable: Bool
 }
