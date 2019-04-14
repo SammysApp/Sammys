@@ -211,6 +211,7 @@ struct CreateUserPurchasedOrderRequestData: Codable {
 
 struct CreateUserCardRequestData: Codable {
     let cardNonce: String
+    let postalCode: String
 }
 
 struct CreateConstructedItemRequestData: Codable {

@@ -84,11 +84,12 @@ class PaymentMethodsViewModel {
             .catch(errorHandler)
     }
     
-    func beginCreateCardDownload(cardNonce: String) {
+    func beginCreateCardDownload(cardNonce: String, postalCode: String, completionHandler: @escaping (Result<Void>) -> Void = { _ in }) {
         userAuthManager.getCurrentUserIDToken()
-            .then { self.createCard(cardNonce: cardNonce, token: $0).asVoid() }
+            .then { self.createCard(cardNonce: cardNonce, postalCode: postalCode, token: $0).asVoid() }
+            .done { completionHandler(.fulfilled(())) }
             .then(beginCardsDownload)
-            .catch(errorHandler)
+            .catch { completionHandler(.rejected($0)) }
     }
     
     private func beginCardsDownload() -> Promise<Void> {
@@ -101,9 +102,10 @@ class PaymentMethodsViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Card].self, from: $0.data) }
     }
     
-    private func createCard(cardNonce: String, token: JWT) -> Promise<Card> {
+    private func createCard(cardNonce: String, postalCode: String, token: JWT) -> Promise<Card> {
         do {
-            return try httpClient.send(apiURLRequestFactory.makeCreateUserCardRequest(id: userID ?? preconditionFailure(), data: .init(cardNonce: cardNonce), token: token)).validate()
+            // FIXME: Use real card nonce in production.
+            return try httpClient.send(apiURLRequestFactory.makeCreateUserCardRequest(id: userID ?? preconditionFailure(), data: .init(cardNonce: "fake-card-nonce-ok", postalCode: postalCode), token: token)).validate()
                 .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(Card.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
