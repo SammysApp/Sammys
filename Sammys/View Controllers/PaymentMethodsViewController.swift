@@ -59,7 +59,8 @@ class PaymentMethodsViewController: UIViewController {
     
     private func configureViewModel() {
         viewModel.paymentMethodTableViewCellViewModelActions = [
-            .configuration: paymentMethodTableViewCellConfigurationAction
+            .configuration: paymentMethodTableViewCellConfigurationAction,
+            .selection: paymentMethodTableViewCellSelectionAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -96,6 +97,13 @@ class PaymentMethodsViewController: UIViewController {
             let cell = data.cell else { return }
         
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
+    }
+    
+    private func paymentMethodTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? PaymentMethodsViewModel.PaymentMethodTableViewCellViewModel else { return }
+        
+        viewModel.selectedPaymentMethod = cellViewModel.selectionData.method
     }
 }
 

@@ -49,9 +49,9 @@ class UserAuthViewModel {
         didSet { updateTableViewSectionModels() }
     }
     
-    var userDidSignInHandler: ((User.ID) -> Void) = { _ in }
+    var userDidSignInHandler: (User.ID) -> Void = { _ in }
     
-    var errorHandler: ((Error) -> Void) = { _ in }
+    var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())

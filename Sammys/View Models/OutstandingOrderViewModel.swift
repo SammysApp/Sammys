@@ -33,7 +33,7 @@ class OutstandingOrderViewModel {
     
     var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void) = { _ in }
+    var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - View Gettable Properties
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
@@ -87,7 +87,7 @@ class OutstandingOrderViewModel {
         makeDownloads().catch(errorHandler)
     }
     
-    func beginUpdateOutstandingOrderUserDownload(successHandler: @escaping (() -> Void) = {}) {
+    func beginUpdateOutstandingOrderUserDownload(successHandler: @escaping () -> Void = {}) {
         _beginUpdateOutstandingOrderUserDownload()
             .done(successHandler)
             .catch(errorHandler)
@@ -100,7 +100,7 @@ class OutstandingOrderViewModel {
             .catch(errorHandler)
     }
     
-    func beginUserIDDownload(successHandler: @escaping (() -> Void) = {}) {
+    func beginUserIDDownload(successHandler: @escaping () -> Void = {}) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()

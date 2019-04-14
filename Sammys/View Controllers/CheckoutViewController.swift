@@ -8,7 +8,6 @@
 
 import UIKit
 import PassKit
-import SquareInAppPaymentsSDK
 
 class CheckoutViewController: UIViewController {
     let viewModel = CheckoutViewModel()
@@ -17,7 +16,7 @@ class CheckoutViewController: UIViewController {
     
     let payButtonsStackView = UIStackView()
     let payButton = RoundedButton()
-    let applePayButton = PKPaymentButton(paymentButtonType: .plain, paymentButtonStyle: .black)
+    let applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
     
     private(set) lazy var datePickerViewController = DatePickerViewController()
     
@@ -76,7 +75,8 @@ class CheckoutViewController: UIViewController {
     }
     
     private func configurePayButtonsStackView() {
-        payButtonsStackView.addArrangedSubview(payButton)
+        [payButton, applePayButton]
+            .forEach { payButtonsStackView.addArrangedSubview($0) }
         payButtonsStackView.distribution = .fillEqually
     }
     
@@ -85,6 +85,7 @@ class CheckoutViewController: UIViewController {
         payButton.titleLabel.textColor = Constants.payButtonTitleLabelTextColor
         payButton.titleLabel.text = Constants.payButtonTitleLabelText
         payButton.add(payButtonTouchUpInsideTarget, for: .touchUpInside)
+        payButton.isHidden = true
     }
     
     private func configureApplePayButton() {
@@ -92,6 +93,7 @@ class CheckoutViewController: UIViewController {
             applePayButton.cornerRadius = Constants.payButtonsStackViewHeight * Constants.applePayButtonCornerRadiusMultiplier
         }
         applePayButton.add(applePayButtonTouchUpInsideTarget, for: .touchUpInside)
+        applePayButton.isHidden = true
     }
     
     private func configureDatePickerViewController() {
@@ -126,6 +128,14 @@ class CheckoutViewController: UIViewController {
             self.tableView.reloadData()
         }
         
+        viewModel.paymentMethod.bindAndRun { value in
+            guard let method = value else { return }
+            switch method {
+            case .applePay: self.setUpShowApplePayButton()
+            case .card: self.setUpShowPayButton()
+            }
+        }
+        
         viewModel.pickupDate.bindAndRun { value in
             guard let date = value else { return }
             self.datePickerViewController.viewModel.selectedDate = .date(date)
@@ -134,11 +144,6 @@ class CheckoutViewController: UIViewController {
         viewModel.minimumPickupDate.bindAndRun { self.datePickerViewController.viewModel.minimumDate = $0 }
         viewModel.maximumPickupDate.bindAndRun { self.datePickerViewController.viewModel.maximumDate = $0 }
         
-        viewModel.isApplePayAvailable.bindAndRun { value in
-            if value { self.payButtonsStackView.addArrangedSubview(self.applePayButton) }
-            else { self.payButtonsStackView.removeArrangedSubview(self.applePayButton) }
-        }
-        
         viewModel.errorHandler = { value in
             switch value {
             default: print(value.localizedDescription)
@@ -146,9 +151,21 @@ class CheckoutViewController: UIViewController {
         }
     }
     
+    private func setUpShowPayButton() {
+        applePayButton.isHidden = true
+        payButton.isHidden = false
+    }
+    
+    private func setUpShowApplePayButton() {
+        payButton.isHidden = true
+        applePayButton.isHidden = false
+    }
+    
     // MARK: - Target Actions
     private func payButtonTouchUpInsideAction() {
-        self.present(UINavigationController(rootViewController: makeCardEntryViewController()), animated: true, completion: nil)
+        guard let method = viewModel.paymentMethod.value,
+            case .card(let id, _) = method else { return }
+        viewModel.beginCreatePurchasedOrderDownload(customerCardID: id)
     }
     
     private func applePayButtonTouchUpInsideAction() {
@@ -160,16 +177,15 @@ class CheckoutViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeCardEntryViewController() -> SQIPCardEntryViewController {
-        let theme = SQIPTheme()
-        let cardEntryViewController = SQIPCardEntryViewController(theme: theme)
-        cardEntryViewController.delegate = self
-        return cardEntryViewController
-    }
-    
     private func makePaymentMethodsViewController() -> PaymentMethodsViewController {
         let paymentMethodsViewController = PaymentMethodsViewController()
         paymentMethodsViewController.viewModel.userID = viewModel.userID
+        
+        paymentMethodsViewController.viewModel.didSelectPaymentMethodHandler = { method in
+            self.viewModel.paymentMethod.value = method
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         return paymentMethodsViewController
     }
     
@@ -202,21 +218,6 @@ class CheckoutViewController: UIViewController {
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         viewModel.beginStoreHoursDownload()
         self.navigationController?.pushViewController(datePickerViewController, animated: true)
-    }
-}
-
-extension CheckoutViewController: SQIPCardEntryViewControllerDelegate {
-    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didObtain cardDetails: SQIPCardDetails, completionHandler: @escaping (Error?) -> Void) {
-        viewModel.beginCreatePurchasedOrderDownload(cardNonce: cardDetails.nonce) { result in
-            switch result {
-            case .fulfilled(_): completionHandler(nil)
-            case .rejected(let error): completionHandler(error)
-            }
-        }
-    }
-    
-    func cardEntryViewController(_ cardEntryViewController: SQIPCardEntryViewController, didCompleteWith status: SQIPCardEntryCompletionStatus) {
-        dismiss(animated: true, completion: nil)
     }
 }
 

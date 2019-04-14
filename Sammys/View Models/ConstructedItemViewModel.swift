@@ -44,7 +44,7 @@ class ConstructedItemViewModel {
     
     var categoryRoundedTextCollectionViewCellViewModelActions = [UICollectionViewCellAction: UICollectionViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void) = { _ in }
+    var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - View Gettable Properties
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
@@ -150,13 +150,13 @@ class ConstructedItemViewModel {
             .catch(errorHandler)
     }
     
-    func beginAddToOutstandingOrderDownload(successHandler: @escaping (() -> Void) = {}) {
+    func beginAddToOutstandingOrderDownload(successHandler: @escaping () -> Void = {}) {
         makeAddToOutstandingOrderDownload()
             .done(successHandler)
             .catch(errorHandler)
     }
     
-    func beginUserIDDownload(successHandler: @escaping (() -> Void) = {}) {
+    func beginUserIDDownload(successHandler: @escaping () -> Void = {}) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
             .get { self.userID = $0.id }.asVoid()

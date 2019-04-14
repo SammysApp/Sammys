@@ -24,9 +24,20 @@ class PaymentMethodsViewModel {
     /// Required to be non-`nil` before beginning downloads.
     var userID: User.ID?
     
-    var paymentMethodTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var paymentMethodTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updatePaymentMethodsTableViewSectionModel() }
+    }
     
-    var errorHandler: ((Error) -> Void) = { _ in }
+    var selectedPaymentMethod: PaymentMethod? {
+        didSet {
+            if let method = selectedPaymentMethod { didSelectPaymentMethodHandler(method) }
+            updatePaymentMethodsTableViewSectionModel()
+        }
+    }
+    
+    var didSelectPaymentMethodHandler: (PaymentMethod) -> Void = { _ in }
+    
+    var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
@@ -36,14 +47,14 @@ class PaymentMethodsViewModel {
         didSet { updateTableViewSectionModels() }
     }
     
-    private enum PaymentMethod {
+    enum PaymentMethod: Equatable {
         case applePay
-        case card(Card)
+        case card(Card.ID, name: String)
         
         var name: String {
             switch self {
             case .applePay: return Constants.applePayPaymentMethodName
-            case .card(let card): return card.name
+            case .card(_, let name): return name
             }
         }
     }
@@ -112,7 +123,7 @@ class PaymentMethodsViewModel {
     
     // MARK: - Factory Methods
     private func makePaymentMethods(cards: [Card] = []) -> [PaymentMethod] {
-        return (SQIPInAppPaymentsSDK.canUseApplePay ? [.applePay] : []) + cards.map { .card($0) }
+        return (SQIPInAppPaymentsSDK.canUseApplePay ? [.applePay] : []) + cards.map { .card($0.id, name: $0.name) }
     }
     
     // MARK: - Section Model Methods
@@ -134,7 +145,8 @@ class PaymentMethodsViewModel {
             identifier: CellIdentifier.tableViewCell.rawValue,
             height: .fixed(Constants.paymentMethodTableViewCellViewModelHeight),
             actions: paymentMethodTableViewCellViewModelActions,
-            configurationData: .init(text: method.name)
+            configurationData: .init(text: method.name, isSelected: method == selectedPaymentMethod),
+            selectionData: .init(method: method)
         )
     }
 }
@@ -145,9 +157,15 @@ extension PaymentMethodsViewModel {
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
+        let selectionData: SelectionData
         
         struct ConfigurationData {
             let text: String
+            let isSelected: Bool
+        }
+        
+        struct SelectionData {
+            let method: PaymentMethod
         }
     }
 }

@@ -22,7 +22,7 @@ class CategoryViewModel {
     
     var categoryTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
-    var errorHandler: ((Error) -> Void)  = { _ in }
+    var errorHandler: (Error) -> Void  = { _ in }
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
