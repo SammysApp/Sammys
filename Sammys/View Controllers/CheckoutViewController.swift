@@ -110,6 +110,11 @@ class CheckoutViewController: UIViewController {
     }
     
     private func configureViewModel() {
+        viewModel.paymentMethodTableViewCellViewModelActions = [
+            .configuration: paymentMethodTableViewCellConfigurationAction,
+            .selection: paymentMethodTableViewCellSelectionAction
+        ]
+        
         viewModel.pickupDateTableViewCellViewModelActions = [
             .configuration: pickupDateTableViewCellConfigurationAction,
             .selection: pickupDateTableViewCellSelectionAction
@@ -162,6 +167,12 @@ class CheckoutViewController: UIViewController {
         return cardEntryViewController
     }
     
+    private func makePaymentMethodsViewController() -> PaymentMethodsViewController {
+        let paymentMethodsViewController = PaymentMethodsViewController()
+        paymentMethodsViewController.viewModel.userID = viewModel.userID
+        return paymentMethodsViewController
+    }
+    
     private func makePaymentAuthorizationViewController(paymentRequest: PKPaymentRequest) -> PKPaymentAuthorizationViewController? {
         let paymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         paymentAuthorizationViewController?.delegate = self
@@ -169,6 +180,17 @@ class CheckoutViewController: UIViewController {
     }
     
     // MARK: - Cell Actions
+    private func paymentMethodTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.PaymentMethodTableViewCellViewModel,
+            let cell = data.cell as? SubtitleTableViewCell else { return }
+        
+        cell.textLabel?.text = cellViewModel.configurationData.text
+    }
+    
+    private func paymentMethodTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        self.navigationController?.pushViewController(makePaymentMethodsViewController(), animated: true)
+    }
+    
     private func pickupDateTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.PickupDateTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }

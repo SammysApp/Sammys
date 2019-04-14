@@ -18,14 +18,6 @@ class UserViewModel {
     var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
-    // MARK: - Section Model Properties
-    private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
-    private var buttonsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
-    
     // MARK: - View Settable Properties
     /// Required to be non-`nil`. Calling `beginDownloads()`
     /// will attempt to get the current user and set this property.
@@ -41,6 +33,15 @@ class UserViewModel {
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    // MARK: - Section Model Properties
+    private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
+    
+    private var buttonsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case tableViewCell
@@ -70,12 +71,12 @@ class UserViewModel {
         userDetailsTableViewSectionModel = makeUserDetailsTableViewSectionModel(cellModels: makeUserDetailTableViewCellModels(user: user))
     }
     
-    private func updateTableViewSectionModels() {
-        tableViewSectionModels.value = makeTableViewSectionModels()
-    }
-    
     private func updateButtonsTableViewSectionModel() {
         buttonsTableViewSectionModel = makeButtonsTableViewSectionModel(cellModels: makeButtonTableViewCellModels())
+    }
+    
+    private func updateTableViewSectionModels() {
+        tableViewSectionModels.value = makeTableViewSectionModels()
     }
     
     // MARK: - Methods
@@ -116,19 +117,19 @@ class UserViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
-        var sectionModels = [UITableViewSectionModel]()
-        if let userDetailsModel = userDetailsTableViewSectionModel { sectionModels.append(userDetailsModel) }
-        if let buttonsModel = buttonsTableViewSectionModel { sectionModels.append(buttonsModel) }
-        return sectionModels
-    }
-    
     private func makeUserDetailsTableViewSectionModel(cellModels: [UserDetailTableViewCellModel]) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: cellModels.map(makeUserDetailTableViewCellViewModel))
     }
     
     private func makeButtonsTableViewSectionModel(cellModels: [ButtonTableViewCellModel]) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: cellModels.map(makeButtonTableViewCellViewModel))
+    }
+    
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let userDetailsModel = userDetailsTableViewSectionModel { sectionModels.append(userDetailsModel) }
+        if let buttonsModel = buttonsTableViewSectionModel { sectionModels.append(buttonsModel) }
+        return sectionModels
     }
     
     // MARK: - Cell Model Methods

@@ -10,17 +10,12 @@ import Foundation
 import PromiseKit
 
 class ItemsViewModel {
-    private var items: [Item]?
+    private var items = [Item]()
     
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
-    
-    // MARK: - Section Model Properties
-    private var itemsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
     
     // MARK: - View Settable Properties
     /// The category ID of the items to present.
@@ -44,6 +39,11 @@ class ItemsViewModel {
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    // MARK: - Section Model Properties
+    private var itemsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case subtitleTableViewCell
@@ -69,7 +69,6 @@ class ItemsViewModel {
     }
     
     private func updateItemsTableViewSectionModel() {
-        guard let items = items else { return }
         itemsTableViewSectionModel = makeItemsTableViewSectionModel(items: items)
     }
     
@@ -122,14 +121,14 @@ class ItemsViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeItemsTableViewSectionModel(items: [Item]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: items.map(makeItemTableViewCellViewModel))
+    }
+    
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let itemsModel = itemsTableViewSectionModel { sectionModels.append(itemsModel) }
         return sectionModels
-    }
-    
-    private func makeItemsTableViewSectionModel(items: [Item]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: items.map(makeItemTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

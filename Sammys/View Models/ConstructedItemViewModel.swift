@@ -18,11 +18,6 @@ class ConstructedItemViewModel {
     var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
-    // MARK: - Section Model Properties
-    private var categoriesCollectionViewSectionModel: UICollectionViewSectionModel? {
-        didSet { updateCategoryCollectionViewSectionModels() }
-    }
-    
     // MARK: - View Settable Properties
     /// The category ID of the presented constructed item.
     /// Required to be non-`nil` before beginning downloads.
@@ -66,6 +61,11 @@ class ConstructedItemViewModel {
     private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
     
     let selectedCategoryItemIDs = Dynamic([Item.CategoryItemID]())
+    
+    // MARK: - Section Model Properties
+    private var categoriesCollectionViewSectionModel: UICollectionViewSectionModel? {
+        didSet { updateCategoryCollectionViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case roundedTextCollectionViewCell
@@ -297,16 +297,16 @@ class ConstructedItemViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UICollectionViewSectionModel {
+        return UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))
+    }
+    
     private func makeCategoryCollectionViewSectionModels() -> [UICollectionViewSectionModel] {
         var sectionModels = [UICollectionViewSectionModel]()
         if let categoriesModel = categoriesCollectionViewSectionModel {
             sectionModels.append(categoriesModel)
         }
         return sectionModels
-    }
-    
-    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UICollectionViewSectionModel {
-        return UICollectionViewSectionModel(cellViewModels: categories.map(makeCategoryRoundedTextCollectionViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

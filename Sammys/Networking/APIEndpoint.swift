@@ -16,6 +16,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getUser(User.ID)
     /// GET `/users/:user/outstandingOrders`
     case getUserOutstandingOrders(User.ID)
+    /// GET `/users/:user/cards`
+    case getUserCards(User.ID)
     /// GET `/storeHours`
     case getStoreHours
     /// GET `/categories`
@@ -38,6 +40,8 @@ enum APIEndpoint: HTTPEndpoint {
     // MARK: - POST
     /// POST `/users`
     case createUser
+    /// POST `/users/:user/cards`
+    case createUserCard(User.ID)
     /// POST `/users/:user/purchasedOrders`
     case createUserPurchasedOrder(User.ID)
     /// POST `/constructedItems`
@@ -78,6 +82,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/users/\(id)")
         case .getUserOutstandingOrders(let id):
             return (.GET, "/\(version)/users/\(id)/outstandingOrders")
+        case .getUserCards(let id):
+            return (.GET, "/\(version)/users/\(id)/cards")
         case .getStoreHours:
             return (.GET, "/\(version)/storeHours")
         case .getCategories:
@@ -99,6 +105,8 @@ enum APIEndpoint: HTTPEndpoint {
         
         case .createUser:
             return (.POST, "/\(version)/users")
+        case .createUserCard(let id):
+            return (.POST, "/\(version)/users/\(id)/cards")
         case .createUserPurchasedOrder(let id):
             return (.POST, "/\(version)/users/\(id)/purchasedOrders")
         case .createConstructedItem:

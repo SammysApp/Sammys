@@ -34,6 +34,10 @@ class CheckoutViewModel {
     /// Required to be non-`nil` before beginning downloads.
     var userID: User.ID?
     
+    var paymentMethodTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateTableViewSectionModels() }
+    }
+    
     var pickupDateTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { updateTableViewSectionModels() }
     }
@@ -55,6 +59,9 @@ class CheckoutViewModel {
     }
     
     private struct Constants {
+        static let paymentMethodTableViewCellViewModelHeight = Double(60)
+        static let paymentMethodTableViewCellViewModelText = "Payment Method"
+        
         static let pickupDateTableViewCellViewModelHeight = Double(60)
         static let pickupDateTableViewCellViewModelDefaultDetailText = "ASAP"
         static let pickupDateTableViewCellViewModelDetailTextDateFormat = "h:mm a"
@@ -206,8 +213,20 @@ class CheckoutViewModel {
     
     // MARK: - Section Model Methods
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
-        let outstandingOrderSection = UITableViewSectionModel(cellViewModels: [makePickupDateTableViewCellViewModel()])
+        let outstandingOrderSection = UITableViewSectionModel(cellViewModels: [
+            makePaymentMethodTableViewCellViewModel(),
+            makePickupDateTableViewCellViewModel()
+        ])
         return [outstandingOrderSection]
+    }
+    
+    // MARK: - Cell View Model Methods
+    private func makePaymentMethodTableViewCellViewModel() -> PaymentMethodTableViewCellViewModel {
+        return PaymentMethodTableViewCellViewModel(
+            identifier: CellIdentifier.subtitleTableViewCell.rawValue,
+            height: .fixed(Constants.paymentMethodTableViewCellViewModelHeight),
+            actions: paymentMethodTableViewCellViewModelActions,
+            configurationData: .init(text: Constants.paymentMethodTableViewCellViewModelText))
     }
     
     private func makePickupDateTableViewCellViewModel() -> PickupDateTableViewCellViewModel {
@@ -221,6 +240,19 @@ class CheckoutViewModel {
             actions: pickupDateTableViewCellViewModelActions,
             configurationData: .init(detailText: detailText)
         )
+    }
+}
+
+extension CheckoutViewModel {
+    struct PaymentMethodTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let text: String
+        }
     }
 }
 

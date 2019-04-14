@@ -15,11 +15,6 @@ class HomeViewModel {
     // MARK: - Dependencies
     var httpClient: HTTPClient
     
-    // MARK: - Section Model Properties
-    private var categoriesTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
-    
     // MARK: - View Settable Properties
     var categoryImageTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
@@ -27,6 +22,11 @@ class HomeViewModel {
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    // MARK: - Section Model Properties
+    private var categoriesTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case imageTableViewCell
@@ -65,14 +65,14 @@ class HomeViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel))
+    }
+    
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let categoriesModel = categoriesTableViewSectionModel { sectionModels.append(categoriesModel) }
         return sectionModels
-    }
-    
-    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: categories.map(makeCategoryImageTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods

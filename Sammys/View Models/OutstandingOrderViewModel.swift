@@ -18,11 +18,6 @@ class OutstandingOrderViewModel {
     var keyValueStore: KeyValueStore
     var userAuthManager: UserAuthManager
     
-    // MARK: - Section Model Properties
-    private var constructedItemsTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
-    
     // MARK: - View Settable Properties
     /// Required to be non-`nil` before beginning downloads.
     /// If not set, calling `beginDownloads()` will first attempt to set.
@@ -50,6 +45,11 @@ class OutstandingOrderViewModel {
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
     
     private(set) lazy var isUserSet = Dynamic(userID != nil)
+    
+    // MARK: - Section Model Properties
+    private var constructedItemsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case itemStackTableViewCell
@@ -226,14 +226,14 @@ class OutstandingOrderViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeConstructedItemsTableViewSectionModel(constructedItems: [ConstructedItem]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackTableViewCellViewModel(constructedItem: $0) })
+    }
+    
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let constructedItemsModel = constructedItemsTableViewSectionModel { sectionModels.append(constructedItemsModel) }
         return sectionModels
-    }
-    
-    private func makeConstructedItemsTableViewSectionModel(constructedItems: [ConstructedItem]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackTableViewCellViewModel(constructedItem: $0) })
     }
     
     // MARK: - Cell View Model Methods

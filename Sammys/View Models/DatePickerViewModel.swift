@@ -77,16 +77,16 @@ class DatePickerViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
-        return [makeDatesTableViewSectionModel()]
-    }
-    
     private func makeDatesTableViewSectionModel() -> UITableViewSectionModel {
         var cellViewModels = makeDates().map(PickerDate.date).map(makeDateTableViewCellViewModel)
         if isASAPAvailable {
             cellViewModels.insert(makeDateTableViewCellViewModel(date: .asap), at: 0)
         }
         return UITableViewSectionModel(cellViewModels: cellViewModels)
+    }
+    
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        return [makeDatesTableViewSectionModel()]
     }
     
     // MARK: - Cell View Model Methods

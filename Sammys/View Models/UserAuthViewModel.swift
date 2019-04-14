@@ -157,12 +157,12 @@ class UserAuthViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
-        return [makeTextFieldTableViewSectionModel()]
-    }
-    
     private func makeTextFieldTableViewSectionModel() -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: textFieldTableViewCellModels.map(makeTextFieldTableViewCellViewModel))
+    }
+    
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        return [makeTextFieldTableViewSectionModel()]
     }
     
     // MARK: - Cell View Model Methods

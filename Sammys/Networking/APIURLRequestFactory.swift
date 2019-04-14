@@ -68,6 +68,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getUserOutstandingOrders(id), token: token)
     }
     
+    func makeGetUserCardsRequest(id: User.ID, token: JWT) -> URLRequest {
+        return makeRequest(endpoint: .getUserCards(id), token: token)
+    }
+    
     func makeStoreHoursRequest() -> URLRequest {
         return makeRequest(endpoint: .getStoreHours)
     }
@@ -106,45 +110,49 @@ struct APIURLRequestFactory {
     
     // MARK: - POST
     func makeCreateUserRequest(data: CreateUserRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .createUser, body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .createUser, body: dataEncoder.encode(data), token: token)
+    }
+    
+    func makeCreateUserCardRequest(id: User.ID, data: CreateUserCardRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT) throws -> URLRequest {
+        return try makeJSONBodyRequest(endpoint: .createUserCard(id), body: dataEncoder.encode(data), token: token)
     }
     
     func makeCreateUserPurchasedOrdersRequest(id: User.ID, data: CreateUserPurchasedOrderRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .createUserPurchasedOrder(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .createUserPurchasedOrder(id), body: dataEncoder.encode(data), token: token)
     }
     
     func makeCreateConstructedItemRequest(data: CreateConstructedItemRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .createConstructedItem, body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .createConstructedItem, body: dataEncoder.encode(data), token: token)
     }
     
     func makeAddConstructedItemItemsRequest(id: ConstructedItem.ID, data: AddConstructedItemItemsRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .addConstructedItemItems(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .addConstructedItemItems(id), body: dataEncoder.encode(data), token: token)
     }
     
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderRequestData = .init(), dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .createOutstandingOrder, body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .createOutstandingOrder, body: dataEncoder.encode(data), token: token)
     }
     
     func makeAddOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .addOutstandingOrderConstructedItems(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .addOutstandingOrderConstructedItems(id), body: dataEncoder.encode(data), token: token)
     }
     
     // MARK: - PUT
     func makeUpdateConstructedItemRequest(id: ConstructedItem.ID, data: ConstructedItem, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .updateConstructedItem(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .updateConstructedItem(id), body: dataEncoder.encode(data), token: token)
     }
     
     func makeUpdateOutstandingOrderRequest(id: OutstandingOrder.ID, data: OutstandingOrder, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .updateOutstandingOrder(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .updateOutstandingOrder(id), body: dataEncoder.encode(data), token: token)
     }
     
     // MARK: - PATCH
     func makePartiallyUpdateConstructedItemRequest(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .partiallyUpdateConstructedItem(id), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .partiallyUpdateConstructedItem(id), body: dataEncoder.encode(data), token: token)
     }
     
     func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
-        return makeJSONBodyRequest(endpoint: .partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), body: try dataEncoder.encode(data), token: token)
+        return try makeJSONBodyRequest(endpoint: .partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), body: dataEncoder.encode(data), token: token)
     }
     
     // MARK: - DELETE
@@ -199,6 +207,10 @@ struct CreateUserPurchasedOrderRequestData: Codable {
     let outstandingOrderID: OutstandingOrder.ID
     let cardNonce: String?
     let customerCardID: String?
+}
+
+struct CreateUserCardRequestData: Codable {
+    let cardNonce: String
 }
 
 struct CreateConstructedItemRequestData: Codable {

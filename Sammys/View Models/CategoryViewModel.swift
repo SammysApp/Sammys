@@ -15,11 +15,6 @@ class CategoryViewModel {
     // MARK: - Dependencies
     var httpClient: HTTPClient
     
-    // MARK: - Section Model Properties
-    private var categoriesTableViewSectionModel: UITableViewSectionModel? {
-        didSet { updateTableViewSectionModels() }
-    }
-    
     // MARK: - View Settable Properties
     /// The parent category ID of the categories to present.
     /// If left `nil`, will present all available categories.
@@ -31,6 +26,11 @@ class CategoryViewModel {
     
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    // MARK: - Section Model Properties
+    private var categoriesTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     enum CellIdentifier: String {
         case tableViewCell
@@ -75,14 +75,14 @@ class CategoryViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: categories.map(makeCategoryTableViewCellViewModel))
+    }
+    
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
         if let categoriesModel = categoriesTableViewSectionModel { sectionModels.append(categoriesModel) }
         return sectionModels
-    }
-    
-    private func makeCategoriesTableViewSectionModel(categories: [Category]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: categories.map(makeCategoryTableViewCellViewModel))
     }
     
     // MARK: - Cell View Model Methods
