@@ -79,8 +79,13 @@ class ItemsViewModel {
     // MARK: - Methods
     func add(_ categoryItemID: Item.CategoryItemID) {
         if let maximumItems = maximumItems {
-            guard selectedCategoryItemIDs.count < maximumItems
-                else { errorHandler(ItemsViewModelError.reachedMaximumItems); return }
+            if let minimumItems = minimumItems,
+                minimumItems == maximumItems && !selectedCategoryItemIDs.isEmpty {
+                removeItemHandler(selectedCategoryItemIDs.removeLast())
+            } else {
+                guard selectedCategoryItemIDs.count < maximumItems
+                    else { errorHandler(ItemsViewModelError.reachedMaximumItems); return }
+            }
         }
         selectedCategoryItemIDs.append(categoryItemID)
         addItemHandler(categoryItemID)

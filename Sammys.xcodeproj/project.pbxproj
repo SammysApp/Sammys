@@ -19,7 +19,6 @@
 		5B0124B6221E2B910054AB7A /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0124B5221E2B910054AB7A /* HTTPResponse.swift */; };
 		5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewControllerExtensions.swift */; };
 		5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
-		5B1CDA86221CB61100CE0D2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B213FD0221CA6FE0088F0EF /* GoogleService-Info.plist */; };
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
 		5B2950CA218CBEF1008B0E49 /* UITableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */; };
 		5B2C3C8622415B4A006BE7B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8522415B4A006BE7B3 /* User.swift */; };
@@ -43,6 +42,7 @@
 		5B2E17FF2263975D005DC635 /* PaymentMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */; };
 		5B2E18032264D6BE005DC635 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */; };
 		5B2E18052264D735005DC635 /* TotalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E18042264D735005DC635 /* TotalTableViewCell.swift */; };
+		5B2E18072264F13F005DC635 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B2E18062264F13F005DC635 /* GoogleService-Info.plist */; };
 		5B2FC337225649EC005FBC70 /* StoreDateHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreDateHours.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
@@ -145,7 +145,6 @@
 		5B0124B5221E2B910054AB7A /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		5B05C7B420E4652800BDFBF4 /* UISplitViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewControllerExtensions.swift; sourceTree = "<group>"; };
 		5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
-		5B213FD0221CA6FE0088F0EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B213FD2221CA6FE0088F0EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModel.swift; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewController.swift; sourceTree = "<group>"; };
 		5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		5B2E18042264D735005DC635 /* TotalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTableViewCell.swift; sourceTree = "<group>"; };
+		5B2E18062264F13F005DC635 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B2FC336225649EC005FBC70 /* StoreDateHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDateHours.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				5B213FD2221CA6FE0088F0EF /* Info.plist */,
-				5B213FD0221CA6FE0088F0EF /* GoogleService-Info.plist */,
+				5B2E18062264F13F005DC635 /* GoogleService-Info.plist */,
 			);
 			name = "Property Lists";
 			path = "Sammys/Property Lists";
@@ -635,8 +635,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B1CDA86221CB61100CE0D2C /* GoogleService-Info.plist in Resources */,
 				5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */,
+				5B2E18072264F13F005DC635 /* GoogleService-Info.plist in Resources */,
 				5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */,
 				5B9865FE20C5A347004722D8 /* Assets.xcassets in Resources */,
 			);

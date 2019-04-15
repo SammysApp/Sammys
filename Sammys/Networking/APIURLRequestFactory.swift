@@ -18,6 +18,7 @@ struct APIURLRequestFactory {
     private let environment: AppEnvironment
     
     private let developmentServer = HTTPServer(
+        scheme: LocalConstants.DevelopmentAPIServer.scheme,
         host: LocalConstants.DevelopmentAPIServer.host,
         port: LocalConstants.DevelopmentAPIServer.port
     )

@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>379306285305-g0p9ku21piv5ta16bhpmlponi0sdh3dv.apps.googleusercontent.com</string>
+	<string>379306285305-i9s0p3co8ddes61jnsk6k9e0292gp499.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.379306285305-g0p9ku21piv5ta16bhpmlponi0sdh3dv</string>
+	<string>com.googleusercontent.apps.379306285305-i9s0p3co8ddes61jnsk6k9e0292gp499</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCVw1GRwdiE9ucjfNoi6Vgz8VIYsYVOfNs</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +13,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.natanelniazoff.sammys.dev</string>
+	<string>com.niazoff.sammys.dev</string>
 	<key>PROJECT_ID</key>
 	<string>sammys-prog</string>
 	<key>STORAGE_BUCKET</key>
 	<string>sammys-prog.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
 	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:379306285305:ios:31aabc4d37629d26</string>
+	<string>1:379306285305:ios:08cf0ffb0219ea4d</string>
 	<key>DATABASE_URL</key>
 	<string>https://sammys-prog.firebaseio.com</string>
 </dict>
