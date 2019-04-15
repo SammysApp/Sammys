@@ -60,7 +60,7 @@ class CheckoutViewModel {
     
     private struct Constants {
         static let paymentMethodTableViewCellViewModelHeight = Double(60)
-        static let paymentMethodTableViewCellViewModelText = "Payment Method"
+        static let paymentMethodTableViewCellViewModelDefaultDetailText = "Choose a payment method..."
         
         static let pickupDateTableViewCellViewModelHeight = Double(60)
         static let pickupDateTableViewCellViewModelDefaultDetailText = "ASAP"
@@ -73,9 +73,17 @@ class CheckoutViewModel {
          userAuthManager: UserAuthManager = Auth.auth()) {
         self.httpClient = httpClient
         self.userAuthManager = userAuthManager
+        setUp()
     }
     
     // MARK: - Setup Methods
+    private func setUp() {
+        paymentMethod.bind { _ in self.updateTableViewSectionModels() }
+        if SQIPInAppPaymentsSDK.canUseApplePay {
+            paymentMethod.value = .applePay
+        }
+    }
+    
     private func setUp(for outstandingOrder: OutstandingOrder) {
         pickupDate.value = outstandingOrder.preparedForDate
         updateTableViewSectionModels()
@@ -224,7 +232,7 @@ class CheckoutViewModel {
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.paymentMethodTableViewCellViewModelHeight),
             actions: paymentMethodTableViewCellViewModelActions,
-            configurationData: .init(text: Constants.paymentMethodTableViewCellViewModelText))
+            configurationData: .init(detailText: paymentMethod.value?.name ?? Constants.paymentMethodTableViewCellViewModelDefaultDetailText))
     }
     
     private func makePickupDateTableViewCellViewModel() -> PickupDateTableViewCellViewModel {
@@ -249,7 +257,7 @@ extension CheckoutViewModel {
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
-            let text: String
+            let detailText: String?
         }
     }
 }

@@ -27,6 +27,8 @@ class CheckoutViewController: UIViewController {
     private lazy var applePayButtonTouchUpInsideTarget = Target(action: applePayButtonTouchUpInsideAction)
     
     private struct Constants {
+        static let paymentMethodTableViewCellTextLabelText = "Payment Method"
+        
         static let pickupDateTableViewCellTextLabelText = "Pickup"
         
         static let payButtonsStackViewHeight = CGFloat(60)
@@ -200,7 +202,8 @@ class CheckoutViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.PaymentMethodTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }
         
-        cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.textLabel?.text = Constants.paymentMethodTableViewCellTextLabelText
+        cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
     }
     
     private func paymentMethodTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
