@@ -80,7 +80,7 @@ class ItemsViewModel {
     func add(_ categoryItemID: Item.CategoryItemID) {
         if let maximumItems = maximumItems {
             if let minimumItems = minimumItems,
-                minimumItems == maximumItems && !selectedCategoryItemIDs.isEmpty {
+                minimumItems == maximumItems && selectedCategoryItemIDs.count == maximumItems {
                 removeItemHandler(selectedCategoryItemIDs.removeLast())
             } else {
                 guard selectedCategoryItemIDs.count < maximumItems
