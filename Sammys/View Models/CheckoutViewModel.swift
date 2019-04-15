@@ -23,9 +23,28 @@ class CheckoutViewModel {
         return formatter
     }()
     
+    private var subtotalText: String? {
+        didSet { updateTotalTableViewSectionModel() }
+    }
+    private var taxText: String? {
+        didSet { updateTotalTableViewSectionModel() }
+    }
+    private var totalText: String? {
+        didSet { updateTotalTableViewSectionModel() }
+    }
+    
     // MARK: - Dependencies
     var httpClient: HTTPClient
     var userAuthManager: UserAuthManager
+    
+    // MARK: - Section Model Properties
+    private var totalTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
+    
+    private var outstandingOrderDetailsTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
     
     // MARK: - View Settable Properties
     /// Required to be non-`nil` before beginning downloads.
@@ -35,11 +54,15 @@ class CheckoutViewModel {
     var userID: User.ID?
     
     var paymentMethodTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
-        didSet { updateTableViewSectionModels() }
+        didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
     }
     
     var pickupDateTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
-        didSet { updateTableViewSectionModels() }
+        didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
+    }
+    
+    var totalTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateTotalTableViewSectionModel() }
     }
     
     var errorHandler: (Error) -> Void = { _ in }
@@ -56,9 +79,12 @@ class CheckoutViewModel {
     
     enum CellIdentifier: String {
         case subtitleTableViewCell
+        case totalTableViewCell
     }
     
     private struct Constants {
+        static let totalTableViewCellViewModelHeight = Double(100)
+        
         static let paymentMethodTableViewCellViewModelHeight = Double(60)
         static let paymentMethodTableViewCellViewModelDefaultDetailText = "Choose a payment method..."
         
@@ -78,7 +104,8 @@ class CheckoutViewModel {
     
     // MARK: - Setup Methods
     private func setUp() {
-        paymentMethod.bind { _ in self.updateTableViewSectionModels() }
+        paymentMethod.bind { _ in self.updateOutstandingOrderDetailsTableViewSectionModel() }
+        pickupDate.bind { _ in self.updateOutstandingOrderDetailsTableViewSectionModel() }
         if SQIPInAppPaymentsSDK.canUseApplePay {
             paymentMethod.value = .applePay
         }
@@ -86,7 +113,9 @@ class CheckoutViewModel {
     
     private func setUp(for outstandingOrder: OutstandingOrder) {
         pickupDate.value = outstandingOrder.preparedForDate
-        updateTableViewSectionModels()
+        subtotalText = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
+        taxText = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
+        totalText = makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder).toUSDUnits().toPriceString()
     }
     
     private func setUp(for storeDateHours: StoreDateHours) {
@@ -96,6 +125,17 @@ class CheckoutViewModel {
             self.minimumPickupDate.value = minimumPickupDate
         }
         maximumPickupDate.value = storeDateHours.closingDate
+    }
+    
+    private func updateOutstandingOrderDetailsTableViewSectionModel() {
+        outstandingOrderDetailsTableViewSectionModel = makeOutstandingOrderDetailsTableViewSectionModel()
+    }
+    
+    private func updateTotalTableViewSectionModel() {
+        guard let subtotalText = subtotalText,
+            let taxText = taxText,
+            let totalText = totalText else { return }
+        totalTableViewSectionModel = makeTotalTableViewSectionModel(subtotalText: subtotalText, taxText: taxText, totalText: totalText)
     }
     
     private func updateTableViewSectionModels() {
@@ -218,12 +258,26 @@ class CheckoutViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
-        let outstandingOrderSection = UITableViewSectionModel(cellViewModels: [
+    private func makeOutstandingOrderDetailsTableViewSectionModel() -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: [
             makePaymentMethodTableViewCellViewModel(),
             makePickupDateTableViewCellViewModel()
         ])
-        return [outstandingOrderSection]
+    }
+    
+    private func makeTotalTableViewSectionModel(subtotalText: String, taxText: String, totalText: String) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: [makeTotalTableViewCellViewModel(subtotalText: subtotalText, taxText: taxText, totalText: totalText)])
+    }
+    
+    private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
+        var sectionModels = [UITableViewSectionModel]()
+        if let outstandingOrderDetailsModel = outstandingOrderDetailsTableViewSectionModel {
+            sectionModels.append(outstandingOrderDetailsModel)
+        }
+        if let totalModel = totalTableViewSectionModel {
+            sectionModels.append(totalModel)
+        }
+        return sectionModels
     }
     
     // MARK: - Cell View Model Methods
@@ -245,6 +299,15 @@ class CheckoutViewModel {
             height: .fixed(Constants.pickupDateTableViewCellViewModelHeight),
             actions: pickupDateTableViewCellViewModelActions,
             configurationData: .init(detailText: detailText)
+        )
+    }
+    
+    private func makeTotalTableViewCellViewModel(subtotalText: String, taxText: String, totalText: String) -> TotalTableViewCellViewModel {
+        return TotalTableViewCellViewModel(
+            identifier: CellIdentifier.totalTableViewCell.rawValue,
+            height: .fixed(Constants.totalTableViewCellViewModelHeight),
+            actions: totalTableViewCellViewModelActions,
+            configurationData: .init(subtotalText: subtotalText, taxText: taxText, totalText: totalText)
         )
     }
 }
@@ -271,6 +334,21 @@ extension CheckoutViewModel {
         
         struct ConfigurationData {
             let detailText: String
+        }
+    }
+}
+
+extension CheckoutViewModel {
+    struct TotalTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let subtotalText: String
+            let taxText: String
+            let totalText: String
         }
     }
 }

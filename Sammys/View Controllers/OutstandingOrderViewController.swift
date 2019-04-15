@@ -62,7 +62,7 @@ class OutstandingOrderViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(ItemStackTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.itemStackTableViewCell.rawValue)
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: OutstandingOrderViewModel.CellIdentifier.itemTableViewCell.rawValue)
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
     }
     
@@ -129,7 +129,7 @@ class OutstandingOrderViewController: UIViewController {
     // MARK: - Cell Actions
     private func constructedItemStackTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackTableViewCellViewModel,
-            let cell = data.cell as? ItemStackTableViewCell else { return }
+            let cell = data.cell as? ItemTableViewCell else { return }
         
         cell.nameLabel.text = cellViewModel.configurationData.nameText
         cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
@@ -147,67 +147,6 @@ class OutstandingOrderViewController: UIViewController {
                 let currentQuantity = Int(currentQuantityText) else { return }
             
             self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: currentQuantity + 1)
-        }
-    }
-}
-
-private extension OutstandingOrderViewController {
-    class ItemStackTableViewCell: StackTableViewCell {
-        let nameLabel = UILabel()
-        let descriptionLabel = UILabel()
-        let priceLabel = UILabel()
-        let quantityView = CounterView()
-        
-        var quantityViewDidDecrementHandler: (CounterView) -> Void = { _ in } {
-            didSet {
-                quantityViewDecrementButtonTouchUpInsideTarget.action =
-                    { self.quantityViewDidDecrementHandler(self.quantityView) }
-            }
-        }
-        var quantityViewDidIncrementHandler: (CounterView) -> Void = { _ in } {
-            didSet {
-                quantityViewIncrementButtonTouchUpInsideTarget.action =
-                    { self.quantityViewDidIncrementHandler(self.quantityView) }
-            }
-        }
-        
-        private lazy var quantityViewDecrementButtonTouchUpInsideTarget =
-            Target { self.quantityViewDidDecrementHandler(self.quantityView) }
-        private lazy var quantityViewIncrementButtonTouchUpInsideTarget =
-            Target { self.quantityViewDidIncrementHandler(self.quantityView) }
-        
-        private struct Constants {
-            static let quantityViewHeight = CGFloat(40)
-        }
-        
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            setUp()
-        }
-        
-        required init?(coder aDecoder: NSCoder) { fatalError() }
-        
-        func setUp() {
-            nameLabel.text = "Name"
-            
-            descriptionLabel.text = "Description"
-            descriptionLabel.numberOfLines = 0
-            
-            quantityView.height(Constants.quantityViewHeight)
-            quantityView.decrementButton.add(quantityViewDecrementButtonTouchUpInsideTarget, for: .touchUpInside)
-            quantityView.incrementButton.add(quantityViewIncrementButtonTouchUpInsideTarget, for: .touchUpInside)
-            
-            let leftStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
-            leftStackView.axis = .vertical
-            
-            let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
-            rightStackView.axis = .vertical
-            
-            let splitStackView = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
-            
-            self.contentStackView.axis = .vertical
-            self.contentStackView.addArrangedSubview(splitStackView)
-            self.contentStackView.addArrangedSubview(quantityView)
         }
     }
 }

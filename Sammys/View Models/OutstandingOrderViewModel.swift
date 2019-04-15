@@ -52,7 +52,7 @@ class OutstandingOrderViewModel {
     }
     
     enum CellIdentifier: String {
-        case itemStackTableViewCell
+        case itemTableViewCell
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
@@ -239,7 +239,7 @@ class OutstandingOrderViewModel {
     // MARK: - Cell View Model Methods
     private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
         return ConstructedItemStackTableViewCellViewModel(
-            identifier: CellIdentifier.itemStackTableViewCell.rawValue,
+            identifier: CellIdentifier.itemTableViewCell.rawValue,
             height: .automatic,
             actions: constructedItemStackCellViewModelActions,
             configurationData: .init(

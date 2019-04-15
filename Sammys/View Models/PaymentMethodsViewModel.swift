@@ -12,9 +12,9 @@ import FirebaseAuth
 import SquareInAppPaymentsSDK
 
 class PaymentMethodsViewModel {
-    private var cards = [Card]()
-    
     private let apiURLRequestFactory = APIURLRequestFactory()
+    
+    private var cards = [Card]()
     
     // MARK: - Dependencies
     var httpClient: HTTPClient

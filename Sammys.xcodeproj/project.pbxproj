@@ -41,6 +41,8 @@
 		5B2E17F72262CEFB005DC635 /* PaymentMethodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F62262CEFB005DC635 /* PaymentMethodsViewModel.swift */; };
 		5B2E17F92262D132005DC635 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F82262D132005DC635 /* Card.swift */; };
 		5B2E17FF2263975D005DC635 /* PaymentMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */; };
+		5B2E18032264D6BE005DC635 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */; };
+		5B2E18052264D735005DC635 /* TotalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E18042264D735005DC635 /* TotalTableViewCell.swift */; };
 		5B2FC337225649EC005FBC70 /* StoreDateHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2FC336225649EC005FBC70 /* StoreDateHours.swift */; };
 		5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B3305BB222EF37400F01CEE /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
@@ -167,6 +169,8 @@
 		5B2E17F62262CEFB005DC635 /* PaymentMethodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewModel.swift; sourceTree = "<group>"; };
 		5B2E17F82262D132005DC635 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewController.swift; sourceTree = "<group>"; };
+		5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		5B2E18042264D735005DC635 /* TotalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTableViewCell.swift; sourceTree = "<group>"; };
 		5B2FC336225649EC005FBC70 /* StoreDateHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDateHours.swift; sourceTree = "<group>"; };
 		5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellViewModel.swift; sourceTree = "<group>"; };
 		5B3305BA222EF37400F01CEE /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -484,6 +488,8 @@
 			children = (
 				5B4F7F1422317AC800F95C04 /* CounterView.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
+				5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */,
+				5B2E18042264D735005DC635 /* TotalTableViewCell.swift */,
 				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
 				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
@@ -823,11 +829,13 @@
 				5B39AF4822400C9500D2BE22 /* Target.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
+				5B2E18052264D735005DC635 /* TotalTableViewCell.swift in Sources */,
 				5B012220221DF3A40054AB7A /* HTTPHeaderName.swift in Sources */,
 				5B012218221DC72E0054AB7A /* HTTPMethod.swift in Sources */,
 				5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */,
 				5B2C3C902241B03F006BE7B3 /* UserAuthManager.swift in Sources */,
+				5B2E18032264D6BE005DC635 /* ItemTableViewCell.swift in Sources */,
 				5B2C3C9622442DEE006BE7B3 /* UserAuthPageViewController.swift in Sources */,
 				5B3A4B692195F3E400F22F78 /* UIResponder.swift in Sources */,
 				5B3A4B632195F3E400F22F78 /* UITableViewCell.swift in Sources */,

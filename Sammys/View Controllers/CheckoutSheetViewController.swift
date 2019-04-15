@@ -26,14 +26,14 @@ class CheckoutSheetViewController: UIViewController {
     }
     
     private struct Constants {
-        static let taxLabelText = "TAX"
-        static let subtotalLabelText = "SUBTOTAL"
-        
         static let priceLabelsFontWeight = UIFont.Weight.semibold
         static let priceLabelsFontSize = CGFloat(20)
         
         static let labelsFontWeight = UIFont.Weight.bold
         static let labelsFontSize = CGFloat(12)
+        
+        static let taxLabelText = "TAX"
+        static let subtotalLabelText = "SUBTOTAL"
         
         static let checkoutButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let checkoutButtonTitleLabelTextColor = UIColor.white

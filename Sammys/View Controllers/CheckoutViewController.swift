@@ -74,6 +74,7 @@ class CheckoutViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
+        tableView.register(TotalTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.totalTableViewCell.rawValue)
     }
     
     private func configurePayButtonsStackView() {
@@ -122,6 +123,10 @@ class CheckoutViewController: UIViewController {
         viewModel.pickupDateTableViewCellViewModelActions = [
             .configuration: pickupDateTableViewCellConfigurationAction,
             .selection: pickupDateTableViewCellSelectionAction
+        ]
+        
+        viewModel.totalTableViewCellViewModelActions = [
+            .configuration: totalTableViewCellConfigurationAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -221,6 +226,15 @@ class CheckoutViewController: UIViewController {
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         viewModel.beginStoreHoursDownload()
         self.navigationController?.pushViewController(datePickerViewController, animated: true)
+    }
+    
+    private func totalTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.TotalTableViewCellViewModel,
+            let cell = data.cell as? TotalTableViewCell else { return }
+        
+        cell.subtotalPriceLabel.text = cellViewModel.configurationData.subtotalText
+        cell.taxPriceLabel.text = cellViewModel.configurationData.taxText
+        cell.totalPriceLabel.text = cellViewModel.configurationData.totalText
     }
 }
 

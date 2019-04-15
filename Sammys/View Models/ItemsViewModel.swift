@@ -10,9 +10,9 @@ import Foundation
 import PromiseKit
 
 class ItemsViewModel {
-    private var items = [Item]()
-    
     private let apiURLRequestFactory = APIURLRequestFactory()
+    
+    private var items = [Item]()
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
