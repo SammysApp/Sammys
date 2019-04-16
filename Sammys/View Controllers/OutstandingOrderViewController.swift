@@ -26,6 +26,9 @@ class OutstandingOrderViewController: UIViewController {
         
         static let tableViewEstimatedRowHeight = CGFloat(100)
         
+        static let itemTableViewCellQuantityViewButtonsBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        static let itemTableViewCellQuantityViewButtonsImageColor = UIColor.white
+        
         static let checkoutSheetViewControllerViewBackgroundColor = UIColor.white
         static let checkoutSheetViewControllerViewHeight = CGFloat(120)
         static let checkoutSheetCheckoutButtonTitleLabelDefaultText = "Checkout"
@@ -93,8 +96,8 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     private func configureViewModel() {
-        viewModel.constructedItemStackCellViewModelActions = [
-            .configuration: constructedItemStackTableViewCellConfigurationAction
+        viewModel.itemCellViewModelActions = [
+            .configuration: itemTableViewCellConfigurationAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -148,14 +151,17 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     // MARK: - Cell Actions
-    private func constructedItemStackTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ConstructedItemStackTableViewCellViewModel,
+    private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ItemTableViewCellViewModel,
             let cell = data.cell as? ItemTableViewCell else { return }
         
         cell.nameLabel.text = cellViewModel.configurationData.nameText
         cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
+        
+        cell.quantityViewButtonsBackgroundColor = Constants.itemTableViewCellQuantityViewButtonsBackgroundColor
+        cell.quantityViewButtonsImageColor = Constants.itemTableViewCellQuantityViewButtonsImageColor
         
         cell.quantityViewDidDecrementHandler = { quantityView in
             guard let currentQuantityText = quantityView.counterTextField.text,

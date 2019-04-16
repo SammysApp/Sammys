@@ -31,7 +31,7 @@ class OutstandingOrderViewModel {
         didSet { isUserSet.value = userID != nil }
     }
     
-    var constructedItemStackCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var itemCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
     var errorHandler: (Error) -> Void = { _ in }
     
@@ -240,7 +240,7 @@ class OutstandingOrderViewModel {
     
     // MARK: - Section Model Methods
     private func makeConstructedItemsTableViewSectionModel(constructedItems: [ConstructedItem]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeConstructedItemStackTableViewCellViewModel(constructedItem: $0) })
+        return UITableViewSectionModel(cellViewModels: constructedItems.map { self.makeItemTableViewCellViewModel(constructedItem: $0) })
     }
     
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
@@ -250,11 +250,11 @@ class OutstandingOrderViewModel {
     }
     
     // MARK: - Cell View Model Methods
-    private func makeConstructedItemStackTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
-        return ConstructedItemStackTableViewCellViewModel(
+    private func makeItemTableViewCellViewModel(constructedItem: ConstructedItem) -> UITableViewCellViewModel {
+        return ItemTableViewCellViewModel(
             identifier: CellIdentifier.itemTableViewCell.rawValue,
             height: .automatic,
-            actions: constructedItemStackCellViewModelActions,
+            actions: itemCellViewModelActions,
             configurationData: .init(
                 nameText: constructedItem.name,
                 descriptionText: constructedItem.description,
@@ -267,7 +267,7 @@ class OutstandingOrderViewModel {
 }
 
 extension OutstandingOrderViewModel {
-    struct ConstructedItemStackTableViewCellViewModel: UITableViewCellViewModel {
+    struct ItemTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]

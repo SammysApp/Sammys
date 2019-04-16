@@ -10,6 +10,7 @@ import UIKit
 
 class RoundedButton: UIControl {
     let titleLabel = UILabel()
+    let imageView = UIImageView()
     
     private let roundedLayer = CAShapeLayer()
     private var _backgroundColor: UIColor? {
@@ -37,15 +38,19 @@ class RoundedButton: UIControl {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         update()
     }
     
     private func setUp() {
         self.layer.addSublayer(roundedLayer)
-        [titleLabel].forEach { self.addSubview($0) }
+        [titleLabel, imageView]
+            .forEach { self.addSubview($0) }
         
         titleLabel.textAlignment = .center
-        titleLabel.edgesToSuperview(insets: .init(top: Constants.titleLabelInset, left: Constants.titleLabelInset, bottom: Constants.titleLabelInset, right: Constants.titleLabelInset))
+        titleLabel.edgesToSuperview(insets: .uniform(Constants.titleLabelInset))
+        
+        imageView.centerInSuperview()
     }
     
     private func update() {

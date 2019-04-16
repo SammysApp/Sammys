@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
     
     private func configureNavigation() {
         self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
-        let titleImage = Constants.navigationItemTitleImage.withRenderingMode(.alwaysTemplate)
+        let titleImage = Constants.navigationItemTitleImage
         let titleImageView = UIImageView(image: titleImage)
         self.navigationItem.titleView = titleImageView
         self.navigationItem.titleView?.tintColor = Constants.navigationItemTitleViewTintColor

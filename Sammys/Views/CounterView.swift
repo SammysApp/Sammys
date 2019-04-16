@@ -15,6 +15,18 @@ class CounterView: UIView {
     
     private var stackView = UIStackView()
     
+    var buttonsBackgroundColor = UIColor.lightGray {
+        didSet { update() }
+    }
+    var buttonsImageColor = UIColor.black {
+        didSet { update() }
+    }
+    
+    private struct Constants {
+        static let decrementButtonImage = #imageLiteral(resourceName: "CounterView.Minus")
+        static let incrementButtonImage = #imageLiteral(resourceName: "CounterView.Plus")
+    }
+    
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
@@ -24,8 +36,8 @@ class CounterView: UIView {
     private func setUp() {
         counterTextField.textAlignment = .center
         
-        decrementButton.titleLabel.text = "-"
-        incrementButton.titleLabel.text = "+"
+        decrementButton.imageView.image = Constants.decrementButtonImage
+        incrementButton.imageView.image = Constants.incrementButtonImage
         
         let stackViewViews = [decrementButton, counterTextField, incrementButton]
         stackViewViews.forEach { view in
@@ -38,5 +50,14 @@ class CounterView: UIView {
         
         self.addSubview(stackView)
         stackView.edgesToSuperview()
+        
+        update()
+    }
+    
+    private func update() {
+        [decrementButton, incrementButton].forEach { button in
+            button.backgroundColor = buttonsBackgroundColor
+            button.imageView.tintColor = buttonsImageColor
+        }
     }
 }

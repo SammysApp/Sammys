@@ -14,6 +14,13 @@ class ItemTableViewCell: StackTableViewCell {
     let priceLabel = UILabel()
     let quantityView = CounterView()
     
+    var quantityViewButtonsBackgroundColor = UIColor.lightGray {
+        didSet { update() }
+    }
+    var quantityViewButtonsImageColor = UIColor.black {
+        didSet { update() }
+    }
+    
     var quantityViewDidDecrementHandler: (CounterView) -> Void = { _ in } {
         didSet {
             quantityViewDecrementButtonTouchUpInsideTarget.action =
@@ -67,5 +74,10 @@ class ItemTableViewCell: StackTableViewCell {
         self.contentStackView.axis = .vertical
         self.contentStackView.addArrangedSubview(splitStackView)
         self.contentStackView.addArrangedSubview(quantityView)
+    }
+    
+    private func update() {
+        quantityView.buttonsBackgroundColor = quantityViewButtonsBackgroundColor
+        quantityView.buttonsImageColor = quantityViewButtonsImageColor
     }
 }

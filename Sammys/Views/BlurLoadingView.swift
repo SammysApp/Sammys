@@ -64,6 +64,7 @@ class BlurLoadingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         update()
     }
     

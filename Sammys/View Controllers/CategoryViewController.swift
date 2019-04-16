@@ -24,7 +24,7 @@ class CategoryViewController: UIViewController {
         
         static let tableViewRowHeight = CGFloat(100)
         
-        static let categoryTableViewCellTextLabelFontSize = CGFloat(20)
+        static let categoryTableViewCellTextLabelFontSize = CGFloat(18)
     }
     
     // MARK: - Lifecycle Methods
