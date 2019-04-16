@@ -46,6 +46,8 @@ class OutstandingOrderViewModel {
     
     private(set) lazy var isUserSet = Dynamic(userID != nil)
     
+    let isLoading = Dynamic(false)
+    
     // MARK: - Section Model Properties
     private var constructedItemsTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
@@ -84,25 +86,36 @@ class OutstandingOrderViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
-        makeDownloads().catch(errorHandler)
+        isLoading.value = true
+        makeDownloads()
+            .ensure { self.isLoading.value = false }
+            .catch(errorHandler)
     }
     
     func beginUpdateOutstandingOrderUserDownload(successHandler: @escaping () -> Void = {}) {
+        isLoading.value = true
         _beginUpdateOutstandingOrderUserDownload()
+            .ensure { self.isLoading.value = false }
             .done(successHandler)
             .catch(errorHandler)
     }
     
     func beginUpdateConstructedItemQuantityDownload(constructedItemID: ConstructedItem.ID, quantity: Int) {
+        isLoading.value = true
         makeUpdateConstructedItemQuantityDownload(constructedItemID: constructedItemID, quantity: quantity)
-            .then { self.beginOutstandingOrderConstructedItemsDownload() }
-            .then { self.beginOutstandingOrderDownload() }
+            .then { when(fulfilled: [
+                self.beginOutstandingOrderConstructedItemsDownload(),
+                self.beginOutstandingOrderDownload()
+            ]) }
+            .ensure { self.isLoading.value = false }
             .catch(errorHandler)
     }
     
     func beginUserIDDownload(successHandler: @escaping () -> Void = {}) {
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
+            .ensure { self.isLoading.value = false }
             .get { self.userID = $0.id }.asVoid()
             .done(successHandler)
             .catch(errorHandler)
@@ -138,7 +151,7 @@ class OutstandingOrderViewModel {
         if outstandingOrderID == nil {
             return beginOutstandingOrderIDDownload()
                 .then { when(fulfilled: downloads.map { $0() }) }
-        } else { return when(fulfilled: when(fulfilled: downloads.map { $0() })) }
+        } else { return when(fulfilled: downloads.map { $0() }) }
     }
     
     private func makeOutstandingOrderIDDownload() -> Promise<OutstandingOrder.ID> {

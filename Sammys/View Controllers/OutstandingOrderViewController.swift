@@ -12,12 +12,18 @@ class OutstandingOrderViewController: UIViewController {
     let viewModel = OutstandingOrderViewModel()
     
     let tableView = UITableView()
+    
     let checkoutSheetViewController = CheckoutSheetViewController()
+    
+    let loadingView = BlurLoadingView()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
+        
         static let tableViewEstimatedRowHeight = CGFloat(100)
         
         static let checkoutSheetViewControllerViewBackgroundColor = UIColor.white
@@ -32,6 +38,7 @@ class OutstandingOrderViewController: UIViewController {
         
         configureTableView()
         configureCheckoutSheetViewController()
+        configureLoadingView()
         setUpView()
         addChildren()
         configureViewModel()
@@ -49,8 +56,12 @@ class OutstandingOrderViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [tableView].forEach { self.view.addSubview($0) }
+        [tableView, loadingView]
+            .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func addChildren() {
@@ -77,6 +88,10 @@ class OutstandingOrderViewController: UIViewController {
         }
     }
     
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
+    }
+    
     private func configureViewModel() {
         viewModel.constructedItemStackCellViewModelActions = [
             .configuration: constructedItemStackTableViewCellConfigurationAction
@@ -93,6 +108,12 @@ class OutstandingOrderViewController: UIViewController {
         
         viewModel.isUserSet.bindAndRun { value in
             self.checkoutSheetViewController.checkoutButton.titleLabel.text = value ? Constants.checkoutSheetCheckoutButtonTitleLabelDefaultText : Constants.checkoutSheetCheckoutButtonTitleLabelSignInText
+        }
+        
+        viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
         }
         
         viewModel.errorHandler = { value in

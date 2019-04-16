@@ -53,15 +53,14 @@ class HomeViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         beginCategoriesDownload()
+            .ensure { self.isLoading.value = false }
             .catch(errorHandler)
     }
     
     private func beginCategoriesDownload() -> Promise<Void> {
-        isLoading.value = true
-        return getRootCategories()
-            .ensure { self.isLoading.value = false }
-            .done(setUp)
+        return getRootCategories().done(setUp)
     }
     
     private func getRootCategories() -> Promise<[Category]> {

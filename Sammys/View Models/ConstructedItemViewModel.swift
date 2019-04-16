@@ -62,6 +62,8 @@ class ConstructedItemViewModel {
     
     let selectedCategoryItemIDs = Dynamic([Item.CategoryItemID]())
     
+    let isLoading = Dynamic(false)
+    
     // MARK: - Section Model Properties
     private var categoriesCollectionViewSectionModel: UICollectionViewSectionModel? {
         didSet { updateCategoryCollectionViewSectionModels() }
@@ -108,21 +110,28 @@ class ConstructedItemViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         beginCategoriesDownload()
+            .ensure { self.isLoading.value = false }
             .catch { self.errorHandler($0) }
     }
     
     func beginCreateConstructedItemDownload() {
+        isLoading.value = true
         makeCreateConstructedItemDownload()
+            .ensure { self.isLoading.value = false }
             .get { self.constructedItemID = $0.id }
             .done(setUp)
             .catch(errorHandler)
     }
     
     func beginSelectedCategoryItemIDsDownload() {
-        makeSelectedCategoryItemIDsDownload().done { items in
-            self.selectedCategoryItemIDs.value =  items.compactMap { $0.categoryItemID }
-        }.catch(errorHandler)
+        isLoading.value = true
+        makeSelectedCategoryItemIDsDownload()
+            .ensure { self.isLoading.value = false }
+            .done { items in
+                self.selectedCategoryItemIDs.value =  items.compactMap { $0.categoryItemID }
+            }.catch(errorHandler)
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
@@ -138,27 +147,35 @@ class ConstructedItemViewModel {
     }
     
     func beginUpdateConstructedItemDownload(isFavorite: Bool) {
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite), token: $0) }
+            .ensure { self.isLoading.value = false }
             .done(setUp)
             .catch(errorHandler)
     }
     
     func beginUpdateConstructedItemUserDownload() {
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.partiallyUpdateConstructedItem(data: .init(userID: self.userID ?? preconditionFailure()), token: $0) }
+            .ensure { self.isLoading.value = false }
             .catch(errorHandler)
     }
     
     func beginAddToOutstandingOrderDownload(successHandler: @escaping () -> Void = {}) {
+        isLoading.value = true
         makeAddToOutstandingOrderDownload()
+            .ensure { self.isLoading.value = false }
             .done(successHandler)
             .catch(errorHandler)
     }
     
     func beginUserIDDownload(successHandler: @escaping () -> Void = {}) {
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.getTokenUser(token: $0) }
+            .ensure { self.isLoading.value = false }
             .get { self.userID = $0.id }.asVoid()
             .done(successHandler)
             .catch(errorHandler)
@@ -229,7 +246,7 @@ class ConstructedItemViewModel {
         }
     }
     
-    func makeAddToOutstandingOrderDownload() -> Promise<Void> {
+    private func makeAddToOutstandingOrderDownload() -> Promise<Void> {
         if userID != nil {
             return userAuthManager.getCurrentUserIDToken()
                 .then { self.makeOutstandingOrderIDAndAddToOutstandingOrderDownload(token: $0) }

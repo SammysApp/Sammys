@@ -98,6 +98,7 @@ class HomeViewController: UIViewController {
         }
         
         viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
             if value { self.loadingView.startAnimating() }
             else { self.loadingView.stopAnimating() }
         }

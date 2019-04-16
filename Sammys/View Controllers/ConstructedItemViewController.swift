@@ -17,6 +17,8 @@ class ConstructedItemViewController: UIViewController {
     private(set) lazy var favoriteBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "NavBar.Heart"), style: .plain, target: favoriteBarButtonItemTarget)
     let completeButton = RoundedButton()
     
+    let loadingView = BlurLoadingView()
+    
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegate()
     
@@ -24,6 +26,9 @@ class ConstructedItemViewController: UIViewController {
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
+        
         static let categoryCollectionViewInset = CGFloat(10)
         static let categoryCollectionViewHeight = CGFloat(40)
         
@@ -39,7 +44,7 @@ class ConstructedItemViewController: UIViewController {
         static let completeButtonEnabledBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
         static let completeButtonTitleLabelTextColor = UIColor.white
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
-        static let completeButtonTitleLabelTextFontSize = CGFloat(18)
+        static let completeButtonTitleLabelTextFontSize = CGFloat(20)
         static let completeButtonTitleLabelText = "Add to Bag"
     }
     
@@ -50,6 +55,7 @@ class ConstructedItemViewController: UIViewController {
         configureCategoryCollectionView()
         configureItemsViewController()
         configureCompleteButton()
+        configureLoadingView()
         setUpView()
         addChildren()
         configureNavigation()
@@ -65,11 +71,16 @@ class ConstructedItemViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [categoryCollectionView, completeButton]
+        [categoryCollectionView, completeButton, loadingView]
             .forEach { self.view.addSubview($0) }
+        
         categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
         completeButton.centerX(to: self.view)
         completeButton.bottom(to: self.view.safeAreaLayoutGuide)
+        
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func addChildren() {
@@ -121,6 +132,10 @@ class ConstructedItemViewController: UIViewController {
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
+    }
+    
     private func configureViewModel() {
         viewModel.categoryRoundedTextCollectionViewCellViewModelActions = [
             .configuration: categoryRoundedTextCollectionViewCellConfigurationAction,
@@ -158,6 +173,12 @@ class ConstructedItemViewController: UIViewController {
         
         viewModel.selectedCategoryItemIDs.bindAndRun { value in
             self.itemsViewController.viewModel.selectedCategoryItemIDs = value
+        }
+        
+        viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
         }
         
         viewModel.errorHandler = { error in

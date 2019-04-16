@@ -27,6 +27,8 @@ class CategoryViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let isLoading = Dynamic(false)
+    
     // MARK: - Section Model Properties
     private var categoriesTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
@@ -55,7 +57,9 @@ class CategoryViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         beginCategoriesDownload()
+            .ensure { self.isLoading.value = false }
             .catch(errorHandler)
     }
     

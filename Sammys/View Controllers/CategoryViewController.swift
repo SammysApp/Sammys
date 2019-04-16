@@ -13,11 +13,18 @@ class CategoryViewController: UIViewController {
     
     let tableView = UITableView()
     
+    let loadingView = BlurLoadingView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
-        static let categoryTableViewCellTextLabelFontSize = CGFloat(18)
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
+        
+        static let tableViewRowHeight = CGFloat(100)
+        
+        static let categoryTableViewCellTextLabelFontSize = CGFloat(20)
     }
     
     // MARK: - Lifecycle Methods
@@ -25,6 +32,7 @@ class CategoryViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureLoadingView()
         setUpView()
         configureViewModel()
         
@@ -37,14 +45,23 @@ class CategoryViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [tableView].forEach { self.view.addSubview($0) }
+        [tableView, loadingView]
+            .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func configureTableView() {
+        tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategoryViewModel.CellIdentifier.tableViewCell.rawValue)
+    }
+    
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
     }
     
     private func configureViewModel() {
@@ -57,6 +74,12 @@ class CategoryViewController: UIViewController {
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
+        }
+        
+        viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
         }
         
         viewModel.errorHandler = { value in
