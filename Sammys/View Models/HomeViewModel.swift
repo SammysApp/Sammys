@@ -23,6 +23,8 @@ class HomeViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let isLoading = Dynamic(false)
+    
     // MARK: - Section Model Properties
     private var categoriesTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
@@ -56,7 +58,10 @@ class HomeViewModel {
     }
     
     private func beginCategoriesDownload() -> Promise<Void> {
-        return getRootCategories().done(setUp)
+        isLoading.value = true
+        return getRootCategories()
+            .ensure { self.isLoading.value = false }
+            .done(setUp)
     }
     
     private func getRootCategories() -> Promise<[Category]> {

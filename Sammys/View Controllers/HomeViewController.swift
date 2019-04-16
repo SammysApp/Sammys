@@ -14,6 +14,8 @@ class HomeViewController: UIViewController {
     
     let tableView = UITableView()
     
+    let loadingView = BlurLoadingView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -26,8 +28,14 @@ class HomeViewController: UIViewController {
         static let navigationItemTitleViewTintColor = #colorLiteral(red: 0.1058823529, green: 0.1058823529, blue: 0.1098039216, alpha: 1)
         static let navigationItemRightBarButtonItemImage = #imageLiteral(resourceName: "NavBar.User")
         
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
+        
+        static let tableViewRowHeight = CGFloat(200)
+        
         static let categoryImageTableViewCellTextLabelFontWeight = UIFont.Weight.medium
         static let categoryImageTableViewCellTextLabelFontSize = CGFloat(28)
+        static let categoryImageTableViewCellTextLabelShadowOpacity = Float(0.15)
     }
     
     // MARK: - Lifecycle Methods
@@ -35,6 +43,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureLoadingView()
         setUpView()
         configureNavigation()
         configureViewModel()
@@ -48,8 +57,12 @@ class HomeViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [tableView].forEach { self.view.addSubview($0) }
+        [tableView, loadingView]
+            .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func configureNavigation() {
@@ -62,9 +75,14 @@ class HomeViewController: UIViewController {
     }
     
     private func configureTableView() {
+        tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.imageTableViewCell.rawValue)
+    }
+    
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
     }
     
     private func configureViewModel() {
@@ -77,6 +95,11 @@ class HomeViewController: UIViewController {
             self.tableViewDataSource.sectionModels = value
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
+        }
+        
+        viewModel.isLoading.bindAndRun { value in
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
         }
         
         viewModel.errorHandler = { value in
@@ -107,6 +130,7 @@ class HomeViewController: UIViewController {
         
         cell.textLabel.font = .systemFont(ofSize: Constants.categoryImageTableViewCellTextLabelFontSize, weight: Constants.categoryImageTableViewCellTextLabelFontWeight)
         cell.textLabel.text = cellViewModel.configurationData.text
+        cell.textLabel.addShadow(.init(opacity: Constants.categoryImageTableViewCellTextLabelShadowOpacity))
         
         cell.imageView.clipsToBounds = true
         cell.imageView.contentMode = .scaleAspectFill
