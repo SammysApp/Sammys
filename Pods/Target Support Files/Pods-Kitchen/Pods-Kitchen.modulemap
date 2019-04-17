@@ -1,0 +1,6 @@
+module Pods_Kitchen {
+  umbrella header "Pods-Kitchen-umbrella.h"
+
+  export *
+  module * { export * }
+}

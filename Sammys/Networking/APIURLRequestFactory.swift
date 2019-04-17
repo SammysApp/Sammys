@@ -109,6 +109,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getOutstandingOrderConstructedItems(id), token: token)
     }
     
+    func makeGetPurchasedOrdersRequest() -> URLRequest {
+        return makeRequest(endpoint: .getPurchasedOrders)
+    }
+    
     // MARK: - POST
     func makeCreateUserRequest(data: CreateUserRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT) throws -> URLRequest {
         return try makeJSONBodyRequest(endpoint: .createUser, body: dataEncoder.encode(data), token: token)

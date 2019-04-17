@@ -5,7 +5,7 @@ platform :ios, '11.0'
 
 target 'Sammys' do
   use_frameworks!
-  pod 'PromiseKit', '~> 6.8'
+  pod 'PromiseKit'
   pod 'PromiseKit/Foundation'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
@@ -16,3 +16,10 @@ target 'Sammys' do
     inherit! :complete
   end
 end
+
+target 'Kitchen' do
+  pod 'PromiseKit'
+  pod 'PromiseKit/Foundation'
+  pod 'TinyConstraints'
+end
+  

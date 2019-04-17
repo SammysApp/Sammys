@@ -36,6 +36,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getOutstandingOrder(OutstandingOrder.ID)
     /// GET `/outstandingOrders/:outstandingOrder/constructedItems`
     case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
+    /// GET `/purchasedOrders`
+    case getPurchasedOrders
     
     // MARK: - POST
     /// POST `/users`
@@ -102,6 +104,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/outstandingOrders/\(id)")
         case .getOutstandingOrderConstructedItems(let id):
             return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
+        case .getPurchasedOrders:
+            return (.GET, "/\(version)/purchasedOrders")
         
         case .createUser:
             return (.POST, "/\(version)/users")

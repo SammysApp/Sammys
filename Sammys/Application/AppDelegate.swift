@@ -37,13 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         SQIPInAppPaymentsSDK.squareApplicationID = Constants.squareApplicationID
+        
         configureWindow()
+        window.makeKeyAndVisible()
+        
         return true
     }
     
     private func configureWindow() {
         window.rootViewController = makeTabBarController()
-        window.makeKeyAndVisible()
     }
     
     private func makeTabBarController() -> UITabBarController {
