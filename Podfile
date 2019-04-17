@@ -18,6 +18,7 @@ target 'Sammys' do
 end
 
 target 'Kitchen' do
+  pod 'Starscream'
   pod 'PromiseKit'
   pod 'PromiseKit/Foundation'
   pod 'TinyConstraints'

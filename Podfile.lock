@@ -69,6 +69,7 @@ PODS:
   - PromiseKit/UIKit (6.8.4):
     - PromiseKit/CorePromise
   - SquareInAppPaymentsSDK (1.1.1)
+  - Starscream (3.1.0)
   - TinyConstraints (4.0.0)
 
 DEPENDENCIES:
@@ -77,6 +78,7 @@ DEPENDENCIES:
   - PromiseKit
   - PromiseKit/Foundation
   - SquareInAppPaymentsSDK
+  - Starscream
   - TinyConstraints
 
 SPEC REPOS:
@@ -93,6 +95,7 @@ SPEC REPOS:
     - nanopb
     - PromiseKit
     - SquareInAppPaymentsSDK
+    - Starscream
     - TinyConstraints
 
 SPEC CHECKSUMS:
@@ -108,8 +111,9 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   SquareInAppPaymentsSDK: 38ab02659ee1fe8445fef0e4e15026fc31a106f4
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
   TinyConstraints: 03bc091844b98c18dbaead8b1153242a42721b56
 
-PODFILE CHECKSUM: e4580cd549ab8cab8f014cb907d928f49bc79278
+PODFILE CHECKSUM: ee966ba4c736eaffd4c487f4a8c0777ef9768cfc
 
 COCOAPODS: 1.6.0

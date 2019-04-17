@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Starscream
 
 #if DEBUG
 let appEnvironment = AppEnvironment.development
@@ -18,11 +19,35 @@ let appEnvironment = AppEnvironment.production
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
+    let socketID = UUID()
+    private(set) lazy var socket = WebSocket(url: makeSocketURL())
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        configureSocket()
+        socket.connect()
+        
         configureWindow()
         window.makeKeyAndVisible()
         
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        socket.disconnect()
+    }
+    
+    private func makeSocketURL() -> URL {
+        var components = URLComponents()
+        components.scheme = "ws"
+        components.host = LocalConstants.DevelopmentAPIServer.host
+        components.port = LocalConstants.DevelopmentAPIServer.port
+        components.path = "/v1/orderSessions/\(socketID.uuidString)"
+        guard let url = components.url else { preconditionFailure() }
+        return url
+    }
+    
+    private func configureSocket() {
+        socket.onData = didReceiveSocketData
     }
     
     private func configureWindow() {
@@ -37,5 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         return splitViewController
     }
+    
+    private func didReceiveSocketData(_ data: Data) {
+        
+    }
 }
-
