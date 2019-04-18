@@ -69,6 +69,7 @@
 		5B4B8C0F22653E0000DB3191 /* BlurLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B8C0E22653E0000DB3191 /* BlurLoadingView.swift */; };
 		5B4C3B09224AD67B007C2ABB /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C3B08224AD67B007C2ABB /* UserViewModelTests.swift */; };
 		5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
+		5B4F27AD2268FB8300441BB0 /* PurchasedConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */; };
 		5B4F7F0B2230BFC100F95C04 /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */; };
 		5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */; };
 		5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */; };
@@ -267,6 +268,7 @@
 		5B4B8C0E22653E0000DB3191 /* BlurLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLoadingView.swift; sourceTree = "<group>"; };
 		5B4C3B08224AD67B007C2ABB /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
 		5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedConstructedItem.swift; sourceTree = "<group>"; };
 		5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
 		5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+KeyValueStore.swift"; sourceTree = "<group>"; };
 		5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoreKeys.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				5B6E391D2223955B004D5310 /* Item.swift */,
 				5B9A8ABE2224878C00F5525D /* Modifier.swift */,
 				5B3305BC2230242B00F01CEE /* OutstandingOrder.swift */,
+				5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */,
 				5B2D55872251679A006FDFF2 /* PurchasedOrder.swift */,
 				5B2FC336225649EC005FBC70 /* StoreDateHours.swift */,
 				5B2C3C8522415B4A006BE7B3 /* User.swift */,
@@ -961,6 +964,7 @@
 				5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */,
 				5BF912BB22394DA400E2C29A /* APIEndpoint.swift in Sources */,
 				5B3A4B6D2195F3E400F22F78 /* UIImage.swift in Sources */,
+				5B4F27AD2268FB8300441BB0 /* PurchasedConstructedItem.swift in Sources */,
 				5B3A4B4D2195F3E400F22F78 /* MKMapView.swift in Sources */,
 				5B3176C8206D39A300D83D12 /* UITableViewCellViewModel.swift in Sources */,
 				5B2D558622515DBD006FDFF2 /* CheckoutViewModel.swift in Sources */,
