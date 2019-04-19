@@ -1,15 +1,15 @@
 //
-//  PurchasedItemsViewController.swift
+//  CategorizedItemsViewController.swift
 //  Kitchen
 //
-//  Created by Natanel Niazoff on 4/18/19.
+//  Created by Natanel Niazoff on 4/19/19.
 //  Copyright © 2019 Natanel Niazoff. All rights reserved.
 //
 
 import UIKit
 
-class PurchasedItemsViewController: UIViewController {
-    let viewModel = PurchasedItemsViewModel()
+class CategorizedItemsViewController: UIViewController {
+    let viewModel = CategorizedItemsViewModel()
     
     let tableView = UITableView()
     
@@ -23,8 +23,6 @@ class PurchasedItemsViewController: UIViewController {
         configureTableView()
         setUpView()
         configureViewModel()
-        
-        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -40,12 +38,12 @@ class PurchasedItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: PurchasedItemsViewModel.CellIdentifier.itemTableViewCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategorizedItemsViewModel.CellIdentifier.tableViewCell.rawValue)
     }
     
     private func configureViewModel() {
-        viewModel.purchasedConstructedItemTableViewCellViewModelActions = [
-            .configuration: purchasedConstructedItemTableViewCellConfigurationAction
+        viewModel.itemTableViewCellViewModelActions = [
+            .configuration: itemTableViewCellConfigurationAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -53,19 +51,13 @@ class PurchasedItemsViewController: UIViewController {
             self.tableViewDelegate.sectionModels = value
             self.tableView.reloadData()
         }
-        
-        viewModel.errorHandler = { error in
-            switch error {
-            default: print(error.localizedDescription)
-            }
-        }
     }
     
     // MARK: - Cell Actions
-    private func purchasedConstructedItemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? PurchasedItemsViewModel.PurchasedConstructedItemTableViewCellViewModel,
+    private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CategorizedItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         
-        cell.textLabel?.text = cellViewModel.configurationData.titleText
+        cell.textLabel?.text = cellViewModel.configurationData.text
     }
 }

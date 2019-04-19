@@ -17,5 +17,5 @@ final class Category: Codable {
     let minimumItems: Int?
     let maximumItems: Int?
     let isParentCategory: Bool?
-    let isConstructable: Bool
+    let isConstructable: Bool?
 }

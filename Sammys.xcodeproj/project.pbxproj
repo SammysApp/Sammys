@@ -183,6 +183,8 @@
 		5BC120DD22677FDE00F271FD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F3225D71D9005DC635 /* AppConstants.swift */; };
 		5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
+		5BF0A014226A35DB0066D880 /* CategorizedItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */; };
+		5BF0A016226A45AF0066D880 /* CategorizedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */; };
 		5BF912B9223826E000E2C29A /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF912B8223826E000E2C29A /* IntExtensions.swift */; };
 		5BF912BB22394DA400E2C29A /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF912BA22394DA400E2C29A /* APIEndpoint.swift */; };
 		AAFFECD418B8CBDD925F7860 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */; };
@@ -328,6 +330,8 @@
 		5BC120A4226779D700F271FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BC120AA22677CC900F271FD /* PurchasedOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrderViewModel.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
+		5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewModel.swift; sourceTree = "<group>"; };
+		5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewController.swift; sourceTree = "<group>"; };
 		5BF912B8223826E000E2C29A /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		5BF912BA22394DA400E2C29A /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys_SammysTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -610,14 +614,12 @@
 		5BC12095226779D300F271FD /* Kitchen */ = {
 			isa = PBXGroup;
 			children = (
-				5BC12096226779D300F271FD /* AppDelegate.swift */,
-				5BC120AA22677CC900F271FD /* PurchasedOrderViewModel.swift */,
-				5B4F27AE22696CA500441BB0 /* PurchasedItemsViewModel.swift */,
-				5B77960422678AD000134A04 /* PurchasedOrderViewController.swift */,
-				5B4F27B12269758700441BB0 /* PurchasedItemsViewController.swift */,
+				5BF0A01B226A4F640066D880 /* Application */,
+				5BF0A017226A4F2A0066D880 /* View Models */,
+				5BF0A018226A4F370066D880 /* View Controllers */,
+				5BF0A019226A4F440066D880 /* Storyboards and Xibs */,
+				5BF0A01A226A4F550066D880 /* Property Lists */,
 				5BC1209F226779D700F271FD /* Assets.xcassets */,
-				5BC120A1226779D700F271FD /* LaunchScreen.storyboard */,
-				5BC120A4226779D700F271FD /* Info.plist */,
 			);
 			path = Kitchen;
 			sourceTree = "<group>";
@@ -642,6 +644,50 @@
 				5B2C3C93224285F3006BE7B3 /* FirebaseAuth+UserAuthManager.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5BF0A017226A4F2A0066D880 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				5BC120AA22677CC900F271FD /* PurchasedOrderViewModel.swift */,
+				5B4F27AE22696CA500441BB0 /* PurchasedItemsViewModel.swift */,
+				5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		5BF0A018226A4F370066D880 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5B77960422678AD000134A04 /* PurchasedOrderViewController.swift */,
+				5B4F27B12269758700441BB0 /* PurchasedItemsViewController.swift */,
+				5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5BF0A019226A4F440066D880 /* Storyboards and Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				5BC120A1226779D700F271FD /* LaunchScreen.storyboard */,
+			);
+			path = "Storyboards and Xibs";
+			sourceTree = "<group>";
+		};
+		5BF0A01A226A4F550066D880 /* Property Lists */ = {
+			isa = PBXGroup;
+			children = (
+				5BC120A4226779D700F271FD /* Info.plist */,
+			);
+			path = "Property Lists";
+			sourceTree = "<group>";
+		};
+		5BF0A01B226A4F640066D880 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				5BC12096226779D300F271FD /* AppDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		BA56C2C5DF9AE504CEA511B0 /* Pods */ = {
@@ -1072,6 +1118,7 @@
 				5BC120DB22677F8100F271FD /* UIViewController.swift in Sources */,
 				5BC120BB22677F5200F271FD /* Category.swift in Sources */,
 				5B7795FF226784E200134A04 /* UITableViewSectionModelsDataSource.swift in Sources */,
+				5BF0A016226A45AF0066D880 /* CategorizedItemsViewController.swift in Sources */,
 				5BC120C122677F5200F271FD /* User.swift in Sources */,
 				5BC120C322677F8100F271FD /* Array+Equatable.swift in Sources */,
 				5BC120AB22677CC900F271FD /* PurchasedOrderViewModel.swift in Sources */,
@@ -1091,6 +1138,7 @@
 				5BC120DA22677F8100F271FD /* UIView.swift in Sources */,
 				5B7795FD226784D400134A04 /* UICollectionViewSectionModel.swift in Sources */,
 				5BC120CC22677F8100F271FD /* MKMapView.swift in Sources */,
+				5BF0A014226A35DB0066D880 /* CategorizedItemsViewModel.swift in Sources */,
 				5BC120AD22677D0C00F271FD /* HTTPEndpoint.swift in Sources */,
 				5BC120CE22677F8100F271FD /* Optional.swift in Sources */,
 				5BC120C422677F8100F271FD /* CLLocationCoordinate2D.swift in Sources */,

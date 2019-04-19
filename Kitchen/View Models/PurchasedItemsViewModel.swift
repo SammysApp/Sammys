@@ -32,6 +32,8 @@ class PurchasedItemsViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let purchasedConstructedItemItems = Dynamic([CategorizedItemsViewModel.CategorizedItems]())
+    
     enum CellIdentifier: String {
         case itemTableViewCell
     }
@@ -50,6 +52,10 @@ class PurchasedItemsViewModel {
         updatePurchasedConstructedItemsTableViewSectionModel()
     }
     
+    private func setUp(for purchasedConstructedItemItems: [CategorizedItemsViewModel.CategorizedItems]) {
+        self.purchasedConstructedItemItems.value = purchasedConstructedItemItems
+    }
+    
     private func updatePurchasedConstructedItemsTableViewSectionModel() {
         purchasedConstructedItemsTableViewSectionModel = makePurchasedConstructedItemsTableViewSectionModel(purchasedConstructedItems: purchasedConstructedItems)
     }
@@ -64,6 +70,11 @@ class PurchasedItemsViewModel {
             .catch(errorHandler)
     }
     
+    func beginPurchasedConstructedItemItemsDownload(id: PurchasedConstructedItem.ID) {
+        getPurchasedConstructedItemItems(id: id).done(setUp)
+            .catch(errorHandler)
+    }
+    
     private func beginPurchasedConstructedItemsDownload() -> Promise<Void> {
         return getPurchasedConstructedItems().done(setUp)
     }
@@ -71,6 +82,11 @@ class PurchasedItemsViewModel {
     private func getPurchasedConstructedItems() -> Promise<[PurchasedConstructedItem]> {
         return httpClient.send(apiURLRequestFactory.makeGetPurchasedOrderConstructedItems(id: purchasedOrderID ?? preconditionFailure())).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([PurchasedConstructedItem].self, from: $0.data) }
+    }
+    
+    private func getPurchasedConstructedItemItems(id: PurchasedConstructedItem.ID) -> Promise<[CategorizedItemsViewModel.CategorizedItems]> {
+        return httpClient.send(apiURLRequestFactory.makeGetPurchasedOrderConstructedItemItems(purchasedOrderID: purchasedOrderID ?? preconditionFailure(), purchasedConstructedItemID: id)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([CategorizedItemsViewModel.CategorizedItems].self, from: $0.data) }
     }
     
     // MARK: - Section Model Methods
@@ -86,13 +102,14 @@ class PurchasedItemsViewModel {
         return sectionModels
     }
     
-    // MARK: - Cell Model Methods
+    // MARK: - Cell View Model Methods
     private func makePurchasedConstructedItemTableViewCellViewModel(purchasedConstructedItem: PurchasedConstructedItem) -> PurchasedConstructedItemTableViewCellViewModel {
         return PurchasedConstructedItemTableViewCellViewModel(
             identifier: CellIdentifier.itemTableViewCell.rawValue,
             height: .fixed(Constants.purchasedConstructedItemTableViewCellViewModelHeight),
             actions: purchasedConstructedItemTableViewCellViewModelActions,
-            configurationData: .init(titleText: purchasedConstructedItem.name)
+            configurationData: .init(titleText: purchasedConstructedItem.name),
+            selectionData: .init(id: purchasedConstructedItem.id)
         )
     }
 }
@@ -103,9 +120,14 @@ extension PurchasedItemsViewModel {
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
+        let selectionData: SelectionData
         
         struct ConfigurationData {
             let titleText: String?
+        }
+        
+        struct SelectionData {
+            let id: PurchasedConstructedItem.ID
         }
     }
 }

@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let splitViewController = UISplitViewController()
         splitViewController.viewControllers = [
             UINavigationController(rootViewController: PurchasedOrderViewController()),
-            UINavigationController(rootViewController: UIViewController())
+            UINavigationController(rootViewController: CategorizedItemsViewController())
         ]
         return splitViewController
     }
