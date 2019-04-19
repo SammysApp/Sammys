@@ -92,7 +92,8 @@ class PurchasedOrderViewModel {
             identifier: CellIdentifier.orderTableViewCell.rawValue,
             height: .fixed(Constants.purchasedOrderCellViewModelHeight),
             actions: purchasedOrderCellViewModelActions,
-            configurationData: .init(titleText: purchasedOrder.user?.firstName)
+            configurationData: .init(titleText: purchasedOrder.user?.firstName),
+            selectionData: .init(id: purchasedOrder.id)
         )
     }
 }
@@ -103,9 +104,14 @@ extension PurchasedOrderViewModel {
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
+        let selectionData: SelectionData
         
         struct ConfigurationData {
             let titleText: String?
+        }
+        
+        struct SelectionData {
+            let id: PurchasedOrder.ID
         }
     }
 }

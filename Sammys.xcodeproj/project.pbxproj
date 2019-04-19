@@ -70,6 +70,9 @@
 		5B4C3B09224AD67B007C2ABB /* UserViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4C3B08224AD67B007C2ABB /* UserViewModelTests.swift */; };
 		5B4DC2DF219B31FA009BDA6D /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */; };
 		5B4F27AD2268FB8300441BB0 /* PurchasedConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */; };
+		5B4F27AF22696CA500441BB0 /* PurchasedItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F27AE22696CA500441BB0 /* PurchasedItemsViewModel.swift */; };
+		5B4F27B022696DFC00441BB0 /* PurchasedConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */; };
+		5B4F27B22269758700441BB0 /* PurchasedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F27B12269758700441BB0 /* PurchasedItemsViewController.swift */; };
 		5B4F7F0B2230BFC100F95C04 /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */; };
 		5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */; };
 		5B4F7F0F2230C92400F95C04 /* KeyValueStoreKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */; };
@@ -269,6 +272,8 @@
 		5B4C3B08224AD67B007C2ABB /* UserViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModelTests.swift; sourceTree = "<group>"; };
 		5B4DC2DE219B31FA009BDA6D /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		5B4F27AC2268FB8300441BB0 /* PurchasedConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedConstructedItem.swift; sourceTree = "<group>"; };
+		5B4F27AE22696CA500441BB0 /* PurchasedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItemsViewModel.swift; sourceTree = "<group>"; };
+		5B4F27B12269758700441BB0 /* PurchasedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedItemsViewController.swift; sourceTree = "<group>"; };
 		5B4F7F0A2230BFC100F95C04 /* KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
 		5B4F7F0C2230C26700F95C04 /* UserDefaults+KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+KeyValueStore.swift"; sourceTree = "<group>"; };
 		5B4F7F0E2230C92400F95C04 /* KeyValueStoreKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoreKeys.swift; sourceTree = "<group>"; };
@@ -607,7 +612,9 @@
 			children = (
 				5BC12096226779D300F271FD /* AppDelegate.swift */,
 				5BC120AA22677CC900F271FD /* PurchasedOrderViewModel.swift */,
+				5B4F27AE22696CA500441BB0 /* PurchasedItemsViewModel.swift */,
 				5B77960422678AD000134A04 /* PurchasedOrderViewController.swift */,
+				5B4F27B12269758700441BB0 /* PurchasedItemsViewController.swift */,
 				5BC1209F226779D700F271FD /* Assets.xcassets */,
 				5BC120A1226779D700F271FD /* LaunchScreen.storyboard */,
 				5BC120A4226779D700F271FD /* Info.plist */,
@@ -1076,6 +1083,7 @@
 				5BC120B422677D0C00F271FD /* HTTPServer.swift in Sources */,
 				5B7795FB226784D400134A04 /* UITableViewCellViewModel.swift in Sources */,
 				5BC120C222677F8100F271FD /* Array.swift in Sources */,
+				5B4F27B022696DFC00441BB0 /* PurchasedConstructedItem.swift in Sources */,
 				5BC120D022677F8100F271FD /* Target.swift in Sources */,
 				5BC120A922677C8700F271FD /* PurchasedOrder.swift in Sources */,
 				5BC120DC22677FAE00F271FD /* AppEnvironment.swift in Sources */,
@@ -1104,8 +1112,10 @@
 				5BC120AF22677D0C00F271FD /* HTTPHeader.swift in Sources */,
 				5BC120CB22677F8100F271FD /* JSONDecoder.swift in Sources */,
 				5BC120BE22677F5200F271FD /* Modifier.swift in Sources */,
+				5B4F27AF22696CA500441BB0 /* PurchasedItemsViewModel.swift in Sources */,
 				5BC120C022677F5200F271FD /* StoreDateHours.swift in Sources */,
 				5BC120B222677D0C00F271FD /* HTTPMethod.swift in Sources */,
+				5B4F27B22269758700441BB0 /* PurchasedItemsViewController.swift in Sources */,
 				5BC120D622677F8100F271FD /* UIResponder.swift in Sources */,
 				5BC120CD22677F8100F271FD /* NSLayoutConstraintArray.swift in Sources */,
 				5BC120BF22677F5200F271FD /* OutstandingOrder.swift in Sources */,
