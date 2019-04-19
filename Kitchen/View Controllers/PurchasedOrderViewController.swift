@@ -2,12 +2,11 @@
 //  PurchasedOrderViewController.swift
 //  Kitchen
 //
-//  Created by Natanel Niazoff on 4/17/19.
+//  Created by Natanel Niazoff on 4/18/19.
 //  Copyright © 2019 Natanel Niazoff. All rights reserved.
 //
 
 import UIKit
-import TinyConstraints
 
 class PurchasedOrderViewController: UIViewController {
     let viewModel = PurchasedOrderViewModel()
@@ -16,6 +15,10 @@ class PurchasedOrderViewController: UIViewController {
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
+    
+    var categorizedItemsViewController: CategorizedItemsViewController? {
+        return (self.splitViewController?.viewControllers[safe: 1] as? UINavigationController)?.viewControllers.first as? CategorizedItemsViewController
+    }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -41,13 +44,13 @@ class PurchasedOrderViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: PurchasedOrderViewModel.CellIdentifier.orderTableViewCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: PurchasedOrderViewModel.CellIdentifier.itemTableViewCell.rawValue)
     }
     
     private func configureViewModel() {
-        viewModel.purchasedOrderCellViewModelActions = [
-            .configuration: purchasedOrderTableViewCellConfigurationAction,
-            .selection: purchasedOrderTableViewCellSelectionAction
+        viewModel.purchasedConstructedItemTableViewCellViewModelActions = [
+            .configuration: purchasedConstructedItemTableViewCellConfigurationAction,
+            .selection: purchasedConstructedItemTableViewCellSelectionAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -56,6 +59,8 @@ class PurchasedOrderViewController: UIViewController {
             self.tableView.reloadData()
         }
         
+        viewModel.purchasedConstructedItemItems.bind { self.categorizedItemsViewController?.viewModel.categorizedItems = $0 }
+        
         viewModel.errorHandler = { error in
             switch error {
             default: print(error.localizedDescription)
@@ -63,23 +68,18 @@ class PurchasedOrderViewController: UIViewController {
         }
     }
     
-    // MARK: - Factory Methods
-    private func makePurchasedItemsViewController(purchasedOrderID: PurchasedOrder.ID) -> PurchasedItemsViewController {
-        let purchasedItemsViewController = PurchasedItemsViewController()
-        purchasedItemsViewController.viewModel.purchasedOrderID = purchasedOrderID
-        return purchasedItemsViewController
-    }
-    
     // MARK: - Cell Actions
-    private func purchasedOrderTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedOrderCellViewModel,
+    private func purchasedConstructedItemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedConstructedItemTableViewCellViewModel,
             let cell = data.cell else { return }
         
         cell.textLabel?.text = cellViewModel.configurationData.titleText
     }
     
-    private func purchasedOrderTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedOrderCellViewModel else { return }
-        self.navigationController?.pushViewController(makePurchasedItemsViewController(purchasedOrderID: cellViewModel.selectionData.id), animated: true)
+    private func purchasedConstructedItemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedConstructedItemTableViewCellViewModel
+            else { return }
+        
+        viewModel.beginPurchasedConstructedItemItemsDownload(id: cellViewModel.selectionData.id)
     }
 }

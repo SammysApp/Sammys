@@ -38,6 +38,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
     /// GET `/purchasedOrders`
     case getPurchasedOrders
+    /// GET `/purchasedOrders/:purchasedOrder`
+    case getPurchasedOrder(PurchasedOrder.ID)
     /// GET `/purchasedOrders/:purchasedOrder/constructedItems`
     case getPurchasedOrderConstructedItems(PurchasedOrder.ID)
     /// GET `/purchasedOrders/:purchasedOrder/constructedItems/:constructedItem/items`
@@ -70,6 +72,8 @@ enum APIEndpoint: HTTPEndpoint {
     case partiallyUpdateConstructedItem(ConstructedItem.ID)
     /// PATCH `/outstandingOrders/:outstandingOrder/constructedItems/:constructedItem`
     case partiallyUpdateOutstandingOrderConstructedItem(OutstandingOrder.ID, ConstructedItem.ID)
+    /// PATCH `/purchasedOrders/:purchasedOrder`
+    case partiallyUpdatePurchasedOrder(PurchasedOrder.ID)
     
     // MARK: - DELETE
     /// DELETE `/constructedItems/:constructedItem/items/:categoryItem`
@@ -110,6 +114,9 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
         case .getPurchasedOrders:
             return (.GET, "/\(version)/purchasedOrders")
+        case .getPurchasedOrder(let id):
+            return (.GET, "/\(version)/purchasedOrders/\(id)")
+            
         case .getPurchasedOrderConstructedItems(let id):
             return (.GET, "/\(version)/purchasedOrders/\(id)/constructedItems")
         case .getPurchasedOrderConstructedItemItems(let purchasedOrderID, let purchasedConstructedItemID):
@@ -139,6 +146,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.PATCH, "/\(version)/constructedItems/\(id)")
         case .partiallyUpdateOutstandingOrderConstructedItem(let outstandingOrderID, let constructedItemID):
             return (.PATCH, "/\(version)/outstandingOrders/\(outstandingOrderID)/constructedItems/\(constructedItemID)")
+        case .partiallyUpdatePurchasedOrder(let id):
+            return (.PATCH, "/\(version)/purchasedOrders/\(id)")
             
         case .removeConstructedItemItem(let constructedItemID, let categoryItemID):
             return (.DELETE, "/\(version)/constructedItems/\(constructedItemID)/items/\(categoryItemID)")

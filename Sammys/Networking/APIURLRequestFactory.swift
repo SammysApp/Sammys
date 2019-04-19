@@ -113,6 +113,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getPurchasedOrders)
     }
     
+    func makeGetPurchasedOrderRequest(id: PurchasedOrder.ID) -> URLRequest {
+        return makeRequest(endpoint: .getPurchasedOrder(id))
+    }
+    
     func makeGetPurchasedOrderConstructedItems(id: PurchasedOrder.ID) -> URLRequest {
         return makeRequest(endpoint: .getPurchasedOrderConstructedItems(id))
     }
@@ -166,6 +170,10 @@ struct APIURLRequestFactory {
     
     func makePartiallyUpdateOutstandingOrderConstructedItemRequest(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, data: PartiallyUpdateOutstandingOrderConstructedItemRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
         return try makeJSONBodyRequest(endpoint: .partiallyUpdateOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), body: dataEncoder.encode(data), token: token)
+    }
+    
+    func makePartiallyUpdatePurchasedOrderRequest(id: PurchasedOrder.ID, data: PartiallyUpdatePurchasedOrderRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder) throws -> URLRequest {
+        return try makeJSONBodyRequest(endpoint: .partiallyUpdatePurchasedOrder(id), body: dataEncoder.encode(data))
     }
     
     // MARK: - DELETE
@@ -267,4 +275,8 @@ struct PartiallyUpdateConstructedItemRequestData: Codable {
 
 struct PartiallyUpdateOutstandingOrderConstructedItemRequestData: Codable {
     let quantity: Int?
+}
+
+struct PartiallyUpdatePurchasedOrderRequestData: Codable {
+    let progress: OrderProgress
 }

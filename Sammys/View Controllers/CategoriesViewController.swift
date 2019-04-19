@@ -1,5 +1,5 @@
 //
-//  CategoryViewController.swift
+//  CategoriesViewController.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 2/24/19.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController {
-    let viewModel = CategoryViewModel()
+class CategoriesViewController: UIViewController {
+    let viewModel = CategoriesViewModel()
     
     let tableView = UITableView()
     
@@ -57,7 +57,7 @@ class CategoryViewController: UIViewController {
         tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategoryViewModel.CellIdentifier.tableViewCell.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategoriesViewModel.CellIdentifier.tableViewCell.rawValue)
     }
     
     private func configureLoadingView() {
@@ -90,11 +90,11 @@ class CategoryViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeCategoryViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoryViewController {
-        let categoryViewController = CategoryViewController()
-        categoryViewController.title = title
-        categoryViewController.viewModel.parentCategoryID = parentCategoryID
-        return categoryViewController
+    private func makeCategoriesViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoriesViewController {
+        let categoriesViewController = CategoriesViewController()
+        categoriesViewController.title = title
+        categoriesViewController.viewModel.parentCategoryID = parentCategoryID
+        return categoriesViewController
     }
     
     private func makeItemsViewController(categoryID: Category.ID, title: String? = nil) -> ItemsViewController {
@@ -123,7 +123,7 @@ class CategoryViewController: UIViewController {
     
     // MARK: - Cell Actions
     private func categoryTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel,
+        guard let cellViewModel = data.cellViewModel as? CategoriesViewModel.CategoryTableViewCellViewModel,
             let cell = data.cell else { return }
         
         cell.textLabel?.font = .systemFont(ofSize: Constants.categoryTableViewCellTextLabelFontSize)
@@ -131,17 +131,18 @@ class CategoryViewController: UIViewController {
     }
     
     private func categoryTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
-        guard let cellViewModel = data.cellViewModel as? CategoryViewModel.CategoryTableViewCellViewModel else { return }
+        guard let cellViewModel = data.cellViewModel as? CategoriesViewModel.CategoryTableViewCellViewModel else { return }
         
         let id = cellViewModel.selectionData.id
         let title = cellViewModel.selectionData.title
         
-        if cellViewModel.selectionData.isConstructable {
+        if let isConstructable = cellViewModel.selectionData.isConstructable,
+            isConstructable {
             navigationController?
                 .pushViewController(makeConstructedItemViewController(categoryID: id, title: title), animated: true)
         } else if let isParentCategory = cellViewModel.selectionData.isParentCategory, isParentCategory {
             navigationController?
-                .pushViewController(makeCategoryViewController(parentCategoryID: id, title: title), animated: true)
+                .pushViewController(makeCategoriesViewController(parentCategoryID: id, title: title), animated: true)
         } else {
             navigationController?.pushViewController(makeItemsViewController(categoryID: id, title: title), animated: true)
         }

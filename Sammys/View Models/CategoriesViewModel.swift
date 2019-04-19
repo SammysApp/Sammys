@@ -1,5 +1,5 @@
 //
-//  CategoryViewModel.swift
+//  CategoriesViewModel.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 2/24/19.
@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-class CategoryViewModel {
+class CategoriesViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     // MARK: - Dependencies
@@ -101,7 +101,7 @@ class CategoryViewModel {
     }
 }
 
-extension CategoryViewModel {
+extension CategoriesViewModel {
     struct CategoryTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
@@ -117,7 +117,7 @@ extension CategoryViewModel {
         struct SelectionData {
             let id: Category.ID
             let title: String?
-            let isConstructable: Bool
+            let isConstructable: Bool?
             let isParentCategory: Bool?
         }
     }

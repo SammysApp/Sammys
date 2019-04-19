@@ -111,11 +111,11 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeCategoryViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoryViewController {
-        let categoryViewController = CategoryViewController()
-        categoryViewController.title = title
-        categoryViewController.viewModel.parentCategoryID = parentCategoryID
-        return categoryViewController
+    private func makeCategoriesViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoriesViewController {
+        let categoriesViewController = CategoriesViewController()
+        categoriesViewController.title = title
+        categoriesViewController.viewModel.parentCategoryID = parentCategoryID
+        return categoriesViewController
     }
     
     // MARK: - Target Actions
@@ -149,7 +149,7 @@ class HomeViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel else { return }
         
         navigationController?.pushViewController(
-            makeCategoryViewController(parentCategoryID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title),
+            makeCategoriesViewController(parentCategoryID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title),
             animated: true
         )
     }
