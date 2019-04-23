@@ -32,6 +32,8 @@ class PurchasedOrderViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let purchasedOrderIsCompleted = Dynamic(false)
+    
     let purchasedConstructedItemItems = Dynamic([CategorizedItemsViewModel.CategorizedItems]())
     
     enum CellIdentifier: String {
@@ -47,6 +49,10 @@ class PurchasedOrderViewModel {
     }
     
     // MARK: - Setup Methods
+    private func setUp(for purchasedOrder: PurchasedOrder) {
+        purchasedOrderIsCompleted.value = purchasedOrder.progress == .isCompleted
+    }
+    
     private func setUp(for purchasedConstructedItems: [PurchasedConstructedItem]) {
         self.purchasedConstructedItems = purchasedConstructedItems
         updatePurchasedConstructedItemsTableViewSectionModel()
@@ -67,6 +73,7 @@ class PurchasedOrderViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         when(fulfilled: [
+            beginPurchasedOrderDownload(),
             beginPurchasedConstructedItemsDownload(),
             beginUpdatePurchasedOrderProgressIsPreparing()
         ]).catch(errorHandler)
@@ -75,6 +82,16 @@ class PurchasedOrderViewModel {
     func beginPurchasedConstructedItemItemsDownload(id: PurchasedConstructedItem.ID) {
         getPurchasedConstructedItemItems(id: id).done(setUp)
             .catch(errorHandler)
+    }
+    
+    func beginUpdatePurchasedOrderProgressIsCompleted(successHandler: @escaping () -> Void = {}) {
+        partiallyUpdatePurchasedOrder(data: .init(progress: .isCompleted)).asVoid()
+            .done(successHandler)
+            .catch(errorHandler)
+    }
+    
+    private func beginPurchasedOrderDownload() -> Promise<Void> {
+        return getPurchasedOrder().done(setUp)
     }
     
     private func beginPurchasedConstructedItemsDownload() -> Promise<Void> {

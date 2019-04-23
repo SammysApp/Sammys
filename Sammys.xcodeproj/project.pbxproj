@@ -94,6 +94,7 @@
 		5B6E391A22238240004D5310 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391922238240004D5310 /* CategoriesViewController.swift */; };
 		5B6E391C2223831F004D5310 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391B2223831F004D5310 /* CategoriesViewModel.swift */; };
 		5B6E391E2223955B004D5310 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E391D2223955B004D5310 /* Item.swift */; };
+		5B743443226E0D4600411624 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3305BA222EF37400F01CEE /* RoundedButton.swift */; };
 		5B7795FB226784D400134A04 /* UITableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3176C7206D39A300D83D12 /* UITableViewCellViewModel.swift */; };
 		5B7795FC226784D400134A04 /* UITableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */; };
 		5B7795FD226784D400134A04 /* UICollectionViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8AC42225B68A00F5525D /* UICollectionViewSectionModel.swift */; };
@@ -1146,6 +1147,7 @@
 				5BC120CC22677F8100F271FD /* MKMapView.swift in Sources */,
 				5BF0A014226A35DB0066D880 /* CategorizedItemsViewModel.swift in Sources */,
 				5BC120AD22677D0C00F271FD /* HTTPEndpoint.swift in Sources */,
+				5B743443226E0D4600411624 /* RoundedButton.swift in Sources */,
 				5BC120CE22677F8100F271FD /* Optional.swift in Sources */,
 				5BC120C422677F8100F271FD /* CLLocationCoordinate2D.swift in Sources */,
 				5B77960522678AD000134A04 /* PurchasedOrdersViewController.swift in Sources */,
