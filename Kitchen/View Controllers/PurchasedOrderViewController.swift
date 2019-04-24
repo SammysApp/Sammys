@@ -97,7 +97,10 @@ class PurchasedOrderViewController: UIViewController {
     
     // MARK: - Target Actions
     private func completeButtonTouchUpInsideAction() {
-        viewModel.beginUpdatePurchasedOrderProgressIsCompleted()
+        viewModel.beginUpdatePurchasedOrderProgressIsCompleted() {
+            self.viewModel.clearPurchasedConstructedItemItems()
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     // MARK: - Cell Actions

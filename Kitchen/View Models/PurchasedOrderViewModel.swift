@@ -70,6 +70,11 @@ class PurchasedOrderViewModel {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
     
+    // MARK: - Methods
+    func clearPurchasedConstructedItemItems() {
+        purchasedConstructedItemItems.value = []
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         when(fulfilled: [
