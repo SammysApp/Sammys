@@ -14,14 +14,14 @@ class PurchasedOrderViewController: UIViewController {
     let tableView = UITableView()
     let completeButton = RoundedButton()
     
+    var categorizedItemsViewController: CategorizedItemsViewController? {
+        return (self.splitViewController?.viewControllers[safe: 1] as? UINavigationController)?.viewControllers.first as? CategorizedItemsViewController
+    }
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
-    
-    var categorizedItemsViewController: CategorizedItemsViewController? {
-        return (self.splitViewController?.viewControllers[safe: 1] as? UINavigationController)?.viewControllers.first as? CategorizedItemsViewController
-    }
     
     private struct Constants {
         static let completeButtonBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
@@ -38,6 +38,7 @@ class PurchasedOrderViewController: UIViewController {
         
         configureTableView()
         configureCompleteButton()
+        configureCategorizedItemsViewController()
         setUpView()
         configureViewModel()
         
@@ -72,6 +73,10 @@ class PurchasedOrderViewController: UIViewController {
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
+    private func configureCategorizedItemsViewController() {
+        categorizedItemsViewController?.tableView.allowsSelection = false
+    }
+    
     private func configureViewModel() {
         viewModel.purchasedConstructedItemTableViewCellViewModelActions = [
             .configuration: purchasedConstructedItemTableViewCellConfigurationAction,
@@ -98,6 +103,7 @@ class PurchasedOrderViewController: UIViewController {
     // MARK: - Target Actions
     private func completeButtonTouchUpInsideAction() {
         viewModel.beginUpdatePurchasedOrderProgressIsCompleted() {
+            self.categorizedItemsViewController?.title = nil
             self.viewModel.clearPurchasedConstructedItemItems()
             self.navigationController?.popViewController(animated: true)
         }
@@ -115,6 +121,7 @@ class PurchasedOrderViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedConstructedItemTableViewCellViewModel
             else { return }
         
+        categorizedItemsViewController?.title = cellViewModel.selectionData.title
         viewModel.beginPurchasedConstructedItemItemsDownload(id: cellViewModel.selectionData.id)
     }
 }

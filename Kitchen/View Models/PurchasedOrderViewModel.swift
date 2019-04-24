@@ -153,7 +153,7 @@ class PurchasedOrderViewModel {
             height: .fixed(Constants.purchasedConstructedItemTableViewCellViewModelHeight),
             actions: purchasedConstructedItemTableViewCellViewModelActions,
             configurationData: .init(titleText: purchasedConstructedItem.name),
-            selectionData: .init(id: purchasedConstructedItem.id)
+            selectionData: .init(id: purchasedConstructedItem.id, title: purchasedConstructedItem.name)
         )
     }
 }
@@ -172,6 +172,7 @@ extension PurchasedOrderViewModel {
         
         struct SelectionData {
             let id: PurchasedConstructedItem.ID
+            let title: String?
         }
     }
 }

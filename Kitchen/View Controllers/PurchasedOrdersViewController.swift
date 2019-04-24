@@ -64,10 +64,11 @@ class PurchasedOrdersViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makePurchasedItemsViewController(purchasedOrderID: PurchasedOrder.ID) -> PurchasedOrderViewController {
-        let purchasedItemsViewController = PurchasedOrderViewController()
-        purchasedItemsViewController.viewModel.purchasedOrderID = purchasedOrderID
-        return purchasedItemsViewController
+    private func makePurchasedOrderViewController(purchasedOrderID: PurchasedOrder.ID, title: String? = nil) -> PurchasedOrderViewController {
+        let purchasedOrderViewController = PurchasedOrderViewController()
+        purchasedOrderViewController.title = title
+        purchasedOrderViewController.viewModel.purchasedOrderID = purchasedOrderID
+        return purchasedOrderViewController
     }
     
     // MARK: - Cell Actions
@@ -80,6 +81,6 @@ class PurchasedOrdersViewController: UIViewController {
     
     private func purchasedOrderTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? PurchasedOrdersViewModel.PurchasedOrderCellViewModel else { return }
-        self.navigationController?.pushViewController(makePurchasedItemsViewController(purchasedOrderID: cellViewModel.selectionData.id), animated: true)
+        self.navigationController?.pushViewController(makePurchasedOrderViewController(purchasedOrderID: cellViewModel.selectionData.id, title: cellViewModel.selectionData.title), animated: true)
     }
 }

@@ -93,7 +93,7 @@ class PurchasedOrdersViewModel {
             height: .fixed(Constants.purchasedOrderCellViewModelHeight),
             actions: purchasedOrderCellViewModelActions,
             configurationData: .init(titleText: purchasedOrder.user?.firstName),
-            selectionData: .init(id: purchasedOrder.id)
+            selectionData: .init(id: purchasedOrder.id, title: purchasedOrder.user?.firstName)
         )
     }
 }
@@ -112,6 +112,7 @@ extension PurchasedOrdersViewModel {
         
         struct SelectionData {
             let id: PurchasedOrder.ID
+            let title: String?
         }
     }
 }
