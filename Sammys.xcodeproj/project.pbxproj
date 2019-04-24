@@ -183,6 +183,7 @@
 		5BC120DC22677FAE00F271FD /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
 		5BC120DD22677FDE00F271FD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F3225D71D9005DC635 /* AppConstants.swift */; };
 		5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
+		5BC3890F2270C4FC001C0C17 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BC3890E2270C4FC001C0C17 /* Bell.wav */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
 		5BF0A014226A35DB0066D880 /* CategorizedItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */; };
 		5BF0A016226A45AF0066D880 /* CategorizedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */; };
@@ -190,8 +191,8 @@
 		5BF0A01E226A7C8E0066D880 /* OrderProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A01C226A783A0066D880 /* OrderProgress.swift */; };
 		5BF912B9223826E000E2C29A /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF912B8223826E000E2C29A /* IntExtensions.swift */; };
 		5BF912BB22394DA400E2C29A /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF912BA22394DA400E2C29A /* APIEndpoint.swift */; };
+		7D21923495149AF2B8672881 /* Pods_Kitchen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA5D245F8168B2E0C0B336E /* Pods_Kitchen.framework */; };
 		AAFFECD418B8CBDD925F7860 /* Pods_Sammys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */; };
-		CCC0BB7C4E307935CEF5BAE4 /* libPods-Kitchen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE350A92317ECBAD36A15B2 /* libPods-Kitchen.a */; };
 		FDFBBD1BF634A9FC33C800A9 /* Pods_Sammys_SammysTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -210,7 +211,6 @@
 		2628B40B5BE008CCDF6E27AE /* Pods-Sammys-SammysTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys-SammysTests.beta.xcconfig"; path = "Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests.beta.xcconfig"; sourceTree = "<group>"; };
 		472F77DF5AB31A347444D92A /* Pods-Sammys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.release.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.release.xcconfig"; sourceTree = "<group>"; };
 		49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sammys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE350A92317ECBAD36A15B2 /* libPods-Kitchen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kitchen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		526200362E2741A51E3F5CDE /* Pods-Kitchen.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kitchen.beta.xcconfig"; path = "Target Support Files/Pods-Kitchen/Pods-Kitchen.beta.xcconfig"; sourceTree = "<group>"; };
 		5B012215221DC4030054AB7A /* APIURLRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLRequestFactory.swift; sourceTree = "<group>"; };
 		5B012217221DC72E0054AB7A /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -332,6 +332,7 @@
 		5BC120A2226779D700F271FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BC120A4226779D700F271FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BC120AA22677CC900F271FD /* PurchasedOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrdersViewModel.swift; sourceTree = "<group>"; };
+		5BC3890E2270C4FC001C0C17 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewModel.swift; sourceTree = "<group>"; };
 		5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +345,7 @@
 		C41B68A755EBE64CB5E58257 /* Pods-Sammys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sammys.debug.xcconfig"; path = "Target Support Files/Pods-Sammys/Pods-Sammys.debug.xcconfig"; sourceTree = "<group>"; };
 		D1C7C99954483C89718B547C /* Pods-Kitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kitchen.debug.xcconfig"; path = "Target Support Files/Pods-Kitchen/Pods-Kitchen.debug.xcconfig"; sourceTree = "<group>"; };
 		EDE8FB2D788A9C02E60DD71E /* Pods-Kitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kitchen.release.xcconfig"; path = "Target Support Files/Pods-Kitchen/Pods-Kitchen.release.xcconfig"; sourceTree = "<group>"; };
+		FFA5D245F8168B2E0C0B336E /* Pods_Kitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,7 +369,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCC0BB7C4E307935CEF5BAE4 /* libPods-Kitchen.a in Frameworks */,
+				7D21923495149AF2B8672881 /* Pods_Kitchen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,7 +381,7 @@
 			children = (
 				49071E4605B6EE749A5941D6 /* Pods_Sammys.framework */,
 				9569A69ECB4BB1B5B71BB02C /* Pods_Sammys_SammysTests.framework */,
-				4EE350A92317ECBAD36A15B2 /* libPods-Kitchen.a */,
+				FFA5D245F8168B2E0C0B336E /* Pods_Kitchen.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -624,6 +626,7 @@
 				5BF0A018226A4F370066D880 /* View Controllers */,
 				5BF0A019226A4F440066D880 /* Storyboards and Xibs */,
 				5BF0A01A226A4F550066D880 /* Property Lists */,
+				5BC3890E2270C4FC001C0C17 /* Bell.wav */,
 				5BC1209F226779D700F271FD /* Assets.xcassets */,
 			);
 			path = Kitchen;
@@ -761,6 +764,7 @@
 				5BC12090226779D200F271FD /* Sources */,
 				5BC12091226779D200F271FD /* Frameworks */,
 				5BC12092226779D200F271FD /* Resources */,
+				D4609A3AB6B1E39D669A7AC9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -846,6 +850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC120A3226779D700F271FD /* LaunchScreen.storyboard in Resources */,
+				5BC3890F2270C4FC001C0C17 /* Bell.wav in Resources */,
 				5BC120A0226779D700F271FD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -886,9 +891,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-framework/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${PODS_ROOT}/SquareInAppPaymentsSDK/SquareInAppPaymentsSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/TinyConstraints-framework/TinyConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -905,6 +910,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sammys/Pods-Sammys-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4609A3AB6B1E39D669A7AC9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Kitchen/Pods-Kitchen-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kitchen/Pods-Kitchen-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DA259E3F0044CB0F77927CDA /* [CP] Check Pods Manifest.lock */ = {
@@ -962,9 +993,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Sammys-SammysTests/Pods-Sammys-SammysTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-framework/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${PODS_ROOT}/SquareInAppPaymentsSDK/SquareInAppPaymentsSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/TinyConstraints-framework/TinyConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";

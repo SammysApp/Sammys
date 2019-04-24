@@ -1,4 +1,4 @@
-module Pods_Kitchen {
+framework module Pods_Kitchen {
   umbrella header "Pods-Kitchen-umbrella.h"
 
   export *

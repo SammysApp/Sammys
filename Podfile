@@ -13,14 +13,16 @@ target 'Sammys' do
   pod 'TinyConstraints'
   
   target 'SammysTests' do
+    use_frameworks!
     inherit! :complete
   end
 end
 
 target 'Kitchen' do
-  pod 'Starscream'
+  use_frameworks!
   pod 'PromiseKit'
   pod 'PromiseKit/Foundation'
+  pod 'Starscream'
   pod 'TinyConstraints'
 end
   
