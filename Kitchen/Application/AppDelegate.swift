@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     private var currentPurchasedOrderUtterance: AVSpeechUtterance?
     
-    private lazy var decoder: JSONDecoder = {
+    private lazy var dataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
     
@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         components.scheme = "ws"
         components.host = LocalConstants.DevelopmentAPIServer.host
         components.port = LocalConstants.DevelopmentAPIServer.port
-        components.path = "/v1/orderSessions/\(socketID.uuidString)"
+        components.path = "/v1/sessions/\(socketID.uuidString)"
         guard let url = components.url else { preconditionFailure() }
         return url
     }
@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func didReceiveSocketData(_ data: Data) {
-        if let purchasedOrder = try? decoder.decode(PurchasedOrder.self, from: data) {
+        if let purchasedOrder = try? dataDecoder.decode(PurchasedOrder.self, from: data) {
             currentPurchasedOrderUtterance = makePurchasedOrderUtterance(purchasedOrder: purchasedOrder)
             if !bellSoundPlayer.isPlaying { bellSoundPlayer.play() }
             purchasedOrdersViewController.viewModel.beginDownloads()
