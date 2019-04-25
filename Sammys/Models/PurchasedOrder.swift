@@ -12,6 +12,8 @@ final class PurchasedOrder: Codable {
     typealias ID = UUID
     
     let id: ID
+    let number: Int
+    var purchasedDate: Date
     let preparedForDate: Date?
     let progress: OrderProgress
     let user: User?

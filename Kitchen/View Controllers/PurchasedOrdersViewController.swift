@@ -41,7 +41,7 @@ class PurchasedOrdersViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: PurchasedOrdersViewModel.CellIdentifier.orderTableViewCell.rawValue)
+        tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: PurchasedOrdersViewModel.CellIdentifier.orderTableViewCell.rawValue)
     }
     
     private func configureViewModel() {
@@ -74,9 +74,10 @@ class PurchasedOrdersViewController: UIViewController {
     // MARK: - Cell Actions
     private func purchasedOrderTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? PurchasedOrdersViewModel.PurchasedOrderCellViewModel,
-            let cell = data.cell else { return }
+            let cell = data.cell as? OrderTableViewCell else { return }
         
-        cell.textLabel?.text = cellViewModel.configurationData.titleText
+        cell.titleLabel.text = cellViewModel.configurationData.titleText
+        cell.pickupDateLabel.text = cellViewModel.configurationData.pickupDateText
     }
     
     private func purchasedOrderTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {

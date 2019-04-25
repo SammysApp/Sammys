@@ -155,7 +155,7 @@ class OutstandingOrderViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ItemTableViewCellViewModel,
             let cell = data.cell as? ItemTableViewCell else { return }
         
-        cell.nameLabel.text = cellViewModel.configurationData.nameText
+        cell.titleLabel.text = cellViewModel.configurationData.titleText
         cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText

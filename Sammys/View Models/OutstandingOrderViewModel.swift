@@ -256,7 +256,7 @@ class OutstandingOrderViewModel {
             height: .automatic,
             actions: itemCellViewModelActions,
             configurationData: .init(
-                nameText: constructedItem.name,
+                titleText: constructedItem.name,
                 descriptionText: constructedItem.description,
                 priceText: constructedItem.totalPrice?.toUSDUnits().toPriceString(),
                 quantityText: constructedItem.quantity?.toString(),
@@ -274,7 +274,7 @@ extension OutstandingOrderViewModel {
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
-            let nameText: String?
+            let titleText: String?
             let descriptionText: String?
             let priceText: String?
             let quantityText: String?

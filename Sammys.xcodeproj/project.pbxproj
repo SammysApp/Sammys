@@ -20,6 +20,8 @@
 		5B05C7B520E4652800BDFBF4 /* UISplitViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B05C7B420E4652800BDFBF4 /* UISplitViewControllerExtensions.swift */; };
 		5B18CB1020D03238000C5CA4 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */; };
 		5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */; };
+		5B24C47322725F6A00ADCB49 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */; };
+		5B24C475227263CE00ADCB49 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24C474227263CE00ADCB49 /* OrderTableViewCell.swift */; };
 		5B2950CA218CBEF1008B0E49 /* UITableViewSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */; };
 		5B2C3C8622415B4A006BE7B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8522415B4A006BE7B3 /* User.swift */; };
 		5B2C3C8A22415ED8006BE7B3 /* UserAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */; };
@@ -226,6 +228,7 @@
 		5B18CB0F20D03238000C5CA4 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		5B213FD2221CA6FE0088F0EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2278592197CFA7003E3DE2 /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
+		5B24C474227263CE00ADCB49 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		5B2950C9218CBEF1008B0E49 /* UITableViewSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewSectionModel.swift; sourceTree = "<group>"; };
 		5B2C3C8522415B4A006BE7B3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAuthViewController.swift; sourceTree = "<group>"; };
@@ -403,6 +406,14 @@
 				5BC3890E2270C4FC001C0C17 /* Bell.wav */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		5B24C476227263D200ADCB49 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5B24C474227263CE00ADCB49 /* OrderTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5B2E17F5225D7229005DC635 /* Constants */ = {
@@ -632,6 +643,7 @@
 				5BF0A01B226A4F640066D880 /* Application */,
 				5BF0A017226A4F2A0066D880 /* View Models */,
 				5BF0A018226A4F370066D880 /* View Controllers */,
+				5B24C476227263D200ADCB49 /* Views */,
 				5BF0A019226A4F440066D880 /* Storyboards and Xibs */,
 				5BF0A01A226A4F550066D880 /* Property Lists */,
 				5B24C472227113C900ADCB49 /* Audio */,
@@ -1169,6 +1181,7 @@
 				5BC120AB22677CC900F271FD /* PurchasedOrdersViewModel.swift in Sources */,
 				5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */,
 				5BC120BD22677F5200F271FD /* Item.swift in Sources */,
+				5B24C47322725F6A00ADCB49 /* StackTableViewCell.swift in Sources */,
 				5BC120B022677D0C00F271FD /* HTTPHeaderName.swift in Sources */,
 				5BC120B722677D0C00F271FD /* URLSession+HTTPClient.swift in Sources */,
 				5BC120C522677F8100F271FD /* Collection.swift in Sources */,
@@ -1215,6 +1228,7 @@
 				5BC120CD22677F8100F271FD /* NSLayoutConstraintArray.swift in Sources */,
 				5BC120BF22677F5200F271FD /* OutstandingOrder.swift in Sources */,
 				5BC12097226779D300F271FD /* AppDelegate.swift in Sources */,
+				5B24C475227263CE00ADCB49 /* OrderTableViewCell.swift in Sources */,
 				5BC120C922677F8100F271FD /* Double.swift in Sources */,
 				5BC120B922677D1C00F271FD /* APIURLRequestFactory.swift in Sources */,
 				5BC120D722677F8100F271FD /* UIScrollView.swift in Sources */,

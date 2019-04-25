@@ -45,6 +45,8 @@ class PurchasedOrdersViewModel {
         static let purchasedOrdersTableViewSectionModelTitle = "ASAP"
         
         static let purchasedOrderCellViewModelHeight = Double(100)
+        
+        static let pickupDateFormatterFormat = "h:mm a"
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
@@ -115,11 +117,18 @@ class PurchasedOrdersViewModel {
     
     // MARK: - Cell View Model Methods
     private func makePurchasedOrderCellViewModel(purchasedOrder: PurchasedOrder) -> PurchasedOrderCellViewModel {
+        var pickupDateText: String?
+        let pickupDateFormatter = DateFormatter()
+        pickupDateFormatter.dateFormat = Constants.pickupDateFormatterFormat
+        if let preparedForDate = purchasedOrder.preparedForDate {
+            pickupDateText = pickupDateFormatter.string(from: preparedForDate)
+        }
+        
         return PurchasedOrderCellViewModel(
             identifier: CellIdentifier.orderTableViewCell.rawValue,
             height: .fixed(Constants.purchasedOrderCellViewModelHeight),
             actions: purchasedOrderCellViewModelActions,
-            configurationData: .init(titleText: purchasedOrder.user?.firstName),
+            configurationData: .init(titleText: purchasedOrder.user?.firstName, pickupDateText: pickupDateText),
             selectionData: .init(id: purchasedOrder.id, title: purchasedOrder.user?.firstName)
         )
     }
@@ -135,6 +144,7 @@ extension PurchasedOrdersViewModel {
         
         struct ConfigurationData {
             let titleText: String?
+            let pickupDateText: String?
         }
         
         struct SelectionData {

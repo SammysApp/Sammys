@@ -9,7 +9,7 @@
 import UIKit
 
 class ItemTableViewCell: StackTableViewCell {
-    let nameLabel = UILabel()
+    let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     let priceLabel = UILabel()
     let quantityView = CounterView()
@@ -55,7 +55,7 @@ class ItemTableViewCell: StackTableViewCell {
     required init?(coder aDecoder: NSCoder) { fatalError() }
     
     private func setUp() {
-        nameLabel.text = Constants.nameLabelDefaultText
+        titleLabel.text = Constants.nameLabelDefaultText
         descriptionLabel.text = Constants.descriptionLabelDefaultText
         descriptionLabel.numberOfLines = 0
         
@@ -63,7 +63,7 @@ class ItemTableViewCell: StackTableViewCell {
         quantityView.decrementButton.add(quantityViewDecrementButtonTouchUpInsideTarget, for: .touchUpInside)
         quantityView.incrementButton.add(quantityViewIncrementButtonTouchUpInsideTarget, for: .touchUpInside)
         
-        let leftStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
+        let leftStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         leftStackView.axis = .vertical
         
         let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
