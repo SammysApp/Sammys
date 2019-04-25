@@ -397,6 +397,14 @@
 			path = "Sammys/Property Lists";
 			sourceTree = SOURCE_ROOT;
 		};
+		5B24C472227113C900ADCB49 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				5BC3890E2270C4FC001C0C17 /* Bell.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		5B2E17F5225D7229005DC635 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,7 +634,7 @@
 				5BF0A018226A4F370066D880 /* View Controllers */,
 				5BF0A019226A4F440066D880 /* Storyboards and Xibs */,
 				5BF0A01A226A4F550066D880 /* Property Lists */,
-				5BC3890E2270C4FC001C0C17 /* Bell.wav */,
+				5B24C472227113C900ADCB49 /* Audio */,
 				5BC1209F226779D700F271FD /* Assets.xcassets */,
 			);
 			path = Kitchen;

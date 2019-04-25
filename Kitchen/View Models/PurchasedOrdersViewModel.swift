@@ -18,6 +18,10 @@ class PurchasedOrdersViewModel {
     var httpClient: HTTPClient
     
     // MARK: - Section Model Properties
+    private var scheduledPurchasedOrdersTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
+    
     private var purchasedOrdersTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
     }
@@ -37,6 +41,9 @@ class PurchasedOrdersViewModel {
     }
     
     private struct Constants {
+        static let scheduledPurchasedOrdersTableViewSectionModelTitle = "Scheduled"
+        static let purchasedOrdersTableViewSectionModelTitle = "ASAP"
+        
         static let purchasedOrderCellViewModelHeight = Double(100)
     }
     
@@ -47,11 +54,18 @@ class PurchasedOrdersViewModel {
     // MARK: - Setup Methods
     private func setUp(for purchasedOrders: [PurchasedOrder]) {
         self.purchasedOrders = purchasedOrders
+        updateScheduledPurchasedOrdersTableViewSectionModel()
         updatePurchasedOrdersTableViewSectionModel()
     }
     
+    private func updateScheduledPurchasedOrdersTableViewSectionModel() {
+        let scheduledPurchasedOrders = purchasedOrders.filter { $0.preparedForDate != nil }
+        scheduledPurchasedOrdersTableViewSectionModel = makeScheduledPurchasedOrdersTableViewSectionModel(purchasedOrders: scheduledPurchasedOrders)
+    }
+    
     private func updatePurchasedOrdersTableViewSectionModel() {
-        purchasedOrdersTableViewSectionModel = makePurchasedOrdersTableViewSectionModel(purchasedOrders: purchasedOrders)
+        let nonScheduledPurchasedOrders = purchasedOrders.filter { $0.preparedForDate == nil }
+        purchasedOrdersTableViewSectionModel = makePurchasedOrdersTableViewSectionModel(purchasedOrders: nonScheduledPurchasedOrders)
     }
     
     private func updateTableViewSectionModels() {
@@ -74,12 +88,25 @@ class PurchasedOrdersViewModel {
     }
     
     // MARK: - Section Model Methods
+    private func makeScheduledPurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel {
+        return UITableViewSectionModel(
+            title: Constants.scheduledPurchasedOrdersTableViewSectionModelTitle,
+            cellViewModels: purchasedOrders.map(makePurchasedOrderCellViewModel)
+        )
+    }
+    
     private func makePurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: purchasedOrders.map(makePurchasedOrderCellViewModel))
+        return UITableViewSectionModel(
+            title: Constants.purchasedOrdersTableViewSectionModelTitle,
+            cellViewModels: purchasedOrders.map(makePurchasedOrderCellViewModel)
+        )
     }
     
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
+        if let scheduledPurchasedOrdersModel = scheduledPurchasedOrdersTableViewSectionModel {
+            sectionModels.append(scheduledPurchasedOrdersModel)
+        }
         if let purchasedOrdersModel = purchasedOrdersTableViewSectionModel {
             sectionModels.append(purchasedOrdersModel)
         }
