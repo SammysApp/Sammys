@@ -17,6 +17,10 @@ class PurchasedOrdersViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private struct Constants {
+        static let purchasedOrderTableViewCellCompletedBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1).withAlphaComponent(0.15)
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +82,12 @@ class PurchasedOrdersViewController: UIViewController {
         
         cell.titleLabel.text = cellViewModel.configurationData.titleText
         cell.pickupDateLabel.text = cellViewModel.configurationData.pickupDateText
+        
+        switch cellViewModel.configurationData.progress {
+        case .isPending: cell.backgroundColor = nil
+        case .isPreparing: cell.backgroundColor = nil
+        case .isCompleted: cell.backgroundColor = Constants.purchasedOrderTableViewCellCompletedBackgroundColor
+        }
     }
     
     private func purchasedOrderTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {

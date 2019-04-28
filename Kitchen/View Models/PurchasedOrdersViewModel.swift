@@ -128,7 +128,7 @@ class PurchasedOrdersViewModel {
             identifier: CellIdentifier.orderTableViewCell.rawValue,
             height: .fixed(Constants.purchasedOrderCellViewModelHeight),
             actions: purchasedOrderCellViewModelActions,
-            configurationData: .init(titleText: purchasedOrder.user?.firstName, pickupDateText: pickupDateText),
+            configurationData: .init(titleText: purchasedOrder.user?.firstName, pickupDateText: pickupDateText, progress: purchasedOrder.progress),
             selectionData: .init(id: purchasedOrder.id, title: purchasedOrder.user?.firstName)
         )
     }
@@ -145,6 +145,7 @@ extension PurchasedOrdersViewModel {
         struct ConfigurationData {
             let titleText: String?
             let pickupDateText: String?
+            let progress: OrderProgress
         }
         
         struct SelectionData {
