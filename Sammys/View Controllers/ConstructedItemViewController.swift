@@ -46,6 +46,7 @@ class ConstructedItemViewController: UIViewController {
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelTextFontSize = CGFloat(20)
         static let completeButtonTitleLabelText = "Add to Bag"
+        static let completeButtonHeight = CGFloat(50)
     }
     
     // MARK: - Lifecycle Methods
@@ -75,6 +76,8 @@ class ConstructedItemViewController: UIViewController {
             .forEach { self.view.addSubview($0) }
         
         categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
+        
+        completeButton.height(Constants.completeButtonHeight)
         completeButton.centerX(to: self.view)
         completeButton.bottom(to: self.view.safeAreaLayoutGuide)
         
@@ -86,7 +89,8 @@ class ConstructedItemViewController: UIViewController {
     private func addChildren() {
         add(itemsViewController)
         view.sendSubviewToBack(itemsViewController.view)
-        itemsViewController.view.edgesToSuperview(usingSafeArea: true)
+        itemsViewController.view.topToSuperview(usingSafeArea: true)
+        itemsViewController.view.edgesToSuperview(excluding: .top)
     }
     
     private func configureNavigation() {
@@ -123,6 +127,8 @@ class ConstructedItemViewController: UIViewController {
         itemsViewController.tableView.contentInset.top =
             Constants.categoryCollectionViewHeight + (Constants.categoryCollectionViewInset * 2)
         itemsViewController.tableView.scrollIndicatorInsets.top = itemsViewController.tableView.contentInset.top
+        
+        itemsViewController.tableView.contentInset.bottom = Constants.completeButtonHeight
     }
     
     private func configureCompleteButton() {
@@ -145,7 +151,9 @@ class ConstructedItemViewController: UIViewController {
         viewModel.selectedCategoryID.bindAndRun { value in
             guard let id = value else { return }
             self.itemsViewController.viewModel.categoryID = id
-            self.itemsViewController.viewModel.beginDownloads()
+            self.itemsViewController.viewModel.beginDownloads() {
+                self.itemsViewController.tableView.scrollToTop(animated: false)
+            }
         }
         viewModel.selectedCategoryName.bindAndRun { value in
             guard let name = value else { return }

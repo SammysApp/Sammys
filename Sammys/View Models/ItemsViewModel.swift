@@ -101,9 +101,10 @@ class ItemsViewModel {
     }
     
     // MARK: - Download Methods
-    func beginDownloads() {
+    func beginDownloads(successHandler: @escaping () -> Void = {}) {
         firstly { self.beginCategoryDownload() }
             .then { self.beginItemsDownload() }
+            .done(successHandler)
             .catch(errorHandler)
     }
     
