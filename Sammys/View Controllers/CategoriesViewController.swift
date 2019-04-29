@@ -39,6 +39,12 @@ class CategoriesViewController: UIViewController {
         viewModel.beginDownloads()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.deselectSelectedRow(animated: animated)
+    }
+    
     // MARK: - Setup Methods
     private func setUpView() {
         addSubviews()

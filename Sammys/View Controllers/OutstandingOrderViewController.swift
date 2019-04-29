@@ -46,11 +46,7 @@ class OutstandingOrderViewController: UIViewController {
         addChildren()
         configureViewModel()
         
-        if viewModel.isUserSignedIn {
-            viewModel.beginUserIDDownload {
-                self.viewModel.beginDownloads()
-            }
-        } else { viewModel.beginDownloads() }
+        beginDownloads()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +138,15 @@ class OutstandingOrderViewController: UIViewController {
             default: print(value.localizedDescription)
             }
         }
+    }
+    
+    // MARK: - Methods
+    func beginDownloads() {
+        if viewModel.isUserSignedIn && !viewModel.isUserSet.value {
+            viewModel.beginUserIDDownload {
+                self.viewModel.beginDownloads()
+            }
+        } else { viewModel.beginDownloads() }
     }
     
     // MARK: - Factory Methods
