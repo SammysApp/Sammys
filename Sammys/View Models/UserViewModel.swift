@@ -21,7 +21,9 @@ class UserViewModel {
     // MARK: - View Settable Properties
     /// Required to be non-`nil`. Calling `beginDownloads()`
     /// will attempt to get the current user and set this property.
-    var userID: User.ID?
+    var userID: User.ID? {
+        didSet { updateButtonsTableViewSectionModel() }
+    }
     
     var userDetailTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
     
@@ -32,7 +34,11 @@ class UserViewModel {
     var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - Dynamic Properties
+    let title: Dynamic<String?> = Dynamic(Constants.defaultTitle)
+    
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
+    
+    let isLoading = Dynamic(false)
     
     // MARK: - Section Model Properties
     private var userDetailsTableViewSectionModel: UITableViewSectionModel? {
@@ -48,6 +54,8 @@ class UserViewModel {
     }
     
     private struct Constants {
+        static let defaultTitle = "User"
+        
         static let userDetailTableViewCellModelNameTitle = "Name"
         static let userDetailTableViewCellModelEmailTitle = "Email"
         
@@ -68,6 +76,7 @@ class UserViewModel {
     
     // MARK: - Setup Methods
     private func setUp(for user: User) {
+        title.value = user.firstName
         userDetailsTableViewSectionModel = makeUserDetailsTableViewSectionModel(cellModels: makeUserDetailTableViewCellModels(user: user))
     }
     
@@ -87,7 +96,9 @@ class UserViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         beginUserDownload()
+            .ensure { self.isLoading.value = false }
             .catch { self.errorHandler($0) }
     }
     
@@ -135,13 +146,15 @@ class UserViewModel {
     // MARK: - Cell Model Methods
     private func makeUserDetailTableViewCellModels(user: User) -> [UserDetailTableViewCellModel] {
         return [
-            UserDetailTableViewCellModel(title: Constants.userDetailTableViewCellModelNameTitle, text: user.firstName + " " + user.lastName),
+            UserDetailTableViewCellModel(title: Constants.userDetailTableViewCellModelNameTitle, text: user.fullName),
             UserDetailTableViewCellModel(title: Constants.userDetailTableViewCellModelEmailTitle, text: user.email)
         ]
     }
     
     private func makeButtonTableViewCellModels() -> [ButtonTableViewCellModel] {
-        return Button.allCases.map(ButtonTableViewCellModel.init)
+        var cellModels = [ButtonTableViewCellModel]()
+        if userID != nil { cellModels.append(.init(button: .logOut)) }
+        return cellModels
     }
     
     // MARK: - Cell View Model Methods
@@ -192,6 +205,7 @@ extension UserViewModel {
     struct UserDetailTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
+        let isSelectable = false
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         

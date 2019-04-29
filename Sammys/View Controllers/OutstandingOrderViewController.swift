@@ -75,6 +75,7 @@ class OutstandingOrderViewController: UIViewController {
         [tableView, loadingView]
             .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        
         loadingView.centerInSuperview()
         loadingView.height(Constants.loadingViewHeight)
         loadingView.width(Constants.loadingViewWidth)

@@ -18,3 +18,7 @@ final class User: Codable {
     let firstName: String
     let lastName: String
 }
+
+extension User {
+    var fullName: String { return firstName + " " + lastName }
+}

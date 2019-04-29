@@ -27,6 +27,10 @@ class UITableViewSectionModelsDelegate: NSObject, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return sectionModels.cellViewModel(for: indexPath).isSelectable ? indexPath : nil
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sectionModels.cellViewModel(for: indexPath).perform(.selection, indexPath: indexPath)
     }
