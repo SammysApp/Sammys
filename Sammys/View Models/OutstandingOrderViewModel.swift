@@ -43,6 +43,7 @@ class OutstandingOrderViewModel {
     
     let taxPriceText: Dynamic<String?> = Dynamic(nil)
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
+    let isItemsEmpty: Dynamic<Bool?> = Dynamic(nil)
     
     private(set) lazy var isUserSet = Dynamic(userID != nil)
     
@@ -78,6 +79,7 @@ class OutstandingOrderViewModel {
     
     private func setUp(for constructedItems: [ConstructedItem]) {
         constructedItemsTableViewSectionModel = makeConstructedItemsTableViewSectionModel(constructedItems: constructedItems)
+        isItemsEmpty.value = constructedItems.isEmpty
     }
     
     private func updateTableViewSectionModels() {

@@ -218,6 +218,10 @@ class ConstructedItemViewController: UIViewController {
     
     private func completeButtonTouchUpInsideAction() {
         viewModel.beginAddToOutstandingOrderDownload() {
+            if let outstandingOrderViewController = self.tabBarController?.viewControllers?[outstandingOrderViewControllerTabBarControllerIndex] {
+                outstandingOrderViewController.showEmptyBadge()
+            }
+            
             self.navigationController?.popToRootViewController(animated: true)
         }
     }

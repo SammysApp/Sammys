@@ -16,6 +16,10 @@ let appEnvironment = AppEnvironment.development
 let appEnvironment = AppEnvironment.production
 #endif
 
+let homeViewControllerTabBarControllerIndex = 0
+let favoritesViewControllerTabBarControllerIndex = 1
+let outstandingOrderViewControllerTabBarControllerIndex = 2
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
@@ -25,13 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         static let tabBarControllerTabBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
-        static let homeTabBarItemTitle = "Home"
-        static let favoritesTabBarItemTitle = "Favorites"
-        static let outstandingOrderTitle = "Bag"
+        static let homeViewControllerTabBarItemTitle = "Home"
+        static let homeViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Home")
         
-        static let homeTabBarItemImage = #imageLiteral(resourceName: "TabBar.Home")
-        static let favoritesTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
-        static let outstandingOrderTabBarItemImage = #imageLiteral(resourceName: "TabBar.Bag")
+        static let favoritesViewControllerTabBarItemTitle = "Favorites"
+        static let favoritesViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
+        
+        static let outstandingOrderViewControllerTitle = "Bag"
+        static let outstandingOrderViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Bag")
+        static let outstandingOrderViewControllerTabBarItemBadgeColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -53,14 +59,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.tintColor = Constants.tabBarControllerTabBarTintColor
         
         let homeViewController = HomeViewController()
-        homeViewController.tabBarItem = .init(title: Constants.homeTabBarItemTitle, image: Constants.homeTabBarItemImage , tag: 0)
+        homeViewController.tabBarItem = .init(
+            title: Constants.homeViewControllerTabBarItemTitle,
+            image: Constants.homeViewControllerTabBarItemImage,
+            tag: homeViewControllerTabBarControllerIndex
+        )
         
         let favoritesViewController = UIViewController()
-        favoritesViewController.tabBarItem = .init(title: Constants.favoritesTabBarItemTitle, image: Constants.favoritesTabBarItemImage, tag: 1)
+        favoritesViewController.tabBarItem = .init(
+            title: Constants.favoritesViewControllerTabBarItemTitle,
+            image: Constants.favoritesViewControllerTabBarItemImage,
+            tag: favoritesViewControllerTabBarControllerIndex
+        )
         
         let outstandingOrderViewController = OutstandingOrderViewController()
-        outstandingOrderViewController.title = Constants.outstandingOrderTitle
-        outstandingOrderViewController.tabBarItem = .init(title: Constants.outstandingOrderTitle, image: Constants.outstandingOrderTabBarItemImage, tag: 2)
+        outstandingOrderViewController.title = Constants.outstandingOrderViewControllerTitle
+        outstandingOrderViewController.tabBarItem = .init(
+            title: Constants.outstandingOrderViewControllerTitle,
+            image: Constants.outstandingOrderViewControllerTabBarItemImage,
+            tag: outstandingOrderViewControllerTabBarControllerIndex
+        )
+        outstandingOrderViewController.tabBarItem.badgeColor = Constants.outstandingOrderViewControllerTabBarItemBadgeColor
         
         tabBarController.viewControllers = [homeViewController, favoritesViewController, outstandingOrderViewController]
             .map { UINavigationController(rootViewController: $0) }

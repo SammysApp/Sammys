@@ -53,6 +53,19 @@ class OutstandingOrderViewController: UIViewController {
         } else { viewModel.beginDownloads() }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.delegate = self
+        self.clearBadge()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.tabBarController?.delegate = nil
+    }
+    
     // MARK: - Setup Methods
     private func setUpView() {
         addSubviews()
@@ -108,6 +121,10 @@ class OutstandingOrderViewController: UIViewController {
         
         viewModel.taxPriceText.bindAndRun { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
         viewModel.subtotalPriceText.bindAndRun { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
+        viewModel.isItemsEmpty.bindAndRun { value in
+            guard let isItemsEmpty = value else { return }
+            if isItemsEmpty { self.clearBadge() }
+        }
         
         viewModel.isUserSet.bindAndRun { value in
             self.checkoutSheetViewController.checkoutButton.titleLabel.text = value ? Constants.checkoutSheetCheckoutButtonTitleLabelDefaultText : Constants.checkoutSheetCheckoutButtonTitleLabelSignInText
@@ -174,6 +191,15 @@ class OutstandingOrderViewController: UIViewController {
                 let currentQuantity = Int(currentQuantityText) else { return }
             
             self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: currentQuantity + 1)
+        }
+    }
+}
+
+extension OutstandingOrderViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        // Show badge if changing view controllers and there are items.
+        if viewController != self && viewModel.isItemsEmpty.value == false {
+            self.showEmptyBadge()
         }
     }
 }
