@@ -26,10 +26,6 @@ class RoundedButton: UIControl {
         didSet { update() }
     }
     
-    private struct Constants {
-        static let titleLabelInset = CGFloat(10)
-    }
-    
     override init(frame: CGRect) { super.init(frame: frame); setUp() }
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
@@ -48,7 +44,7 @@ class RoundedButton: UIControl {
             .forEach { self.addSubview($0) }
         
         titleLabel.textAlignment = .center
-        titleLabel.edgesToSuperview(insets: .uniform(Constants.titleLabelInset))
+        titleLabel.centerInSuperview()
         
         imageView.centerInSuperview()
     }

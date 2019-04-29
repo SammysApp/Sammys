@@ -108,6 +108,11 @@ class UserViewController: UIViewController {
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
         let userAuthPageViewController = UserAuthPageViewController()
+        userAuthPageViewController.didCancelHandler = {
+            userAuthPageViewController.dismiss(animated: true) {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
         
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id

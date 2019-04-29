@@ -68,7 +68,7 @@ class UserAuthViewModel {
         static let textFieldTableViewCellModelEmailTitle = "Email"
         static let textFieldTableViewCellModelPasswordTitle = "Password"
         
-        static let textFieldTableViewCellViewModelHeight = Double(50)
+        static let textFieldTableViewCellViewModelHeight = Double(60)
         
         static let completedButtonNewUserStatusText = "Sign Up"
         static let completedButtonExistingUserStatusText = "Sign In"
@@ -171,7 +171,11 @@ class UserAuthViewModel {
             identifier: CellIdentifier.textFieldTableViewCell.rawValue,
             height: .fixed(Constants.textFieldTableViewCellViewModelHeight),
             actions: textFieldTableViewCellViewModelActions,
-            configurationData: .init(title: cellModel.title) { self.userData[keyPath: cellModel.userDataKey] = $0 }
+            configurationData: .init(
+                title: cellModel.title,
+                isEmailTextEntry: cellModel.userDataKey == \.email,
+                isSecureTextEntry: cellModel.userDataKey == \.password
+            ) { self.userData[keyPath: cellModel.userDataKey] = $0 }
         )
     }
 }
@@ -207,6 +211,8 @@ extension UserAuthViewModel {
         
         struct ConfigurationData {
             let title: String
+            let isEmailTextEntry: Bool
+            let isSecureTextEntry: Bool
             let textFieldTextDidUpdateHandler: (String?) -> Void
         }
     }

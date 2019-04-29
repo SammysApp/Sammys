@@ -46,7 +46,8 @@ class ConstructedItemViewController: UIViewController {
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelTextFontSize = CGFloat(20)
         static let completeButtonTitleLabelText = "Add to Bag"
-        static let completeButtonHeight = CGFloat(50)
+        static let completeButtonHeight = CGFloat(60)
+        static let completeButtonSideInset = CGFloat(10)
     }
     
     // MARK: - Lifecycle Methods
@@ -78,8 +79,7 @@ class ConstructedItemViewController: UIViewController {
         categoryCollectionView.edgesToSuperview(excluding: .bottom, insets: .top(Constants.categoryCollectionViewInset), usingSafeArea: true)
         
         completeButton.height(Constants.completeButtonHeight)
-        completeButton.centerX(to: self.view)
-        completeButton.bottom(to: self.view.safeAreaLayoutGuide)
+        completeButton.edgesToSuperview(excluding: .top, insets: .init(top: 0, left: Constants.completeButtonSideInset, bottom: 0, right: Constants.completeButtonSideInset), usingSafeArea: true)
         
         loadingView.centerInSuperview()
         loadingView.height(Constants.loadingViewHeight)

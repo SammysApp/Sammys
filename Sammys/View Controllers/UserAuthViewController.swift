@@ -21,11 +21,15 @@ class UserAuthViewController: UIViewController {
     
     private struct Constants {
         static let textFieldTableViewCellTitleLabelWidth = CGFloat(120)
+        static let textFieldTableViewCellTextFieldTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
         static let tableViewTableFooterViewHeight = CGFloat(60)
         
-        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
+        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let completeButtonTitleLabelTextColor = UIColor.white
+        static let completeButtonTitleLabelFontSize = CGFloat(20)
+        static let completeButtonTitleLabelFontWeight = UIFont.Weight.medium
+        static let completeButtonSideInset = CGFloat(10)
     }
     
     // MARK: - Lifecycle Methods
@@ -58,6 +62,7 @@ class UserAuthViewController: UIViewController {
     private func configureCompleteButton() {
         completeButton.backgroundColor = Constants.completeButtonBackgroundColor
         completeButton.titleLabel.textColor = Constants.completeButtonTitleLabelTextColor
+        completeButton.titleLabel.font = .systemFont(ofSize: Constants.completeButtonTitleLabelFontSize, weight: Constants.completeButtonTitleLabelFontWeight)
         completeButton.add(completeButtonTouchUpInsideTarget, for: .touchUpInside)
     }
     
@@ -83,9 +88,9 @@ class UserAuthViewController: UIViewController {
     
     // MARK: - Factory Methods
     private func makeTableViewTableFooterView() -> UIView {
-        let footerView = UIView(frame: .init(x: 0, y: 0, width: tableView.frame.width, height: Constants.tableViewTableFooterViewHeight))
+        let footerView = UIView(frame: .init(x: 0, y: 0, width: 0, height: Constants.tableViewTableFooterViewHeight))
         footerView.addSubview(completeButton)
-        completeButton.edgesToSuperview()
+        completeButton.edgesToSuperview(insets: .init(top: 0, left: Constants.completeButtonSideInset, bottom: 0, right: Constants.completeButtonSideInset))
         return footerView
     }
     
@@ -101,6 +106,16 @@ class UserAuthViewController: UIViewController {
         
         cell.titleLabelWidth = Constants.textFieldTableViewCellTitleLabelWidth
         cell.titleLabel.text = cellViewModel.configurationData.title
+        
+        cell.textField.tintColor = Constants.textFieldTableViewCellTextFieldTintColor
+        if cellViewModel.configurationData.isEmailTextEntry {
+            cell.textField.keyboardType = .emailAddress
+            cell.textField.autocapitalizationType = .none
+        } else {
+            cell.textField.keyboardType = .default
+            cell.textField.autocapitalizationType = .words
+        }
+        cell.textField.isSecureTextEntry = cellViewModel.configurationData.isSecureTextEntry
         cell.textFieldTextUpdateHandler = cellViewModel.configurationData.textFieldTextDidUpdateHandler
     }
 }

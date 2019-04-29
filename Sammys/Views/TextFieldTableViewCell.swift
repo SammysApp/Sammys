@@ -22,6 +22,10 @@ class TextFieldTableViewCell: UITableViewCell {
     private var titleLabelWidthConstraint: NSLayoutConstraint?
     private lazy var textFieldEditingChangedTarget = Target { self.textFieldTextUpdateHandler(self.textField.text) }
     
+    private struct Constants {
+        static let stackViewSpacing = CGFloat(10)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -32,9 +36,9 @@ class TextFieldTableViewCell: UITableViewCell {
     
     private func setUp() {
         titleLabel.textAlignment = .right
-        
         textField.add(textFieldEditingChangedTarget, for: .editingChanged)
         
+        stackView.spacing = Constants.stackViewSpacing
         self.addSubview(stackView)
         stackView.edgesToSuperview()
     }

@@ -16,13 +16,18 @@ class UserAuthPageViewController: UIViewController {
     let existingUserAuthViewController = UserAuthViewController()
     let newUserAuthViewController = UserAuthViewController()
     
-    private lazy var userStatusSegmentedControlValueChangedTarget = Target(action: userStatusSegmentedControlValueChangedTargetAction)
+    private lazy var userStatusSegmentedControlValueChangedTarget = Target(action: userStatusSegmentedControlValueChangedAction)
+    private lazy var cancelBarButtonItemTarget = Target(action: didCancelHandler)
     
     var selectedUserStatusSegmentedControlSegment: UserStatusSegmentedControlSegment = .existing {
         didSet { update() }
     }
     
+    var didCancelHandler: () -> Void = {}
+    
     private struct Constants {
+        static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
         static let existingUserStatusSegmentedControlSegmentTitle = "Sign In"
         static let newUserStatusSegmentedControlSegmentTitle = "Sign Up"
     }
@@ -48,7 +53,9 @@ class UserAuthPageViewController: UIViewController {
     }
     
     private func configureNavigation() {
+        self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
         self.navigationItem.titleView = userStatusSegmentedControl
+        self.navigationItem.leftBarButtonItem = .init(barButtonSystemItem: .cancel, target: cancelBarButtonItemTarget)
     }
     
     private func configureUserStatusSegmentedControl() {
@@ -77,7 +84,7 @@ class UserAuthPageViewController: UIViewController {
     }
     
     // MARK: - Target Actions
-    private func userStatusSegmentedControlValueChangedTargetAction() {
+    private func userStatusSegmentedControlValueChangedAction() {
         guard let segment = UserStatusSegmentedControlSegment(rawValue: userStatusSegmentedControl.selectedSegmentIndex) else { return }
         
         selectedUserStatusSegmentedControlSegment = segment
