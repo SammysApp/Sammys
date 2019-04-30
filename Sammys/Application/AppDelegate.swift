@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SquareInAppPaymentsSDK
+import TinyConstraints
 
 #if DEBUG
 let appEnvironment = AppEnvironment.development

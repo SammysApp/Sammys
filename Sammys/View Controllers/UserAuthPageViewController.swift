@@ -28,6 +28,7 @@ class UserAuthPageViewController: UIViewController {
     private struct Constants {
         static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
+        static let userStatusSegmentedControlTintColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         static let existingUserStatusSegmentedControlSegmentTitle = "Sign In"
         static let newUserStatusSegmentedControlSegmentTitle = "Sign Up"
     }
@@ -61,6 +62,7 @@ class UserAuthPageViewController: UIViewController {
     private func configureUserStatusSegmentedControl() {
         UserStatusSegmentedControlSegment.allCases
             .forEach { self.userStatusSegmentedControl.insertSegment(withTitle: $0.title, at: $0.rawValue, animated: false) }
+        userStatusSegmentedControl.tintColor = Constants.userStatusSegmentedControlTintColor
         userStatusSegmentedControl.add(userStatusSegmentedControlValueChangedTarget, for: .valueChanged)
     }
     

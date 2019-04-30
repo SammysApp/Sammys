@@ -25,6 +25,8 @@ class OutstandingOrderViewController: UIViewController {
     private lazy var tapGestureRecognizerTarget = Target(action: tapGestureRecognizerAction)
     
     private struct Constants {
+        static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
         static let loadingViewHeight = CGFloat(100)
         static let loadingViewWidth = CGFloat(100)
         
@@ -36,7 +38,10 @@ class OutstandingOrderViewController: UIViewController {
         static let itemTableViewCellQuantityViewButtonsImageColor = UIColor.white
         
         static let checkoutSheetViewControllerViewBackgroundColor = UIColor.white
-        static let checkoutSheetViewControllerViewHeight = CGFloat(120)
+        static let checkoutSheetViewControllerViewLayerBorderColor = UIColor.lightGray.cgColor
+        static let checkoutSheetViewControllerViewLayerBorderWidth = CGFloat(0.5)
+        static let checkoutSheetViewControllerViewLayerCornerRadius = CGFloat(25)
+        static let checkoutSheetViewControllerViewHeight = CGFloat(140)
         static let checkoutSheetCheckoutButtonTitleLabelDefaultText = "Checkout"
         static let checkoutSheetCheckoutButtonTitleLabelSignInText = "Sign In to Checkout"
     }
@@ -51,6 +56,7 @@ class OutstandingOrderViewController: UIViewController {
         configureTapGestureRecognizer()
         setUpView()
         addChildren()
+        configureNavigation()
         configureViewModel()
         
         beginDownloads()
@@ -88,7 +94,11 @@ class OutstandingOrderViewController: UIViewController {
     private func addChildren() {
         self.add(checkoutSheetViewController)
         checkoutSheetViewController.view.height(Constants.checkoutSheetViewControllerViewHeight)
-        checkoutSheetViewController.view.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        checkoutSheetViewController.view.edgesToSuperview(excluding: .top, insets: .init(top: 0, left: -Constants.checkoutSheetViewControllerViewLayerBorderWidth, bottom: -Constants.checkoutSheetViewControllerViewLayerBorderWidth, right: -Constants.checkoutSheetViewControllerViewLayerBorderWidth), usingSafeArea: true)
+    }
+    
+    private func configureNavigation() {
+        self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
     }
     
     private func configureTableView() {
@@ -100,6 +110,11 @@ class OutstandingOrderViewController: UIViewController {
     
     private func configureCheckoutSheetViewController() {
         checkoutSheetViewController.view.backgroundColor = Constants.checkoutSheetViewControllerViewBackgroundColor
+        checkoutSheetViewController.view.layer.borderColor = Constants.checkoutSheetViewControllerViewLayerBorderColor
+        checkoutSheetViewController.view.layer.borderWidth = Constants.checkoutSheetViewControllerViewLayerBorderWidth
+        checkoutSheetViewController.view.layer.cornerRadius = Constants.checkoutSheetViewControllerViewLayerCornerRadius
+        checkoutSheetViewController.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         checkoutSheetViewController.checkoutButtonTouchUpInsideHandler = {
             if self.viewModel.isUserSet.value {
                 self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
@@ -195,6 +210,8 @@ class OutstandingOrderViewController: UIViewController {
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ItemTableViewCellViewModel,
             let cell = data.cell as? ItemTableViewCell else { return }
+        
+        cell.selectionStyle = .none
         
         cell.titleLabel.font = .systemFont(ofSize: cell.titleLabel.font.pointSize, weight: Constants.itemTableViewCellTitleLabelFontWeight)
         cell.titleLabel.text = cellViewModel.configurationData.titleText

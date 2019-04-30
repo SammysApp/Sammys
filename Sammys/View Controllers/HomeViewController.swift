@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class HomeViewController: UIViewController {
     let viewModel = HomeViewModel()

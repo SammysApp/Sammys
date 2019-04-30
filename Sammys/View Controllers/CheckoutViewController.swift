@@ -27,25 +27,32 @@ class CheckoutViewController: UIViewController {
     private lazy var applePayButtonTouchUpInsideTarget = Target(action: applePayButtonTouchUpInsideAction)
     
     private struct Constants {
+        static let title = "Checkout"
+        
         static let paymentMethodTableViewCellTextLabelText = "Payment Method"
         
         static let pickupDateTableViewCellTextLabelText = "Pickup"
         
         static let payButtonsStackViewHeight = CGFloat(60)
+        static let payButtonsStackViewHorizontalInset = CGFloat(10)
         
-        static let payButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        static let payButtonBackgroundColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        static let payButtonTitleLabelFontWeight = UIFont.Weight.medium
+        static let payButtonTitleLabelFontSize = CGFloat(20)
         static let payButtonTitleLabelTextColor = UIColor.white
-        static let payButtonTitleLabelText = "Pay"
+        static let payButtonTitleLabelText = "Buy with Card"
         
         static let applePayButtonCornerRadiusMultiplier = CGFloat(0.2)
         
         static let datePickerViewControllerMinuteInterval = 15
+        static let datePickerViewControllerTitle = "Pickup"
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUp()
         configureTableView()
         configurePayButton()
         configureApplePayButton()
@@ -58,6 +65,10 @@ class CheckoutViewController: UIViewController {
     }
     
     // MARK: - Setup Methods
+    private func setUp() {
+        self.title = Constants.title
+    }
+    
     private func setUpView() {
         addSubviews()
     }
@@ -67,7 +78,7 @@ class CheckoutViewController: UIViewController {
             .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
         payButtonsStackView.height(Constants.payButtonsStackViewHeight)
-        payButtonsStackView.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        payButtonsStackView.edgesToSuperview(excluding: .top, insets: .init(top: 0, left: Constants.payButtonsStackViewHorizontalInset, bottom: 0, right: Constants.payButtonsStackViewHorizontalInset), usingSafeArea: true)
     }
     
     private func configureTableView() {
@@ -85,6 +96,7 @@ class CheckoutViewController: UIViewController {
     
     private func configurePayButton() {
         payButton.backgroundColor = Constants.payButtonBackgroundColor
+        payButton.titleLabel.font = .systemFont(ofSize: Constants.payButtonTitleLabelFontSize, weight: Constants.payButtonTitleLabelFontWeight)
         payButton.titleLabel.textColor = Constants.payButtonTitleLabelTextColor
         payButton.titleLabel.text = Constants.payButtonTitleLabelText
         payButton.add(payButtonTouchUpInsideTarget, for: .touchUpInside)
@@ -100,6 +112,7 @@ class CheckoutViewController: UIViewController {
     }
     
     private func configureDatePickerViewController() {
+        datePickerViewController.title = Constants.datePickerViewControllerTitle
         datePickerViewController.viewModel.minuteInterval = Constants.datePickerViewControllerMinuteInterval
         
         datePickerViewController.didSelectDateHandler = { date in

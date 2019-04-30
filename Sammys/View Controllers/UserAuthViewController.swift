@@ -25,7 +25,7 @@ class UserAuthViewController: UIViewController {
         
         static let tableViewTableFooterViewHeight = CGFloat(60)
         
-        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        static let completeButtonBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         static let completeButtonTitleLabelTextColor = UIColor.white
         static let completeButtonTitleLabelFontSize = CGFloat(20)
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.medium

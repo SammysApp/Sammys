@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Starscream
+import TinyConstraints
 
 #if DEBUG
 let appEnvironment = AppEnvironment.development

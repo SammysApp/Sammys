@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TinyConstraints
 
 class PurchasedOrdersViewController: UIViewController {
     let viewModel = PurchasedOrdersViewModel()

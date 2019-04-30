@@ -272,6 +272,7 @@ extension OutstandingOrderViewModel {
     struct ItemTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
+        let isSelectable = false
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         

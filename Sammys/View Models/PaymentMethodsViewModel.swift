@@ -42,6 +42,8 @@ class PaymentMethodsViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let isLoading = Dynamic(false)
+    
     // MARK: - Section Model Properties
     private var paymentMethodsTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
@@ -91,7 +93,9 @@ class PaymentMethodsViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         beginCardsDownload()
+            .ensure { self.isLoading.value = false }
             .catch(errorHandler)
     }
     

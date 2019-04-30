@@ -52,8 +52,8 @@ class ItemTableViewCell: StackTableViewCell {
         
         static let contentStackViewSpacing = CGFloat(5)
         
-        static let contentStackViewVerticalInset = CGFloat(10)
-        static let contentStackViewHorizontalInset = CGFloat(15)
+        static let contentStackViewVerticalLayoutMargin = CGFloat(10)
+        static let contentStackViewHorizontalLayoutMargin = CGFloat(15)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -83,7 +83,7 @@ class ItemTableViewCell: StackTableViewCell {
         
         self.contentStackView.axis = .vertical
         self.contentStackView.spacing = Constants.contentStackViewSpacing
-        self.contentStackView.directionalLayoutMargins = .init(top: Constants.contentStackViewVerticalInset, leading: Constants.contentStackViewHorizontalInset, bottom: Constants.contentStackViewVerticalInset, trailing: Constants.contentStackViewHorizontalInset)
+        self.contentStackView.directionalLayoutMargins = .init(top: Constants.contentStackViewVerticalLayoutMargin, leading: Constants.contentStackViewHorizontalLayoutMargin, bottom: Constants.contentStackViewVerticalLayoutMargin, trailing: Constants.contentStackViewHorizontalLayoutMargin)
         self.contentStackView.isLayoutMarginsRelativeArrangement = true
         self.contentStackView.addArrangedSubview(splitStackView)
         self.contentStackView.addArrangedSubview(quantityView)
