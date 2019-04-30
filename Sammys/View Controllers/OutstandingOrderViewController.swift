@@ -17,8 +17,12 @@ class OutstandingOrderViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
+    
+    private lazy var tapGestureRecognizerTarget = Target(action: tapGestureRecognizerAction)
     
     private struct Constants {
         static let loadingViewHeight = CGFloat(100)
@@ -26,6 +30,8 @@ class OutstandingOrderViewController: UIViewController {
         
         static let tableViewEstimatedRowHeight = CGFloat(100)
         
+        static let itemTableViewCellTitleLabelFontWeight = UIFont.Weight.medium
+        static let itemTableViewCellDescriptionLabelTextColor = UIColor.lightGray
         static let itemTableViewCellQuantityViewButtonsBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         static let itemTableViewCellQuantityViewButtonsImageColor = UIColor.white
         
@@ -42,6 +48,7 @@ class OutstandingOrderViewController: UIViewController {
         configureTableView()
         configureCheckoutSheetViewController()
         configureLoadingView()
+        configureTapGestureRecognizer()
         setUpView()
         addChildren()
         configureViewModel()
@@ -65,6 +72,7 @@ class OutstandingOrderViewController: UIViewController {
     // MARK: - Setup Methods
     private func setUpView() {
         addSubviews()
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func addSubviews() {
@@ -103,6 +111,10 @@ class OutstandingOrderViewController: UIViewController {
     
     private func configureLoadingView() {
         loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
+    }
+    
+    private func configureTapGestureRecognizer() {
+        tapGestureRecognizer.isEnabled = false
     }
     
     private func configureViewModel() {
@@ -173,18 +185,37 @@ class OutstandingOrderViewController: UIViewController {
         return checkoutViewController
     }
     
+    // MARK: - Target Actions
+    private func tapGestureRecognizerAction() {
+        self.view.endEditing(true)
+        tapGestureRecognizer.isEnabled = false
+    }
+    
     // MARK: - Cell Actions
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? OutstandingOrderViewModel.ItemTableViewCellViewModel,
             let cell = data.cell as? ItemTableViewCell else { return }
         
+        cell.titleLabel.font = .systemFont(ofSize: cell.titleLabel.font.pointSize, weight: Constants.itemTableViewCellTitleLabelFontWeight)
         cell.titleLabel.text = cellViewModel.configurationData.titleText
+        
+        cell.descriptionLabel.textColor = Constants.itemTableViewCellDescriptionLabelTextColor
         cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
+        
         cell.priceLabel.text = cellViewModel.configurationData.priceText
+        
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
+        cell.quantityView.counterTextField.delegate = self
         
         cell.quantityViewButtonsBackgroundColor = Constants.itemTableViewCellQuantityViewButtonsBackgroundColor
         cell.quantityViewButtonsImageColor = Constants.itemTableViewCellQuantityViewButtonsImageColor
+        
+        cell.quantityViewTextFieldTextUpdateHandler = { quantityView in
+            guard let quantityText = quantityView.counterTextField.text,
+                let quantity = Int(quantityText) else { return }
+            
+            self.viewModel.beginUpdateConstructedItemQuantityDownload(constructedItemID: cellViewModel.configurationData.constructedItemID, quantity: quantity)
+        }
         
         cell.quantityViewDidDecrementHandler = { quantityView in
             guard let currentQuantityText = quantityView.counterTextField.text,
@@ -207,5 +238,11 @@ extension OutstandingOrderViewController: UITabBarControllerDelegate {
         if viewController != self && viewModel.isItemsEmpty.value == false {
             self.showEmptyBadge()
         }
+    }
+}
+
+extension OutstandingOrderViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        tapGestureRecognizer.isEnabled = true
     }
 }

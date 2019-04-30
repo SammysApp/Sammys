@@ -21,6 +21,12 @@ class ItemTableViewCell: StackTableViewCell {
         didSet { update() }
     }
     
+    var quantityViewTextFieldTextUpdateHandler: (CounterView) -> Void = { _ in } {
+        didSet {
+            quantityViewTextFieldEditingChangedTarget.action = { self.quantityViewTextFieldTextUpdateHandler(self.quantityView) }
+        }
+    }
+    
     var quantityViewDidDecrementHandler: (CounterView) -> Void = { _ in } {
         didSet {
             quantityViewDecrementButtonTouchUpInsideTarget.action =
@@ -34,16 +40,20 @@ class ItemTableViewCell: StackTableViewCell {
         }
     }
     
+    private lazy var quantityViewTextFieldEditingChangedTarget = Target { self.quantityViewTextFieldTextUpdateHandler(self.quantityView) }
+    
     private lazy var quantityViewDecrementButtonTouchUpInsideTarget =
         Target { self.quantityViewDidDecrementHandler(self.quantityView) }
     private lazy var quantityViewIncrementButtonTouchUpInsideTarget =
         Target { self.quantityViewDidIncrementHandler(self.quantityView) }
     
     private struct Constants {
-        static let nameLabelDefaultText = "Name"
-        static let descriptionLabelDefaultText = "Description"
-        
         static let quantityViewHeight = CGFloat(40)
+        
+        static let contentStackViewSpacing = CGFloat(5)
+        
+        static let contentStackViewVerticalInset = CGFloat(10)
+        static let contentStackViewHorizontalInset = CGFloat(15)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -55,11 +65,10 @@ class ItemTableViewCell: StackTableViewCell {
     required init?(coder aDecoder: NSCoder) { fatalError() }
     
     private func setUp() {
-        titleLabel.text = Constants.nameLabelDefaultText
-        descriptionLabel.text = Constants.descriptionLabelDefaultText
         descriptionLabel.numberOfLines = 0
         
         quantityView.height(Constants.quantityViewHeight)
+        quantityView.counterTextField.add(quantityViewTextFieldEditingChangedTarget, for: .editingChanged)
         quantityView.decrementButton.add(quantityViewDecrementButtonTouchUpInsideTarget, for: .touchUpInside)
         quantityView.incrementButton.add(quantityViewIncrementButtonTouchUpInsideTarget, for: .touchUpInside)
         
@@ -68,10 +77,14 @@ class ItemTableViewCell: StackTableViewCell {
         
         let rightStackView = UIStackView(arrangedSubviews: [priceLabel])
         rightStackView.axis = .vertical
+        rightStackView.alignment = .trailing
         
         let splitStackView = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
         
         self.contentStackView.axis = .vertical
+        self.contentStackView.spacing = Constants.contentStackViewSpacing
+        self.contentStackView.directionalLayoutMargins = .init(top: Constants.contentStackViewVerticalInset, leading: Constants.contentStackViewHorizontalInset, bottom: Constants.contentStackViewVerticalInset, trailing: Constants.contentStackViewHorizontalInset)
+        self.contentStackView.isLayoutMarginsRelativeArrangement = true
         self.contentStackView.addArrangedSubview(splitStackView)
         self.contentStackView.addArrangedSubview(quantityView)
     }

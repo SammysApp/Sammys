@@ -124,7 +124,6 @@ class CategoriesViewController: UIViewController {
                 constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
             }
         } else { constructedItemViewController.viewModel.beginCreateConstructedItemDownload() }
-        
         return constructedItemViewController
     }
     

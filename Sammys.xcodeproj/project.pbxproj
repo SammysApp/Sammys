@@ -186,6 +186,8 @@
 		5BC120DD22677FDE00F271FD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F3225D71D9005DC635 /* AppConstants.swift */; };
 		5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
 		5BC3890F2270C4FC001C0C17 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BC3890E2270C4FC001C0C17 /* Bell.wav */; };
+		5BE1692622779DDC00622F9E /* UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */; };
+		5BE1692722779DDC00622F9E /* UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
 		5BF0A014226A35DB0066D880 /* CategorizedItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */; };
 		5BF0A016226A45AF0066D880 /* CategorizedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */; };
@@ -336,6 +338,7 @@
 		5BC120A4226779D700F271FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BC120AA22677CC900F271FD /* PurchasedOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrdersViewModel.swift; sourceTree = "<group>"; };
 		5BC3890E2270C4FC001C0C17 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
+		5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizer.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewModel.swift; sourceTree = "<group>"; };
 		5BF0A015226A45AF0066D880 /* CategorizedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewController.swift; sourceTree = "<group>"; };
@@ -454,6 +457,7 @@
 				5B3A4B3D2195F3E300F22F78 /* UITableViewCell.swift */,
 				5B3A4B312195F3E300F22F78 /* UIView.swift */,
 				5B3A4B432195F3E300F22F78 /* UIViewController.swift */,
+				5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */,
 			);
 			path = EasyExtensions;
 			sourceTree = "<group>";
@@ -1044,6 +1048,7 @@
 				5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */,
 				5B2C3C9A2245387D006BE7B3 /* UserViewModel.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
+				5BE1692622779DDC00622F9E /* UIGestureRecognizer.swift in Sources */,
 				5B4F7F1522317AC800F95C04 /* CounterView.swift in Sources */,
 				5B2C3C982245382F006BE7B3 /* UserViewController.swift in Sources */,
 				5B3A4B672195F3E400F22F78 /* String.swift in Sources */,
@@ -1224,6 +1229,7 @@
 				5BC120C022677F5200F271FD /* StoreDateHours.swift in Sources */,
 				5BC120B222677D0C00F271FD /* HTTPMethod.swift in Sources */,
 				5B4F27B22269758700441BB0 /* PurchasedOrderViewController.swift in Sources */,
+				5BE1692722779DDC00622F9E /* UIGestureRecognizer.swift in Sources */,
 				5BC120D622677F8100F271FD /* UIResponder.swift in Sources */,
 				5BC120CD22677F8100F271FD /* NSLayoutConstraintArray.swift in Sources */,
 				5BC120BF22677F5200F271FD /* OutstandingOrder.swift in Sources */,

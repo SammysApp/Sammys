@@ -29,7 +29,7 @@ class UserAuthViewController: UIViewController {
         static let completeButtonTitleLabelTextColor = UIColor.white
         static let completeButtonTitleLabelFontSize = CGFloat(20)
         static let completeButtonTitleLabelFontWeight = UIFont.Weight.medium
-        static let completeButtonSideInset = CGFloat(10)
+        static let completeButtonHorizontalInset = CGFloat(10)
     }
     
     // MARK: - Lifecycle Methods
@@ -90,7 +90,7 @@ class UserAuthViewController: UIViewController {
     private func makeTableViewTableFooterView() -> UIView {
         let footerView = UIView(frame: .init(x: 0, y: 0, width: 0, height: Constants.tableViewTableFooterViewHeight))
         footerView.addSubview(completeButton)
-        completeButton.edgesToSuperview(insets: .init(top: 0, left: Constants.completeButtonSideInset, bottom: 0, right: Constants.completeButtonSideInset))
+        completeButton.edgesToSuperview(insets: .init(top: 0, left: Constants.completeButtonHorizontalInset, bottom: 0, right: Constants.completeButtonHorizontalInset))
         return footerView
     }
     

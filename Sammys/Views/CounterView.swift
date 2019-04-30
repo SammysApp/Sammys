@@ -34,6 +34,7 @@ class CounterView: UIView {
     convenience init() { self.init(frame: .zero) }
     
     private func setUp() {
+        counterTextField.keyboardType = .numberPad
         counterTextField.textAlignment = .center
         
         decrementButton.imageView.image = Constants.decrementButtonImage
