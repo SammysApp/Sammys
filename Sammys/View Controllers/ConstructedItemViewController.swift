@@ -34,8 +34,8 @@ class ConstructedItemViewController: UIViewController {
         
         static let categoryRoundedTextCollectionViewCellBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         static let categoryRoundedTextCollectionViewCellTextLabelTextColor = UIColor.white
-        static let categoryRoundedTextCollectionViewCellTextLabelFontWeight = UIFont.Weight.bold
         static let categoryRoundedTextCollectionViewCellTextLabelFontSize = CGFloat(12)
+        static let categoryRoundedTextCollectionViewCellTextLabelFontWeight = UIFont.Weight.bold
         
         static let favoriteBarButtonItemDefaultColor = UIColor.lightGray
         static let favoriteBarButtonItemSelectedColor = #colorLiteral(red: 1, green: 0, blue: 0.2615994811, alpha: 1)
@@ -43,8 +43,8 @@ class ConstructedItemViewController: UIViewController {
         static let completeButtonDisabledBackgroundColor = UIColor.lightGray
         static let completeButtonEnabledBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
         static let completeButtonTitleLabelTextColor = UIColor.white
-        static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelTextFontSize = CGFloat(20)
+        static let completeButtonTitleLabelFontWeight = UIFont.Weight.semibold
         static let completeButtonTitleLabelText = "Add to Bag"
         static let completeButtonHeight = CGFloat(60)
         static let completeButtonHorizontalInset = CGFloat(10)

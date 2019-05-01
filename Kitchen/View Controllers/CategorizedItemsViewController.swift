@@ -16,6 +16,10 @@ class CategorizedItemsViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private struct Constants {
+        static let itemTableViewCellTextLabelFontSize = CGFloat(18)
+    }
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +62,7 @@ class CategorizedItemsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? CategorizedItemsViewModel.ItemTableViewCellViewModel,
             let cell = data.cell else { return }
         
+        cell.textLabel?.font = .systemFont(ofSize: Constants.itemTableViewCellTextLabelFontSize)
         cell.textLabel?.text = cellViewModel.configurationData.text
     }
 }

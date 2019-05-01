@@ -70,11 +70,6 @@ class PurchasedOrderViewModel {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
     
-    // MARK: - Methods
-    func clearPurchasedConstructedItemItems() {
-        purchasedConstructedItemItems.value = []
-    }
-    
     // MARK: - Download Methods
     func beginDownloads() {
         when(fulfilled: [
@@ -148,12 +143,21 @@ class PurchasedOrderViewModel {
     
     // MARK: - Cell View Model Methods
     private func makePurchasedConstructedItemTableViewCellViewModel(purchasedConstructedItem: PurchasedConstructedItem) -> PurchasedConstructedItemTableViewCellViewModel {
+        var titleText: String?
+        if let name = purchasedConstructedItem.name {
+            var text = name
+            if purchasedConstructedItem.quantity > 1 {
+                text = text + " (\(purchasedConstructedItem.quantity))"
+            }
+            titleText = text
+        }
+        
         return PurchasedConstructedItemTableViewCellViewModel(
             identifier: CellIdentifier.itemTableViewCell.rawValue,
             height: .fixed(Constants.purchasedConstructedItemTableViewCellViewModelHeight),
             actions: purchasedConstructedItemTableViewCellViewModelActions,
-            configurationData: .init(titleText: purchasedConstructedItem.name),
-            selectionData: .init(id: purchasedConstructedItem.id, title: purchasedConstructedItem.name)
+            configurationData: .init(titleText: titleText),
+            selectionData: .init(id: purchasedConstructedItem.id, title: titleText)
         )
     }
 }

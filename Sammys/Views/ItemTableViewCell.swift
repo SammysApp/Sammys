@@ -87,6 +87,8 @@ class ItemTableViewCell: StackTableViewCell {
         self.contentStackView.isLayoutMarginsRelativeArrangement = true
         self.contentStackView.addArrangedSubview(splitStackView)
         self.contentStackView.addArrangedSubview(quantityView)
+        
+        update()
     }
     
     private func update() {

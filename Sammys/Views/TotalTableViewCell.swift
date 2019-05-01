@@ -21,11 +21,11 @@ class TotalTableViewCell: StackTableViewCell {
     private let totalStackView = UIStackView()
     
     private struct Constants {
-        static let priceLabelsFontWeight = UIFont.Weight.medium
         static let priceLabelsFontSize = CGFloat(22)
+        static let priceLabelsFontWeight = UIFont.Weight.medium
         
-        static let labelsFontWeight = UIFont.Weight.semibold
         static let labelsFontSize = CGFloat(12)
+        static let labelsFontWeight = UIFont.Weight.semibold
         
         static let subtotalLabelText = "SUBTOTAL"
         static let taxLabelText = "TAX"

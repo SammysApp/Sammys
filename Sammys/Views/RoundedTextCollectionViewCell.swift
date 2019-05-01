@@ -26,6 +26,7 @@ class RoundedTextCollectionViewCell: UICollectionViewCell {
     private func setUp() {
         self.addSubview(textLabel)
         textLabel.edgesToSuperview(insets: .uniform(Constants.textLabelInset))
+        
         update()
     }
     

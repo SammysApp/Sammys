@@ -17,21 +17,40 @@ class PurchasedOrdersViewController: UIViewController {
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
-        static let purchasedOrderTableViewCellCompletedBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1).withAlphaComponent(0.15)
+        static let title = "Today"
+        
+        static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
+        static let tableViewSeparatorLeftInset = CGFloat(20)
+        
+        static let purchasedOrderTableViewCellPendingSideBarColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        static let purchasedOrderTableViewCellPreparingSideBarColor = #colorLiteral(red: 1, green: 0.4588235294, blue: 0.2196078431, alpha: 1)
+        static let purchasedOrderTableViewCellCompletedSideBarColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
     }
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUp()
         configureTableView()
         setUpView()
+        configureNavigation()
         configureViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        viewModel.beginDownloads()
+        self.viewModel.beginDownloads()
+        self.tableView.deselectSelectedRow(animated: animated)
     }
     
     // MARK: - Setup Methods
+    private func setUp() {
+        self.title = Constants.title
+    }
+    
     private func setUpView() {
         addSubviews()
     }
@@ -41,7 +60,12 @@ class PurchasedOrdersViewController: UIViewController {
         tableView.edgesToSuperview()
     }
     
+    private func configureNavigation() {
+        self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
+    }
+    
     private func configureTableView() {
+        tableView.separatorInset = .left(Constants.tableViewSeparatorLeftInset)
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: PurchasedOrdersViewModel.CellIdentifier.orderTableViewCell.rawValue)
@@ -80,12 +104,17 @@ class PurchasedOrdersViewController: UIViewController {
             let cell = data.cell as? OrderTableViewCell else { return }
         
         cell.titleLabel.text = cellViewModel.configurationData.titleText
-        cell.pickupDateLabel.text = cellViewModel.configurationData.pickupDateText
+        cell.descriptionLabel.text = cellViewModel.configurationData.descriptionText
+        cell.dateLabel.text = cellViewModel.configurationData.dateText
+        
+        if cellViewModel.configurationData.isPickupDateText {
+            cell.setUpForPickupDate()
+        } else { cell.setUpForDefaultDate() }
         
         switch cellViewModel.configurationData.progress {
-        case .isPending: cell.backgroundColor = nil
-        case .isPreparing: cell.backgroundColor = nil
-        case .isCompleted: cell.backgroundColor = Constants.purchasedOrderTableViewCellCompletedBackgroundColor
+        case .isPending: cell.sideBar.backgroundColor = Constants.purchasedOrderTableViewCellPendingSideBarColor
+        case .isPreparing: cell.sideBar.backgroundColor = Constants.purchasedOrderTableViewCellPreparingSideBarColor
+        case .isCompleted: cell.sideBar.backgroundColor = Constants.purchasedOrderTableViewCellCompletedSideBarColor
         }
     }
     

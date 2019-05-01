@@ -39,14 +39,10 @@ class BlurLoadingView: UIView {
     
     required init?(coder aDecoder: NSCoder) { fatalError() }
     
-    func startAnimating() {
-        if hidesWhenStopped { self.isHidden = false }
-        startImageViewRotationAnimation()
-    }
-    
-    func stopAnimating() {
-        if hidesWhenStopped { self.isHidden = true }
-        stopImageViewRotationAnimation()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        update()
     }
     
     private func setUp() {
@@ -62,12 +58,6 @@ class BlurLoadingView: UIView {
         update()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        update()
-    }
-    
     private func update() {
         let maskPath = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: self.frame.height * cornerRadiusMultiplier).cgPath
         let mask = CAShapeLayer()
@@ -79,6 +69,16 @@ class BlurLoadingView: UIView {
         blurEffect = UIBlurEffect(style: blurEffectStyle)
         blurEffectView.effect = blurEffect
         vibrancyEffectView.effect = UIVibrancyEffect(blurEffect: blurEffect)
+    }
+    
+    func startAnimating() {
+        if hidesWhenStopped { self.isHidden = false }
+        startImageViewRotationAnimation()
+    }
+    
+    func stopAnimating() {
+        if hidesWhenStopped { self.isHidden = true }
+        stopImageViewRotationAnimation()
     }
     
     private func startImageViewRotationAnimation(duration: TimeInterval = 1) {

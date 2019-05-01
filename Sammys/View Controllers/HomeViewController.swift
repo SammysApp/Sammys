@@ -32,8 +32,8 @@ class HomeViewController: UIViewController {
         
         static let tableViewRowHeight = CGFloat(200)
         
-        static let categoryImageTableViewCellTextLabelFontWeight = UIFont.Weight.medium
         static let categoryImageTableViewCellTextLabelFontSize = CGFloat(28)
+        static let categoryImageTableViewCellTextLabelFontWeight = UIFont.Weight.medium
         static let categoryImageTableViewCellTextLabelShadowOpacity = Float(0.15)
     }
     

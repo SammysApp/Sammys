@@ -26,11 +26,11 @@ class CheckoutSheetViewController: UIViewController {
     }
     
     private struct Constants {
-        static let priceLabelFontWeight = UIFont.Weight.semibold
         static let priceLabelFontSize = CGFloat(20)
+        static let priceLabelFontWeight = UIFont.Weight.semibold
         
-        static let labelFontWeight = UIFont.Weight.bold
         static let labelFontSize = CGFloat(12)
+        static let labelFontWeight = UIFont.Weight.bold
         
         static let taxLabelText = "TAX"
         static let subtotalLabelText = "SUBTOTAL"

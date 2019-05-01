@@ -41,6 +41,8 @@ class TextFieldTableViewCell: UITableViewCell {
         stackView.spacing = Constants.stackViewSpacing
         self.addSubview(stackView)
         stackView.edgesToSuperview()
+        
+        update()
     }
     
     private func update() {

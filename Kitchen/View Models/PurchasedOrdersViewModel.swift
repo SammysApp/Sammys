@@ -45,8 +45,7 @@ class PurchasedOrdersViewModel {
         static let purchasedOrdersTableViewSectionModelTitle = "ASAP"
         
         static let purchasedOrderCellViewModelHeight = Double(100)
-        
-        static let pickupDateFormatterFormat = "h:mm a"
+        static let purchasedOrderDateTextFormat = "h:mm a"
     }
     
     init(httpClient: HTTPClient = URLSession.shared) {
@@ -90,14 +89,16 @@ class PurchasedOrdersViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makeScheduledPurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel {
+    private func makeScheduledPurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel? {
+        guard !purchasedOrders.isEmpty else { return nil }
         return UITableViewSectionModel(
             title: Constants.scheduledPurchasedOrdersTableViewSectionModelTitle,
             cellViewModels: purchasedOrders.map(makePurchasedOrderCellViewModel)
         )
     }
     
-    private func makePurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel {
+    private func makePurchasedOrdersTableViewSectionModel(purchasedOrders: [PurchasedOrder]) -> UITableViewSectionModel? {
+        guard !purchasedOrders.isEmpty else { return nil }
         return UITableViewSectionModel(
             title: Constants.purchasedOrdersTableViewSectionModelTitle,
             cellViewModels: purchasedOrders.map(makePurchasedOrderCellViewModel)
@@ -117,18 +118,26 @@ class PurchasedOrdersViewModel {
     
     // MARK: - Cell View Model Methods
     private func makePurchasedOrderCellViewModel(purchasedOrder: PurchasedOrder) -> PurchasedOrderCellViewModel {
-        var pickupDateText: String?
-        let pickupDateFormatter = DateFormatter()
-        pickupDateFormatter.dateFormat = Constants.pickupDateFormatterFormat
+        let descriptionText = "Order #\(purchasedOrder.number)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Constants.purchasedOrderDateTextFormat
+        
+        let dateText: String
+        let isPickupDateText: Bool
         if let preparedForDate = purchasedOrder.preparedForDate {
-            pickupDateText = pickupDateFormatter.string(from: preparedForDate)
+            dateText = dateFormatter.string(from: preparedForDate)
+            isPickupDateText = true
+        } else {
+            dateText = dateFormatter.string(from: purchasedOrder.purchasedDate)
+            isPickupDateText = false
         }
         
         return PurchasedOrderCellViewModel(
             identifier: CellIdentifier.orderTableViewCell.rawValue,
             height: .fixed(Constants.purchasedOrderCellViewModelHeight),
             actions: purchasedOrderCellViewModelActions,
-            configurationData: .init(titleText: purchasedOrder.user?.firstName, pickupDateText: pickupDateText, progress: purchasedOrder.progress),
+            configurationData: .init(titleText: purchasedOrder.user?.fullName, descriptionText: descriptionText, dateText: dateText, isPickupDateText: isPickupDateText, progress: purchasedOrder.progress),
             selectionData: .init(id: purchasedOrder.id, title: purchasedOrder.user?.firstName)
         )
     }
@@ -144,7 +153,9 @@ extension PurchasedOrdersViewModel {
         
         struct ConfigurationData {
             let titleText: String?
-            let pickupDateText: String?
+            let descriptionText: String
+            let dateText: String
+            let isPickupDateText: Bool
             let progress: OrderProgress
         }
         

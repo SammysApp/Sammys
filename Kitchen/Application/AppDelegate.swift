@@ -39,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private struct Constants {
         static let bellSoundFileName = "Bell"
         static let bellSoundFileExtension = "wav"
+        
+        static let purchasedOrderUtteranceSpeechSynthesisVoice = "en-US"
     }
     
     override init() {
@@ -105,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var string = "New order"
         if let user = purchasedOrder.user { string += " for \(user.firstName)" }
         let utterance = AVSpeechUtterance(string: string)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.voice = AVSpeechSynthesisVoice(language: Constants.purchasedOrderUtteranceSpeechSynthesisVoice)
         return utterance
     }
     

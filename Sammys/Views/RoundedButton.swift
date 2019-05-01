@@ -47,6 +47,8 @@ class RoundedButton: UIControl {
         titleLabel.centerInSuperview()
         
         imageView.centerInSuperview()
+        
+        update()
     }
     
     private func update() {

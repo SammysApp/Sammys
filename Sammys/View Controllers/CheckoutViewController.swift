@@ -37,8 +37,8 @@ class CheckoutViewController: UIViewController {
         static let payButtonsStackViewHorizontalInset = CGFloat(10)
         
         static let payButtonBackgroundColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
-        static let payButtonTitleLabelFontWeight = UIFont.Weight.medium
         static let payButtonTitleLabelFontSize = CGFloat(20)
+        static let payButtonTitleLabelFontWeight = UIFont.Weight.medium
         static let payButtonTitleLabelTextColor = UIColor.white
         static let payButtonTitleLabelText = "Buy with Card"
         
