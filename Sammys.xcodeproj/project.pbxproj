@@ -128,6 +128,8 @@
 		5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
+		5BB063CA227B834600F8ADB6 /* PurchasedOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB063C9227B834600F8ADB6 /* PurchasedOrderViewModel.swift */; };
+		5BB063CC227B8CC000F8ADB6 /* PurchasedOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB063CB227B8CC000F8ADB6 /* PurchasedOrderViewController.swift */; };
 		5BB45596224BD2BC00EE8488 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB45595224BD2BC00EE8488 /* SubtitleTableViewCell.swift */; };
 		5BC12097226779D300F271FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC12096226779D300F271FD /* AppDelegate.swift */; };
 		5BC120A0226779D700F271FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC1209F226779D700F271FD /* Assets.xcassets */; };
@@ -330,6 +332,8 @@
 		5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItem.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5BB063C9227B834600F8ADB6 /* PurchasedOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrderViewModel.swift; sourceTree = "<group>"; };
+		5BB063CB227B8CC000F8ADB6 /* PurchasedOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrderViewController.swift; sourceTree = "<group>"; };
 		5BB45595224BD2BC00EE8488 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		5BC12094226779D200F271FD /* Kitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kitchen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BC12096226779D300F271FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -554,6 +558,7 @@
 				5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */,
 				5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */,
 				5B2E17F62262CEFB005DC635 /* PaymentMethodsViewModel.swift */,
+				5BB063C9227B834600F8ADB6 /* PurchasedOrderViewModel.swift */,
 				5B2C3C992245387D006BE7B3 /* UserViewModel.swift */,
 				5B2C3C8D2241662C006BE7B3 /* UserAuthViewModel.swift */,
 				5B7D704B22553AA40014D664 /* DatePickerViewModel.swift */,
@@ -603,6 +608,7 @@
 				5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */,
 				5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */,
 				5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */,
+				5BB063CB227B8CC000F8ADB6 /* PurchasedOrderViewController.swift */,
 				5B2C3C972245382F006BE7B3 /* UserViewController.swift */,
 				5B2C3C8922415ED8006BE7B3 /* UserAuthViewController.swift */,
 				5B2C3C9522442DEE006BE7B3 /* UserAuthPageViewController.swift */,
@@ -1092,6 +1098,7 @@
 				5B0124B4221E2A740054AB7A /* HTTPClient.swift in Sources */,
 				5B2C3C8E2241662C006BE7B3 /* UserAuthViewModel.swift in Sources */,
 				5B3A4B5F2195F3E400F22F78 /* UITableView.swift in Sources */,
+				5BB063CC227B8CC000F8ADB6 /* PurchasedOrderViewController.swift in Sources */,
 				5B2E17F4225D71D9005DC635 /* AppConstants.swift in Sources */,
 				5B4F7F1722319AD900F95C04 /* StackTableViewCell.swift in Sources */,
 				5B6E366E221E38F6004D5310 /* HTTPError.swift in Sources */,
@@ -1112,6 +1119,7 @@
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
 				5B2E18052264D735005DC635 /* TotalTableViewCell.swift in Sources */,
 				5B012220221DF3A40054AB7A /* HTTPHeaderName.swift in Sources */,
+				5BB063CA227B834600F8ADB6 /* PurchasedOrderViewModel.swift in Sources */,
 				5B012218221DC72E0054AB7A /* HTTPMethod.swift in Sources */,
 				5B3A4B6B2195F3E400F22F78 /* UIControl.swift in Sources */,
 				5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */,

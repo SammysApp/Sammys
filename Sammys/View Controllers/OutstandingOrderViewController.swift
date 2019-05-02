@@ -122,6 +122,8 @@ class OutstandingOrderViewController: UIViewController {
                 self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
             }
         }
+        
+        checkoutSheetViewController.view.isHidden = true
     }
     
     private func configureLoadingView() {
@@ -145,9 +147,11 @@ class OutstandingOrderViewController: UIViewController {
         
         viewModel.taxPriceText.bindAndRun { self.checkoutSheetViewController.taxPriceLabel.text = $0 }
         viewModel.subtotalPriceText.bindAndRun { self.checkoutSheetViewController.subtotalPriceLabel.text = $0 }
+        
         viewModel.isItemsEmpty.bindAndRun { value in
             guard let isItemsEmpty = value else { return }
-            if isItemsEmpty { self.clearBadge() }
+            if isItemsEmpty { self.setUpForEmptyItems() }
+            else { self.setUpForNonEmptyItems() }
         }
         
         viewModel.isUserSet.bindAndRun { value in
@@ -165,6 +169,14 @@ class OutstandingOrderViewController: UIViewController {
             default: print(value.localizedDescription)
             }
         }
+    }
+    
+    private func setUpForNonEmptyItems() {
+        checkoutSheetViewController.view.isHidden = false
+    }
+    
+    private func setUpForEmptyItems() {
+        checkoutSheetViewController.view.isHidden = true
     }
     
     // MARK: - Methods
@@ -197,7 +209,22 @@ class OutstandingOrderViewController: UIViewController {
         checkoutViewController.hidesBottomBarWhenPushed = true
         checkoutViewController.viewModel.outstandingOrderID = viewModel.outstandingOrderID
         checkoutViewController.viewModel.userID = viewModel.userID
+        
+        checkoutViewController.didCreatePurchasedOrderHandler = { id in
+            self.viewModel.tableViewSectionModels.value = []
+            self.viewModel.isItemsEmpty.value = true
+            self.viewModel.beginDownloads()
+            checkoutViewController.present(UINavigationController(rootViewController: self.makePurchasedOrderViewController(purchasedOrderID: id)), animated: true) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
         return checkoutViewController
+    }
+    
+    private func makePurchasedOrderViewController(purchasedOrderID: PurchasedOrder.ID) -> PurchasedOrderViewController {
+        let purchasedOrderViewController = PurchasedOrderViewController()
+        purchasedOrderViewController.viewModel.purchasedOrderID = purchasedOrderID
+        return purchasedOrderViewController
     }
     
     // MARK: - Target Actions

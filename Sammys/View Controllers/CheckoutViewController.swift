@@ -26,6 +26,8 @@ class CheckoutViewController: UIViewController {
     private lazy var payButtonTouchUpInsideTarget = Target(action: payButtonTouchUpInsideAction)
     private lazy var applePayButtonTouchUpInsideTarget = Target(action: applePayButtonTouchUpInsideAction)
     
+    var didCreatePurchasedOrderHandler: (PurchasedOrder.ID) -> Void = { _ in }
+    
     private struct Constants {
         static let title = "Checkout"
         
@@ -181,21 +183,6 @@ class CheckoutViewController: UIViewController {
         applePayButton.isHidden = false
     }
     
-    // MARK: - Target Actions
-    private func payButtonTouchUpInsideAction() {
-        guard let method = viewModel.paymentMethod.value,
-            case .card(let id, _) = method else { return }
-        viewModel.beginCreatePurchasedOrderDownload(customerCardID: id)
-    }
-    
-    private func applePayButtonTouchUpInsideAction() {
-        viewModel.beginPaymentRequestDownload() { paymentRequest in
-            if let paymentAuthorizationViewController = self.makePaymentAuthorizationViewController(paymentRequest: paymentRequest) {
-                self.present(paymentAuthorizationViewController, animated: true, completion: nil)
-            }
-        }
-    }
-    
     // MARK: - Factory Methods
     private func makePaymentMethodsViewController() -> PaymentMethodsViewController {
         let paymentMethodsViewController = PaymentMethodsViewController()
@@ -213,6 +200,21 @@ class CheckoutViewController: UIViewController {
         let paymentAuthorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         paymentAuthorizationViewController?.delegate = self
         return paymentAuthorizationViewController
+    }
+    
+    // MARK: - Target Actions
+    private func payButtonTouchUpInsideAction() {
+        guard let method = viewModel.paymentMethod.value,
+            case .card(let id, _) = method else { return }
+        viewModel.beginCreatePurchasedOrderDownload(customerCardID: id, successHandler: didCreatePurchasedOrderHandler)
+    }
+    
+    private func applePayButtonTouchUpInsideAction() {
+        viewModel.beginPaymentRequestDownload() { paymentRequest in
+            if let paymentAuthorizationViewController = self.makePaymentAuthorizationViewController(paymentRequest: paymentRequest) {
+                self.present(paymentAuthorizationViewController, animated: true, completion: nil)
+            }
+        }
     }
     
     // MARK: - Cell Actions
@@ -255,13 +257,16 @@ extension CheckoutViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         viewModel.beginCreatePurchasedOrderDownload(payment: payment) { result in
             switch result {
-            case .fulfilled(_): completion(.init(status: .success, errors: nil))
-            case .rejected(let error): completion(.init(status: .failure, errors: [error]))
+            case .fulfilled(let id):
+                completion(.init(status: .success, errors: nil))
+                self.didCreatePurchasedOrderHandler(id)
+            case .rejected(let error):
+                completion(.init(status: .failure, errors: [error]))
             }
         }
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        dismiss(animated: true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)
     }
 }

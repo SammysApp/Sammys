@@ -147,7 +147,7 @@ class PurchasedOrderViewModel {
         if let name = purchasedConstructedItem.name {
             var text = name
             if purchasedConstructedItem.quantity > 1 {
-                text = text + " (\(purchasedConstructedItem.quantity))"
+                text = text + " x \(purchasedConstructedItem.quantity)"
             }
             titleText = text
         }
