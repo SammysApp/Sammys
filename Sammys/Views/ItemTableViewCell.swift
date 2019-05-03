@@ -81,12 +81,12 @@ class ItemTableViewCell: StackTableViewCell {
         
         let splitStackView = UIStackView(arrangedSubviews: [leftStackView, rightStackView])
         
+        self.contentStackView.addArrangedSubview(splitStackView)
+        self.contentStackView.addArrangedSubview(quantityView)
         self.contentStackView.axis = .vertical
         self.contentStackView.spacing = Constants.contentStackViewSpacing
         self.contentStackView.directionalLayoutMargins = .init(top: Constants.contentStackViewVerticalLayoutMargin, leading: Constants.contentStackViewHorizontalLayoutMargin, bottom: Constants.contentStackViewVerticalLayoutMargin, trailing: Constants.contentStackViewHorizontalLayoutMargin)
         self.contentStackView.isLayoutMarginsRelativeArrangement = true
-        self.contentStackView.addArrangedSubview(splitStackView)
-        self.contentStackView.addArrangedSubview(quantityView)
         
         update()
     }

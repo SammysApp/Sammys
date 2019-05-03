@@ -25,7 +25,10 @@ class UITableViewSectionModelsDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: sectionModels.cellViewModel(for: indexPath).identifier, for: indexPath)
+        let cellViewModel = sectionModels.cellViewModel(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.identifier, for: indexPath)
+        cellViewModel.perform(.configuration, indexPath: indexPath, cell: cell)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

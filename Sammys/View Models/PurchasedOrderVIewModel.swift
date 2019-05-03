@@ -32,10 +32,26 @@ class PurchasedOrderViewModel {
     }
     
     enum CellIdentifier: String {
-        case tableViewCell
+        case orderProgressTableViewCell
+    }
+    
+    enum Color {
+        case progressIsPendingColor
+        case progressIsPreparingColor
+        case progressIsCompletedColor
+    }
+    
+    enum Image {
+        case progressIsPendingImage
+        case progressIsPreparingImage
+        case progressIsCompletedImage
     }
     
     private struct Constants {
+        static let progressIsPendingText = "Kitchen Has Received"
+        static let progressIsPreparingText = "Being Prepared"
+        static let porgressIsCompletedText = "Ready For Pickup"
+        
         static let progressTableViewCellViewModelHeight = Double(100)
     }
     
@@ -67,6 +83,31 @@ class PurchasedOrderViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(PurchasedOrder.self, from: $0.data) }
     }
     
+    // MARK: - Factory Methods
+    private func makeProgressText(orderProgess: OrderProgress) -> String {
+        switch orderProgess {
+        case .isPending: return Constants.progressIsPendingText
+        case .isPreparing: return Constants.progressIsPreparingText
+        case .isCompleted: return Constants.porgressIsCompletedText
+        }
+    }
+    
+    private func makeProgressColor(orderProgess: OrderProgress) -> Color {
+        switch orderProgess {
+        case .isPending: return Color.progressIsPendingColor
+        case .isPreparing: return Color.progressIsPreparingColor
+        case .isCompleted: return Color.progressIsCompletedColor
+        }
+    }
+    
+    private func makeProgressImage(orderProgess: OrderProgress) -> Image {
+        switch orderProgess {
+        case .isPending: return Image.progressIsPendingImage
+        case .isPreparing: return Image.progressIsPreparingImage
+        case .isCompleted: return Image.progressIsCompletedImage
+        }
+    }
+    
     // MARK: - Section Model Methods
     private func makeProgressTableViewSectionModel(purchasedOrder: PurchasedOrder) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: [makeProgressTableViewCellViewModel(purchasedOrder: purchasedOrder)])
@@ -83,10 +124,10 @@ class PurchasedOrderViewModel {
     // MARK: - Cell View Model Properties
     private func makeProgressTableViewCellViewModel(purchasedOrder: PurchasedOrder) -> ProgressTableViewCellViewModel {
         return ProgressTableViewCellViewModel(
-            identifier: CellIdentifier.tableViewCell.rawValue,
+            identifier: CellIdentifier.orderProgressTableViewCell.rawValue,
             height: .fixed(Constants.progressTableViewCellViewModelHeight),
             actions: progressTableViewCellViewModelActions,
-            configurationData: .init(text: purchasedOrder.progress.rawValue)
+            configurationData: .init(progressText: makeProgressText(orderProgess: purchasedOrder.progress), color: makeProgressColor(orderProgess: purchasedOrder.progress), image: makeProgressImage(orderProgess: purchasedOrder.progress))
         )
     }
 }
@@ -99,7 +140,9 @@ extension PurchasedOrderViewModel {
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
-            let text: String
+            let progressText: String
+            let color: Color
+            let image: Image
         }
     }
 }
