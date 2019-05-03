@@ -110,7 +110,7 @@
 		5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C0B31219A4BBD00EBC0EB /* Array.swift */; };
 		5B7D704A22553A720014D664 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D704922553A720014D664 /* DatePickerViewController.swift */; };
 		5B7D704C22553AA40014D664 /* DatePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D704B22553AA40014D664 /* DatePickerViewModel.swift */; };
-		5B803935227BCE1E0060C54F /* OrderProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B803934227BCE1E0060C54F /* OrderProgressTableViewCell.swift */; };
+		5B803935227BCE1E0060C54F /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B803934227BCE1E0060C54F /* ProgressTableViewCell.swift */; };
 		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
 		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
 		5B9865FE20C5A347004722D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9865FD20C5A347004722D8 /* Assets.xcassets */; };
@@ -313,7 +313,7 @@
 		5B7C0B31219A4BBD00EBC0EB /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5B7D704922553A720014D664 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		5B7D704B22553AA40014D664 /* DatePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewModel.swift; sourceTree = "<group>"; };
-		5B803934227BCE1E0060C54F /* OrderProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderProgressTableViewCell.swift; sourceTree = "<group>"; };
+		5B803934227BCE1E0060C54F /* ProgressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTableViewCell.swift; sourceTree = "<group>"; };
 		5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		5B8E81A921B0696C00C22CEA /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		5B9865FD20C5A347004722D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -631,7 +631,7 @@
 				5B4F7F1422317AC800F95C04 /* CounterView.swift */,
 				5B6E3676221F0B09004D5310 /* ImageTableViewCell.swift */,
 				5B2E18022264D6BE005DC635 /* ItemTableViewCell.swift */,
-				5B803934227BCE1E0060C54F /* OrderProgressTableViewCell.swift */,
+				5B803934227BCE1E0060C54F /* ProgressTableViewCell.swift */,
 				5B3305BA222EF37400F01CEE /* RoundedButton.swift */,
 				5B9A8AC82225C46A00F5525D /* RoundedTextCollectionViewCell.swift */,
 				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
@@ -1104,7 +1104,7 @@
 				5BB063CC227B8CC000F8ADB6 /* PurchasedOrderViewController.swift in Sources */,
 				5B2E17F4225D71D9005DC635 /* AppConstants.swift in Sources */,
 				5B4F7F1722319AD900F95C04 /* StackTableViewCell.swift in Sources */,
-				5B803935227BCE1E0060C54F /* OrderProgressTableViewCell.swift in Sources */,
+				5B803935227BCE1E0060C54F /* ProgressTableViewCell.swift in Sources */,
 				5B6E366E221E38F6004D5310 /* HTTPError.swift in Sources */,
 				5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */,
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,

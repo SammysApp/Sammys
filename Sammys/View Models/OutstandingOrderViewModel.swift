@@ -67,14 +67,14 @@ class OutstandingOrderViewModel {
     }
     
     // MARK: - Setup Methods
-    private func setUp(for outstandingOrderID: OutstandingOrder.ID) {
+    private func setUp(forOutstandingOrderID outstandingOrderID: OutstandingOrder.ID?) {
         self.outstandingOrderID = outstandingOrderID
-        keyValueStore.set(outstandingOrderID.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
+        keyValueStore.set(outstandingOrderID?.uuidString, forKey: KeyValueStoreKeys.currentOutstandingOrderID)
     }
     
-    private func setUp(for outstandingOrder: OutstandingOrder) {
-        taxPriceText.value = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
-        subtotalPriceText.value = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
+    private func setUp(forOutstandingOrder outstandingOrder: OutstandingOrder?) {
+        taxPriceText.value = outstandingOrder?.taxPrice?.toUSDUnits().toPriceString()
+        subtotalPriceText.value = outstandingOrder?.totalPrice?.toUSDUnits().toPriceString()
     }
     
     private func setUp(for constructedItems: [ConstructedItem]) {
@@ -84,6 +84,13 @@ class OutstandingOrderViewModel {
     
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
+    // MARK: - Methods
+    func clear() {
+        setUp(forOutstandingOrderID: nil)
+        setUp(forOutstandingOrder: nil)
+        setUp(for: [ConstructedItem]())
     }
     
     // MARK: - Download Methods

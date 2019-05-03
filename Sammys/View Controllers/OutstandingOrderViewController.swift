@@ -211,11 +211,9 @@ class OutstandingOrderViewController: UIViewController {
         checkoutViewController.viewModel.userID = viewModel.userID
         
         checkoutViewController.didCreatePurchasedOrderHandler = { id in
-            self.viewModel.tableViewSectionModels.value = []
-            self.viewModel.isItemsEmpty.value = true
-            self.viewModel.beginDownloads()
+            self.viewModel.clear()
             checkoutViewController.present(UINavigationController(rootViewController: self.makePurchasedOrderViewController(purchasedOrderID: id)), animated: true) {
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
             }
         }
         return checkoutViewController

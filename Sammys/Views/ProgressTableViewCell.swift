@@ -1,5 +1,5 @@
 //
-//  OrderProgressTableViewCell.swift
+//  ProgressTableViewCell.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 5/2/19.
@@ -8,20 +8,19 @@
 
 import UIKit
 
-class OrderProgressTableViewCell: StackTableViewCell {
+class ProgressTableViewCell: StackTableViewCell {
     let circularImageView = UIImageView()
     let titleLabel = UILabel()
     let progressLabel = UILabel()
     
     private struct Constants {
-        static let contentStackViewSpacing = CGFloat(10)
+        static let contentStackViewSpacing = CGFloat(15)
         static let contentStackViewVerticalLayoutMargin = CGFloat(20)
         static let contentStackViewHorizontalLayoutMargin = CGFloat(15)
         
         static let titleLabelFontSize = CGFloat(12)
         static let titleLabelFontWeight = UIFont.Weight.black
         static let titleLabelTextColor = UIColor.lightGray
-        static let titleLabelText = "ORDER STATUS"
         
         static let progressLabelFontSize = CGFloat(20)
         static let progressLabelFontWeight = UIFont.Weight.medium
@@ -46,7 +45,6 @@ class OrderProgressTableViewCell: StackTableViewCell {
         
         titleLabel.font = .systemFont(ofSize: Constants.titleLabelFontSize, weight: Constants.titleLabelFontWeight)
         titleLabel.textColor = Constants.titleLabelTextColor
-        titleLabel.text = Constants.titleLabelText
         
         progressLabel.font = .systemFont(ofSize: Constants.progressLabelFontSize, weight: Constants.progressLabelFontWeight)
         

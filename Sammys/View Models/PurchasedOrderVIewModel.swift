@@ -24,6 +24,8 @@ class PurchasedOrderViewModel {
     var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - Dynamic Properties
+    let title: Dynamic<String?> = Dynamic(nil)
+    
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     // MARK: - Section Model Properties
@@ -32,7 +34,7 @@ class PurchasedOrderViewModel {
     }
     
     enum CellIdentifier: String {
-        case orderProgressTableViewCell
+        case progressTableViewCell
     }
     
     enum Color {
@@ -48,7 +50,7 @@ class PurchasedOrderViewModel {
     }
     
     private struct Constants {
-        static let progressIsPendingText = "Kitchen Has Received"
+        static let progressIsPendingText = "Pending Preparation"
         static let progressIsPreparingText = "Being Prepared"
         static let porgressIsCompletedText = "Ready For Pickup"
         
@@ -61,6 +63,7 @@ class PurchasedOrderViewModel {
     
     // MARK: - Setup Methods
     private func setUp(for purchasedOrder: PurchasedOrder) {
+        title.value = makeTitle(purchasedOrder: purchasedOrder)
         progressTableViewSectionModel = makeProgressTableViewSectionModel(purchasedOrder: purchasedOrder)
     }
     
@@ -84,6 +87,10 @@ class PurchasedOrderViewModel {
     }
     
     // MARK: - Factory Methods
+    private func makeTitle(purchasedOrder: PurchasedOrder) -> String? {
+        return "Order #\(purchasedOrder.number)"
+    }
+    
     private func makeProgressText(orderProgess: OrderProgress) -> String {
         switch orderProgess {
         case .isPending: return Constants.progressIsPendingText
@@ -124,7 +131,7 @@ class PurchasedOrderViewModel {
     // MARK: - Cell View Model Properties
     private func makeProgressTableViewCellViewModel(purchasedOrder: PurchasedOrder) -> ProgressTableViewCellViewModel {
         return ProgressTableViewCellViewModel(
-            identifier: CellIdentifier.orderProgressTableViewCell.rawValue,
+            identifier: CellIdentifier.progressTableViewCell.rawValue,
             height: .fixed(Constants.progressTableViewCellViewModelHeight),
             actions: progressTableViewCellViewModelActions,
             configurationData: .init(progressText: makeProgressText(orderProgess: purchasedOrder.progress), color: makeProgressColor(orderProgess: purchasedOrder.progress), image: makeProgressImage(orderProgess: purchasedOrder.progress))
