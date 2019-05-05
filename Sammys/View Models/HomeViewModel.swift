@@ -34,6 +34,8 @@ class HomeViewModel {
     // MARK: - Dynamic Properties
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
+    let isDataRefreshable = Dynamic(false)
+    
     let isLoading = Dynamic(false)
     
     // MARK: - Section Model Properties
@@ -78,6 +80,7 @@ class HomeViewModel {
     }
     
     private func setUp(for purchasedOrders: [PurchasedOrder]) {
+        isDataRefreshable.value = !purchasedOrders.isEmpty
         purchasedOrdersTableViewSectionModel = makePurchasedOrdersTableViewSectionModel(purchasedOrders: purchasedOrders)
     }
     

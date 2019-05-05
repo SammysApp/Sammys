@@ -13,11 +13,13 @@ class HomeViewController: UIViewController {
     
     let tableView = UITableView()
     
+    let refreshControl = UIRefreshControl()
     let loadingView = BlurLoadingView()
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private lazy var refreshControlValueChangedTarget = Target(action: refreshControlValueChangedAction)
     private lazy var userBarButtonItemTarget = Target(action: userBarButtonItemAction)
     
     private struct Constants {
@@ -51,6 +53,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureRefreshControl()
         configureLoadingView()
         setUpView()
         configureNavigation()
@@ -84,11 +87,16 @@ class HomeViewController: UIViewController {
     }
     
     private func configureTableView() {
+        tableView.refreshControl = refreshControl
         tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.tableViewCell.rawValue)
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.imageTableViewCell.rawValue)
+    }
+    
+    private func configureRefreshControl() {
+        refreshControl.add(refreshControlValueChangedTarget, for: .valueChanged)
     }
     
     private func configureLoadingView() {
@@ -111,10 +119,18 @@ class HomeViewController: UIViewController {
             self.tableView.reloadData()
         }
         
+        viewModel.isDataRefreshable.bindAndRun { self.refreshControl.isHidden = !$0 }
+        
         viewModel.isLoading.bindAndRun { value in
             self.view.isUserInteractionEnabled = !value
-            if value { self.loadingView.startAnimating() }
-            else { self.loadingView.stopAnimating() }
+            if value {
+                if !self.refreshControl.isRefreshing {
+                    self.loadingView.startAnimating()
+                }
+            } else {
+                self.refreshControl.endRefreshing()
+                self.loadingView.stopAnimating()
+            }
         }
         
         viewModel.errorHandler = { value in
@@ -153,6 +169,10 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Target Actions
+    private func refreshControlValueChangedAction() {
+        beginDownloads()
+    }
+    
     private func userBarButtonItemAction() {
         let userViewController = UserViewController()
         self.present(UINavigationController(rootViewController: userViewController), animated: true, completion: nil)
