@@ -21,13 +21,13 @@ class PurchasedOrderViewController: UIViewController {
     private struct Constants {
         static let tintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
-        static let progressTableViewCellIsPendingColor = #colorLiteral(red: 1, green: 0.4588235294, blue: 0.2196078431, alpha: 1)
-        static let progressTableViewCellIsPreparingColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        static let progressTableViewCellIsCompletedColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
+        static let progressTableViewCellViewModelProgressIsPendingColor = #colorLiteral(red: 1, green: 0.4588235294, blue: 0.2196078431, alpha: 1)
+        static let progressTableViewCellViewModelProgressIsPreparingColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        static let progressTableViewCellViewModelProgressIsCompletedColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
         
-        static let progressTableViewCellIsPendingImage = #imageLiteral(resourceName: "Progress.Dots")
-        static let progressTableViewCellIsPreparingImage = #imageLiteral(resourceName: "Progress.Hat")
-        static let progressTableViewCellIsCompletedImage = #imageLiteral(resourceName: "Progress.Bag")
+        static let progressTableViewCellViewModelProgressIsPendingImage = #imageLiteral(resourceName: "Progress.Dots")
+        static let progressTableViewCellViewModelProgressIsPreparingImage = #imageLiteral(resourceName: "Progress.Hat")
+        static let progressTableViewCellViewModelProgressIsCompletedImage = #imageLiteral(resourceName: "Progress.Bag")
         
         static let progressTableViewCellTitleLabelText = "ORDER STATUS"
     }
@@ -80,19 +80,25 @@ class PurchasedOrderViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeProgressTableViewCellColor(color: PurchasedOrderViewModel.Color) -> UIColor {
+    private func makeColor(color: PurchasedOrderViewModel.Color) -> UIColor {
         switch color {
-        case .progressIsPendingColor: return Constants.progressTableViewCellIsPendingColor
-        case .progressIsPreparingColor: return Constants.progressTableViewCellIsPreparingColor
-        case .progressIsCompletedColor: return Constants.progressTableViewCellIsCompletedColor
+        case .progressTableViewCellViewModelProgressIsPendingColor:
+            return Constants.progressTableViewCellViewModelProgressIsPendingColor
+        case .progressTableViewCellViewModelProgressIsPreparingColor:
+            return Constants.progressTableViewCellViewModelProgressIsPreparingColor
+        case .progressTableViewCellViewModelProgressIsCompletedColor:
+            return Constants.progressTableViewCellViewModelProgressIsCompletedColor
         }
     }
     
-    private func makeProgressTableViewCellImage(image: PurchasedOrderViewModel.Image) -> UIImage {
+    private func makeImage(image: PurchasedOrderViewModel.Image) -> UIImage {
         switch image {
-        case .progressIsPendingImage: return Constants.progressTableViewCellIsPendingImage
-        case .progressIsPreparingImage: return Constants.progressTableViewCellIsPreparingImage
-        case .progressIsCompletedImage: return Constants.progressTableViewCellIsCompletedImage
+        case .progressTableViewCellViewModelProgressIsPendingImage:
+            return Constants.progressTableViewCellViewModelProgressIsPendingImage
+        case .progressTableViewCellViewModelProgressIsPreparingImage:
+            return Constants.progressTableViewCellViewModelProgressIsPreparingImage
+        case .progressTableViewCellViewModelProgressIsCompletedImage:
+            return Constants.progressTableViewCellViewModelProgressIsCompletedImage
         }
     }
     
@@ -109,9 +115,9 @@ class PurchasedOrderViewController: UIViewController {
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         
-        cell.circularImageView.backgroundColor = makeProgressTableViewCellColor(color: cellViewModel.configurationData.color)
+        cell.circularImageView.backgroundColor = makeColor(color: cellViewModel.configurationData.color)
         cell.circularImageView.tintColor = .white
-        cell.circularImageView.image = makeProgressTableViewCellImage(image: cellViewModel.configurationData.image)
+        cell.circularImageView.image = makeImage(image: cellViewModel.configurationData.image)
         
         cell.titleLabel.text = Constants.progressTableViewCellTitleLabelText
         cell.progressLabel.text = cellViewModel.configurationData.progressText

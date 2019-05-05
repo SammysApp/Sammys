@@ -28,7 +28,7 @@ class OutstandingOrderViewModel {
     /// If set and verifiable, calling `beginDownloads()` will set the
     /// outstanding order's user to the one specified if necessary.
     var userID: User.ID? {
-        didSet { isUserSet.value = userID != nil }
+        didSet { isUserIDSet.value = userID != nil }
     }
     
     var itemCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
@@ -45,7 +45,7 @@ class OutstandingOrderViewModel {
     let subtotalPriceText: Dynamic<String?> = Dynamic(nil)
     let isItemsEmpty: Dynamic<Bool?> = Dynamic(nil)
     
-    private(set) lazy var isUserSet = Dynamic(userID != nil)
+    private(set) lazy var isUserIDSet = Dynamic(userID != nil)
     
     let isLoading = Dynamic(false)
     

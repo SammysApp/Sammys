@@ -32,6 +32,15 @@ class HomeViewController: UIViewController {
         
         static let tableViewRowHeight = CGFloat(200)
         
+        static let purchasedOrderTableViewCellViewModelProgressIsPendingBackgroundColor = #colorLiteral(red: 1, green: 0.4588235294, blue: 0.2196078431, alpha: 1)
+        static let purchasedOrderTableViewCellViewModelProgressIsPreparingBackgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        static let purchasedOrderTableViewCellViewModelProgressIsCompletedBackgroundColor = #colorLiteral(red: 0.3254901961, green: 0.7607843137, blue: 0.168627451, alpha: 1)
+        
+        static let purchasedOrderTableViewCellTextLabelFontWeight = UIFont.Weight.medium
+        static let purchasedOrderTableViewCellTextLabelTextColor = UIColor.white
+        static let purchasedOrderTableViewCellProgressLabelFontWeight = UIFont.Weight.semibold
+        static let purchasedOrderTableViewCellProgressLabelTextColor = UIColor.white
+        
         static let categoryImageTableViewCellTextLabelFontSize = CGFloat(28)
         static let categoryImageTableViewCellTextLabelFontWeight = UIFont.Weight.medium
         static let categoryImageTableViewCellTextLabelShadowOpacity = Float(0.15)
@@ -47,7 +56,7 @@ class HomeViewController: UIViewController {
         configureNavigation()
         configureViewModel()
         
-        viewModel.beginDownloads()
+        beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -78,6 +87,7 @@ class HomeViewController: UIViewController {
         tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.tableViewCell.rawValue)
         tableView.register(ImageTableViewCell.self, forCellReuseIdentifier: HomeViewModel.CellIdentifier.imageTableViewCell.rawValue)
     }
     
@@ -86,6 +96,10 @@ class HomeViewController: UIViewController {
     }
     
     private func configureViewModel() {
+        viewModel.purchasedOrderTableViewCellViewModelActions = [
+            .configuration: purchasedOrderTableViewCellConfigurationAction
+        ]
+        
         viewModel.categoryImageTableViewCellViewModelActions = [
             .configuration: categoryImageTableViewCellConfigurationAction,
             .selection: categoryImageTableViewCellSelectionAction
@@ -110,7 +124,27 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // MARK: - Methods
+    func beginDownloads() {
+        if viewModel.isUserSignedIn {
+            viewModel.beginUserIDDownload {
+                self.viewModel.beginDownloads()
+            }
+        } else { viewModel.beginDownloads() }
+    }
+    
     // MARK: - Factory Methods
+    private func makeColor(color: HomeViewModel.Color) -> UIColor {
+        switch color {
+        case .purchasedOrderTableViewCellViewModelProgressIsPendingBackgroundColor:
+            return Constants.purchasedOrderTableViewCellViewModelProgressIsPendingBackgroundColor
+        case .purchasedOrderTableViewCellViewModelProgressIsPreparingBackgroundColor:
+            return Constants.purchasedOrderTableViewCellViewModelProgressIsPreparingBackgroundColor
+        case .purchasedOrderTableViewCellViewModelProgressIsCompletedBackgroundColor:
+            return Constants.purchasedOrderTableViewCellViewModelProgressIsCompletedBackgroundColor
+        }
+    }
+    
     private func makeCategoriesViewController(parentCategoryID: Category.ID? = nil, title: String? = nil) -> CategoriesViewController {
         let categoriesViewController = CategoriesViewController()
         categoriesViewController.title = title
@@ -125,6 +159,25 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Cell Actions
+    private func purchasedOrderTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? HomeViewModel.PurchasedOrderTableViewCellViewModel,
+            let cell = data.cell else { return }
+        
+        cell.selectionStyle = .none
+        
+        cell.textLabel?.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0, weight: Constants.purchasedOrderTableViewCellTextLabelFontWeight)
+        cell.textLabel?.textColor = Constants.purchasedOrderTableViewCellTextLabelTextColor
+        cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.backgroundColor = makeColor(color: cellViewModel.configurationData.backgroundColor)
+    
+        let progressLabel = UILabel(frame: .init(x: 0, y: 0, width: 200, height: 100))
+        progressLabel.textAlignment = .right
+        progressLabel.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0, weight: Constants.purchasedOrderTableViewCellProgressLabelFontWeight)
+        progressLabel.textColor = Constants.purchasedOrderTableViewCellProgressLabelTextColor
+        progressLabel.text = cellViewModel.configurationData.progressText
+        cell.accessoryView = progressLabel
+    }
+    
     private func categoryImageTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? HomeViewModel.CategoryImageTableViewCellViewModel,
             let cell = data.cell as? ImageTableViewCell else { return }

@@ -116,7 +116,7 @@ class OutstandingOrderViewController: UIViewController {
         checkoutSheetViewController.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         checkoutSheetViewController.checkoutButtonTouchUpInsideHandler = {
-            if self.viewModel.isUserSet.value {
+            if self.viewModel.isUserIDSet.value {
                 self.navigationController?.pushViewController(self.makeCheckoutViewController(), animated: true)
             } else {
                 self.present(UINavigationController(rootViewController: self.makeUserAuthPageViewController()), animated: true, completion: nil)
@@ -154,7 +154,7 @@ class OutstandingOrderViewController: UIViewController {
             else { self.setUpForNonEmptyItems() }
         }
         
-        viewModel.isUserSet.bindAndRun { value in
+        viewModel.isUserIDSet.bindAndRun { value in
             self.checkoutSheetViewController.checkoutButton.titleLabel.text = value ? Constants.checkoutSheetCheckoutButtonTitleLabelDefaultText : Constants.checkoutSheetCheckoutButtonTitleLabelSignInText
         }
         
@@ -181,7 +181,7 @@ class OutstandingOrderViewController: UIViewController {
     
     // MARK: - Methods
     func beginDownloads() {
-        if viewModel.isUserSignedIn && !viewModel.isUserSet.value {
+        if viewModel.isUserSignedIn {
             viewModel.beginUserIDDownload {
                 self.viewModel.beginDownloads()
             }

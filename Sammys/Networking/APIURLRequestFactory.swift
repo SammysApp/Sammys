@@ -69,6 +69,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getUserOutstandingOrders(id), token: token)
     }
     
+    func makeGetUserPurchasedOrdersRequest(id: User.ID, token: JWT) -> URLRequest {
+        return makeRequest(endpoint: .getUserPurchasedOrders(id), token: token)
+    }
+    
     func makeGetUserCardsRequest(id: User.ID, token: JWT) -> URLRequest {
         return makeRequest(endpoint: .getUserCards(id), token: token)
     }

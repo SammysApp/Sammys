@@ -38,21 +38,21 @@ class PurchasedOrderViewModel {
     }
     
     enum Color {
-        case progressIsPendingColor
-        case progressIsPreparingColor
-        case progressIsCompletedColor
+        case progressTableViewCellViewModelProgressIsPendingColor
+        case progressTableViewCellViewModelProgressIsPreparingColor
+        case progressTableViewCellViewModelProgressIsCompletedColor
     }
     
     enum Image {
-        case progressIsPendingImage
-        case progressIsPreparingImage
-        case progressIsCompletedImage
+        case progressTableViewCellViewModelProgressIsPendingImage
+        case progressTableViewCellViewModelProgressIsPreparingImage
+        case progressTableViewCellViewModelProgressIsCompletedImage
     }
     
     private struct Constants {
-        static let progressIsPendingText = "Pending Preparation"
-        static let progressIsPreparingText = "Being Prepared"
-        static let porgressIsCompletedText = "Ready For Pickup"
+        static let progressTableViewCellViewModelProgressIsPendingText = "Pending Preparation"
+        static let progressTableViewCellViewModelProgressIsPreparingText = "Being Prepared"
+        static let progressTableViewCellViewModelProgressIsCompletedText = "Ready For Pickup"
         
         static let progressTableViewCellViewModelHeight = Double(100)
     }
@@ -91,27 +91,27 @@ class PurchasedOrderViewModel {
         return "Order #\(purchasedOrder.number)"
     }
     
-    private func makeProgressText(orderProgess: OrderProgress) -> String {
+    private func makeProgressTableViewCellViewModelProgressText(orderProgess: OrderProgress) -> String {
         switch orderProgess {
-        case .isPending: return Constants.progressIsPendingText
-        case .isPreparing: return Constants.progressIsPreparingText
-        case .isCompleted: return Constants.porgressIsCompletedText
+        case .isPending: return Constants.progressTableViewCellViewModelProgressIsPendingText
+        case .isPreparing: return Constants.progressTableViewCellViewModelProgressIsPreparingText
+        case .isCompleted: return Constants.progressTableViewCellViewModelProgressIsCompletedText
         }
     }
     
-    private func makeProgressColor(orderProgess: OrderProgress) -> Color {
+    private func makeProgressTableViewCellViewModelColor(orderProgess: OrderProgress) -> Color {
         switch orderProgess {
-        case .isPending: return Color.progressIsPendingColor
-        case .isPreparing: return Color.progressIsPreparingColor
-        case .isCompleted: return Color.progressIsCompletedColor
+        case .isPending: return Color.progressTableViewCellViewModelProgressIsPendingColor
+        case .isPreparing: return Color.progressTableViewCellViewModelProgressIsPreparingColor
+        case .isCompleted: return Color.progressTableViewCellViewModelProgressIsCompletedColor
         }
     }
     
-    private func makeProgressImage(orderProgess: OrderProgress) -> Image {
+    private func makeProgressTableViewCellViewModelImage(orderProgess: OrderProgress) -> Image {
         switch orderProgess {
-        case .isPending: return Image.progressIsPendingImage
-        case .isPreparing: return Image.progressIsPreparingImage
-        case .isCompleted: return Image.progressIsCompletedImage
+        case .isPending: return Image.progressTableViewCellViewModelProgressIsPendingImage
+        case .isPreparing: return Image.progressTableViewCellViewModelProgressIsPreparingImage
+        case .isCompleted: return Image.progressTableViewCellViewModelProgressIsCompletedImage
         }
     }
     
@@ -134,7 +134,7 @@ class PurchasedOrderViewModel {
             identifier: CellIdentifier.progressTableViewCell.rawValue,
             height: .fixed(Constants.progressTableViewCellViewModelHeight),
             actions: progressTableViewCellViewModelActions,
-            configurationData: .init(progressText: makeProgressText(orderProgess: purchasedOrder.progress), color: makeProgressColor(orderProgess: purchasedOrder.progress), image: makeProgressImage(orderProgess: purchasedOrder.progress))
+            configurationData: .init(progressText: makeProgressTableViewCellViewModelProgressText(orderProgess: purchasedOrder.progress), color: makeProgressTableViewCellViewModelColor(orderProgess: purchasedOrder.progress), image: makeProgressTableViewCellViewModelImage(orderProgess: purchasedOrder.progress))
         )
     }
 }
