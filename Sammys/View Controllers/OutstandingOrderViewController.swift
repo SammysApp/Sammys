@@ -34,6 +34,7 @@ class OutstandingOrderViewController: UIViewController {
         
         static let itemTableViewCellTitleLabelFontWeight = UIFont.Weight.medium
         static let itemTableViewCellDescriptionLabelTextColor = UIColor.lightGray
+        static let itemTableViewCellQuantityViewCounterTextFieldTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let itemTableViewCellQuantityViewButtonsBackgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3019607843, blue: 0.2745098039, alpha: 1)
         static let itemTableViewCellQuantityViewButtonsImageColor = UIColor.white
         
@@ -188,9 +189,17 @@ class OutstandingOrderViewController: UIViewController {
         } else { viewModel.beginDownloads() }
     }
     
+    func clear() {
+        self.navigationController?.clearBadge()
+        viewModel.clear()
+    }
+    
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
         let userAuthPageViewController = UserAuthPageViewController()
+        userAuthPageViewController.didCancelHandler = {
+            self.dismiss(animated: true, completion: nil)
+        }
         
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
@@ -211,7 +220,7 @@ class OutstandingOrderViewController: UIViewController {
         checkoutViewController.viewModel.userID = viewModel.userID
         
         checkoutViewController.didCreatePurchasedOrderHandler = { id in
-            self.viewModel.clear()
+            self.clear()
             checkoutViewController.present(UINavigationController(rootViewController: self.makePurchasedOrderViewController(purchasedOrderID: id)), animated: true) {
                 self.navigationController?.popViewController(animated: false)
             }
@@ -246,6 +255,7 @@ class OutstandingOrderViewController: UIViewController {
         
         cell.priceLabel.text = cellViewModel.configurationData.priceText
         
+        cell.quantityView.counterTextField.tintColor = Constants.itemTableViewCellQuantityViewCounterTextFieldTintColor
         cell.quantityView.counterTextField.text = cellViewModel.configurationData.quantityText
         cell.quantityView.counterTextField.delegate = self
         
@@ -277,7 +287,7 @@ class OutstandingOrderViewController: UIViewController {
 extension OutstandingOrderViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         // Show badge if changing view controllers and there are items.
-        if viewController != self && viewModel.isItemsEmpty.value == false {
+        if viewController != self.navigationController && viewModel.isItemsEmpty.value == false {
             self.showEmptyBadge()
         }
     }

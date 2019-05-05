@@ -15,6 +15,10 @@ class UserViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    var outstandingOrderViewController: OutstandingOrderViewController? {
+        return ((self.presentingViewController as? UITabBarController)?.viewControllers?[outstandingOrderNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? OutstandingOrderViewController
+    }
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -117,6 +121,8 @@ class UserViewController: UIViewController {
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginDownloads()
+            self.outstandingOrderViewController?.viewModel.userID = id
+            self.outstandingOrderViewController?.viewModel.beginUpdateOutstandingOrderUserDownload()
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -162,6 +168,7 @@ class UserViewController: UIViewController {
         case .logOut:
             do {
                 try viewModel.logOut()
+                outstandingOrderViewController?.clear()
                 self.dismiss(animated: true, completion: nil)
             } catch { print(error.localizedDescription) }
         }

@@ -14,12 +14,17 @@ class UserAuthViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .grouped)
     let completeButton = RoundedButton()
     
+    let loadingView = BlurLoadingView()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
+        
         static let textFieldTableViewCellTitleLabelWidth = CGFloat(120)
         static let textFieldTableViewCellTextFieldTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
@@ -38,6 +43,7 @@ class UserAuthViewController: UIViewController {
         
         configureTableView()
         configureCompleteButton()
+        configureLoadingView()
         setUpView()
         configureViewModel()
     }
@@ -48,8 +54,13 @@ class UserAuthViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [tableView].forEach { self.view.addSubview($0) }
+        [tableView, loadingView]
+            .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+        
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func configureTableView() {
@@ -57,6 +68,10 @@ class UserAuthViewController: UIViewController {
         tableView.delegate = tableViewDelegate
         tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: UserAuthViewModel.CellIdentifier.textFieldTableViewCell.rawValue)
         tableView.tableFooterView = makeTableViewTableFooterView()
+    }
+    
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
     }
     
     private func configureCompleteButton() {
@@ -78,6 +93,12 @@ class UserAuthViewController: UIViewController {
         }
         
         viewModel.completedButtonText.bindAndRun { self.completeButton.titleLabel.text = $0 }
+        
+        viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
+        }
         
         viewModel.errorHandler = { value in
             switch value {

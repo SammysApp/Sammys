@@ -19,6 +19,10 @@ class ConstructedItemViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    var outstandingOrderViewController: OutstandingOrderViewController? {
+        return (self.tabBarController?.viewControllers?[outstandingOrderNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? OutstandingOrderViewController
+    }
+    
     private let categoryCollectionViewDataSource = UICollectionViewSectionModelsDataSource()
     private let categoryCollectionViewDelegate = UICollectionViewSectionModelsDelegate()
     
@@ -201,6 +205,10 @@ class ConstructedItemViewController: UIViewController {
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
         let userAuthPageViewController = UserAuthPageViewController()
+        userAuthPageViewController.didCancelHandler = {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginUpdateConstructedItemUserDownload()
@@ -218,13 +226,10 @@ class ConstructedItemViewController: UIViewController {
     
     private func completeButtonTouchUpInsideAction() {
         viewModel.beginAddToOutstandingOrderDownload() {
-            if let outstandingOrderNavigationController = self.tabBarController?.viewControllers?[outstandingOrderViewControllerTabBarControllerIndex] as? UINavigationController {
-                outstandingOrderNavigationController.showEmptyBadge()
-                if let outstandingOrderViewController = outstandingOrderNavigationController.viewControllers.first as? OutstandingOrderViewController{
-                    outstandingOrderViewController.beginDownloads()
-                }
+            if let outstandingOrderViewController = self.outstandingOrderViewController {
+                outstandingOrderViewController.navigationController?.showEmptyBadge()
+                outstandingOrderViewController.beginDownloads()
             }
-            
             self.navigationController?.popToRootViewController(animated: true)
         }
     }

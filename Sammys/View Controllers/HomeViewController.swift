@@ -87,7 +87,6 @@ class HomeViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.refreshControl = refreshControl
         tableView.rowHeight = Constants.tableViewRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
@@ -119,7 +118,10 @@ class HomeViewController: UIViewController {
             self.tableView.reloadData()
         }
         
-        viewModel.isDataRefreshable.bindAndRun { self.refreshControl.isHidden = !$0 }
+        viewModel.isDataRefreshable.bindAndRun { value in
+            if value { self.tableView.refreshControl = self.refreshControl }
+            else { self.tableView.refreshControl = nil }
+        }
         
         viewModel.isLoading.bindAndRun { value in
             self.view.isUserInteractionEnabled = !value

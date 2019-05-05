@@ -17,9 +17,9 @@ let appEnvironment = AppEnvironment.development
 let appEnvironment = AppEnvironment.production
 #endif
 
-let homeViewControllerTabBarControllerIndex = 0
-let favoritesViewControllerTabBarControllerIndex = 1
-let outstandingOrderViewControllerTabBarControllerIndex = 2
+let homeNavigationViewControllerTabBarControllerIndex = 0
+let favoritesNavigationViewControllerTabBarControllerIndex = 1
+let outstandingOrderNavigationViewControllerTabBarControllerIndex = 2
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -63,14 +63,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         homeViewController.tabBarItem = .init(
             title: Constants.homeViewControllerTabBarItemTitle,
             image: Constants.homeViewControllerTabBarItemImage,
-            tag: homeViewControllerTabBarControllerIndex
+            tag: homeNavigationViewControllerTabBarControllerIndex
         )
         
         let favoritesViewController = UIViewController()
         favoritesViewController.tabBarItem = .init(
             title: Constants.favoritesViewControllerTabBarItemTitle,
             image: Constants.favoritesViewControllerTabBarItemImage,
-            tag: favoritesViewControllerTabBarControllerIndex
+            tag: favoritesNavigationViewControllerTabBarControllerIndex
         )
         
         let outstandingOrderViewController = OutstandingOrderViewController()
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         outstandingOrderViewController.tabBarItem = .init(
             title: Constants.outstandingOrderViewControllerTitle,
             image: Constants.outstandingOrderViewControllerTabBarItemImage,
-            tag: outstandingOrderViewControllerTabBarControllerIndex
+            tag: outstandingOrderNavigationViewControllerTabBarControllerIndex
         )
         outstandingOrderViewController.tabBarItem.badgeColor = Constants.outstandingOrderViewControllerTabBarItemBadgeColor
         

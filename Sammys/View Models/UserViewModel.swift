@@ -91,7 +91,6 @@ class UserViewModel {
     // MARK: - Methods
     func logOut() throws {
         try userAuthManager.signOutCurrentUser()
-        keyValueStore.set(Optional<String>(nil), forKey: KeyValueStoreKeys.currentOutstandingOrderID)
     }
     
     // MARK: - Download Methods

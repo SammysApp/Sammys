@@ -58,6 +58,8 @@ class UserAuthViewModel {
     
     private(set) lazy var completedButtonText = Dynamic(makeCompletedButtonText())
     
+    let isLoading = Dynamic(false)
+    
     enum CellIdentifier: String {
         case textFieldTableViewCell
     }
@@ -98,11 +100,16 @@ class UserAuthViewModel {
     
     // MARK: - Download Methods
     func beginCompleteDownload() {
+        isLoading.value = true
         do {
             try makeSignInUserDownload()
+                .ensure { self.isLoading.value = false }
                 .done { self.userDidSignInHandler($0.id) }
                 .catch { self.errorHandler($0) }
-        } catch { errorHandler(error) }
+        } catch {
+            isLoading.value = false
+            errorHandler(error)
+        }
     }
     
     private func beginCreateAndSignInUserDownload() throws -> Promise<User> {
