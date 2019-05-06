@@ -19,6 +19,10 @@ class OutstandingOrderViewController: UIViewController {
     
     private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
     
+    var homeViewController: HomeViewController? {
+        return (self.tabBarController?.viewControllers?[homeNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? HomeViewController
+    }
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -221,6 +225,7 @@ class OutstandingOrderViewController: UIViewController {
         
         checkoutViewController.didCreatePurchasedOrderHandler = { id in
             self.clear()
+            self.homeViewController?.beginDownloads()
             checkoutViewController.present(UINavigationController(rootViewController: self.makePurchasedOrderViewController(purchasedOrderID: id)), animated: true) {
                 self.navigationController?.popViewController(animated: false)
             }
