@@ -122,7 +122,9 @@ class UserViewController: UIViewController {
             self.viewModel.userID = id
             self.viewModel.beginDownloads()
             self.outstandingOrderViewController?.viewModel.userID = id
-            self.outstandingOrderViewController?.viewModel.beginUpdateOutstandingOrderUserDownload()
+            if self.outstandingOrderViewController?.viewModel.outstandingOrderID != nil {
+                self.outstandingOrderViewController?.viewModel.beginUpdateOutstandingOrderUserDownload()
+            }
             self.dismiss(animated: true, completion: nil)
         }
         
