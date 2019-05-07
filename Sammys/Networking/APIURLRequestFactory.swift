@@ -23,6 +23,11 @@ struct APIURLRequestFactory {
         port: LocalConstants.DevelopmentAPIServer.port
     )
     
+    private let productionServer = HTTPServer(
+        scheme: AppConstants.ProductionAPIServer.scheme,
+        host: AppConstants.ProductionAPIServer.host
+    )
+    
     let defaultJSONDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
@@ -32,8 +37,7 @@ struct APIURLRequestFactory {
     var server: HTTPServer {
         switch environment {
         case .development: return developmentServer
-        // FIXME: Add production server.
-        case .production: preconditionFailure()
+        case .production: return productionServer
         }
     }
     
