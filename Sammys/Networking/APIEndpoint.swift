@@ -14,6 +14,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getTokenUser
     /// GET `/users/:user`
     case getUser(User.ID)
+    /// GET `/users/:user/constructedItems`
+    case getUserConstructedItems(User.ID)
     /// GET `/users/:user/outstandingOrders`
     case getUserOutstandingOrders(User.ID)
     /// GET `/users/:user/purchasedOrders`
@@ -92,6 +94,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/users/tokenUser")
         case .getUser(let id):
             return (.GET, "/\(version)/users/\(id)")
+        case .getUserConstructedItems(let id):
+            return (.GET, "/\(version)/users/\(id)/constructedItems")
         case .getUserOutstandingOrders(let id):
             return (.GET, "/\(version)/users/\(id)/outstandingOrders")
         case .getUserPurchasedOrders(let id):

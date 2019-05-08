@@ -69,6 +69,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getUser(id), token: token)
     }
     
+    func makeGetUserConstructedItemsRequest(id: User.ID, queryData: GetUserConstructedItemsRequestQueryData? = nil, token: JWT) -> URLRequest {
+        return makeRequest(endpoint: .getUserConstructedItems(id), token: token)
+    }
+    
     func makeGetUserOutstandingOrdersRequest(id: User.ID, token: JWT) -> URLRequest {
         return makeRequest(endpoint: .getUserOutstandingOrders(id), token: token)
     }
@@ -191,6 +195,22 @@ struct APIURLRequestFactory {
     
     func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .removeOutstandingOrderConstructedItem(outstandingOrderID, constructedItemID), token: token)
+    }
+}
+
+struct GetUserConstructedItemsRequestQueryData {
+    var isFavorite: Bool?
+    
+    init(isFavorite: Bool? = nil) {
+        self.isFavorite = isFavorite
+    }
+    
+    func toQueryItems() -> [URLQueryItem] {
+        var queryItems = [URLQueryItem]()
+        if let isFavorite = isFavorite {
+            queryItems.append(URLQueryItem(name: "isFavorite", value: String(isFavorite)))
+        }
+        return queryItems
     }
 }
 

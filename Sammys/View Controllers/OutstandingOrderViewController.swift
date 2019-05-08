@@ -186,7 +186,7 @@ class OutstandingOrderViewController: UIViewController {
     
     // MARK: - Methods
     func beginDownloads() {
-        if viewModel.isUserSignedIn {
+        if viewModel.isUserSignedIn && !viewModel.isUserIDSet.value {
             viewModel.beginUserIDDownload {
                 self.viewModel.beginDownloads()
             }

@@ -230,7 +230,7 @@ class ConstructedItemViewModel {
             return Promise { $0.fulfill((id)) }
         } else if userID != nil {
             guard let token = token else { preconditionFailure() }
-            return getUserOutstandingOrders(token: token).then { outstandingOrders -> Promise<OutstandingOrder> in
+            return getOutstandingOrders(token: token).then { outstandingOrders -> Promise<OutstandingOrder> in
                 if let outstandingOrder = outstandingOrders.first { return Promise { $0.fulfill(outstandingOrder) } }
                 else { return self.createOutstandingOrder(data: .init(userID: self.userID), token: token) }
             }.map { $0.id }
@@ -289,7 +289,7 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
-    private func getUserOutstandingOrders(token: JWT) -> Promise<[OutstandingOrder]> {
+    private func getOutstandingOrders(token: JWT) -> Promise<[OutstandingOrder]> {
         return httpClient.send(apiURLRequestFactory.makeGetUserOutstandingOrdersRequest(id: userID ?? preconditionFailure(), token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([OutstandingOrder].self, from: $0.data) }
     }

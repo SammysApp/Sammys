@@ -18,7 +18,7 @@ let appEnvironment = AppEnvironment.production
 #endif
 
 let homeNavigationViewControllerTabBarControllerIndex = 0
-let favoritesNavigationViewControllerTabBarControllerIndex = 1
+let constructedItemsNavigationViewControllerTabBarControllerIndex = 1
 let outstandingOrderNavigationViewControllerTabBarControllerIndex = 2
 
 @UIApplicationMain
@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         static let homeViewControllerTabBarItemTitle = "Home"
         static let homeViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Home")
         
-        static let favoritesViewControllerTabBarItemTitle = "Favorites"
-        static let favoritesViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
+        static let constructedItemsViewControllerTitle = "Favorites"
+        static let constructedItemsViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
         
         static let outstandingOrderViewControllerTitle = "Bag"
         static let outstandingOrderViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Bag")
@@ -66,11 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tag: homeNavigationViewControllerTabBarControllerIndex
         )
         
-        let favoritesViewController = UIViewController()
-        favoritesViewController.tabBarItem = .init(
-            title: Constants.favoritesViewControllerTabBarItemTitle,
-            image: Constants.favoritesViewControllerTabBarItemImage,
-            tag: favoritesNavigationViewControllerTabBarControllerIndex
+        let constructedItemsViewController = ConstructedItemsViewController()
+        constructedItemsViewController.title = Constants.constructedItemsViewControllerTitle
+        constructedItemsViewController.tabBarItem = .init(
+            title: Constants.constructedItemsViewControllerTitle,
+            image: Constants.constructedItemsViewControllerTabBarItemImage,
+            tag: constructedItemsNavigationViewControllerTabBarControllerIndex
         )
         
         let outstandingOrderViewController = OutstandingOrderViewController()
@@ -82,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         outstandingOrderViewController.tabBarItem.badgeColor = Constants.outstandingOrderViewControllerTabBarItemBadgeColor
         
-        tabBarController.viewControllers = [homeViewController, favoritesViewController, outstandingOrderViewController]
+        tabBarController.viewControllers = [homeViewController, constructedItemsViewController, outstandingOrderViewController]
             .map { UINavigationController(rootViewController: $0) }
         return tabBarController
     }

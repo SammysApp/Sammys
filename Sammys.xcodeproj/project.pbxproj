@@ -82,6 +82,8 @@
 		5B4F7F1722319AD900F95C04 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */; };
 		5B4F7F1B2231A3D600F95C04 /* OutstandingOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */; };
 		5B4F7F1D2231B34C00F95C04 /* OutstandingOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */; };
+		5B5610B522830E99003F623E /* ConstructedItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5610B422830E99003F623E /* ConstructedItemsViewModel.swift */; };
+		5B5610B7228325DF003F623E /* ConstructedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5610B6228325DF003F623E /* ConstructedItemsViewController.swift */; };
 		5B6A067C1FFD509A00BAC480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */; };
 		5B6CD600216ACDF000E30780 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CD5FF216ACDF000E30780 /* Dynamic.swift */; };
 		5B6E366C221E346B004D5310 /* URLSession+HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E366B221E346B004D5310 /* URLSession+HTTPClient.swift */; };
@@ -294,6 +296,8 @@
 		5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
 		5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrderViewController.swift; sourceTree = "<group>"; };
 		5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutstandingOrderViewModel.swift; sourceTree = "<group>"; };
+		5B5610B422830E99003F623E /* ConstructedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemsViewModel.swift; sourceTree = "<group>"; };
+		5B5610B6228325DF003F623E /* ConstructedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItemsViewController.swift; sourceTree = "<group>"; };
 		5B6A06781FFD509A00BAC480 /* Sammys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sammys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6A067B1FFD509A00BAC480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6CD5FF216ACDF000E30780 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 				5B6E391B2223831F004D5310 /* CategoriesViewModel.swift */,
 				5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */,
 				5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */,
+				5B5610B422830E99003F623E /* ConstructedItemsViewModel.swift */,
 				5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */,
 				5B2D558522515DBD006FDFF2 /* CheckoutViewModel.swift */,
 				5B2E17F62262CEFB005DC635 /* PaymentMethodsViewModel.swift */,
@@ -607,6 +612,7 @@
 				5B6E391922238240004D5310 /* CategoriesViewController.swift */,
 				5B9A8ABC222450D100F5525D /* ItemsViewController.swift */,
 				5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */,
+				5B5610B6228325DF003F623E /* ConstructedItemsViewController.swift */,
 				5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */,
 				5B2D558322515C78006FDFF2 /* CheckoutViewController.swift */,
 				5B2E17FE2263975D005DC635 /* PaymentMethodsViewController.swift */,
@@ -1055,6 +1061,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B6E368922208515004D5310 /* UITableViewSectionModelsDelegate.swift in Sources */,
+				5B5610B522830E99003F623E /* ConstructedItemsViewModel.swift in Sources */,
 				5B2C3C9A2245387D006BE7B3 /* UserViewModel.swift in Sources */,
 				5B22785A2197CFA7003E3DE2 /* UICollectionReusableView.swift in Sources */,
 				5BE1692622779DDC00622F9E /* UIGestureRecognizer.swift in Sources */,
@@ -1109,6 +1116,7 @@
 				5B3A4B752195F3E400F22F78 /* Array+Equatable.swift in Sources */,
 				5B3A4B5B2195F3E400F22F78 /* Int.swift in Sources */,
 				5B01221A221DE4B80054AB7A /* HTTPEndpoint.swift in Sources */,
+				5B5610B7228325DF003F623E /* ConstructedItemsViewController.swift in Sources */,
 				5B3305BD2230242B00F01CEE /* OutstandingOrder.swift in Sources */,
 				5B2C3C9222428378006BE7B3 /* JWT.swift in Sources */,
 				5B3A4B532195F3E400F22F78 /* NSLayoutConstraintArray.swift in Sources */,
