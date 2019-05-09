@@ -78,6 +78,13 @@ class ConstructedItemsViewModel {
             .catch(errorHandler)
     }
     
+    func beginUpdateConstructedItemDownload(id: ConstructedItem.ID, isFavorite: Bool) {
+        userAuthManager.getCurrentUserIDToken()
+            .then { self.partiallyUpdateConstructedItem(id: id, data: .init(isFavorite: isFavorite), token: $0).asVoid() }
+            .then { self.beginConstructedItemsDownload() }
+            .catch(errorHandler)
+    }
+    
     func beginAddToOutstandingOrderDownload(constructedItemID: ConstructedItem.ID, successHandler: @escaping () -> Void = {}) {
         userAuthManager.getCurrentUserIDToken()
             .then { self.makeAddToOutstandingOrderDownload(constructedItemID: constructedItemID, token: $0) }
@@ -133,6 +140,13 @@ class ConstructedItemsViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([ConstructedItem].self, from: $0.data) }
     }
     
+    private func partiallyUpdateConstructedItem(id: ConstructedItem.ID, data: PartiallyUpdateConstructedItemRequestData, token: JWT) -> Promise<ConstructedItem> {
+        do {
+            return try  httpClient.send(apiURLRequestFactory.makePartiallyUpdateConstructedItemRequest(id: id, data: data, token: token)).validate()
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
     private func getOutstandingOrders(token: JWT) -> Promise<[OutstandingOrder]> {
         return httpClient.send(apiURLRequestFactory.makeGetUserOutstandingOrdersRequest(id: userID ?? preconditionFailure(), token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([OutstandingOrder].self, from: $0.data) }
@@ -182,7 +196,7 @@ class ConstructedItemsViewModel {
                 descriptionText: constructedItem.description,
                 priceText: constructedItem.totalPrice?.toUSDUnits().toPriceString()
             ),
-            selectionData: .init(constructedItemID: constructedItem.id)
+            selectionData: .init(constructedItemID: constructedItem.id, isFavorite: constructedItem.isFavorite)
         )
     }
 }
@@ -204,6 +218,7 @@ extension ConstructedItemsViewModel {
         
         struct SelectionData {
             let constructedItemID: ConstructedItem.ID
+            let isFavorite: Bool
         }
     }
 }

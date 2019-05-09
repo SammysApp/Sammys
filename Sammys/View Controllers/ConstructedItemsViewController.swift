@@ -22,6 +22,8 @@ class ConstructedItemsViewController: UIViewController {
     
     private struct Constants {
         static let constructedItemActionSheetControllerAddToBagActionTitle = "Add to Bag"
+        static let constructedItemActionSheetControllerFavoriteActionTitle = "Favorite"
+        static let constructedItemActionSheetControllerUnfavoriteActionTitle = "Unfavorite"
         static let constructedItemActionSheetControllerCancelActionTitle = "Cancel"
         
         static let itemTableViewCellTitleLabelFontWeight = UIFont.Weight.medium
@@ -84,17 +86,25 @@ class ConstructedItemsViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
-    private func makeConstructedItemActionSheetController(constructedItemID: ConstructedItem.ID) -> UIAlertController {
+    private func makeConstructedItemActionSheetController(constructedItemID: ConstructedItem.ID, isFavorite: Bool) -> UIAlertController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addActions([
-            .init(title: Constants.constructedItemActionSheetControllerAddToBagActionTitle, style: .default) { _ in
+            .init(
+                title: Constants.constructedItemActionSheetControllerAddToBagActionTitle,
+                style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
                 self.viewModel.beginAddToOutstandingOrderDownload(constructedItemID: constructedItemID) {
                     if let outstandingOrderViewController = self.outstandingOrderViewController {
                         outstandingOrderViewController.navigationController?.showEmptyBadge()
                         outstandingOrderViewController.beginDownloads()
                     }
                 }
+            },
+            .init(
+                title: isFavorite ? Constants.constructedItemActionSheetControllerUnfavoriteActionTitle : Constants.constructedItemActionSheetControllerFavoriteActionTitle,
+                style: isFavorite ? .destructive : .default) { _ in
                 self.dismiss(animated: true, completion: nil)
+                self.viewModel.beginUpdateConstructedItemDownload(id: constructedItemID, isFavorite: !isFavorite)
             },
             .init(title: Constants.constructedItemActionSheetControllerCancelActionTitle, style: .cancel) { _ in self.dismiss(animated: true, completion: nil) }
         ])
@@ -120,6 +130,6 @@ class ConstructedItemsViewController: UIViewController {
     private func constructedItemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemsViewModel.ConstructedItemTableViewCellViewModel else { return }
         
-        self.present(makeConstructedItemActionSheetController(constructedItemID: cellViewModel.selectionData.constructedItemID), animated: true, completion: nil)
+        self.present(makeConstructedItemActionSheetController(constructedItemID: cellViewModel.selectionData.constructedItemID, isFavorite: cellViewModel.selectionData.isFavorite), animated: true, completion: nil)
     }
 }
