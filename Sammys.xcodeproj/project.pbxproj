@@ -130,6 +130,7 @@
 		5B9A8ADE2228867700F5525D /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */; };
 		5B9A8AE02228E5C800F5525D /* ConstructedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */; };
 		5B9B909020C8484E00FB6264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9B908F20C8484E00FB6264 /* Assets.xcassets */; };
+		5BA472AE22848EF000D1345C /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA472AD22848EF000D1345C /* TextViewTableViewCell.swift */; };
 		5BAEE6E820E4718A00607DFA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */; };
 		5BB063CA227B834600F8ADB6 /* PurchasedOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB063C9227B834600F8ADB6 /* PurchasedOrderViewModel.swift */; };
 		5BB063CC227B8CC000F8ADB6 /* PurchasedOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB063CB227B8CC000F8ADB6 /* PurchasedOrderViewController.swift */; };
@@ -337,6 +338,7 @@
 		5B9A8ADD2228867700F5525D /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		5B9A8ADF2228E5C800F5525D /* ConstructedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructedItem.swift; sourceTree = "<group>"; };
 		5B9B908F20C8484E00FB6264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5BA472AD22848EF000D1345C /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
 		5BAEE6E720E4718900607DFA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BB063C9227B834600F8ADB6 /* PurchasedOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrderViewModel.swift; sourceTree = "<group>"; };
 		5BB063CB227B8CC000F8ADB6 /* PurchasedOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrderViewController.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				5B4F7F1622319AD900F95C04 /* StackTableViewCell.swift */,
 				5BB45595224BD2BC00EE8488 /* SubtitleTableViewCell.swift */,
 				5B2C3C8B224160FA006BE7B3 /* TextFieldTableViewCell.swift */,
+				5BA472AD22848EF000D1345C /* TextViewTableViewCell.swift */,
 				5B2E18042264D735005DC635 /* TotalTableViewCell.swift */,
 			);
 			path = Views;
@@ -1128,6 +1131,7 @@
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B39AF4822400C9500D2BE22 /* Target.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
+				5BA472AE22848EF000D1345C /* TextViewTableViewCell.swift in Sources */,
 				5B7C0B32219A4BBD00EBC0EB /* Array.swift in Sources */,
 				5B2E18052264D735005DC635 /* TotalTableViewCell.swift in Sources */,
 				5B012220221DF3A40054AB7A /* HTTPHeaderName.swift in Sources */,

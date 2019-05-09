@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextFieldTableViewCell: UITableViewCell {
+class TextFieldTableViewCell: StackTableViewCell {
     let titleLabel = UILabel()
     let textField = UITextField()
     
@@ -17,13 +17,12 @@ class TextFieldTableViewCell: UITableViewCell {
     }
     var textFieldTextUpdateHandler: (String?) -> Void = { _ in }
     
-    private lazy var stackView = UIStackView(arrangedSubviews: [titleLabel, textField])
-    
     private var titleLabelWidthConstraint: NSLayoutConstraint?
+    
     private lazy var textFieldEditingChangedTarget = Target { self.textFieldTextUpdateHandler(self.textField.text) }
     
     private struct Constants {
-        static let stackViewSpacing = CGFloat(10)
+        static let contentStackViewSpacing = CGFloat(10)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,9 +37,9 @@ class TextFieldTableViewCell: UITableViewCell {
         titleLabel.textAlignment = .right
         textField.add(textFieldEditingChangedTarget, for: .editingChanged)
         
-        stackView.spacing = Constants.stackViewSpacing
-        self.addSubview(stackView)
-        stackView.edgesToSuperview()
+        contentStackView.addArrangedSubview(titleLabel)
+        contentStackView.addArrangedSubview(textField)
+        contentStackView.spacing = Constants.contentStackViewSpacing
         
         update()
     }

@@ -19,6 +19,10 @@ class ConstructedItemViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    var favoriteConstructedItemsViewController: ConstructedItemsViewController? {
+        return (self.tabBarController?.viewControllers?[favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? ConstructedItemsViewController
+    }
+    
     var outstandingOrderViewController: OutstandingOrderViewController? {
         return (self.tabBarController?.viewControllers?[outstandingOrderNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? OutstandingOrderViewController
     }
@@ -221,7 +225,9 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Target Actions
     private func favoriteBarButtonItemAction() {
-        viewModel.beginUpdateConstructedItemDownload(isFavorite: !viewModel.isFavorite.value)
+        viewModel.beginUpdateConstructedItemDownload(isFavorite: !viewModel.isFavorite.value) {
+            self.favoriteConstructedItemsViewController?.beginDownloads()
+        }
     }
     
     private func completeButtonTouchUpInsideAction() {

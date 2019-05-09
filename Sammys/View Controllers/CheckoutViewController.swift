@@ -8,6 +8,7 @@
 
 import UIKit
 import PassKit
+import TinyConstraints
 
 class CheckoutViewController: UIViewController {
     let viewModel = CheckoutViewModel()
@@ -31,9 +32,15 @@ class CheckoutViewController: UIViewController {
     private struct Constants {
         static let title = "Checkout"
         
+        static let tableViewEstimatedRowHeight = CGFloat(60)
+        
         static let paymentMethodTableViewCellTextLabelText = "Payment Method"
         
         static let pickupDateTableViewCellTextLabelText = "Pickup"
+        
+        static let noteTableViewCellMinimumHeight = CGFloat(60)
+        static let noteTableViewCellPlaceholderLabelTextColor = UIColor.lightGray
+        static let noteTableViewCellTextViewLeadingOffset = CGFloat(15)
         
         static let payButtonsStackViewHeight = CGFloat(60)
         static let payButtonsStackViewHorizontalInset = CGFloat(10)
@@ -84,9 +91,11 @@ class CheckoutViewController: UIViewController {
     }
     
     private func configureTableView() {
+        tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
+        tableView.register(TextViewTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.textViewTableViewCell.rawValue)
         tableView.register(TotalTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.totalTableViewCell.rawValue)
     }
     
@@ -138,6 +147,10 @@ class CheckoutViewController: UIViewController {
         viewModel.pickupDateTableViewCellViewModelActions = [
             .configuration: pickupDateTableViewCellConfigurationAction,
             .selection: pickupDateTableViewCellSelectionAction
+        ]
+        
+        viewModel.noteTableViewCellViewModelActions = [
+            .configuration: noteTableViewCellConfigurationAction
         ]
         
         viewModel.totalTableViewCellViewModelActions = [
@@ -241,6 +254,32 @@ class CheckoutViewController: UIViewController {
     private func pickupDateTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
         viewModel.beginStoreHoursDownload()
         self.navigationController?.pushViewController(datePickerViewController, animated: true)
+    }
+    
+    private func noteTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.NoteTableViewCellViewModel,
+            let cell = data.cell as? TextViewTableViewCell else { return }
+        
+        cell.placeholderLabel.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0)
+        cell.placeholderLabel.textColor = Constants.noteTableViewCellPlaceholderLabelTextColor
+        cell.placeholderLabel.text = cellViewModel.configurationData.placeholderText
+        
+        cell.textView.isScrollEnabled = false
+        cell.textView.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0)
+        cell.set(textViewText: cellViewModel.configurationData.text ?? String())
+        cell.textViewLeadingOffset = Constants.noteTableViewCellTextViewLeadingOffset
+        
+        let heightView = UIView()
+        cell.insertSubview(heightView, belowSubview: cell.textView)
+        heightView.edgesToSuperview()
+        heightView.height(Constants.noteTableViewCellMinimumHeight, relation: .equalOrGreater)
+        
+        cell.textViewTextDidChangeHandler = { text in
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            
+            self.viewModel.beginUpdateOutstandingOrderDownload(note: text.isEmpty ? nil : text)
+        }
     }
     
     private func totalTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {

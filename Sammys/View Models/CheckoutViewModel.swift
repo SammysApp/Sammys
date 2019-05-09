@@ -17,21 +17,13 @@ class CheckoutViewModel {
     
     private let apiURLRequestFactory = APIURLRequestFactory()
     
+    private var outstandingOrder: OutstandingOrder?
+    
     private let pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = Constants.pickupDateTableViewCellViewModelDetailTextDateFormat
         return formatter
     }()
-    
-    private var subtotalText: String? {
-        didSet { updateTotalTableViewSectionModel() }
-    }
-    private var taxText: String? {
-        didSet { updateTotalTableViewSectionModel() }
-    }
-    private var totalText: String? {
-        didSet { updateTotalTableViewSectionModel() }
-    }
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
@@ -61,6 +53,10 @@ class CheckoutViewModel {
         didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
     }
     
+    var noteTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
+    }
+    
     var totalTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { updateTotalTableViewSectionModel() }
     }
@@ -79,6 +75,7 @@ class CheckoutViewModel {
     
     enum CellIdentifier: String {
         case subtitleTableViewCell
+        case textViewTableViewCell
         case totalTableViewCell
     }
     
@@ -91,6 +88,8 @@ class CheckoutViewModel {
         static let pickupDateTableViewCellViewModelHeight = Double(60)
         static let pickupDateTableViewCellViewModelDefaultDetailText = "ASAP"
         static let pickupDateTableViewCellViewModelDetailTextDateFormat = "h:mm a"
+        
+        static let noteTableViewCellViewModelPlaceholderText = "Add a note for the kitchen..."
         
         static let paymentSummaryItemLabel = "Sammy's"
     }
@@ -112,10 +111,10 @@ class CheckoutViewModel {
     }
     
     private func setUp(for outstandingOrder: OutstandingOrder) {
+        self.outstandingOrder = outstandingOrder
         pickupDate.value = outstandingOrder.preparedForDate
-        subtotalText = outstandingOrder.totalPrice?.toUSDUnits().toPriceString()
-        taxText = outstandingOrder.taxPrice?.toUSDUnits().toPriceString()
-        totalText = makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder).toUSDUnits().toPriceString()
+        updateOutstandingOrderDetailsTableViewSectionModel()
+        updateTotalTableViewSectionModel()
     }
     
     private func setUp(for storeDateHours: StoreDateHours) {
@@ -128,14 +127,17 @@ class CheckoutViewModel {
     }
     
     private func updateOutstandingOrderDetailsTableViewSectionModel() {
-        outstandingOrderDetailsTableViewSectionModel = makeOutstandingOrderDetailsTableViewSectionModel()
+        guard let outstandingOrder = outstandingOrder else {
+            totalTableViewSectionModel = nil; return
+        }
+        outstandingOrderDetailsTableViewSectionModel = makeOutstandingOrderDetailsTableViewSectionModel(outstandingOrder: outstandingOrder)
     }
     
     private func updateTotalTableViewSectionModel() {
-        guard let subtotalText = subtotalText,
-            let taxText = taxText,
-            let totalText = totalText else { return }
-        totalTableViewSectionModel = makeTotalTableViewSectionModel(subtotalText: subtotalText, taxText: taxText, totalText: totalText)
+        guard let outstandingOrder = outstandingOrder else {
+            totalTableViewSectionModel = nil; return
+        }
+        totalTableViewSectionModel = makeTotalTableViewSectionModel(outstandingOrder: outstandingOrder)
     }
     
     private func updateTableViewSectionModels() {
@@ -164,7 +166,16 @@ class CheckoutViewModel {
         userAuthManager.getCurrentUserIDToken()
             .then { self.getOutstandingOrder(token: $0) }.get { outstandingOrder in
                 outstandingOrder.preparedForDate = preparedForDate
-        }.then(beginUpdateOutstandingOrder).catch { self.errorHandler($0) }
+            }.then(beginUpdateOutstandingOrder).catch { self.errorHandler($0) }
+    }
+    
+    func beginUpdateOutstandingOrderDownload(note: String?) {
+        userAuthManager.getCurrentUserIDToken().then { token in
+            self.getOutstandingOrder(token: token).map { ($0, token) }
+        }.get { outstandingOrder, _ in
+            outstandingOrder.note = note
+        }.then { self.updateOutstandingOrder(data: $0, token: $1) }
+        .catch(errorHandler)
     }
     
     func beginPaymentRequestDownload(successHandler: @escaping (PKPaymentRequest) -> Void = { _ in }) {
@@ -241,9 +252,9 @@ class CheckoutViewModel {
     }
     
     // MARK: - Factory Methods
-    func makeOutstandingOrderTotalPrice(outstandingOrder: OutstandingOrder) -> Int {
+    func makeOutstandingOrderTotalPrice(outstandingOrder: OutstandingOrder) -> Int? {
         guard let subtotalPrice = outstandingOrder.totalPrice,
-            let taxPrice = outstandingOrder.taxPrice else { return 0 }
+            let taxPrice = outstandingOrder.taxPrice else { return nil }
         return subtotalPrice + taxPrice
     }
     
@@ -253,20 +264,21 @@ class CheckoutViewModel {
             countryCode: AppConstants.ApplePay.countryCode,
             currencyCode: AppConstants.ApplePay.currencyCode
         )
-        request.paymentSummaryItems = [PKPaymentSummaryItem(label: Constants.paymentSummaryItemLabel, amount: NSDecimalNumber(value: makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder).toUSDUnits()))]
+        request.paymentSummaryItems = [PKPaymentSummaryItem(label: Constants.paymentSummaryItemLabel, amount: NSDecimalNumber(value: (makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder) ?? 0).toUSDUnits()))]
         return request
     }
     
     // MARK: - Section Model Methods
-    private func makeOutstandingOrderDetailsTableViewSectionModel() -> UITableViewSectionModel {
+    private func makeOutstandingOrderDetailsTableViewSectionModel(outstandingOrder: OutstandingOrder) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: [
             makePaymentMethodTableViewCellViewModel(),
-            makePickupDateTableViewCellViewModel()
+            makePickupDateTableViewCellViewModel(),
+            makeNoteTableViewCellViewModel(outstandingOrder: outstandingOrder)
         ])
     }
     
-    private func makeTotalTableViewSectionModel(subtotalText: String, taxText: String, totalText: String) -> UITableViewSectionModel {
-        return UITableViewSectionModel(cellViewModels: [makeTotalTableViewCellViewModel(subtotalText: subtotalText, taxText: taxText, totalText: totalText)])
+    private func makeTotalTableViewSectionModel(outstandingOrder: OutstandingOrder) -> UITableViewSectionModel {
+        return UITableViewSectionModel(cellViewModels: [makeTotalTableViewCellViewModel(outstandingOrder: outstandingOrder)])
     }
     
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
@@ -302,12 +314,21 @@ class CheckoutViewModel {
         )
     }
     
-    private func makeTotalTableViewCellViewModel(subtotalText: String, taxText: String, totalText: String) -> TotalTableViewCellViewModel {
+    private func makeNoteTableViewCellViewModel(outstandingOrder: OutstandingOrder) -> NoteTableViewCellViewModel {
+        return NoteTableViewCellViewModel(
+            identifier: CellIdentifier.textViewTableViewCell.rawValue,
+            height: .automatic,
+            actions: noteTableViewCellViewModelActions,
+            configurationData: .init(placeholderText: Constants.noteTableViewCellViewModelPlaceholderText, text: outstandingOrder.note)
+        )
+    }
+    
+    private func makeTotalTableViewCellViewModel(outstandingOrder: OutstandingOrder) -> TotalTableViewCellViewModel {
         return TotalTableViewCellViewModel(
             identifier: CellIdentifier.totalTableViewCell.rawValue,
             height: .fixed(Constants.totalTableViewCellViewModelHeight),
             actions: totalTableViewCellViewModelActions,
-            configurationData: .init(subtotalText: subtotalText, taxText: taxText, totalText: totalText)
+            configurationData: .init(subtotalText: outstandingOrder.totalPrice?.toUSDUnits().toPriceString(), taxText: outstandingOrder.taxPrice?.toUSDUnits().toPriceString(), totalText: makeOutstandingOrderTotalPrice(outstandingOrder: outstandingOrder)?.toUSDUnits().toPriceString())
         )
     }
 }
@@ -330,6 +351,7 @@ extension CheckoutViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
@@ -339,16 +361,33 @@ extension CheckoutViewModel {
 }
 
 extension CheckoutViewModel {
+    struct NoteTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let isSelectable: Bool = false
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let placeholderText: String
+            let text: String?
+        }
+    }
+}
+
+extension CheckoutViewModel {
     struct TotalTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
         let configurationData: ConfigurationData
         
         struct ConfigurationData {
-            let subtotalText: String
-            let taxText: String
-            let totalText: String
+            let subtotalText: String?
+            let taxText: String?
+            let totalText: String?
         }
     }
 }

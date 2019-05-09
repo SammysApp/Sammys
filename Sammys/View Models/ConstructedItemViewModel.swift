@@ -146,12 +146,13 @@ class ConstructedItemViewModel {
             .catch(errorHandler)
     }
     
-    func beginUpdateConstructedItemDownload(isFavorite: Bool) {
+    func beginUpdateConstructedItemDownload(isFavorite: Bool, successHandler: @escaping () -> Void = {}) {
         isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.partiallyUpdateConstructedItem(data: .init(isFavorite: isFavorite), token: $0) }
             .ensure { self.isLoading.value = false }
             .done(setUp)
+            .done(successHandler)
             .catch(errorHandler)
     }
     
