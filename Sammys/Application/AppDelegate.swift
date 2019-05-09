@@ -18,7 +18,7 @@ let appEnvironment = AppEnvironment.production
 #endif
 
 let homeNavigationViewControllerTabBarControllerIndex = 0
-let constructedItemsNavigationViewControllerTabBarControllerIndex = 1
+let favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex = 1
 let outstandingOrderNavigationViewControllerTabBarControllerIndex = 2
 
 @UIApplicationMain
@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         static let homeViewControllerTabBarItemTitle = "Home"
         static let homeViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Home")
         
-        static let constructedItemsViewControllerTitle = "Favorites"
-        static let constructedItemsViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
+        static let favoriteConstructedItemsViewControllerTitle = "Favorites"
+        static let favoriteConstructedItemsViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Heart")
         
         static let outstandingOrderViewControllerTitle = "Bag"
         static let outstandingOrderViewControllerTabBarItemImage = #imageLiteral(resourceName: "TabBar.Bag")
@@ -66,12 +66,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tag: homeNavigationViewControllerTabBarControllerIndex
         )
         
-        let constructedItemsViewController = ConstructedItemsViewController()
-        constructedItemsViewController.title = Constants.constructedItemsViewControllerTitle
-        constructedItemsViewController.tabBarItem = .init(
-            title: Constants.constructedItemsViewControllerTitle,
-            image: Constants.constructedItemsViewControllerTabBarItemImage,
-            tag: constructedItemsNavigationViewControllerTabBarControllerIndex
+        let favoriteConstructedItemsViewController = ConstructedItemsViewController()
+        favoriteConstructedItemsViewController.title = Constants.favoriteConstructedItemsViewControllerTitle
+        favoriteConstructedItemsViewController.viewModel.isFavorites = true
+        favoriteConstructedItemsViewController.tabBarItem = .init(
+            title: Constants.favoriteConstructedItemsViewControllerTitle,
+            image: Constants.favoriteConstructedItemsViewControllerTabBarItemImage,
+            tag: favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex
         )
         
         let outstandingOrderViewController = OutstandingOrderViewController()
@@ -83,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         outstandingOrderViewController.tabBarItem.badgeColor = Constants.outstandingOrderViewControllerTabBarItemBadgeColor
         
-        tabBarController.viewControllers = [homeViewController, constructedItemsViewController, outstandingOrderViewController]
+        tabBarController.viewControllers = [homeViewController, favoriteConstructedItemsViewController, outstandingOrderViewController]
             .map { UINavigationController(rootViewController: $0) }
         return tabBarController
     }

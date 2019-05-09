@@ -70,7 +70,7 @@ struct APIURLRequestFactory {
     }
     
     func makeGetUserConstructedItemsRequest(id: User.ID, queryData: GetUserConstructedItemsRequestQueryData? = nil, token: JWT) -> URLRequest {
-        return makeRequest(endpoint: .getUserConstructedItems(id), token: token)
+        return makeRequest(endpoint: .getUserConstructedItems(id), queryItems: queryData?.toQueryItems(), token: token)
     }
     
     func makeGetUserOutstandingOrdersRequest(id: User.ID, token: JWT) -> URLRequest {

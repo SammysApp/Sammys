@@ -25,6 +25,8 @@ class ConstructedItemsViewModel {
     
     var outstandingOrderID: OutstandingOrder.ID?
     
+    var isFavorites: Bool? = nil
+    
     var constructedItemCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { updateConstructedItemsTableViewSectionModel() }
     }
@@ -136,7 +138,7 @@ class ConstructedItemsViewModel {
     }
     
     private func getConstructedItems(token: JWT) -> Promise<[ConstructedItem]> {
-        return httpClient.send(apiURLRequestFactory.makeGetUserConstructedItemsRequest(id: userID ?? preconditionFailure(), token: token)).validate()
+        return httpClient.send(apiURLRequestFactory.makeGetUserConstructedItemsRequest(id: userID ?? preconditionFailure(), queryData: .init(isFavorite: isFavorites), token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([ConstructedItem].self, from: $0.data) }
     }
     
