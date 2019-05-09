@@ -13,15 +13,22 @@ class ConstructedItemsViewController: UIViewController {
     
     let tableView = UITableView()
     
-    // MARK: - Lifecycle Methods
+    var outstandingOrderViewController: OutstandingOrderViewController? {
+        return (self.tabBarController?.viewControllers?[outstandingOrderNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? OutstandingOrderViewController
+    }
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private struct Constants {
+        static let constructedItemActionSheetControllerAddToBagActionTitle = "Add to Bag"
+        static let constructedItemActionSheetControllerCancelActionTitle = "Cancel"
+        
         static let itemTableViewCellTitleLabelFontWeight = UIFont.Weight.medium
         static let itemTableViewCellDescriptionLabelTextColor = UIColor.lightGray
     }
     
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,6 +83,24 @@ class ConstructedItemsViewController: UIViewController {
         } else { viewModel.beginDownloads() }
     }
     
+    // MARK: - Factory Methods
+    private func makeConstructedItemActionSheetController(constructedItemID: ConstructedItem.ID) -> UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addActions([
+            .init(title: Constants.constructedItemActionSheetControllerAddToBagActionTitle, style: .default) { _ in
+                self.viewModel.beginAddToOutstandingOrderDownload(constructedItemID: constructedItemID) {
+                    if let outstandingOrderViewController = self.outstandingOrderViewController {
+                        outstandingOrderViewController.navigationController?.showEmptyBadge()
+                        outstandingOrderViewController.beginDownloads()
+                    }
+                }
+                self.dismiss(animated: true, completion: nil)
+            },
+            .init(title: Constants.constructedItemActionSheetControllerCancelActionTitle, style: .cancel) { _ in self.dismiss(animated: true, completion: nil) }
+        ])
+        return alertController
+    }
+    
     // MARK: - Cell Actions
     private func constructedItemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ConstructedItemsViewModel.ConstructedItemTableViewCellViewModel,
@@ -92,5 +117,9 @@ class ConstructedItemsViewController: UIViewController {
         cell.quantityView.isHidden = true
     }
     
-    private func constructedItemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {}
+    private func constructedItemTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? ConstructedItemsViewModel.ConstructedItemTableViewCellViewModel else { return }
+        
+        self.present(makeConstructedItemActionSheetController(constructedItemID: cellViewModel.selectionData.constructedItemID), animated: true, completion: nil)
+    }
 }
