@@ -39,16 +39,18 @@ class TextViewTableViewCell: UITableViewCell {
     }
     
     private func setUp() {
+        textView.backgroundColor = .clear
         textView.textContainerInset = .init(top: 0, left: -5, bottom: 0, right: 0)
         textView.delegate = self
         
+        self.addSubview(placeholderLabel)
         self.addSubview(textView)
+        
         textView.topToSuperview(offset: Constants.textViewMinimumVerticalOffset, relation: .equalOrGreater)
         textView.trailingToSuperview()
         textView.bottomToSuperview(offset: -Constants.textViewMinimumVerticalOffset, relation: .equalOrLess)
         textView.centerYToSuperview()
         
-        self.addSubview(placeholderLabel)
         placeholderLabel.centerY(to: textView)
         placeholderLabel.leading(to: textView)
     }

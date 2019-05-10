@@ -40,6 +40,7 @@ class CheckoutViewController: UIViewController {
         
         static let noteTableViewCellMinimumHeight = CGFloat(60)
         static let noteTableViewCellPlaceholderLabelTextColor = UIColor.lightGray
+        static let noteTableViewCellTextViewTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let noteTableViewCellTextViewLeadingOffset = CGFloat(15)
         
         static let payButtonsStackViewHeight = CGFloat(60)
@@ -265,6 +266,7 @@ class CheckoutViewController: UIViewController {
         cell.placeholderLabel.text = cellViewModel.configurationData.placeholderText
         
         cell.textView.isScrollEnabled = false
+        cell.textView.tintColor = Constants.noteTableViewCellTextViewTintColor
         cell.textView.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0)
         cell.set(textViewText: cellViewModel.configurationData.text ?? String())
         cell.textViewLeadingOffset = Constants.noteTableViewCellTextViewLeadingOffset

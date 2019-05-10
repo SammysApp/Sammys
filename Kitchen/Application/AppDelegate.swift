@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let socketID = UUID()
     private(set) lazy var socket = WebSocket(url: makeSocketURL())
     
+    private var socketReconnectTimer: Timer?
+    
     private let bellSoundPlayer: AVAudioPlayer
     private let synthesizer = AVSpeechSynthesizer()
     private var currentPurchasedOrderUtterance: AVSpeechUtterance?
@@ -37,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     private struct Constants {
+        static let socketReconnectTimeInterval: TimeInterval = 10
+        
         static let bellSoundFileName = "Bell"
         static let bellSoundFileExtension = "wav"
         
@@ -81,6 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configureSocket() {
         socket.onData = didReceiveSocketData
+        socket.onConnect = socketDidConnect
+        socket.onDisconnect = socketDidDisconnect
     }
     
     // MARK: - Factory Methods
@@ -103,6 +109,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return url
     }
     
+    private func makeSocketReconnectTimer() -> Timer {
+        return .scheduledTimer(withTimeInterval: Constants.socketReconnectTimeInterval, repeats: true) { _ in self.socket.connect() }
+    }
+    
     private func makePurchasedOrderUtterance(purchasedOrder: PurchasedOrder) -> AVSpeechUtterance {
         var string = "New order"
         if let user = purchasedOrder.user { string += " for \(user.firstName)" }
@@ -111,12 +121,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return utterance
     }
     
+    // MARK: - Socket Methods
+    private func socketDidConnect() {
+        socketReconnectTimer?.invalidate()
+        socketReconnectTimer = nil
+        
+        purchasedOrdersViewController.viewModel.beginDownloads()
+    }
+    
     private func didReceiveSocketData(_ data: Data) {
         if let purchasedOrder = try? dataDecoder.decode(PurchasedOrder.self, from: data) {
             currentPurchasedOrderUtterance = makePurchasedOrderUtterance(purchasedOrder: purchasedOrder)
             if !bellSoundPlayer.isPlaying { bellSoundPlayer.play() }
             purchasedOrdersViewController.viewModel.beginDownloads()
         }
+    }
+    
+    private func socketDidDisconnect(error: Error?) {
+        socketReconnectTimer = makeSocketReconnectTimer()
     }
 }
 
