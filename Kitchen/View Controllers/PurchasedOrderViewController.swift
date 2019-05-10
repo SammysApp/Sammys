@@ -24,6 +24,9 @@ class PurchasedOrderViewController: UIViewController {
     private lazy var completeButtonTouchUpInsideTarget = Target(action: completeButtonTouchUpInsideAction)
     
     private struct Constants {
+        static let noteTableViewCellMinimumHeight = CGFloat(60)
+        static let noteTableViewCellTextViewLeadingOffset = CGFloat(15)
+        
         static let purchasedConstructedItemTableViewCellTextLabelFontSize = CGFloat(18)
         static let purchasedConstructedItemTableViewCellTextLabelFontWeight = UIFont.Weight.medium
         
@@ -75,6 +78,7 @@ class PurchasedOrderViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
+        tableView.register(TextViewTableViewCell.self, forCellReuseIdentifier: PurchasedOrderViewModel.CellIdentifier.textViewTableViewCell.rawValue)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: PurchasedOrderViewModel.CellIdentifier.itemTableViewCell.rawValue)
     }
     
@@ -92,6 +96,10 @@ class PurchasedOrderViewController: UIViewController {
     }
     
     private func configureViewModel() {
+        viewModel.noteTableViewCellViewModelActions = [
+            .configuration: noteTableViewCellConfigurationAction
+        ]
+        
         viewModel.purchasedConstructedItemTableViewCellViewModelActions = [
             .configuration: purchasedConstructedItemTableViewCellConfigurationAction,
             .selection: purchasedConstructedItemTableViewCellSelectionAction
@@ -122,6 +130,23 @@ class PurchasedOrderViewController: UIViewController {
     }
     
     // MARK: - Cell Actions
+    private func noteTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.NoteTableViewCellViewModel,
+            let cell = data.cell as? TextViewTableViewCell else { return }
+        
+        cell.textView.isScrollEnabled = false
+        cell.textView.isEditable = false
+        cell.textView.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0)
+        cell.set(textViewText: cellViewModel.configurationData.text)
+        
+        cell.textViewLeadingOffset = Constants.noteTableViewCellTextViewLeadingOffset
+        
+        let heightView = UIView()
+        cell.insertSubview(heightView, belowSubview: cell.textView)
+        heightView.edgesToSuperview()
+        heightView.height(Constants.noteTableViewCellMinimumHeight, relation: .equalOrGreater)
+    }
+    
     private func purchasedConstructedItemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? PurchasedOrderViewModel.PurchasedConstructedItemTableViewCellViewModel,
             let cell = data.cell else { return }

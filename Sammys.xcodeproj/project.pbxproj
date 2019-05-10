@@ -113,6 +113,7 @@
 		5B7D704A22553A720014D664 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D704922553A720014D664 /* DatePickerViewController.swift */; };
 		5B7D704C22553AA40014D664 /* DatePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D704B22553AA40014D664 /* DatePickerViewModel.swift */; };
 		5B803935227BCE1E0060C54F /* ProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B803934227BCE1E0060C54F /* ProgressTableViewCell.swift */; };
+		5B85442E2285BACC000315CD /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA472AD22848EF000D1345C /* TextViewTableViewCell.swift */; };
 		5B8E81A821B0672100C22CEA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A721B0672100C22CEA /* CLLocationCoordinate2D.swift */; };
 		5B8E81AA21B0696C00C22CEA /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E81A921B0696C00C22CEA /* UIAlertController.swift */; };
 		5B9865FE20C5A347004722D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B9865FD20C5A347004722D8 /* Assets.xcassets */; };
@@ -1219,6 +1220,7 @@
 				5BC120C222677F8100F271FD /* Array.swift in Sources */,
 				5B4F27B022696DFC00441BB0 /* PurchasedConstructedItem.swift in Sources */,
 				5BF0A01E226A7C8E0066D880 /* OrderProgress.swift in Sources */,
+				5B85442E2285BACC000315CD /* TextViewTableViewCell.swift in Sources */,
 				5BC120D022677F8100F271FD /* Target.swift in Sources */,
 				5BC120A922677C8700F271FD /* PurchasedOrder.swift in Sources */,
 				5BC120DC22677FAE00F271FD /* AppEnvironment.swift in Sources */,

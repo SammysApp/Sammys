@@ -53,6 +53,8 @@ class TextViewTableViewCell: UITableViewCell {
         
         placeholderLabel.centerY(to: textView)
         placeholderLabel.leading(to: textView)
+        
+        update()
     }
     
     private func update() {

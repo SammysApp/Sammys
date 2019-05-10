@@ -15,6 +15,7 @@ final class PurchasedOrder: Codable {
     let number: Int
     var purchasedDate: Date
     let preparedForDate: Date?
+    var note: String?
     let progress: OrderProgress
     let user: User?
 }

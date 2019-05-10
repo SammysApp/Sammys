@@ -12,12 +12,17 @@ import PromiseKit
 class PurchasedOrderViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
+    private var purchasedOrder: PurchasedOrder?
     private var purchasedConstructedItems = [PurchasedConstructedItem]()
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
     
     // MARK: - Section Model Properties
+    private var noteTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
+    
     private var purchasedConstructedItemsTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
     }
@@ -25,7 +30,13 @@ class PurchasedOrderViewModel {
     // MARK: - View Settable Properties
     var purchasedOrderID: PurchasedOrder.ID?
     
-    var purchasedConstructedItemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var noteTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateNoteTableViewSectionModel() }
+    }
+    
+    var purchasedConstructedItemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updatePurchasedConstructedItemsTableViewSectionModel() }
+    }
     
     var errorHandler: (Error) -> Void = { _ in }
     
@@ -37,6 +48,7 @@ class PurchasedOrderViewModel {
     let purchasedConstructedItemItems = Dynamic([CategorizedItemsViewModel.CategorizedItems]())
     
     enum CellIdentifier: String {
+        case textViewTableViewCell
         case itemTableViewCell
     }
     
@@ -50,7 +62,9 @@ class PurchasedOrderViewModel {
     
     // MARK: - Setup Methods
     private func setUp(for purchasedOrder: PurchasedOrder) {
+        self.purchasedOrder = purchasedOrder
         purchasedOrderIsCompleted.value = purchasedOrder.progress == .isCompleted
+        updateNoteTableViewSectionModel()
     }
     
     private func setUp(for purchasedConstructedItems: [PurchasedConstructedItem]) {
@@ -60,6 +74,13 @@ class PurchasedOrderViewModel {
     
     private func setUp(for purchasedConstructedItemItems: [CategorizedItemsViewModel.CategorizedItems]) {
         self.purchasedConstructedItemItems.value = purchasedConstructedItemItems
+    }
+    
+    private func updateNoteTableViewSectionModel() {
+        guard let purchasedOrder = purchasedOrder else {
+            noteTableViewSectionModel = nil; return
+        }
+        noteTableViewSectionModel = makeNoteTableViewSectionModel(purchasedOrder: purchasedOrder)
     }
     
     private func updatePurchasedConstructedItemsTableViewSectionModel() {
@@ -129,12 +150,21 @@ class PurchasedOrderViewModel {
     }
     
     // MARK: - Section Model Methods
-    private func makePurchasedConstructedItemsTableViewSectionModel(purchasedConstructedItems: [PurchasedConstructedItem]) -> UITableViewSectionModel {
+    private func makeNoteTableViewSectionModel(purchasedOrder: PurchasedOrder) -> UITableViewSectionModel? {
+        guard let note = purchasedOrder.note else { return nil }
+        return UITableViewSectionModel(cellViewModels: [makeNoteTableViewCellViewModel(note: note)])
+    }
+    
+    private func makePurchasedConstructedItemsTableViewSectionModel(purchasedConstructedItems: [PurchasedConstructedItem]) -> UITableViewSectionModel? {
+        guard !purchasedConstructedItems.isEmpty else { return nil }
         return UITableViewSectionModel(cellViewModels: purchasedConstructedItems.map(makePurchasedConstructedItemTableViewCellViewModel))
     }
     
     private func makeTableViewSectionModels() -> [UITableViewSectionModel] {
         var sectionModels = [UITableViewSectionModel]()
+        if let noteModel = noteTableViewSectionModel {
+            sectionModels.append(noteModel)
+        }
         if let purchasedConstructedItemsModel = purchasedConstructedItemsTableViewSectionModel {
             sectionModels.append(purchasedConstructedItemsModel)
         }
@@ -142,6 +172,15 @@ class PurchasedOrderViewModel {
     }
     
     // MARK: - Cell View Model Methods
+    private func makeNoteTableViewCellViewModel(note: String) -> NoteTableViewCellViewModel {
+        return NoteTableViewCellViewModel(
+            identifier: CellIdentifier.textViewTableViewCell.rawValue,
+            height: .automatic,
+            actions: noteTableViewCellViewModelActions,
+            configurationData: .init(text: note)
+        )
+    }
+    
     private func makePurchasedConstructedItemTableViewCellViewModel(purchasedConstructedItem: PurchasedConstructedItem) -> PurchasedConstructedItemTableViewCellViewModel {
         var titleText: String?
         if let name = purchasedConstructedItem.name {
@@ -163,10 +202,26 @@ class PurchasedOrderViewModel {
 }
 
 extension PurchasedOrderViewModel {
+    struct NoteTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let isSelectable = false
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let text: String
+        }
+    }
+}
+
+extension PurchasedOrderViewModel {
     struct PurchasedConstructedItemTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
         let configurationData: ConfigurationData
         let selectionData: SelectionData
         
