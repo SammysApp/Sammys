@@ -13,15 +13,15 @@ class OutstandingOrderViewController: UIViewController {
     
     let tableView = UITableView()
     
-    let checkoutSheetViewController = CheckoutSheetViewController()
-    
     let loadingView = BlurLoadingView()
     
-    private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
+    let checkoutSheetViewController = CheckoutSheetViewController()
     
     var homeViewController: HomeViewController? {
         return (self.tabBarController?.viewControllers?[homeNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? HomeViewController
     }
+    
+    private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
@@ -56,8 +56,8 @@ class OutstandingOrderViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        configureCheckoutSheetViewController()
         configureLoadingView()
+        configureCheckoutSheetViewController()
         configureTapGestureRecognizer()
         setUpView()
         addChildren()
@@ -113,6 +113,10 @@ class OutstandingOrderViewController: UIViewController {
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
     }
     
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
+    }
+    
     private func configureCheckoutSheetViewController() {
         checkoutSheetViewController.view.backgroundColor = Constants.checkoutSheetViewControllerViewBackgroundColor
         checkoutSheetViewController.view.layer.borderColor = Constants.checkoutSheetViewControllerViewLayerBorderColor
@@ -129,10 +133,6 @@ class OutstandingOrderViewController: UIViewController {
         }
         
         checkoutSheetViewController.view.isHidden = true
-    }
-    
-    private func configureLoadingView() {
-        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
     }
     
     private func configureTapGestureRecognizer() {

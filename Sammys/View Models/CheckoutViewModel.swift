@@ -73,6 +73,8 @@ class CheckoutViewModel {
     let minimumPickupDate: Dynamic<Date?> = Dynamic(nil)
     let maximumPickupDate: Dynamic<Date?> = Dynamic(nil)
     
+    let isLoading = Dynamic(false)
+    
     enum CellIdentifier: String {
         case subtitleTableViewCell
         case textViewTableViewCell
@@ -146,14 +148,16 @@ class CheckoutViewModel {
     
     // MARK: - Download Methods
     func beginDownloads() {
+        isLoading.value = true
         when(fulfilled: [
             beginOutstandingOrderDownload(),
             _beginStoreHoursDownload()
-        ]).catch { self.errorHandler($0) }
+        ]).ensure { self.isLoading.value = false }
+            .catch { self.errorHandler($0) }
     }
     
     func beginStoreHoursDownload() {
-        getStoreHours().done(setUp)
+        _beginStoreHoursDownload()
             .catch { self.errorHandler($0) }
     }
     
@@ -163,10 +167,13 @@ class CheckoutViewModel {
             guard date > currentDate
                 else { errorHandler(CheckoutViewModelError.invalidPickupDate); return }
         }
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then { self.getOutstandingOrder(token: $0) }.get { outstandingOrder in
                 outstandingOrder.preparedForDate = preparedForDate
-            }.then(beginUpdateOutstandingOrder).catch { self.errorHandler($0) }
+            }.then(beginUpdateOutstandingOrder)
+            .ensure { self.isLoading.value = false }
+            .catch { self.errorHandler($0) }
     }
     
     func beginUpdateOutstandingOrderDownload(note: String?) {
@@ -179,22 +186,28 @@ class CheckoutViewModel {
     }
     
     func beginPaymentRequestDownload(successHandler: @escaping (PKPaymentRequest) -> Void = { _ in }) {
+        isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
             .then(getOutstandingOrder)
+            .ensure { self.isLoading.value = false }
             .map(makePaymentRequest)
             .done(successHandler)
             .catch(errorHandler)
     }
     
     func beginCreatePurchasedOrderDownload(customerCardID: String, successHandler: @escaping (PurchasedOrder.ID) -> Void = { _ in }) {
+        isLoading.value = true
         beginCreatePurchasedOrderDownload(cardNonce: nil, customerCardID: customerCardID)
+            .ensure { self.isLoading.value = false }
             .done { successHandler($0.id) }
             .catch(errorHandler)
     }
     
     func beginCreatePurchasedOrderDownload(payment: PKPayment, completionHandler: @escaping (Result<PurchasedOrder.ID>) -> Void = { _ in }) {
+        isLoading.value = true
         beginApplePayNonceDownload(payment: payment)
             .then { self.beginCreatePurchasedOrderDownload(cardNonce: $0.nonce, customerCardID: nil) }
+            .ensure { self.isLoading.value = false }
             .done { completionHandler(.fulfilled($0.id)) }
             .catch { completionHandler(.rejected($0)) }
     }

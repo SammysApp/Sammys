@@ -19,7 +19,11 @@ class CheckoutViewController: UIViewController {
     let payButton = RoundedButton()
     let applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
     
+    let loadingView = BlurLoadingView()
+    
     private(set) lazy var datePickerViewController = DatePickerViewController()
+    
+    private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
@@ -27,10 +31,15 @@ class CheckoutViewController: UIViewController {
     private lazy var payButtonTouchUpInsideTarget = Target(action: payButtonTouchUpInsideAction)
     private lazy var applePayButtonTouchUpInsideTarget = Target(action: applePayButtonTouchUpInsideAction)
     
+    private lazy var tapGestureRecognizerTarget = Target(action: tapGestureRecognizerAction)
+    
     var didCreatePurchasedOrderHandler: (PurchasedOrder.ID) -> Void = { _ in }
     
     private struct Constants {
         static let title = "Checkout"
+        
+        static let loadingViewHeight = CGFloat(100)
+        static let loadingViewWidth = CGFloat(100)
         
         static let tableViewEstimatedRowHeight = CGFloat(60)
         
@@ -67,11 +76,19 @@ class CheckoutViewController: UIViewController {
         configurePayButton()
         configureApplePayButton()
         configurePayButtonsStackView()
+        configureLoadingView()
         configureDatePickerViewController()
+        configureTapGestureRecognizer()
         setUpView()
         configureViewModel()
         
         viewModel.beginDownloads()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.deselectSelectedRow(animated: animated)
     }
     
     // MARK: - Setup Methods
@@ -81,14 +98,19 @@ class CheckoutViewController: UIViewController {
     
     private func setUpView() {
         addSubviews()
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func addSubviews() {
-        [tableView, payButtonsStackView]
+        [tableView, payButtonsStackView, loadingView]
             .forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
         payButtonsStackView.height(Constants.payButtonsStackViewHeight)
         payButtonsStackView.edgesToSuperview(excluding: .top, insets: .init(top: 0, left: Constants.payButtonsStackViewHorizontalInset, bottom: 0, right: Constants.payButtonsStackViewHorizontalInset), usingSafeArea: true)
+        
+        loadingView.centerInSuperview()
+        loadingView.height(Constants.loadingViewHeight)
+        loadingView.width(Constants.loadingViewWidth)
     }
     
     private func configureTableView() {
@@ -123,6 +145,10 @@ class CheckoutViewController: UIViewController {
         applePayButton.isHidden = true
     }
     
+    private func configureLoadingView() {
+        loadingView.image = #imageLiteral(resourceName: "Loading.Bagel")
+    }
+    
     private func configureDatePickerViewController() {
         datePickerViewController.title = Constants.datePickerViewControllerTitle
         datePickerViewController.viewModel.minuteInterval = Constants.datePickerViewControllerMinuteInterval
@@ -137,6 +163,10 @@ class CheckoutViewController: UIViewController {
             
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    private func configureTapGestureRecognizer() {
+        tapGestureRecognizer.isEnabled = false
     }
     
     private func configureViewModel() {
@@ -179,6 +209,12 @@ class CheckoutViewController: UIViewController {
         
         viewModel.minimumPickupDate.bindAndRun { self.datePickerViewController.viewModel.minimumDate = $0 }
         viewModel.maximumPickupDate.bindAndRun { self.datePickerViewController.viewModel.maximumDate = $0 }
+        
+        viewModel.isLoading.bindAndRun { value in
+            self.view.isUserInteractionEnabled = !value
+            if value { self.loadingView.startAnimating() }
+            else { self.loadingView.stopAnimating() }
+        }
         
         viewModel.errorHandler = { value in
             switch value {
@@ -231,6 +267,11 @@ class CheckoutViewController: UIViewController {
         }
     }
     
+    private func tapGestureRecognizerAction() {
+        self.view.endEditing(true)
+        tapGestureRecognizer.isEnabled = false
+    }
+    
     // MARK: - Cell Actions
     private func paymentMethodTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.PaymentMethodTableViewCellViewModel,
@@ -275,6 +316,8 @@ class CheckoutViewController: UIViewController {
         cell.insertSubview(heightView, belowSubview: cell.textView)
         heightView.edgesToSuperview()
         heightView.height(Constants.noteTableViewCellMinimumHeight, relation: .equalOrGreater)
+        
+        cell.textViewDidBeginEditingHandler = { self.tapGestureRecognizer.isEnabled = true }
         
         cell.textViewTextDidChangeHandler = { text in
             self.tableView.beginUpdates()

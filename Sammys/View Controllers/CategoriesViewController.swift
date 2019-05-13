@@ -42,7 +42,7 @@ class CategoriesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tableView.deselectSelectedRow(animated: animated)
+        tableView.deselectSelectedRow(animated: animated)
     }
     
     // MARK: - Setup Methods

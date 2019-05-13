@@ -19,6 +19,8 @@ class TextViewTableViewCell: UITableViewCell {
     
     private var textViewLeadingConstraint: Constraint?
     
+    var textViewDidBeginEditingHandler: () -> Void = {}
+    
     var textViewTextDidChangeHandler: (String) -> Void = { _ in }
     
     private struct Constants {
@@ -66,6 +68,10 @@ class TextViewTableViewCell: UITableViewCell {
 }
 
 extension TextViewTableViewCell: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewDidBeginEditingHandler()
+    }
+    
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         textViewTextDidChangeHandler(textView.text)
