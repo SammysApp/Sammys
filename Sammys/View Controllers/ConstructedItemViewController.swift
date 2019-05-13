@@ -19,6 +19,10 @@ class ConstructedItemViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    var homeViewController: HomeViewController? {
+        return (self.tabBarController?.viewControllers?[homeNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? HomeViewController
+    }
+    
     var favoriteConstructedItemsViewController: ConstructedItemsViewController? {
         return (self.tabBarController?.viewControllers?[favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? ConstructedItemsViewController
     }
@@ -209,6 +213,7 @@ class ConstructedItemViewController: UIViewController {
     // MARK: - Factory Methods
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
         let userAuthPageViewController = UserAuthPageViewController()
+        
         userAuthPageViewController.didCancelHandler = {
             self.dismiss(animated: true, completion: nil)
         }
@@ -216,8 +221,19 @@ class ConstructedItemViewController: UIViewController {
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginUpdateConstructedItemUserDownload()
+            
+            self.homeViewController?.viewModel.userID = id
+            self.homeViewController?.beginDownloads()
+            
+            self.favoriteConstructedItemsViewController?.viewModel.userID = id
+            self.favoriteConstructedItemsViewController?.beginDownloads()
+            
+            self.outstandingOrderViewController?.viewModel.userID = id
+            self.outstandingOrderViewController?.beginDownloads()
+            
             self.dismiss(animated: true, completion: nil)
         }
+        
         userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
         userAuthPageViewController.newUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler
         return userAuthPageViewController

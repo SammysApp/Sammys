@@ -21,6 +21,10 @@ class OutstandingOrderViewController: UIViewController {
         return (self.tabBarController?.viewControllers?[homeNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? HomeViewController
     }
     
+    var favoriteConstructedItemsViewController: ConstructedItemsViewController? {
+        return (self.tabBarController?.viewControllers?[favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? ConstructedItemsViewController
+    }
+    
     private(set) lazy var tapGestureRecognizer = UITapGestureRecognizer(target: tapGestureRecognizerTarget)
     
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
@@ -207,9 +211,15 @@ class OutstandingOrderViewController: UIViewController {
         
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
-            self.viewModel.beginUpdateOutstandingOrderUserDownload() {
-                self.dismiss(animated: true, completion: nil)
-            }
+            self.viewModel.beginUpdateOutstandingOrderUserDownload()
+            
+            self.homeViewController?.viewModel.userID = id
+            self.homeViewController?.beginDownloads()
+            
+            self.favoriteConstructedItemsViewController?.viewModel.userID = id
+            self.favoriteConstructedItemsViewController?.beginDownloads()
+            
+            self.dismiss(animated: true, completion: nil)
         }
         
         userAuthPageViewController.existingUserAuthViewController.viewModel.userDidSignInHandler = userDidSignInHandler

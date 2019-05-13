@@ -144,7 +144,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Methods
     func beginDownloads() {
-        if viewModel.isUserSignedIn {
+        if viewModel.isUserSignedIn && viewModel.userID == nil {
             viewModel.beginUserIDDownload {
                 self.viewModel.beginDownloads()
             }

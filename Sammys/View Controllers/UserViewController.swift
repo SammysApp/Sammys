@@ -15,6 +15,14 @@ class UserViewController: UIViewController {
     
     let loadingView = BlurLoadingView()
     
+    var homeViewController: HomeViewController? {
+        return ((self.presentingViewController as? UITabBarController)?.viewControllers?[homeNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? HomeViewController
+    }
+    
+    var favoriteConstructedItemsViewController: ConstructedItemsViewController? {
+        return ((self.presentingViewController as? UITabBarController)?.viewControllers?[favoriteConstructedItemsNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? ConstructedItemsViewController
+    }
+    
     var outstandingOrderViewController: OutstandingOrderViewController? {
         return ((self.presentingViewController as? UITabBarController)?.viewControllers?[outstandingOrderNavigationViewControllerTabBarControllerIndex] as? UINavigationController)?.viewControllers.first as? OutstandingOrderViewController
     }
@@ -121,10 +129,16 @@ class UserViewController: UIViewController {
         let userDidSignInHandler: (User.ID) -> Void = { id in
             self.viewModel.userID = id
             self.viewModel.beginDownloads()
+            
+            self.homeViewController?.viewModel.userID = id
+            self.homeViewController?.beginDownloads()
+            
+            self.favoriteConstructedItemsViewController?.viewModel.userID = id
+            self.favoriteConstructedItemsViewController?.beginDownloads()
+            
             self.outstandingOrderViewController?.viewModel.userID = id
-            if self.outstandingOrderViewController?.viewModel.outstandingOrderID != nil {
-                self.outstandingOrderViewController?.viewModel.beginUpdateOutstandingOrderUserDownload()
-            }
+            self.outstandingOrderViewController?.beginDownloads()
+            
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -170,6 +184,9 @@ class UserViewController: UIViewController {
         case .logOut:
             do {
                 try viewModel.logOut()
+                homeViewController?.viewModel.userID = nil
+                outstandingOrderViewController?.viewModel.userID = nil
+                homeViewController?.beginDownloads()
                 outstandingOrderViewController?.clear()
                 self.dismiss(animated: true, completion: nil)
             } catch { print(error.localizedDescription) }

@@ -120,7 +120,7 @@ class HomeViewModel {
         var downloads = [beginCategoriesDownload()]
         if userID != nil {
             downloads.append(beginPurchasedOrdersDownload())
-        }
+        } else { setUp(for: [PurchasedOrder]()) }
         return when(fulfilled: downloads)
     }
     
