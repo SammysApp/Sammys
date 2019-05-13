@@ -13,6 +13,8 @@ import FirebaseAuth
 class ConstructedItemViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
+    private var categories = [Category]()
+    
     // MARK: - Dependencies
     var httpClient: HTTPClient
     var keyValueStore: KeyValueStore
@@ -47,6 +49,22 @@ class ConstructedItemViewModel {
     var errorHandler: (Error) -> Void = { _ in }
     
     // MARK: - View Gettable Properties
+    var notFavoritableAlertTitle: String? {
+        return Constants.requiredItemsTitle
+    }
+    
+    var notFavoritableAlertMessage: String? {
+        return makeRequiredItemsMessage(categories: categories)
+    }
+    
+    var notOutstandingOrderAddableAlertTitle: String? {
+        return Constants.requiredItemsTitle
+    }
+    
+    var notOutstandingOrderAddableAlertMessage: String? {
+        return makeRequiredItemsMessage(categories: categories)
+    }
+    
     var isUserSignedIn: Bool { return userAuthManager.isUserSignedIn }
     
     // MARK: - Dynamic Properties
@@ -56,6 +74,7 @@ class ConstructedItemViewModel {
     
     let totalPriceText: Dynamic<String?> = Dynamic(nil)
     let isFavorite = Dynamic(false)
+    let isFavoritable = Dynamic(false)
     let isOutstandingOrderAddable = Dynamic(false)
     
     private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
@@ -73,6 +92,10 @@ class ConstructedItemViewModel {
         case roundedTextCollectionViewCell
     }
     
+    private struct Constants {
+        static let requiredItemsTitle = "Add Required Choices"
+    }
+    
     init(httpClient: HTTPClient = URLSession.shared,
          keyValueStore: KeyValueStore = UserDefaults.standard,
          userAuthManager: UserAuthManager = Auth.auth()) {
@@ -83,6 +106,7 @@ class ConstructedItemViewModel {
     
     // MARK: - Setup Methods
     private func setUp(for categories: [Category]) {
+        self.categories = categories
         selectedCategoryID.value = categories.first?.id
         selectedCategoryName.value = categories.first?.name
         categoriesCollectionViewSectionModel = makeCategoriesTableViewSectionModel(categories: categories)
@@ -96,6 +120,7 @@ class ConstructedItemViewModel {
         }
         
         isFavorite.value = constructedItem.isFavorite
+        isFavoritable.value = constructedItem.isRequirementsSatisfied ?? false
         isOutstandingOrderAddable.value = constructedItem.isRequirementsSatisfied ?? false
     }
     
@@ -312,6 +337,26 @@ class ConstructedItemViewModel {
     private func getTokenUser(token: JWT) -> Promise<User> {
         return httpClient.send(apiURLRequestFactory.makeGetTokenUserRequest(token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(User.self, from: $0.data) }
+    }
+    
+    // MARK: - Factory Methods
+    private func makeRequiredItemsMessage(categories: [Category]) -> String? {
+        let requiredItemsCategories = categories.filter { $0.minimumItems != nil }
+        guard !requiredItemsCategories.isEmpty else { return nil }
+        var message = "Please choose"
+        for (index, category) in requiredItemsCategories.enumerated() {
+            if let minimum = category.minimumItems {
+                var messageAddend = ""
+                if index > 0 && index < requiredItemsCategories.endIndex - 1 {
+                    messageAddend += ","
+                } else if index == requiredItemsCategories.endIndex - 1 {
+                    messageAddend += " and"
+                }
+                messageAddend += " \(minimum) \(category.name.lowercased())"
+                message += messageAddend
+            }
+        }
+        return message + "."
     }
     
     // MARK: - Section Model Methods

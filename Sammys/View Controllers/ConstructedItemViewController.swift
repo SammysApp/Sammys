@@ -60,6 +60,9 @@ class ConstructedItemViewController: UIViewController {
         static let completeButtonTitleLabelText = "Add to Bag"
         static let completeButtonHeight = CGFloat(60)
         static let completeButtonHorizontalInset = CGFloat(10)
+        
+        static let notFavoritableAlertDoneActionTitle = "OK"
+        static let notOutstandingOrderAddableAlertDoneActionTitle = "OK"
     }
     
     // MARK: - Lifecycle Methods
@@ -182,7 +185,6 @@ class ConstructedItemViewController: UIViewController {
         }
         viewModel.isOutstandingOrderAddable.bindAndRun { value in
             self.completeButton.backgroundColor = value ? Constants.completeButtonEnabledBackgroundColor : Constants.completeButtonDisabledBackgroundColor
-            self.completeButton.isEnabled = value
         }
         
         viewModel.categoryCollectionViewSectionModels.bindAndRun { value in
@@ -211,6 +213,18 @@ class ConstructedItemViewController: UIViewController {
     }
     
     // MARK: - Factory Methods
+    private func makeNotFavoritableAlertController() -> UIAlertController {
+        let alertController = UIAlertController(title: viewModel.notFavoritableAlertTitle, message: viewModel.notFavoritableAlertMessage, preferredStyle: .alert)
+        alertController.addAction(.init(title: Constants.notFavoritableAlertDoneActionTitle, style: .default) { _ in self.dismiss(animated: true, completion: nil) })
+        return alertController
+    }
+    
+    private func makeNotOutstandingOrderAddableAlertController() -> UIAlertController {
+        let alertController = UIAlertController(title: viewModel.notOutstandingOrderAddableAlertTitle, message: viewModel.notOutstandingOrderAddableAlertMessage, preferredStyle: .alert)
+        alertController.addAction(.init(title: Constants.notOutstandingOrderAddableAlertDoneActionTitle, style: .default) { _ in self.dismiss(animated: true, completion: nil) })
+        return alertController
+    }
+
     private func makeUserAuthPageViewController() -> UserAuthPageViewController {
         let userAuthPageViewController = UserAuthPageViewController()
         
@@ -241,19 +255,23 @@ class ConstructedItemViewController: UIViewController {
     
     // MARK: - Target Actions
     private func favoriteBarButtonItemAction() {
-        viewModel.beginUpdateConstructedItemDownload(isFavorite: !viewModel.isFavorite.value) {
-            self.favoriteConstructedItemsViewController?.beginDownloads()
-        }
+        if viewModel.isFavoritable.value {
+            viewModel.beginUpdateConstructedItemDownload(isFavorite: !viewModel.isFavorite.value) {
+                self.favoriteConstructedItemsViewController?.beginDownloads()
+            }
+        } else { self.present(makeNotFavoritableAlertController(), animated: true, completion: nil) }
     }
     
     private func completeButtonTouchUpInsideAction() {
-        viewModel.beginAddToOutstandingOrderDownload() {
-            if let outstandingOrderViewController = self.outstandingOrderViewController {
-                outstandingOrderViewController.navigationController?.showEmptyBadge()
-                outstandingOrderViewController.beginDownloads()
+        if viewModel.isOutstandingOrderAddable.value {
+            viewModel.beginAddToOutstandingOrderDownload() {
+                if let outstandingOrderViewController = self.outstandingOrderViewController {
+                    outstandingOrderViewController.navigationController?.showEmptyBadge()
+                    outstandingOrderViewController.beginDownloads()
+                }
+                self.navigationController?.popToRootViewController(animated: true)
             }
-            self.navigationController?.popToRootViewController(animated: true)
-        }
+        } else { self.present(makeNotOutstandingOrderAddableAlertController(), animated: true, completion: nil) }
     }
     
     // MARK: - Cell Actions
