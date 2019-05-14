@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let window = UIWindow(frame: UIScreen.main.bounds)
     
     private struct Constants {
-        static let squareApplicationID = "sq0idp-uGmV90aWUn6nFGhNYL6ICw"
+        static let squareApplicationID = "sq0idp-LpasfETvlxNxWBAJikrzjw"
         
         static let tabBarControllerTabBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
