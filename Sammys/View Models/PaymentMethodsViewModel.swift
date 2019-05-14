@@ -119,8 +119,7 @@ class PaymentMethodsViewModel {
     
     private func createCard(cardNonce: String, postalCode: String, token: JWT) -> Promise<Card> {
         do {
-            // FIXME: Use real card nonce in production.
-            return try httpClient.send(apiURLRequestFactory.makeCreateUserCardRequest(id: userID ?? preconditionFailure(), data: .init(cardNonce: "fake-card-nonce-ok", postalCode: postalCode), token: token)).validate()
+            return try httpClient.send(apiURLRequestFactory.makeCreateUserCardRequest(id: userID ?? preconditionFailure(), data: .init(cardNonce: cardNonce, postalCode: postalCode), token: token)).validate()
                 .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(Card.self, from: $0.data) }
         } catch { preconditionFailure(error.localizedDescription) }
     }
