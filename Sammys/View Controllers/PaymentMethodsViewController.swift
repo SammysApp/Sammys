@@ -28,6 +28,8 @@ class PaymentMethodsViewController: UIViewController {
         
         static let addCardBarButtonItemTitle = "Add Card"
         
+        static let paymentMethodTableViewCellTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+        
         static let cardEntryViewControllerTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
         static let cardEntryViewControllerSaveButtonTitle = "Add"
         static let cardEntryViewControllerCancelButtonTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
@@ -130,6 +132,7 @@ class PaymentMethodsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? PaymentMethodsViewModel.PaymentMethodTableViewCellViewModel,
             let cell = data.cell else { return }
         
+        cell.tintColor = Constants.paymentMethodTableViewCellTintColor
         cell.textLabel?.text = cellViewModel.configurationData.text
         cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
     }

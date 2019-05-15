@@ -200,6 +200,7 @@ class OutstandingOrderViewController: UIViewController {
     func clear() {
         self.navigationController?.clearBadge()
         viewModel.clear()
+        favoriteConstructedItemsViewController?.viewModel.outstandingOrderID = nil
     }
     
     // MARK: - Factory Methods
