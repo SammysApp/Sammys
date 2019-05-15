@@ -102,8 +102,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func makeSocketURL() -> URL {
         var components = URLComponents()
         components.scheme = "ws"
-        components.host = LocalConstants.DevelopmentAPIServer.host
-        components.port = LocalConstants.DevelopmentAPIServer.port
+        switch appEnvironment {
+        case .development:
+            components.host = LocalConstants.DevelopmentAPIServer.host
+            components.port = LocalConstants.DevelopmentAPIServer.port
+        case .production:
+            components.host = AppConstants.ProductionAPIServer.host
+        }
         components.path = "/v1/sessions/\(socketID.uuidString)"
         guard let url = components.url else { preconditionFailure() }
         return url
