@@ -13,4 +13,5 @@ final class Modifier: Codable {
     
     let id: ID
     let name: String
+    let price: Int?
 }

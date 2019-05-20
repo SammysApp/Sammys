@@ -113,6 +113,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getConstructedItemItems(id), queryItems: queryData?.toQueryItems(), token: token)
     }
     
+    func makeGetConstructedItemModifiers(id: Modifier.ID, token: JWT? = nil) -> URLRequest {
+        return makeRequest(endpoint: .getConstructedItemModifiers(id), token: token)
+    }
+    
     func makeGetOutstandingOrderRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .getOutstandingOrder(id), token: token)
     }
@@ -158,6 +162,10 @@ struct APIURLRequestFactory {
         return try makeJSONBodyRequest(endpoint: .addConstructedItemItems(id), body: dataEncoder.encode(data), token: token)
     }
     
+    func makeAddConstructedItemModifiersRequest(id: Modifier.ID, data: AddConstructedItemModifiersRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
+        return try makeJSONBodyRequest(endpoint: .addConstructedItemModifiers(id), body: dataEncoder.encode(data), token: token)
+    }
+    
     func makeCreateOutstandingOrderRequest(data: CreateOutstandingOrderRequestData = .init(), dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
         return try makeJSONBodyRequest(endpoint: .createOutstandingOrder, body: dataEncoder.encode(data), token: token)
     }
@@ -189,8 +197,12 @@ struct APIURLRequestFactory {
     }
     
     // MARK: - DELETE
-    func makeRemoveConstructedItemItemsRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> URLRequest {
+    func makeRemoveConstructedItemItemRequest(constructedItemID: ConstructedItem.ID, categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .removeConstructedItemItem(constructedItemID, categoryItemID), token: token)
+    }
+    
+    func makeRemoveConstructedItemModifierRequest(constructedItemID: ConstructedItem.ID, modifierID: Modifier.ID, token: JWT? = nil) -> URLRequest {
+        return makeRequest(endpoint: .removeConstructedItemModifier(constructedItemID, modifierID), token: token)
     }
     
     func makeRemoveOutstandingOrderConstructedItem(outstandingOrderID: OutstandingOrder.ID, constructedItemID: ConstructedItem.ID, token: JWT? = nil) -> URLRequest {
@@ -275,7 +287,11 @@ struct CreateConstructedItemRequestData: Codable {
 }
 
 struct AddConstructedItemItemsRequestData: Codable {
-    let categoryItemIDs: [UUID]
+    let categoryItemIDs: [Item.CategoryItemID]
+}
+
+struct AddConstructedItemModifiersRequestData: Codable {
+    let modifierIDs: [Modifier.ID]
 }
 
 struct CreateOutstandingOrderRequestData: Codable {

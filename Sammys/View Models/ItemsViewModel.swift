@@ -23,17 +23,17 @@ class ItemsViewModel {
     var categoryID: Category.ID?
     
     /// The selected items` category item IDs.
-    var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
-    
     var selectedCategoryItemIDs = [Item.CategoryItemID]() {
         didSet { updateItemsTableViewSectionModel() }
     }
     
+    var itemTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    
     var minimumItems: Int?
     var maximumItems: Int?
     
-    var addItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
-    var removeItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
+    var didAddItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
+    var didRemoveItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
     
     var errorHandler: (Error) -> Void = { _ in }
     
@@ -81,14 +81,14 @@ class ItemsViewModel {
         if let maximumItems = maximumItems {
             if let minimumItems = minimumItems,
                 minimumItems == maximumItems && selectedCategoryItemIDs.count == maximumItems {
-                removeItemHandler(selectedCategoryItemIDs.removeLast())
+                didRemoveItemHandler(selectedCategoryItemIDs.removeLast())
             } else {
                 guard selectedCategoryItemIDs.count < maximumItems
                     else { errorHandler(ItemsViewModelError.reachedMaximumItems); return }
             }
         }
         selectedCategoryItemIDs.append(categoryItemID)
-        addItemHandler(categoryItemID)
+        didAddItemHandler(categoryItemID)
     }
     
     func remove(_ categoryItemID: Item.CategoryItemID) {
@@ -97,7 +97,7 @@ class ItemsViewModel {
                 else { errorHandler(ItemsViewModelError.reachedMinimumItems); return }
         }
         selectedCategoryItemIDs.remove(categoryItemID)
-        removeItemHandler(categoryItemID)
+        didRemoveItemHandler(categoryItemID)
     }
     
     // MARK: - Download Methods
@@ -149,7 +149,7 @@ class ItemsViewModel {
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), isSelected: isSelected),
-            selectionData: .init(categoryItemID: item.categoryItemID, isSelected: isSelected)
+            selectionData: .init(itemID: item.id, categoryItemID: item.categoryItemID, isSelected: isSelected)
         )
     }
 }
@@ -170,6 +170,7 @@ extension ItemsViewModel {
         }
         
         struct SelectionData {
+            let itemID: Item.ID
             let categoryItemID: Item.CategoryItemID?
             let isSelected: Bool
         }

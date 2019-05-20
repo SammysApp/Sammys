@@ -36,6 +36,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getItemModifiers(Category.ID, Item.ID)
     /// GET `/constructedItems/:constructedItem/items`
     case getConstructedItemItems(ConstructedItem.ID)
+    /// GET `/constructedItems/:constructedItem/modifiers`
+    case getConstructedItemModifiers(ConstructedItem.ID)
     /// GET `/outstandingOrders/:outstandingOrder`
     case getOutstandingOrder(OutstandingOrder.ID)
     /// GET `/outstandingOrders/:outstandingOrder/constructedItems`
@@ -60,6 +62,8 @@ enum APIEndpoint: HTTPEndpoint {
     case createConstructedItem
     /// POST `/constructedItems/:constructedItem/items`
     case addConstructedItemItems(ConstructedItem.ID)
+    /// POST `/constructedItems/:constructedItem/modifiers`
+    case addConstructedItemModifiers(Modifier.ID)
     /// POST `/outstandingOrders`
     case createOutstandingOrder
     /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
@@ -82,6 +86,8 @@ enum APIEndpoint: HTTPEndpoint {
     // MARK: - DELETE
     /// DELETE `/constructedItems/:constructedItem/items/:categoryItem`
     case removeConstructedItemItem(ConstructedItem.ID, Item.CategoryItemID)
+    /// DELETE `/constructedItems/:constructedItem/modifiers/:modifier`
+    case removeConstructedItemModifier(ConstructedItem.ID, Modifier.ID)
     /// DELETE `/outstandingOrders/:outstandingOrder/constructedItems/:constructedItem`
     case removeOutstandingOrderConstructedItem(OutstandingOrder.ID, ConstructedItem.ID)
     
@@ -113,9 +119,11 @@ enum APIEndpoint: HTTPEndpoint {
         case .getCategoryItems(let id):
             return (.GET, "/\(version)/categories/\(id)/items")
         case .getItemModifiers(let categoryID, let itemID):
-            return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)")
+            return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)/modifiers")
         case .getConstructedItemItems(let id):
             return (.GET, "/\(version)/constructedItems/\(id)/items")
+        case .getConstructedItemModifiers(let id):
+            return (.GET, "/\(version)/constructedItems/\(id)/modifiers")
         case .getOutstandingOrder(let id):
             return (.GET, "/\(version)/outstandingOrders/\(id)")
         case .getOutstandingOrderConstructedItems(let id):
@@ -124,7 +132,6 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/purchasedOrders")
         case .getPurchasedOrder(let id):
             return (.GET, "/\(version)/purchasedOrders/\(id)")
-            
         case .getPurchasedOrderConstructedItems(let id):
             return (.GET, "/\(version)/purchasedOrders/\(id)/constructedItems")
         case .getPurchasedOrderConstructedItemItems(let purchasedOrderID, let purchasedConstructedItemID):
@@ -140,6 +147,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.POST, "/\(version)/constructedItems")
         case .addConstructedItemItems(let id):
             return (.POST, "/\(version)/constructedItems/\(id)/items")
+        case .addConstructedItemModifiers(let id):
+            return (.POST, "/\(version)/constructedItems/\(id)/modifiers")
         case .createOutstandingOrder:
             return (.POST, "/\(version)/outstandingOrders")
         case .addOutstandingOrderConstructedItems(let id):
@@ -159,6 +168,8 @@ enum APIEndpoint: HTTPEndpoint {
             
         case .removeConstructedItemItem(let constructedItemID, let categoryItemID):
             return (.DELETE, "/\(version)/constructedItems/\(constructedItemID)/items/\(categoryItemID)")
+        case .removeConstructedItemModifier(let constructedItemID, let modifierID):
+            return (.DELETE, "/\(version)/constructedItems/\(constructedItemID)/modifiers/\(modifierID)")
         case .removeOutstandingOrderConstructedItem(let outstandingOrderID, let constructedItemID):
             return (.DELETE, "/\(version)/outstandingOrders/\(outstandingOrderID)/constructedItems/\(constructedItemID)")
         }

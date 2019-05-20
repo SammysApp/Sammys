@@ -132,10 +132,10 @@ class ConstructedItemViewController: UIViewController {
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
         
-        itemsViewController.viewModel.addItemHandler = { categoryItemID in
+        itemsViewController.viewModel.didAddItemHandler = { categoryItemID in
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [categoryItemID])
         }
-        itemsViewController.viewModel.removeItemHandler = { categoryItemID in
+        itemsViewController.viewModel.didRemoveItemHandler = { categoryItemID in
             self.viewModel.beginRemoveConstructedItemItemDownload(categoryItemID: categoryItemID)
         }
         

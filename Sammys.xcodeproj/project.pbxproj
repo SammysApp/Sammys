@@ -193,6 +193,8 @@
 		5BC120DD22677FDE00F271FD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F3225D71D9005DC635 /* AppConstants.swift */; };
 		5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
 		5BC3890F2270C4FC001C0C17 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BC3890E2270C4FC001C0C17 /* Bell.wav */; };
+		5BE0FE122293288000D9F94A /* ModifiersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0FE112293288000D9F94A /* ModifiersViewModel.swift */; };
+		5BE0FE142293314200D9F94A /* ModifiersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0FE132293314200D9F94A /* ModifiersViewController.swift */; };
 		5BE1692622779DDC00622F9E /* UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */; };
 		5BE1692722779DDC00622F9E /* UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */; };
 		5BED77AB20B479A000232DD2 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */; };
@@ -351,6 +353,8 @@
 		5BC120A4226779D700F271FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BC120AA22677CC900F271FD /* PurchasedOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedOrdersViewModel.swift; sourceTree = "<group>"; };
 		5BC3890E2270C4FC001C0C17 /* Bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bell.wav; sourceTree = "<group>"; };
+		5BE0FE112293288000D9F94A /* ModifiersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiersViewModel.swift; sourceTree = "<group>"; };
+		5BE0FE132293314200D9F94A /* ModifiersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifiersViewController.swift; sourceTree = "<group>"; };
 		5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizer.swift; sourceTree = "<group>"; };
 		5BED77AA20B479A000232DD2 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		5BF0A013226A35DB0066D880 /* CategorizedItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizedItemsViewModel.swift; sourceTree = "<group>"; };
@@ -563,6 +567,7 @@
 				5B6E367C221F2611004D5310 /* HomeViewModel.swift */,
 				5B6E391B2223831F004D5310 /* CategoriesViewModel.swift */,
 				5B9A8AB8222449AF00F5525D /* ItemsViewModel.swift */,
+				5BE0FE112293288000D9F94A /* ModifiersViewModel.swift */,
 				5B9A8AC22224966E00F5525D /* ConstructedItemViewModel.swift */,
 				5B5610B422830E99003F623E /* ConstructedItemsViewModel.swift */,
 				5B4F7F1C2231B34C00F95C04 /* OutstandingOrderViewModel.swift */,
@@ -614,6 +619,7 @@
 				5B6E3678221F1E74004D5310 /* HomeViewController.swift */,
 				5B6E391922238240004D5310 /* CategoriesViewController.swift */,
 				5B9A8ABC222450D100F5525D /* ItemsViewController.swift */,
+				5BE0FE132293314200D9F94A /* ModifiersViewController.swift */,
 				5B9A8AC022248C2F00F5525D /* ConstructedItemViewController.swift */,
 				5B5610B6228325DF003F623E /* ConstructedItemsViewController.swift */,
 				5B4F7F1A2231A3D600F95C04 /* OutstandingOrderViewController.swift */,
@@ -1129,6 +1135,7 @@
 				5B9A8ABB22244C3500F5525D /* Optional.swift in Sources */,
 				5B4F7F0B2230BFC100F95C04 /* KeyValueStore.swift in Sources */,
 				5B3A4B732195F3E400F22F78 /* Double.swift in Sources */,
+				5BE0FE122293288000D9F94A /* ModifiersViewModel.swift in Sources */,
 				5B3A4B472195F3E400F22F78 /* UIScrollView.swift in Sources */,
 				5B39AF4822400C9500D2BE22 /* Target.swift in Sources */,
 				5B3A4B4F2195F3E400F22F78 /* Collection.swift in Sources */,
@@ -1156,6 +1163,7 @@
 				5B6E367D221F2611004D5310 /* HomeViewModel.swift in Sources */,
 				5B2E17F92262D132005DC635 /* Card.swift in Sources */,
 				5B3A4B4B2195F3E400F22F78 /* UIView.swift in Sources */,
+				5BE0FE142293314200D9F94A /* ModifiersViewController.swift in Sources */,
 				5B9A8ACD2225D0C300F5525D /* UICollectionViewSectionModelsDelegate.swift in Sources */,
 				5B2E17FF2263975D005DC635 /* PaymentMethodsViewController.swift in Sources */,
 				5B4F7F0D2230C26700F95C04 /* UserDefaults+KeyValueStore.swift in Sources */,
