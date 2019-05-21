@@ -162,7 +162,7 @@ struct APIURLRequestFactory {
         return try makeJSONBodyRequest(endpoint: .addConstructedItemItems(id), body: dataEncoder.encode(data), token: token)
     }
     
-    func makeAddConstructedItemModifiersRequest(id: Modifier.ID, data: AddConstructedItemModifiersRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
+    func makeAddConstructedItemModifiersRequest(id: ConstructedItem.ID, data: AddConstructedItemModifiersRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
         return try makeJSONBodyRequest(endpoint: .addConstructedItemModifiers(id), body: dataEncoder.encode(data), token: token)
     }
     

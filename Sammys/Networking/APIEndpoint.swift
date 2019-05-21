@@ -63,7 +63,7 @@ enum APIEndpoint: HTTPEndpoint {
     /// POST `/constructedItems/:constructedItem/items`
     case addConstructedItemItems(ConstructedItem.ID)
     /// POST `/constructedItems/:constructedItem/modifiers`
-    case addConstructedItemModifiers(Modifier.ID)
+    case addConstructedItemModifiers(ConstructedItem.ID)
     /// POST `/outstandingOrders`
     case createOutstandingOrder
     /// POST `/outstandingOrders/:outstandingOrder/constructedItems`

@@ -32,8 +32,11 @@ class ItemsViewModel {
     var minimumItems: Int?
     var maximumItems: Int?
     
-    var didAddItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
-    var didRemoveItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
+    var addItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
+    var removeItemHandler: ((Item.CategoryItemID) -> Void) = { _ in }
+    
+    var addModifierHandler: ((Modifier.ID) -> Void) = { _ in }
+    var removeModifierHandler: ((Modifier.ID) -> Void) = { _ in }
     
     var errorHandler: (Error) -> Void = { _ in }
     
@@ -81,14 +84,14 @@ class ItemsViewModel {
         if let maximumItems = maximumItems {
             if let minimumItems = minimumItems,
                 minimumItems == maximumItems && selectedCategoryItemIDs.count == maximumItems {
-                didRemoveItemHandler(selectedCategoryItemIDs.removeLast())
+                removeItemHandler(selectedCategoryItemIDs.removeLast())
             } else {
                 guard selectedCategoryItemIDs.count < maximumItems
                     else { errorHandler(ItemsViewModelError.reachedMaximumItems); return }
             }
         }
         selectedCategoryItemIDs.append(categoryItemID)
-        didAddItemHandler(categoryItemID)
+        addItemHandler(categoryItemID)
     }
     
     func remove(_ categoryItemID: Item.CategoryItemID) {
@@ -97,7 +100,7 @@ class ItemsViewModel {
                 else { errorHandler(ItemsViewModelError.reachedMinimumItems); return }
         }
         selectedCategoryItemIDs.remove(categoryItemID)
-        didRemoveItemHandler(categoryItemID)
+        removeItemHandler(categoryItemID)
     }
     
     // MARK: - Download Methods
@@ -149,7 +152,7 @@ class ItemsViewModel {
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), isSelected: isSelected),
-            selectionData: .init(itemID: item.id, categoryItemID: item.categoryItemID, isSelected: isSelected)
+            selectionData: .init(itemID: item.id, categoryItemID: item.categoryItemID, isSelected: isSelected, isModifiersRequired: item.minimumModifiers != nil)
         )
     }
 }
@@ -173,6 +176,7 @@ extension ItemsViewModel {
             let itemID: Item.ID
             let categoryItemID: Item.CategoryItemID?
             let isSelected: Bool
+            let isModifiersRequired: Bool
         }
     }
 }

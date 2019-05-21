@@ -77,8 +77,6 @@ class ConstructedItemViewController: UIViewController {
         addChildren()
         configureNavigation()
         configureViewModel()
-        
-        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -132,11 +130,18 @@ class ConstructedItemViewController: UIViewController {
     private func configureItemsViewController() {
         itemsViewController.viewModel.httpClient = viewModel.httpClient
         
-        itemsViewController.viewModel.didAddItemHandler = { categoryItemID in
+        itemsViewController.viewModel.addItemHandler = { categoryItemID in
             self.viewModel.beginAddConstructedItemItemsDownload(categoryItemIDs: [categoryItemID])
         }
-        itemsViewController.viewModel.didRemoveItemHandler = { categoryItemID in
+        itemsViewController.viewModel.removeItemHandler = { categoryItemID in
             self.viewModel.beginRemoveConstructedItemItemDownload(categoryItemID: categoryItemID)
+        }
+        
+        itemsViewController.viewModel.addModifierHandler = { modifierID in
+            self.viewModel.beginAddConstructedItemModifiersDownload(modifierIDs: [modifierID])
+        }
+        itemsViewController.viewModel.removeModifierHandler = { modifierID in
+            self.viewModel.beginRemoveConstructedItemModifierDownload(modifierID: modifierID)
         }
         
         itemsViewController.tableView.contentInset.top =
@@ -195,6 +200,9 @@ class ConstructedItemViewController: UIViewController {
         
         viewModel.selectedCategoryItemIDs.bindAndRun { value in
             self.itemsViewController.viewModel.selectedCategoryItemIDs = value
+        }
+        viewModel.selectedModifierIDs.bindAndRun { value in
+            self.itemsViewController.modifiersViewController.viewModel.selectedModifierIDs = value
         }
         
         viewModel.isLoading.bindAndRun { value in

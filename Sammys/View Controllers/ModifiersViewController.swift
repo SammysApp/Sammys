@@ -45,7 +45,8 @@ class ModifiersViewController: UIViewController {
     
     private func configureViewModel() {
         viewModel.modifierTableViewCellViewModelActions = [
-            .configuration: modifierTableViewCellConfigurationAction
+            .configuration: modifierTableViewCellConfigurationAction,
+            .selection: modifierTableViewCellSelectionAction
         ]
         
         viewModel.tableViewSectionModels.bindAndRun { value in
@@ -66,5 +67,14 @@ class ModifiersViewController: UIViewController {
             let cell = data.cell as? SubtitleTableViewCell else { return }
         
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
+    }
+    
+    private func modifierTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? ModifiersViewModel.ModifierTableViewCellViewModel else { return }
+        
+        if cellViewModel.selectionData.isSelected {
+            viewModel.remove(cellViewModel.selectionData.modifierID)
+        } else { viewModel.add(cellViewModel.selectionData.modifierID) }
     }
 }

@@ -28,7 +28,7 @@ class ConstructedItemViewModel {
     var categoryID: Category.ID?
     
     /// The presented constructed item's ID.
-    /// Required to be non-`nil` for many downloads.
+    /// Required to be non-`nil` before beginning downloads.
     /// Call `beginCreateConstructedItemDownload()` to create a new one
     /// and have this property set.
     var constructedItemID: ConstructedItem.ID?
@@ -80,6 +80,7 @@ class ConstructedItemViewModel {
     private(set) lazy var categoryCollectionViewSectionModels = Dynamic(makeCategoryCollectionViewSectionModels())
     
     let selectedCategoryItemIDs = Dynamic([Item.CategoryItemID]())
+    let selectedModifierIDs = Dynamic([Modifier.ID]())
     
     let isLoading = Dynamic(false)
     
@@ -136,27 +137,29 @@ class ConstructedItemViewModel {
     // MARK: - Download Methods
     func beginDownloads() {
         isLoading.value = true
-        beginCategoriesDownload()
-            .ensure { self.isLoading.value = false }
+        when(fulfilled: [
+            beginCategoriesDownload(),
+            beginSelectedCategoryItemIDsDownload(),
+            beginSelectedModifierIDsDownload()
+        ]).ensure { self.isLoading.value = false }
             .catch { self.errorHandler($0) }
     }
     
-    func beginCreateConstructedItemDownload() {
+    func beginCreateConstructedItemDownload(successHandler: @escaping () -> Void = {}) {
         isLoading.value = true
         makeCreateConstructedItemDownload()
             .ensure { self.isLoading.value = false }
             .get { self.constructedItemID = $0.id }
             .done(setUp)
+            .done(successHandler)
             .catch(errorHandler)
     }
     
     func beginSelectedCategoryItemIDsDownload() {
         isLoading.value = true
-        makeSelectedCategoryItemIDsDownload()
+        beginSelectedCategoryItemIDsDownload()
             .ensure { self.isLoading.value = false }
-            .done { items in
-                self.selectedCategoryItemIDs.value =  items.compactMap { $0.categoryItemID }
-            }.catch(errorHandler)
+            .catch(errorHandler)
     }
     
     func beginAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) {
@@ -165,8 +168,20 @@ class ConstructedItemViewModel {
             .catch(errorHandler)
     }
     
+    func beginAddConstructedItemModifiersDownload(modifierIDs: [Modifier.ID]) {
+        makeAddConstructedItemModifiersDownload(modifierIDs: modifierIDs)
+            .done(setUp)
+            .catch(errorHandler)
+    }
+    
     func beginRemoveConstructedItemItemDownload(categoryItemID: Item.CategoryItemID) {
         makeRemoveConstructedItemItemDownload(categoryItemID: categoryItemID)
+            .done(setUp)
+            .catch(errorHandler)
+    }
+    
+    func beginRemoveConstructedItemModifierDownload(modifierID: Modifier.ID) {
+        makeRemoveConstructedItemItemDownload(modifierID: modifierID)
             .done(setUp)
             .catch(errorHandler)
     }
@@ -211,6 +226,18 @@ class ConstructedItemViewModel {
         return getCategories().done(setUp)
     }
     
+    private func beginSelectedCategoryItemIDsDownload() -> Promise<Void> {
+        return makeSelectedCategoryItemIDsDownload().done { items in
+            self.selectedCategoryItemIDs.value =  items.compactMap { $0.categoryItemID }
+        }
+    }
+    
+    private func beginSelectedModifierIDsDownload() -> Promise<Void> {
+        return makeSelectedModifierIDsDownload().done { modifiers in
+            self.selectedModifierIDs.value = modifiers.map { $0.id }
+        }
+    }
+    
     private func beginOutstandingOrderIDDownload(token: JWT? = nil) -> Promise<Void> {
         return makeOutstandingOrderIDDownload(token: token).done(setUp)
     }
@@ -234,6 +261,13 @@ class ConstructedItemViewModel {
         } else { return getConstructedItemItems() }
     }
     
+    private func makeSelectedModifierIDsDownload() -> Promise<[Modifier]> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken()
+                .then { self.getConstructedItemModifiers(token: $0) }
+        } else { return getConstructedItemModifiers() }
+    }
+    
     private func makeAddConstructedItemItemsDownload(categoryItemIDs: [Item.CategoryItemID]) -> Promise<ConstructedItem> {
         if userID != nil {
             return userAuthManager.getCurrentUserIDToken().then { token in
@@ -242,12 +276,28 @@ class ConstructedItemViewModel {
         } else { return addConstructedItemItems(data: .init(categoryItemIDs: categoryItemIDs)) }
     }
     
+    private func makeAddConstructedItemModifiersDownload(modifierIDs: [Modifier.ID]) -> Promise<ConstructedItem> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken().then { token in
+                self.addConstructedItemModifiers(data: .init(modifierIDs: modifierIDs), token: token)
+            }
+        } else { return addConstructedItemModifiers(data: .init(modifierIDs: modifierIDs)) }
+    }
+    
     private func makeRemoveConstructedItemItemDownload(categoryItemID: Item.CategoryItemID) -> Promise<ConstructedItem> {
         if userID != nil {
             return userAuthManager.getCurrentUserIDToken().then { token in
                 self.removeConstructedItemItem(categoryItemID: categoryItemID, token: token)
             }
         } else { return removeConstructedItemItem(categoryItemID: categoryItemID) }
+    }
+    
+    private func makeRemoveConstructedItemItemDownload(modifierID: Modifier.ID) -> Promise<ConstructedItem> {
+        if userID != nil {
+            return userAuthManager.getCurrentUserIDToken().then { token in
+                self.removeConstructedItemModifier(modifierID: modifierID, token: token)
+            }
+        } else { return removeConstructedItemModifier(modifierID: modifierID) }
     }
     
     private func makeOutstandingOrderIDDownload(token: JWT? = nil) -> Promise<OutstandingOrder.ID> {
@@ -289,6 +339,11 @@ class ConstructedItemViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Item].self, from: $0.data) }
     }
     
+    private func getConstructedItemModifiers(token: JWT? = nil) -> Promise<[Modifier]> {
+        return httpClient.send(apiURLRequestFactory.makeGetConstructedItemModifiers(id: constructedItemID ?? preconditionFailure(), token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Modifier].self, from: $0.data) }
+    }
+    
     private func createConstructedItem(data: CreateConstructedItemRequestData, token: JWT? = nil) -> Promise<ConstructedItem> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateConstructedItemRequest(data: data, token: token)).validate()
@@ -303,8 +358,20 @@ class ConstructedItemViewModel {
         } catch { preconditionFailure(error.localizedDescription) }
     }
     
+    private func addConstructedItemModifiers(data: AddConstructedItemModifiersRequestData, token: JWT? = nil)  -> Promise<ConstructedItem> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeAddConstructedItemModifiersRequest(id: constructedItemID ?? preconditionFailure(), data: data, token: token)).validate()
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(ConstructedItem.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
+    }
+    
     private func removeConstructedItemItem(categoryItemID: Item.CategoryItemID, token: JWT? = nil) -> Promise<ConstructedItem> {
         return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemItemRequest(constructedItemID: constructedItemID ?? preconditionFailure(), categoryItemID: categoryItemID, token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(ConstructedItem.self, from: $0.data) }
+    }
+    
+    private func removeConstructedItemModifier(modifierID: Modifier.ID, token: JWT? = nil) -> Promise<ConstructedItem> {
+        return httpClient.send(apiURLRequestFactory.makeRemoveConstructedItemModifierRequest(constructedItemID: constructedItemID ?? preconditionFailure(), modifierID: modifierID, token: token)).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(ConstructedItem.self, from: $0.data) }
     }
     

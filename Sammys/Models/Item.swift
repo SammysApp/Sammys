@@ -17,4 +17,6 @@ final class Item: Codable {
     let name: String
     let price: Int?
     let isModifiable: Bool?
+    let minimumModifiers: Int?
+    let maximumModifiers: Int?
 }

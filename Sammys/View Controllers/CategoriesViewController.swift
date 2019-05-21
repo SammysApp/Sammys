@@ -121,9 +121,15 @@ class CategoriesViewController: UIViewController {
         // Create a new constructed item after downloading potential signed in user.
         if constructedItemViewController.viewModel.isUserSignedIn {
             constructedItemViewController.viewModel.beginUserIDDownload {
-                constructedItemViewController.viewModel.beginCreateConstructedItemDownload()
+                constructedItemViewController.viewModel.beginCreateConstructedItemDownload() {
+                    constructedItemViewController.viewModel.beginDownloads()
+                }
             }
-        } else { constructedItemViewController.viewModel.beginCreateConstructedItemDownload() }
+        } else {
+            constructedItemViewController.viewModel.beginCreateConstructedItemDownload() {
+                constructedItemViewController.viewModel.beginDownloads()
+            }
+        }
         return constructedItemViewController
     }
     

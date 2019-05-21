@@ -13,6 +13,8 @@ class ItemsViewController: UIViewController {
     
     let tableView = UITableView()
     
+    let modifiersViewController = ModifiersViewController()
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
@@ -81,7 +83,16 @@ class ItemsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let id = cellViewModel.selectionData.categoryItemID else { return }
         
-        if cellViewModel.selectionData.isSelected { viewModel.remove(id) }
-        else { viewModel.add(id) }
+        modifiersViewController.viewModel.categoryID = viewModel.categoryID
+        modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
+        modifiersViewController.viewModel.addModifierHandler = viewModel.addModifierHandler
+        modifiersViewController.viewModel.removeModifierHandler = viewModel.removeModifierHandler
+        
+        if cellViewModel.selectionData.isModifiersRequired {
+            self.present(UINavigationController(rootViewController: modifiersViewController), animated: true, completion: nil)
+        } else {
+            if cellViewModel.selectionData.isSelected { viewModel.remove(id) }
+            else { viewModel.add(id) }
+        }
     }
 }

@@ -25,7 +25,16 @@ class ModifiersViewModel {
     /// Required to be non-`nil` before beginning downloads.
     var itemID: Item.ID?
     
-    var modifierTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]()
+    var selectedModifierIDs = [Modifier.ID]() {
+        didSet { updateModifiersTableViewSectionModel() }
+    }
+    
+    var modifierTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateModifiersTableViewSectionModel() }
+    }
+    
+    var addModifierHandler: ((Modifier.ID) -> Void) = { _ in }
+    var removeModifierHandler: ((Modifier.ID) -> Void) = { _ in }
     
     var errorHandler: (Error) -> Void = { _ in }
     
@@ -63,6 +72,17 @@ class ModifiersViewModel {
         tableViewSectionModels.value = makeTableViewSectionModels()
     }
     
+    // MARK: - Methods
+    func add(_ modifierID: Modifier.ID) {
+        selectedModifierIDs.append(modifierID)
+        addModifierHandler(modifierID)
+    }
+    
+    func remove(_ modifierID: Modifier.ID) {
+        selectedModifierIDs.remove(modifierID)
+        removeModifierHandler(modifierID)
+    }
+    
     // MARK: - Download Methods
     func beginDownloads() {
         firstly { self.beginModifiersDownload() }
@@ -93,11 +113,13 @@ class ModifiersViewModel {
     
     // MARK: - Cell View Model Methods
     private func makeModifierTableViewCellViewModel(modifier: Modifier) -> ModifierTableViewCellViewModel {
+        let isSelected = selectedModifierIDs.contains(modifier.id)
         return ModifierTableViewCellViewModel(
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.modifierTableViewCellViewModelHeight),
             actions: modifierTableViewCellViewModelActions,
-            configurationData: .init(text: modifier.name)
+            configurationData: .init(text: modifier.name, isSelected: isSelected),
+            selectionData: .init(modifierID: modifier.id, isSelected: isSelected)
         )
     }
 }
@@ -109,9 +131,16 @@ extension ModifiersViewModel {
         let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         
         let configurationData: ConfigurationData
+        let selectionData: SelectionData
         
         struct ConfigurationData {
             let text: String
+            let isSelected: Bool
+        }
+        
+        struct SelectionData {
+            let modifierID: Modifier.ID
+            let isSelected: Bool
         }
     }
 }
