@@ -171,18 +171,21 @@ class ConstructedItemViewModel {
     func beginAddConstructedItemModifiersDownload(modifierIDs: [Modifier.ID]) {
         makeAddConstructedItemModifiersDownload(modifierIDs: modifierIDs)
             .done(setUp)
+            .then(beginSelectedCategoryItemIDsDownload)
             .catch(errorHandler)
     }
     
     func beginRemoveConstructedItemItemDownload(categoryItemID: Item.CategoryItemID) {
         makeRemoveConstructedItemItemDownload(categoryItemID: categoryItemID)
             .done(setUp)
+            .then(beginSelectedModifierIDsDownload)
             .catch(errorHandler)
     }
     
     func beginRemoveConstructedItemModifierDownload(modifierID: Modifier.ID) {
         makeRemoveConstructedItemItemDownload(modifierID: modifierID)
             .done(setUp)
+            .then(beginSelectedCategoryItemIDsDownload)
             .catch(errorHandler)
     }
     

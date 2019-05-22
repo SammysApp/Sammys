@@ -15,12 +15,18 @@ class ItemsViewController: UIViewController {
     
     let modifiersViewController = ModifiersViewController()
     
+    private(set) lazy var longPressGestureRecognizer = UILongPressGestureRecognizer(target: longPressGestureRecognizerTarget)
+    
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
+    
+    private lazy var longPressGestureRecognizerTarget = Target(action: longPressGestureRecognizerAction)
     
     private struct Constants {
         static let itemTableViewCellTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
         static let itemTableViewCellTextLabelFontSize = CGFloat(18)
+        
+        static let longPressGestureRecognizerMinimumPressDuration = Double(1)
     }
     
     // MARK: - Lifecycle Methods
@@ -28,6 +34,8 @@ class ItemsViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
+        configureModifiersViewController()
+        configureLongPressGestureRecognizer()
         setUpView()
         configureViewModel()
     }
@@ -46,6 +54,16 @@ class ItemsViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: ItemsViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
+        tableView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    private func configureModifiersViewController() {
+        modifiersViewController.viewModel.addModifierHandler = viewModel.addModifierHandler
+        modifiersViewController.viewModel.removeModifierHandler = viewModel.removeModifierHandler
+    }
+    
+    private func configureLongPressGestureRecognizer() {
+        longPressGestureRecognizer.minimumPressDuration = Constants.longPressGestureRecognizerMinimumPressDuration
     }
     
     private func configureViewModel() {
@@ -67,6 +85,20 @@ class ItemsViewController: UIViewController {
         }
     }
     
+    // MARK: - Target Actions
+    private func longPressGestureRecognizerAction() {
+        let longPressLocation = longPressGestureRecognizer.location(in: tableView)
+        guard longPressGestureRecognizer.state == .began,
+            let indexPath = tableView.indexPathForRow(at: longPressLocation),
+            let cellViewModel = viewModel.tableViewSectionModels.value[indexPath.section].cellViewModels[indexPath.row] as? ItemsViewModel.ItemTableViewCellViewModel,
+            cellViewModel.selectionData.isModifiable else { return }
+        
+        modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
+        modifiersViewController.viewModel.beginDownloads()
+        
+        self.present(UINavigationController(rootViewController: modifiersViewController), animated: true, completion: nil)
+    }
+    
     // MARK: - Cell Actions
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
@@ -83,12 +115,9 @@ class ItemsViewController: UIViewController {
         guard let cellViewModel = data.cellViewModel as? ItemsViewModel.ItemTableViewCellViewModel,
             let id = cellViewModel.selectionData.categoryItemID else { return }
         
-        modifiersViewController.viewModel.categoryID = viewModel.categoryID
-        modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
-        modifiersViewController.viewModel.addModifierHandler = viewModel.addModifierHandler
-        modifiersViewController.viewModel.removeModifierHandler = viewModel.removeModifierHandler
-        
         if cellViewModel.selectionData.isModifiersRequired {
+            modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
+            modifiersViewController.viewModel.beginDownloads()
             self.present(UINavigationController(rootViewController: modifiersViewController), animated: true, completion: nil)
         } else {
             if cellViewModel.selectionData.isSelected { viewModel.remove(id) }

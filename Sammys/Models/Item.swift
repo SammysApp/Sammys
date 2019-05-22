@@ -19,4 +19,5 @@ final class Item: Codable {
     let isModifiable: Bool?
     let minimumModifiers: Int?
     let maximumModifiers: Int?
+    let modifiers: [Modifier]?
 }

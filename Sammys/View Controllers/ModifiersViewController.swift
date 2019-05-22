@@ -16,15 +16,16 @@ class ModifiersViewController: UIViewController {
     private let tableViewDataSource = UITableViewSectionModelsDataSource()
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
+    private lazy var doneBarButtonItemTarget = Target(action: doneBarButtonItemAction)
+    
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTableView()
         setUpView()
+        configureNavigation()
         configureViewModel()
-        
-        viewModel.beginDownloads()
     }
     
     // MARK: - Setup Methods
@@ -35,6 +36,10 @@ class ModifiersViewController: UIViewController {
     private func addSubviews() {
         [tableView].forEach { self.view.addSubview($0) }
         tableView.edgesToSuperview()
+    }
+    
+    private func configureNavigation() {
+        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .done, target: doneBarButtonItemTarget)
     }
     
     private func configureTableView() {
@@ -62,11 +67,18 @@ class ModifiersViewController: UIViewController {
         }
     }
     
+    // MARK: - Target Actions
+    private func doneBarButtonItemAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Cell Actions
     private func modifierTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ModifiersViewModel.ModifierTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }
         
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
         cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
     }
     

@@ -21,6 +21,7 @@ class ModifiersViewModel {
     /// The category ID of the item of the modifiers to present.
     /// Required to be non-`nil` before beginning downloads.
     var categoryID: Category.ID?
+    
     /// The item ID of the modifiers to present.
     /// Required to be non-`nil` before beginning downloads.
     var itemID: Item.ID?
@@ -118,7 +119,7 @@ class ModifiersViewModel {
             identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.modifierTableViewCellViewModelHeight),
             actions: modifierTableViewCellViewModelActions,
-            configurationData: .init(text: modifier.name, isSelected: isSelected),
+            configurationData: .init(text: modifier.name, detailText: modifier.price?.toUSDUnits().toPriceString(), isSelected: isSelected),
             selectionData: .init(modifierID: modifier.id, isSelected: isSelected)
         )
     }
@@ -135,6 +136,7 @@ extension ModifiersViewModel {
         
         struct ConfigurationData {
             let text: String
+            let detailText: String?
             let isSelected: Bool
         }
         

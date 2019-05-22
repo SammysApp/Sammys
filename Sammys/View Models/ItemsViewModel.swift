@@ -152,7 +152,7 @@ class ItemsViewModel {
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
             configurationData: .init(text: item.name, detailText: item.price?.toUSDUnits().toPriceString(), isSelected: isSelected),
-            selectionData: .init(itemID: item.id, categoryItemID: item.categoryItemID, isSelected: isSelected, isModifiersRequired: item.minimumModifiers != nil)
+            selectionData: .init(itemID: item.id, categoryItemID: item.categoryItemID, isSelected: isSelected, isModifiable: item.isModifiable ?? false, isModifiersRequired: item.minimumModifiers != nil)
         )
     }
 }
@@ -176,6 +176,7 @@ extension ItemsViewModel {
             let itemID: Item.ID
             let categoryItemID: Item.CategoryItemID?
             let isSelected: Bool
+            let isModifiable: Bool
             let isModifiersRequired: Bool
         }
     }

@@ -42,7 +42,7 @@ class CategorizedItemsViewController: UIViewController {
     private func configureTableView() {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CategorizedItemsViewModel.CellIdentifier.tableViewCell.rawValue)
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: CategorizedItemsViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
     }
     
     private func configureViewModel() {
@@ -60,9 +60,10 @@ class CategorizedItemsViewController: UIViewController {
     // MARK: - Cell Actions
     private func itemTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? CategorizedItemsViewModel.ItemTableViewCellViewModel,
-            let cell = data.cell else { return }
+            let cell = data.cell as? SubtitleTableViewCell else { return }
         
         cell.textLabel?.font = .systemFont(ofSize: Constants.itemTableViewCellTextLabelFontSize)
         cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
     }
 }

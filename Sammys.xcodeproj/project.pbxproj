@@ -193,6 +193,7 @@
 		5BC120DD22677FDE00F271FD /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E17F3225D71D9005DC635 /* AppConstants.swift */; };
 		5BC120DE2267800000F271FD /* LocalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6E3672221E41FD004D5310 /* LocalConstants.swift */; };
 		5BC3890F2270C4FC001C0C17 /* Bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BC3890E2270C4FC001C0C17 /* Bell.wav */; };
+		5BD3F39E2295D8C700C83527 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB45595224BD2BC00EE8488 /* SubtitleTableViewCell.swift */; };
 		5BE0FE122293288000D9F94A /* ModifiersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0FE112293288000D9F94A /* ModifiersViewModel.swift */; };
 		5BE0FE142293314200D9F94A /* ModifiersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0FE132293314200D9F94A /* ModifiersViewController.swift */; };
 		5BE1692622779DDC00622F9E /* UIGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1692522779DDC00622F9E /* UIGestureRecognizer.swift */; };
@@ -1264,6 +1265,7 @@
 				5BC120B222677D0C00F271FD /* HTTPMethod.swift in Sources */,
 				5B4F27B22269758700441BB0 /* PurchasedOrderViewController.swift in Sources */,
 				5BE1692722779DDC00622F9E /* UIGestureRecognizer.swift in Sources */,
+				5BD3F39E2295D8C700C83527 /* SubtitleTableViewCell.swift in Sources */,
 				5BC120D622677F8100F271FD /* UIResponder.swift in Sources */,
 				5BC120CD22677F8100F271FD /* NSLayoutConstraintArray.swift in Sources */,
 				5BC120BF22677F5200F271FD /* OutstandingOrder.swift in Sources */,

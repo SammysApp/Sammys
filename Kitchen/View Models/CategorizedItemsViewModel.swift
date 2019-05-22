@@ -28,7 +28,7 @@ class CategorizedItemsViewModel {
     private(set) lazy var tableViewSectionModels = Dynamic(makeTableViewSectionModels())
     
     enum CellIdentifier: String {
-        case tableViewCell
+        case subtitleTableViewCell
     }
     
     private struct Constants {
@@ -42,6 +42,12 @@ class CategorizedItemsViewModel {
     
     private func updateTableViewSectionModels() {
         tableViewSectionModels.value = makeTableViewSectionModels()
+    }
+    
+    // MARK: - Factory Methods
+    private func makeItemTableViewCellViewModelDetailText(item: Item) -> String? {
+        guard let modifiers = item.modifiers, !modifiers.isEmpty else { return nil }
+        return modifiers.map { $0.name }.joined(separator: ", ")
     }
     
     // MARK: - Section Models
@@ -60,10 +66,10 @@ class CategorizedItemsViewModel {
     // MARK: - Cell View Model Methods
     private func makeItemTableViewCellViewModels(item: Item) -> ItemTableViewCellViewModel {
         return ItemTableViewCellViewModel(
-            identifier: CellIdentifier.tableViewCell.rawValue,
+            identifier: CellIdentifier.subtitleTableViewCell.rawValue,
             height: .fixed(Constants.itemTableViewCellViewModelHeight),
             actions: itemTableViewCellViewModelActions,
-            configurationData: .init(text: item.name)
+            configurationData: .init(text: item.name, detailText: makeItemTableViewCellViewModelDetailText(item: item))
         )
     }
 }
@@ -84,6 +90,7 @@ extension CategorizedItemsViewModel {
         
         struct ConfigurationData {
             let text: String
+            let detailText: String?
         }
     }
 }

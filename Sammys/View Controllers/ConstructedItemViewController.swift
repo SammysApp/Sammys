@@ -171,6 +171,7 @@ class ConstructedItemViewController: UIViewController {
         viewModel.selectedCategoryID.bindAndRun { value in
             guard let id = value else { return }
             self.itemsViewController.viewModel.categoryID = id
+            self.itemsViewController.modifiersViewController.viewModel.categoryID = id
             self.itemsViewController.viewModel.beginDownloads() {
                 self.itemsViewController.tableView.scrollToTop(animated: false)
             }
