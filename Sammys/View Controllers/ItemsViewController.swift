@@ -14,6 +14,7 @@ class ItemsViewController: UIViewController {
     let tableView = UITableView()
     
     let modifiersViewController = ModifiersViewController()
+	lazy var modifiersNavigationViewController = UINavigationController(rootViewController: modifiersViewController)
     
     private(set) lazy var longPressGestureRecognizer = UILongPressGestureRecognizer(target: longPressGestureRecognizerTarget)
     
@@ -92,11 +93,12 @@ class ItemsViewController: UIViewController {
             let indexPath = tableView.indexPathForRow(at: longPressLocation),
             let cellViewModel = viewModel.tableViewSectionModels.value[indexPath.section].cellViewModels[indexPath.row] as? ItemsViewModel.ItemTableViewCellViewModel,
             cellViewModel.selectionData.isModifiable else { return }
-        
+		
+		modifiersViewController.title = cellViewModel.selectionData.title
         modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
         modifiersViewController.viewModel.beginDownloads()
         
-        self.present(UINavigationController(rootViewController: modifiersViewController), animated: true, completion: nil)
+        self.present(modifiersNavigationViewController, animated: true, completion: nil)
     }
     
     // MARK: - Cell Actions
@@ -116,9 +118,10 @@ class ItemsViewController: UIViewController {
             let id = cellViewModel.selectionData.categoryItemID else { return }
         
         if cellViewModel.selectionData.isModifiersRequired {
+			modifiersViewController.title = cellViewModel.selectionData.title
             modifiersViewController.viewModel.itemID = cellViewModel.selectionData.itemID
             modifiersViewController.viewModel.beginDownloads()
-            self.present(UINavigationController(rootViewController: modifiersViewController), animated: true, completion: nil)
+            self.present(modifiersNavigationViewController, animated: true, completion: nil)
         } else {
             if cellViewModel.selectionData.isSelected { viewModel.remove(id) }
             else { viewModel.add(id) }

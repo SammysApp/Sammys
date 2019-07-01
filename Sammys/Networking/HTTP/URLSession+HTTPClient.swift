@@ -1,5 +1,5 @@
 //
-//  URLSessionHTTPClient.swift
+//  URLSession+HTTPClient.swift
 //  Sammys
 //
 //  Created by Natanel Niazoff on 2/20/19.

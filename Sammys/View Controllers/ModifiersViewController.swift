@@ -17,6 +17,11 @@ class ModifiersViewController: UIViewController {
     private let tableViewDelegate = UITableViewSectionModelsDelegate()
     
     private lazy var doneBarButtonItemTarget = Target(action: doneBarButtonItemAction)
+	
+	private struct Constants {
+		static let navigationBarTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+		static let modifierTableViewCellTintColor = #colorLiteral(red: 0.2509803922, green: 0.2, blue: 0.1529411765, alpha: 1)
+	}
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
@@ -39,6 +44,7 @@ class ModifiersViewController: UIViewController {
     }
     
     private func configureNavigation() {
+		self.navigationController?.navigationBar.tintColor = Constants.navigationBarTintColor
         self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .done, target: doneBarButtonItemTarget)
     }
     
@@ -76,7 +82,8 @@ class ModifiersViewController: UIViewController {
     private func modifierTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
         guard let cellViewModel = data.cellViewModel as? ModifiersViewModel.ModifierTableViewCellViewModel,
             let cell = data.cell as? SubtitleTableViewCell else { return }
-        
+		
+		cell.tintColor = Constants.modifierTableViewCellTintColor
         cell.textLabel?.text = cellViewModel.configurationData.text
         cell.detailTextLabel?.text = cellViewModel.configurationData.detailText
         cell.accessoryType = cellViewModel.configurationData.isSelected ? .checkmark : .none
