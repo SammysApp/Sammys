@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class HomeViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
+    private let calendar: Calendar
     
     // MARK: - Dependencies
     var httpClient: HTTPClient
@@ -69,9 +70,11 @@ class HomeViewModel {
     }
     
     init(httpClient: HTTPClient = URLSession.shared,
-         userAuthManager: UserAuthManager = Auth.auth()) {
+         userAuthManager: UserAuthManager = Auth.auth(),
+         calendar: Calendar = .current) {
         self.httpClient = httpClient
         self.userAuthManager = userAuthManager
+        self.calendar = calendar
     }
     
     // MARK: - Setup Methods
@@ -80,8 +83,11 @@ class HomeViewModel {
     }
     
     private func setUp(for purchasedOrders: [PurchasedOrder]) {
-        isDataRefreshable.value = !purchasedOrders.isEmpty
-        purchasedOrdersTableViewSectionModel = makePurchasedOrdersTableViewSectionModel(purchasedOrders: purchasedOrders)
+        let modifiedPurchasedOrders = purchasedOrders
+            .filter { self.calendar.isDateInToday($0.purchasedDate) || ($0.preparedForDate.map { self.calendar.isDateInToday($0) }) == true }
+            .sorted { $0.purchasedDate > $1.purchasedDate }
+        isDataRefreshable.value = !modifiedPurchasedOrders.isEmpty
+        purchasedOrdersTableViewSectionModel = makePurchasedOrdersTableViewSectionModel(purchasedOrders: modifiedPurchasedOrders)
     }
     
     private func updateTableViewSectionModels() {
