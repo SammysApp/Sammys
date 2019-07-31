@@ -342,8 +342,10 @@ extension CheckoutViewController: PKPaymentAuthorizationViewControllerDelegate {
         viewModel.beginCreatePurchasedOrderDownload(payment: payment) { result in
             switch result {
             case .fulfilled(let id):
+                controller.dismiss(animated: true) {
+                    self.didCreatePurchasedOrderHandler(id)
+                }
                 completion(.init(status: .success, errors: nil))
-                self.didCreatePurchasedOrderHandler(id)
             case .rejected(let error):
                 completion(.init(status: .failure, errors: [error]))
             }
@@ -351,6 +353,8 @@ extension CheckoutViewController: PKPaymentAuthorizationViewControllerDelegate {
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        controller.dismiss(animated: true, completion: nil)
+        if controller.isBeingPresented {
+            controller.dismiss(animated: true, completion: nil)
+        }
     }
 }
