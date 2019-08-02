@@ -34,6 +34,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getCategoryItems(Category.ID)
     /// GET `/categories/:category/item/:item/modifiers`
     case getItemModifiers(Category.ID, Item.ID)
+    /// GET `/offers/:code
+    case getOffer(Offer.Code)
     /// GET `/constructedItems/:constructedItem/items`
     case getConstructedItemItems(ConstructedItem.ID)
     /// GET `/constructedItems/:constructedItem/modifiers`
@@ -42,6 +44,8 @@ enum APIEndpoint: HTTPEndpoint {
     case getOutstandingOrder(OutstandingOrder.ID)
     /// GET `/outstandingOrders/:outstandingOrder/constructedItems`
     case getOutstandingOrderConstructedItems(OutstandingOrder.ID)
+    /// GET `/outstandingOrders/:outstandingOrder/offers`
+    case getOutstandingOrderOffers(OutstandingOrder.ID)
     /// GET `/purchasedOrders`
     case getPurchasedOrders
     /// GET `/purchasedOrders/:purchasedOrder`
@@ -68,6 +72,8 @@ enum APIEndpoint: HTTPEndpoint {
     case createOutstandingOrder
     /// POST `/outstandingOrders/:outstandingOrder/constructedItems`
     case addOutstandingOrderConstructedItems(OutstandingOrder.ID)
+    /// POST `/outstandingOrders/:outstandingOrder/offers/:offer`
+    case addOutstandingOrderOffer(OutstandingOrder.ID, Offer.ID)
     
     // MARK: - PUT
     /// PUT `/constructedItems/:constructedItem`
@@ -120,6 +126,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/categories/\(id)/items")
         case .getItemModifiers(let categoryID, let itemID):
             return (.GET, "/\(version)/categories/\(categoryID)/items/\(itemID)/modifiers")
+        case .getOffer(let code):
+            return (.GET, "/\(version)/offers/\(code)")
         case .getConstructedItemItems(let id):
             return (.GET, "/\(version)/constructedItems/\(id)/items")
         case .getConstructedItemModifiers(let id):
@@ -128,6 +136,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.GET, "/\(version)/outstandingOrders/\(id)")
         case .getOutstandingOrderConstructedItems(let id):
             return (.GET, "/\(version)/outstandingOrders/\(id)/constructedItems")
+        case .getOutstandingOrderOffers(let id):
+            return (.GET, "/\(version)/outstandingOrders/\(id)/offers")
         case .getPurchasedOrders:
             return (.GET, "/\(version)/purchasedOrders")
         case .getPurchasedOrder(let id):
@@ -153,6 +163,8 @@ enum APIEndpoint: HTTPEndpoint {
             return (.POST, "/\(version)/outstandingOrders")
         case .addOutstandingOrderConstructedItems(let id):
             return (.POST, "/\(version)/outstandingOrders/\(id)/constructedItems")
+        case .addOutstandingOrderOffer(let outstandingOrderID, let offerID):
+            return (.POST, "/\(version)/outstandingOrders/\(outstandingOrderID)/offers/\(offerID)")
             
         case .updateConstructedItem(let id):
             return (.PUT, "/\(version)/constructedItems/\(id)")

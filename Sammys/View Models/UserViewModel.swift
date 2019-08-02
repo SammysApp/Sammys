@@ -218,7 +218,7 @@ extension UserViewModel {
     struct ButtonTableViewCellViewModel: UITableViewCellViewModel {
         let identifier: String
         let height: UITableViewCellViewModelHeight
-        let actions: [UITableViewCellAction : UITableViewCellActionHandler]
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
         let configurationData: ConfigurationData
         let selectionData: SelectionData
         

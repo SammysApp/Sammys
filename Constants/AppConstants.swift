@@ -1,7 +1,7 @@
 struct AppConstants {
     struct ProductionAPIServer {
         static let scheme: HTTPServer.Scheme = .https
-        static let host = "sammysapp.herokuapp.com"
+        static let host = "api.sammys.app"
     }
     
     struct ApplePay {

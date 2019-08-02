@@ -109,6 +109,10 @@ struct APIURLRequestFactory {
         return makeRequest(endpoint: .getItemModifiers(categoryID, itemID))
     }
     
+    func makeGetOfferRequest(code: Offer.Code) -> URLRequest {
+        return makeRequest(endpoint: .getOffer(code))
+    }
+    
     func makeGetConstructedItemItems(id: ConstructedItem.ID, queryData: GetConstructedItemItemsRequestQueryData? = nil, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .getConstructedItemItems(id), queryItems: queryData?.toQueryItems(), token: token)
     }
@@ -123,6 +127,10 @@ struct APIURLRequestFactory {
     
     func makeGetOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
         return makeRequest(endpoint: .getOutstandingOrderConstructedItems(id), token: token)
+    }
+    
+    func makeGetOutstandingOrderOffersRequest(id: OutstandingOrder.ID, token: JWT? = nil) -> URLRequest {
+        return makeRequest(endpoint: .getOutstandingOrderOffers(id), token: token)
     }
     
     func makeGetPurchasedOrdersRequest() -> URLRequest {
@@ -172,6 +180,10 @@ struct APIURLRequestFactory {
     
     func makeAddOutstandingOrderConstructedItemsRequest(id: OutstandingOrder.ID, data: AddOutstandingOrderConstructedItemsRequestData, dataEncoder: JSONEncoder = defaultJSONEncoder, token: JWT? = nil) throws -> URLRequest {
         return try makeJSONBodyRequest(endpoint: .addOutstandingOrderConstructedItems(id), body: dataEncoder.encode(data), token: token)
+    }
+    
+    func makeAddOutstandingOrderOfferRequest(outstandingOrderID: OutstandingOrder.ID, offerID: Offer.ID, token: JWT? = nil) -> URLRequest {
+        return makeRequest(endpoint: .addOutstandingOrderOffer(outstandingOrderID, offerID), token: token)
     }
     
     // MARK: - PUT

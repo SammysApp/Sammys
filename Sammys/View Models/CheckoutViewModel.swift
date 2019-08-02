@@ -57,6 +57,10 @@ class CheckoutViewModel {
         didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
     }
     
+    var addOfferButtonTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet {  }
+    }
+    
     var totalTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
         didSet { updateTotalTableViewSectionModel() }
     }
@@ -76,6 +80,7 @@ class CheckoutViewModel {
     let isLoading = Dynamic(false)
     
     enum CellIdentifier: String {
+        case tableViewCell
         case subtitleTableViewCell
         case textViewTableViewCell
         case totalTableViewCell
@@ -92,6 +97,9 @@ class CheckoutViewModel {
         static let pickupDateTableViewCellViewModelDetailTextDateFormat = "h:mm a"
         
         static let noteTableViewCellViewModelPlaceholderText = "Add a note for the kitchen..."
+        
+        static let addOfferButtonTableViewCellViewModelHeight = Double(60)
+        static let addOfferButtonTableViewCellViewModelText = "Add Discount Code"
         
         static let paymentSummaryItemLabel = "Sammy's"
     }
@@ -185,6 +193,15 @@ class CheckoutViewModel {
         .catch(errorHandler)
     }
     
+    func beginAddOutstandingOrderOfferDownload(code: String) {
+        isLoading.value = true
+        getOffer(code: code).then { offer in
+            self.userAuthManager.getCurrentUserIDToken()
+                .then { self.addOutstandingOrderOffer(id: offer.id, token: $0) }
+        }.ensure { self.isLoading.value = false }
+            .done(setUp).catch(errorHandler)
+    }
+    
     func beginPaymentRequestDownload(successHandler: @escaping (PKPaymentRequest) -> Void = { _ in }) {
         isLoading.value = true
         userAuthManager.getCurrentUserIDToken()
@@ -257,6 +274,16 @@ class CheckoutViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(StoreDateHours.self, from: $0.data) }
     }
     
+    private func getOffer(code: Offer.Code) -> Promise<Offer> {
+        return httpClient.send(apiURLRequestFactory.makeGetOfferRequest(code: code)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(Offer.self, from: $0.data) }
+    }
+    
+    private func addOutstandingOrderOffer(id: Offer.ID, token: JWT) -> Promise<OutstandingOrder> {
+        return httpClient.send(apiURLRequestFactory.makeAddOutstandingOrderOfferRequest(outstandingOrderID: outstandingOrderID ?? preconditionFailure(), offerID: id, token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
+    }
+    
     private func createPurchasedOrder(data: CreateUserPurchasedOrderRequestData, token: JWT) -> Promise<PurchasedOrder> {
         do {
             return try httpClient.send(apiURLRequestFactory.makeCreateUserPurchasedOrdersRequest(id: userID ?? preconditionFailure(), data: data, token: token)).validate()
@@ -299,6 +326,7 @@ class CheckoutViewModel {
         if let outstandingOrderDetailsModel = outstandingOrderDetailsTableViewSectionModel {
             sectionModels.append(outstandingOrderDetailsModel)
         }
+        sectionModels.append(.init(cellViewModels: [makeAddOfferButtonTableViewCellViewModel()]))
         if let totalModel = totalTableViewSectionModel {
             sectionModels.append(totalModel)
         }
@@ -333,6 +361,15 @@ class CheckoutViewModel {
             height: .automatic,
             actions: noteTableViewCellViewModelActions,
             configurationData: .init(placeholderText: Constants.noteTableViewCellViewModelPlaceholderText, text: outstandingOrder.note)
+        )
+    }
+    
+    private func makeAddOfferButtonTableViewCellViewModel() -> AddOfferButtonTableViewCellViewModel {
+        return AddOfferButtonTableViewCellViewModel(
+            identifier: CellIdentifier.tableViewCell.rawValue,
+            height: .fixed(Constants.addOfferButtonTableViewCellViewModelHeight),
+            actions: addOfferButtonTableViewCellViewModelActions,
+            configurationData: .init(title: Constants.addOfferButtonTableViewCellViewModelText)
         )
     }
     
@@ -385,6 +422,20 @@ extension CheckoutViewModel {
         struct ConfigurationData {
             let placeholderText: String
             let text: String?
+        }
+    }
+}
+
+extension CheckoutViewModel {
+    struct AddOfferButtonTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let title: String
         }
     }
 }

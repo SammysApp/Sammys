@@ -43,6 +43,13 @@ class CheckoutViewController: UIViewController {
         
         static let tableViewEstimatedRowHeight = CGFloat(60)
         
+        static let addOfferAlertControllerTitle = "Add Discount Code"
+        static let addOfferAlertControllerMessage = "Please enter the discount code below..."
+        static let addOfferAlertControllerTextFieldPlaceholder = "Discount Code"
+        static let addOfferAlertControllerDoneActionTitle = "Done"
+        static let addOfferAlertControllerCancelActionTitle = "Cancel"
+        static let addOfferAlertControllerTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
+        
         static let paymentMethodTableViewCellTextLabelText = "Payment Method"
         
         static let pickupDateTableViewCellTextLabelText = "Pickup"
@@ -51,6 +58,9 @@ class CheckoutViewController: UIViewController {
         static let noteTableViewCellPlaceholderLabelTextColor = UIColor.lightGray
         static let noteTableViewCellTextViewTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let noteTableViewCellTextViewLeadingOffset = CGFloat(15)
+        
+        static let addOfferButtonTableViewCellTextLabelFontWeight = UIFont.Weight.semibold
+        static let addOfferButtonTableViewCellTextLabelColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
         static let payButtonsStackViewHeight = CGFloat(60)
         static let payButtonsStackViewHorizontalInset = CGFloat(10)
@@ -117,6 +127,7 @@ class CheckoutViewController: UIViewController {
         tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.tableViewCell.rawValue)
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.subtitleTableViewCell.rawValue)
         tableView.register(TextViewTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.textViewTableViewCell.rawValue)
         tableView.register(TotalTableViewCell.self, forCellReuseIdentifier: CheckoutViewModel.CellIdentifier.totalTableViewCell.rawValue)
@@ -184,6 +195,11 @@ class CheckoutViewController: UIViewController {
             .configuration: noteTableViewCellConfigurationAction
         ]
         
+        viewModel.addOfferButtonTableViewCellViewModelActions = [
+            .configuration: addOfferButtonTableViewCellConfigurationAction,
+            .selection: addOfferButtonTableViewCellSelectionAction
+        ]
+        
         viewModel.totalTableViewCellViewModelActions = [
             .configuration: totalTableViewCellConfigurationAction
         ]
@@ -244,6 +260,22 @@ class CheckoutViewController: UIViewController {
         }
         
         return paymentMethodsViewController
+    }
+    
+    private func makeAddOfferAlertController() -> UIAlertController {
+        let alertController = UIAlertController(title: Constants.addOfferAlertControllerTitle, message: Constants.addOfferAlertControllerMessage, preferredStyle: .alert)
+        alertController.view.tintColor = Constants.addOfferAlertControllerTintColor
+        alertController.addTextField { textField in
+            textField.placeholder = Constants.addOfferAlertControllerTextFieldPlaceholder
+        }
+        alertController.addActions([
+            UIAlertAction(title: Constants.addOfferAlertControllerDoneActionTitle, style: .default) { _ in
+                guard let code = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) else { return }
+                self.viewModel.beginAddOutstandingOrderOfferDownload(code: code)
+            },
+            UIAlertAction(title: Constants.addOfferAlertControllerCancelActionTitle, style: .cancel) { _ in self.dismiss(animated: true, completion: nil) }
+        ])
+        return alertController
     }
     
     private func makePaymentAuthorizationViewController(paymentRequest: PKPaymentRequest) -> PKPaymentAuthorizationViewController? {
@@ -325,6 +357,20 @@ class CheckoutViewController: UIViewController {
             
             self.viewModel.beginUpdateOutstandingOrderDownload(note: text.isEmpty ? nil : text)
         }
+    }
+    
+    private func addOfferButtonTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.AddOfferButtonTableViewCellViewModel,
+            let cell = data.cell else { return }
+        
+        cell.textLabel?.textColor = Constants.addOfferButtonTableViewCellTextLabelColor
+        cell.textLabel?.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0, weight: Constants.addOfferButtonTableViewCellTextLabelFontWeight)
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.text = cellViewModel.configurationData.title
+    }
+    
+    private func addOfferButtonTableViewCellSelectionAction(data: UITableViewCellActionHandlerData) {
+        self.present(makeAddOfferAlertController(), animated: true, completion: nil)
     }
     
     private func totalTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
