@@ -18,6 +18,7 @@ class CheckoutViewModel {
     private let apiURLRequestFactory = APIURLRequestFactory()
     
     private var outstandingOrder: OutstandingOrder?
+    private var offers: [Offer]?
     
     private let pickupDateTableViewCellViewModelDetailTextDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -30,11 +31,15 @@ class CheckoutViewModel {
     var userAuthManager: UserAuthManager
     
     // MARK: - Section Model Properties
-    private var totalTableViewSectionModel: UITableViewSectionModel? {
+    private var outstandingOrderDetailsTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
     }
     
-    private var outstandingOrderDetailsTableViewSectionModel: UITableViewSectionModel? {
+    private var offersTableViewSectionModel: UITableViewSectionModel? {
+        didSet { updateTableViewSectionModels() }
+    }
+    
+    private var totalTableViewSectionModel: UITableViewSectionModel? {
         didSet { updateTableViewSectionModels() }
     }
     
@@ -57,8 +62,12 @@ class CheckoutViewModel {
         didSet { updateOutstandingOrderDetailsTableViewSectionModel() }
     }
     
+    var offerTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
+        didSet { updateOffersTableViewSectionModel() }
+    }
+    
     var addOfferButtonTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
-        didSet {  }
+        didSet { updateOffersTableViewSectionModel() }
     }
     
     var totalTableViewCellViewModelActions = [UITableViewCellAction: UITableViewCellActionHandler]() {
@@ -98,6 +107,8 @@ class CheckoutViewModel {
         
         static let noteTableViewCellViewModelPlaceholderText = "Add a note for the kitchen..."
         
+        static let offerTableViewCellViewModelHeight = Double(60)
+        
         static let addOfferButtonTableViewCellViewModelHeight = Double(60)
         static let addOfferButtonTableViewCellViewModelText = "Add Discount Code"
         
@@ -127,6 +138,11 @@ class CheckoutViewModel {
         updateTotalTableViewSectionModel()
     }
     
+    private func setUp(for offers: [Offer]) {
+        self.offers = offers
+        updateOffersTableViewSectionModel()
+    }
+    
     private func setUp(for storeDateHours: StoreDateHours) {
         let currentDate = Date()
         if let openingDate = storeDateHours.openingDate,
@@ -141,6 +157,11 @@ class CheckoutViewModel {
             totalTableViewSectionModel = nil; return
         }
         outstandingOrderDetailsTableViewSectionModel = makeOutstandingOrderDetailsTableViewSectionModel(outstandingOrder: outstandingOrder)
+    }
+    
+    private func updateOffersTableViewSectionModel() {
+        guard let offers = offers else { offersTableViewSectionModel = nil; return }
+        offersTableViewSectionModel = makeOffersTableViewSectionModel(offers: offers)
     }
     
     private func updateTotalTableViewSectionModel() {
@@ -159,6 +180,7 @@ class CheckoutViewModel {
         isLoading.value = true
         when(fulfilled: [
             beginOutstandingOrderDownload(),
+            beginOutstandingOrderOffersDownload(),
             _beginStoreHoursDownload()
         ]).ensure { self.isLoading.value = false }
             .catch { self.errorHandler($0) }
@@ -197,7 +219,9 @@ class CheckoutViewModel {
         isLoading.value = true
         getOffer(code: code).then { offer in
             self.userAuthManager.getCurrentUserIDToken()
-                .then { self.addOutstandingOrderOffer(id: offer.id, token: $0) }
+                .then { self.addOutstandingOrderOffer(id: offer.id, token: $0) }.then { outstandingOrder in
+                    self.beginOutstandingOrderOffersDownload().map { outstandingOrder }
+                }
         }.ensure { self.isLoading.value = false }
             .done(setUp).catch(errorHandler)
     }
@@ -229,13 +253,18 @@ class CheckoutViewModel {
             .catch { completionHandler(.rejected($0)) }
     }
     
-    private func _beginStoreHoursDownload() -> Promise<Void> {
-        return getStoreHours().done(setUp)
-    }
-    
     private func beginOutstandingOrderDownload() -> Promise<Void> {
         return userAuthManager.getCurrentUserIDToken()
             .then { self.getOutstandingOrder(token: $0) }.done(setUp)
+    }
+    
+    private func beginOutstandingOrderOffersDownload() -> Promise<Void> {
+        return userAuthManager.getCurrentUserIDToken()
+            .then { self.getOutstandingOrderOffers(token: $0) }.done(setUp)
+    }
+    
+    private func _beginStoreHoursDownload() -> Promise<Void> {
+        return getStoreHours().done(setUp)
     }
     
     private func beginUpdateOutstandingOrder(data: OutstandingOrder) -> Promise<Void> {
@@ -262,16 +291,21 @@ class CheckoutViewModel {
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
     }
     
-    private func updateOutstandingOrder(data: OutstandingOrder, token: JWT) -> Promise<OutstandingOrder> {
-        do {
-            return try httpClient.send(apiURLRequestFactory.makeUpdateOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure(), data: data, token: token)).validate()
-                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
-        } catch { preconditionFailure(error.localizedDescription) }
+    private func getOutstandingOrderOffers(token: JWT) -> Promise<[Offer]> {
+        return httpClient.send(apiURLRequestFactory.makeGetOutstandingOrderOffersRequest(id: outstandingOrderID ?? preconditionFailure(), token: token)).validate()
+            .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode([Offer].self, from: $0.data) }
     }
     
     private func getStoreHours() -> Promise<StoreDateHours> {
         return httpClient.send(apiURLRequestFactory.makeStoreHoursRequest()).validate()
             .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(StoreDateHours.self, from: $0.data) }
+    }
+    
+    private func updateOutstandingOrder(data: OutstandingOrder, token: JWT) -> Promise<OutstandingOrder> {
+        do {
+            return try httpClient.send(apiURLRequestFactory.makeUpdateOutstandingOrderRequest(id: outstandingOrderID ?? preconditionFailure(), data: data, token: token)).validate()
+                .map { try self.apiURLRequestFactory.defaultJSONDecoder.decode(OutstandingOrder.self, from: $0.data) }
+        } catch { preconditionFailure(error.localizedDescription) }
     }
     
     private func getOffer(code: Offer.Code) -> Promise<Offer> {
@@ -317,6 +351,11 @@ class CheckoutViewModel {
         ])
     }
     
+    private func makeOffersTableViewSectionModel(offers: [Offer]) -> UITableViewSectionModel {
+        let offerCellViewModels = offers.map(makeOfferTableViewCellViewModel)
+        return UITableViewSectionModel(cellViewModels: offerCellViewModels.isEmpty ? [makeAddOfferButtonTableViewCellViewModel()] : offerCellViewModels)
+    }
+    
     private func makeTotalTableViewSectionModel(outstandingOrder: OutstandingOrder) -> UITableViewSectionModel {
         return UITableViewSectionModel(cellViewModels: [makeTotalTableViewCellViewModel(outstandingOrder: outstandingOrder)])
     }
@@ -326,7 +365,9 @@ class CheckoutViewModel {
         if let outstandingOrderDetailsModel = outstandingOrderDetailsTableViewSectionModel {
             sectionModels.append(outstandingOrderDetailsModel)
         }
-        sectionModels.append(.init(cellViewModels: [makeAddOfferButtonTableViewCellViewModel()]))
+        if let offersModel = offersTableViewSectionModel {
+            sectionModels.append(offersModel)
+        }
         if let totalModel = totalTableViewSectionModel {
             sectionModels.append(totalModel)
         }
@@ -361,6 +402,15 @@ class CheckoutViewModel {
             height: .automatic,
             actions: noteTableViewCellViewModelActions,
             configurationData: .init(placeholderText: Constants.noteTableViewCellViewModelPlaceholderText, text: outstandingOrder.note)
+        )
+    }
+    
+    private func makeOfferTableViewCellViewModel(offer: Offer) -> OfferTableViewCellViewModel {
+        return OfferTableViewCellViewModel(
+            identifier: CellIdentifier.tableViewCell.rawValue,
+            height: .fixed(Constants.offerTableViewCellViewModelHeight),
+            actions: offerTableViewCellViewModelActions,
+            configurationData: .init(text: offer.name)
         )
     }
     
@@ -422,6 +472,20 @@ extension CheckoutViewModel {
         struct ConfigurationData {
             let placeholderText: String
             let text: String?
+        }
+    }
+}
+
+extension CheckoutViewModel {
+    struct OfferTableViewCellViewModel: UITableViewCellViewModel {
+        let identifier: String
+        let height: UITableViewCellViewModelHeight
+        let actions: [UITableViewCellAction: UITableViewCellActionHandler]
+        
+        let configurationData: ConfigurationData
+        
+        struct ConfigurationData {
+            let text: String
         }
     }
 }

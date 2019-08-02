@@ -59,6 +59,9 @@ class CheckoutViewController: UIViewController {
         static let noteTableViewCellTextViewTintColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         static let noteTableViewCellTextViewLeadingOffset = CGFloat(15)
         
+        static let offerTableViewCellTextLabelFontWeight = UIFont.Weight.semibold
+        static let offerTableViewCellTextColor = UIColor.black
+        
         static let addOfferButtonTableViewCellTextLabelFontWeight = UIFont.Weight.semibold
         static let addOfferButtonTableViewCellTextLabelColor = #colorLiteral(red: 0.3294117647, green: 0.1921568627, blue: 0.09411764706, alpha: 1)
         
@@ -193,6 +196,10 @@ class CheckoutViewController: UIViewController {
         
         viewModel.noteTableViewCellViewModelActions = [
             .configuration: noteTableViewCellConfigurationAction
+        ]
+        
+        viewModel.offerTableViewCellViewModelActions = [
+            .configuration: offerTableViewCellConfigurationAction
         ]
         
         viewModel.addOfferButtonTableViewCellViewModelActions = [
@@ -357,6 +364,16 @@ class CheckoutViewController: UIViewController {
             
             self.viewModel.beginUpdateOutstandingOrderDownload(note: text.isEmpty ? nil : text)
         }
+    }
+    
+    private func offerTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
+        guard let cellViewModel = data.cellViewModel as? CheckoutViewModel.OfferTableViewCellViewModel,
+            let cell = data.cell else { return }
+        
+        cell.textLabel?.text = cellViewModel.configurationData.text
+        cell.textLabel?.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0, weight: Constants.offerTableViewCellTextLabelFontWeight)
+        cell.textLabel?.textColor = Constants.offerTableViewCellTextColor
+        cell.textLabel?.textAlignment = .center
     }
     
     private func addOfferButtonTableViewCellConfigurationAction(data: UITableViewCellActionHandlerData) {
