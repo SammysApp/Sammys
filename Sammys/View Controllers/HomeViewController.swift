@@ -197,6 +197,7 @@ class HomeViewController: UIViewController {
         progressLabel.font = .systemFont(ofSize: cell.textLabel?.font.pointSize ?? 0, weight: Constants.purchasedOrderTableViewCellProgressLabelFontWeight)
         progressLabel.textColor = Constants.purchasedOrderTableViewCellProgressLabelTextColor
         progressLabel.text = cellViewModel.configurationData.progressText
+        progressLabel.sizeToFit()
         cell.accessoryView = progressLabel
     }
     
